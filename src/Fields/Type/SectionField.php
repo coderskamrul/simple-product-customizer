@@ -1,0 +1,92 @@
+<?php
+/**
+ * Section container field.
+ *
+ * @package DPO
+ */
+
+namespace DPO\Fields\Type;
+
+use DPO\Core\Plugin;
+use DPO\Fields\AbstractField;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Groups child fields inside a collapsible accordion. Layout-only: it
+ * contributes no price itself (children price independently).
+ */
+final class SectionField extends AbstractField {
+
+	/**
+	 * Runtime slug.
+	 *
+	 * @return string
+	 */
+	public function type() {
+		return 'section';
+	}
+
+	/**
+	 * No pricing.
+	 *
+	 * @return bool
+	 */
+	public function priceable() {
+		return false;
+	}
+
+	/**
+	 * Inner markup (unused; render() is overridden).
+	 *
+	 * @return string
+	 */
+	protected function inner() {
+		return '';
+	}
+
+	/**
+	 * Custom render: accordion header + nested child fields.
+	 *
+	 * @return string
+	 */
+	public function render() {
+		$children  = $this->prop( 'children', array() );
+		$children  = is_array( $children ) ? $children : array();
+		$accordion = $this->cfg( 'accordion', true );
+		$initial   = (string) $this->cfg( 'initial', 'open' );
+		$open      = 'closed' !== $initial;
+		$label     = (string) $this->prop( 'label', '' );
+
+		$reg  = Plugin::instance()->service( 'fields' );
+		$body = '';
+		if ( $reg ) {
+			foreach ( $children as $child ) {
+				if ( ! is_array( $child ) ) {
+					continue;
+				}
+				$field = $reg->make( $child, $this->product_id, $this->set_id );
+				if ( $field ) {
+					$body .= $field->render();
+				}
+			}
+		}
+
+		$html  = '<div ' . $this->wrapper_attrs()
+			. ' data-accordion="' . ( $accordion ? 'yes' : 'no' ) . '"'
+			. ' data-open="' . ( $open ? 'yes' : 'no' ) . '">';
+		$html .= '<div class="dpo-section">';
+		if ( $accordion ) {
+			$html .= '<button type="button" class="dpo-section__header" aria-expanded="' . ( $open ? 'true' : 'false' ) . '">';
+			$html .= '<span class="dpo-section__title">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="dpo-section__chevron" aria-hidden="true"></span>';
+			$html .= '</button>';
+		} elseif ( '' !== $label ) {
+			$html .= '<div class="dpo-section__header dpo-section__header--static"><span class="dpo-section__title">' . esc_html( $label ) . '</span></div>';
+		}
+		$html .= '<div class="dpo-section__body"' . ( $accordion && ! $open ? ' hidden' : '' ) . '>' . $body . '</div>';
+		$html .= '</div>';
+		$html .= '</div>';
+		return $html;
+	}
+}

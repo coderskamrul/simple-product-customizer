@@ -1,0 +1,17 @@
+{
+    "name": "wpdeveloper/dynamic-product-options-for-woocommerce",
+    "description": "Dynamic Product Options for WooCommerce.",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "DPO\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

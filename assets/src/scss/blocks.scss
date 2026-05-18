@@ -1,0 +1,260 @@
+/**
+ * Storefront control widgets. Scoped under `.dpo-options` so styling stays
+ * isolated from the host theme. Pairs with store.scss layout.
+ */
+
+.dpo-options {
+	/* Text/number/textarea/select inputs */
+	.dpo-select,
+	input[type="text"].dpo-control,
+	input[type="number"].dpo-control,
+	input[type="email"].dpo-control,
+	input[type="tel"].dpo-control,
+	input[type="url"].dpo-control,
+	textarea.dpo-control,
+	select.dpo-control {
+		width: 100%;
+		min-height: var(--dpo-control-h);
+		border: 1px solid var(--dpo-border);
+		border-radius: var(--dpo-radius);
+		padding: 8px 10px;
+		font: inherit;
+		color: var(--dpo-text);
+		background: #fff;
+
+		&:focus {
+			border-color: var(--dpo-accent);
+			outline: 2px solid transparent;
+			box-shadow: 0 0 0 1px var(--dpo-accent);
+		}
+	}
+
+	/* Choice rows (checkbox / radio) */
+	.dpo-choice {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 6px 0;
+		cursor: pointer;
+
+		input {
+			accent-color: var(--dpo-accent);
+		}
+
+		&__price {
+			margin-inline-start: auto;
+			font-weight: 600;
+			color: var(--dpo-accent);
+		}
+	}
+
+	/* Swatches (color / image) */
+	.dpo-swatch {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--dpo-swatch);
+		height: var(--dpo-swatch);
+		border-radius: var(--dpo-swatch-radius);
+		border: 2px solid var(--dpo-border);
+		cursor: pointer;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&.is-selected {
+			border-color: var(--dpo-accent);
+			box-shadow: 0 0 0 2px var(--dpo-accent);
+		}
+	}
+
+	.dpo-swatch-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	/* Button group */
+	.dpo-buttongroup {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+
+		.dpo-buttongroup__btn {
+			border: 1px solid var(--dpo-border);
+			border-radius: var(--dpo-radius);
+			padding: 8px 14px;
+			background: #fff;
+			cursor: pointer;
+			font: inherit;
+
+			&.is-selected {
+				border-color: var(--dpo-accent);
+				background: var(--dpo-accent);
+				color: #fff;
+			}
+		}
+	}
+
+	/* Range slider */
+	.dpo-range {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		input[type="range"] {
+			flex: 1;
+			accent-color: var(--dpo-accent);
+		}
+
+		&__value {
+			min-width: 48px;
+			text-align: end;
+			font-weight: 600;
+		}
+	}
+
+	/* Toggle */
+	.dpo-control-toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		cursor: pointer;
+
+		input {
+			width: 0;
+			height: 0;
+			opacity: 0;
+			position: absolute;
+		}
+
+		&__track {
+			width: 40px;
+			height: 22px;
+			border-radius: 999px;
+			background: var(--dpo-border);
+			position: relative;
+			transition: background 0.15s;
+		}
+
+		&__thumb {
+			position: absolute;
+			inset-block-start: 2px;
+			inset-inline-start: 2px;
+			width: 18px;
+			height: 18px;
+			border-radius: 50%;
+			background: #fff;
+			transition: inset-inline-start 0.15s;
+		}
+
+		input:checked + .dpo-control-toggle__track {
+			background: var(--dpo-accent);
+
+			.dpo-control-toggle__thumb {
+				inset-inline-start: 20px;
+			}
+		}
+	}
+
+	/* Date / time inputs */
+	.dpo-date-input {
+		display: flex;
+		gap: 8px;
+
+		input {
+			min-height: var(--dpo-control-h);
+			border: 1px solid var(--dpo-border);
+			border-radius: var(--dpo-radius);
+			padding: 8px 10px;
+			font: inherit;
+		}
+	}
+
+	/* File dropzone */
+	.dpo-dropzone {
+		border: 2px dashed var(--dpo-border);
+		border-radius: var(--dpo-radius);
+		padding: var(--dpo-space);
+		text-align: center;
+		cursor: pointer;
+		color: var(--dpo-text);
+		transition: border-color 0.15s, background 0.15s;
+
+		&.is-dragover {
+			border-color: var(--dpo-accent);
+			background: rgba(0, 0, 0, 0.02);
+		}
+
+		&__list {
+			margin-block-start: 8px;
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			text-align: start;
+			font-size: 0.9em;
+		}
+	}
+
+	/* Popup / modal */
+	.dpo-popup-trigger {
+		align-self: flex-start;
+		text-decoration: underline;
+		cursor: pointer;
+		background: none;
+		border: none;
+		color: var(--dpo-accent);
+		font: inherit;
+	}
+
+	.dpo-popup {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 99999;
+
+		&__inner {
+			background: #fff;
+			border-radius: var(--dpo-radius);
+			padding: var(--dpo-space);
+			max-width: 520px;
+			width: 90%;
+			max-height: 85vh;
+			overflow: auto;
+		}
+	}
+
+	/* Sections / accordion */
+	.dpo-section {
+		border: 1px solid var(--dpo-border);
+		border-radius: var(--dpo-radius);
+		padding: var(--dpo-space);
+
+		&__head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			cursor: pointer;
+			font-weight: 600;
+			color: var(--dpo-label);
+		}
+
+		&__body {
+			margin-block-start: var(--dpo-space);
+			display: flex;
+			flex-direction: column;
+			gap: var(--dpo-space);
+		}
+
+		&.is-collapsed .dpo-section__body {
+			display: none;
+		}
+	}
+}

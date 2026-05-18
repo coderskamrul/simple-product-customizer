@@ -1,0 +1,150 @@
+/**
+ * Storefront layout. Framework-agnostic and theme-safe: every rule is
+ * scoped under `.dpo-options` so it never leaks into the host theme. Token
+ * values come from the Global Style screen (CSS custom properties).
+ */
+
+.dpo-options {
+	--dpo-font: inherit;
+	--dpo-font-size: 15px;
+	--dpo-label: #1e1e1e;
+	--dpo-text: #333;
+	--dpo-accent: #2563eb;
+	--dpo-border: #d4d4d8;
+	--dpo-radius: 6px;
+	--dpo-space: 16px;
+	--dpo-control-h: 40px;
+	--dpo-swatch: 34px;
+	--dpo-swatch-radius: 6px;
+
+	font-family: var(--dpo-font);
+	font-size: var(--dpo-font-size);
+	color: var(--dpo-text);
+	display: flex;
+	flex-direction: column;
+	gap: var(--dpo-space);
+	margin-block: var(--dpo-space);
+
+	&.dpo-loading {
+		opacity: 0.6;
+		pointer-events: none;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	.dpo-set {
+		display: flex;
+		flex-direction: column;
+		gap: var(--dpo-space);
+	}
+
+	.dpo-field {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+
+		&.dpo-hidden {
+			display: none !important;
+		}
+
+		&--full {
+			flex-basis: 100%;
+		}
+		&--half {
+			flex-basis: calc(50% - var(--dpo-space) / 2);
+		}
+		&--third {
+			flex-basis: calc(33.333% - var(--dpo-space));
+		}
+		&--two-third {
+			flex-basis: calc(66.666% - var(--dpo-space));
+		}
+		&--quarter {
+			flex-basis: calc(25% - var(--dpo-space));
+		}
+	}
+
+	.dpo-field__label {
+		font-weight: 600;
+		color: var(--dpo-label);
+
+		.dpo-field__required {
+			color: #c0392b;
+			margin-inline-start: 2px;
+		}
+	}
+
+	.dpo-field__control {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.dpo-field__desc {
+		font-size: 0.85em;
+		color: var(--dpo-text);
+		opacity: 0.75;
+	}
+
+	.dpo-field__error {
+		color: #c0392b;
+		font-size: 0.85em;
+	}
+
+	.dpo-price-badge {
+		display: inline-block;
+		font-size: 0.8em;
+		font-weight: 700;
+		color: var(--dpo-accent);
+		margin-inline-start: 6px;
+	}
+
+	.dpo-tooltip {
+		position: relative;
+		display: inline-flex;
+		cursor: help;
+
+		&::after {
+			content: attr(data-tip);
+			position: absolute;
+			inset-block-end: 125%;
+			inset-inline-start: 0;
+			background: #1d2327;
+			color: #fff;
+			font-size: 12px;
+			padding: 6px 8px;
+			border-radius: 4px;
+			white-space: nowrap;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.12s;
+		}
+
+		&:hover::after,
+		&:focus-within::after {
+			opacity: 1;
+		}
+	}
+
+	/* Price / total summary rows. */
+	.dpo-summary {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		border-block-start: 1px solid var(--dpo-border);
+		padding-block-start: var(--dpo-space);
+
+		&__row {
+			display: flex;
+			justify-content: space-between;
+			font-size: 0.95em;
+		}
+
+		&__row--total {
+			font-weight: 700;
+			font-size: 1.05em;
+		}
+	}
+}

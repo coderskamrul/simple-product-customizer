@@ -1,0 +1,22 @@
+{
+  "name": "dynamic-product-options-for-woocommerce",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dynamic Product Options for WooCommerce — admin builder and storefront runtime.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "lint:js": "wp-scripts lint-js",
+    "lint:css": "wp-scripts lint-style"
+  },
+  "dependencies": {
+    "classnames": "^2.5.1"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^27.9.0",
+    "sass": "^1.77.0"
+  }
+}

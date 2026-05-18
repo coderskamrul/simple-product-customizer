@@ -1,0 +1,142 @@
+/* App shell + screen scaffolding. */
+
+.dpo-app {
+	display: flex;
+	flex-direction: column;
+	min-height: calc(100vh - 32px);
+	background: $dpo-bg;
+	margin-inline-start: -20px;
+}
+
+.dpo-app__topbar {
+	height: $dpo-topbar-h;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-inline: $dpo-space-lg;
+	background: $dpo-surface;
+	border-block-end: 1px solid $dpo-border;
+}
+
+.dpo-app__crumb {
+	font-weight: 600;
+}
+
+.dpo-app__plan {
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 3px 8px;
+	border-radius: 999px;
+
+	&--free {
+		background: $dpo-surface-2;
+		color: $dpo-text-muted;
+	}
+
+	&--pro {
+		background: rgba($dpo-pro, 0.12);
+		color: $dpo-pro;
+	}
+}
+
+.dpo-app__outlet {
+	flex: 1;
+	min-height: 0;
+	padding: $dpo-space-lg;
+
+	&--bleed {
+		padding: 0;
+		display: flex;
+	}
+}
+
+.dpo-screen-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: $dpo-space;
+	margin-block-end: $dpo-space-lg;
+	flex-wrap: wrap;
+}
+
+.dpo-screen-head__actions {
+	display: flex;
+	gap: $dpo-space-sm;
+	align-items: center;
+}
+
+.dpo-screen-title {
+	font-size: 22px;
+}
+
+.dpo-screen-sub {
+	color: $dpo-text-muted;
+	margin: 4px 0 0;
+}
+
+.dpo-dash-grid,
+.dpo-style__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: $dpo-space;
+}
+
+.dpo-tile-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: $dpo-space;
+	margin-block-end: $dpo-space-lg;
+}
+
+.dpo-tile {
+	background: $dpo-surface;
+	border: 1px solid $dpo-border;
+	border-radius: $dpo-radius-lg;
+	padding: $dpo-space-lg;
+	box-shadow: $dpo-shadow;
+
+	&__icon {
+		color: $dpo-accent;
+		font-size: 22px;
+		width: 22px;
+		height: 22px;
+	}
+
+	&__value {
+		font-size: 26px;
+		font-weight: 700;
+		margin-block: 6px 2px;
+	}
+
+	&__label {
+		color: $dpo-text-muted;
+		font-size: 12px;
+	}
+}
+
+.dpo-steps {
+	margin: 0 0 $dpo-space;
+	padding-inline-start: 18px;
+
+	li {
+		margin-block-end: 6px;
+	}
+}
+
+.dpo-quicklinks {
+	display: flex;
+	flex-direction: column;
+	gap: $dpo-space-sm;
+}
+
+.dpo-promo {
+	border-color: rgba($dpo-pro, 0.4);
+	background: linear-gradient(180deg, rgba($dpo-pro, 0.05), transparent);
+}
+
+.dpo-feature-list {
+	margin: 0 0 $dpo-space;
+	padding-inline-start: 18px;
+}

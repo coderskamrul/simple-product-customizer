@@ -1,0 +1,379 @@
+/**
+ * Client-side option pricing — mirrors DPO\Pricing\PriceCalculator (§13).
+ *
+ * This is a LIVE PREVIEW computation only. The raw selection (base values,
+ * never currency-converted) is what gets serialised to the hidden inputs so
+ * the server recomputes the authoritative price.
+ *
+ * Per choice, cost = (proActive && sale !== '') ? sale : regular:
+ *   none             → 0
+ *   flat             → cost
+ *   percent          → percentBase * cost / 100
+ *   per_unit         → unitCount * cost
+ *   per_char         → mb-len(value) * cost
+ *   per_char_nospace → mb-len(value w/o spaces) * cost
+ *   per_word         → wordCount(value) * cost
+ * Pro-gated modes (percent/per_unit/per_word/per_char_nospace) degrade to
+ * `flat` when proActive is false; sale ignored unless proActive.
+ *
+ * Choice price data is read from data-* attributes the PHP renderers put on
+ * each choice input/option: `data-price-mode`, plus `data-cost` (regular) and
+ * `data-cost-sale` (sale). Absent → treated as 0 (see report assumptions).
+ *
+ * @package DPO\Store
+ */
+
+import { toNumber, formatMoney } from './money';
+import { evaluateSimple, evaluateAdvanced } from './formula';
+
+/**
+ * Read the localised store config defensively.
+ *
+ * @return {object} dpoStore global or {}.
+ */
+function store() {
+	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
+}
+
+/**
+ * Whether the Pro license is active.
+ *
+ * @return {boolean} Pro flag.
+ */
+function isPro() {
+	return !! store().proActive;
+}
+
+/**
+ * Apply the Pro gate: gated modes degrade to flat for free sites.
+ *
+ * @param {string} mode Raw price mode.
+ * @return {string} Effective mode.
+ */
+function gatedMode( mode ) {
+	const gated = [ 'percent', 'per_unit', 'per_word', 'per_char_nospace' ];
+	if ( ! isPro() && gated.indexOf( mode ) !== -1 ) {
+		return 'flat';
+	}
+	return mode || 'none';
+}
+
+/**
+ * Effective cost for a choice input element (sale honoured only under Pro).
+ *
+ * @param {HTMLElement} el Choice input / option element.
+ * @return {number} Cost.
+ */
+function choiceCost( el ) {
+	const regular = el.getAttribute( 'data-cost' );
+	const sale = el.getAttribute( 'data-cost-sale' );
+	if ( isPro() && sale !== null && sale !== '' ) {
+		return toNumber( sale );
+	}
+	return toNumber( regular );
+}
+
+/**
+ * Word count parity with PHP str_word_count (whitespace-split, non-empty).
+ *
+ * @param {string} str Source.
+ * @return {number} Word count.
+ */
+function wordCount( str ) {
+	const trimmed = String( str || '' ).trim();
+	if ( trimmed === '' ) {
+		return 0;
+	}
+	return trimmed.split( /\s+/ ).length;
+}
+
+/**
+ * Flatten a selection value into a string for char/word counting.
+ *
+ * @param {*} value Selection value.
+ * @return {string} Flattened string.
+ */
+function scalar( value ) {
+	if ( Array.isArray( value ) ) {
+		return value
+			.map( ( v ) =>
+				v && typeof v === 'object'
+					? String( v.label || '' )
+					: String( v == null ? '' : v )
+			)
+			.join( ' ' );
+	}
+	if ( value && typeof value === 'object' ) {
+		return '';
+	}
+	return value == null ? '' : String( value );
+}
+
+/**
+ * Determine the per_unit multiplier (choice count, else numeric value).
+ *
+ * @param {*}      value Selection value.
+ * @param {number} slot  Slot index.
+ * @return {number} Count.
+ */
+function unitCount( value, slot ) {
+	if ( Array.isArray( value ) ) {
+		const at = value[ slot ];
+		if (
+			at &&
+			typeof at === 'object' &&
+			at.count !== undefined &&
+			at.count !== ''
+		) {
+			return toNumber( at.count );
+		}
+		return 1;
+	}
+	if ( value && typeof value === 'object' ) {
+		if ( value.count !== undefined && value.count !== '' ) {
+			return toNumber( value.count );
+		}
+		return 1;
+	}
+	return toNumber( value );
+}
+
+/**
+ * Apply one choice's price mode.
+ *
+ * @param {string} mode        Effective (gated) mode.
+ * @param {number} cost        Choice cost.
+ * @param {*}      value       Selection value.
+ * @param {number} percentBase Percent base.
+ * @param {number} slot        Slot index for per_unit.
+ * @return {number} Price contribution.
+ */
+function modePrice( mode, cost, value, percentBase, slot ) {
+	switch ( mode ) {
+		case 'none':
+			return 0;
+		case 'flat':
+			return cost;
+		case 'percent':
+			return ( percentBase * cost ) / 100;
+		case 'per_unit':
+			return unitCount( value, slot ) * cost;
+		case 'per_char':
+			return scalar( value ).length * cost;
+		case 'per_char_nospace':
+			return scalar( value ).replace( /\s/g, '' ).length * cost;
+		case 'per_word':
+			return wordCount( scalar( value ) ) * cost;
+		default:
+			return cost;
+	}
+}
+
+/**
+ * Locate the choice input/option elements for a field, in index order.
+ *
+ * @param {HTMLElement} fieldEl Field wrapper.
+ * @return {HTMLElement[]} Choice elements indexed by choice index.
+ */
+function choiceElements( fieldEl ) {
+	const opts = fieldEl.querySelectorAll( '.dpo-select__opt[data-index]' );
+	if ( opts.length ) {
+		const out = [];
+		opts.forEach( ( o ) => {
+			out[ parseInt( o.getAttribute( 'data-index' ), 10 ) ] = o;
+		} );
+		return out;
+	}
+	const inputs = fieldEl.querySelectorAll(
+		'input[type="checkbox"], input[type="radio"]'
+	);
+	const arr = [];
+	inputs.forEach( ( input ) => {
+		const idx = parseInt( input.value, 10 );
+		if ( ! isNaN( idx ) ) {
+			arr[ idx ] = input;
+		}
+	} );
+	return arr;
+}
+
+/**
+ * The single value-driven control (text/number/range/etc.) for a field.
+ *
+ * @param {HTMLElement} fieldEl Field wrapper.
+ * @return {HTMLElement|null} The control bearing data-price-mode.
+ */
+function valueControl( fieldEl ) {
+	return fieldEl.querySelector( '[data-price-mode]' );
+}
+
+/**
+ * Compute the price contribution for one (non-formula) field.
+ *
+ * @param {HTMLElement} fieldEl     Field wrapper.
+ * @param {object}      entry       Selection entry.
+ * @param {number}      percentBase Percent base.
+ * @return {number} Price.
+ */
+export function priceField( fieldEl, entry, percentBase ) {
+	if ( ! entry ) {
+		return 0;
+	}
+	const indexes = Array.isArray( entry.choiceIndexes )
+		? entry.choiceIndexes
+		: [];
+
+	// Choice-driven fields: sum each selected choice's mode price.
+	if ( indexes.length ) {
+		const els = choiceElements( fieldEl );
+		let total = 0;
+		indexes.forEach( ( idx, slot ) => {
+			const el = els[ idx ];
+			if ( ! el ) {
+				return;
+			}
+			const mode = gatedMode(
+				el.getAttribute( 'data-price-mode' ) || 'none'
+			);
+			total += modePrice(
+				mode,
+				choiceCost( el ),
+				entry.value,
+				percentBase,
+				slot
+			);
+		} );
+		return total;
+	}
+
+	// Single value-driven control: price against its own data-price-mode.
+	const ctrl = valueControl( fieldEl );
+	if ( ! ctrl ) {
+		return 0;
+	}
+	const mode = gatedMode( ctrl.getAttribute( 'data-price-mode' ) || 'none' );
+	if ( mode === 'none' ) {
+		return 0;
+	}
+	// A bare value control has no per-choice cost attribute by default;
+	// renderers that price a single control attach data-cost to it.
+	const cost = choiceCost( ctrl );
+	return modePrice( mode, cost, entry.value, percentBase, 0 );
+}
+
+/**
+ * Collect numeric variables for simple-formula evaluation, keyed by field
+ * id (mirrors PriceCalculator::collectFormulaVars): number/range values and
+ * resolved select choice costs.
+ *
+ * @param {object} selections    State selections map.
+ * @param {object} fieldElements fieldId → wrapper element map.
+ * @return {object} name → number map.
+ */
+export function collectFormulaVars( selections, fieldElements ) {
+	const vars = {};
+	Object.keys( selections ).forEach( ( fieldId ) => {
+		const entry = selections[ fieldId ];
+		if ( ! entry || ! entry.type ) {
+			return;
+		}
+		if ( entry.type === 'number' || entry.type === 'range' ) {
+			vars[ fieldId ] = toNumber( entry.value );
+			return;
+		}
+		if ( entry.type === 'select' ) {
+			const indexes = entry.choiceIndexes || [];
+			if ( ! indexes.length ) {
+				return;
+			}
+			const el = fieldElements[ fieldId ];
+			if ( ! el ) {
+				return;
+			}
+			const opt = el.querySelector(
+				'.dpo-select__opt[data-index="' + indexes[ 0 ] + '"]'
+			);
+			if ( ! opt ) {
+				return;
+			}
+			const mode = gatedMode(
+				opt.getAttribute( 'data-price-mode' ) || 'flat'
+			);
+			vars[ fieldId ] = mode === 'none' ? 0 : choiceCost( opt );
+		}
+	} );
+	return vars;
+}
+
+/**
+ * Price a formula / advancedformula field from its DOM node.
+ *
+ * @param {HTMLElement} fieldEl     Field wrapper.
+ * @param {string}      type        'formula' | 'advancedformula'.
+ * @param {number}      percentBase Product percent base.
+ * @param {object}      simpleVars  Numeric vars for the simple engine.
+ * @param {object}      dynamics    Dynamic vars for the advanced engine.
+ * @return {number} Computed price.
+ */
+export function priceFormula(
+	fieldEl,
+	type,
+	percentBase,
+	simpleVars,
+	dynamics
+) {
+	const node = fieldEl.querySelector( '.dpo-formula' );
+	if ( ! node ) {
+		return 0;
+	}
+	const expr = node.getAttribute( 'data-expression' ) || '';
+	if ( expr.trim() === '' ) {
+		return 0;
+	}
+	if ( type === 'advancedformula' ) {
+		if ( ! isPro() ) {
+			return 0;
+		}
+		let bidMap = {};
+		const raw = node.getAttribute( 'data-bidmap' );
+		if ( raw ) {
+			try {
+				bidMap = JSON.parse( raw ) || {};
+			} catch ( e ) {
+				bidMap = {};
+			}
+		}
+		return evaluateAdvanced(
+			expr,
+			Object.assign( {}, bidMap, dynamics )
+		);
+	}
+	const vars = Object.assign(
+		{ product_price: percentBase },
+		simpleVars || {}
+	);
+	return evaluateSimple( expr, vars );
+}
+
+/**
+ * Render the price spans (#dpo-options-price / #dpo-options-total).
+ * Display amounts honour currency + conversion; the values written to the
+ * hidden inputs elsewhere remain raw/base.
+ *
+ * @param {HTMLElement} root         `.dpo-options` wrapper.
+ * @param {number}      optionsPrice Sum of option prices (base ccy).
+ * @param {number}      basePrice    Product base price (base ccy).
+ * @return {void}
+ */
+export function renderPriceSpans( root, optionsPrice, basePrice ) {
+	const priceEl = root.querySelector( '#dpo-options-price' );
+	const totalEl = root.querySelector( '#dpo-options-total' );
+	if ( priceEl ) {
+		priceEl.innerHTML = formatMoney( optionsPrice );
+	}
+	if ( totalEl ) {
+		totalEl.innerHTML = formatMoney(
+			( Number( basePrice ) || 0 ) + ( Number( optionsPrice ) || 0 )
+		);
+	}
+}

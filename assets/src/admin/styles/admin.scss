@@ -1,0 +1,14 @@
+/**
+ * Admin builder styles. BEM-ish `dpo-` prefixed, responsive, accessible,
+ * RTL-friendly via logical properties. Compiled by wp-scripts.
+ */
+
+@import 'variables';
+@import 'base';
+@import 'layout';
+@import 'sidebar';
+@import 'builder';
+@import 'inspector';
+@import 'components';
+@import 'tables';
+@import 'responsive';

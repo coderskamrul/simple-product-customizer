@@ -1,0 +1,151 @@
+/* Right inspector pane. */
+
+.dpo-inspector {
+	background: $dpo-surface;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		gap: $dpo-space-sm;
+		padding: $dpo-space;
+		border-block-end: 1px solid $dpo-border;
+
+		.dashicons {
+			color: $dpo-accent;
+		}
+	}
+
+	&__title {
+		font-weight: 600;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	&__tabs {
+		display: flex;
+		border-block-end: 1px solid $dpo-border;
+		overflow-x: auto;
+	}
+
+	&__tab {
+		border: none;
+		background: none;
+		padding: 10px 12px;
+		font-size: 12px;
+		font-weight: 600;
+		color: $dpo-text-muted;
+		cursor: pointer;
+		border-block-end: 2px solid transparent;
+		white-space: nowrap;
+
+		&.is-active {
+			color: $dpo-accent;
+			border-block-end-color: $dpo-accent;
+		}
+	}
+
+	&__content {
+		overflow: auto;
+		padding: $dpo-space;
+	}
+
+	&__pane {
+		display: flex;
+		flex-direction: column;
+		gap: $dpo-space;
+	}
+
+	&__row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: $dpo-space;
+	}
+}
+
+.dpo-form-field {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+
+	&--inline {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__label {
+		font-weight: 600;
+		font-size: 12px;
+	}
+
+	&__help {
+		color: $dpo-text-muted;
+		font-size: 11px;
+		margin: 0;
+	}
+}
+
+.dpo-choice-row {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+
+	&__main {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: 1.4fr 1fr 1fr;
+		gap: 6px;
+	}
+
+	&__selected {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 12px;
+		color: $dpo-text-muted;
+	}
+}
+
+.dpo-logic-rule {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 6px;
+}
+
+.dpo-formula-vars {
+	&__title {
+		font-size: 12px;
+		font-weight: 600;
+		display: block;
+		margin-block-end: 6px;
+	}
+
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
+}
+
+.dpo-token {
+	border: 1px solid $dpo-border;
+	background: $dpo-surface-2;
+	border-radius: 4px;
+	padding: 3px 6px;
+	font-size: 11px;
+	font-family: Menlo, Consolas, monospace;
+	cursor: pointer;
+
+	&:hover {
+		border-color: $dpo-accent;
+	}
+}
