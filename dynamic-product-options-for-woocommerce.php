@@ -30,7 +30,7 @@ define( 'DPO_MIN_PHP', '7.4' );
 /**
  * PSR-4 autoloader for the DPO\ namespace.
  *
- * Maps DPO\Sub\Space\ClassName to src/Sub/Space/ClassName.php.
+ * Maps DPO\Sub\Space\ClassName to includes/Sub/Space/ClassName.php.
  * Deliberately uses StudlyCase filenames (PSR-4 canonical form), not a
  * hyphenated/`class-` convention, so the layout is self-describing.
  *
@@ -43,7 +43,7 @@ spl_autoload_register(
 			return;
 		}
 		$relative = substr( $fqcn, 4 );
-		$path     = DPO_PATH . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
+		$path     = DPO_PATH . 'includes/' . str_replace( '\\', '/', $relative ) . '.php';
 		if ( is_readable( $path ) ) {
 			require_once $path;
 		}

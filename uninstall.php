@@ -7,6 +7,6 @@
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-require_once __DIR__ . '/src/Core/Uninstaller.php';
+require_once __DIR__ . '/includes/Core/Uninstaller.php';
 
 \DPO\Core\Uninstaller::purge();

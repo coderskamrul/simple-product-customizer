@@ -1,0 +1,939 @@
+/* ============================================================
+   Option Sets screen — modern data-table layout.
+   Self-contained (dpo-os-* / dpo-avatar / dpo-badge / dpo-progress
+   / dpo-pagination) so no other screen regresses. Token-driven,
+   RTL-safe (logical properties), responsive and accessible.
+   ============================================================ */
+
+/* Fill the outlet with the screen's own canvas (bleeds the
+   24px outlet padding; matched in the responsive block below). */
+.dpo-os {
+	margin: -$dpo-space-lg;
+	padding: $dpo-space-lg;
+	min-height: calc(100vh - #{$dpo-topbar-h} - 32px);
+	background: $dpo-os-bg;
+	color: $dpo-os-ink-soft;
+	font-size: 14px;
+}
+
+/* ---- Header : titles + summary stats ---------------------- */
+.dpo-os-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: $dpo-space-lg;
+	flex-wrap: wrap;
+	margin-block-end: $dpo-space-lg;
+}
+
+.dpo-os-title {
+	font-size: 26px;
+	font-weight: 700;
+	line-height: 1.2;
+	color: $dpo-os-ink;
+}
+
+.dpo-os-sub {
+	margin: 6px 0 0;
+	font-size: 14px;
+	color: $dpo-os-muted;
+}
+
+.dpo-os-stats {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px 22px;
+	margin: 4px 0 0;
+	padding: 0;
+}
+
+.dpo-os-stat {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 13px;
+	margin: 0;
+
+	&__dot {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: $dpo-os-faint;
+		flex-shrink: 0;
+	}
+
+	&__icon {
+		font-size: 16px;
+		width: 16px;
+		height: 16px;
+		color: $dpo-os-muted;
+	}
+
+	&__label {
+		margin: 0;
+		color: $dpo-os-muted;
+	}
+
+	&__value {
+		margin: 0;
+		font-weight: 700;
+		color: $dpo-os-ink;
+	}
+
+	&--blue .dpo-os-stat__dot {
+		background: $dpo-os-blue;
+	}
+
+	&--green .dpo-os-stat__dot {
+		background: $dpo-os-green;
+	}
+}
+
+/* ---- Toolbar : search + filter + actions ------------------ */
+.dpo-os-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-block-end: $dpo-space;
+
+	&__spacer {
+		flex: 1 1 auto;
+	}
+}
+
+.dpo-os-search {
+	position: relative;
+	flex: 1 1 320px;
+	max-width: 440px;
+	min-width: 200px;
+	display: flex;
+	align-items: center;
+
+	&__icon {
+		position: absolute;
+		inset-inline-start: 12px;
+		font-size: 18px;
+		line-height: 1;
+		color: $dpo-os-faint;
+		pointer-events: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__input {
+		width: 100%;
+		height: 44px;
+		padding-block: 0;
+		padding-inline: 40px 14px;
+		border: 1px solid $dpo-os-border-strong;
+		border-radius: $dpo-radius-lg;
+		background: $dpo-os-surface;
+		color: $dpo-os-ink;
+		font-size: 14px;
+		line-height: 44px;
+		vertical-align: middle;
+		padding-left: 32px !important;
+
+		&::placeholder {
+			color: $dpo-os-faint;
+		}
+
+		&:focus {
+			outline: none;
+			border-color: $dpo-os-blue;
+			box-shadow: $dpo-os-ring;
+			padding-left: 32px !important;
+		}
+	}
+}
+
+/* Buttons (shared) */
+.dpo-os-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	height: 44px;
+	padding-inline: 16px;
+	border: 1px solid transparent;
+	border-radius: $dpo-radius-lg;
+	background: $dpo-os-surface;
+	color: $dpo-os-ink-soft;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: background 0.15s, border-color 0.15s, color 0.15s,
+		box-shadow 0.15s;
+
+	.dashicons {
+		font-size: 18px;
+		width: 18px;
+		height: 18px;
+	}
+
+	&:focus-visible {
+		outline: none;
+		box-shadow: $dpo-os-ring;
+	}
+
+	&:disabled {
+		opacity: 0.55;
+		cursor: not-allowed;
+	}
+
+	&--ghost {
+		border-color: $dpo-os-border-strong;
+
+		&:hover:not(:disabled),
+		&.is-on {
+			border-color: $dpo-os-blue;
+			color: $dpo-os-blue;
+			background: $dpo-os-blue-soft;
+		}
+	}
+
+	&--primary {
+		background: $dpo-os-blue;
+		border-color: $dpo-os-blue;
+		color: #fff;
+
+		&:hover:not(:disabled) {
+			background: $dpo-os-blue-hover;
+			border-color: $dpo-os-blue-hover;
+		}
+	}
+
+	&--danger {
+		background: $dpo-os-danger;
+		border-color: $dpo-os-danger;
+		color: #fff;
+
+		&:hover:not(:disabled) {
+			filter: brightness(0.92);
+		}
+	}
+
+	&--link {
+		background: none;
+		color: $dpo-os-muted;
+
+		&:hover:not(:disabled) {
+			color: $dpo-os-ink;
+		}
+	}
+}
+
+/* Filter popover */
+.dpo-os-filter {
+	position: relative;
+
+	&__tag {
+		margin-inline-start: 4px;
+		padding: 2px 8px;
+		border-radius: 999px;
+		background: $dpo-os-blue;
+		color: #fff;
+		font-size: 11px;
+		font-weight: 700;
+	}
+}
+
+.dpo-os-menu {
+	position: absolute;
+	inset-block-start: calc(100% + 6px);
+	inset-inline-start: 0;
+	z-index: 30;
+	min-width: 180px;
+	margin: 0;
+	padding: 6px;
+	list-style: none;
+	background: $dpo-os-surface;
+	border: 1px solid $dpo-os-border-strong;
+	border-radius: $dpo-radius-lg;
+	box-shadow: $dpo-shadow-lg;
+
+	&__item {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		width: 100%;
+		padding: 8px 10px;
+		border: none;
+		border-radius: $dpo-radius;
+		background: none;
+		color: $dpo-os-ink-soft;
+		font-size: 13px;
+		font-weight: 600;
+		text-align: start;
+		cursor: pointer;
+
+		&:hover {
+			background: $dpo-os-row-hover;
+		}
+
+		&.is-active {
+			color: $dpo-os-blue;
+		}
+	}
+
+	&__tick {
+		font-size: 16px;
+		width: 16px;
+		height: 16px;
+		visibility: hidden;
+
+		.is-active & {
+			visibility: visible;
+		}
+	}
+}
+
+/* ---- Card : table + bulkbar + footer ---------------------- */
+.dpo-os-card {
+	background: $dpo-os-surface;
+	border: 1px solid $dpo-os-border;
+	border-radius: $dpo-radius-xl;
+	box-shadow: $dpo-os-shadow;
+	overflow: hidden;
+}
+
+.dpo-os-bulkbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	flex-wrap: wrap;
+	padding: 12px 20px;
+	background: $dpo-os-blue-soft;
+	border-block-end: 1px solid $dpo-os-border;
+
+	&__count {
+		font-size: 13px;
+		font-weight: 700;
+		color: $dpo-os-blue-hover;
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	.dpo-os-btn {
+		height: 34px;
+		padding-inline: 12px;
+		font-size: 13px;
+
+		.dashicons {
+			font-size: 16px;
+			width: 16px;
+			height: 16px;
+		}
+	}
+}
+
+.dpo-os-tablewrap {
+	width: 100%;
+	overflow-x: auto;
+}
+
+.dpo-os-table {
+	width: 100%;
+	min-width: 880px;
+	border-collapse: collapse;
+	font-size: 14px;
+
+	.dpo-os-th,
+	.dpo-os-cell {
+		padding: 16px;
+		text-align: start;
+		vertical-align: middle;
+	}
+
+	.dpo-os-th--check,
+	.dpo-os-cell--check {
+		inline-size: 20px;
+		padding-inline-start: 20px;
+		padding-inline-end: 0;
+	}
+
+	.dpo-os-th:last-child,
+	.dpo-os-cell:last-child {
+		padding-inline-end: 20px;
+	}
+
+	thead .dpo-os-th {
+		position: sticky;
+		inset-block-start: 0;
+		background: #fbfcfe;
+		border-block-end: 1px solid $dpo-os-border;
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: $dpo-os-faint;
+		white-space: nowrap;
+	}
+
+	.dpo-os-th--end {
+		text-align: end;
+	}
+}
+
+.dpo-os-sort {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	border: none;
+	background: none;
+	padding: 0;
+	font: inherit;
+	letter-spacing: inherit;
+	text-transform: inherit;
+	color: inherit;
+	cursor: pointer;
+
+	&__icon {
+		font-size: 14px;
+		width: 14px;
+		height: 14px;
+		opacity: 0.45;
+	}
+
+	&:hover,
+	&.is-active {
+		color: $dpo-os-ink-soft;
+	}
+
+	&.is-active .dpo-os-sort__icon {
+		opacity: 1;
+		color: $dpo-os-blue;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $dpo-os-blue;
+		outline-offset: 2px;
+		border-radius: 3px;
+	}
+}
+
+.dpo-os-row {
+	transition: background 0.12s;
+
+	.dpo-os-cell {
+		border-block-end: 1px solid $dpo-os-border;
+		color: $dpo-os-ink-soft;
+	}
+
+	&:last-child .dpo-os-cell {
+		border-block-end: none;
+	}
+
+	&:hover .dpo-os-cell {
+		background: $dpo-os-row-hover;
+	}
+
+	&.is-selected .dpo-os-cell {
+		background: $dpo-os-blue-soft;
+	}
+
+	&.is-draft .dpo-os-name__text {
+		color: $dpo-os-muted;
+	}
+}
+
+/* Checkbox */
+.dpo-os-check {
+	inline-size: 18px;
+	block-size: 18px;
+	margin: 0;
+	border: 1.5px solid $dpo-os-border-strong;
+	border-radius: 5px;
+	accent-color: $dpo-os-blue;
+	cursor: pointer;
+
+	&:focus-visible {
+		outline: none;
+		box-shadow: $dpo-os-ring;
+	}
+}
+
+.dpo-os-id {
+	font-size: 13px;
+	font-weight: 500;
+	color: $dpo-os-faint;
+	font-variant-numeric: tabular-nums;
+}
+
+.dpo-os-name {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	max-width: 100%;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
+	text-align: start;
+
+	&__text {
+		font-size: 14px;
+		font-weight: 600;
+		color: $dpo-os-ink;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&:hover &__text {
+		color: $dpo-os-blue;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $dpo-os-blue;
+		outline-offset: 2px;
+		border-radius: $dpo-radius;
+	}
+}
+
+/* Avatar (initials tile) */
+.dpo-avatar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	inline-size: 40px;
+	block-size: 40px;
+	border-radius: $dpo-radius-lg;
+	font-size: 13px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	flex-shrink: 0;
+}
+
+@each $i, $c in (0: #6366f1, 1: #0ea5e9, 2: #f59e0b, 3: #10b981,
+	4: #ec4899, 5: #8b5cf6, 6: #ef4444, 7: #14b8a6) {
+	.dpo-avatar--#{$i} {
+		background: rgba($c, 0.15);
+		color: $c;
+	}
+}
+
+/* Status switch (green when active) */
+.dpo-os-switch {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+
+	&__input {
+		position: absolute;
+		opacity: 0;
+		width: 1px;
+		height: 1px;
+	}
+
+	&__track {
+		position: relative;
+		display: inline-block;
+		inline-size: 38px;
+		block-size: 21px;
+		border-radius: 999px;
+		background: $dpo-os-border-strong;
+		cursor: pointer;
+		transition: background 0.15s;
+		flex-shrink: 0;
+	}
+
+	&__thumb {
+		position: absolute;
+		inset-block-start: 2px;
+		inset-inline-start: 2px;
+		inline-size: 17px;
+		block-size: 17px;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		transition: inset-inline-start 0.15s;
+	}
+
+	&__label {
+		font-size: 13px;
+		font-weight: 600;
+		color: $dpo-os-faint;
+	}
+
+	&__input:checked + &__track {
+		background: $dpo-os-green;
+
+		.dpo-os-switch__thumb {
+			inset-inline-start: 19px;
+		}
+
+		~ .dpo-os-switch__label {
+			color: $dpo-os-ink-soft;
+		}
+	}
+
+	&__input:focus-visible + &__track {
+		box-shadow: $dpo-os-ring;
+	}
+
+	&__input:disabled + &__track {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+}
+
+/* Badge */
+.dpo-badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 5px 12px;
+	border-radius: $dpo-radius-lg;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.4;
+
+	&--neutral,
+	&--info {
+		background: $dpo-os-blue-soft;
+		color: $dpo-os-blue;
+	}
+
+	&--success {
+		background: $dpo-os-green-soft;
+		color: $dpo-os-green;
+	}
+
+	&--muted {
+		background: #f1f5f9;
+		color: $dpo-os-faint;
+	}
+}
+
+/* Progress (products) */
+.dpo-progress {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+
+	&__track {
+		display: inline-block;
+		inline-size: 84px;
+		block-size: 6px;
+		border-radius: 999px;
+		background: $dpo-os-track;
+		overflow: hidden;
+	}
+
+	&__fill {
+		display: block;
+		block-size: 100%;
+		border-radius: inherit;
+		background: $dpo-os-blue;
+		transition: width 0.3s ease;
+	}
+
+	&__value {
+		min-inline-size: 22px;
+		font-size: 13px;
+		font-weight: 600;
+		color: $dpo-os-ink-soft;
+		text-align: end;
+	}
+}
+
+/* Options count */
+.dpo-os-count {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 14px;
+	font-weight: 600;
+	color: $dpo-os-ink-soft;
+
+	.dashicons {
+		font-size: 16px;
+		width: 16px;
+		height: 16px;
+		color: $dpo-os-faint;
+	}
+}
+
+/* Row actions */
+.dpo-os-actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 4px;
+}
+
+.dpo-os-iconbtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	inline-size: 32px;
+	block-size: 32px;
+	border: none;
+	border-radius: $dpo-radius;
+	background: none;
+	color: $dpo-os-faint;
+	cursor: pointer;
+	transition: background 0.12s, color 0.12s;
+
+	.dashicons {
+		font-size: 16px;
+		width: 16px;
+		height: 16px;
+	}
+
+	&:hover:not(:disabled) {
+		background: $dpo-os-row-hover;
+		color: $dpo-os-ink-soft;
+	}
+
+	&--danger:hover:not(:disabled) {
+		background: $dpo-os-danger-soft;
+		color: $dpo-os-danger;
+	}
+
+	&:focus-visible {
+		outline: none;
+		box-shadow: $dpo-os-ring;
+	}
+
+	&:disabled {
+		opacity: 0.45;
+		cursor: not-allowed;
+	}
+}
+
+/* Loading / error / empty */
+.dpo-os-state {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 64px 24px;
+}
+
+/* Footer : range + pagination */
+.dpo-os-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+	padding: 16px 20px;
+	border-block-start: 1px solid $dpo-os-border;
+
+	&__info {
+		font-size: 13px;
+		color: $dpo-os-muted;
+	}
+}
+
+.dpo-pagination {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-inline-size: 36px;
+		block-size: 36px;
+		padding-inline: 8px;
+		border: 1px solid $dpo-os-border;
+		border-radius: $dpo-radius;
+		background: $dpo-os-surface;
+		color: $dpo-os-ink-soft;
+		font-size: 13px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.12s, border-color 0.12s, color 0.12s;
+
+		.dashicons {
+			font-size: 16px;
+			width: 16px;
+			height: 16px;
+		}
+
+		&:hover:not(:disabled):not(.is-current) {
+			border-color: $dpo-os-blue;
+			color: $dpo-os-blue;
+			background: $dpo-os-blue-soft;
+		}
+
+		&.is-current {
+			background: $dpo-os-blue;
+			border-color: $dpo-os-blue;
+			color: #fff;
+			cursor: default;
+		}
+
+		&:focus-visible {
+			outline: none;
+			box-shadow: $dpo-os-ring;
+		}
+
+		&:disabled {
+			opacity: 0.45;
+			cursor: not-allowed;
+		}
+	}
+
+	&__gap {
+		padding-inline: 4px;
+		color: $dpo-os-faint;
+	}
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Tablet — drop the two data-light columns, keep a table. */
+@media (max-width: 1024px) {
+	.dpo-os-table {
+		min-width: 680px;
+	}
+
+	.dpo-os-th--category,
+	.dpo-os-cell--category,
+	.dpo-os-th--products,
+	.dpo-os-cell--products {
+		display: none;
+	}
+}
+
+/* Keep the canvas bleed exactly cancelling the outlet padding
+   (the outlet drops to $dpo-space at this same breakpoint). */
+@media (max-width: 600px) {
+	.dpo-os {
+		margin: -$dpo-space;
+		padding: $dpo-space;
+	}
+}
+
+/* Phone / small admin — stack each row into a card. */
+@media (max-width: 782px) {
+	.dpo-os-head {
+		gap: $dpo-space;
+	}
+
+	.dpo-os-title {
+		font-size: 22px;
+	}
+
+	.dpo-os-search {
+		flex-basis: 100%;
+		max-width: none;
+		order: -1;
+	}
+
+	.dpo-os-toolbar__spacer {
+		display: none;
+	}
+
+	.dpo-os-btn--primary {
+		margin-inline-start: auto;
+	}
+
+	.dpo-os-tablewrap {
+		overflow-x: visible;
+	}
+
+	.dpo-os-table {
+		min-width: 0;
+		display: block;
+
+		thead {
+			display: none;
+		}
+
+		tbody {
+			display: block;
+			padding: 12px;
+		}
+	}
+
+	.dpo-os-row {
+		display: block;
+		margin-block-end: 12px;
+		border: 1px solid $dpo-os-border;
+		border-radius: $dpo-radius-lg;
+		background: $dpo-os-surface;
+
+		&:last-child {
+			margin-block-end: 0;
+		}
+
+		&.is-selected {
+			border-color: $dpo-os-blue;
+		}
+
+		.dpo-os-cell {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 16px;
+			padding: 12px 16px !important;
+			border-block-end: 1px solid $dpo-os-border;
+			background: none !important;
+
+			&::before {
+				content: attr(data-label);
+				font-size: 11px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: $dpo-os-faint;
+			}
+		}
+
+		&.is-selected .dpo-os-cell:first-child {
+			background: $dpo-os-blue-soft !important;
+		}
+
+		.dpo-os-cell:last-child {
+			border-block-end: none;
+		}
+
+		.dpo-os-cell--check {
+			justify-content: flex-end;
+			padding-block-end: 0 !important;
+			border-block-end: none;
+
+			&::before {
+				content: none;
+			}
+		}
+
+		.dpo-os-cell--name {
+			justify-content: flex-start;
+			gap: 12px;
+
+			&::before {
+				content: none;
+			}
+		}
+
+		.dpo-os-cell--actions {
+			justify-content: space-between;
+		}
+	}
+
+	.dpo-os-name__text {
+		white-space: normal;
+	}
+
+	.dpo-os-foot {
+		justify-content: center;
+	}
+}

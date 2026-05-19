@@ -11,7 +11,7 @@ import { ToastProvider } from '../store/ToastContext';
 import { useRouter } from './router';
 import { ToastStack } from '../components';
 import Dashboard from '../screens/Dashboard';
-import SetsList from '../screens/SetsList';
+import OptionSet from '../screens/OptionSet';
 import Builder from '../screens/Builder';
 import Assignment from '../screens/Assignment';
 import GlobalStyle from '../screens/GlobalStyle';
@@ -28,7 +28,7 @@ import License from '../screens/License';
 function Screen( { route } ) {
 	switch ( route.name ) {
 		case 'sets':
-			return <SetsList />;
+			return <OptionSet />;
 		case 'builder':
 			return <Builder setId={ route.params.id } />;
 		case 'assignment':

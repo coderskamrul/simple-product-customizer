@@ -24,7 +24,7 @@ final class Installer {
 	 * @return void
 	 */
 	public static function activate() {
-		require_once DPO_PATH . 'src/Analytics/StatsRepository.php';
+		require_once DPO_PATH . 'includes/Analytics/StatsRepository.php';
 		StatsRepository::install_tables();
 
 		if ( ! wp_next_scheduled( 'dpo_cleanup_uploads' ) ) {

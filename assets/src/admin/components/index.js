@@ -20,3 +20,7 @@ export { default as EmptyState } from './EmptyState';
 export { default as ProBadge } from './ProBadge';
 export { default as DragList } from './DragList';
 export { default as Spinner } from './Spinner';
+export { default as Avatar } from './Avatar';
+export { default as Badge } from './Badge';
+export { default as ProgressBar } from './ProgressBar';
+export { default as Pagination } from './Pagination';

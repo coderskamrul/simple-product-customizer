@@ -16,9 +16,37 @@ $dpo-warning: #bd8600;
 
 $dpo-radius: 6px;
 $dpo-radius-lg: 10px;
+$dpo-radius-xl: 16px;
 $dpo-space: 16px;
 $dpo-space-sm: 8px;
 $dpo-space-lg: 24px;
+
+/* Option Sets screen — modern surface palette (token-driven so the
+   rest of the admin can adopt it incrementally without a rewrite). */
+$dpo-os-bg: #f7f8fb;
+$dpo-os-surface: #ffffff;
+$dpo-os-border: #eceef3;
+$dpo-os-border-strong: #dfe3ea;
+$dpo-os-ink: #0f172a;
+$dpo-os-ink-soft: #334155;
+$dpo-os-muted: #64748b;
+$dpo-os-faint: #94a3b8;
+$dpo-os-blue: #3358f4;
+$dpo-os-blue-hover: #2742d6;
+$dpo-os-blue-soft: #eef1fe;
+$dpo-os-green: #16a34a;
+$dpo-os-green-soft: #dcfce7;
+$dpo-os-track: #eef1f6;
+$dpo-os-row-hover: #f8fafc;
+$dpo-os-danger: #e23b3b;
+$dpo-os-danger-soft: #fdeaea;
+$dpo-os-shadow: 0 1px 2px rgba(15, 23, 42, 0.04),
+	0 1px 3px rgba(15, 23, 42, 0.06);
+$dpo-os-ring: 0 0 0 3px rgba(51, 88, 244, 0.18);
+
+/* Deterministic avatar palette (initials tile colours). */
+$dpo-os-avatars: #6366f1, #0ea5e9, #f59e0b, #10b981, #ec4899, #8b5cf6,
+	#ef4444, #14b8a6;
 
 $dpo-sidebar-w: 220px;
 $dpo-topbar-h: 48px;
