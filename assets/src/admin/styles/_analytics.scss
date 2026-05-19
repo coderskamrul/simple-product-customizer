@@ -1,0 +1,1102 @@
+/* ============================================================
+   Analytics screen — modern dashboard.
+   Self-contained (dpo-an-* scope) so no other screen regresses.
+   Reuses the $dpo-os-* surface tokens + $dpo-an-* accent quartet,
+   shares .dpo-avatar / .dpo-os-btn / .dpo-os-search / .dpo-pagination
+   with Option Sets. Token-driven, RTL-safe (logical properties),
+   responsive and accessible.
+   ============================================================ */
+
+$dpo-an-violet: #a78bfa;
+
+/* Fill the outlet with the screen's own canvas (cancels the 24px
+   outlet padding; matched in the responsive block below). */
+.dpo-an {
+	margin: -$dpo-space-lg;
+	padding: $dpo-space-lg;
+	min-height: calc(100vh - #{$dpo-topbar-h} - 32px);
+	background: $dpo-os-bg;
+	color: $dpo-os-ink-soft;
+	font-size: 14px;
+}
+
+/* ---- Shared card surface ---------------------------------- */
+.dpo-an-card {
+	background: $dpo-os-surface;
+	border: 1px solid $dpo-os-border;
+	border-radius: $dpo-radius-xl;
+	box-shadow: $dpo-os-shadow;
+}
+
+.dpo-an-state {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 64px 24px;
+	margin-block-end: $dpo-space-lg;
+}
+
+/* ---- Header ----------------------------------------------- */
+.dpo-an-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: $dpo-space-lg;
+	flex-wrap: wrap;
+	margin-block-end: $dpo-space-lg;
+
+	&__title {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		min-width: 0;
+	}
+
+	&__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 44px;
+		block-size: 44px;
+		border-radius: $dpo-radius-lg;
+		background: linear-gradient(135deg, $dpo-an-blue, #5b73f7);
+		color: #fff;
+		flex-shrink: 0;
+		box-shadow: 0 6px 16px rgba($dpo-an-blue, 0.35);
+
+		.dashicons {
+			font-size: 22px;
+			width: 22px;
+			height: 22px;
+		}
+	}
+
+	&__h1 {
+		font-size: 22px;
+		font-weight: 700;
+		line-height: 1.2;
+		color: $dpo-os-ink;
+	}
+
+	&__sub {
+		margin: 3px 0 0;
+		font-size: 14px;
+		color: $dpo-os-muted;
+	}
+}
+
+/* Range segmented control */
+.dpo-an-range {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	padding: 4px;
+	background: $dpo-os-surface;
+	border: 1px solid $dpo-os-border-strong;
+	border-radius: $dpo-radius-lg;
+	box-shadow: $dpo-os-shadow;
+
+	&__btn {
+		appearance: none;
+		border: 0;
+		background: none;
+		padding: 8px 16px;
+		border-radius: $dpo-radius;
+		font-size: 13px;
+		font-weight: 600;
+		color: $dpo-os-muted;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+
+		&:hover:not(.is-active):not(:disabled) {
+			background: $dpo-os-row-hover;
+			color: $dpo-os-ink-soft;
+		}
+
+		&.is-active {
+			background: $dpo-an-blue;
+			color: #fff;
+			box-shadow: 0 4px 10px rgba($dpo-an-blue, 0.3);
+		}
+
+		&:focus-visible {
+			outline: none;
+			box-shadow: $dpo-os-ring;
+		}
+
+		&:disabled {
+			opacity: 0.6;
+			cursor: progress;
+		}
+	}
+}
+
+/* ---- KPI grid --------------------------------------------- */
+.dpo-an-kpis {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: $dpo-space;
+	margin-block-end: $dpo-space-lg;
+}
+
+.dpo-an-kpi {
+	position: relative;
+	padding: $dpo-space-lg;
+	border-radius: $dpo-radius-xl;
+	border: 1px solid $dpo-os-border;
+	box-shadow: $dpo-os-shadow;
+	overflow: hidden;
+
+	&__top {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 12px;
+	}
+
+	&__label {
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	&__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 44px;
+		block-size: 44px;
+		border-radius: 50%;
+		flex-shrink: 0;
+
+		.dashicons {
+			font-size: 20px;
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	&__value {
+		margin-block: 14px 4px;
+		font-size: 30px;
+		font-weight: 800;
+		line-height: 1.1;
+		color: $dpo-os-ink;
+		letter-spacing: -0.01em;
+	}
+
+	&__delta {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		font-size: 13px;
+		font-weight: 700;
+
+		.dashicons {
+			font-size: 16px;
+			width: 16px;
+			height: 16px;
+		}
+
+		&--up {
+			color: $dpo-an-green;
+		}
+		&--down {
+			color: $dpo-os-danger;
+		}
+		&--flat {
+			color: $dpo-os-faint;
+		}
+	}
+
+	&__meter {
+		display: block;
+		margin-block-start: 16px;
+		block-size: 6px;
+		border-radius: 999px;
+		overflow: hidden;
+	}
+
+	&__meterfill {
+		display: block;
+		block-size: 100%;
+		border-radius: inherit;
+		transition: width 0.45s ease;
+	}
+}
+
+/* Per-tone KPI theming. */
+@each $tone, $pair in $dpo-an-tones {
+	$solid: nth($pair, 1);
+	$soft: nth($pair, 2);
+
+	.dpo-an-kpi--#{$tone} {
+		background: linear-gradient(
+			135deg,
+			$dpo-os-surface 0%,
+			$soft 100%
+		);
+
+		.dpo-an-kpi__label {
+			color: $solid;
+		}
+		.dpo-an-kpi__icon {
+			background: rgba($solid, 0.14);
+			color: $solid;
+		}
+		.dpo-an-kpi__meter {
+			background: rgba($solid, 0.16);
+		}
+		.dpo-an-kpi__meterfill {
+			background: $solid;
+		}
+	}
+}
+
+/* ---- Split (trend + funnel) ------------------------------- */
+.dpo-an-split {
+	display: grid;
+	grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+	gap: $dpo-space;
+	margin-block-end: $dpo-space-lg;
+}
+
+.dpo-an-panel {
+	padding: $dpo-space-lg;
+	min-width: 0;
+
+	&__head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: $dpo-space;
+		margin-block-end: $dpo-space;
+	}
+
+	&__title {
+		font-size: 17px;
+		font-weight: 700;
+		color: $dpo-os-ink;
+	}
+
+	&__sub {
+		margin: 3px 0 0;
+		font-size: 13px;
+		color: $dpo-os-muted;
+	}
+}
+
+/* Legend (chart + reusable dots) */
+.dpo-an-legend {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+		font-size: 13px;
+		font-weight: 600;
+		color: $dpo-os-muted;
+	}
+}
+
+.dpo-an-dot {
+	inline-size: 9px;
+	block-size: 9px;
+	border-radius: 50%;
+	flex-shrink: 0;
+
+	&--blue {
+		background: $dpo-an-blue;
+	}
+	&--purple {
+		background: $dpo-an-purple;
+	}
+	&--violet {
+		background: $dpo-an-violet;
+	}
+	&--pink {
+		background: $dpo-an-pink;
+	}
+	&--green {
+		background: $dpo-an-green;
+	}
+}
+
+/* ---- Trend chart ------------------------------------------ */
+.dpo-an-chart {
+	position: relative;
+	margin: 0;
+
+	&__svg {
+		display: block;
+		inline-size: 100%;
+		block-size: clamp(220px, 28vw, 300px);
+		cursor: crosshair;
+	}
+
+	&__plot {
+		animation: dpo-an-reveal 0.7s ease both;
+		transform-box: fill-box;
+		transform-origin: left center;
+	}
+
+	&__crosshair {
+		stroke: $dpo-os-faint;
+		stroke-width: 1;
+		stroke-dasharray: 4 4;
+		vector-effect: non-scaling-stroke;
+	}
+
+	&__pt {
+		stroke: #fff;
+		stroke-width: 2;
+		vector-effect: non-scaling-stroke;
+
+		&--blue {
+			fill: $dpo-an-blue;
+		}
+		&--purple {
+			fill: $dpo-an-purple;
+		}
+		&--green {
+			fill: $dpo-an-green;
+		}
+	}
+
+	&__grid {
+		stroke: $dpo-os-border;
+		stroke-width: 1;
+		stroke-dasharray: 3 5;
+	}
+
+	&__ylabel {
+		fill: $dpo-os-faint;
+		font-size: 11px;
+		text-anchor: end;
+		font-variant-numeric: tabular-nums;
+	}
+
+	&__xlabel {
+		fill: $dpo-os-muted;
+		font-size: 12px;
+		text-anchor: middle;
+	}
+
+	&__area {
+		opacity: 0.9;
+	}
+
+	&__line {
+		stroke-width: 2.5;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		vector-effect: non-scaling-stroke;
+
+		&--blue {
+			stroke: $dpo-an-blue;
+		}
+		&--purple {
+			stroke: $dpo-an-purple;
+		}
+		&--green {
+			stroke: $dpo-an-green;
+		}
+	}
+}
+
+/* SVG gradient stops (driven by class so they stay tokenised). */
+.dpo-an-grad__a--blue {
+	stop-color: $dpo-an-blue;
+	stop-opacity: 0.28;
+}
+.dpo-an-grad__a--purple {
+	stop-color: $dpo-an-purple;
+	stop-opacity: 0.26;
+}
+.dpo-an-grad__a--green {
+	stop-color: $dpo-an-green;
+	stop-opacity: 0.24;
+}
+.dpo-an-grad__b--blue,
+.dpo-an-grad__b--purple,
+.dpo-an-grad__b--green {
+	stop-color: #fff;
+	stop-opacity: 0;
+}
+
+/* Chart hover tooltip (HTML overlay, follows the crosshair x). */
+.dpo-an-tip {
+	position: absolute;
+	inset-block-start: 8px;
+	z-index: 5;
+	min-inline-size: 150px;
+	padding: 10px 12px;
+	background: $dpo-os-ink;
+	color: #fff;
+	border-radius: $dpo-radius-lg;
+	box-shadow: $dpo-shadow-lg;
+	pointer-events: none;
+	animation: dpo-an-pop 0.12s ease both;
+
+	&--right {
+		transform: translateX(14px);
+	}
+	&--left {
+		transform: translateX(-100%) translateX(-14px);
+	}
+
+	&__title {
+		display: block;
+		margin-block-end: 8px;
+		font-size: 12px;
+		font-weight: 700;
+		color: rgba(#fff, 0.7);
+	}
+
+	&__row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 13px;
+		line-height: 1.8;
+	}
+
+	&__label {
+		color: rgba(#fff, 0.8);
+	}
+
+	&__val {
+		margin-inline-start: auto;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+	}
+}
+
+@keyframes dpo-an-reveal {
+	from {
+		transform: scaleX(0);
+		opacity: 0;
+	}
+	to {
+		transform: scaleX(1);
+		opacity: 1;
+	}
+}
+
+@keyframes dpo-an-pop {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes dpo-an-sweep {
+	from {
+		opacity: 0;
+		transform: rotate(-180deg);
+	}
+	to {
+		opacity: 1;
+		transform: rotate(-90deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.dpo-an-chart__plot,
+	.dpo-an-funnel__ring,
+	.dpo-an-tip {
+		animation: none;
+	}
+}
+
+/* ---- Conversion funnel ------------------------------------ */
+.dpo-an-funnel {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: $dpo-space-lg;
+
+	&__chart {
+		position: relative;
+		inline-size: 100%;
+		max-inline-size: 200px;
+
+		svg {
+			display: block;
+			inline-size: 100%;
+			height: auto;
+			overflow: visible;
+		}
+	}
+
+	&__ring {
+		transform: rotate(-90deg);
+		transform-box: fill-box;
+		transform-origin: center;
+		animation: dpo-an-sweep 0.8s ease both;
+	}
+
+	&__track {
+		stroke: $dpo-os-track;
+	}
+
+	&__center {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 2px;
+		pointer-events: none;
+		text-align: center;
+	}
+
+	&__cval {
+		font-size: 26px;
+		font-weight: 800;
+		line-height: 1.1;
+		color: $dpo-os-ink;
+		font-variant-numeric: tabular-nums;
+	}
+
+	&__clabel {
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: $dpo-os-faint;
+	}
+
+	&__cpct {
+		margin-block-start: 2px;
+		font-size: 12px;
+		font-weight: 700;
+		color: $dpo-os-muted;
+	}
+
+	&__arc {
+		cursor: pointer;
+		transition: stroke-dasharray 0.5s ease, stroke-width 0.15s ease,
+			opacity 0.15s ease;
+
+		&:focus {
+			outline: none;
+		}
+
+		&:focus-visible {
+			outline: 2px solid $dpo-os-ink;
+			outline-offset: 4px;
+		}
+
+		&.is-active {
+			stroke-width: 32;
+		}
+
+		&.is-dim {
+			opacity: 0.3;
+		}
+
+		&--blue {
+			stroke: $dpo-an-blue;
+		}
+		&--purple {
+			stroke: $dpo-an-purple;
+		}
+		&--violet {
+			stroke: $dpo-an-violet;
+		}
+		&--pink {
+			stroke: $dpo-an-pink;
+		}
+	}
+
+	&__legend {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px 20px;
+		inline-size: 100%;
+		margin: 0;
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin: 0;
+		padding: 6px 8px;
+		border-radius: $dpo-radius;
+		cursor: default;
+		transition: background 0.15s;
+
+		&:hover,
+		&.is-active {
+			background: $dpo-os-row-hover;
+		}
+
+		dt {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 13px;
+			color: $dpo-os-muted;
+		}
+
+		dd {
+			margin: 0;
+			font-size: 14px;
+			font-weight: 700;
+			color: $dpo-os-ink;
+			font-variant-numeric: tabular-nums;
+		}
+	}
+}
+
+/* ---- Option performance table ----------------------------- */
+.dpo-an-table {
+	overflow: hidden;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: $dpo-space;
+		flex-wrap: wrap;
+		padding: $dpo-space-lg;
+		border-block-end: 1px solid $dpo-os-border;
+	}
+
+	&__title {
+		font-size: 18px;
+		font-weight: 700;
+		color: $dpo-os-ink;
+	}
+
+	&__sub {
+		margin: 3px 0 0;
+		font-size: 13px;
+		color: $dpo-os-muted;
+	}
+}
+
+.dpo-an-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex: 1 1 auto;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	min-inline-size: 0;
+
+	.dpo-os-btn {
+		height: 40px;
+		flex: 0 0 auto;
+		white-space: nowrap;
+	}
+
+	.dpo-os-filter {
+		flex: 0 0 auto;
+	}
+}
+
+.dpo-an-search {
+	flex: 1 1 220px;
+	min-inline-size: 0;
+	max-inline-size: 320px;
+
+	.dpo-os-search__input {
+		height: 40px;
+		line-height: 40px;
+		border-radius: $dpo-radius-lg;
+	}
+}
+
+.dpo-an-tablewrap {
+	inline-size: 100%;
+	overflow-x: auto;
+}
+
+.dpo-an-grid {
+	inline-size: 100%;
+	min-inline-size: 860px;
+	border-collapse: collapse;
+	font-size: 14px;
+
+	.dpo-an-th {
+		padding: 14px 20px;
+		text-align: start;
+		background: #fbfcfe;
+		border-block-end: 1px solid $dpo-os-border;
+		white-space: nowrap;
+
+		&--end {
+			text-align: end;
+		}
+	}
+
+	tbody .dpo-an-cell {
+		padding: 16px 20px;
+		vertical-align: middle;
+		border-block-end: 1px solid $dpo-os-border;
+		color: $dpo-os-ink-soft;
+	}
+
+	.dpo-an-row:last-child .dpo-an-cell {
+		border-block-end: none;
+	}
+
+	.dpo-an-row {
+		transition: background 0.12s;
+
+		&:hover .dpo-an-cell {
+			background: $dpo-os-row-hover;
+		}
+	}
+
+	.dpo-an-cell--end {
+		text-align: end;
+	}
+}
+
+.dpo-an-sort {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	border: 0;
+	background: none;
+	padding: 0;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: $dpo-os-faint;
+	cursor: pointer;
+
+	&__icon {
+		font-size: 14px;
+		width: 14px;
+		height: 14px;
+		opacity: 0.5;
+	}
+
+	&:hover,
+	&.is-active {
+		color: $dpo-os-ink-soft;
+	}
+
+	&.is-active .dpo-an-sort__icon {
+		opacity: 1;
+		color: $dpo-an-blue;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $dpo-an-blue;
+		outline-offset: 2px;
+		border-radius: 3px;
+	}
+}
+
+.dpo-an-th--end .dpo-an-sort {
+	flex-direction: row-reverse;
+}
+
+/* Option cell */
+.dpo-an-option {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	min-width: 0;
+
+	&__meta {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		min-width: 0;
+	}
+
+	&__name {
+		font-size: 14px;
+		font-weight: 600;
+		color: $dpo-os-ink;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&__code {
+		align-self: flex-start;
+		padding: 2px 8px;
+		border-radius: 999px;
+		background: $dpo-os-track;
+		color: $dpo-os-muted;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+	}
+}
+
+/* Numeric metric + mini bar */
+.dpo-an-metric {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 8px;
+	min-inline-size: 96px;
+
+	strong {
+		font-size: 15px;
+		font-weight: 700;
+		color: $dpo-os-ink;
+		font-variant-numeric: tabular-nums;
+	}
+}
+
+.dpo-an-revenue {
+	color: $dpo-an-green !important;
+}
+
+.dpo-an-bar {
+	display: block;
+	inline-size: 110px;
+	block-size: 5px;
+	border-radius: 999px;
+	background: $dpo-os-track;
+	overflow: hidden;
+
+	&__fill {
+		display: block;
+		block-size: 100%;
+		border-radius: inherit;
+		transition: width 0.4s ease;
+
+		&--blue {
+			background: $dpo-an-blue;
+		}
+		&--green {
+			background: linear-gradient(
+				90deg,
+				rgba($dpo-an-green, 0.5),
+				$dpo-an-green
+			);
+		}
+	}
+}
+
+/* Circular gauge (cart rate / conversion) */
+.dpo-an-ring {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+
+	&__svg {
+		inline-size: 38px;
+		block-size: 38px;
+		flex-shrink: 0;
+	}
+
+	&__track {
+		stroke: $dpo-os-track;
+	}
+
+	&__bar {
+		transition: stroke-dasharray 0.5s ease;
+
+		&--blue {
+			stroke: $dpo-an-blue;
+		}
+		&--purple {
+			stroke: $dpo-an-purple;
+		}
+		&--green {
+			stroke: $dpo-an-green;
+		}
+		&--pink {
+			stroke: $dpo-an-pink;
+		}
+	}
+
+	&__label {
+		font-size: 14px;
+		font-weight: 700;
+		color: $dpo-os-ink-soft;
+		font-variant-numeric: tabular-nums;
+	}
+}
+
+/* Trend / CTR pill */
+.dpo-an-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 5px 10px;
+	border-radius: 999px;
+	font-size: 13px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+
+	.dashicons {
+		font-size: 15px;
+		width: 15px;
+		height: 15px;
+	}
+
+	&--up {
+		background: $dpo-an-green-soft;
+		color: $dpo-an-green;
+	}
+
+	&--flat {
+		background: $dpo-os-track;
+		color: $dpo-os-faint;
+	}
+}
+
+/* Footer */
+.dpo-an-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+	padding: 16px 20px;
+	border-block-start: 1px solid $dpo-os-border;
+
+	&__info {
+		font-size: 13px;
+		color: $dpo-os-muted;
+	}
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Wide tablet — KPIs 2-up, split stacks. */
+@media (max-width: 1200px) {
+	.dpo-an-kpis {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.dpo-an-split {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Keep the canvas bleed cancelling the (reduced) outlet padding. */
+@media (max-width: 600px) {
+	.dpo-an {
+		margin: -$dpo-space;
+		padding: $dpo-space;
+	}
+}
+
+/* Phone / narrow admin — single-column KPIs + stacked table cards. */
+@media (max-width: 782px) {
+	.dpo-an-head {
+		gap: $dpo-space;
+	}
+
+	.dpo-an-head__h1 {
+		font-size: 20px;
+	}
+
+	.dpo-an-range {
+		inline-size: 100%;
+		justify-content: space-between;
+	}
+
+	.dpo-an-kpis {
+		grid-template-columns: 1fr;
+	}
+
+	.dpo-an-table__head {
+		align-items: stretch;
+	}
+
+	.dpo-an-toolbar {
+		inline-size: 100%;
+	}
+
+	.dpo-an-search {
+		flex: 1 1 100%;
+		order: -1;
+	}
+
+	.dpo-an-tablewrap {
+		overflow-x: visible;
+	}
+
+	.dpo-an-grid {
+		min-inline-size: 0;
+		display: block;
+
+		thead {
+			display: none;
+		}
+
+		tbody {
+			display: block;
+			padding: 12px;
+		}
+	}
+
+	.dpo-an-row {
+		display: block;
+		margin-block-end: 12px;
+		border: 1px solid $dpo-os-border;
+		border-radius: $dpo-radius-lg;
+
+		&:last-child {
+			margin-block-end: 0;
+		}
+
+		.dpo-an-cell {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 16px;
+			padding: 12px 16px !important;
+			border-block-end: 1px solid $dpo-os-border !important;
+			background: none !important;
+
+			&::before {
+				content: attr(data-label);
+				font-size: 11px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: $dpo-os-faint;
+			}
+		}
+
+		.dpo-an-cell:last-child {
+			border-block-end: none !important;
+		}
+
+		.dpo-an-cell--option::before {
+			content: none;
+		}
+
+		.dpo-an-cell--option {
+			justify-content: flex-start;
+		}
+	}
+
+	.dpo-an-metric {
+		align-items: flex-end;
+		min-inline-size: 0;
+	}
+
+	.dpo-an-foot {
+		justify-content: center;
+	}
+}
