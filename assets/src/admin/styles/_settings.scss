@@ -1,0 +1,772 @@
+/* ============================================================
+   Settings screen — sticky branded header, left section rail,
+   tinted content panel with reusable accent cards.
+   Self-contained (dpo-set-* scope) so no other screen regresses.
+   Reuses the $dpo-os-* surface tokens, restyles the shared
+   Field / TextControl / ToggleField in-scope only. Token-driven,
+   RTL-safe (logical properties), responsive and accessible.
+   ============================================================ */
+
+/* Accent quartet — soft tile bg + icon ink, per tone. */
+$dpo-set-tones: (
+	"neutral": #eef0f4 #5b6472,
+	"violet": #ece9fe #6d4ff2,
+	"blue": #e7edff #3358f4,
+	"amber": #fff2d6 #c98a06,
+	"green": #e1f6ea #16a34a,
+	"teal": #d5f3ef #0d9488,
+	"pink": #fde6f0 #db2777,
+);
+
+/* Info-banner tones — bg / text / border. */
+$dpo-set-banners: (
+	"blue": #eef2ff #4338ca #e2e6ff,
+	"amber": #fff8e8 #b4690e #fbe3b3,
+	"violet": #f4f1fe #6d28d9 #e7e1fb,
+	"teal": #ecfdf8 #0f766e #c7f0e8,
+	"pink": #fdeef4 #be185d #f8d7e6,
+);
+
+$dpo-set-bg: #f4f5fa;
+$dpo-set-violet: #8b7cf6;
+$dpo-set-violet-ink: #5b4fd6;
+$dpo-set-card-bg: #fafbfc;
+$dpo-set-card-bd: #ecedf2;
+$dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
+
+/* ---- Canvas ----------------------------------------------- */
+.dpo-set {
+	margin: -$dpo-space-lg;
+	min-height: calc(100vh - #{$dpo-topbar-h} - 32px);
+	background: $dpo-set-bg;
+	color: $dpo-os-ink-soft;
+	font-size: 14px;
+	font-family: $dpo-font;
+}
+
+/* ---- Accent icon tile (shared) ---------------------------- */
+.dpo-set-tile {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	inline-size: 40px;
+	block-size: 40px;
+	border-radius: 12px;
+	flex-shrink: 0;
+
+	.dashicons {
+		font-size: 20px;
+		inline-size: 20px;
+		block-size: 20px;
+	}
+
+	&--lg {
+		inline-size: 48px;
+		block-size: 48px;
+		border-radius: 14px;
+
+		.dashicons {
+			font-size: 24px;
+			inline-size: 24px;
+			block-size: 24px;
+		}
+	}
+}
+
+@each $name, $pair in $dpo-set-tones {
+	.dpo-set-tile--#{$name} {
+		background: nth($pair, 1);
+		color: nth($pair, 2);
+	}
+}
+
+/* ---- Sticky header ---------------------------------------- */
+.dpo-set-header {
+	position: sticky;
+	inset-block-start: 0;
+	z-index: 20;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: $dpo-space-lg;
+	flex-wrap: wrap;
+	padding: 20px 32px;
+	background: $dpo-os-surface;
+	border-block-end: 1px solid $dpo-os-border;
+
+	&__brand {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		min-width: 0;
+	}
+
+	&__title {
+		font-size: 26px;
+		font-weight: 700;
+		line-height: 1.15;
+		color: $dpo-os-ink;
+	}
+
+	&__sub {
+		margin: 4px 0 0;
+		font-size: 14px;
+		color: $dpo-os-muted;
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+	}
+
+	&__unsaved {
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+		font-size: 13px;
+		font-weight: 600;
+		color: $dpo-warning;
+
+		&::before {
+			content: "";
+			inline-size: 8px;
+			block-size: 8px;
+			border-radius: 50%;
+			background: $dpo-warning;
+		}
+	}
+}
+
+/* ---- Primary save / upload button ------------------------- */
+.dpo-set-save {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	height: 46px;
+	padding-inline: 24px;
+	border: 0;
+	border-radius: 12px;
+	background: linear-gradient(135deg, #a78bfa, #8b7cf6);
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	white-space: nowrap;
+	box-shadow: 0 8px 18px rgba($dpo-set-violet, 0.35);
+	transition: filter 0.15s, box-shadow 0.15s, opacity 0.15s;
+
+	svg {
+		display: block;
+	}
+
+	&:hover:not(:disabled) {
+		filter: brightness(0.96);
+	}
+
+	&:focus-visible {
+		outline: none;
+		box-shadow: $dpo-set-ring, 0 8px 18px rgba($dpo-set-violet, 0.35);
+	}
+
+	&:disabled {
+		opacity: 0.55;
+		box-shadow: none;
+		cursor: not-allowed;
+	}
+
+	&--sm {
+		height: 42px;
+		padding-inline: 20px;
+		font-size: 13.5px;
+		box-shadow: 0 4px 12px rgba($dpo-set-violet, 0.3);
+	}
+}
+
+/* ---- Body grid : rail + panel ----------------------------- */
+.dpo-set__body {
+	display: grid;
+	grid-template-columns: 300px minmax(0, 1fr);
+	align-items: start;
+	gap: 24px;
+	padding: 24px 32px 40px;
+}
+
+/* ---- Section rail ----------------------------------------- */
+.dpo-set-nav {
+	&__list {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		inline-size: 100%;
+		padding: 13px 16px;
+		border: 1px solid transparent;
+		border-radius: 14px;
+		background: transparent;
+		text-align: start;
+		cursor: pointer;
+		transition: background 0.15s, border-color 0.15s,
+			box-shadow 0.15s;
+
+		&:hover:not(.is-active) {
+			background: $dpo-os-surface;
+			border-color: $dpo-os-border;
+			box-shadow: $dpo-os-shadow;
+		}
+
+		&.is-active {
+			background: #eef0fe;
+			border-color: #dadcfb;
+		}
+
+		&:focus-visible {
+			outline: none;
+			box-shadow: $dpo-set-ring;
+		}
+	}
+
+	&__text {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		min-width: 0;
+	}
+
+	&__title {
+		font-size: 14px;
+		font-weight: 600;
+		color: $dpo-os-ink;
+
+		.is-active & {
+			color: $dpo-set-violet-ink;
+		}
+	}
+
+	&__sub {
+		font-size: 12.5px;
+		color: $dpo-os-muted;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		.is-active & {
+			color: rgba($dpo-set-violet-ink, 0.75);
+		}
+	}
+
+	&__chev {
+		margin-inline-start: auto;
+		font-size: 18px;
+		inline-size: 18px;
+		block-size: 18px;
+		color: $dpo-os-faint;
+		flex-shrink: 0;
+
+		.is-active & {
+			color: $dpo-set-violet-ink;
+		}
+	}
+}
+
+/* ---- Content panel ---------------------------------------- */
+.dpo-set-panel {
+	background: $dpo-os-surface;
+	border: 1px solid $dpo-os-border;
+	border-radius: 18px;
+	box-shadow: $dpo-os-shadow;
+	padding: 28px 32px 32px;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+	}
+
+	&__title {
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 1.2;
+		color: $dpo-os-ink;
+	}
+
+	&__sub {
+		margin: 3px 0 0;
+		font-size: 14px;
+		color: $dpo-os-muted;
+	}
+
+	&__divider {
+		block-size: 1px;
+		background: $dpo-os-border;
+		margin: 22px 0;
+	}
+}
+
+/* ---- Info banner ------------------------------------------ */
+.dpo-set-banner {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	margin: 0 0 24px;
+	padding: 14px 18px;
+	border-radius: 12px;
+	font-size: 13.5px;
+	font-weight: 500;
+	line-height: 1.5;
+
+	.dashicons {
+		font-size: 18px;
+		inline-size: 18px;
+		block-size: 18px;
+		flex-shrink: 0;
+		margin-block-start: 1px;
+	}
+}
+
+@each $name, $trio in $dpo-set-banners {
+	.dpo-set-banner--#{$name} {
+		background: nth($trio, 1);
+		color: nth($trio, 2);
+		border: 1px solid nth($trio, 3);
+	}
+}
+
+/* ---- Layout helpers --------------------------------------- */
+.dpo-set-grid {
+	display: grid;
+	gap: 20px;
+
+	&--2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	&--3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+.dpo-set-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+}
+
+.dpo-set-state {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 56px 24px;
+}
+
+/* ---- Setting sub-card ------------------------------------- */
+.dpo-set-card {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 20px;
+	background: $dpo-set-card-bg;
+	border: 1px solid $dpo-set-card-bd;
+	border-radius: 14px;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	&__heading {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		min-width: 0;
+	}
+
+	&__title {
+		font-size: 15px;
+		font-weight: 700;
+		color: $dpo-os-ink;
+	}
+
+	&__sub {
+		margin: 0;
+		font-size: 13px;
+		color: $dpo-os-muted;
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	&__hint {
+		margin: 0;
+		font-size: 13px;
+		color: $dpo-os-muted;
+	}
+}
+
+/* ---- Switch row (label left / toggle right) --------------- */
+.dpo-set-switchrow {
+	.dpo-toggle {
+		inline-size: 100%;
+		flex-direction: row-reverse;
+		justify-content: space-between;
+		gap: 16px;
+		font-size: 14px;
+	}
+
+	.dpo-toggle__label {
+		flex: 1;
+		font-size: 14px;
+		font-weight: 500;
+		color: $dpo-os-ink-soft;
+	}
+}
+
+/* ---- Shared-control restyle (scoped to .dpo-set) ---------- */
+.dpo-set {
+	.dpo-form-field {
+		gap: 6px;
+	}
+
+	.dpo-form-field__label {
+		font-size: 13px;
+		font-weight: 600;
+		color: $dpo-os-ink-soft;
+	}
+
+	.dpo-form-field__help {
+		font-size: 12px;
+		color: $dpo-os-muted;
+	}
+
+	.dpo-input {
+		height: 44px;
+		padding: 0 14px;
+		border: 1px solid #e4e6ee;
+		border-radius: 10px;
+		background: #f7f8fc;
+		color: $dpo-os-ink;
+		font-size: 14px;
+
+		&::placeholder {
+			color: $dpo-os-faint;
+		}
+
+		&:focus {
+			border-color: $dpo-set-violet;
+			background: $dpo-os-surface;
+			box-shadow: $dpo-set-ring;
+		}
+	}
+
+	textarea.dpo-input {
+		height: auto;
+		padding: 10px 14px;
+	}
+
+	/* Toggle — slightly larger, violet when on. */
+	.dpo-toggle__track {
+		inline-size: 42px;
+		block-size: 24px;
+	}
+
+	.dpo-toggle__thumb {
+		inline-size: 20px;
+		block-size: 20px;
+	}
+
+	.dpo-toggle__input:checked + .dpo-toggle__track {
+		background: $dpo-set-violet;
+
+		.dpo-toggle__thumb {
+			inset-inline-start: 20px;
+		}
+	}
+
+	.dpo-toggle__input:focus-visible + .dpo-toggle__track {
+		box-shadow: $dpo-set-ring;
+	}
+}
+
+/* ---- Font upload form ------------------------------------- */
+.dpo-set-fontform {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr auto;
+	align-items: end;
+	gap: 16px;
+}
+
+.dpo-set-file {
+	position: relative;
+
+	&__input {
+		position: absolute;
+		inline-size: 1px;
+		block-size: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		inline-size: 100%;
+		height: 44px;
+		padding: 0 14px;
+		border: 1px solid #e4e6ee;
+		border-radius: 10px;
+		background: $dpo-os-surface;
+		color: $dpo-os-muted;
+		font-size: 14px;
+		cursor: pointer;
+		transition: border-color 0.15s, color 0.15s;
+
+		.dashicons {
+			font-size: 17px;
+			inline-size: 17px;
+			block-size: 17px;
+			flex-shrink: 0;
+		}
+
+		&:hover {
+			border-color: $dpo-set-violet;
+			color: $dpo-set-violet-ink;
+		}
+
+		&:focus-visible {
+			outline: none;
+			border-color: $dpo-set-violet;
+			box-shadow: $dpo-set-ring;
+		}
+	}
+
+	&__name {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
+/* ---- Uploaded fonts --------------------------------------- */
+.dpo-set-fonts {
+	&__title {
+		margin: 0 0 12px;
+		font-size: 15px;
+		font-weight: 700;
+		color: $dpo-os-ink;
+	}
+
+	&__empty {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 6px;
+		padding: 48px 24px;
+		border: 1px dashed #d8dbe4;
+		border-radius: 14px;
+		background: $dpo-set-card-bg;
+		text-align: center;
+	}
+
+	&__emptyicon {
+		font-size: 44px;
+		inline-size: 44px;
+		block-size: 44px;
+		color: #c4c8d4;
+	}
+
+	&__emptytitle {
+		margin: 0;
+		font-size: 14px;
+		font-weight: 600;
+		color: $dpo-os-muted;
+	}
+
+	&__emptysub {
+		margin: 0;
+		font-size: 13px;
+		color: $dpo-os-faint;
+	}
+}
+
+.dpo-set-fontlist {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.dpo-set-fontrow {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 14px 18px;
+	background: $dpo-set-card-bg;
+	border: 1px solid $dpo-set-card-bd;
+	border-radius: 12px;
+
+	&__name {
+		flex: 1 1 40%;
+		min-width: 0;
+		font-size: 14px;
+		font-weight: 600;
+		color: $dpo-os-ink;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&__meta {
+		flex: 1 1 40%;
+		min-width: 0;
+		font-size: 13px;
+		color: $dpo-os-muted;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&__type {
+		padding: 3px 10px;
+		border-radius: 999px;
+		background: #ece9fe;
+		color: $dpo-set-violet-ink;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+	}
+}
+
+.dpo-set-iconbtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	inline-size: 34px;
+	block-size: 34px;
+	border: 0;
+	border-radius: 9px;
+	background: none;
+	color: $dpo-os-faint;
+	cursor: pointer;
+	transition: background 0.12s, color 0.12s;
+
+	.dashicons {
+		font-size: 16px;
+		inline-size: 16px;
+		block-size: 16px;
+	}
+
+	&:hover {
+		background: #eef0f4;
+		color: $dpo-os-ink-soft;
+	}
+
+	&--danger:hover {
+		background: $dpo-os-danger-soft;
+		color: $dpo-os-danger;
+	}
+
+	&:focus-visible {
+		outline: none;
+		box-shadow: $dpo-set-ring;
+	}
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Laptop — tighten the rail. */
+@media (max-width: 1200px) {
+	.dpo-set__body {
+		grid-template-columns: 260px minmax(0, 1fr);
+	}
+}
+
+/* Tablet — stack rail above the panel, fold the 3-up grid. */
+@media (max-width: 960px) {
+	.dpo-set__body {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.dpo-set-nav__list {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.dpo-set-nav__item {
+		flex: 1 1 240px;
+	}
+
+	.dpo-set-grid--3 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.dpo-set-fontform {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+/* Cancel the outlet padding exactly (outlet → 16px at 600). */
+@media (max-width: 600px) {
+	.dpo-set {
+		margin: -$dpo-space;
+	}
+}
+
+/* Phone — single column everywhere. */
+@media (max-width: 782px) {
+	.dpo-set-header {
+		padding: 16px 18px;
+		gap: 14px;
+	}
+
+	.dpo-set-header__title {
+		font-size: 22px;
+	}
+
+	.dpo-set-save {
+		margin-inline-start: auto;
+	}
+
+	.dpo-set__body {
+		padding: 18px;
+	}
+
+	.dpo-set-panel {
+		padding: 22px 18px 24px;
+	}
+
+	.dpo-set-nav__item {
+		flex-basis: 100%;
+	}
+
+	.dpo-set-grid--2,
+	.dpo-set-grid--3,
+	.dpo-set-fontform {
+		grid-template-columns: 1fr;
+	}
+
+	.dpo-set-panel__title {
+		font-size: 18px;
+	}
+}

@@ -109,13 +109,25 @@ final class SettingsController {
 			return $s->fail( 'bad_payload', __( 'Invalid settings payload.', 'dynamic-product-options-for-woocommerce' ), 400 );
 		}
 
-		$clean = array();
-		foreach ( $values as $key => $value ) {
-			$key = sanitize_key( $key );
-			if ( is_bool( $value ) ) {
-				$clean[ $key ] = (bool) $value;
-			} elseif ( is_int( $value ) || is_float( $value ) ) {
-				$clean[ $key ] = $value;
+		/*
+		 * Validate strictly against the known schema. The keys are a fixed,
+		 * camelCase set (Settings::defaults()) read verbatim across the
+		 * plugin, so we must NOT run sanitize_key() over them — that would
+		 * lowercase priceLineLabel → pricelinelabel and silently fork the
+		 * option into a dead duplicate the rest of the code never reads.
+		 * Unknown keys are dropped; each value is cast by its default type.
+		 */
+		$defaults = Settings::defaults();
+		$clean    = array();
+		foreach ( $defaults as $key => $default ) {
+			if ( ! array_key_exists( $key, $values ) ) {
+				continue;
+			}
+			$value = $values[ $key ];
+			if ( is_bool( $default ) ) {
+				$clean[ $key ] = rest_sanitize_boolean( $value );
+			} elseif ( is_int( $default ) ) {
+				$clean[ $key ] = max( 0, (int) $value );
 			} else {
 				$clean[ $key ] = sanitize_text_field( (string) $value );
 			}

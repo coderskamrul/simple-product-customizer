@@ -43,9 +43,12 @@ final class Settings {
 	 * @return array
 	 */
 	public function all() {
-		$stored = get_option( self::OPTION, array() );
-		$stored = is_array( $stored ) ? $stored : array();
-		return array_merge( self::defaults(), $stored );
+		$stored   = get_option( self::OPTION, array() );
+		$stored   = is_array( $stored ) ? $stored : array();
+		$defaults = self::defaults();
+		// Keep only known keys so any legacy/duplicate keys (e.g. an old
+		// sanitize_key() lowercasing bug) never leak into the API or the UI.
+		return array_merge( $defaults, array_intersect_key( $stored, $defaults ) );
 	}
 
 	/**
@@ -70,6 +73,10 @@ final class Settings {
 	 * @return void
 	 */
 	public function save( array $values ) {
-		update_option( self::OPTION, array_merge( self::defaults(), $values ) );
+		$defaults = self::defaults();
+		// Persist exactly the known schema — this also rewrites (heals) any
+		// option already polluted with stale duplicate keys.
+		$clean = array_intersect_key( $values, $defaults );
+		update_option( self::OPTION, array_merge( $defaults, $clean ) );
 	}
 }
