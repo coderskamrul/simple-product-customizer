@@ -74,9 +74,15 @@ final class Capabilities {
 	/**
 	 * Should Pro-only features render/compute?
 	 *
+	 * TEMPORARY (development): all Pro features are unlocked for everyone while
+	 * the feature set is being finalised. To restore licence-based gating later,
+	 * revert the default below from `true` back to `self::license_active()`.
+	 * The `dpo_pro_features` filter still wins, so gating can also be toggled
+	 * externally without touching this method.
+	 *
 	 * @return bool
 	 */
 	public static function pro() {
-		return (bool) apply_filters( 'dpo_pro_features', self::license_active() );
+		return (bool) apply_filters( 'dpo_pro_features', true );
 	}
 }

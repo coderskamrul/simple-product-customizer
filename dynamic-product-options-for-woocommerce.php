@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Dynamic Product Options for WooCommerce
- * Description:        Build dynamic single-product option sets — swatches, uploads, conditional logic, formula pricing and more — with deep WooCommerce cart & checkout integration.
+ * Description:       Build dynamic single-product option sets — swatches, uploads, conditional logic, formula pricing and more — with deep WooCommerce cart & checkout integration.
  * Version:           1.0.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
