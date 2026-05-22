@@ -726,6 +726,21 @@
 		color: var(--dpo-c-ink);
 	}
 
+	&__qty {
+		width: 72px;
+		border: 1px solid var(--dpo-c-border-strong);
+		border-radius: var(--dpo-c-radius-sm);
+		padding: 6px 8px;
+		font-size: 13px;
+		background: var(--dpo-c-surface);
+		color: var(--dpo-c-ink);
+	}
+
+	&__choice &__qty {
+		width: 64px;
+		margin-inline-start: 8px;
+	}
+
 	/* Selected-state check badge shared by colour + image swatches. */
 	&__swatch-check {
 		position: absolute;

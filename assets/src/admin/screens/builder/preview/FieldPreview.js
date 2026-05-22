@@ -141,6 +141,32 @@ function SelectPreview( { node, choices, formatPrice } ) {
 }
 
 /**
+ * Per-choice quantity stepper, shown when the field has quantity enabled.
+ * Mirrors the storefront input including the configured min/max bounds.
+ *
+ * @param {Object} props     Component props.
+ * @param {Object} props.cfg Field config bag.
+ * @return {JSX.Element} The quantity input.
+ */
+function QtyBox( { cfg } ) {
+	const min = cfg.minQty === '' || cfg.minQty === undefined ? 0 : cfg.minQty;
+	return (
+		<input
+			type="number"
+			className="dpo-pf__qty"
+			min={ min }
+			max={
+				cfg.maxQty === '' || cfg.maxQty === undefined
+					? undefined
+					: cfg.maxQty
+			}
+			defaultValue={ cfg.minQty || 1 }
+			readOnly
+		/>
+	);
+}
+
+/**
  * The description line, honouring placement.
  *
  * @param {Object} props      Component props.
@@ -284,6 +310,7 @@ export default function FieldPreview( { node } ) {
 							) }
 							<span>{ c.label || `Option ${ i + 1 }` }</span>
 							<PriceTag choice={ c } formatPrice={ formatPrice } />
+							{ cfg.enableQty && <QtyBox cfg={ cfg } /> }
 						</span>
 					) ) }
 				</div>
@@ -330,6 +357,7 @@ export default function FieldPreview( { node } ) {
 								{ c.label || `Color ${ i + 1 }` }
 							</span>
 							<PriceTag choice={ c } formatPrice={ formatPrice } />
+							{ cfg.enableQty && <QtyBox cfg={ cfg } /> }
 						</span>
 					) ) }
 				</div>
@@ -362,6 +390,7 @@ export default function FieldPreview( { node } ) {
 								{ c.label || `Image ${ i + 1 }` }
 							</span>
 							<PriceTag choice={ c } formatPrice={ formatPrice } />
+							{ cfg.enableQty && <QtyBox cfg={ cfg } /> }
 						</span>
 					) ) }
 				</div>
