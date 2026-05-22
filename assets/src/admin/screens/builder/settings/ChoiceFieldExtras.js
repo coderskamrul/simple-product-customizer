@@ -1,0 +1,234 @@
+/**
+ * Per-type extra settings rendered below the choices table for choice-based
+ * fields — quantity, selection (min/max) restriction, "allow multiple",
+ * placeholder and the image-swatch product-image swap. Each block maps 1:1 to
+ * the controls shown in that field type's settings reference design and writes
+ * the exact `config` keys the storefront renderers already consume
+ * (enableQty, minQty/maxQty, multiple, minSelect/maxSelect, updateProductImage).
+ *
+ * @package
+ */
+
+import { __ } from '@wordpress/i18n';
+import { Field, TextControl, ToggleField } from '../../../components';
+
+/**
+ * Enable-quantity toggle plus min/max quantity inputs (revealed when on).
+ *
+ * @param {Object}   props        Component props.
+ * @param {Object}   props.cfg    Config bag.
+ * @param {Function} props.setKey (key, value) => void.
+ * @return {JSX.Element} The block.
+ */
+function QuantityBlock( { cfg, setKey } ) {
+	return (
+		<>
+			<div className="dpo-settings__toggle-row">
+				<ToggleField
+					checked={ !! cfg.enableQty }
+					onChange={ ( v ) => setKey( 'enableQty', v ) }
+					label={ __(
+						'Enable Quantity',
+						'dynamic-product-options-for-woocommerce'
+					) }
+				/>
+			</div>
+			{ cfg.enableQty && (
+				<div className="dpo-settings__grid2">
+					<Field
+						label={ __(
+							'Minimum quantity',
+							'dynamic-product-options-for-woocommerce'
+						) }
+					>
+						<TextControl
+							type="number"
+							value={ cfg.minQty ?? '' }
+							onChange={ ( v ) => setKey( 'minQty', v ) }
+						/>
+					</Field>
+					<Field
+						label={ __(
+							'Maximum quantity',
+							'dynamic-product-options-for-woocommerce'
+						) }
+					>
+						<TextControl
+							type="number"
+							value={ cfg.maxQty ?? '' }
+							onChange={ ( v ) => setKey( 'maxQty', v ) }
+						/>
+					</Field>
+				</div>
+			) }
+		</>
+	);
+}
+
+/**
+ * Min/Max selection-restriction toggle plus the bounded inputs (with an
+ * "Item" suffix), revealed when the toggle is on.
+ *
+ * @param {Object}   props        Component props.
+ * @param {Object}   props.cfg    Config bag.
+ * @param {Function} props.setKey (key, value) => void.
+ * @return {JSX.Element} The block.
+ */
+function RestrictionBlock( { cfg, setKey } ) {
+	return (
+		<>
+			<div className="dpo-settings__toggle-row">
+				<ToggleField
+					checked={ !! cfg.minMaxRestriction }
+					onChange={ ( v ) => setKey( 'minMaxRestriction', v ) }
+					label={ __(
+						'Min Max Restriction',
+						'dynamic-product-options-for-woocommerce'
+					) }
+				/>
+			</div>
+			{ cfg.minMaxRestriction && (
+				<div className="dpo-settings__grid2">
+					<Field
+						label={ __(
+							'Min restriction',
+							'dynamic-product-options-for-woocommerce'
+						) }
+					>
+						<span className="dpo-input-suffix">
+							<TextControl
+								type="number"
+								value={ cfg.minSelect ?? '' }
+								onChange={ ( v ) => setKey( 'minSelect', v ) }
+							/>
+							<em>
+								{ __(
+									'Item',
+									'dynamic-product-options-for-woocommerce'
+								) }
+							</em>
+						</span>
+					</Field>
+					<Field
+						label={ __(
+							'Max restriction',
+							'dynamic-product-options-for-woocommerce'
+						) }
+					>
+						<span className="dpo-input-suffix">
+							<TextControl
+								type="number"
+								value={ cfg.maxSelect ?? '' }
+								onChange={ ( v ) => setKey( 'maxSelect', v ) }
+							/>
+							<em>
+								{ __(
+									'Item',
+									'dynamic-product-options-for-woocommerce'
+								) }
+							</em>
+						</span>
+					</Field>
+				</div>
+			) }
+		</>
+	);
+}
+
+/** Single "Allow multiple" toggle. */
+function MultipleToggle( { cfg, setKey } ) {
+	return (
+		<div className="dpo-settings__toggle-row">
+			<ToggleField
+				checked={ !! cfg.multiple }
+				onChange={ ( v ) => setKey( 'multiple', v ) }
+				label={ __(
+					'Allow Multiple',
+					'dynamic-product-options-for-woocommerce'
+				) }
+			/>
+		</div>
+	);
+}
+
+/**
+ * ChoiceFieldExtras.
+ *
+ * @param {Object}   props       Component props.
+ * @param {Object}   props.node  Selected node.
+ * @param {Function} props.patch (partialNode) => void.
+ * @return {JSX.Element|null} The extras block.
+ */
+export default function ChoiceFieldExtras( { node, patch } ) {
+	const cfg = node.config || {};
+	const setKey = ( key, value ) =>
+		patch( { config: { ...cfg, [ key ]: value } } );
+
+	switch ( node.type ) {
+		case 'radio':
+			return <QuantityBlock cfg={ cfg } setKey={ setKey } />;
+
+		case 'checkbox':
+			return (
+				<>
+					<QuantityBlock cfg={ cfg } setKey={ setKey } />
+					<RestrictionBlock cfg={ cfg } setKey={ setKey } />
+				</>
+			);
+
+		case 'buttongroup':
+			return (
+				<>
+					<MultipleToggle cfg={ cfg } setKey={ setKey } />
+					<RestrictionBlock cfg={ cfg } setKey={ setKey } />
+				</>
+			);
+
+		case 'colorswatch':
+			return (
+				<>
+					<QuantityBlock cfg={ cfg } setKey={ setKey } />
+					<MultipleToggle cfg={ cfg } setKey={ setKey } />
+				</>
+			);
+
+		case 'imageswatch':
+			return (
+				<>
+					<div className="dpo-settings__toggle-row">
+						<ToggleField
+							checked={ !! cfg.updateProductImage }
+							onChange={ ( v ) =>
+								setKey( 'updateProductImage', v )
+							}
+							label={ __(
+								'Update product image on selection',
+								'dynamic-product-options-for-woocommerce'
+							) }
+						/>
+					</div>
+					<QuantityBlock cfg={ cfg } setKey={ setKey } />
+					<MultipleToggle cfg={ cfg } setKey={ setKey } />
+					<RestrictionBlock cfg={ cfg } setKey={ setKey } />
+				</>
+			);
+
+		case 'select':
+			return (
+				<Field
+					label={ __(
+						'Placeholder',
+						'dynamic-product-options-for-woocommerce'
+					) }
+				>
+					<TextControl
+						value={ node.placeholder }
+						onChange={ ( v ) => patch( { placeholder: v } ) }
+					/>
+				</Field>
+			);
+
+		default:
+			return null;
+	}
+}

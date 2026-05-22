@@ -1,9 +1,10 @@
 /**
  * The choices/options editor — a sortable table of choice rows (label,
- * price type, regular & sale price, active default) with inline add, drag
- * reordering and per-type extras (colour, image, font). Enforces the free
- * tier's 3-choice cap with an upgrade hint. This is the heart of the
- * settings drawer for every choice-based field.
+ * optional image/colour, price type, regular & sale price, active default)
+ * with inline add, drag reordering and per-type extras. The image/colour
+ * control lives inline as its own column (matching the field-settings
+ * reference designs) so editors set per-choice media without a second row.
+ * Enforces the free tier's 3-choice cap with an upgrade hint.
  *
  * @package
  */
@@ -25,12 +26,104 @@ import {
 	arrayMove,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical, Trash2, Plus } from 'lucide-react';
+import { GripVertical, Trash2, Plus, ImageIcon, X } from 'lucide-react';
 import { PRICE_MODES, makeChoice } from '../../../fields/registry';
 import { useConfig } from '../../../store/ConfigContext';
-import { ColorField, MediaPicker } from '../../../components';
 
 const FREE_CAP = 3;
+
+/** Map each choice type to its extra inline column (image|color|font). */
+const EXTRA_BY_TYPE = {
+	radio: 'image',
+	checkbox: 'image',
+	select: 'image',
+	imageswatch: 'image',
+	colorswatch: 'color',
+	fontpicker: 'font',
+};
+
+/**
+ * Compact inline image picker for a choice row. Opens the WP media frame and
+ * shows a small thumbnail with a clear (×) badge once set.
+ *
+ * @param {Object}   props          Component props.
+ * @param {string}   props.value    Current image URL.
+ * @param {Function} props.onChange ({id,url}|null) => void.
+ * @return {JSX.Element} The picker cell.
+ */
+function ImageCell( { value, onChange } ) {
+	const available = !! ( window.wp && window.wp.media );
+
+	const open = () => {
+		const media = window.wp && window.wp.media;
+		if ( ! media ) {
+			return;
+		}
+		const frame = media( {
+			title: __(
+				'Select image',
+				'dynamic-product-options-for-woocommerce'
+			),
+			button: {
+				text: __(
+					'Use image',
+					'dynamic-product-options-for-woocommerce'
+				),
+			},
+			multiple: false,
+			library: { type: 'image' },
+		} );
+		frame.on( 'select', () => {
+			const att = frame.state().get( 'selection' ).first().toJSON();
+			onChange( { id: att.id, url: att.url } );
+		} );
+		frame.open();
+	};
+
+	if ( value ) {
+		return (
+			<span className="dpo-choices__media dpo-choices__media--set">
+				<button
+					type="button"
+					className="dpo-choices__media-btn"
+					onClick={ open }
+					aria-label={ __(
+						'Change image',
+						'dynamic-product-options-for-woocommerce'
+					) }
+				>
+					<img src={ value } alt="" />
+				</button>
+				<button
+					type="button"
+					className="dpo-choices__media-clear"
+					onClick={ () => onChange( null ) }
+					aria-label={ __(
+						'Remove image',
+						'dynamic-product-options-for-woocommerce'
+					) }
+				>
+					<X size={ 11 } />
+				</button>
+			</span>
+		);
+	}
+
+	return (
+		<button
+			type="button"
+			className="dpo-choices__media dpo-choices__media-btn"
+			onClick={ open }
+			disabled={ ! available }
+			aria-label={ __(
+				'Select image',
+				'dynamic-product-options-for-woocommerce'
+			) }
+		>
+			<ImageIcon size={ 16 } />
+		</button>
+	);
+}
 
 /**
  * One sortable choice row.
@@ -100,6 +193,47 @@ function ChoiceRow( {
 				) }
 				onChange={ ( e ) => onPatch( { label: e.target.value } ) }
 			/>
+
+			{ extra === 'image' && (
+				<ImageCell
+					value={ choice.image }
+					onChange={ ( m ) =>
+						onPatch( {
+							image: m ? m.url : '',
+							imageId: m ? m.id : 0,
+						} )
+					}
+				/>
+			) }
+			{ extra === 'color' && (
+				<input
+					type="color"
+					className="dpo-choices__color"
+					value={
+						/^#[0-9a-fA-F]{6}$/.test( choice.color || '' )
+							? choice.color
+							: '#000000'
+					}
+					onChange={ ( e ) => onPatch( { color: e.target.value } ) }
+					aria-label={ __(
+						'Choose colour',
+						'dynamic-product-options-for-woocommerce'
+					) }
+				/>
+			) }
+			{ extra === 'font' && (
+				<input
+					className="dpo-input"
+					value={ choice.fontFamily }
+					placeholder={ __(
+						'font-family',
+						'dynamic-product-options-for-woocommerce'
+					) }
+					onChange={ ( e ) =>
+						onPatch( { fontFamily: e.target.value } )
+					}
+				/>
+			) }
 
 			<select
 				className="dpo-input dpo-select-control"
@@ -171,43 +305,6 @@ function ChoiceRow( {
 			>
 				<Trash2 size={ 15 } />
 			</button>
-
-			{ extra === 'color' && (
-				<div className="dpo-choices__extra">
-					<ColorField
-						value={ choice.color }
-						onChange={ ( v ) => onPatch( { color: v } ) }
-					/>
-				</div>
-			) }
-			{ extra === 'image' && (
-				<div className="dpo-choices__extra">
-					<MediaPicker
-						value={ choice.image }
-						onChange={ ( m ) =>
-							onPatch( {
-								image: m ? m.url : '',
-								imageId: m ? m.id : 0,
-							} )
-						}
-					/>
-				</div>
-			) }
-			{ extra === 'font' && (
-				<div className="dpo-choices__extra">
-					<input
-						className="dpo-input"
-						value={ choice.fontFamily }
-						placeholder={ __(
-							'CSS font-family',
-							'dynamic-product-options-for-woocommerce'
-						) }
-						onChange={ ( e ) =>
-							onPatch( { fontFamily: e.target.value } )
-						}
-					/>
-				</div>
-			) }
 		</div>
 	);
 }
@@ -223,10 +320,7 @@ function ChoiceRow( {
 export default function ChoiceTable( { node, patch } ) {
 	const { proActive } = useConfig();
 	const choices = node.choices || [];
-	const extra =
-		{ colorswatch: 'color', imageswatch: 'image', fontpicker: 'font' }[
-			node.type
-		] || null;
+	const extra = EXTRA_BY_TYPE[ node.type ] || null;
 
 	const sensors = useSensors(
 		useSensor( PointerSensor, { activationConstraint: { distance: 5 } } ),
@@ -266,17 +360,26 @@ export default function ChoiceTable( { node, patch } ) {
 	};
 
 	const canAdd = proActive || choices.length < FREE_CAP;
+	const mediaLabel =
+		extra === 'color'
+			? __( 'Color', 'dynamic-product-options-for-woocommerce' )
+			: extra === 'font'
+			? __( 'Font', 'dynamic-product-options-for-woocommerce' )
+			: __( 'Image', 'dynamic-product-options-for-woocommerce' );
 
 	return (
-		<div className="dpo-choices">
+		<div
+			className={ `dpo-choices${ extra ? ' dpo-choices--media' : '' }` }
+		>
 			<div className="dpo-choices__head">
 				<span />
 				<span>
 					{ __( 'Title', 'dynamic-product-options-for-woocommerce' ) }
 				</span>
+				{ extra && <span>{ mediaLabel }</span> }
 				<span>
 					{ __(
-						'Price type',
+						'Price Type',
 						'dynamic-product-options-for-woocommerce'
 					) }
 				</span>
@@ -287,7 +390,7 @@ export default function ChoiceTable( { node, patch } ) {
 					) }
 				</span>
 				<span className="dpo-choices__pro-col">
-					{ __( 'Sale', 'dynamic-product-options-for-woocommerce' ) }
+					{ __( 'Sales', 'dynamic-product-options-for-woocommerce' ) }
 					{ ! proActive && <em className="dpo-pro-tag">Pro</em> }
 				</span>
 				<span>
@@ -332,7 +435,7 @@ export default function ChoiceTable( { node, patch } ) {
 				>
 					<Plus size={ 15 } />
 					{ __(
-						'Add new option',
+						'Add New Option',
 						'dynamic-product-options-for-woocommerce'
 					) }
 				</button>

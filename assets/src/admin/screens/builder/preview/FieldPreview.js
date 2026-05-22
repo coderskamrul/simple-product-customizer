@@ -2,39 +2,142 @@
  * Live, storefront-accurate preview of a single field node. Drives both the
  * editable canvas (wrapped by FieldCard) and the read-only Preview mode. It
  * mirrors the real control per type — button groups, swatches, dropdowns,
- * inputs — and shows computed per-choice prices so editors see exactly what
- * shoppers will. Recurses for `section` containers.
+ * inputs — and shows computed per-choice prices (regular + sale) plus any
+ * per-choice image so editors see exactly what shoppers will. Recurses for
+ * `section` containers.
  *
  * @package
  */
 
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { ChevronDown, Check } from 'lucide-react';
 import { useConfig } from '../../../store/ConfigContext';
 
 /** Demo base price used to render percentage-based choice prices. */
 const DEMO_BASE = 20;
 
 /**
- * Compute a display price string for a choice, mirroring PriceCalculator's
- * intent closely enough for an at-a-glance preview.
+ * Format one price amount for a choice, honouring percentage mode.
  *
  * @param {Object}   choice      Choice row.
+ * @param {*}        raw         Raw amount (regular or sale).
  * @param {Function} formatPrice Currency formatter.
- * @return {string} A "+price" string, or '' when the choice has no price.
+ * @return {string} Formatted amount, or '' when not a number.
  */
-function choicePrice( choice, formatPrice ) {
-	if ( ! choice.priceMode || choice.priceMode === 'none' ) {
-		return '';
-	}
-	const raw = choice.sale !== '' ? choice.sale : choice.regular;
+function fmtAmount( choice, raw, formatPrice ) {
 	const amount = Number( raw );
-	if ( raw === '' || raw === undefined || Number.isNaN( amount ) ) {
+	if ( raw === '' || raw === undefined || raw === null || Number.isNaN( amount ) ) {
 		return '';
 	}
 	if ( choice.priceMode === 'percent' ) {
 		return formatPrice( ( DEMO_BASE * amount ) / 100 );
 	}
 	return formatPrice( amount );
+}
+
+/**
+ * Per-choice price tag — strikes the regular price when a sale exists, in
+ * line with the field-settings reference designs.
+ *
+ * @param {Object}   props             Component props.
+ * @param {Object}   props.choice      Choice row.
+ * @param {Function} props.formatPrice Currency formatter.
+ * @return {JSX.Element|null} The price tag.
+ */
+function PriceTag( { choice, formatPrice } ) {
+	if ( ! choice || ! choice.priceMode || choice.priceMode === 'none' ) {
+		return null;
+	}
+	const reg = fmtAmount( choice, choice.regular, formatPrice );
+	const sale = fmtAmount( choice, choice.sale, formatPrice );
+	if ( ! reg && ! sale ) {
+		return null;
+	}
+	return (
+		<span className="dpo-pf__price">
+			{ sale ? (
+				<>
+					<s>{ reg }</s> <b>{ sale }</b>
+				</>
+			) : (
+				<b>{ reg }</b>
+			) }
+		</span>
+	);
+}
+
+/**
+ * Interactive faux dropdown for the canvas (a native <select> can't show
+ * per-option thumbnails). Clicking the box toggles the option list; the
+ * click is contained so it doesn't bubble to card selection.
+ *
+ * @param {Object}   props             Component props.
+ * @param {Object}   props.node        Field node.
+ * @param {Array}    props.choices     Choice rows.
+ * @param {Function} props.formatPrice Currency formatter.
+ * @return {JSX.Element} The dropdown preview.
+ */
+function SelectPreview( { node, choices, formatPrice } ) {
+	const [ open, setOpen ] = useState( false );
+	const current = choices.find( ( c ) => c.selected ) || choices[ 0 ];
+
+	const Option = ( { c, i } ) => (
+		<span className="dpo-pf__select-opt">
+			{ c.image && (
+				<span className="dpo-pf__choice-img">
+					<img src={ c.image } alt="" />
+				</span>
+			) }
+			<span>
+				{ c.label || `Option ${ i + 1 }` }
+			</span>
+			<PriceTag choice={ c } formatPrice={ formatPrice } />
+		</span>
+	);
+
+	return (
+		<div className={ `dpo-pf__select${ open ? ' is-open' : '' }` }>
+			{ /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */ }
+			<div
+				className="dpo-pf__select-box"
+				role="button"
+				tabIndex={ 0 }
+				onClick={ ( e ) => {
+					e.stopPropagation();
+					setOpen( ( o ) => ! o );
+				} }
+				onKeyDown={ ( e ) => {
+					if ( e.key === 'Enter' || e.key === ' ' ) {
+						e.preventDefault();
+						setOpen( ( o ) => ! o );
+					}
+				} }
+			>
+				{ current ? (
+					<Option c={ current } i={ 0 } />
+				) : (
+					<span className="dpo-pf__select-placeholder">
+						{ node.placeholder ||
+							__(
+								'Choose…',
+								'dynamic-product-options-for-woocommerce'
+							) }
+					</span>
+				) }
+				<ChevronDown size={ 16 } aria-hidden="true" />
+			</div>
+			{ open && choices.length > 0 && (
+				<div className="dpo-pf__select-list">
+					{ choices.map( ( c, i ) => (
+						<div key={ c.uid || i } className="dpo-pf__select-row">
+							<Option c={ c } i={ i } />
+						</div>
+					) ) }
+				</div>
+			) }
+		</div>
+	);
 }
 
 /**
@@ -140,27 +243,22 @@ export default function FieldPreview( { node } ) {
 		case 'fontpicker':
 			control = (
 				<div className="dpo-pf__buttons">
-					{ choices.map( ( c, i ) => {
-						const price = choicePrice( c, formatPrice );
-						return (
-							<span
-								key={ c.uid || i }
-								className={ `dpo-pf__button${
-									c.selected ? ' is-active' : ''
-								}` }
-								style={
-									c.fontFamily
-										? { fontFamily: c.fontFamily }
-										: undefined
-								}
-							>
-								{ c.label || `Option ${ i + 1 }` }
-								{ price && (
-									<b className="dpo-pf__price">{ price }</b>
-								) }
-							</span>
-						);
-					} ) }
+					{ choices.map( ( c, i ) => (
+						<span
+							key={ c.uid || i }
+							className={ `dpo-pf__button${
+								c.selected ? ' is-active' : ''
+							}` }
+							style={
+								c.fontFamily
+									? { fontFamily: c.fontFamily }
+									: undefined
+							}
+						>
+							{ c.label || `Option ${ i + 1 }` }
+							<PriceTag choice={ c } formatPrice={ formatPrice } />
+						</span>
+					) ) }
 				</div>
 			);
 			break;
@@ -168,51 +266,36 @@ export default function FieldPreview( { node } ) {
 		case 'radio':
 			control = (
 				<div className="dpo-pf__choices">
-					{ choices.map( ( c, i ) => {
-						const price = choicePrice( c, formatPrice );
-						return (
-							<span key={ c.uid || i } className="dpo-pf__choice">
-								<input
-									type={
-										node.type === 'checkbox'
-											? 'checkbox'
-											: 'radio'
-									}
-									defaultChecked={ !! c.selected }
-									readOnly
-								/>
-								<span>{ c.label || `Option ${ i + 1 }` }</span>
-								{ price && (
-									<b className="dpo-pf__price">{ price }</b>
-								) }
-							</span>
-						);
-					} ) }
+					{ choices.map( ( c, i ) => (
+						<span key={ c.uid || i } className="dpo-pf__choice">
+							<input
+								type={
+									node.type === 'checkbox'
+										? 'checkbox'
+										: 'radio'
+								}
+								defaultChecked={ !! c.selected }
+								readOnly
+							/>
+							{ c.image && (
+								<span className="dpo-pf__choice-img">
+									<img src={ c.image } alt="" />
+								</span>
+							) }
+							<span>{ c.label || `Option ${ i + 1 }` }</span>
+							<PriceTag choice={ c } formatPrice={ formatPrice } />
+						</span>
+					) ) }
 				</div>
 			);
 			break;
 		case 'select':
 			control = (
-				<div className="dpo-pf__select">
-					<select disabled defaultValue="">
-						<option value="">
-							{ node.placeholder ||
-								__(
-									'Choose…',
-									'dynamic-product-options-for-woocommerce'
-								) }
-						</option>
-						{ choices.map( ( c, i ) => {
-							const price = choicePrice( c, formatPrice );
-							return (
-								<option key={ c.uid || i }>
-									{ c.label }
-									{ price ? ` (+${ price })` : '' }
-								</option>
-							);
-						} ) }
-					</select>
-				</div>
+				<SelectPreview
+					node={ node }
+					choices={ choices }
+					formatPrice={ formatPrice }
+				/>
 			);
 			break;
 		case 'toggle':
@@ -228,12 +311,26 @@ export default function FieldPreview( { node } ) {
 					{ choices.map( ( c, i ) => (
 						<span
 							key={ c.uid || i }
-							className={ `dpo-pf__swatch${
-								c.selected ? ' is-active' : ''
-							}` }
-							style={ { background: c.color || '#e2e8f0' } }
-							title={ c.label }
-						/>
+							className="dpo-pf__swatch-tile"
+						>
+							<span
+								className={ `dpo-pf__swatch${
+									c.selected ? ' is-active' : ''
+								}` }
+								style={ { background: c.color || '#e2e8f0' } }
+								title={ c.label }
+							>
+								{ c.selected && (
+									<span className="dpo-pf__swatch-check">
+										<Check size={ 12 } />
+									</span>
+								) }
+							</span>
+							<span className="dpo-pf__swatch-label">
+								{ c.label || `Color ${ i + 1 }` }
+							</span>
+							<PriceTag choice={ c } formatPrice={ formatPrice } />
+						</span>
 					) ) }
 				</div>
 			);
@@ -244,14 +341,27 @@ export default function FieldPreview( { node } ) {
 					{ choices.map( ( c, i ) => (
 						<span
 							key={ c.uid || i }
-							className={ `dpo-pf__img-swatch${
-								c.selected ? ' is-active' : ''
-							}` }
-							title={ c.label }
+							className="dpo-pf__swatch-tile"
 						>
-							{ c.image ? (
-								<img src={ c.image } alt={ c.label } />
-							) : null }
+							<span
+								className={ `dpo-pf__img-swatch${
+									c.selected ? ' is-active' : ''
+								}` }
+								title={ c.label }
+							>
+								{ c.image ? (
+									<img src={ c.image } alt={ c.label } />
+								) : null }
+								{ c.selected && (
+									<span className="dpo-pf__swatch-check">
+										<Check size={ 12 } />
+									</span>
+								) }
+							</span>
+							<span className="dpo-pf__swatch-label">
+								{ c.label || `Image ${ i + 1 }` }
+							</span>
+							<PriceTag choice={ c } formatPrice={ formatPrice } />
 						</span>
 					) ) }
 				</div>
@@ -282,11 +392,19 @@ export default function FieldPreview( { node } ) {
 		case 'colorpicker':
 			control = (
 				<span className="dpo-pf__colorpicker">
-					<span className="dpo-pf__colorpicker-dot" />
-					{ __(
-						'Pick a colour',
-						'dynamic-product-options-for-woocommerce'
-					) }
+					<span
+						className="dpo-pf__colorpicker-dot"
+						style={
+							cfg.defaultColor
+								? { background: cfg.defaultColor }
+								: undefined
+						}
+					/>
+					{ cfg.defaultColor ||
+						__(
+							'Pick a colour',
+							'dynamic-product-options-for-woocommerce'
+						) }
 				</span>
 			);
 			break;
@@ -314,10 +432,7 @@ export default function FieldPreview( { node } ) {
 			control = (
 				<span className="dpo-pf__button is-active">
 					{ cfg.triggerText ||
-						__(
-							'Open',
-							'dynamic-product-options-for-woocommerce'
-						) }
+						__( 'Open', 'dynamic-product-options-for-woocommerce' ) }
 				</span>
 			);
 			break;

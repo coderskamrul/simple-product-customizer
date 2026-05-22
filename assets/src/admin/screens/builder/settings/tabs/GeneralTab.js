@@ -1,7 +1,9 @@
 /**
  * Settings drawer → General tab. The everyday controls: visibility toggles,
- * title & help text, the choices table (for choice fields) or type-specific
- * config (for everything else), and multi-select where it applies.
+ * title & help text, then the field-shaped body — the choices table plus its
+ * per-type extras for choice fields, a single-value pricing block for priced
+ * value fields (number/range/email/color picker), or the schema-driven config
+ * for everything else.
  *
  * @package
  */
@@ -16,16 +18,12 @@ import {
 	ProBadge,
 } from '../../../../components';
 import ChoiceTable from '../ChoiceTable';
+import ChoiceFieldExtras from '../ChoiceFieldExtras';
+import ValueFieldConfig from '../ValueFieldConfig';
 import TypeConfig from '../TypeConfig';
 
-/** Types that support an "Allow multiple" selection. */
-const MULTI_TYPES = [
-	'checkbox',
-	'select',
-	'buttongroup',
-	'imageswatch',
-	'colorswatch',
-];
+/** Single-value fields that price one value (stored on choices[0]). */
+const VALUE_PRICE_TYPES = [ 'number', 'range', 'email', 'colorpicker' ];
 
 /**
  * GeneralTab.
@@ -79,7 +77,7 @@ export default function GeneralTab( { node, patch } ) {
 								proActive && setKey( 'formulaValue', v )
 							}
 							label={ __(
-								'Enable formula value',
+								'Enable Formula Value',
 								'dynamic-product-options-for-woocommerce'
 							) }
 						/>
@@ -114,24 +112,21 @@ export default function GeneralTab( { node, patch } ) {
 				</Field>
 			</div>
 
-			{ def.hasChoices ? (
-				<ChoiceTable node={ node } patch={ patch } />
-			) : (
-				<TypeConfig node={ node } patch={ patch } />
+			{ def.hasChoices && (
+				<>
+					<ChoiceTable node={ node } patch={ patch } />
+					<ChoiceFieldExtras node={ node } patch={ patch } />
+				</>
 			) }
 
-			{ MULTI_TYPES.includes( node.type ) && (
-				<div className="dpo-settings__toggle-row">
-					<ToggleField
-						checked={ !! cfg.multiple }
-						onChange={ ( v ) => setKey( 'multiple', v ) }
-						label={ __(
-							'Allow multiple',
-							'dynamic-product-options-for-woocommerce'
-						) }
-					/>
-				</div>
+			{ ! def.hasChoices && VALUE_PRICE_TYPES.includes( node.type ) && (
+				<ValueFieldConfig node={ node } patch={ patch } />
 			) }
+
+			{ ! def.hasChoices &&
+				! VALUE_PRICE_TYPES.includes( node.type ) && (
+					<TypeConfig node={ node } patch={ patch } />
+				) }
 		</div>
 	);
 }

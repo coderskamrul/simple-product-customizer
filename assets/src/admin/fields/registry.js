@@ -106,13 +106,6 @@ const withChoices = ( type, n = 2, extra = {} ) => () => ( {
 	...extra,
 } );
 
-/* Common inspector schema fragments. */
-const sizeSchema = [
-	{ key: 'min', label: __( 'Minimum', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-	{ key: 'max', label: __( 'Maximum', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-	{ key: 'step', label: __( 'Step', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-];
-
 /**
  * The registry keyed by slug. Order within a category defines palette order.
  *
@@ -144,8 +137,9 @@ export const FIELD_TYPES = {
 	},
 	email: {
 		slug: 'email', label: __( 'Email', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'email', priceable: false,
-		defaultNode: () => baseNode( 'email' ), inspectorSchema: [],
+		category: 'Input', icon: 'email', priceable: true,
+		defaultNode: () => ( { ...baseNode( 'email' ), choices: [ makeChoice() ] } ),
+		inspectorSchema: [],
 	},
 	url: {
 		slug: 'url', label: __( 'URL', 'dynamic-product-options-for-woocommerce' ),
@@ -160,12 +154,12 @@ export const FIELD_TYPES = {
 	number: {
 		slug: 'number', label: __( 'Number', 'dynamic-product-options-for-woocommerce' ),
 		category: 'Input', icon: 'calculator', priceable: true,
-		defaultNode: () => baseNode( 'number' ),
-		inspectorSchema: [
-			...sizeSchema,
-			{ key: 'priceMode', label: __( 'Price mode', 'dynamic-product-options-for-woocommerce' ), control: 'priceMode' },
-			{ key: 'price', label: __( 'Price amount', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-		],
+		defaultNode: () => ( {
+			...baseNode( 'number' ),
+			choices: [ makeChoice() ],
+			config: { step: 1 },
+		} ),
+		inspectorSchema: [],
 	},
 	date: {
 		slug: 'date', label: __( 'Date', 'dynamic-product-options-for-woocommerce' ),
@@ -264,21 +258,20 @@ export const FIELD_TYPES = {
 		category: 'Advanced', icon: 'leftright', priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'range' ),
-			config: { min: 0, max: 100, step: 1 },
+			choices: [ makeChoice() ],
+			config: { min: 1, max: 100, step: 1, value: 10 },
 		} ),
-		inspectorSchema: [
-			...sizeSchema,
-			{ key: 'priceMode', label: __( 'Price mode', 'dynamic-product-options-for-woocommerce' ), control: 'priceMode' },
-			{ key: 'price', label: __( 'Price per unit', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-		],
+		inspectorSchema: [],
 	},
 	colorpicker: {
 		slug: 'colorpicker', label: __( 'Color Picker', 'dynamic-product-options-for-woocommerce' ),
 		category: 'Advanced', icon: 'admin-customizer', priceable: true,
-		defaultNode: () => baseNode( 'colorpicker' ),
-		inspectorSchema: [
-			{ key: 'price', label: __( 'Price amount', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-		],
+		defaultNode: () => ( {
+			...baseNode( 'colorpicker' ),
+			choices: [ makeChoice() ],
+			config: { defaultColor: '#000000' },
+		} ),
+		inspectorSchema: [],
 	},
 	fontpicker: {
 		slug: 'fontpicker', label: __( 'Font Picker', 'dynamic-product-options-for-woocommerce' ),
@@ -433,12 +426,12 @@ export function typesByCategory() {
 /** Price mode option list (ARCHITECTURE §7), with Pro flags. */
 export const PRICE_MODES = [
 	{ value: 'none', label: __( 'No price', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'flat', label: __( 'Flat fee', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'percent', label: __( 'Percentage of product', 'dynamic-product-options-for-woocommerce' ), pro: true },
-	{ value: 'per_unit', label: __( 'Per unit / quantity', 'dynamic-product-options-for-woocommerce' ), pro: true },
-	{ value: 'per_char', label: __( 'Per character', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'per_char_nospace', label: __( 'Per character (no spaces)', 'dynamic-product-options-for-woocommerce' ), pro: true },
-	{ value: 'per_word', label: __( 'Per word', 'dynamic-product-options-for-woocommerce' ), pro: true },
+	{ value: 'flat', label: __( 'Fixed', 'dynamic-product-options-for-woocommerce' ) },
+	{ value: 'percent', label: __( 'Percentage', 'dynamic-product-options-for-woocommerce' ), pro: true },
+	{ value: 'per_unit', label: __( 'Per Unit', 'dynamic-product-options-for-woocommerce' ), pro: true },
+	{ value: 'per_char', label: __( 'Per Character', 'dynamic-product-options-for-woocommerce' ) },
+	{ value: 'per_char_nospace', label: __( 'Per Character (no spaces)', 'dynamic-product-options-for-woocommerce' ), pro: true },
+	{ value: 'per_word', label: __( 'Per Word', 'dynamic-product-options-for-woocommerce' ), pro: true },
 ];
 
 /** Conditional-logic operator vocabulary (ARCHITECTURE §6). */

@@ -158,6 +158,100 @@
 	align-items: center;
 }
 
+/* Choice tables that carry a per-choice image/colour/font column. */
+.dpo-choices--media {
+	.dpo-choices__head,
+	.dpo-choices__row {
+		grid-template-columns: 20px minmax(0, 1.3fr) 44px minmax(0, 1fr) 60px 60px 40px 26px;
+	}
+}
+
+/* Compact inline image picker cell. */
+.dpo-choices__media {
+	position: relative;
+	width: 40px;
+	height: 40px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--dpo-c-radius-sm);
+}
+
+button.dpo-choices__media-btn {
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: 1px solid #c7e7d0;
+	background: #eaf7ee;
+	border-radius: var(--dpo-c-radius-sm);
+	color: #6b9a7a;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+
+	&:hover {
+		border-color: var(--dpo-c-primary);
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+}
+
+.dpo-choices__media--set .dpo-choices__media-btn {
+	border-color: var(--dpo-c-border);
+	background: var(--dpo-c-surface);
+	padding: 0;
+}
+
+.dpo-choices__media-clear {
+	position: absolute;
+	top: -6px;
+	inset-inline-end: -6px;
+	width: 16px;
+	height: 16px;
+	border: none;
+	border-radius: 4px;
+	background: var(--dpo-c-danger);
+	color: #fff;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	box-shadow: var(--dpo-c-shadow-sm);
+}
+
+/* Inline colour swatch input. */
+.dpo-choices__color {
+	width: 40px;
+	height: 36px;
+	padding: 2px;
+	border: 1px solid var(--dpo-c-border);
+	border-radius: var(--dpo-c-radius-sm);
+	background: var(--dpo-c-surface);
+	cursor: pointer;
+
+	&::-webkit-color-swatch-wrapper {
+		padding: 0;
+	}
+
+	&::-webkit-color-swatch {
+		border: none;
+		border-radius: 4px;
+	}
+}
+
 .dpo-choices__head {
 	padding: 10px 12px;
 	background: var(--dpo-c-surface-2);
@@ -264,6 +358,59 @@
 	text-align: center;
 }
 
+/* ---- Single-value pricing panel (number / range / email / color) ---- */
+.dpo-vprice {
+	border: 1px solid var(--dpo-c-border);
+	border-radius: var(--dpo-c-radius);
+	overflow: hidden;
+}
+
+.dpo-vprice__head {
+	display: grid;
+	grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+	gap: 10px;
+	padding: 10px 12px;
+	background: var(--dpo-c-surface-2);
+	border-block-end: 1px solid var(--dpo-c-border);
+	font-size: 11px;
+	font-weight: 700;
+	color: var(--dpo-c-ink-soft);
+}
+
+.dpo-vprice__pro {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.dpo-vprice__row {
+	display: grid;
+	grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+	gap: 10px;
+	padding: 12px;
+}
+
+/* ---- Number/text input with a trailing unit suffix (e.g. "Item") ---- */
+.dpo-input-suffix {
+	position: relative;
+	display: block;
+
+	.dpo-input {
+		padding-inline-end: 46px;
+	}
+
+	em {
+		position: absolute;
+		inset-inline-end: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+		font-style: normal;
+		font-size: 12px;
+		color: var(--dpo-c-muted);
+		pointer-events: none;
+	}
+}
+
 @media (max-width: 782px) {
 	.dpo-drawer {
 		inset-block-start: auto;
@@ -287,5 +434,14 @@
 	.dpo-choices__row {
 		grid-template-columns: 20px 1fr 1fr;
 		row-gap: 6px;
+	}
+
+	.dpo-choices--media .dpo-choices__row {
+		grid-template-columns: 20px 1fr 44px 1fr;
+	}
+
+	.dpo-vprice__head,
+	.dpo-vprice__row {
+		grid-template-columns: 1fr 1fr;
 	}
 }
