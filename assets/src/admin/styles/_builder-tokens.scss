@@ -1,0 +1,58 @@
+/* Builder design tokens as CSS custom properties.
+ *
+ * Defined on :root so they reach the field picker and settings drawer, which
+ * Radix portals to <body> (outside .dpo-app). Using variables — rather than
+ * baked-in SCSS colours — is what makes the builder dark-mode ready: flip the
+ * values under a single attribute and every surface follows. The dark block
+ * is structurally present but inert until `data-dpo-theme="dark"` is set on
+ * <html>, so the WP-admin default stays light. */
+
+:root {
+	--dpo-c-bg: #eef1f6;
+	--dpo-c-surface: #ffffff;
+	--dpo-c-surface-2: #f6f7fb;
+	--dpo-c-surface-3: #eef1f6;
+	--dpo-c-border: #e6e8ef;
+	--dpo-c-border-strong: #d7dbe5;
+	--dpo-c-ink: #0f172a;
+	--dpo-c-ink-soft: #475569;
+	--dpo-c-muted: #8a93a5;
+	--dpo-c-primary: #3358f4;
+	--dpo-c-primary-hover: #2742d6;
+	--dpo-c-primary-soft: #eef1fe;
+	--dpo-c-active: #111827;
+	--dpo-c-active-ink: #ffffff;
+	--dpo-c-danger: #e23b3b;
+	--dpo-c-danger-soft: #fdeaea;
+	--dpo-c-overlay: rgba(15, 23, 42, 0.45);
+
+	--dpo-c-radius-sm: 8px;
+	--dpo-c-radius: 12px;
+	--dpo-c-radius-lg: 18px;
+
+	--dpo-c-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06),
+		0 1px 3px rgba(15, 23, 42, 0.05);
+	--dpo-c-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+	--dpo-c-shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.22);
+	--dpo-c-ring: 0 0 0 3px rgba(51, 88, 244, 0.2);
+}
+
+[data-dpo-theme='dark'] {
+	--dpo-c-bg: #0b1220;
+	--dpo-c-surface: #131a2a;
+	--dpo-c-surface-2: #1a2233;
+	--dpo-c-surface-3: #202a3d;
+	--dpo-c-border: #263149;
+	--dpo-c-border-strong: #324162;
+	--dpo-c-ink: #e8edf6;
+	--dpo-c-ink-soft: #aab6cc;
+	--dpo-c-muted: #75839c;
+	--dpo-c-primary: #5b76ff;
+	--dpo-c-primary-hover: #7188ff;
+	--dpo-c-primary-soft: #1e2a4d;
+	--dpo-c-active: #e8edf6;
+	--dpo-c-active-ink: #0b1220;
+	--dpo-c-danger: #ff6b6b;
+	--dpo-c-danger-soft: #3a1f24;
+	--dpo-c-overlay: rgba(0, 0, 0, 0.6);
+}

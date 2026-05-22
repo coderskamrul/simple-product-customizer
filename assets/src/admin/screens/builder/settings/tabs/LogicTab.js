@@ -1,21 +1,22 @@
 /**
- * Inspector → Logic tab. Conditional visibility: enable + match all/any +
- * a rule list (source field picker, operator, value) per §6.
+ * Settings drawer → Conditional Logic tab. Toggle conditional visibility,
+ * choose all/any matching, and build source/operator/value rules referencing
+ * any other field in the set (ARCHITECTURE §6).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
-import { OPERATORS } from '../../../fields/registry';
-import { useBuilder } from '../../../store/BuilderContext';
-import { flatten } from '../../../store/treeOps';
+import { OPERATORS } from '../../../../fields/registry';
+import { useBuilder } from '../../../../store/BuilderContext';
+import { flatten } from '../../../../store/treeOps';
 import {
 	Field,
 	SelectControl,
 	TextControl,
 	ToggleField,
 	Repeater,
-} from '../../../components';
+} from '../../../../components';
 
 /** Operators that don't need a value input. */
 const NO_VALUE = [ 'empty', 'not_empty', 'checked' ];
@@ -32,33 +33,21 @@ export default function LogicTab( { node, patch } ) {
 	const { tree } = useBuilder();
 	const logic = node.logic || { match: 'all', rules: [] };
 
-	// Any other field can be a logic source.
 	const sources = flatten( tree )
 		.filter( ( f ) => f.id !== node.id )
 		.map( ( f ) => ( {
 			value: f.id,
-			label:
-				f.label ||
-				`${ f.type } (${ f.id.slice( 0, 6 ) })`,
+			label: f.label || `${ f.type } (${ f.id.slice( 0, 6 ) })`,
 		} ) );
 
-	/**
-	 * Patch the node's logic object.
-	 *
-	 * @param {Object} delta Partial logic patch.
-	 * @return {void}
-	 */
-	const setLogic = ( delta ) =>
-		patch( { logic: { ...logic, ...delta } } );
+	const setLogic = ( delta ) => patch( { logic: { ...logic, ...delta } } );
 
 	return (
-		<div className="dpo-inspector__pane">
-			<div className="dpo-inspector__row">
+		<div className="dpo-settings__pane">
+			<div className="dpo-settings__toggle-row">
 				<ToggleField
 					checked={ node.logicEnabled }
-					onChange={ ( v ) =>
-						patch( { logicEnabled: v } )
-					}
+					onChange={ ( v ) => patch( { logicEnabled: v } ) }
 					label={ __(
 						'Enable conditional logic',
 						'dynamic-product-options-for-woocommerce'
@@ -76,9 +65,7 @@ export default function LogicTab( { node, patch } ) {
 					>
 						<SelectControl
 							value={ logic.match }
-							onChange={ ( v ) =>
-								setLogic( { match: v } )
-							}
+							onChange={ ( v ) => setLogic( { match: v } ) }
 							options={ [
 								{
 									value: 'all',
@@ -108,9 +95,7 @@ export default function LogicTab( { node, patch } ) {
 					) : (
 						<Repeater
 							rows={ logic.rules || [] }
-							onChange={ ( rules ) =>
-								setLogic( { rules } )
-							}
+							onChange={ ( rules ) => setLogic( { rules } ) }
 							makeRow={ () => ( {
 								source: sources[ 0 ].value,
 								operator: 'is',
@@ -126,10 +111,7 @@ export default function LogicTab( { node, patch } ) {
 										rules: ( logic.rules || [] ).map(
 											( r, i ) =>
 												i === idx
-													? {
-															...r,
-															...delta,
-													  }
+													? { ...r, ...delta }
 													: r
 										),
 									} );
@@ -138,18 +120,14 @@ export default function LogicTab( { node, patch } ) {
 										<SelectControl
 											value={ rule.source }
 											onChange={ ( v ) =>
-												setRule( {
-													source: v,
-												} )
+												setRule( { source: v } )
 											}
 											options={ sources }
 										/>
 										<SelectControl
 											value={ rule.operator }
 											onChange={ ( v ) =>
-												setRule( {
-													operator: v,
-												} )
+												setRule( { operator: v } )
 											}
 											options={ OPERATORS }
 										/>
@@ -163,9 +141,7 @@ export default function LogicTab( { node, patch } ) {
 													'dynamic-product-options-for-woocommerce'
 												) }
 												onChange={ ( v ) =>
-													setRule( {
-														value: v,
-													} )
+													setRule( { value: v } )
 												}
 											/>
 										) }

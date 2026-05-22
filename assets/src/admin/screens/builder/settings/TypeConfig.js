@@ -1,9 +1,10 @@
 /**
- * Inspector → Advanced tab. Renders type-specific config controls driven
- * by the registry's `inspectorSchema`. Formula / advancedformula get a
- * dedicated expression editor with a variable hint list.
+ * Type-specific configuration block rendered inside the General tab for
+ * non-choice fields. It is schema-driven (registry `inspectorSchema`) with a
+ * dedicated formula editor for the formula types — so the drawer scales to
+ * future field types without bespoke wiring.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -16,15 +17,14 @@ import {
 	TextControl,
 	SelectControl,
 	ToggleField,
-	ProBadge,
 } from '../../../components';
 
 /**
- * Formula editor with a clickable variable hint list.
+ * Clickable variable chips + textarea for formula / advancedformula.
  *
- * @param {Object}   props        Component props.
- * @param {Object}   props.node   Selected node.
- * @param {Function} props.patch  (partialNode) => void.
+ * @param {Object}   props          Component props.
+ * @param {Object}   props.node     Selected node.
+ * @param {Function} props.patch    (partialNode) => void.
  * @param {boolean}  props.advanced Whether this is the Pro advancedformula.
  * @return {JSX.Element} The editor.
  */
@@ -51,7 +51,7 @@ function FormulaEditor( { node, patch, advanced } ) {
 				help={
 					advanced
 						? __(
-								'Variables in [brackets]; supports functions and comparisons.',
+								'Variables in [brackets]; functions and comparisons supported.',
 								'dynamic-product-options-for-woocommerce'
 						  )
 						: __(
@@ -65,9 +65,7 @@ function FormulaEditor( { node, patch, advanced } ) {
 					rows={ 4 }
 					value={ cfg.formula || '' }
 					onChange={ ( v ) =>
-						patch( {
-							config: { ...cfg, formula: v },
-						} )
+						patch( { config: { ...cfg, formula: v } } )
 					}
 				/>
 			</Field>
@@ -113,51 +111,33 @@ function FormulaEditor( { node, patch, advanced } ) {
 }
 
 /**
- * AdvancedTab.
+ * TypeConfig.
  *
  * @param {Object}   props       Component props.
  * @param {Object}   props.node  Selected node.
  * @param {Function} props.patch (partialNode) => void.
- * @return {JSX.Element} The tab body.
+ * @return {JSX.Element|null} The config block.
  */
-export default function AdvancedTab( { node, patch } ) {
+export default function TypeConfig( { node, patch } ) {
 	const { proActive } = useConfig();
 	const def = getType( node.type );
 	const cfg = node.config || {};
 
 	if ( node.type === 'formula' || node.type === 'advancedformula' ) {
 		return (
-			<div className="dpo-inspector__pane">
-				<FormulaEditor
-					node={ node }
-					patch={ patch }
-					advanced={ node.type === 'advancedformula' }
-				/>
-			</div>
+			<FormulaEditor
+				node={ node }
+				patch={ patch }
+				advanced={ node.type === 'advancedformula' }
+			/>
 		);
 	}
 
-	const schema = def.inspectorSchema || [];
-	if ( schema.length === 0 ) {
-		return (
-			<div className="dpo-inspector__pane">
-				<p className="dpo-hint">
-					{ __(
-						'No advanced options for this field type.',
-						'dynamic-product-options-for-woocommerce'
-					) }
-				</p>
-			</div>
-		);
-	}
+	const schema = ( def.inspectorSchema || [] ).filter(
+		// Width/placement live on the Styles tab; price modes on choices.
+		( s ) => s.control !== 'priceMode'
+	);
 
-	/**
-	 * Patch one config key.
-	 *
-	 * @param {string} key   Config key.
-	 * @param {*}      value New value.
-	 * @return {void}
-	 */
 	const setKey = ( key, value ) =>
 		patch( { config: { ...cfg, [ key ]: value } } );
 
@@ -168,20 +148,39 @@ export default function AdvancedTab( { node, patch } ) {
 	} ) );
 
 	return (
-		<div className="dpo-inspector__pane">
+		<>
+			{ ! [
+				'heading',
+				'divider',
+				'spacer',
+				'section',
+				'html',
+				'shortcode',
+			].includes( node.type ) && (
+				<Field
+					label={ __(
+						'Placeholder',
+						'dynamic-product-options-for-woocommerce'
+					) }
+				>
+					<TextControl
+						value={ node.placeholder }
+						onChange={ ( v ) => patch( { placeholder: v } ) }
+					/>
+				</Field>
+			) }
+
 			{ schema.map( ( item ) => {
 				const value = cfg[ item.key ];
 				if ( item.control === 'toggle' ) {
 					return (
 						<div
 							key={ item.key }
-							className="dpo-inspector__row"
+							className="dpo-settings__toggle-row"
 						>
 							<ToggleField
 								checked={ !! value }
-								onChange={ ( v ) =>
-									setKey( item.key, v )
-								}
+								onChange={ ( v ) => setKey( item.key, v ) }
 								label={ item.label }
 							/>
 						</div>
@@ -192,58 +191,47 @@ export default function AdvancedTab( { node, patch } ) {
 						{ item.control === 'select' && (
 							<SelectControl
 								value={ value ?? '' }
-								onChange={ ( v ) =>
-									setKey( item.key, v )
-								}
+								onChange={ ( v ) => setKey( item.key, v ) }
 								options={ item.options || [] }
 							/>
 						) }
-						{ item.control === 'priceMode' && (
+						{ item.control === 'priceModeFull' && (
 							<SelectControl
 								value={ value ?? 'none' }
-								onChange={ ( v ) =>
-									setKey( item.key, v )
-								}
+								onChange={ ( v ) => setKey( item.key, v ) }
 								options={ priceModeOptions }
 							/>
 						) }
-						{ item.control === 'number' && (
+						{ ( item.control === 'number' ||
+							item.control === 'text' ) && (
 							<TextControl
-								type="number"
-								value={ value ?? '' }
-								onChange={ ( v ) =>
-									setKey( item.key, v )
+								type={
+									item.control === 'number'
+										? 'number'
+										: 'text'
 								}
+								value={ value ?? '' }
+								onChange={ ( v ) => setKey( item.key, v ) }
 							/>
 						) }
 						{ item.control === 'textarea' && (
 							<TextControl
 								type="textarea"
 								value={ value ?? '' }
-								onChange={ ( v ) =>
-									setKey( item.key, v )
-								}
+								onChange={ ( v ) => setKey( item.key, v ) }
 							/>
 						) }
-						{ item.control === 'text' && (
+						{ item.control === 'formula' && (
 							<TextControl
+								type="textarea"
+								rows={ 3 }
 								value={ value ?? '' }
-								onChange={ ( v ) =>
-									setKey( item.key, v )
-								}
+								onChange={ ( v ) => setKey( item.key, v ) }
 							/>
 						) }
 					</Field>
 				);
 			} ) }
-			{ def.proOnly && ! proActive && (
-				<ProBadge
-					hint={ __(
-						'This field type requires the Pro version to render on the storefront.',
-						'dynamic-product-options-for-woocommerce'
-					) }
-				/>
-			) }
-		</div>
+		</>
 	);
 }

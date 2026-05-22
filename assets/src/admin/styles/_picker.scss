@@ -1,0 +1,192 @@
+/* Centered field-type picker (Radix Dialog, portaled to <body>). Selectors
+ * live at the root — not under .dpo-app — because the portal renders outside
+ * the app subtree. Token-driven for dark-mode parity. */
+
+.dpo-picker__overlay {
+	position: fixed;
+	inset: 0;
+	background: var(--dpo-c-overlay);
+	backdrop-filter: blur(2px);
+	z-index: 100000;
+}
+
+.dpo-picker {
+	position: fixed;
+	inset-block-start: 50%;
+	inset-inline-start: 50%;
+	transform: translate(-50%, -50%);
+	width: min(680px, calc(100vw - 32px));
+	max-height: min(560px, calc(100vh - 64px));
+	background: var(--dpo-c-surface);
+	border: 1px solid var(--dpo-c-border);
+	border-radius: var(--dpo-c-radius-lg);
+	box-shadow: var(--dpo-c-shadow-lg);
+	z-index: 100001;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dpo-picker__cmd {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+.dpo-picker__head {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 14px;
+	border-block-end: 1px solid var(--dpo-c-border);
+}
+
+.dpo-picker__search {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 0 4px;
+}
+
+.dpo-picker__search-icon {
+	color: var(--dpo-c-muted);
+	flex: none;
+}
+
+.dpo-picker__input {
+	flex: 1;
+	border: none;
+	background: none;
+	outline: none;
+	font-size: 15px;
+	color: var(--dpo-c-ink);
+
+	&::placeholder {
+		color: var(--dpo-c-muted);
+	}
+}
+
+.dpo-picker__close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border: none;
+	background: var(--dpo-c-surface-2);
+	border-radius: 8px;
+	color: var(--dpo-c-ink-soft);
+	cursor: pointer;
+
+	&:hover {
+		background: var(--dpo-c-surface-3);
+		color: var(--dpo-c-ink);
+	}
+}
+
+.dpo-picker__list {
+	overflow-y: auto;
+	padding: 8px;
+	min-height: 0;
+}
+
+.dpo-picker__empty {
+	padding: 32px;
+	text-align: center;
+	color: var(--dpo-c-muted);
+	font-size: 13px;
+}
+
+.dpo-picker__group {
+	margin-block-end: 6px;
+
+	[cmdk-group-heading] {
+		padding: 10px 8px 6px;
+	}
+}
+
+.dpo-picker__cat {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--dpo-c-muted);
+}
+
+.dpo-picker__group [cmdk-group-items] {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 6px;
+}
+
+.dpo-picker__item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	border-radius: var(--dpo-c-radius-sm);
+	cursor: pointer;
+	color: var(--dpo-c-ink);
+	border: 1px solid transparent;
+	transition: background 0.12s, border-color 0.12s, transform 0.12s;
+
+	&[data-selected='true'] {
+		background: var(--dpo-c-primary-soft);
+		border-color: var(--dpo-c-primary);
+	}
+
+	&:hover {
+		background: var(--dpo-c-surface-2);
+		transform: translateY(-1px);
+	}
+
+	&.is-locked {
+		opacity: 0.6;
+	}
+}
+
+.dpo-picker__item-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 9px;
+	background: var(--dpo-c-surface-2);
+	color: var(--dpo-c-primary);
+	flex: none;
+}
+
+.dpo-picker__item[data-selected='true'] .dpo-picker__item-icon {
+	background: var(--dpo-c-surface);
+}
+
+.dpo-picker__item-label {
+	font-size: 13px;
+	font-weight: 600;
+	flex: 1;
+	min-width: 0;
+}
+
+.dpo-picker__pro {
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	font-size: 10px;
+	font-weight: 700;
+	color: #8b5cf6;
+	background: #f3eefe;
+	padding: 2px 6px;
+	border-radius: 999px;
+}
+
+@media (max-width: 600px) {
+	.dpo-picker__group [cmdk-group-items] {
+		grid-template-columns: 1fr;
+	}
+}

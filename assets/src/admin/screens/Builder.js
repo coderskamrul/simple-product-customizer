@@ -1,22 +1,23 @@
 /**
- * Builder screen — the core three-pane editor (Palette / Canvas+Preview /
- * Inspector) plus a top bar with the editable title, status toggle and
- * Save. Wraps everything in a BuilderProvider scoped to the route id.
+ * Builder screen — a premium, visual product-options editor. A top bar
+ * (title, view switch, status, save) sits above a centered product stage
+ * where fields are built and previewed in place. Field creation happens in a
+ * centered command-style picker; field settings live in a docked drawer.
+ * Everything is scoped to a BuilderProvider for the route id.
  *
- * @package DPO\Admin
+ * @package
  */
 
-import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { ArrowLeft, Eye, Pencil, Loader2 } from 'lucide-react';
 import { BuilderProvider, useBuilder } from '../store/BuilderContext';
 import { useToast } from '../store/ToastContext';
 import { navigate } from '../app/router';
 import { errorMessage } from '../api/client';
-import { Spinner } from '../components';
-import Palette from './builder/Palette';
-import Canvas from './builder/Canvas';
-import Inspector from './builder/Inspector';
-import Preview from './builder/Preview';
+import { useBuilderUI } from './builder/store/builderUi';
+import Canvas from './builder/canvas/Canvas';
+import FieldPicker from './builder/picker/FieldPicker';
+import SettingsDrawer from './builder/settings/SettingsDrawer';
 
 /**
  * The builder body (consumes BuilderContext).
@@ -26,17 +27,18 @@ import Preview from './builder/Preview';
 function Editor() {
 	const builder = useBuilder();
 	const { notify } = useToast();
-	const [ view, setView ] = useState( 'canvas' ); // canvas | preview
+	const { view, setView } = useBuilderUI();
 
 	if ( builder.loading ) {
 		return (
 			<div className="dpo-builder__loading">
-				<Spinner
-					label={ __(
+				<Loader2 className="dpo-spin" size={ 28 } />
+				<p>
+					{ __(
 						'Loading option set…',
 						'dynamic-product-options-for-woocommerce'
 					) }
-				/>
+				</p>
 			</div>
 		);
 	}
@@ -96,11 +98,9 @@ function Editor() {
 					) }
 					onClick={ () => navigate( '/sets' ) }
 				>
-					<span
-						className="dashicons dashicons-arrow-left-alt2"
-						aria-hidden="true"
-					/>
+					<ArrowLeft size={ 18 } />
 				</button>
+
 				<input
 					type="text"
 					className="dpo-builder__title-input"
@@ -118,14 +118,15 @@ function Editor() {
 				/>
 
 				<div className="dpo-builder__topbar-right">
-					<div className="dpo-segmented">
+					<div className="dpo-segmented" role="tablist">
 						<button
 							type="button"
-							className={
-								view === 'canvas' ? 'is-active' : ''
-							}
-							onClick={ () => setView( 'canvas' ) }
+							role="tab"
+							aria-selected={ view === 'build' }
+							className={ view === 'build' ? 'is-active' : '' }
+							onClick={ () => setView( 'build' ) }
 						>
+							<Pencil size={ 14 } />
 							{ __(
 								'Build',
 								'dynamic-product-options-for-woocommerce'
@@ -133,11 +134,12 @@ function Editor() {
 						</button>
 						<button
 							type="button"
-							className={
-								view === 'preview' ? 'is-active' : ''
-							}
+							role="tab"
+							aria-selected={ view === 'preview' }
+							className={ view === 'preview' ? 'is-active' : '' }
 							onClick={ () => setView( 'preview' ) }
 						>
+							<Eye size={ 14 } />
 							{ __(
 								'Preview',
 								'dynamic-product-options-for-woocommerce'
@@ -145,7 +147,32 @@ function Editor() {
 						</button>
 					</div>
 
-					<label className="dpo-status-toggle">
+					<label
+						className="dpo-status-toggle"
+						htmlFor="dpo-status-toggle"
+					>
+						<span className="dpo-switch">
+							<input
+								id="dpo-status-toggle"
+								type="checkbox"
+								className="dpo-switch__input"
+								checked={ isPublished }
+								onChange={ ( e ) =>
+									builder.dispatch( {
+										type: 'SET_META',
+										patch: {
+											status: e.target.checked
+												? 'publish'
+												: 'draft',
+										},
+									} )
+								}
+							/>
+							<span
+								className="dpo-switch__track"
+								aria-hidden="true"
+							/>
+						</span>
 						<span>
 							{ isPublished
 								? __(
@@ -157,20 +184,6 @@ function Editor() {
 										'dynamic-product-options-for-woocommerce'
 								  ) }
 						</span>
-						<input
-							type="checkbox"
-							checked={ isPublished }
-							onChange={ ( e ) =>
-								builder.dispatch( {
-									type: 'SET_META',
-									patch: {
-										status: e.target.checked
-											? 'publish'
-											: 'draft',
-									},
-								} )
-							}
-						/>
 					</label>
 
 					<a
@@ -202,13 +215,12 @@ function Editor() {
 				</div>
 			</header>
 
-			<div className="dpo-builder__panes">
-				<Palette />
-				<div className="dpo-builder__center">
-					{ view === 'canvas' ? <Canvas /> : <Preview /> }
-				</div>
-				<Inspector />
+			<div className="dpo-builder__stage-wrap">
+				<Canvas />
 			</div>
+
+			<FieldPicker />
+			<SettingsDrawer />
 		</div>
 	);
 }
