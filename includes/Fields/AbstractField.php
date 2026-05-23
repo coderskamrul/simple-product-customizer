@@ -127,6 +127,31 @@ abstract class AbstractField implements FieldContract {
 	}
 
 	/**
+	 * Per-choice quantity input, rendered only when the field enables
+	 * quantity. Honours the configured min/max quantity bounds so the
+	 * storefront control matches the builder settings.
+	 *
+	 * @param int $index Choice index (for a unique input name).
+	 * @return string Input HTML, or '' when quantity is disabled.
+	 */
+	protected function qty_input( $index ) {
+		if ( empty( $this->cfg( 'enableQty' ) ) ) {
+			return '';
+		}
+		$min = '' !== (string) $this->cfg( 'minQty', '' ) ? (int) $this->cfg( 'minQty' ) : 0;
+		$max = '' !== (string) $this->cfg( 'maxQty', '' ) ? (int) $this->cfg( 'maxQty' ) : '';
+
+		return '<input type="number" class="dpo-choice__qty" name="dpo_qty_' . esc_attr( $this->id() ) . '_' . esc_attr( (string) $index ) . '"'
+			. $this->attrs(
+				array(
+					'min'   => $min,
+					'max'   => $max,
+					'value' => $min,
+				)
+			) . ' />';
+	}
+
+	/**
 	 * Default-by-default. Concrete priced types may override.
 	 *
 	 * @return bool

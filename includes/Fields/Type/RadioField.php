@@ -39,7 +39,6 @@ final class RadioField extends AbstractField {
 
 		$multiple = ! empty( $this->cfg( 'multiple' ) );
 		$columns  = (int) $this->cfg( 'columns', 1 );
-		$enable_q = ! empty( $this->cfg( 'enableQty' ) );
 		$input_t  = $multiple ? 'checkbox' : 'radio';
 		$name     = $multiple ? $this->choice_name() . '[]' : $this->choice_name();
 
@@ -71,9 +70,7 @@ final class RadioField extends AbstractField {
 				) . ' />';
 			$html .= '<span class="dpo-choice__label">' . esc_html( $label ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
-			if ( $enable_q ) {
-				$html .= '<input type="number" min="0" class="dpo-choice__qty" name="dpo_qty_' . esc_attr( $this->id() ) . '_' . esc_attr( $index ) . '" value="0" />';
-			}
+			$html .= $this->qty_input( $index );
 			$html .= '</label>';
 		}
 

@@ -72,6 +72,7 @@ final class ColorSwatchField extends AbstractField {
 				$html .= '<span class="dpo-swatch-item__label">' . esc_html( $label ) . '</span>';
 			}
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
+			$html .= $this->qty_input( $index );
 			$html .= '</label>';
 		}
 

@@ -108,9 +108,8 @@ final class StoreRenderer {
 
 			$inner = '';
 			foreach ( $nodes as $node ) {
-				if ( ! is_array( $node ) || empty( $node['parent'] ) ) {
-					// Top-level nodes only (parent === '' / absent).
-				}
+				// Render top-level nodes only (parent === '' / absent); section
+				// children are emitted by their own SectionField renderer.
 				if ( ! is_array( $node ) || ( isset( $node['parent'] ) && '' !== (string) $node['parent'] ) ) {
 					continue;
 				}

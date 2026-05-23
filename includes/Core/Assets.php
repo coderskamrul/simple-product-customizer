@@ -67,7 +67,12 @@ final class Assets {
 	public static function style( $handle, $base ) {
 		$file = DPO_PATH . 'assets/build/' . $base . '.css';
 		if ( is_readable( $file ) ) {
-			wp_enqueue_style( $handle, DPO_ASSETS . $base . '.css', array(), DPO_VERSION );
+			// Cache-bust on file contents (mtime) so rebuilt CSS is never
+			// served stale between plugin versions; fall back to the plugin
+			// version if the mtime is unavailable.
+			$version = filemtime( $file );
+			$version = $version ? (string) $version : DPO_VERSION;
+			wp_enqueue_style( $handle, DPO_ASSETS . $base . '.css', array(), $version );
 		}
 	}
 }

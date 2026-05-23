@@ -45,6 +45,7 @@ final class SelectField extends AbstractField {
 
 		foreach ( $choices as $index => $choice ) {
 			$label = isset( $choice['label'] ) ? (string) $choice['label'] : '';
+			$image = isset( $choice['image'] ) ? (string) $choice['image'] : '';
 
 			$html .= '<div class="dpo-select__opt" role="option"'
 				. $this->attrs(
@@ -57,6 +58,9 @@ final class SelectField extends AbstractField {
 						$this->choice_price_attrs( is_array( $choice ) ? $choice : array() )
 					)
 				) . '>';
+			if ( '' !== $image ) {
+				$html .= '<span class="dpo-select__opt-img"><img src="' . esc_url( $image ) . '" alt="' . esc_attr( $label ) . '" loading="lazy" /></span>';
+			}
 			$html .= '<span class="dpo-select__opt-label">' . esc_html( $label ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= '</div>';
