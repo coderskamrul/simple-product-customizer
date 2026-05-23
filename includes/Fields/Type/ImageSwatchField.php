@@ -71,7 +71,8 @@ final class ImageSwatchField extends AbstractField {
 						)
 					)
 				) . ' />';
-			$html .= '<span class="dpo-swatch-img">';
+			$swatch_style = $this->swatch_style();
+			$html        .= '<span class="dpo-swatch-img"' . ( '' !== $swatch_style ? ' style="' . esc_attr( $swatch_style ) . '"' : '' ) . '>';
 			if ( '' !== $image ) {
 				$html .= '<img src="' . esc_url( $image ) . '" alt="' . esc_attr( $label ) . '" loading="lazy" />';
 			}

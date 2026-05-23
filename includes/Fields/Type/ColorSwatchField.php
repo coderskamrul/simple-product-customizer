@@ -67,7 +67,8 @@ final class ColorSwatchField extends AbstractField {
 						)
 					)
 				) . ' />';
-			$html .= '<span class="dpo-swatch" style="background:' . esc_attr( $color ) . '"></span>';
+			$swatch_style = trim( 'background:' . $color . ';' . $this->swatch_style(), ';' );
+			$html .= '<span class="dpo-swatch" style="' . esc_attr( $swatch_style ) . '"></span>';
 			if ( '' !== $label ) {
 				$html .= '<span class="dpo-swatch-item__label">' . esc_html( $label ) . '</span>';
 			}

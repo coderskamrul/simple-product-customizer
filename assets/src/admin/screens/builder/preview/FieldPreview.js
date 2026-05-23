@@ -37,6 +37,34 @@ function fmtAmount( choice, raw, formatPrice ) {
 }
 
 /**
+ * Resolve the inline style for a swatch box from the field config — size and
+ * border-radius. Radius falls back to the chosen shape preset. Mirrors
+ * AbstractField::swatch_style() so the canvas matches the storefront.
+ *
+ * @param {Object} cfg Field config bag.
+ * @return {Object} React style object.
+ */
+function swatchStyle( cfg ) {
+	const style = {};
+	if ( cfg.swatchWidth !== '' && cfg.swatchWidth !== undefined ) {
+		style.width = `${ cfg.swatchWidth }px`;
+	}
+	if ( cfg.swatchHeight !== '' && cfg.swatchHeight !== undefined ) {
+		style.height = `${ cfg.swatchHeight }px`;
+	}
+	if ( cfg.swatchRadius !== '' && cfg.swatchRadius !== undefined ) {
+		style.borderRadius = `${ cfg.swatchRadius }px`;
+	} else if ( cfg.shape === 'circle' ) {
+		style.borderRadius = '50%';
+	} else if ( cfg.shape === 'rounded' ) {
+		style.borderRadius = '10px';
+	} else if ( cfg.shape === 'square' ) {
+		style.borderRadius = '4px';
+	}
+	return style;
+}
+
+/**
  * Per-choice price tag — strikes the regular price when a sale exists, in
  * line with the field-settings reference designs.
  *
@@ -344,7 +372,10 @@ export default function FieldPreview( { node } ) {
 								className={ `dpo-pf__swatch${
 									c.selected ? ' is-active' : ''
 								}` }
-								style={ { background: c.color || '#e2e8f0' } }
+								style={ {
+									background: c.color || '#e2e8f0',
+									...swatchStyle( cfg ),
+								} }
 								title={ c.label }
 							>
 								{ c.selected && (
@@ -375,6 +406,7 @@ export default function FieldPreview( { node } ) {
 								className={ `dpo-pf__img-swatch${
 									c.selected ? ' is-active' : ''
 								}` }
+								style={ swatchStyle( cfg ) }
 								title={ c.label }
 							>
 								{ c.image ? (

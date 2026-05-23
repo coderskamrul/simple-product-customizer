@@ -152,6 +152,39 @@ abstract class AbstractField implements FieldContract {
 	}
 
 	/**
+	 * Inline style for a swatch box (size + border-radius). The radius falls
+	 * back to the configured shape preset. Kept in lock-step with the
+	 * builder's swatchStyle() so the storefront matches the live preview.
+	 *
+	 * @return string CSS declarations (no trailing semicolon required).
+	 */
+	protected function swatch_style() {
+		$parts = array();
+		$width  = (string) $this->cfg( 'swatchWidth', '' );
+		$height = (string) $this->cfg( 'swatchHeight', '' );
+		$radius = (string) $this->cfg( 'swatchRadius', '' );
+		$shape  = (string) $this->cfg( 'shape', '' );
+
+		if ( '' !== $width ) {
+			$parts[] = 'width:' . (int) $width . 'px';
+		}
+		if ( '' !== $height ) {
+			$parts[] = 'height:' . (int) $height . 'px';
+		}
+		if ( '' !== $radius ) {
+			$parts[] = 'border-radius:' . (int) $radius . 'px';
+		} elseif ( 'circle' === $shape ) {
+			$parts[] = 'border-radius:50%';
+		} elseif ( 'rounded' === $shape ) {
+			$parts[] = 'border-radius:10px';
+		} elseif ( 'square' === $shape ) {
+			$parts[] = 'border-radius:4px';
+		}
+
+		return implode( ';', $parts );
+	}
+
+	/**
 	 * Default-by-default. Concrete priced types may override.
 	 *
 	 * @return bool
