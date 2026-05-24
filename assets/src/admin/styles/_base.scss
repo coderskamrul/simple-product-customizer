@@ -1,5 +1,25 @@
 /* Reset-ish base scoped to the app root. */
 
+/*
+ * Strip the default WordPress admin chrome padding on our screen so the
+ * SPA can render edge-to-edge (slug: `dpo-options`, body class added by
+ * core for the top-level page). Scoped to the body class so it never
+ * leaks to other admin pages.
+ */
+body.toplevel_page_dpo-options {
+	#wpcontent {
+		padding-inline-start: 0;
+	}
+
+	#wpbody-content {
+		padding-bottom: 0;
+	}
+
+	.dpo-admin-wrap {
+		margin: 0;
+	}
+}
+
 #dpo-admin-root {
 	box-sizing: border-box;
 	color: $dpo-text;

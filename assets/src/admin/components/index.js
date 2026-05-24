@@ -24,3 +24,4 @@ export { default as Avatar } from './Avatar';
 export { default as Badge } from './Badge';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Pagination } from './Pagination';
+export { default as TopBar } from './TopBar';
