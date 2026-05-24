@@ -52,6 +52,41 @@ final class FileUploadField extends AbstractField {
 	}
 
 	/**
+	 * Comma-separated list of the configured extensions, for hint display.
+	 *
+	 * @return string
+	 */
+	private function type_list() {
+		$types = $this->cfg( 'allowedTypes', array() );
+		if ( is_string( $types ) ) {
+			$types = array_filter( array_map( 'trim', explode( ',', $types ) ) );
+		}
+		if ( ! is_array( $types ) ) {
+			return '';
+		}
+		return implode( ', ', array_map( static function ( $t ) {
+			return ltrim( trim( (string) $t ), '.' );
+		}, $types ) );
+	}
+
+	/**
+	 * Replace a hint token in a configured prefix string.
+	 *
+	 * @param string $key   Config key for the prefix text.
+	 * @param string $token Token to replace (e.g. [max_size]).
+	 * @param string $value Replacement value.
+	 * @return string Hint HTML, or '' when the prefix is empty.
+	 */
+	private function hint( $key, $token, $value ) {
+		$text = (string) $this->cfg( $key, '' );
+		if ( '' === $text ) {
+			return '';
+		}
+		$text = str_replace( $token, $value, $text );
+		return '<span class="dpo-upload__hint">' . esc_html( $text ) . '</span>';
+	}
+
+	/**
 	 * Control markup.
 	 *
 	 * @return string
@@ -61,24 +96,42 @@ final class FileUploadField extends AbstractField {
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 		$uid     = 'dpo-upload-' . $this->id();
 
+		$upload_text = (string) $this->cfg( 'uploadText', '' );
+		$upload_text = '' !== $upload_text ? $upload_text : __( 'Upload', 'dynamic-product-options-for-woocommerce' );
+		$drag_text   = (string) $this->cfg( 'dragText', '' );
+		$drag_text   = '' !== $drag_text ? $drag_text : __( 'Click or drag and drop', 'dynamic-product-options-for-woocommerce' );
+
+		$max_size = '' !== (string) $this->cfg( 'maxSize', '' ) ? (int) $this->cfg( 'maxSize' ) : '';
+		$max_num  = '' !== (string) $this->cfg( 'maxNumber', '' ) ? (int) $this->cfg( 'maxNumber' ) : '';
+
 		$html  = '<div class="dpo-upload" data-field-id="' . esc_attr( $this->id() ) . '"'
 			. $this->attrs( $this->choice_price_attrs( $choice ) ) . '>';
 		$html .= '<input type="hidden" class="dpo-upload__data" name="' . esc_attr( $this->input_name() ) . '" value="" />';
 		$html .= '<label class="dpo-dropzone" for="' . esc_attr( $uid ) . '">';
-		$html .= '<span class="dpo-dropzone__icon" aria-hidden="true">&#8682;</span>';
-		$html .= '<span class="dpo-dropzone__text">' . esc_html__( 'Click or drag files here to upload', 'dynamic-product-options-for-woocommerce' ) . '</span>';
+		$html .= '<span class="dpo-dropzone__btn"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M6 10l6-6 6 6M4 18v2h16v-2"/></svg>' . esc_html( $upload_text ) . '</span>';
+		$html .= '<span class="dpo-dropzone__text">' . esc_html( $drag_text ) . '</span>';
 		$html .= '<input type="file" id="' . esc_attr( $uid ) . '" class="dpo-upload__input" multiple'
 			. $this->attrs(
 				array(
-					'accept'        => $this->accept(),
-					'data-max-size' => '' !== (string) $this->cfg( 'maxSize', '' ) ? (int) $this->cfg( 'maxSize' ) : '',
-					'data-min'      => '' !== (string) $this->cfg( 'minNumber', '' ) ? (int) $this->cfg( 'minNumber' ) : '',
-					'data-max'      => '' !== (string) $this->cfg( 'maxNumber', '' ) ? (int) $this->cfg( 'maxNumber' ) : '',
+					'accept'          => $this->accept(),
+					'data-max-size'   => '' !== (string) $max_size ? $max_size : '',
+					'data-min'        => '' !== (string) $this->cfg( 'minNumber', '' ) ? (int) $this->cfg( 'minNumber' ) : '',
+					'data-max'        => '' !== (string) $max_num ? $max_num : '',
+					'data-error-size' => (string) $this->cfg( 'sizeError', '' ),
+					'data-error-max'  => (string) $this->cfg( 'countError', '' ),
 				)
 			) . ' />';
 		$html .= '</label>';
 		$html .= '<div class="dpo-upload__progress" hidden><span class="dpo-upload__bar"></span></div>';
 		$html .= '<div class="dpo-upload__result"></div>';
+
+		$hints  = $this->hint( 'sizePrefix', '[max_size]', '' !== (string) $max_size ? $max_size . 'MB' : '' );
+		$hints .= $this->hint( 'countPrefix', '[max_files]', '' !== (string) $max_num ? (string) $max_num : '' );
+		$hints .= $this->hint( 'typePrefix', '[allowed_types]', $this->type_list() );
+		if ( '' !== $hints ) {
+			$html .= '<div class="dpo-upload__hints">' . $hints . '</div>';
+		}
+
 		$html .= '</div>';
 		return $html;
 	}

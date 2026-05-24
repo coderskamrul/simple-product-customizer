@@ -870,6 +870,34 @@
 		background: linear-gradient(135deg, #f97316, #ec4899, #6366f1);
 	}
 
+	&__dropzone {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 14px 16px;
+		border: 1.5px dashed var(--dpo-c-border-strong);
+		border-radius: var(--dpo-c-radius-sm);
+	}
+
+	&__dropzone-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+		flex: none;
+		padding: 8px 14px;
+		border: 1px solid var(--dpo-c-border-strong);
+		border-radius: var(--dpo-c-radius-sm);
+		background: var(--dpo-c-surface-2);
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--dpo-c-ink);
+	}
+
+	&__dropzone-text {
+		font-size: 13px;
+		color: var(--dpo-c-muted);
+	}
+
 	&__section {
 		border: 1px solid var(--dpo-c-border);
 		border-radius: var(--dpo-c-radius);

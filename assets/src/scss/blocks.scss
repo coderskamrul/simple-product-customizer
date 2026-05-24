@@ -636,31 +636,55 @@
 	/* ================================================================ */
 	.dpo-dropzone {
 		display: flex;
-		flex-direction: column;
 		align-items: center;
-		gap: 6px;
-		border: 2px dashed var(--dpo-border-strong);
+		gap: 14px;
+		border: 1.5px dashed var(--dpo-border-strong);
 		border-radius: var(--dpo-radius);
-		padding: 24px var(--dpo-space);
-		text-align: center;
+		padding: 16px 18px;
 		cursor: pointer;
 		color: var(--dpo-muted);
 		transition: border-color 0.15s, background 0.15s;
 
 		&:hover,
-		&.is-dragover {
+		&.is-dragover,
+		&.dpo-dropzone--over {
 			border-color: var(--dpo-accent);
 			background: var(--dpo-accent-soft);
 		}
 
-		&__icon {
-			font-size: 24px;
-			line-height: 1;
+		&__btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			flex: none;
+			padding: 9px 16px;
+			border: 1px solid var(--dpo-border-strong);
+			border-radius: var(--dpo-radius);
+			background: var(--dpo-surface-alt);
+			color: var(--dpo-label);
+			font-weight: 600;
 		}
 
-		&__input {
-			display: none;
+		&__text {
+			color: var(--dpo-muted);
 		}
+
+		&:hover &__btn {
+			border-color: var(--dpo-accent);
+			color: var(--dpo-accent);
+		}
+	}
+
+	/* Hide the real <input type=file>; the dropzone label triggers it. */
+	.dpo-upload__input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		border: 0;
 	}
 
 	.dpo-upload__progress {
@@ -679,13 +703,108 @@
 		transition: width 0.2s;
 	}
 
-	.dpo-upload__result {
-		margin-block-start: 8px;
+	.dpo-upload__hints {
 		display: flex;
 		flex-direction: column;
-		gap: 4px;
-		font-size: 0.9em;
+		gap: 2px;
+		margin-block-start: 8px;
+		font-size: 0.85em;
+		color: var(--dpo-muted);
+	}
+
+	.dpo-upload__result {
+		margin-block-start: 14px;
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
 		text-align: start;
+	}
+
+	.dpo-upload-item {
+		display: grid;
+		grid-template-columns: auto 48px 1fr;
+		align-items: center;
+		gap: 12px;
+
+		&__remove {
+			border: none;
+			background: none;
+			cursor: pointer;
+			font-size: 20px;
+			line-height: 1;
+			color: var(--dpo-muted);
+			padding: 0;
+
+			&:hover {
+				color: var(--dpo-text);
+			}
+		}
+
+		&__thumb {
+			width: 48px;
+			height: 48px;
+			border-radius: 6px;
+			overflow: hidden;
+			background: var(--dpo-surface-alt);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			&.is-file::after {
+				content: "";
+				width: 22px;
+				height: 26px;
+				background: var(--dpo-border-strong);
+				border-radius: 3px;
+				clip-path: polygon(0 0, 70% 0, 100% 25%, 100% 100%, 0 100%);
+			}
+		}
+
+		&__body {
+			min-width: 0;
+		}
+
+		&__top {
+			display: flex;
+			align-items: baseline;
+			gap: 12px;
+			margin-block-end: 6px;
+		}
+
+		&__name {
+			flex: 1;
+			min-width: 0;
+			color: var(--dpo-label);
+			word-break: break-all;
+		}
+
+		&__size {
+			flex: none;
+			color: var(--dpo-text);
+			font-weight: 600;
+			white-space: nowrap;
+		}
+
+		&__bar {
+			display: block;
+			height: 6px;
+			border-radius: 999px;
+			background: var(--dpo-surface-alt);
+			overflow: hidden;
+		}
+
+		&__bar-fill {
+			display: block;
+			height: 100%;
+			width: 0;
+			background: var(--dpo-accent);
+		}
 	}
 
 	/* ================================================================ */

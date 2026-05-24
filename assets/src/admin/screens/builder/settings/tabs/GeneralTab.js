@@ -20,6 +20,7 @@ import {
 import ChoiceTable from '../ChoiceTable';
 import ChoiceFieldExtras from '../ChoiceFieldExtras';
 import ValueFieldConfig from '../ValueFieldConfig';
+import FileUploadConfig from '../FileUploadConfig';
 import TypeConfig from '../TypeConfig';
 
 /** Single-value fields that price one value (stored on choices[0]). */
@@ -123,8 +124,13 @@ export default function GeneralTab( { node, patch } ) {
 				<ValueFieldConfig node={ node } patch={ patch } />
 			) }
 
+			{ ! def.hasChoices && node.type === 'fileupload' && (
+				<FileUploadConfig node={ node } patch={ patch } />
+			) }
+
 			{ ! def.hasChoices &&
-				! VALUE_PRICE_TYPES.includes( node.type ) && (
+				! VALUE_PRICE_TYPES.includes( node.type ) &&
+				node.type !== 'fileupload' && (
 					<TypeConfig node={ node } patch={ patch } />
 				) }
 		</div>

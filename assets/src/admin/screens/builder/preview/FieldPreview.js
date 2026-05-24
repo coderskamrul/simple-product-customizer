@@ -11,7 +11,7 @@
 
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { ChevronDown, Check } from 'lucide-react';
+import { ChevronDown, Check, Upload } from 'lucide-react';
 import { useConfig } from '../../../store/ConfigContext';
 
 /** Demo base price used to render percentage-based choice prices. */
@@ -471,12 +471,23 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'fileupload':
 			control = (
-				<span className="dpo-pf__upload">
-					{ __(
-						'Choose file…',
-						'dynamic-product-options-for-woocommerce'
-					) }
-				</span>
+				<div className="dpo-pf__dropzone">
+					<span className="dpo-pf__dropzone-btn">
+						<Upload size={ 14 } aria-hidden="true" />
+						{ cfg.uploadText ||
+							__(
+								'Upload',
+								'dynamic-product-options-for-woocommerce'
+							) }
+					</span>
+					<span className="dpo-pf__dropzone-text">
+						{ cfg.dragText ||
+							__(
+								'Click or drag and drop',
+								'dynamic-product-options-for-woocommerce'
+							) }
+					</span>
+				</div>
 			);
 			break;
 		case 'linkedproducts':

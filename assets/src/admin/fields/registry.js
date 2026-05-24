@@ -183,13 +183,24 @@ export const FIELD_TYPES = {
 	fileupload: {
 		slug: 'fileupload', label: __( 'File Upload', 'dynamic-product-options-for-woocommerce' ),
 		category: 'Input', icon: 'upload', priceable: true,
-		defaultNode: () => baseNode( 'fileupload' ),
-		inspectorSchema: [
-			{ key: 'accept', label: __( 'Allowed types', 'dynamic-product-options-for-woocommerce' ), control: 'text' },
-			{ key: 'maxFiles', label: __( 'Max files', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-			{ key: 'maxSize', label: __( 'Max size (MB)', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-			{ key: 'price', label: __( 'Price per file', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-		],
+		defaultNode: () => ( {
+			...baseNode( 'fileupload' ),
+			choices: [ makeChoice() ],
+			config: {
+				uploadText: __( 'Upload', 'dynamic-product-options-for-woocommerce' ),
+				dragText: __( 'Click or drag and drop', 'dynamic-product-options-for-woocommerce' ),
+				maxSize: 2,
+				sizeError: __( 'File is too large', 'dynamic-product-options-for-woocommerce' ),
+				sizePrefix: __( 'Max File Size: [max_size]', 'dynamic-product-options-for-woocommerce' ),
+				minNumber: 0,
+				maxNumber: 3,
+				countError: __( 'Too many files', 'dynamic-product-options-for-woocommerce' ),
+				countPrefix: __( 'Maximum Number of Files: [max_files]', 'dynamic-product-options-for-woocommerce' ),
+				typePrefix: __( 'Allowed Types are: [allowed_types]', 'dynamic-product-options-for-woocommerce' ),
+				allowedTypes: [ 'png', 'jpg' ],
+			},
+		} ),
+		inspectorSchema: [],
 	},
 
 	/* ---- Choice ---- */

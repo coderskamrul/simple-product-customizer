@@ -49,12 +49,19 @@ export function initUpload( fieldEl, onChange ) {
 		return () => {};
 	}
 
-	const maxSize =
+	const maxSizeMb =
 		parseInt( input.getAttribute( 'data-max-size' ) || '0', 10 ) || 0;
+	const maxBytes = maxSizeMb > 0 ? maxSizeMb * 1024 * 1024 : 0;
 	const minCount =
 		parseInt( input.getAttribute( 'data-min' ) || '0', 10 ) || 0;
 	const maxCount =
 		parseInt( input.getAttribute( 'data-max' ) || '0', 10 ) || 0;
+	const errSize =
+		input.getAttribute( 'data-error-size' ) ||
+		__( 'A file exceeds the size limit.', TD );
+	const errMax =
+		input.getAttribute( 'data-error-max' ) ||
+		__( 'Too many files selected.', TD );
 
 	let files = [];
 	try {
@@ -91,7 +98,32 @@ export function initUpload( fieldEl, onChange ) {
 	};
 
 	/**
-	 * Repaint the uploaded-file list with remove buttons.
+	 * Format a byte count as a human-readable size.
+	 *
+	 * @param {number} bytes Size in bytes.
+	 * @return {string} Formatted size (e.g. "136.31 KB").
+	 */
+	const formatSize = ( bytes ) => {
+		const n = Number( bytes ) || 0;
+		if ( n <= 0 ) {
+			return '';
+		}
+		if ( n < 1024 ) {
+			return n + ' B';
+		}
+		if ( n < 1024 * 1024 ) {
+			return ( n / 1024 ).toFixed( 2 ) + ' KB';
+		}
+		return ( n / ( 1024 * 1024 ) ).toFixed( 2 ) + ' MB';
+	};
+
+	/** Whether a path/name points at a previewable image. */
+	const isImage = ( path ) =>
+		/\.(png|jpe?g|gif|webp|svg|bmp)$/i.test( String( path || '' ) );
+
+	/**
+	 * Repaint the uploaded-file list: thumbnail, name, size, a completed
+	 * progress bar and a remove control.
 	 *
 	 * @return {void}
 	 */
@@ -103,23 +135,55 @@ export function initUpload( fieldEl, onChange ) {
 		files.forEach( ( file, i ) => {
 			const item = document.createElement( 'div' );
 			item.className = 'dpo-upload-item';
-			const name = document.createElement( 'span' );
-			name.className = 'dpo-upload-item__name';
-			name.textContent = file.name || '';
+
 			const rm = document.createElement( 'button' );
 			rm.type = 'button';
 			rm.className = 'dpo-upload-item__remove';
-			rm.setAttribute(
-				'aria-label',
-				__( 'Remove file', TD )
-			);
+			rm.setAttribute( 'aria-label', __( 'Remove file', TD ) );
 			rm.textContent = '×';
 			rm.addEventListener( 'click', () => {
 				files.splice( i, 1 );
 				sync();
 			} );
-			item.appendChild( name );
+
+			const thumb = document.createElement( 'span' );
+			thumb.className = 'dpo-upload-item__thumb';
+			if ( isImage( file.path || file.name ) && file.path ) {
+				const img = document.createElement( 'img' );
+				img.src = file.path;
+				img.alt = '';
+				thumb.appendChild( img );
+			} else {
+				thumb.classList.add( 'is-file' );
+			}
+
+			const body = document.createElement( 'span' );
+			body.className = 'dpo-upload-item__body';
+
+			const top = document.createElement( 'span' );
+			top.className = 'dpo-upload-item__top';
+			const name = document.createElement( 'span' );
+			name.className = 'dpo-upload-item__name';
+			name.textContent = file.name || '';
+			const size = document.createElement( 'span' );
+			size.className = 'dpo-upload-item__size';
+			size.textContent = formatSize( file.size );
+			top.appendChild( name );
+			top.appendChild( size );
+
+			const track = document.createElement( 'span' );
+			track.className = 'dpo-upload-item__bar';
+			const fill = document.createElement( 'span' );
+			fill.className = 'dpo-upload-item__bar-fill';
+			fill.style.width = '100%';
+			track.appendChild( fill );
+
+			body.appendChild( top );
+			body.appendChild( track );
+
 			item.appendChild( rm );
+			item.appendChild( thumb );
+			item.appendChild( body );
 			result.appendChild( item );
 		} );
 	}
@@ -175,6 +239,7 @@ export function initUpload( fieldEl, onChange ) {
 					resolve( {
 						name: json.file.name || file.name,
 						path: json.file.url || json.file.path || '',
+						size: file.size || 0,
 					} );
 				} else {
 					reject(
@@ -205,22 +270,15 @@ export function initUpload( fieldEl, onChange ) {
 		if ( ! incoming.length ) {
 			return;
 		}
-		if (
-			maxCount > 0 &&
-			files.length + incoming.length > maxCount
-		) {
-			showError(
-				__( 'Too many files selected.', TD )
-			);
+		if ( maxCount > 0 && files.length + incoming.length > maxCount ) {
+			showError( errMax );
 			return;
 		}
 		const valid = [];
 		for ( let i = 0; i < incoming.length; i++ ) {
 			const f = incoming[ i ];
-			if ( maxSize > 0 && f.size > maxSize ) {
-				showError(
-					__( 'A file exceeds the size limit.', TD )
-				);
+			if ( maxBytes > 0 && f.size > maxBytes ) {
+				showError( errSize );
 				continue;
 			}
 			valid.push( f );
