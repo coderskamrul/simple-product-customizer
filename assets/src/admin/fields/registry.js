@@ -200,8 +200,30 @@ export const FIELD_TYPES = {
 	},
 	datetime: {
 		slug: 'datetime', label: __( 'Date & Time', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'calendar', priceable: false,
-		defaultNode: () => baseNode( 'datetime' ), inspectorSchema: [],
+		category: 'Input', icon: 'calendar', priceable: true,
+		defaultNode: () => ( {
+			...baseNode( 'datetime' ),
+			choices: [ makeChoice() ],
+			config: {
+				// Date side (shared keys with the Date field).
+				format: 'd/m/Y',
+				minMode: 'none',
+				minDate: '',
+				maxMode: 'none',
+				maxDate: '',
+				disableToday: false,
+				disableDates: [],
+				disableWeekdays: [],
+				disableMonthlyDays: [],
+				// Time side (shared keys with the Time field).
+				hour12: true,
+				minTime: '',
+				maxTime: '',
+				step: 5,
+			},
+		} ),
+		// Settings UI is the bespoke DatetimeConfig panel (see GeneralTab).
+		inspectorSchema: [],
 	},
 	fileupload: {
 		slug: 'fileupload', label: __( 'File Upload', 'dynamic-product-options-for-woocommerce' ),

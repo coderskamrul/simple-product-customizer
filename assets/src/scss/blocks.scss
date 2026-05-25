@@ -47,14 +47,18 @@
 		line-height: 1.5;
 	}
 
-	/* Date / time composite controls */
+	/* Date / time composite control — date (left) + time (right). */
 	.dpo-datetime {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 10px;
 
-		.dpo-input {
+		&__part {
 			flex: 1 1 160px;
+		}
+
+		.dpo-input {
+			width: 100%;
 		}
 	}
 

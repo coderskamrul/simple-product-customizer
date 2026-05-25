@@ -23,6 +23,7 @@ import ValueFieldConfig from '../ValueFieldConfig';
 import FileUploadConfig from '../FileUploadConfig';
 import DateConfig from '../DateConfig';
 import TimeConfig from '../TimeConfig';
+import DatetimeConfig from '../DatetimeConfig';
 import TypeConfig from '../TypeConfig';
 
 /** Single-value fields that price one value (stored on choices[0]). */
@@ -138,11 +139,16 @@ export default function GeneralTab( { node, patch } ) {
 				<TimeConfig node={ node } patch={ patch } />
 			) }
 
+			{ ! def.hasChoices && node.type === 'datetime' && (
+				<DatetimeConfig node={ node } patch={ patch } />
+			) }
+
 			{ ! def.hasChoices &&
 				! VALUE_PRICE_TYPES.includes( node.type ) &&
 				node.type !== 'fileupload' &&
 				node.type !== 'date' &&
-				node.type !== 'time' && (
+				node.type !== 'time' &&
+				node.type !== 'datetime' && (
 					<TypeConfig node={ node } patch={ patch } />
 				) }
 		</div>

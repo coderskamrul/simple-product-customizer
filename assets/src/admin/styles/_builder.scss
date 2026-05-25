@@ -561,6 +561,32 @@
 		color: var(--dpo-c-ink);
 	}
 
+	/* Combined Date & Time preview — date (left) + time (right). */
+	&__datetime {
+		display: flex;
+		gap: 12px;
+	}
+
+	&__dt-part {
+		position: relative;
+		flex: 1 1 0;
+
+		svg {
+			position: absolute;
+			inset-inline-start: 12px;
+			inset-block-start: 50%;
+			transform: translateY(-50%);
+			width: 18px;
+			height: 18px;
+			color: var(--dpo-c-muted);
+			pointer-events: none;
+		}
+
+		.dpo-pf__input {
+			padding-inline-start: 40px;
+		}
+	}
+
 	/* Faux dropdown (native <select> can't show per-option thumbnails). */
 	&__select {
 		position: relative;

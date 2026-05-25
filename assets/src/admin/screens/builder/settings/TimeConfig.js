@@ -171,12 +171,15 @@ function TimeInput( { value, hour12, onChange } ) {
 /**
  * TimeConfig.
  *
- * @param {Object}   props       Component props.
- * @param {Object}   props.node  Selected node.
- * @param {Function} props.patch (partialNode) => void.
+ * @param {Object}   props               Component props.
+ * @param {Object}   props.node          Selected node.
+ * @param {Function} props.patch         (partialNode) => void.
+ * @param {boolean}  [props.showPricing] Render the pricing panel (default true;
+ *                                       the combined Date & Time field renders
+ *                                       pricing once at the top instead).
  * @return {JSX.Element} The config block.
  */
-export default function TimeConfig( { node, patch } ) {
+export default function TimeConfig( { node, patch, showPricing = true } ) {
 	const cfg = node.config || {};
 	const hour12 = cfg.hour12 !== false;
 	const setKey = ( key, value ) =>
@@ -184,7 +187,7 @@ export default function TimeConfig( { node, patch } ) {
 
 	return (
 		<>
-			<ValuePricing node={ node } patch={ patch } />
+			{ showPricing && <ValuePricing node={ node } patch={ patch } /> }
 
 			<div className="dpo-settings__group">
 				<p className="dpo-field-group__title">

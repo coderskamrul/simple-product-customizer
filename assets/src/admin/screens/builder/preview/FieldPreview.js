@@ -27,7 +27,12 @@ const DEMO_BASE = 20;
  */
 function fmtAmount( choice, raw, formatPrice ) {
 	const amount = Number( raw );
-	if ( raw === '' || raw === undefined || raw === null || Number.isNaN( amount ) ) {
+	if (
+		raw === '' ||
+		raw === undefined ||
+		raw === null ||
+		Number.isNaN( amount )
+	) {
 		return '';
 	}
 	if ( choice.priceMode === 'percent' ) {
@@ -117,9 +122,7 @@ function SelectPreview( { node, choices, formatPrice } ) {
 					<img src={ c.image } alt="" />
 				</span>
 			) }
-			<span>
-				{ c.label || `Option ${ i + 1 }` }
-			</span>
+			<span>{ c.label || `Option ${ i + 1 }` }</span>
 			<PriceTag choice={ c } formatPrice={ formatPrice } />
 		</span>
 	);
@@ -310,7 +313,10 @@ export default function FieldPreview( { node } ) {
 							}
 						>
 							{ c.label || `Option ${ i + 1 }` }
-							<PriceTag choice={ c } formatPrice={ formatPrice } />
+							<PriceTag
+								choice={ c }
+								formatPrice={ formatPrice }
+							/>
 						</span>
 					) ) }
 				</div>
@@ -337,7 +343,10 @@ export default function FieldPreview( { node } ) {
 								</span>
 							) }
 							<span>{ c.label || `Option ${ i + 1 }` }</span>
-							<PriceTag choice={ c } formatPrice={ formatPrice } />
+							<PriceTag
+								choice={ c }
+								formatPrice={ formatPrice }
+							/>
 							{ cfg.enableQty && <QtyBox cfg={ cfg } /> }
 						</span>
 					) ) }
@@ -387,7 +396,10 @@ export default function FieldPreview( { node } ) {
 							<span className="dpo-pf__swatch-label">
 								{ c.label || `Color ${ i + 1 }` }
 							</span>
-							<PriceTag choice={ c } formatPrice={ formatPrice } />
+							<PriceTag
+								choice={ c }
+								formatPrice={ formatPrice }
+							/>
 							{ cfg.enableQty && <QtyBox cfg={ cfg } /> }
 						</span>
 					) ) }
@@ -421,7 +433,10 @@ export default function FieldPreview( { node } ) {
 							<span className="dpo-pf__swatch-label">
 								{ c.label || `Image ${ i + 1 }` }
 							</span>
-							<PriceTag choice={ c } formatPrice={ formatPrice } />
+							<PriceTag
+								choice={ c }
+								formatPrice={ formatPrice }
+							/>
 							{ cfg.enableQty && <QtyBox cfg={ cfg } /> }
 						</span>
 					) ) }
@@ -504,7 +519,10 @@ export default function FieldPreview( { node } ) {
 			control = (
 				<span className="dpo-pf__button is-active">
 					{ cfg.triggerText ||
-						__( 'Open', 'dynamic-product-options-for-woocommerce' ) }
+						__(
+							'Open',
+							'dynamic-product-options-for-woocommerce'
+						) }
 				</span>
 			);
 			break;
@@ -518,6 +536,71 @@ export default function FieldPreview( { node } ) {
 							'dynamic-product-options-for-woocommerce'
 						) }
 				</code>
+			);
+			break;
+		case 'datetime':
+			control = (
+				<div className="dpo-pf__datetime">
+					<span className="dpo-pf__dt-part">
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+							aria-hidden="true"
+						>
+							<rect
+								x="3"
+								y="4.5"
+								width="18"
+								height="16"
+								rx="2.5"
+								stroke="currentColor"
+								strokeWidth="1.6"
+							/>
+							<path
+								d="M3 9h18M8 2.5v4M16 2.5v4"
+								stroke="currentColor"
+								strokeWidth="1.6"
+								strokeLinecap="round"
+							/>
+						</svg>
+						<input
+							className="dpo-pf__input"
+							placeholder={ cfg.format || 'DD/MM/YYYY' }
+							readOnly
+						/>
+					</span>
+					<span className="dpo-pf__dt-part">
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+							aria-hidden="true"
+						>
+							<circle
+								cx="12"
+								cy="12"
+								r="9"
+								stroke="currentColor"
+								strokeWidth="1.6"
+							/>
+							<path
+								d="M12 7.5V12l3 2"
+								stroke="currentColor"
+								strokeWidth="1.6"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+						<input
+							className="dpo-pf__input"
+							placeholder={
+								cfg.hour12 === false ? 'HH:mm' : 'hh:mm AM/PM'
+							}
+							readOnly
+						/>
+					</span>
+				</div>
 			);
 			break;
 		default:
@@ -552,7 +635,9 @@ export default function FieldPreview( { node } ) {
 							'dynamic-product-options-for-woocommerce'
 						) }
 					{ node.required && <span className="dpo-pf__req">*</span> }
-					{ ( node.type === 'date' || node.type === 'time' ) && (
+					{ ( node.type === 'date' ||
+						node.type === 'time' ||
+						node.type === 'datetime' ) && (
 						<PriceTag
 							choice={ choices[ 0 ] }
 							formatPrice={ formatPrice }

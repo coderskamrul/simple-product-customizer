@@ -171,12 +171,15 @@ function ChipGrid( { value, options, onChange } ) {
 /**
  * DateConfig.
  *
- * @param {Object}   props       Component props.
- * @param {Object}   props.node  Selected node.
- * @param {Function} props.patch (partialNode) => void.
+ * @param {Object}   props               Component props.
+ * @param {Object}   props.node          Selected node.
+ * @param {Function} props.patch         (partialNode) => void.
+ * @param {boolean}  [props.showPricing] Render the pricing panel (default true;
+ *                                       the combined Date & Time field renders
+ *                                       pricing once at the top instead).
  * @return {JSX.Element} The config block.
  */
-export default function DateConfig( { node, patch } ) {
+export default function DateConfig( { node, patch, showPricing = true } ) {
 	const cfg = node.config || {};
 	const format = cfg.format || 'd/m/Y';
 	const setKey = ( key, value ) =>
@@ -199,7 +202,7 @@ export default function DateConfig( { node, patch } ) {
 
 	return (
 		<>
-			<ValuePricing node={ node } patch={ patch } />
+			{ showPricing && <ValuePricing node={ node } patch={ patch } /> }
 
 			<div className="dpo-settings__group">
 				<p className="dpo-field-group__title">

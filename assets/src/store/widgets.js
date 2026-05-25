@@ -255,6 +255,10 @@ export function initWidgets( fieldEl, onChange ) {
 			wireDate( fieldEl, onChange );
 		} else if ( type === 'time' ) {
 			wireTime( fieldEl, onChange );
+		} else if ( type === 'datetime' ) {
+			// Combined field reuses both pickers (date control + time control).
+			wireDate( fieldEl, onChange );
+			wireTime( fieldEl, onChange );
 		}
 	} catch ( e ) {
 		/* a broken widget must never wedge the page. */
