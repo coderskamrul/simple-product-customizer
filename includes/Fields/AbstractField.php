@@ -245,6 +245,7 @@ abstract class AbstractField implements FieldContract {
 
 		$html  = '<div class="dpo-field__label">';
 		$html .= '<span class="dpo-field__label-text">' . esc_html( $label ) . $req . '</span>';
+		$html .= $this->label_suffix();
 		if ( 'tooltip' === $this->prop( 'descriptionPlacement' ) && '' !== (string) $this->prop( 'description', '' ) ) {
 			$html .= '<span class="dpo-tooltip" tabindex="0" data-tip="' . esc_attr( wp_strip_all_tags( (string) $this->prop( 'description' ) ) ) . '">?</span>';
 		}
@@ -254,6 +255,17 @@ abstract class AbstractField implements FieldContract {
 			$html .= '<div class="dpo-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
 		}
 		return $html;
+	}
+
+	/**
+	 * Optional markup appended right after the title text inside the label
+	 * (e.g. a single-value field's price badge). Empty by default; value
+	 * types that price a single control override this.
+	 *
+	 * @return string
+	 */
+	protected function label_suffix() {
+		return '';
 	}
 
 	/**

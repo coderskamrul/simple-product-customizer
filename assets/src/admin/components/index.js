@@ -10,6 +10,7 @@ export { default as TextControl } from './TextControl';
 export { default as SelectControl } from './SelectControl';
 export { default as ToggleField } from './ToggleField';
 export { default as Repeater } from './Repeater';
+export { default as DatePicker } from './DatePicker';
 export { default as ColorField } from './ColorField';
 export { default as MediaPicker } from './MediaPicker';
 export { default as AsyncSelect } from './AsyncSelect';

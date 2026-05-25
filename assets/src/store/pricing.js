@@ -110,6 +110,31 @@ function scalar( value ) {
 }
 
 /**
+ * Whether a single-value selection counts as "not provided" — used to gate
+ * value-field surcharges so an untouched optional control adds nothing.
+ *
+ * @param {*} value Selection value.
+ * @return {boolean} True when empty.
+ */
+function isEmptyValue( value ) {
+	if ( value === null || value === undefined ) {
+		return true;
+	}
+	if ( typeof value === 'string' ) {
+		return value.trim() === '';
+	}
+	if ( Array.isArray( value ) ) {
+		return value.length === 0;
+	}
+	if ( typeof value === 'object' ) {
+		return Object.keys( value ).every(
+			( k ) => String( value[ k ] == null ? '' : value[ k ] ).trim() === ''
+		);
+	}
+	return false;
+}
+
+/**
  * Determine the per_unit multiplier (choice count, else numeric value).
  *
  * @param {*}      value Selection value.
@@ -253,6 +278,11 @@ export function priceField( fieldEl, entry, percentBase ) {
 	}
 	const mode = gatedMode( ctrl.getAttribute( 'data-price-mode' ) || 'none' );
 	if ( mode === 'none' ) {
+		return 0;
+	}
+	// No surcharge until the customer actually provides a value (e.g. picks a
+	// date / types text). Empty optional value-fields must not pre-charge.
+	if ( isEmptyValue( entry.value ) ) {
 		return 0;
 	}
 	// A bare value control has no per-choice cost attribute by default;

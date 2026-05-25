@@ -211,6 +211,103 @@
 	}
 }
 
+/* ---- Date field config (segmented range, day/date chips) ---- */
+.dpo-daterange {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.dpo-seg {
+	display: inline-flex;
+	padding: 3px;
+	border: 1px solid var(--dpo-c-border-strong);
+	border-radius: var(--dpo-c-radius);
+	background: var(--dpo-c-surface);
+}
+
+.dpo-seg__btn {
+	flex: 1;
+	padding: 5px 12px;
+	border: none;
+	border-radius: calc(var(--dpo-c-radius) - 2px);
+	background: transparent;
+	color: var(--dpo-c-ink-soft);
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: background 0.12s, color 0.12s;
+
+	&:hover {
+		color: var(--dpo-c-primary);
+	}
+
+	&.is-active {
+		background: var(--dpo-c-primary);
+		color: #fff;
+	}
+}
+
+.dpo-daychips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.dpo-daychip {
+	min-width: 34px;
+	padding: 5px 9px;
+	border: 1px solid var(--dpo-c-border-strong);
+	border-radius: var(--dpo-c-radius);
+	background: var(--dpo-c-surface);
+	color: var(--dpo-c-ink-soft);
+	font-size: 12px;
+	font-weight: 600;
+	text-align: center;
+	cursor: pointer;
+	transition: border-color 0.12s, background 0.12s, color 0.12s;
+
+	&:hover {
+		border-color: var(--dpo-c-primary);
+	}
+
+	&.is-active {
+		border-color: var(--dpo-c-danger, #e23b3b);
+		background: var(--dpo-c-danger, #e23b3b);
+		color: #fff;
+	}
+}
+
+.dpo-datechip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 5px 6px 5px 11px;
+	border: 1px solid var(--dpo-c-border-strong);
+	border-radius: 999px;
+	background: var(--dpo-c-surface);
+	color: var(--dpo-c-ink-soft);
+	font-size: 12px;
+	font-weight: 600;
+
+	button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2px;
+		border: none;
+		border-radius: 50%;
+		background: transparent;
+		color: var(--dpo-c-danger, #e23b3b);
+		cursor: pointer;
+
+		&:hover {
+			background: rgba(226, 59, 59, 0.12);
+		}
+	}
+}
+
 /* ---- Swatch style section (Styles tab, image/color swatch) ---- */
 .dpo-swatch-styles {
 	display: flex;

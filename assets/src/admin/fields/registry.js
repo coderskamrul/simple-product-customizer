@@ -163,12 +163,24 @@ export const FIELD_TYPES = {
 	},
 	date: {
 		slug: 'date', label: __( 'Date', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'calendar-alt', priceable: false,
-		defaultNode: () => baseNode( 'date' ),
-		inspectorSchema: [
-			{ key: 'minDate', label: __( 'Earliest date', 'dynamic-product-options-for-woocommerce' ), control: 'text' },
-			{ key: 'maxDate', label: __( 'Latest date', 'dynamic-product-options-for-woocommerce' ), control: 'text' },
-		],
+		category: 'Input', icon: 'calendar-alt', priceable: true,
+		defaultNode: () => ( {
+			...baseNode( 'date' ),
+			choices: [ makeChoice() ],
+			config: {
+				format: 'd/m/Y',
+				minMode: 'none',
+				minDate: '',
+				maxMode: 'none',
+				maxDate: '',
+				disableToday: false,
+				disableDates: [],
+				disableWeekdays: [],
+				disableMonthlyDays: [],
+			},
+		} ),
+		// Settings UI is the bespoke DateConfig panel (see GeneralTab).
+		inspectorSchema: [],
 	},
 	time: {
 		slug: 'time', label: __( 'Time', 'dynamic-product-options-for-woocommerce' ),

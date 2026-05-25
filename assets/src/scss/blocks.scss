@@ -58,6 +58,31 @@
 		}
 	}
 
+	/* Date picker (flatpickr-enhanced) — leading calendar icon */
+	.dpo-date {
+		position: relative;
+
+		.dpo-date__icon {
+			position: absolute;
+			inset-inline-start: 14px;
+			inset-block-start: 50%;
+			transform: translateY(-50%);
+			display: inline-flex;
+			color: var(--dpo-muted);
+			pointer-events: none;
+		}
+
+		.dpo-date-input {
+			padding-inline-start: 44px;
+			cursor: pointer;
+			background: var(--dpo-surface);
+		}
+
+		&:focus-within .dpo-date__icon {
+			color: var(--dpo-accent);
+		}
+	}
+
 	/* ================================================================ */
 	/* Checkbox / radio choice lists                                     */
 	/* ================================================================ */
@@ -1059,6 +1084,59 @@
 	@media (max-width: 400px) {
 		.dpo-choices[data-columns] {
 			grid-template-columns: 1fr;
+		}
+	}
+}
+
+/* ====================================================================== */
+/* flatpickr calendar — appended to <body>, so it lives OUTSIDE            */
+/* .dpo-options. Theme global `input` rules otherwise distort the year     */
+/* number-input (width / padding / hidden spinner), making year selection  */
+/* disappear. Reset the internals defensively so month AND year both work. */
+/* ====================================================================== */
+.flatpickr-calendar {
+	.flatpickr-current-month {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+
+		.flatpickr-monthDropdown-months {
+			width: auto;
+			min-height: 0;
+			padding: 2px 4px;
+			font-size: inherit;
+			line-height: normal;
+			background: transparent;
+			border: 0;
+			box-shadow: none;
+			-webkit-appearance: menulist;
+			appearance: menulist;
+		}
+
+		.numInputWrapper {
+			width: 7ch;
+
+			input.cur-year {
+				width: 100%;
+				min-height: 0;
+				height: auto;
+				margin: 0;
+				padding: 0 0 0 4px;
+				font-size: inherit;
+				line-height: normal;
+				color: inherit;
+				background: transparent;
+				border: 0;
+				border-radius: 0;
+				box-shadow: none;
+			}
+
+			.arrowUp,
+			.arrowDown {
+				display: block;
+				opacity: 1;
+			}
 		}
 	}
 }

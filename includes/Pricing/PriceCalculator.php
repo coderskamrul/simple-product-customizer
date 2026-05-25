@@ -308,7 +308,12 @@ final class PriceCalculator {
 		$total   = 0.0;
 
 		if ( array() === $indexes ) {
-			// Single value-driven control: price against the first choice.
+			// Single value-driven control: price against the first choice, but
+			// only once the customer has actually supplied a value (mirrors the
+			// storefront gate so an untouched optional field never pre-charges).
+			if ( $this->isEmptyValue( $value ) ) {
+				return 0.0;
+			}
 			$total = $this->modePrice( $choices[0], $value, $percentBase, 0, $field );
 		} else {
 			foreach ( $indexes as $slot => $idx ) {
@@ -390,6 +395,31 @@ final class PriceCalculator {
 			return 1.0;
 		}
 		return Money::f( $value );
+	}
+
+	/**
+	 * Whether a single-value selection counts as "not provided", so a value
+	 * field's surcharge is withheld until the customer supplies a value.
+	 *
+	 * @param mixed $value Selection value.
+	 * @return bool
+	 */
+	private function isEmptyValue( $value ): bool {
+		if ( null === $value ) {
+			return true;
+		}
+		if ( is_string( $value ) ) {
+			return '' === trim( $value );
+		}
+		if ( is_array( $value ) ) {
+			foreach ( $value as $v ) {
+				if ( '' !== trim( (string) $v ) ) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	/**

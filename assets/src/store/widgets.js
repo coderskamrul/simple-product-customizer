@@ -13,6 +13,8 @@
  * @package DPO\Store
  */
 
+import { wireDate } from './date';
+
 /**
  * Wire a custom `.dpo-select` / `.dpo-fontpicker` dropdown.
  *
@@ -248,6 +250,8 @@ export function initWidgets( fieldEl, onChange ) {
 			wirePopup( fieldEl );
 		} else if ( type === 'imageswatch' ) {
 			wireImageSwatchSwap( fieldEl );
+		} else if ( type === 'date' ) {
+			wireDate( fieldEl, onChange );
 		}
 	} catch ( e ) {
 		/* a broken widget must never wedge the page. */
