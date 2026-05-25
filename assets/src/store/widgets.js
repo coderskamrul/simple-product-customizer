@@ -14,6 +14,7 @@
  */
 
 import { wireDate } from './date';
+import { wireTime } from './time';
 
 /**
  * Wire a custom `.dpo-select` / `.dpo-fontpicker` dropdown.
@@ -252,6 +253,8 @@ export function initWidgets( fieldEl, onChange ) {
 			wireImageSwatchSwap( fieldEl );
 		} else if ( type === 'date' ) {
 			wireDate( fieldEl, onChange );
+		} else if ( type === 'time' ) {
+			wireTime( fieldEl, onChange );
 		}
 	} catch ( e ) {
 		/* a broken widget must never wedge the page. */

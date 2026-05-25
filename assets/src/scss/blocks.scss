@@ -58,11 +58,13 @@
 		}
 	}
 
-	/* Date picker (flatpickr-enhanced) — leading calendar icon */
-	.dpo-date {
+	/* Date / time pickers (flatpickr-enhanced) — leading icon */
+	.dpo-date,
+	.dpo-time {
 		position: relative;
 
-		.dpo-date__icon {
+		.dpo-date__icon,
+		.dpo-time__icon {
 			position: absolute;
 			inset-inline-start: 14px;
 			inset-block-start: 50%;
@@ -72,13 +74,15 @@
 			pointer-events: none;
 		}
 
-		.dpo-date-input {
+		.dpo-date-input,
+		.dpo-time-input {
 			padding-inline-start: 44px;
 			cursor: pointer;
 			background: var(--dpo-surface);
 		}
 
-		&:focus-within .dpo-date__icon {
+		&:focus-within .dpo-date__icon,
+		&:focus-within .dpo-time__icon {
 			color: var(--dpo-accent);
 		}
 	}
@@ -1137,6 +1141,29 @@
 				display: block;
 				opacity: 1;
 			}
+		}
+	}
+
+	/* Time picker (enableTime) — same theme-reset for its number inputs. */
+	.flatpickr-time {
+		input {
+			width: auto;
+			min-height: 0;
+			height: 40px;
+			margin: 0;
+			padding: 0;
+			font-size: inherit;
+			line-height: normal;
+			color: inherit;
+			background: transparent;
+			border: 0;
+			border-radius: 0;
+			box-shadow: none;
+		}
+
+		.flatpickr-am-pm {
+			width: auto;
+			padding: 0 6px;
 		}
 	}
 }

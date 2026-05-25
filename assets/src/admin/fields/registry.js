@@ -184,8 +184,19 @@ export const FIELD_TYPES = {
 	},
 	time: {
 		slug: 'time', label: __( 'Time', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'clock', priceable: false,
-		defaultNode: () => baseNode( 'time' ), inspectorSchema: [],
+		category: 'Input', icon: 'clock', priceable: true,
+		defaultNode: () => ( {
+			...baseNode( 'time' ),
+			choices: [ makeChoice() ],
+			config: {
+				hour12: true,
+				minTime: '',
+				maxTime: '',
+				step: 5,
+			},
+		} ),
+		// Settings UI is the bespoke TimeConfig panel (see GeneralTab).
+		inspectorSchema: [],
 	},
 	datetime: {
 		slug: 'datetime', label: __( 'Date & Time', 'dynamic-product-options-for-woocommerce' ),

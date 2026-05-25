@@ -308,6 +308,28 @@
 	}
 }
 
+/* ---- Time field config (hour:minute + meridiem) ---- */
+.dpo-timeinput {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	// flex-wrap: wrap;
+
+	&__num {
+		width: 58px;
+		text-align: center;
+	}
+
+	&__sep {
+		font-weight: 700;
+		color: var(--dpo-c-ink-soft);
+	}
+
+	.dpo-seg {
+		margin-inline-start: 4px;
+	}
+}
+
 /* ---- Swatch style section (Styles tab, image/color swatch) ---- */
 .dpo-swatch-styles {
 	display: flex;
