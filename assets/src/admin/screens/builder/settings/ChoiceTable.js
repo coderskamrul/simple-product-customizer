@@ -29,6 +29,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Trash2, Plus, ImageIcon, X } from 'lucide-react';
 import { PRICE_MODES, makeChoice } from '../../../fields/registry';
 import { useConfig } from '../../../store/ConfigContext';
+import useCustomFonts from '../../../hooks/useCustomFonts';
 
 const FREE_CAP = 3;
 
@@ -126,6 +127,58 @@ function ImageCell( { value, onChange } ) {
 }
 
 /**
+ * Font-family picker cell — a dropdown of the uploaded custom fonts. Picking a
+ * font stores its CSS family on the choice and seeds the option label with the
+ * font title when the editor hasn't typed one. Options preview in their own
+ * face (the @font-face is injected admin-side by useCustomFonts).
+ *
+ * @param {Object}   props         Component props.
+ * @param {Object}   props.choice  Choice row.
+ * @param {Function} props.onPatch (delta) => void.
+ * @return {JSX.Element} The cell.
+ */
+function FontCell( { choice, onPatch } ) {
+	const { fonts } = useCustomFonts();
+	const current = choice.fontFamily || '';
+	const known = fonts.some( ( f ) => f.family === current );
+
+	const onPick = ( family ) => {
+		const font = fonts.find( ( f ) => f.family === family );
+		// The font title IS the option label for the Font Picker (no separate
+		// title field), so always mirror the chosen font's title.
+		onPatch( { fontFamily: family, label: font ? font.title : '' } );
+	};
+
+	return (
+		<select
+			className="dpo-input dpo-select-control dpo-choices__font"
+			style={ current ? { fontFamily: current } : undefined }
+			value={ current }
+			onChange={ ( e ) => onPick( e.target.value ) }
+		>
+			<option value="">
+				{ __(
+					'Select font',
+					'dynamic-product-options-for-woocommerce'
+				) }
+			</option>
+			{ fonts.map( ( f ) => (
+				<option
+					key={ f.id }
+					value={ f.family }
+					style={ { fontFamily: f.family } }
+				>
+					{ f.title }
+				</option>
+			) ) }
+			{ current && ! known && (
+				<option value={ current }>{ current }</option>
+			) }
+		</select>
+	);
+}
+
+/**
  * One sortable choice row.
  *
  * @param {Object}   props              Component props.
@@ -134,7 +187,9 @@ function ImageCell( { value, onChange } ) {
  * @param {Array}    props.priceOptions Price-mode options.
  * @param {boolean}  props.proActive    Whether Pro is active.
  * @param {?string}  props.extra        Extra column kind (color|image|font).
+ * @param {boolean}  props.labelless    Hide the Title input (Font Picker).
  * @param {Function} props.onPatch      (delta) => void.
+ * @param {Function} props.onActive     (checked:boolean) => void.
  * @param {Function} props.onRemove     () => void.
  * @return {JSX.Element} The row.
  */
@@ -144,7 +199,9 @@ function ChoiceRow( {
 	priceOptions,
 	proActive,
 	extra,
+	labelless,
 	onPatch,
+	onActive,
 	onRemove,
 } ) {
 	const {
@@ -180,19 +237,25 @@ function ChoiceRow( {
 				<GripVertical size={ 15 } />
 			</button>
 
-			<input
-				className="dpo-input"
-				value={ choice.label }
-				placeholder={ sprintf(
-					/* translators: %d: row number */
-					__(
-						'Option %d',
-						'dynamic-product-options-for-woocommerce'
-					),
-					index + 1
-				) }
-				onChange={ ( e ) => onPatch( { label: e.target.value } ) }
-			/>
+			{ /* Font Picker has no manual title — its font dropdown drives the
+			     option label, so it replaces the title input entirely. */ }
+			{ labelless ? (
+				<FontCell choice={ choice } onPatch={ onPatch } />
+			) : (
+				<input
+					className="dpo-input"
+					value={ choice.label }
+					placeholder={ sprintf(
+						/* translators: %d: row number */
+						__(
+							'Option %d',
+							'dynamic-product-options-for-woocommerce'
+						),
+						index + 1
+					) }
+					onChange={ ( e ) => onPatch( { label: e.target.value } ) }
+				/>
+			) }
 
 			{ extra === 'image' && (
 				<ImageCell
@@ -219,19 +282,6 @@ function ChoiceRow( {
 						'Choose colour',
 						'dynamic-product-options-for-woocommerce'
 					) }
-				/>
-			) }
-			{ extra === 'font' && (
-				<input
-					className="dpo-input"
-					value={ choice.fontFamily }
-					placeholder={ __(
-						'font-family',
-						'dynamic-product-options-for-woocommerce'
-					) }
-					onChange={ ( e ) =>
-						onPatch( { fontFamily: e.target.value } )
-					}
 				/>
 			) }
 
@@ -287,9 +337,7 @@ function ChoiceRow( {
 						'dynamic-product-options-for-woocommerce'
 					) }
 					checked={ !! choice.selected }
-					onChange={ ( e ) =>
-						onPatch( { selected: e.target.checked } )
-					}
+					onChange={ ( e ) => onActive( e.target.checked ) }
 				/>
 				<span className="dpo-switch__track" aria-hidden="true" />
 			</span>
@@ -321,6 +369,9 @@ export default function ChoiceTable( { node, patch } ) {
 	const { proActive } = useConfig();
 	const choices = node.choices || [];
 	const extra = EXTRA_BY_TYPE[ node.type ] || null;
+	// Font Picker drives the option label from the chosen font, so its font
+	// dropdown takes the place of the Title column entirely.
+	const labelless = node.type === 'fontpicker';
 
 	const sensors = useSensors(
 		useSensor( PointerSensor, { activationConstraint: { distance: 5 } } ),
@@ -342,6 +393,21 @@ export default function ChoiceTable( { node, patch } ) {
 			),
 		} );
 
+	// Single-selection controls (dropdown / radio / font picker) can only have
+	// one default-active option; activating one clears the rest.
+	const singleSelect = [ 'select', 'radio', 'fontpicker' ].includes(
+		node.type
+	);
+	const setActive = ( idx, checked ) =>
+		patch( {
+			choices: choices.map( ( c, i ) => {
+				if ( i === idx ) {
+					return { ...c, selected: checked };
+				}
+				return singleSelect ? { ...c, selected: false } : c;
+			} ),
+		} );
+
 	const removeChoice = ( idx ) =>
 		patch( { choices: choices.filter( ( _, i ) => i !== idx ) } );
 
@@ -360,23 +426,36 @@ export default function ChoiceTable( { node, patch } ) {
 	};
 
 	const canAdd = proActive || choices.length < FREE_CAP;
-	const mediaLabel =
-		extra === 'color'
-			? __( 'Color', 'dynamic-product-options-for-woocommerce' )
-			: extra === 'font'
-			? __( 'Font', 'dynamic-product-options-for-woocommerce' )
-			: __( 'Image', 'dynamic-product-options-for-woocommerce' );
+	const mediaLabels = {
+		color: __( 'Color', 'dynamic-product-options-for-woocommerce' ),
+		font: __( 'Font', 'dynamic-product-options-for-woocommerce' ),
+		image: __( 'Image', 'dynamic-product-options-for-woocommerce' ),
+	};
+	const mediaLabel = mediaLabels[ extra ] || mediaLabels.image;
+
+	let containerMod = '';
+	if ( labelless ) {
+		containerMod = ' dpo-choices--fontpicker';
+	} else if ( extra ) {
+		containerMod = ' dpo-choices--media';
+	}
 
 	return (
-		<div
-			className={ `dpo-choices${ extra ? ' dpo-choices--media' : '' }` }
-		>
+		<div className={ `dpo-choices${ containerMod }` }>
 			<div className="dpo-choices__head">
 				<span />
 				<span>
-					{ __( 'Title', 'dynamic-product-options-for-woocommerce' ) }
+					{ labelless
+						? __(
+								'Font',
+								'dynamic-product-options-for-woocommerce'
+						  )
+						: __(
+								'Title',
+								'dynamic-product-options-for-woocommerce'
+						  ) }
 				</span>
-				{ extra && <span>{ mediaLabel }</span> }
+				{ extra && ! labelless && <span>{ mediaLabel }</span> }
 				<span>
 					{ __(
 						'Price Type',
@@ -419,7 +498,11 @@ export default function ChoiceTable( { node, patch } ) {
 							priceOptions={ priceOptions }
 							proActive={ proActive }
 							extra={ extra }
+							labelless={ labelless }
 							onPatch={ ( delta ) => setChoice( idx, delta ) }
+							onActive={ ( checked ) =>
+								setActive( idx, checked )
+							}
 							onRemove={ () => removeChoice( idx ) }
 						/>
 					) ) }

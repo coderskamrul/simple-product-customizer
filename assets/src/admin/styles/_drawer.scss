@@ -426,6 +426,21 @@
 	}
 }
 
+/* Font Picker: the font dropdown replaces the Title column (no media col).
+   Price Type / Regular / Sales share an equal width so the boxes line up. */
+.dpo-choices--fontpicker {
+	.dpo-choices__head,
+	.dpo-choices__row {
+		grid-template-columns:
+			20px minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr)
+			minmax(0, 1fr) 56px 28px;
+	}
+
+	.dpo-choices__active {
+		justify-self: center;
+	}
+}
+
 /* Compact inline image picker cell. */
 .dpo-choices__media {
 	position: relative;

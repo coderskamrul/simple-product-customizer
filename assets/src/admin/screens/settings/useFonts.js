@@ -2,7 +2,7 @@
  * Custom-fonts data hook — list / upload / delete. Fonts persist
  * immediately (their own REST routes) so they live outside useSettings.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState, useEffect, useCallback } from '@wordpress/element';
@@ -14,7 +14,7 @@ import { useToast } from '../../store/ToastContext';
 /**
  * @return {{
  *   fonts:Array, loading:boolean, busy:boolean,
- *   upload:Function, remove:Function
+ *   upload:Function, update:Function, remove:Function
  * }} Fonts state + actions.
  */
 export default function useFonts() {
@@ -62,6 +62,30 @@ export default function useFonts() {
 		[ refresh, notify ]
 	);
 
+	const update = useCallback(
+		async ( id, fields ) => {
+			setBusy( true );
+			try {
+				await api.patchFont( id, fields );
+				await refresh();
+				notify(
+					__(
+						'Font updated.',
+						'dynamic-product-options-for-woocommerce'
+					),
+					'success'
+				);
+				return true;
+			} catch ( e ) {
+				notify( errorMessage( e ), 'error' );
+				return false;
+			} finally {
+				setBusy( false );
+			}
+		},
+		[ refresh, notify ]
+	);
+
 	const remove = useCallback(
 		async ( id ) => {
 			try {
@@ -81,5 +105,5 @@ export default function useFonts() {
 		[ refresh, notify ]
 	);
 
-	return { fonts, loading, busy, upload, remove };
+	return { fonts, loading, busy, upload, update, remove };
 }

@@ -617,11 +617,21 @@ $dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
 .dpo-set-fontrow {
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	flex-wrap: wrap;
+	gap: 10px 16px;
 	padding: 14px 18px;
 	background: $dpo-set-card-bg;
 	border: 1px solid $dpo-set-card-bd;
 	border-radius: 12px;
+
+	&__sample {
+		flex: 1 1 100%;
+		padding-block-start: 10px;
+		border-block-start: 1px dashed $dpo-set-card-bd;
+		font-size: 20px;
+		line-height: 1.4;
+		color: $dpo-os-ink;
+	}
 
 	&__name {
 		flex: 1 1 40%;
@@ -652,6 +662,25 @@ $dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
 		font-size: 11px;
 		font-weight: 700;
 		letter-spacing: 0.04em;
+	}
+
+	&--editing {
+		align-items: flex-end;
+		flex-wrap: wrap;
+	}
+}
+
+/* Inline edit form within a font row. */
+.dpo-set-fontedit {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+	flex: 1 1 100%;
+
+	&__actions {
+		display: flex;
+		gap: 8px;
+		align-items: center;
 	}
 }
 

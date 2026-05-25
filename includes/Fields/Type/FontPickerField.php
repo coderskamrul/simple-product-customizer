@@ -29,6 +29,23 @@ final class FontPickerField extends AbstractField {
 	}
 
 	/**
+	 * Map an uploaded font's file extension to a CSS @font-face format hint.
+	 *
+	 * @param string $type File extension (ttf|otf|woff|woff2).
+	 * @return string CSS format() token.
+	 */
+	private function format_hint( $type ) {
+		$map = array(
+			'ttf'   => 'truetype',
+			'otf'   => 'opentype',
+			'woff'  => 'woff',
+			'woff2' => 'woff2',
+		);
+		$type = strtolower( (string) $type );
+		return isset( $map[ $type ] ) ? $map[ $type ] : 'woff2';
+	}
+
+	/**
 	 * Control markup.
 	 *
 	 * @return string
@@ -55,11 +72,31 @@ final class FontPickerField extends AbstractField {
 			}
 		}
 
+		// First option flagged "active" in the builder is the default selection.
+		$selected_index  = -1;
+		$selected_label  = '';
+		$selected_family = '';
+		foreach ( $choices as $index => $choice ) {
+			if ( ! empty( $choice['selected'] ) ) {
+				$selected_index  = (int) $index;
+				$selected_label  = isset( $choice['label'] ) ? (string) $choice['label'] : '';
+				$selected_family = isset( $choice['fontFamily'] ) ? (string) $choice['fontFamily'] : '';
+				break;
+			}
+		}
+		$has_default = $selected_index >= 0;
+
+		$placeholder = $has_default
+			? '<span class="dpo-select__placeholder" style="font-family:' . esc_attr( $selected_family ) . '">'
+				. esc_html( '' !== $selected_label ? $selected_label : $selected_family ) . '</span>'
+			: '<span class="dpo-select__placeholder">'
+				. esc_html__( 'Select Font', 'dynamic-product-options-for-woocommerce' ) . '</span>';
+
 		$face = '';
 		$html = '<div class="dpo-fontpicker dpo-select" data-field-id="' . esc_attr( $this->id() ) . '">';
-		$html .= '<input type="hidden" class="dpo-select__value" name="' . esc_attr( $this->input_name() ) . '" value="" />';
-		$html .= '<button type="button" class="dpo-select__toggle"><span class="dpo-select__placeholder">'
-			. esc_html__( 'Choose a font', 'dynamic-product-options-for-woocommerce' ) . '</span></button>';
+		$html .= '<input type="hidden" class="dpo-select__value" name="' . esc_attr( $this->input_name() ) . '" value="'
+			. esc_attr( $has_default ? (string) $selected_index : '' ) . '" />';
+		$html .= '<button type="button" class="dpo-select__toggle">' . $placeholder . '</button>';
 		$html .= '<div class="dpo-select__list" role="listbox">';
 
 		foreach ( $choices as $index => $choice ) {
@@ -71,22 +108,26 @@ final class FontPickerField extends AbstractField {
 					"@font-face{font-family:'%s';src:url('%s') format('%s');font-display:swap;}",
 					esc_attr( $family ),
 					esc_url( $src_by[ $family ]['src'] ),
-					esc_attr( $src_by[ $family ]['type'] )
+					esc_attr( $this->format_hint( $src_by[ $family ]['type'] ) )
 				);
 			}
 
-			$html .= '<div class="dpo-select__opt" role="option" style="font-family:' . esc_attr( $family ) . '"'
+			$opt_class = 'dpo-select__opt' . ( (int) $index === $selected_index ? ' dpo-select__opt--active' : '' );
+			$html     .= '<div class="' . esc_attr( $opt_class ) . '" role="option"'
 				. $this->attrs(
 					array_merge(
 						array(
 							'data-index' => (int) $index,
 							'data-uid'   => isset( $choice['uid'] ) ? (string) $choice['uid'] : '',
 							'data-label' => $label,
+							'data-font'  => $family,
 						),
 						$this->choice_price_attrs( is_array( $choice ) ? $choice : array() )
 					)
 				) . '>';
-			$html .= '<span class="dpo-select__opt-label">' . esc_html( '' !== $label ? $label : $family ) . '</span>';
+			// Font style applies to the label only — never to the price badge.
+			$html .= '<span class="dpo-select__opt-label" style="font-family:' . esc_attr( $family ) . '">'
+				. esc_html( '' !== $label ? $label : $family ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= '</div>';
 		}

@@ -13,6 +13,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { ChevronDown, Check, Upload } from 'lucide-react';
 import { useConfig } from '../../../store/ConfigContext';
+import useCustomFonts from '../../../hooks/useCustomFonts';
 
 /** Demo base price used to render percentage-based choice prices. */
 const DEMO_BASE = 20;
@@ -97,6 +98,79 @@ function PriceTag( { choice, formatPrice } ) {
 				<b>{ reg }</b>
 			) }
 		</span>
+	);
+}
+
+/**
+ * Font Picker preview — a closed "Select Font" dropdown plus the list of
+ * choices, each rendered in its own font with its price. Calling
+ * useCustomFonts here guarantees the uploaded @font-face rules are injected so
+ * the preview shows the real faces.
+ *
+ * @param {Object}   props             Component props.
+ * @param {Object[]} props.choices     Choice rows.
+ * @param {Function} props.formatPrice Currency formatter.
+ * @return {JSX.Element} The preview.
+ */
+function FontPickerPreview( { choices, formatPrice } ) {
+	useCustomFonts();
+	const [ open, setOpen ] = useState( false );
+	const current = choices.find( ( c ) => c.selected );
+	return (
+		<div className={ `dpo-pf__fontpicker${ open ? ' is-open' : '' }` }>
+			<button
+				type="button"
+				className="dpo-pf__select-box"
+				onClick={ () => setOpen( ( v ) => ! v ) }
+			>
+				{ current ? (
+					<span
+						className="dpo-pf__select-placeholder"
+						style={
+							current.fontFamily
+								? { fontFamily: current.fontFamily }
+								: undefined
+						}
+					>
+						{ current.label ||
+							__(
+								'Untitled',
+								'dynamic-product-options-for-woocommerce'
+							) }
+					</span>
+				) : (
+					<span className="dpo-pf__select-placeholder">
+						{ __(
+							'Select Font',
+							'dynamic-product-options-for-woocommerce'
+						) }
+					</span>
+				) }
+				<ChevronDown size={ 16 } />
+			</button>
+			{ open && (
+				<div className="dpo-pf__fontlist">
+					{ choices.map( ( c, i ) => (
+						<span key={ c.uid || i } className="dpo-pf__fontopt">
+							<span
+								className="dpo-pf__fontopt-label"
+								style={
+									c.fontFamily
+										? { fontFamily: c.fontFamily }
+										: undefined
+								}
+							>
+								{ c.label || `Option ${ i + 1 }` }
+							</span>
+							<PriceTag
+								choice={ c }
+								formatPrice={ formatPrice }
+							/>
+						</span>
+					) ) }
+				</div>
+			) }
+		</div>
 	);
 }
 
@@ -296,8 +370,15 @@ export default function FieldPreview( { node } ) {
 
 	let control = null;
 	switch ( node.type ) {
-		case 'buttongroup':
 		case 'fontpicker':
+			control = (
+				<FontPickerPreview
+					choices={ choices }
+					formatPrice={ formatPrice }
+				/>
+			);
+			break;
+		case 'buttongroup':
 			control = (
 				<div className="dpo-pf__buttons">
 					{ choices.map( ( c, i ) => (

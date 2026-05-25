@@ -684,6 +684,57 @@
 		}
 	}
 
+	/* Font Picker preview — closed "Select Font" box + dropdown option list. */
+	&__fontpicker {
+		position: relative;
+
+		.dpo-pf__select-box {
+			width: 100%;
+			font: inherit;
+			text-align: start;
+			cursor: pointer;
+		}
+
+		&.is-open .dpo-pf__select-box > svg {
+			transform: rotate( 180deg );
+		}
+	}
+
+	&__fontlist {
+		position: absolute;
+		inset-inline: 0;
+		inset-block-start: calc( 100% + 4px );
+		z-index: 5;
+		display: flex;
+		flex-direction: column;
+		background: var(--dpo-c-surface);
+		border: 1px solid var(--dpo-c-border);
+		border-radius: var(--dpo-c-radius-sm);
+		box-shadow: var(--dpo-c-shadow);
+		overflow: hidden;
+	}
+
+	&__fontopt {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		padding: 10px 14px;
+		font-size: 16px;
+		border-block-end: 1px solid var(--dpo-c-border);
+
+		&:last-child {
+			border-block-end: none;
+		}
+	}
+
+	&__fontopt-label {
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
 	&__price {
 		display: inline-flex;
 		align-items: center;

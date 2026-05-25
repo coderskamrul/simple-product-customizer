@@ -10,7 +10,7 @@
  * No business logic lives here — collection + pricing read the resulting DOM
  * state through collect.js / pricing.js.
  *
- * @package DPO\Store
+ * @package
  */
 
 import { wireDate } from './date';
@@ -31,10 +31,10 @@ function wireSelect( fieldEl, onChange ) {
 	const toggle = box.querySelector( '.dpo-select__toggle' );
 	const list = box.querySelector( '.dpo-select__list' );
 	const hidden = box.querySelector( '.dpo-select__value' );
-	const placeholder = box.querySelector( '.dpo-select__placeholder' );
 	if ( ! toggle || ! list || ! hidden ) {
 		return;
 	}
+	const placeholder = box.querySelector( '.dpo-select__placeholder' );
 	const placeholderText = placeholder ? placeholder.textContent : '';
 
 	const close = () => box.classList.remove( 'dpo-select--open' );
@@ -51,12 +51,15 @@ function wireSelect( fieldEl, onChange ) {
 			hidden.value = idx;
 			if ( placeholder ) {
 				placeholder.textContent = label || placeholderText;
+				// Font Picker: reflect the chosen font in the closed control.
+				const font = opt.getAttribute( 'data-font' );
+				if ( font !== null ) {
+					placeholder.style.fontFamily = font || '';
+				}
 			}
-			list
-				.querySelectorAll( '.dpo-select__opt--active' )
-				.forEach( ( o ) =>
-					o.classList.remove( 'dpo-select__opt--active' )
-				);
+			list.querySelectorAll( '.dpo-select__opt--active' ).forEach(
+				( o ) => o.classList.remove( 'dpo-select__opt--active' )
+			);
 			opt.classList.add( 'dpo-select__opt--active' );
 			close();
 			onChange();
@@ -83,11 +86,11 @@ function wireColorPicker( fieldEl, onChange ) {
 		return;
 	}
 	const input = box.querySelector( '.dpo-colorpicker__input' );
-	const hex = box.querySelector( '.dpo-colorpicker__hex' );
-	const reset = box.querySelector( '.dpo-colorpicker__reset' );
 	if ( ! input ) {
 		return;
 	}
+	const hex = box.querySelector( '.dpo-colorpicker__hex' );
+	const reset = box.querySelector( '.dpo-colorpicker__reset' );
 
 	input.addEventListener( 'input', () => {
 		if ( hex ) {
@@ -105,8 +108,7 @@ function wireColorPicker( fieldEl, onChange ) {
 	}
 	if ( reset ) {
 		reset.addEventListener( 'click', () => {
-			const def =
-				input.getAttribute( 'data-default' ) || '#000000';
+			const def = input.getAttribute( 'data-default' ) || '#000000';
 			input.value = def;
 			if ( hex ) {
 				hex.value = def;
@@ -125,10 +127,10 @@ function wireColorPicker( fieldEl, onChange ) {
  */
 function wireRange( fieldEl, onChange ) {
 	const slider = fieldEl.querySelector( '.dpo-range__slider' );
-	const mirror = fieldEl.querySelector( '.dpo-range__mirror' );
 	if ( ! slider ) {
 		return;
 	}
+	const mirror = fieldEl.querySelector( '.dpo-range__mirror' );
 	slider.addEventListener( 'input', () => {
 		if ( mirror ) {
 			mirror.value = slider.value;
@@ -206,27 +208,23 @@ function wireImageSwatchSwap( fieldEl ) {
 	if ( ! wrap ) {
 		return;
 	}
-	wrap
-		.querySelectorAll( '.dpo-swatch-item__native' )
-		.forEach( ( input ) => {
-			input.addEventListener( 'change', () => {
-				const img = fieldEl
-					.querySelector(
-						'input.dpo-swatch-item__native:checked'
-					)
-					?.closest( '.dpo-swatch-item' )
-					?.querySelector( 'img' );
-				const gallery = document.querySelector(
-					'.woocommerce-product-gallery__image img, .wp-post-image'
-				);
-				if ( img && gallery && img.src ) {
-					gallery.src = img.src;
-					if ( gallery.srcset ) {
-						gallery.srcset = img.src;
-					}
+	wrap.querySelectorAll( '.dpo-swatch-item__native' ).forEach( ( input ) => {
+		input.addEventListener( 'change', () => {
+			const img = fieldEl
+				.querySelector( 'input.dpo-swatch-item__native:checked' )
+				?.closest( '.dpo-swatch-item' )
+				?.querySelector( 'img' );
+			const gallery = document.querySelector(
+				'.woocommerce-product-gallery__image img, .wp-post-image'
+			);
+			if ( img && gallery && img.src ) {
+				gallery.src = img.src;
+				if ( gallery.srcset ) {
+					gallery.srcset = img.src;
 				}
-			} );
+			}
 		} );
+	} );
 }
 
 /**
