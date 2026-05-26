@@ -408,7 +408,10 @@ export const FIELD_TYPES = {
 	divider: {
 		slug: 'divider', label: __( 'Divider', 'dynamic-product-options-for-woocommerce' ),
 		category: 'Layout', icon: 'minus', priceable: false,
-		defaultNode: () => baseNode( 'divider' ), inspectorSchema: [],
+		defaultNode: () => ( { ...baseNode( 'divider' ), config: { height: 1 } } ),
+		inspectorSchema: [
+			{ key: 'height', label: __( 'Height (px)', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
+		],
 	},
 	spacer: {
 		slug: 'spacer', label: __( 'Spacer', 'dynamic-product-options-for-woocommerce' ),
@@ -423,13 +426,13 @@ export const FIELD_TYPES = {
 		category: 'Layout', icon: 'screenoptions', priceable: false, container: true,
 		defaultNode: () => ( {
 			...baseNode( 'section' ),
-			config: { collapsible: false, collapsed: false },
+			// style: 'section' (plain group) | 'accordion' (collapsible).
+			// initialState: 'open' | 'close' (accordion only).
+			config: { style: 'section', initialState: 'open' },
 			children: [],
 		} ),
-		inspectorSchema: [
-			{ key: 'collapsible', label: __( 'Collapsible', 'dynamic-product-options-for-woocommerce' ), control: 'toggle' },
-			{ key: 'collapsed', label: __( 'Collapsed by default', 'dynamic-product-options-for-woocommerce' ), control: 'toggle' },
-		],
+		// Settings UI is the bespoke SectionConfig panel (see GeneralTab).
+		inspectorSchema: [],
 	},
 
 	/* ---- Special ---- */

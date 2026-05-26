@@ -213,6 +213,30 @@ function wireLinked( fieldEl ) {
 }
 
 /**
+ * Wire an accordion Section — clicking the header collapses/expands the body
+ * and keeps aria-expanded in sync. Plain (non-accordion) sections have no
+ * header button and are left untouched.
+ *
+ * @param {HTMLElement} fieldEl Field wrapper.
+ * @return {void}
+ */
+function wireSection( fieldEl ) {
+	const section = fieldEl.querySelector( '.dpo-section--accordion' );
+	if ( ! section ) {
+		return;
+	}
+	const header = section.querySelector( '.dpo-section__header' );
+	if ( ! header ) {
+		return;
+	}
+	header.addEventListener( 'click', ( e ) => {
+		e.preventDefault();
+		const collapsed = section.classList.toggle( 'is-collapsed' );
+		header.setAttribute( 'aria-expanded', collapsed ? 'false' : 'true' );
+	} );
+}
+
+/**
  * Wire the image-swatch product-image swap when enabled.
  *
  * @param {HTMLElement} fieldEl Field wrapper.
@@ -268,6 +292,8 @@ export function initWidgets( fieldEl, onChange ) {
 			wireImageSwatchSwap( fieldEl );
 		} else if ( type === 'linkedproducts' ) {
 			wireLinked( fieldEl );
+		} else if ( type === 'section' ) {
+			wireSection( fieldEl );
 		} else if ( type === 'date' ) {
 			wireDate( fieldEl, onChange );
 		} else if ( type === 'time' ) {

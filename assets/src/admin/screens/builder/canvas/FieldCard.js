@@ -8,6 +8,7 @@
  */
 
 import { __ } from '@wordpress/i18n';
+import { useState, useEffect } from '@wordpress/element';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { motion } from 'framer-motion';
@@ -41,6 +42,13 @@ export default function FieldCard( { node } ) {
 
 	const selected = selectedId === node.id;
 	const isSection = node.type === 'section';
+	const cfg = node.config || {};
+	const isAccordion = isSection && cfg.style === 'accordion';
+	const [ open, setOpen ] = useState( cfg.initialState !== 'close' );
+	// Keep the canvas accordion state in sync with the saved initial state.
+	useEffect( () => {
+		setOpen( cfg.initialState !== 'close' );
+	}, [ cfg.initialState, isAccordion ] );
 	const Icon = fieldIcon( node.type );
 	const def = getType( node.type );
 
@@ -151,20 +159,68 @@ export default function FieldCard( { node } ) {
 				</div>
 
 				<div className="dpo-card__body">
-					<FieldPreview node={ node } />
-
-					{ isSection && (
-						// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+					{ /* Sections render their own chrome + editable children
+					   (no FieldPreview, which would duplicate the children). */ }
+					{ isSection ? (
 						<div
-							className="dpo-card__children"
-							onClick={ ( e ) => e.stopPropagation() }
+							className={ `dpo-section-edit${
+								isAccordion ? ' is-accordion' : ''
+							}${
+								isAccordion && ! open ? ' is-collapsed' : ''
+							}` }
 						>
-							<SortableContainer
-								nodes={ node.children || [] }
-								parentId={ node.id }
-							/>
-							<AddFieldButton parentId={ node.id } compact />
+							{ isAccordion ? (
+								// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+								<div
+									className="dpo-section-edit__header"
+									onClick={ ( e ) => {
+										e.stopPropagation();
+										setOpen( ( o ) => ! o );
+									} }
+								>
+									<span className="dpo-section-edit__title">
+										{ node.label ||
+											__(
+												'Section',
+												'dynamic-product-options-for-woocommerce'
+											) }
+									</span>
+									<span
+										className="dpo-section-edit__chevron"
+										aria-hidden="true"
+									/>
+								</div>
+							) : (
+								<div className="dpo-section-edit__header dpo-section-edit__header--static">
+									<span className="dpo-section-edit__title">
+										{ node.label ||
+											__(
+												'Section',
+												'dynamic-product-options-for-woocommerce'
+											) }
+									</span>
+								</div>
+							) }
+
+							{ ( ! isAccordion || open ) && (
+								// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+								<div
+									className="dpo-card__children"
+									onClick={ ( e ) => e.stopPropagation() }
+								>
+									<SortableContainer
+										nodes={ node.children || [] }
+										parentId={ node.id }
+									/>
+									<AddFieldButton
+										parentId={ node.id }
+										compact
+									/>
+								</div>
+							) }
 						</div>
+					) : (
+						<FieldPreview node={ node } />
 					) }
 				</div>
 			</motion.div>

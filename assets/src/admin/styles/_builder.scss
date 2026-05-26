@@ -425,6 +425,52 @@
 	gap: 12px;
 }
 
+/* ---- Section container chrome on the canvas (build mode) ---- */
+.dpo-section-edit {
+	border: 1px solid var(--dpo-c-border);
+	border-radius: var(--dpo-c-radius);
+	overflow: hidden;
+
+	&__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		padding: 13px 16px;
+		background: var(--dpo-c-surface-2);
+		font-weight: 700;
+		color: var(--dpo-c-ink);
+
+		&:not(.dpo-section-edit__header--static) {
+			cursor: pointer;
+		}
+	}
+
+	&__chevron {
+		flex: none;
+		width: 9px;
+		height: 9px;
+		border-right: 2px solid var(--dpo-c-muted);
+		border-bottom: 2px solid var(--dpo-c-muted);
+		transform: rotate(45deg);
+		transition: transform 0.18s;
+	}
+
+	&.is-collapsed .dpo-section-edit__chevron {
+		transform: rotate(-45deg);
+	}
+
+	/* Inside a section the children box drops its top margin (the header
+	   already provides separation) and reads as the section body. */
+	.dpo-card__children {
+		margin-block-start: 0;
+		border: 0;
+		border-radius: 0;
+		background: transparent;
+		padding: 16px;
+	}
+}
+
 /* ---- Add field affordance ---- */
 .dpo-add {
 	display: flex;
@@ -981,20 +1027,47 @@
 	&__section {
 		border: 1px solid var(--dpo-c-border);
 		border-radius: var(--dpo-c-radius);
-		padding: 16px;
+		overflow: hidden;
 		margin: 0;
+	}
 
-		legend {
-			font-weight: 700;
-			padding: 0 6px;
-			color: var(--dpo-c-ink);
+	&__section-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		width: 100%;
+		padding: 14px 16px;
+		border: 0;
+		background: var(--dpo-c-surface-2);
+		font-weight: 700;
+		color: var(--dpo-c-ink);
+		text-align: start;
+
+		&:not(.dpo-pf__section-header--static) {
+			cursor: pointer;
 		}
+	}
+
+	&__section-chevron {
+		flex: none;
+		width: 9px;
+		height: 9px;
+		border-right: 2px solid var(--dpo-c-muted);
+		border-bottom: 2px solid var(--dpo-c-muted);
+		transform: rotate(45deg);
+		transition: transform 0.18s;
+	}
+
+	&__section.is-collapsed &__section-chevron {
+		transform: rotate(-45deg);
 	}
 
 	&__section-body {
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
+		padding: 16px;
 	}
 }
 

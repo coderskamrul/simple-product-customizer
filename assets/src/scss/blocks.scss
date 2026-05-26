@@ -883,43 +883,86 @@
 		width: 100%;
 		border: 1px solid var(--dpo-border);
 		border-radius: var(--dpo-radius);
+		background: var(--dpo-surface);
 		overflow: hidden;
+		box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 
+		/* Header — full-width bar. As a <button> it needs a hard reset so the
+		   host theme's button styling never bleeds in. */
 		&__header {
+			appearance: none;
+			-webkit-appearance: none;
+			box-sizing: border-box;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			gap: 10px;
-			padding: 14px 16px;
+			gap: 12px;
+			width: 100%;
+			margin: 0;
+			padding: 15px 18px;
+			border: 0;
+			border-radius: 0;
 			background: var(--dpo-surface-alt);
-			font-weight: 600;
 			color: var(--dpo-label);
+			font: inherit;
+			font-weight: 600;
+			line-height: 1.3;
+			text-align: start;
+			cursor: pointer;
+			transition: background 0.15s;
 
-			&:not(.dpo-section__header--static) {
-				cursor: pointer;
+			&:hover {
+				background: var(--dpo-border);
+			}
+
+			&:focus-visible {
+				outline: none;
+				box-shadow: inset 0 0 0 2px var(--dpo-accent);
+			}
+
+			&--static {
+				cursor: default;
+
+				&:hover {
+					background: var(--dpo-surface-alt);
+				}
 			}
 		}
 
 		&__title {
+			flex: 1 1 auto;
+			min-width: 0;
 			margin: 0;
 			font: inherit;
 			font-weight: 600;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 
+		/* Chevron — points down when open, right when collapsed. */
 		&__chevron {
+			flex: none;
 			width: 9px;
 			height: 9px;
+			margin-block-start: -3px;
 			border-right: 2px solid var(--dpo-muted);
 			border-bottom: 2px solid var(--dpo-muted);
 			transform: rotate(45deg);
-			transition: transform 0.18s;
+			transition: transform 0.2s ease;
 		}
 
 		&__body {
 			display: flex;
 			flex-direction: column;
 			gap: var(--dpo-space);
-			padding: 16px;
+			padding: 18px;
+		}
+
+		/* Plain (non-accordion) section keeps a quiet header + open body. */
+		&:not(.dpo-section--accordion) .dpo-section__header {
+			background: transparent;
+			border-bottom: 1px solid var(--dpo-border);
 		}
 
 		&.is-collapsed {
@@ -927,6 +970,7 @@
 				display: none;
 			}
 			.dpo-section__chevron {
+				margin-block-start: 0;
 				transform: rotate(-45deg);
 			}
 		}

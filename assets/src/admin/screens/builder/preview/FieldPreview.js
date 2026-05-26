@@ -9,7 +9,7 @@
  * @package
  */
 
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { ChevronDown, Check, Upload } from 'lucide-react';
 import { useConfig } from '../../../store/ConfigContext';
@@ -461,6 +461,78 @@ function Help( { node, at } ) {
 }
 
 /**
+ * Read-only Section preview. Renders a plain labelled group, or — when the
+ * style is "accordion" — a collapsible header whose open/close state mirrors
+ * the configured initial state and the storefront behaviour. Recurses into
+ * children via FieldPreview.
+ *
+ * @param {Object} props      Component props.
+ * @param {Object} props.node Section node.
+ * @return {JSX.Element} The section preview.
+ */
+function SectionPreview( { node } ) {
+	const cfg = node.config || {};
+	const isAccordion = cfg.style === 'accordion';
+	const [ open, setOpen ] = useState( cfg.initialState !== 'close' );
+
+	// Reflect setting changes (e.g. switching the initial state) live.
+	useEffect( () => {
+		setOpen( cfg.initialState !== 'close' );
+	}, [ cfg.initialState, isAccordion ] );
+
+	const children = node.children || [];
+	const title =
+		node.label ||
+		__( 'Section', 'dynamic-product-options-for-woocommerce' );
+	const showBody = ! isAccordion || open;
+
+	return (
+		<div
+			className={ `dpo-pf__section${ isAccordion ? ' is-accordion' : '' }${
+				isAccordion && ! open ? ' is-collapsed' : ''
+			}` }
+		>
+			{ isAccordion ? (
+				<button
+					type="button"
+					className="dpo-pf__section-header"
+					aria-expanded={ open }
+					onClick={ () => setOpen( ( o ) => ! o ) }
+				>
+					<span className="dpo-pf__section-title">{ title }</span>
+					<span
+						className="dpo-pf__section-chevron"
+						aria-hidden="true"
+					/>
+				</button>
+			) : (
+				node.label && (
+					<div className="dpo-pf__section-header dpo-pf__section-header--static">
+						<span className="dpo-pf__section-title">{ title }</span>
+					</div>
+				)
+			) }
+			{ showBody && (
+				<div className="dpo-pf__section-body">
+					{ children.length === 0 ? (
+						<p className="dpo-pf__placeholder">
+							{ __(
+								'Empty section',
+								'dynamic-product-options-for-woocommerce'
+							) }
+						</p>
+					) : (
+						children.map( ( c ) => (
+							<FieldPreview key={ c.id } node={ c } />
+						) )
+					) }
+				</div>
+			) }
+		</div>
+	);
+}
+
+/**
  * FieldPreview.
  *
  * @param {Object} props      Component props.
@@ -483,7 +555,15 @@ export default function FieldPreview( { node } ) {
 		);
 	}
 	if ( node.type === 'divider' ) {
-		return <hr className="dpo-pf__divider" />;
+		const h = Number( cfg.height );
+		return (
+			<hr
+				className="dpo-pf__divider"
+				style={
+					h > 0 ? { borderTopWidth: `${ h }px` } : undefined
+				}
+			/>
+		);
 	}
 	if ( node.type === 'spacer' ) {
 		return (
@@ -515,31 +595,7 @@ export default function FieldPreview( { node } ) {
 		);
 	}
 	if ( node.type === 'section' ) {
-		return (
-			<fieldset className="dpo-pf__section">
-				<legend>
-					{ node.label ||
-						__(
-							'Section',
-							'dynamic-product-options-for-woocommerce'
-						) }
-				</legend>
-				<div className="dpo-pf__section-body">
-					{ ( node.children || [] ).length === 0 ? (
-						<p className="dpo-pf__placeholder">
-							{ __(
-								'Empty section',
-								'dynamic-product-options-for-woocommerce'
-							) }
-						</p>
-					) : (
-						( node.children || [] ).map( ( c ) => (
-							<FieldPreview key={ c.id } node={ c } />
-						) )
-					) }
-				</div>
-			</fieldset>
-		);
+		return <SectionPreview node={ node } />;
 	}
 
 	let control = null;

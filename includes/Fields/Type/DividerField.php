@@ -55,8 +55,12 @@ final class DividerField extends AbstractField {
 			$style = 'solid';
 		}
 
+		// Optional line thickness (the divider's height), in pixels.
+		$height = (int) $this->cfg( 'height', 0 );
+		$inline = $height > 0 ? ' style="border-top-width:' . $height . 'px"' : '';
+
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<hr class="dpo-divider dpo-divider--' . esc_attr( $style ) . '" />';
+		$html .= '<hr class="dpo-divider dpo-divider--' . esc_attr( $style ) . '"' . $inline . ' />';
 		$html .= '</div>';
 		return $html;
 	}

@@ -53,9 +53,8 @@ final class SectionField extends AbstractField {
 	public function render() {
 		$children  = $this->prop( 'children', array() );
 		$children  = is_array( $children ) ? $children : array();
-		$accordion = $this->cfg( 'accordion', true );
-		$initial   = (string) $this->cfg( 'initial', 'open' );
-		$open      = 'closed' !== $initial;
+		$accordion = 'accordion' === (string) $this->cfg( 'style', 'section' );
+		$open      = 'close' !== (string) $this->cfg( 'initialState', 'open' );
 		$label     = (string) $this->prop( 'label', '' );
 
 		$reg  = Plugin::instance()->service( 'fields' );
@@ -72,10 +71,15 @@ final class SectionField extends AbstractField {
 			}
 		}
 
+		$collapsed = $accordion && ! $open;
+		$sec_class = 'dpo-section'
+			. ( $accordion ? ' dpo-section--accordion' : '' )
+			. ( $collapsed ? ' is-collapsed' : '' );
+
 		$html  = '<div ' . $this->wrapper_attrs()
 			. ' data-accordion="' . ( $accordion ? 'yes' : 'no' ) . '"'
 			. ' data-open="' . ( $open ? 'yes' : 'no' ) . '">';
-		$html .= '<div class="dpo-section">';
+		$html .= '<div class="' . esc_attr( $sec_class ) . '">';
 		if ( $accordion ) {
 			$html .= '<button type="button" class="dpo-section__header" aria-expanded="' . ( $open ? 'true' : 'false' ) . '">';
 			$html .= '<span class="dpo-section__title">' . esc_html( $label ) . '</span>';
@@ -84,7 +88,7 @@ final class SectionField extends AbstractField {
 		} elseif ( '' !== $label ) {
 			$html .= '<div class="dpo-section__header dpo-section__header--static"><span class="dpo-section__title">' . esc_html( $label ) . '</span></div>';
 		}
-		$html .= '<div class="dpo-section__body"' . ( $accordion && ! $open ? ' hidden' : '' ) . '>' . $body . '</div>';
+		$html .= '<div class="dpo-section__body">' . $body . '</div>';
 		$html .= '</div>';
 		$html .= '</div>';
 		return $html;

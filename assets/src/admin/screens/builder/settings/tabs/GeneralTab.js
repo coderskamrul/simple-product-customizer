@@ -25,6 +25,7 @@ import DateConfig from '../DateConfig';
 import TimeConfig from '../TimeConfig';
 import DatetimeConfig from '../DatetimeConfig';
 import LinkedProductsConfig from '../LinkedProductsConfig';
+import SectionConfig from '../SectionConfig';
 import TypeConfig from '../TypeConfig';
 
 /** Single-value fields that price one value (stored on choices[0]). */
@@ -148,13 +149,18 @@ export default function GeneralTab( { node, patch } ) {
 				<LinkedProductsConfig node={ node } patch={ patch } />
 			) }
 
+			{ ! def.hasChoices && node.type === 'section' && (
+				<SectionConfig node={ node } patch={ patch } />
+			) }
+
 			{ ! def.hasChoices &&
 				! VALUE_PRICE_TYPES.includes( node.type ) &&
 				node.type !== 'fileupload' &&
 				node.type !== 'date' &&
 				node.type !== 'time' &&
 				node.type !== 'datetime' &&
-				node.type !== 'linkedproducts' && (
+				node.type !== 'linkedproducts' &&
+				node.type !== 'section' && (
 					<TypeConfig node={ node } patch={ patch } />
 				) }
 		</div>
