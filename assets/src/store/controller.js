@@ -259,7 +259,9 @@ export default class Controller {
 				optionsTotal += price;
 			} );
 
-			// 4. Linked products (separate WC lines, not priced here).
+			// 4. Linked products. They become their own cart lines, but their
+			//    cost is reflected in the on-page total so the preview matches
+			//    what the shopper actually pays.
 			const linked = [];
 			Object.keys( this.fields ).forEach( ( id ) => {
 				if (
@@ -279,7 +281,8 @@ export default class Controller {
 			renderPriceSpans(
 				this.root,
 				optionsTotal,
-				this.state.data.basePrice
+				this.state.data.basePrice,
+				this.state.data.linkedPrice
 			);
 
 			// 6. Serialise raw (base, non-converted) values for the server.

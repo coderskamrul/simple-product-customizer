@@ -196,6 +196,23 @@ function wirePopup( fieldEl ) {
 }
 
 /**
+ * Wire the Linked Products field. The variation dropdown and quantity stepper
+ * live inside the selectable card <label>; their clicks must not toggle the
+ * native checkbox/radio. Changing either still bubbles a change event up to the
+ * controller (which recomputes linked products + totals).
+ *
+ * @param {HTMLElement} fieldEl Field wrapper.
+ * @return {void}
+ */
+function wireLinked( fieldEl ) {
+	fieldEl
+		.querySelectorAll( '.dpo-linked__varsel, .dpo-linked__qty' )
+		.forEach( ( el ) => {
+			el.addEventListener( 'click', ( e ) => e.stopPropagation() );
+		} );
+}
+
+/**
  * Wire the image-swatch product-image swap when enabled.
  *
  * @param {HTMLElement} fieldEl Field wrapper.
@@ -249,6 +266,8 @@ export function initWidgets( fieldEl, onChange ) {
 			wirePopup( fieldEl );
 		} else if ( type === 'imageswatch' ) {
 			wireImageSwatchSwap( fieldEl );
+		} else if ( type === 'linkedproducts' ) {
+			wireLinked( fieldEl );
 		} else if ( type === 'date' ) {
 			wireDate( fieldEl, onChange );
 		} else if ( type === 'time' ) {

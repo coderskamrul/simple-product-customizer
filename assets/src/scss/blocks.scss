@@ -1012,7 +1012,7 @@
 			align-items: center;
 			gap: 12px;
 			padding: 10px 12px;
-			border: 1px solid var(--dpo-border);
+			// border: 1px solid var(--dpo-border);
 			border-radius: var(--dpo-radius);
 			cursor: pointer;
 			transition: border-color 0.15s, box-shadow 0.15s;
@@ -1023,7 +1023,11 @@
 
 			&:has(.dpo-linked__native:checked) {
 				border-color: var(--dpo-accent);
-				box-shadow: 0 0 0 3px var(--dpo-accent-soft);
+				// box-shadow: 0 0 0 3px var(--dpo-accent-soft);
+			}
+
+			&:has(.dpo-linked__native:checked) .dpo-linked__check {
+				display: flex;
 			}
 		}
 
@@ -1062,6 +1066,99 @@
 		&__price {
 			color: var(--dpo-accent);
 			font-weight: 600;
+
+			del {
+				color: var(--dpo-border-strong);
+				font-weight: 400;
+				margin-inline-end: 4px;
+			}
+		}
+
+		/* Responsive card grid (display = cards), styled like Image Swatch. */
+		&--cards {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+			gap: 12px;
+
+			.dpo-linked__card {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+				gap: 8px;
+				padding: 1px;
+			}
+
+			/* The native control is hidden; the card itself is the target and
+			   a checkmark badge marks the selection. */
+			.dpo-linked__native {
+				position: absolute;
+				opacity: 0;
+				width: 0;
+				height: 0;
+				margin: 0;
+				pointer-events: none;
+			}
+
+			.dpo-linked__thumb {
+				width: 100%;
+				height: auto;
+				aspect-ratio: 1 / 1;
+			}
+
+			.dpo-linked__meta {
+				width: 100%;
+				align-items: center;
+			}
+
+			/* Quantity stepper anchored to the bottom of the card. */
+			.dpo-linked__qty {
+				margin-block-start: auto;
+			}
+		}
+
+		/* Selection checkmark badge (hidden until the card is selected). */
+		&__check {
+			position: absolute;
+			inset-block-start: 8px;
+			inset-inline-end: 8px;
+			z-index: 3;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			width: 22px;
+			height: 22px;
+			border-radius: 6px;
+			background: var(--dpo-accent);
+
+			&::after {
+				content: "";
+				width: 6px;
+				height: 11px;
+				margin-block-start: -2px;
+				border: solid #fff;
+				border-width: 0 2px 2px 0;
+				transform: rotate(45deg);
+			}
+		}
+
+		&__varsel {
+			width: 100%;
+			padding: 6px 8px;
+			border: 1px solid var(--dpo-border);
+			border-radius: var(--dpo-radius);
+			background: var(--dpo-surface);
+			font-size: 13px;
+		}
+
+		&__qty {
+			width: 70px;
+			padding: 6px 8px;
+			border: 1px solid var(--dpo-border);
+			border-radius: var(--dpo-radius);
+			background: var(--dpo-surface);
+			text-align: center;
 		}
 	}
 

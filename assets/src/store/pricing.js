@@ -393,9 +393,10 @@ export function priceFormula(
  * @param {HTMLElement} root         `.dpo-options` wrapper.
  * @param {number}      optionsPrice Sum of option prices (base ccy).
  * @param {number}      basePrice    Product base price (base ccy).
+ * @param {number}      [linkedPrice] Sum of selected linked-product prices.
  * @return {void}
  */
-export function renderPriceSpans( root, optionsPrice, basePrice ) {
+export function renderPriceSpans( root, optionsPrice, basePrice, linkedPrice ) {
 	const priceEl = root.querySelector( '#dpo-options-price' );
 	const totalEl = root.querySelector( '#dpo-options-total' );
 	if ( priceEl ) {
@@ -403,7 +404,9 @@ export function renderPriceSpans( root, optionsPrice, basePrice ) {
 	}
 	if ( totalEl ) {
 		totalEl.innerHTML = formatMoney(
-			( Number( basePrice ) || 0 ) + ( Number( optionsPrice ) || 0 )
+			( Number( basePrice ) || 0 ) +
+				( Number( optionsPrice ) || 0 ) +
+				( Number( linkedPrice ) || 0 )
 		);
 	}
 }

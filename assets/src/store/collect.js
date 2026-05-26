@@ -289,15 +289,43 @@ export function collectLinkedProducts( fieldEl ) {
 			input.getAttribute( 'data-product-id' ) || input.value || '0',
 			10
 		);
-		const variation = parseInt(
+		// A merged variable product carries its chosen variation in a sibling
+		// <select>; otherwise the variation id is baked onto the input.
+		const card = input.closest( '.dpo-linked__card' );
+		const varSel = card && card.querySelector( '.dpo-linked__varsel' );
+		let variation = parseInt(
 			input.getAttribute( 'data-variation' ) || '0',
 			10
 		);
+		if ( varSel && varSel.value ) {
+			variation = parseInt( varSel.value, 10 ) || variation;
+		}
+		// Per-card quantity stepper, when the field enables quantity.
+		const qtyEl = card && card.querySelector( '.dpo-linked__qty' );
+		const count = qtyEl ? Math.max( 1, parseInt( qtyEl.value, 10 ) || 1 ) : 1;
+
+		// Effective unit price for the on-page total. A merged variable card
+		// reads the price of its selected variation <option>; otherwise the
+		// price is baked onto the native input. WooCommerce already resolves
+		// sale prices, so this is the real per-unit cost.
+		let price = 0;
+		if ( varSel && varSel.selectedOptions && varSel.selectedOptions[ 0 ] ) {
+			price = parseFloat(
+				varSel.selectedOptions[ 0 ].getAttribute( 'data-price' ) || '0'
+			);
+		} else {
+			price = parseFloat( input.getAttribute( 'data-lp-price' ) || '0' );
+		}
+		if ( ! isFinite( price ) ) {
+			price = 0;
+		}
+
 		if ( pid > 0 ) {
 			list.push( {
 				id: pid,
-				count: 1,
+				count,
 				variation: variation > 0 ? variation : 0,
+				price,
 			} );
 		}
 	} );

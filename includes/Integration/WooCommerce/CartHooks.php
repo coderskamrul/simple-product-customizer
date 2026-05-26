@@ -128,35 +128,45 @@ final class CartHooks {
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		$selection = Str::json( $raw_json, array() );
-		if ( ! is_array( $selection ) || array() === $selection ) {
+		$selection = is_array( $selection ) ? $selection : array();
+		$set_ids   = is_array( $set_ids ) ? array_values( array_map( 'intval', $set_ids ) ) : array();
+		$linked    = is_array( $linked ) ? array_values( $linked ) : array();
+
+		// Nothing from this plugin on the request → leave the item untouched.
+		if ( array() === $selection && array() === $linked ) {
 			return $cart_item_data;
 		}
 
-		$set_ids = is_array( $set_ids ) ? array_values( array_map( 'intval', $set_ids ) ) : array();
-		$linked  = is_array( $linked ) ? array_values( $linked ) : array();
-
-		$pricing = $this->pricing();
-		if ( ! $pricing ) {
-			return $cart_item_data;
+		// Always carry the linked products so they become their own cart lines,
+		// even for a set whose only field is Linked Products (which contributes
+		// nothing to dpo_field_data).
+		if ( array() !== $linked ) {
+			$cart_item_data['dpo_linked_products'] = $linked;
 		}
 
-		$result = $pricing->calculate(
-			(string) $raw_json,
-			(int) $product_id,
-			$set_ids,
-			(int) $variation_id,
-			(int) $quantity
-		);
+		// Priced option selection (linked products are NOT priced here — they
+		// are added as real product lines instead).
+		if ( array() !== $selection ) {
+			$pricing = $this->pricing();
+			if ( $pricing ) {
+				$result = $pricing->calculate(
+					(string) $raw_json,
+					(int) $product_id,
+					$set_ids,
+					(int) $variation_id,
+					(int) $quantity
+				);
 
-		$cart_item_data['dpo_field_data']        = $result;
-		$cart_item_data['dpo_field_data_raw']    = (string) $raw_json;
-		$cart_item_data['dpo_linked_products']   = $linked;
-		$cart_item_data['dpo_published_set_ids'] = $set_ids;
-		$cart_item_data['dpo_base']              = $pricing->productBasePrice( (int) $product_id, (int) $variation_id );
+				$cart_item_data['dpo_field_data']        = $result;
+				$cart_item_data['dpo_field_data_raw']    = (string) $raw_json;
+				$cart_item_data['dpo_published_set_ids'] = $set_ids;
+				$cart_item_data['dpo_base']              = $pricing->productBasePrice( (int) $product_id, (int) $variation_id );
 
-		$record = ! empty( $result['setIds'] ) ? $result['setIds'] : $set_ids;
-		foreach ( $record as $set_id ) {
-			do_action( 'dpo_stats_record', (int) $set_id, 'add_to_cart', 1 );
+				$record = ! empty( $result['setIds'] ) ? $result['setIds'] : $set_ids;
+				foreach ( $record as $set_id ) {
+					do_action( 'dpo_stats_record', (int) $set_id, 'add_to_cart', 1 );
+				}
+			}
 		}
 
 		return $cart_item_data;
@@ -186,10 +196,24 @@ final class CartHooks {
 
 		foreach ( $linked as $item ) {
 			$id  = isset( $item['id'] ) ? (int) $item['id'] : 0;
+			$vid = isset( $item['variation'] ) ? (int) $item['variation'] : 0;
 			$qty = isset( $item['count'] ) ? max( 1, (int) $item['count'] ) : 1;
-			if ( $id > 0 ) {
-				WC()->cart->add_to_cart( $id, $qty );
+			if ( $id <= 0 ) {
+				continue;
 			}
+
+			// Variations must be added with the parent id + variation id +
+			// resolved attributes so WooCommerce records the correct line.
+			if ( $vid > 0 && function_exists( 'wc_get_product' ) ) {
+				$variation = wc_get_product( $vid );
+				$attributes = ( $variation && method_exists( $variation, 'get_variation_attributes' ) )
+					? $variation->get_variation_attributes()
+					: array();
+				WC()->cart->add_to_cart( $id, $qty, $vid, $attributes );
+				continue;
+			}
+
+			WC()->cart->add_to_cart( $id, $qty );
 		}
 	}
 

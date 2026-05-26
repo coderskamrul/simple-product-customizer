@@ -36,6 +36,7 @@ function emptyState() {
 		optionPrices: {},
 		selections: {},
 		linkedProducts: [],
+		linkedPrice: 0,
 		conditions: {},
 		requiredErrors: [],
 		minmaxErrors: [],
@@ -164,6 +165,16 @@ export default class State {
 	 */
 	setLinkedProducts( list ) {
 		this.data.linkedProducts = Array.isArray( list ) ? list : [];
+		// Linked products are added as their own cart lines; their cost is
+		// surfaced in the on-page total (base + options + linked) so the
+		// preview matches what the shopper will actually pay.
+		this.data.linkedPrice = this.data.linkedProducts.reduce(
+			( sum, item ) =>
+				sum +
+				( Number( item.price ) || 0 ) *
+					Math.max( 1, Number( item.count ) || 1 ),
+			0
+		);
 	}
 
 	/**
@@ -200,6 +211,9 @@ export default class State {
 			sum += Number( this.data.optionPrices[ id ] ) || 0;
 		} );
 		this.data.optionsPrice = sum;
-		this.data.total = ( Number( this.data.basePrice ) || 0 ) + sum;
+		this.data.total =
+			( Number( this.data.basePrice ) || 0 ) +
+			sum +
+			( Number( this.data.linkedPrice ) || 0 );
 	}
 }

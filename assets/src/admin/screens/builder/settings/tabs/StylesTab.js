@@ -58,7 +58,7 @@ function SwatchStyles( { node, patch } ) {
 	const setCfg = ( key, value ) =>
 		patch( { config: { ...cfg, [ key ]: value } } );
 	const shape = cfg.shape || 'square';
-	const isImage = node.type === 'imageswatch';
+	const isImage = [ 'imageswatch', 'linkedproducts' ].includes( node.type );
 
 	return (
 		<div className="dpo-swatch-styles">
@@ -146,7 +146,11 @@ function SwatchStyles( { node, patch } ) {
 export default function StylesTab( { node, patch } ) {
 	const def = getType( node.type );
 	const cfg = node.config || {};
-	const isSwatch = [ 'colorswatch', 'imageswatch' ].includes( node.type );
+	const isSwatch = [
+		'colorswatch',
+		'imageswatch',
+		'linkedproducts',
+	].includes( node.type );
 
 	return (
 		<div className="dpo-settings__pane">

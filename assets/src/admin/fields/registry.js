@@ -368,12 +368,23 @@ export const FIELD_TYPES = {
 		category: 'Advanced', icon: 'cart', priceable: false,
 		defaultNode: () => ( {
 			...baseNode( 'linkedproducts' ),
-			config: { products: [], display: 'checkbox' },
+			config: {
+				products: [],
+				display: 'cards',
+				multiple: false,
+				mergeVariations: false,
+				enableQty: false,
+				minQty: 1,
+				maxQty: '',
+				// Presentation, shared with the Image Swatch field (StylesTab).
+				shape: 'rounded',
+				swatchWidth: '',
+				swatchHeight: '',
+				swatchRadius: '',
+			},
 		} ),
-		inspectorSchema: [
-			{ key: 'display', label: __( 'Display as', 'dynamic-product-options-for-woocommerce' ), control: 'select',
-				options: [ 'checkbox', 'radio', 'select', 'cards' ] },
-		],
+		// Settings UI is the bespoke LinkedProductsConfig panel (see GeneralTab).
+		inspectorSchema: [],
 	},
 
 	/* ---- Layout ---- */

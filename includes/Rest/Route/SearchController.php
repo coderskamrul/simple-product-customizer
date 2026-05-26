@@ -114,6 +114,8 @@ final class SearchController {
 				'label'      => rawurldecode( wp_strip_all_tags( $product->get_name() ) ),
 				'img'        => wp_get_attachment_url( $product->get_image_id() ),
 				'isVariable' => $product->is_type( 'variable' ),
+				'regular'    => $product->get_regular_price( 'edit' ),
+				'sale'       => $product->get_sale_price( 'edit' ),
 				'variation'  => array(),
 			);
 

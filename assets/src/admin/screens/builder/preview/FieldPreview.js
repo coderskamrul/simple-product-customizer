@@ -175,6 +175,180 @@ function FontPickerPreview( { choices, formatPrice } ) {
 }
 
 /**
+ * Format a variation/product price pair, striking the regular when on sale.
+ *
+ * @param {Object}   meta        Row carrying regular/sale.
+ * @param {Function} formatPrice Currency formatter.
+ * @return {JSX.Element|null} The price tag.
+ */
+function ProductPrice( { meta, formatPrice } ) {
+	const reg = Number( meta.regular );
+	const sale = Number( meta.sale );
+	const hasReg = meta.regular !== '' && ! Number.isNaN( reg );
+	const hasSale = meta.sale !== '' && meta.sale !== null && ! Number.isNaN( sale );
+	if ( ! hasReg && ! hasSale ) {
+		return null;
+	}
+	return (
+		<span className="dpo-pf__price">
+			{ hasSale ? (
+				<>
+					{ hasReg && <s>{ formatPrice( reg ) }</s> }{ ' ' }
+					<b>{ formatPrice( sale ) }</b>
+				</>
+			) : (
+				<b>{ formatPrice( reg ) }</b>
+			) }
+		</span>
+	);
+}
+
+/**
+ * Storefront-accurate preview for the Linked Products field — a grid of
+ * product cards. Variable products expand to one card per selected variation,
+ * or a single card with a variation dropdown when "merge variations" is on.
+ *
+ * @param {Object}   props             Component props.
+ * @param {Object}   props.node        Field node.
+ * @param {Function} props.formatPrice Currency formatter.
+ * @return {JSX.Element} The preview.
+ */
+function LinkedProductsPreview( { node, formatPrice } ) {
+	const cfg = node.config || {};
+	const products = Array.isArray( cfg.products ) ? cfg.products : [];
+	const inputType = cfg.multiple ? 'checkbox' : 'radio';
+
+	/**
+	 * Build the renderable cards. Active products are pre-selected (checked);
+	 * `active` no longer hides anything.
+	 */
+	const cards = [];
+	products.forEach( ( p ) => {
+		if ( ! p.isVariable ) {
+			cards.push( {
+				key: `p${ p.id }`,
+				title: p.name,
+				img: p.img,
+				meta: p,
+				selected: p.active === true,
+			} );
+			return;
+		}
+		const meta = ( p.variationsMeta || [] ).filter( ( v ) =>
+			( p.variations || [] ).includes( v.id )
+		);
+		if ( cfg.mergeVariations ) {
+			cards.push( {
+				key: `p${ p.id }`,
+				title: p.name,
+				img: p.img,
+				meta: meta[ 0 ] || p,
+				variations: meta,
+				selected: false,
+			} );
+		} else {
+			meta.forEach( ( v ) =>
+				cards.push( {
+					key: `v${ v.id }`,
+					title: v.label,
+					img: v.img || p.img,
+					meta: v,
+					selected: false,
+				} )
+			);
+		}
+	} );
+
+	// Nothing linked yet → show three static product mockups so the editor
+	// can see the layout/shape before choosing real products.
+	const isMockup = cards.length === 0;
+	const rows = isMockup
+		? [ 1, 2, 3 ].map( ( n ) => ( {
+				key: `mock${ n }`,
+				title: __(
+					'Product',
+					'dynamic-product-options-for-woocommerce'
+				),
+				img: '',
+				meta: {},
+				mockup: true,
+		  } ) )
+		: cards;
+
+	// Size (width/height) is applied to the whole card so it stays responsive;
+	// the shape/radius is applied to the product image.
+	const full = swatchStyle( cfg );
+	const cardStyle = {};
+	if ( full.width ) {
+		cardStyle.width = full.width;
+	}
+	if ( full.height ) {
+		cardStyle.height = full.height;
+	}
+	const thumbStyle = full.borderRadius
+		? { borderRadius: full.borderRadius }
+		: undefined;
+
+	return (
+		<div
+			className={ `dpo-pf__linked${ isMockup ? ' is-mockup' : '' }` }
+		>
+			{ rows.map( ( card ) => (
+				<span
+					key={ card.key }
+					className="dpo-pf__linked-card"
+					style={ cardStyle }
+				>
+					<input
+						type={ inputType }
+						checked={ !! card.selected }
+						readOnly
+					/>
+					<span
+						className="dpo-pf__linked-check"
+						aria-hidden="true"
+					>
+						<Check size={ 13 } />
+					</span>
+					<span
+						className="dpo-pf__linked-thumb"
+						style={ thumbStyle }
+					>
+						{ card.img ? (
+							<img src={ card.img } alt="" />
+						) : (
+							<span
+								className="dpo-pf__linked-ph"
+								aria-hidden="true"
+							/>
+						) }
+					</span>
+					<span className="dpo-pf__linked-title">{ card.title }</span>
+					{ card.variations && card.variations.length > 0 && (
+						<select className="dpo-pf__linked-varsel" disabled>
+							{ card.variations.map( ( v ) => (
+								<option key={ v.id }>{ v.label }</option>
+							) ) }
+						</select>
+					) }
+					{ ! card.mockup && (
+						<ProductPrice
+							meta={ card.meta }
+							formatPrice={ formatPrice }
+						/>
+					) }
+					{ cfg.enableQty && (
+						<span className="dpo-pf__linked-qty">
+							<QtyBox cfg={ cfg } />
+						</span>
+					) }
+				</span>
+			) ) }
+		</div>
+	);
+}
+
+/**
  * Interactive faux dropdown for the canvas (a native <select> can't show
  * per-option thumbnails). Clicking the box toggles the option list; the
  * click is contained so it doesn't bubble to card selection.
@@ -588,12 +762,10 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'linkedproducts':
 			control = (
-				<div className="dpo-pf__placeholder">
-					{ __(
-						'Linked products',
-						'dynamic-product-options-for-woocommerce'
-					) }
-				</div>
+				<LinkedProductsPreview
+					node={ node }
+					formatPrice={ formatPrice }
+				/>
 			);
 			break;
 		case 'popup':

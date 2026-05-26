@@ -1017,3 +1017,121 @@
 		flex-basis: 100%;
 	}
 }
+
+/* ====================================================================== */
+/* Linked Products preview (FieldPreview → LinkedProductsPreview)         */
+/* ====================================================================== */
+.dpo-pf__linked {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	gap: 10px;
+}
+
+.dpo-pf__linked-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+	padding: 10px;
+	border: 1px solid var(--dpo-c-border);
+	border-radius: var(--dpo-c-radius-sm);
+	background: var(--dpo-c-surface);
+	text-align: center;
+	transition: border-color 0.15s, box-shadow 0.15s;
+
+	&:hover {
+		border-color: var(--dpo-c-border-strong);
+	}
+
+	/* Native control hidden; selection shown via the checkmark badge. */
+	> input {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+		margin: 0;
+		pointer-events: none;
+	}
+
+	&:has(> input:checked) {
+		border-color: var(--dpo-c-primary);
+		box-shadow: var(--dpo-c-ring);
+	}
+
+	&:has(> input:checked) .dpo-pf__linked-check {
+		display: flex;
+	}
+}
+
+.dpo-pf__linked-check {
+	position: absolute;
+	inset-block-start: 8px;
+	inset-inline-end: 8px;
+	z-index: 3;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	border-radius: 6px;
+	background: var(--dpo-c-primary);
+	color: #fff;
+}
+
+.dpo-pf__linked-thumb {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	border-radius: 8px;
+	overflow: hidden;
+	background: var(--dpo-c-surface-3);
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+/* Empty-state mockup shimmer block. */
+.dpo-pf__linked-ph {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		135deg,
+		var(--dpo-c-surface-3) 25%,
+		var(--dpo-c-surface-2) 50%,
+		var(--dpo-c-surface-3) 75%
+	);
+}
+
+.dpo-pf__linked.is-mockup .dpo-pf__linked-card {
+	opacity: 0.75;
+}
+
+.dpo-pf__linked-title {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--dpo-c-ink);
+	line-height: 1.3;
+}
+
+.dpo-pf__linked-varsel {
+	width: 100%;
+	font-size: 12px;
+	padding: 4px 6px;
+	border: 1px solid var(--dpo-c-border);
+	border-radius: 6px;
+	background: var(--dpo-c-surface-2);
+}
+
+/* Quantity stepper pinned to the bottom of the card. */
+.dpo-pf__linked-qty {
+	margin-block-start: auto;
+	padding-block-start: 4px;
+
+	.dpo-pf__qty {
+		width: 64px;
+	}
+}
