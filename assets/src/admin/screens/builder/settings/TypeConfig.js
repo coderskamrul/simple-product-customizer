@@ -18,6 +18,7 @@ import {
 	SelectControl,
 	ToggleField,
 } from '../../../components';
+import ValuePricing from './ValuePricing';
 
 /**
  * Clickable variable chips + textarea for formula / advancedformula.
@@ -147,91 +148,110 @@ export default function TypeConfig( { node, patch } ) {
 		disabled: m.pro && ! proActive,
 	} ) );
 
+	// Layout/special types have no placeholder; everything else does.
+	const showPlaceholder = ! [
+		'heading',
+		'divider',
+		'spacer',
+		'section',
+		'html',
+		'shortcode',
+	].includes( node.type );
+
+	// Split the schema so compact controls sit side-by-side in a 2-col grid,
+	// while toggles and full-width textareas keep their own rows.
+	const toggleItems = schema.filter( ( s ) => s.control === 'toggle' );
+	const wideItems = schema.filter(
+		( s ) => s.control === 'textarea' || s.control === 'formula'
+	);
+	const compactItems = schema.filter(
+		( s ) => ! [ 'toggle', 'textarea', 'formula' ].includes( s.control )
+	);
+
+	/**
+	 * Render the input control for one compact schema item.
+	 *
+	 * @param {Object} item Schema descriptor.
+	 * @return {JSX.Element} The control.
+	 */
+	const renderControl = ( item ) => {
+		const value = cfg[ item.key ];
+		if ( item.control === 'select' ) {
+			return (
+				<SelectControl
+					value={ value ?? '' }
+					onChange={ ( v ) => setKey( item.key, v ) }
+					options={ item.options || [] }
+				/>
+			);
+		}
+		if ( item.control === 'priceModeFull' ) {
+			return (
+				<SelectControl
+					value={ value ?? 'none' }
+					onChange={ ( v ) => setKey( item.key, v ) }
+					options={ priceModeOptions }
+				/>
+			);
+		}
+		return (
+			<TextControl
+				type={ item.control === 'number' ? 'number' : 'text' }
+				value={ value ?? '' }
+				onChange={ ( v ) => setKey( item.key, v ) }
+			/>
+		);
+	};
+
 	return (
 		<>
-			{ ! [
-				'heading',
-				'divider',
-				'spacer',
-				'section',
-				'html',
-				'shortcode',
-			].includes( node.type ) && (
-				<Field
-					label={ __(
-						'Placeholder',
-						'dynamic-product-options-for-woocommerce'
-					) }
-				>
-					<TextControl
-						value={ node.placeholder }
-						onChange={ ( v ) => patch( { placeholder: v } ) }
+			{ def.priceable && <ValuePricing node={ node } patch={ patch } /> }
+
+			{ toggleItems.map( ( item ) => (
+				<div key={ item.key } className="dpo-settings__toggle-row">
+					<ToggleField
+						checked={ !! cfg[ item.key ] }
+						onChange={ ( v ) => setKey( item.key, v ) }
+						label={ item.label }
 					/>
-				</Field>
+				</div>
+			) ) }
+
+			{ ( showPlaceholder || compactItems.length > 0 ) && (
+				<div className="dpo-settings__grid2">
+					{ showPlaceholder && (
+						<Field
+							label={ __(
+								'Placeholder',
+								'dynamic-product-options-for-woocommerce'
+							) }
+						>
+							<TextControl
+								value={ node.placeholder }
+								onChange={ ( v ) =>
+									patch( { placeholder: v } )
+								}
+							/>
+						</Field>
+					) }
+					{ compactItems.map( ( item ) => (
+						<Field key={ item.key } label={ item.label }>
+							{ renderControl( item ) }
+						</Field>
+					) ) }
+				</div>
 			) }
 
-			{ schema.map( ( item ) => {
-				const value = cfg[ item.key ];
-				if ( item.control === 'toggle' ) {
-					return (
-						<div
-							key={ item.key }
-							className="dpo-settings__toggle-row"
-						>
-							<ToggleField
-								checked={ !! value }
-								onChange={ ( v ) => setKey( item.key, v ) }
-								label={ item.label }
-							/>
-						</div>
-					);
-				}
-				return (
-					<Field key={ item.key } label={ item.label }>
-						{ item.control === 'select' && (
-							<SelectControl
-								value={ value ?? '' }
-								onChange={ ( v ) => setKey( item.key, v ) }
-								options={ item.options || [] }
-							/>
-						) }
-						{ item.control === 'priceModeFull' && (
-							<SelectControl
-								value={ value ?? 'none' }
-								onChange={ ( v ) => setKey( item.key, v ) }
-								options={ priceModeOptions }
-							/>
-						) }
-						{ ( item.control === 'number' ||
-							item.control === 'text' ) && (
-							<TextControl
-								type={
-									item.control === 'number'
-										? 'number'
-										: 'text'
-								}
-								value={ value ?? '' }
-								onChange={ ( v ) => setKey( item.key, v ) }
-							/>
-						) }
-						{ item.control === 'textarea' && (
-							<TextControl
-								type="textarea"
-								value={ value ?? '' }
-								onChange={ ( v ) => setKey( item.key, v ) }
-							/>
-						) }
-						{ item.control === 'formula' && (
-							<TextControl
-								type="textarea"
-								rows={ 3 }
-								value={ value ?? '' }
-								onChange={ ( v ) => setKey( item.key, v ) }
-							/>
-						) }
-					</Field>
-				);
-			} ) }
+			{ wideItems.map( ( item ) => (
+				<Field key={ item.key } label={ item.label }>
+					<TextControl
+						type="textarea"
+						rows={ item.control === 'formula' ? 3 : undefined }
+						value={ cfg[ item.key ] ?? '' }
+						onChange={ ( v ) => setKey( item.key, v ) }
+					/>
+				</Field>
+			) ) }
 		</>
 	);
 }

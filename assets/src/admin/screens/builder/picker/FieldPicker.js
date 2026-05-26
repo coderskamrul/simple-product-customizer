@@ -24,7 +24,7 @@ const overlay = {
 	visible: { opacity: 1 },
 };
 const panel = {
-	hidden: { opacity: 0, scale: 0.96, y: 12 },
+	hidden: { opacity: 0, scale: 0.94, y: 16 },
 	visible: { opacity: 1, scale: 1, y: 0 },
 };
 
@@ -88,26 +88,31 @@ export default function FieldPicker() {
 								transition={ { duration: 0.16 } }
 							/>
 						</Dialog.Overlay>
-						<Dialog.Content
-							asChild
-							forceMount
-							aria-label={ __(
-								'Add a field',
-								'dynamic-product-options-for-woocommerce'
-							) }
-							onOpenAutoFocus={ ( e ) => e.preventDefault() }
-						>
-							<motion.div
-								className="dpo-picker"
-								variants={ panel }
-								initial="hidden"
-								animate="visible"
-								exit="hidden"
-								transition={ {
-									duration: 0.2,
-									ease: [ 0.16, 1, 0.3, 1 ],
-								} }
+						<div className="dpo-picker__wrap">
+							<Dialog.Content
+								asChild
+								forceMount
+								aria-label={ __(
+									'Add a field',
+									'dynamic-product-options-for-woocommerce'
+								) }
+								onOpenAutoFocus={ ( e ) =>
+									e.preventDefault()
+								}
 							>
+								<motion.div
+									className="dpo-picker"
+									variants={ panel }
+									initial="hidden"
+									animate="visible"
+									exit="hidden"
+									transition={ {
+										type: 'spring',
+										damping: 30,
+										stiffness: 380,
+										mass: 0.7,
+									} }
+								>
 								<Command className="dpo-picker__cmd" loop>
 									<header className="dpo-picker__head">
 										<div className="dpo-picker__search">
@@ -226,8 +231,9 @@ export default function FieldPicker() {
 										} ) }
 									</Command.List>
 								</Command>
-							</motion.div>
-						</Dialog.Content>
+								</motion.div>
+							</Dialog.Content>
+						</div>
 					</Dialog.Portal>
 				) }
 			</AnimatePresence>

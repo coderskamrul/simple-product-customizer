@@ -26,6 +26,17 @@ final class UrlField extends AbstractField {
 	}
 
 	/**
+	 * Show the configured surcharge as a badge beside the field title.
+	 *
+	 * @return string
+	 */
+	protected function label_suffix() {
+		$choices = $this->choices();
+		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
+		return $this->price_badge( $choice );
+	}
+
+	/**
 	 * Control markup.
 	 *
 	 * @return string

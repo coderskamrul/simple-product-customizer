@@ -116,23 +116,21 @@ export const FIELD_TYPES = {
 	text: {
 		slug: 'text', label: __( 'Text', 'dynamic-product-options-for-woocommerce' ),
 		category: 'Input', icon: 'editor-textcolor', priceable: true,
-		defaultNode: () => baseNode( 'text' ),
+		// choices[0] carries the single-value price (per_char/per_word/flat).
+		defaultNode: () => ( { ...baseNode( 'text' ), choices: [ makeChoice() ] } ),
 		inspectorSchema: [
 			{ key: 'minLength', label: __( 'Min length', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
 			{ key: 'maxLength', label: __( 'Max length', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-			{ key: 'priceMode', label: __( 'Price mode', 'dynamic-product-options-for-woocommerce' ), control: 'priceMode' },
-			{ key: 'price', label: __( 'Price amount', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
 		],
 	},
 	textarea: {
 		slug: 'textarea', label: __( 'Textarea', 'dynamic-product-options-for-woocommerce' ),
 		category: 'Input', icon: 'editor-paragraph', priceable: true,
-		defaultNode: () => baseNode( 'textarea' ),
+		// choices[0] carries the single-value price (per_char/per_word/flat).
+		defaultNode: () => ( { ...baseNode( 'textarea' ), choices: [ makeChoice() ] } ),
 		inspectorSchema: [
 			{ key: 'rows', label: __( 'Rows', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
 			{ key: 'maxLength', label: __( 'Max length', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-			{ key: 'priceMode', label: __( 'Price mode', 'dynamic-product-options-for-woocommerce' ), control: 'priceMode' },
-			{ key: 'price', label: __( 'Price amount', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
 		],
 	},
 	email: {
@@ -143,13 +141,13 @@ export const FIELD_TYPES = {
 	},
 	url: {
 		slug: 'url', label: __( 'URL', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'admin-links', priceable: false,
-		defaultNode: () => baseNode( 'url' ), inspectorSchema: [],
+		category: 'Input', icon: 'admin-links', priceable: true,
+		defaultNode: () => ( { ...baseNode( 'url' ), choices: [ makeChoice() ] } ), inspectorSchema: [],
 	},
 	tel: {
 		slug: 'tel', label: __( 'Phone', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'phone', priceable: false,
-		defaultNode: () => baseNode( 'tel' ), inspectorSchema: [],
+		category: 'Input', icon: 'phone', priceable: true,
+		defaultNode: () => ( { ...baseNode( 'tel' ), choices: [ makeChoice() ] } ), inspectorSchema: [],
 	},
 	number: {
 		slug: 'number', label: __( 'Number', 'dynamic-product-options-for-woocommerce' ),

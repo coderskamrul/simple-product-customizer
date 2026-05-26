@@ -944,9 +944,15 @@ export default function FieldPreview( { node } ) {
 							'dynamic-product-options-for-woocommerce'
 						) }
 					{ node.required && <span className="dpo-pf__req">*</span> }
-					{ ( node.type === 'date' ||
-						node.type === 'time' ||
-						node.type === 'datetime' ) && (
+					{ [
+						'date',
+						'time',
+						'datetime',
+						'text',
+						'textarea',
+						'url',
+						'tel',
+					].includes( node.type ) && (
 						<PriceTag
 							choice={ choices[ 0 ] }
 							formatPrice={ formatPrice }
