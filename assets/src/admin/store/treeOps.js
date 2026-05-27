@@ -42,11 +42,18 @@ export function cloneNode( node, parentId = '' ) {
  */
 export function createNode( type, parentId = '' ) {
 	const def = getType( type );
-	return {
+	const node = {
 		...def.defaultNode(),
 		id: newFieldId(),
 		parent: parentId,
 	};
+	// Seed the title with the field's name so a freshly added field reads as
+	// "Text" / "Phone" / "Dropdown" instead of "Untitled field". Bare spacers /
+	// dividers carry no title, so leave those empty.
+	if ( ! node.label && ! [ 'divider', 'spacer' ].includes( type ) ) {
+		node.label = def.label;
+	}
+	return node;
 }
 
 /**
