@@ -41,6 +41,7 @@ const EXTRA_BY_TYPE = {
 	imageswatch: 'image',
 	colorswatch: 'color',
 	fontpicker: 'font',
+	toggle: 'image',
 };
 
 /**
@@ -200,6 +201,7 @@ function ChoiceRow( {
 	proActive,
 	extra,
 	labelless,
+	hideRemove,
 	onPatch,
 	onActive,
 	onRemove,
@@ -342,17 +344,19 @@ function ChoiceRow( {
 				<span className="dpo-switch__track" aria-hidden="true" />
 			</span>
 
-			<button
-				type="button"
-				className="dpo-choices__del"
-				aria-label={ __(
-					'Delete option',
-					'dynamic-product-options-for-woocommerce'
-				) }
-				onClick={ onRemove }
-			>
-				<Trash2 size={ 15 } />
-			</button>
+			{ ! hideRemove && (
+				<button
+					type="button"
+					className="dpo-choices__del"
+					aria-label={ __(
+						'Delete option',
+						'dynamic-product-options-for-woocommerce'
+					) }
+					onClick={ onRemove }
+				>
+					<Trash2 size={ 15 } />
+				</button>
+			) }
 		</div>
 	);
 }
@@ -372,6 +376,8 @@ export default function ChoiceTable( { node, patch } ) {
 	// Font Picker drives the option label from the chosen font, so its font
 	// dropdown takes the place of the Title column entirely.
 	const labelless = node.type === 'fontpicker';
+	// Toggle is a single boolean choice — no add/remove, just the one row.
+	const single = node.type === 'toggle';
 
 	const sensors = useSensors(
 		useSensor( PointerSensor, { activationConstraint: { distance: 5 } } ),
@@ -499,6 +505,7 @@ export default function ChoiceTable( { node, patch } ) {
 							proActive={ proActive }
 							extra={ extra }
 							labelless={ labelless }
+							hideRemove={ single }
 							onPatch={ ( delta ) => setChoice( idx, delta ) }
 							onActive={ ( checked ) =>
 								setActive( idx, checked )
@@ -509,7 +516,10 @@ export default function ChoiceTable( { node, patch } ) {
 				</SortableContext>
 			</DndContext>
 
-			<div className="dpo-choices__foot">
+			<div
+				className="dpo-choices__foot"
+				hidden={ single }
+			>
 				<button
 					type="button"
 					className="dpo-btn dpo-btn--primary dpo-choices__add"

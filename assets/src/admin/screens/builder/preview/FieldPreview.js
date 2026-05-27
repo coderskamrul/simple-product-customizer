@@ -14,6 +14,12 @@ import { __ } from '@wordpress/i18n';
 import { ChevronDown, Check, Upload } from 'lucide-react';
 import { useConfig } from '../../../store/ConfigContext';
 import useCustomFonts from '../../../hooks/useCustomFonts';
+import {
+	COUNTRIES,
+	flagEmoji,
+	findCountry,
+	resolveDefault,
+} from '../../../../shared/phone';
 
 /** Demo base price used to render percentage-based choice prices. */
 const DEMO_BASE = 20;
@@ -533,6 +539,119 @@ function SectionPreview( { node } ) {
 }
 
 /**
+ * Storefront-accurate preview of the Phone field's country selector. Mirrors
+ * the runtime widget (store/phone.js): a flag (+ dial code) button that opens a
+ * searchable country list, plus the number input. Honours the flag-style and
+ * default-country settings live.
+ *
+ * @param {Object} props      Component props.
+ * @param {Object} props.node Phone field node.
+ * @return {JSX.Element} The preview control.
+ */
+function PhonePreview( { node } ) {
+	const cfg = node.config || {};
+	const flagStyle = cfg.flagStyle || 'flag_dial';
+	const [ open, setOpen ] = useState( false );
+	const [ query, setQuery ] = useState( '' );
+	const [ iso, setIso ] = useState(
+		() => resolveDefault( cfg.defaultCountry ).iso2
+	);
+
+	// Reflect a default-country change made in the settings panel.
+	useEffect( () => {
+		setIso( resolveDefault( cfg.defaultCountry ).iso2 );
+	}, [ cfg.defaultCountry ] );
+
+	if ( flagStyle === 'number' ) {
+		return (
+			<input
+				className="dpo-pf__input"
+				type="tel"
+				placeholder={ node.placeholder }
+				readOnly
+			/>
+		);
+	}
+
+	const country = findCountry( iso ) || resolveDefault( '' );
+	const q = query.trim().toLowerCase();
+	const list = COUNTRIES.filter(
+		( c ) =>
+			! q ||
+			c.name.toLowerCase().includes( q ) ||
+			c.iso2.includes( q ) ||
+			c.dial.includes( q.replace( /\D/g, '' ) )
+	);
+
+	return (
+		<div className={ `dpo-pf__phone${ open ? ' is-open' : '' }` }>
+			<div className="dpo-pf__phone-control">
+				<button
+					type="button"
+					className="dpo-pf__phone-country"
+					onClick={ () => setOpen( ( o ) => ! o ) }
+				>
+					<span className="dpo-pf__phone-flag">
+						{ flagEmoji( country.iso2 ) }
+					</span>
+					<ChevronDown size={ 14 } aria-hidden="true" />
+					{ flagStyle === 'flag_dial' && (
+						<span className="dpo-pf__phone-dial">
+							+{ country.dial }
+						</span>
+					) }
+				</button>
+				<input
+					className="dpo-pf__input dpo-pf__phone-input"
+					type="tel"
+					placeholder={ node.placeholder }
+					readOnly
+				/>
+			</div>
+			{ open && (
+				<div className="dpo-pf__phone-drop">
+					<input
+						className="dpo-pf__phone-search"
+						placeholder={ __(
+							'Search',
+							'dynamic-product-options-for-woocommerce'
+						) }
+						value={ query }
+						onChange={ ( e ) => setQuery( e.target.value ) }
+					/>
+					<div className="dpo-pf__phone-list">
+						{ list.map( ( c ) => (
+							<button
+								key={ c.iso2 }
+								type="button"
+								className={ `dpo-pf__phone-opt${
+									c.iso2 === iso ? ' is-active' : ''
+								}` }
+								onClick={ () => {
+									setIso( c.iso2 );
+									setOpen( false );
+									setQuery( '' );
+								} }
+							>
+								<span className="dpo-pf__phone-flag">
+									{ flagEmoji( c.iso2 ) }
+								</span>
+								<span className="dpo-pf__phone-name">
+									{ c.name }
+								</span>
+								<span className="dpo-pf__phone-dial">
+									+{ c.dial }
+								</span>
+							</button>
+						) ) }
+					</div>
+				</div>
+			) }
+		</div>
+	);
+}
+
+/**
  * FieldPreview.
  *
  * @param {Object} props      Component props.
@@ -673,13 +792,34 @@ export default function FieldPreview( { node } ) {
 				/>
 			);
 			break;
-		case 'toggle':
+		case 'toggle': {
+			const tc = choices[ 0 ] || {};
 			control = (
-				<span className="dpo-pf__toggle" aria-hidden="true">
-					<span className="dpo-pf__toggle-knob" />
+				<span className="dpo-pf__toggle-row">
+					<span
+						className={ `dpo-pf__toggle${
+							tc.selected ? ' is-on' : ''
+						}` }
+						aria-hidden="true"
+					>
+						<span className="dpo-pf__toggle-knob" />
+					</span>
+					{ tc.image && (
+						<span className="dpo-pf__toggle-img">
+							<img src={ tc.image } alt="" />
+						</span>
+					) }
+					{ tc.label && (
+						<span className="dpo-pf__toggle-label">
+							{ tc.label }
+						</span>
+					) }
+					<PriceTag choice={ tc } formatPrice={ formatPrice } />
+					{ cfg.enableQty && <QtyBox cfg={ cfg } /> }
 				</span>
 			);
 			break;
+		}
 		case 'colorswatch':
 			control = (
 				<div className="dpo-pf__swatches">
@@ -912,6 +1052,9 @@ export default function FieldPreview( { node } ) {
 				</div>
 			);
 			break;
+		case 'tel':
+			control = <PhonePreview node={ node } />;
+			break;
 		default:
 			control = (
 				<input
@@ -920,7 +1063,6 @@ export default function FieldPreview( { node } ) {
 						[
 							'email',
 							'url',
-							'tel',
 							'number',
 							'date',
 							'time',
@@ -952,6 +1094,11 @@ export default function FieldPreview( { node } ) {
 						'textarea',
 						'url',
 						'tel',
+						'email',
+						'number',
+						'fileupload',
+						'range',
+						'colorpicker',
 					].includes( node.type ) && (
 						<PriceTag
 							choice={ choices[ 0 ] }

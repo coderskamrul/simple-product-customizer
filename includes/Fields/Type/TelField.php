@@ -8,11 +8,15 @@
 namespace DPO\Fields\Type;
 
 use DPO\Fields\AbstractField;
+use DPO\Support\Countries;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * HTML5 tel input with optional validation pattern.
+ * HTML5 tel input with optional validation pattern. Can render an intl-style
+ * country selector (flag + dial code) ahead of the number, controlled by the
+ * `flagStyle` setting; the searchable country list is built on the client by
+ * store/phone.js from the shared country dataset.
  */
 final class TelField extends AbstractField {
 
@@ -47,7 +51,7 @@ final class TelField extends AbstractField {
 		$def     = $this->prop( 'defaults', '' );
 		$def     = is_array( $def ) ? ( isset( $def[0] ) ? $def[0] : '' ) : $def;
 
-		return '<input type="tel" class="dpo-input" name="' . esc_attr( $this->input_name() ) . '"'
+		$number = '<input type="tel" class="dpo-input dpo-phone__number" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -61,5 +65,25 @@ final class TelField extends AbstractField {
 					)
 				)
 			) . ' />';
+
+		$flag_style = (string) $this->cfg( 'flagStyle', 'flag_dial' );
+		if ( 'number' === $flag_style ) {
+			return $number;
+		}
+
+		$iso       = Countries::resolve_default( (string) $this->cfg( 'defaultCountry', '' ) );
+		$show_dial = ( 'flag_dial' === $flag_style );
+
+		$button = '<button type="button" class="dpo-phone__country" aria-haspopup="listbox" aria-expanded="false">'
+			. '<span class="dpo-phone__flag">' . esc_html( Countries::flag( $iso ) ) . '</span>'
+			. ( $show_dial ? '<span class="dpo-phone__dial">+' . esc_html( Countries::dial( $iso ) ) . '</span>' : '' )
+			. '<span class="dpo-phone__caret" aria-hidden="true"></span>'
+			. '</button>';
+
+		return '<div class="dpo-phone" data-flag-style="' . esc_attr( $flag_style ) . '" data-default-country="' . esc_attr( $iso ) . '">'
+			. '<input type="hidden" class="dpo-phone__iso" value="' . esc_attr( $iso ) . '" />'
+			. $button
+			. $number
+			. '</div>';
 	}
 }

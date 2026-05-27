@@ -23,6 +23,7 @@ import ValueFieldConfig from '../ValueFieldConfig';
 import FileUploadConfig from '../FileUploadConfig';
 import DateConfig from '../DateConfig';
 import TimeConfig from '../TimeConfig';
+import TelConfig from '../TelConfig';
 import DatetimeConfig from '../DatetimeConfig';
 import LinkedProductsConfig from '../LinkedProductsConfig';
 import SectionConfig from '../SectionConfig';
@@ -141,6 +142,10 @@ export default function GeneralTab( { node, patch } ) {
 				<TimeConfig node={ node } patch={ patch } />
 			) }
 
+			{ ! def.hasChoices && node.type === 'tel' && (
+				<TelConfig node={ node } patch={ patch } />
+			) }
+
 			{ ! def.hasChoices && node.type === 'datetime' && (
 				<DatetimeConfig node={ node } patch={ patch } />
 			) }
@@ -158,6 +163,7 @@ export default function GeneralTab( { node, patch } ) {
 				node.type !== 'fileupload' &&
 				node.type !== 'date' &&
 				node.type !== 'time' &&
+				node.type !== 'tel' &&
 				node.type !== 'datetime' &&
 				node.type !== 'linkedproducts' &&
 				node.type !== 'section' && (

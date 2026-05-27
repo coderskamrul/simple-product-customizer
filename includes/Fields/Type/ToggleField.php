@@ -27,7 +27,11 @@ final class ToggleField extends AbstractField {
 	}
 
 	/**
-	 * Control markup.
+	 * Control markup. Lays the switch out as a single choice-style row: the
+	 * switch, an optional image, the choice title, the price badge, and — when
+	 * quantity is enabled — a quantity box (kept outside the <label> so clicking
+	 * it doesn't flip the switch). The price applies only while the switch is on
+	 * (see store/collect.js + PriceCalculator).
 	 *
 	 * @return string
 	 */
@@ -35,14 +39,16 @@ final class ToggleField extends AbstractField {
 		$choices = $this->choices();
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 		$on      = ! empty( $choice['selected'] );
+		$label   = isset( $choice['label'] ) ? (string) $choice['label'] : '';
+		$image   = isset( $choice['image'] ) ? (string) $choice['image'] : '';
 
-		$html  = '<label class="dpo-toggle">';
-		$html .= '<input type="checkbox" class="dpo-toggle__input" name="' . esc_attr( $this->choice_name() ) . '" value="0"'
+		$switch  = '<label class="dpo-toggle">';
+		$switch .= '<input type="checkbox" class="dpo-toggle__input" name="' . esc_attr( $this->choice_name() ) . '" value="0"'
 			. $this->attrs(
 				array_merge(
 					array(
 						'data-uid'   => isset( $choice['uid'] ) ? (string) $choice['uid'] : '',
-						'data-label' => isset( $choice['label'] ) ? (string) $choice['label'] : '',
+						'data-label' => $label,
 					),
 					$this->choice_price_attrs( $choice ),
 					array(
@@ -50,12 +56,19 @@ final class ToggleField extends AbstractField {
 					)
 				)
 			) . ' />';
-		$html .= '<span class="dpo-toggle__track"><span class="dpo-toggle__thumb"></span></span>';
-		if ( '' !== (string) $this->cfg( 'onText', '' ) || '' !== (string) $this->cfg( 'offText', '' ) ) {
-			$html .= '<span class="dpo-toggle__text" data-on="' . esc_attr( (string) $this->cfg( 'onText', '' ) ) . '" data-off="' . esc_attr( (string) $this->cfg( 'offText', '' ) ) . '"></span>';
+		$switch .= '<span class="dpo-toggle__track"><span class="dpo-toggle__thumb"></span></span>';
+		if ( '' !== $image ) {
+			$switch .= '<span class="dpo-toggle__image"><img src="' . esc_url( $image ) . '" alt="" /></span>';
 		}
-		$html .= $this->price_badge( $choice );
-		$html .= '</label>';
-		return $html;
+		if ( '' !== $label ) {
+			$switch .= '<span class="dpo-toggle__label">' . esc_html( $label ) . '</span>';
+		}
+		if ( '' !== (string) $this->cfg( 'onText', '' ) || '' !== (string) $this->cfg( 'offText', '' ) ) {
+			$switch .= '<span class="dpo-toggle__text" data-on="' . esc_attr( (string) $this->cfg( 'onText', '' ) ) . '" data-off="' . esc_attr( (string) $this->cfg( 'offText', '' ) ) . '"></span>';
+		}
+		$switch .= $this->price_badge( $choice );
+		$switch .= '</label>';
+
+		return '<div class="dpo-toggle-row">' . $switch . $this->qty_input( 0 ) . '</div>';
 	}
 }

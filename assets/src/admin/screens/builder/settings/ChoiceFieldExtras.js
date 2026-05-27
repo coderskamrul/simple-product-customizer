@@ -166,6 +166,7 @@ export default function ChoiceFieldExtras( { node, patch } ) {
 
 	switch ( node.type ) {
 		case 'radio':
+		case 'toggle':
 			return <QuantityBlock cfg={ cfg } setKey={ setKey } />;
 
 		case 'checkbox':

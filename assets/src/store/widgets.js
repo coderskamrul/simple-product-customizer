@@ -15,6 +15,7 @@
 
 import { wireDate } from './date';
 import { wireTime } from './time';
+import { wirePhone } from './phone';
 
 /**
  * Wire a custom `.dpo-select` / `.dpo-fontpicker` dropdown.
@@ -298,6 +299,8 @@ export function initWidgets( fieldEl, onChange ) {
 			wireDate( fieldEl, onChange );
 		} else if ( type === 'time' ) {
 			wireTime( fieldEl, onChange );
+		} else if ( type === 'tel' ) {
+			wirePhone( fieldEl, onChange );
 		} else if ( type === 'datetime' ) {
 			// Combined field reuses both pickers (date control + time control).
 			wireDate( fieldEl, onChange );

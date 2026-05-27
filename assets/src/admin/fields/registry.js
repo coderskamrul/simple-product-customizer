@@ -147,7 +147,15 @@ export const FIELD_TYPES = {
 	tel: {
 		slug: 'tel', label: __( 'Phone', 'dynamic-product-options-for-woocommerce' ),
 		category: 'Input', icon: 'phone', priceable: true,
-		defaultNode: () => ( { ...baseNode( 'tel' ), choices: [ makeChoice() ] } ), inspectorSchema: [],
+		// flagStyle: 'number' | 'flag' | 'flag_dial'. defaultCountry is an ISO-2
+		// code ('' = resolve to the store base country at render time).
+		defaultNode: () => ( {
+			...baseNode( 'tel' ),
+			choices: [ makeChoice() ],
+			config: { flagStyle: 'flag_dial', defaultCountry: '' },
+		} ),
+		// Settings UI is the bespoke TelConfig panel (see GeneralTab).
+		inspectorSchema: [],
 	},
 	number: {
 		slug: 'number', label: __( 'Number', 'dynamic-product-options-for-woocommerce' ),

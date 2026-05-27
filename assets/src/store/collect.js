@@ -15,6 +15,8 @@
  * @package DPO\Store
  */
 
+import { findCountry } from '../shared/phone';
+
 /**
  * Field types whose value is a single scalar from one input.
  *
@@ -132,12 +134,31 @@ function collectChoice( fieldEl, meta ) {
 function collectToggle( fieldEl, meta ) {
 	const input = fieldEl.querySelector( '.dpo-toggle__input' );
 	const on = !! ( input && input.checked );
+
+	// Off → no choice selected, so an empty value. This keeps the field out of
+	// the single-value pricing fallback (which would otherwise charge the
+	// flat price even while the switch is off).
+	if ( ! on ) {
+		return {
+			type: meta.type,
+			setId: meta.setId,
+			label: meta.label,
+			value: '',
+			choiceIndexes: [],
+			dynamics: {},
+		};
+	}
+
+	// On → behave like a single selected choice. Carry the count (default 1)
+	// so per-unit pricing and the quantity box work like the other choices.
+	const label = ( input && input.getAttribute( 'data-label' ) ) || '';
+	const qty = choiceQty( fieldEl, meta.id, '0' );
 	return {
 		type: meta.type,
 		setId: meta.setId,
 		label: meta.label,
-		value: on ? 1 : 0,
-		choiceIndexes: on ? [ 0 ] : [],
+		value: [ { label, count: qty > 0 ? qty : 1 } ],
+		choiceIndexes: [ 0 ],
 		dynamics: {},
 	};
 }
@@ -192,6 +213,42 @@ function collectScalar( fieldEl, meta ) {
 		setId: meta.setId,
 		label: meta.label,
 		value: input ? input.value : '',
+		choiceIndexes: [],
+		dynamics: {},
+	};
+}
+
+/**
+ * Build the selection entry for a phone field. Reads the number input and, when
+ * the country selector shows the dial code (flag_dial style), prefixes the
+ * selected country's dial code so the stored/order value is a complete number
+ * ("+880 1712…"). Other flag styles store the typed number as-is.
+ *
+ * @param {HTMLElement} fieldEl Field wrapper.
+ * @param {object}      meta    Field meta.
+ * @return {object} Selection entry.
+ */
+function collectPhone( fieldEl, meta ) {
+	const input = fieldEl.querySelector(
+		'input[name="dpo_input_' + meta.id + '"]'
+	);
+	let value = input ? input.value : '';
+	const box = fieldEl.querySelector( '.dpo-phone' );
+	if ( box && value.trim() !== '' ) {
+		const style = box.getAttribute( 'data-flag-style' );
+		if ( style === 'flag_dial' ) {
+			const isoEl = box.querySelector( '.dpo-phone__iso' );
+			const country = isoEl ? findCountry( isoEl.value ) : null;
+			if ( country ) {
+				value = '+' + country.dial + ' ' + value;
+			}
+		}
+	}
+	return {
+		type: meta.type,
+		setId: meta.setId,
+		label: meta.label,
+		value,
 		choiceIndexes: [],
 		dynamics: {},
 	};
@@ -355,6 +412,9 @@ export function collectField( fieldEl ) {
 	}
 	if ( type === 'select' || type === 'fontpicker' ) {
 		return collectSelect( fieldEl, meta );
+	}
+	if ( type === 'tel' ) {
+		return collectPhone( fieldEl, meta );
 	}
 	if ( SCALAR_INPUT_TYPES.indexOf( type ) !== -1 ) {
 		return collectScalar( fieldEl, meta );

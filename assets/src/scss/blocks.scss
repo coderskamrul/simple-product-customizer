@@ -92,6 +92,121 @@
 	}
 
 	/* ================================================================ */
+	/* Phone — country (flag + dial code) selector + searchable list     */
+	/* ================================================================ */
+	.dpo-phone {
+		position: relative;
+		display: flex;
+		align-items: stretch;
+		gap: 8px;
+
+		&__country {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 0 12px;
+			min-height: var(--dpo-control-h);
+			border: 1px solid var(--dpo-border);
+			border-radius: var(--dpo-radius);
+			background: var(--dpo-surface);
+			color: var(--dpo-label);
+			font: inherit;
+			cursor: pointer;
+			white-space: nowrap;
+
+			&:hover {
+				border-color: var(--dpo-border-strong);
+			}
+		}
+
+		&__flag {
+			font-size: 1.25em;
+			line-height: 1;
+		}
+
+		&__dial {
+			color: var(--dpo-muted);
+		}
+
+		&__caret {
+			width: 0;
+			height: 0;
+			border-inline: 4px solid transparent;
+			border-block-start: 5px solid var(--dpo-muted);
+			transition: transform 0.15s;
+		}
+
+		&.dpo-phone--open &__caret {
+			transform: rotate(180deg);
+		}
+
+		&__number {
+			flex: 1;
+			min-width: 0;
+		}
+
+		&__drop {
+			position: absolute;
+			inset-inline: 0;
+			inset-block-start: calc(100% + 4px);
+			z-index: 20;
+			background: var(--dpo-surface);
+			border: 1px solid var(--dpo-border);
+			border-radius: var(--dpo-radius);
+			box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+			overflow: hidden;
+		}
+
+		&__search {
+			width: 100%;
+			border: none;
+			border-block-end: 1px solid var(--dpo-border);
+			padding: 12px 14px;
+			font: inherit;
+			outline: none;
+			background: var(--dpo-surface);
+			color: var(--dpo-text);
+		}
+
+		&__list {
+			max-height: 260px;
+			overflow-y: auto;
+		}
+
+		&__opt {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			width: 100%;
+			padding: 10px 14px;
+			border: none;
+			background: none;
+			font: inherit;
+			color: var(--dpo-text);
+			cursor: pointer;
+			text-align: start;
+
+			&[hidden] {
+				display: none;
+			}
+
+			&:hover,
+			&.is-active {
+				background: var(--dpo-surface-alt);
+			}
+		}
+
+		&__name {
+			flex: 1;
+			min-width: 0;
+		}
+
+		&__opt &__dial {
+			color: var(--dpo-muted);
+		}
+	}
+
+	/* ================================================================ */
 	/* Checkbox / radio choice lists                                     */
 	/* ================================================================ */
 	.dpo-choices {
@@ -622,6 +737,41 @@
 
 		&__text {
 			color: var(--dpo-label);
+		}
+
+		&__image {
+			display: inline-flex;
+			width: 30px;
+			height: 30px;
+			border-radius: 6px;
+			overflow: hidden;
+			flex: none;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		&__label {
+			color: var(--dpo-label);
+		}
+
+		.dpo-price-badge {
+			margin-inline-start: 0;
+		}
+	}
+
+	/* Toggle row — switch + image + title + price + optional quantity box. */
+	.dpo-toggle-row {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		flex-wrap: wrap;
+
+		.dpo-choice__qty {
+			margin-inline-start: 4px;
 		}
 	}
 

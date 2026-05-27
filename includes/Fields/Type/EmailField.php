@@ -26,6 +26,18 @@ final class EmailField extends AbstractField {
 	}
 
 	/**
+	 * Show the configured surcharge as a badge beside the field title
+	 * ("Title  +$5"), pricing on choices[0] like the other value fields.
+	 *
+	 * @return string
+	 */
+	protected function label_suffix() {
+		$choices = $this->choices();
+		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
+		return $this->price_badge( $choice );
+	}
+
+	/**
 	 * Control markup.
 	 *
 	 * @return string
