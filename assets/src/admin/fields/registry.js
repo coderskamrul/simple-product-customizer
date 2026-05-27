@@ -449,10 +449,9 @@ export const FIELD_TYPES = {
 			...baseNode( 'popup' ),
 			config: { triggerText: __( 'Open', 'dynamic-product-options-for-woocommerce' ), content: '' },
 		} ),
-		inspectorSchema: [
-			{ key: 'triggerText', label: __( 'Trigger text', 'dynamic-product-options-for-woocommerce' ), control: 'text' },
-			{ key: 'content', label: __( 'Popup content', 'dynamic-product-options-for-woocommerce' ), control: 'textarea' },
-		],
+		// Settings UI is the bespoke PopupConfig panel / Popup Builder modal
+		// (see GeneralTab). `config.content` holds the rich HTML.
+		inspectorSchema: [],
 	},
 	shortcode: {
 		slug: 'shortcode', label: __( 'Shortcode', 'dynamic-product-options-for-woocommerce' ),

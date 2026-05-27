@@ -50,7 +50,12 @@ final class PopupField extends AbstractField {
 	 * @return string
 	 */
 	public function render() {
-		$trigger = (string) $this->prop( 'label', '' );
+		// Builder writes the button label to config.triggerText; fall back to
+		// the field title, then a sensible default.
+		$trigger = (string) $this->cfg( 'triggerText', '' );
+		if ( '' === $trigger ) {
+			$trigger = (string) $this->prop( 'label', '' );
+		}
 		if ( '' === $trigger ) {
 			$trigger = esc_html__( 'Open', 'dynamic-product-options-for-woocommerce' );
 		}

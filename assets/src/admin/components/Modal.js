@@ -27,10 +27,17 @@ export default function Modal( {
 } ) {
 	const ref = useRef( null );
 
+	// Keep the latest onClose in a ref so the effect can run exactly once on
+	// open. Depending on `onClose` (a fresh closure each parent render) would
+	// re-run this effect on every keystroke and call `focus()` again, stealing
+	// focus back from inputs/editors inside the modal.
+	const onCloseRef = useRef( onClose );
+	onCloseRef.current = onClose;
+
 	useEffect( () => {
 		const onKey = ( e ) => {
 			if ( e.key === 'Escape' ) {
-				onClose();
+				onCloseRef.current();
 			}
 		};
 		document.addEventListener( 'keydown', onKey );
@@ -38,7 +45,7 @@ export default function Modal( {
 			ref.current.focus();
 		}
 		return () => document.removeEventListener( 'keydown', onKey );
-	}, [ onClose ] );
+	}, [] );
 
 	return (
 		<div

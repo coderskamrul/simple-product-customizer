@@ -24,7 +24,7 @@ final class Sanitizer {
 	 *
 	 * @var string[]
 	 */
-	private static $rich_keys = array( 'html', 'previewContent', 'popupContent', 'description' );
+	private static $rich_keys = array( 'html', 'content', 'previewContent', 'popupContent', 'description' );
 
 	/**
 	 * Sanitize an ordered field tree.
@@ -94,7 +94,11 @@ final class Sanitizer {
 		if ( is_array( $value ) ) {
 			$out = array();
 			foreach ( $value as $k => $v ) {
-				$out[ is_int( $k ) ? $k : self::clean_key( $k ) ] = self::value( $key, $v );
+				// Recurse with the child key so nested config keys (e.g.
+				// `content`, `html`) are matched against the rich-key list;
+				// list items keep the parent key.
+				$child_key       = is_int( $k ) ? $key : self::clean_key( $k );
+				$out[ is_int( $k ) ? $k : $child_key ] = self::value( $child_key, $v );
 			}
 			return $out;
 		}

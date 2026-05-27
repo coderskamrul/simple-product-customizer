@@ -96,6 +96,7 @@ export default function FieldPicker() {
 									'Add a field',
 									'dynamic-product-options-for-woocommerce'
 								) }
+								aria-describedby={ undefined }
 								onOpenAutoFocus={ ( e ) =>
 									e.preventDefault()
 								}

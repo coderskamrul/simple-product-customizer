@@ -79,6 +79,10 @@ export default function SettingsDrawer() {
 					<Dialog.Content
 						asChild
 						forceMount
+						/* The drawer is self-describing via its title; opt out of
+						   Radix's description requirement to silence the
+						   "Missing Description/aria-describedby" warning. */
+						aria-describedby={ undefined }
 						onPointerDownOutside={ ( e ) => e.preventDefault() }
 						onInteractOutside={ ( e ) => e.preventDefault() }
 						onOpenAutoFocus={ ( e ) => e.preventDefault() }

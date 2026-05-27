@@ -27,6 +27,7 @@ import TelConfig from '../TelConfig';
 import DatetimeConfig from '../DatetimeConfig';
 import LinkedProductsConfig from '../LinkedProductsConfig';
 import SectionConfig from '../SectionConfig';
+import PopupConfig from '../PopupConfig';
 import TypeConfig from '../TypeConfig';
 
 /** Single-value fields that price one value (stored on choices[0]). */
@@ -158,6 +159,10 @@ export default function GeneralTab( { node, patch } ) {
 				<SectionConfig node={ node } patch={ patch } />
 			) }
 
+			{ ! def.hasChoices && node.type === 'popup' && (
+				<PopupConfig node={ node } patch={ patch } />
+			) }
+
 			{ ! def.hasChoices &&
 				! VALUE_PRICE_TYPES.includes( node.type ) &&
 				node.type !== 'fileupload' &&
@@ -166,7 +171,8 @@ export default function GeneralTab( { node, patch } ) {
 				node.type !== 'tel' &&
 				node.type !== 'datetime' &&
 				node.type !== 'linkedproducts' &&
-				node.type !== 'section' && (
+				node.type !== 'section' &&
+				node.type !== 'popup' && (
 					<TypeConfig node={ node } patch={ patch } />
 				) }
 		</div>

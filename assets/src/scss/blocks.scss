@@ -8,6 +8,27 @@
  * color/image swatch cards with a selected check, and a custom dropdown.
  */
 
+/* Popup open animation (kept at root so @keyframes are valid CSS). */
+@keyframes dpo-popup-backdrop-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes dpo-popup-box-in {
+	from {
+		opacity: 0;
+		transform: translateY(14px) scale(0.94);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
 .dpo-options {
 	$check: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpath d='M1 5l3.4 3.4L11 1.6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E";
 
@@ -1164,33 +1185,163 @@
 		position: absolute;
 		inset: 0;
 		background: rgba(0, 0, 0, 0.5);
+		animation: dpo-popup-backdrop-in 0.25s ease both;
 	}
 
 	.dpo-popup__box {
 		position: relative;
+		display: flex;
+		flex-direction: column;
 		background: var(--dpo-surface);
 		border-radius: var(--dpo-radius);
 		padding: 24px;
-		max-width: 520px;
+		max-width: 800px;
 		width: 90%;
 		max-height: 85vh;
-		overflow: auto;
+		/* Visible so the close button can straddle the top corner; the
+		   content scrolls instead of the box. */
+		overflow: visible;
 		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+		animation: dpo-popup-box-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 	}
 
 	.dpo-popup__close {
 		position: absolute;
-		inset-block-start: 12px;
-		inset-inline-end: 12px;
-		width: 30px;
-		height: 30px;
-		border: none;
+		inset-block-start: -16px;
+		inset-inline-end: -16px;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		border: 2px solid #e23b3b;
 		border-radius: 50%;
-		background: var(--dpo-surface-alt);
-		color: var(--dpo-label);
-		font-size: 18px;
+		background: #fff;
+		color: #e23b3b;
+		font-size: 20px;
 		line-height: 1;
 		cursor: pointer;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+		transition: background 0.15s, color 0.15s, transform 0.15s;
+
+		&:hover {
+			background: #e23b3b;
+			color: #fff;
+			transform: scale(1.06);
+		}
+	}
+
+	/* Rich content authored in the Popup Builder. Mirrors the editor's
+	   typography so the storefront matches the builder 1:1. */
+	.dpo-popup__content {
+		/* Scrolls within the (now overflow-visible) box. */
+		flex: 1 1 auto;
+		min-height: 0;
+		overflow-y: auto;
+		color: var(--dpo-text);
+		font-size: 15px;
+		line-height: 1.65;
+
+		> :first-child {
+			margin-block-start: 0;
+		}
+
+		> :last-child {
+			margin-block-end: 0;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			color: var(--dpo-label);
+			line-height: 1.25;
+			margin: 0.7em 0 0.35em;
+		}
+
+		h1 {
+			font-size: 1.9em;
+		}
+		h2 {
+			font-size: 1.5em;
+		}
+		h3 {
+			font-size: 1.25em;
+		}
+
+		p {
+			margin: 0 0 0.75em;
+		}
+
+		ul,
+		ol {
+			margin: 0 0 0.75em;
+			padding-inline-start: 1.6em;
+		}
+
+		li {
+			margin: 0.25em 0;
+		}
+
+		a {
+			color: var(--dpo-accent);
+			text-decoration: underline;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		strong,
+		b {
+			font-weight: 700;
+		}
+
+		mark {
+			background: #fff3a3;
+			padding: 0 2px;
+			border-radius: 2px;
+		}
+
+		img {
+			max-width: 100%;
+			height: auto;
+			border-radius: var(--dpo-radius);
+		}
+
+		/* Dynamic tables. */
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin: 0.75em 0;
+			font-size: 0.95em;
+
+			td,
+			th {
+				border: 1px solid var(--dpo-border-strong);
+				padding: 8px 10px;
+				text-align: start;
+				vertical-align: top;
+			}
+
+			th {
+				background: var(--dpo-surface-alt);
+				font-weight: 600;
+				color: var(--dpo-label);
+			}
+		}
+
+		/* Keep wide tables scrollable on very small screens. */
+		@media (max-width: 480px) {
+			table {
+				display: block;
+				overflow-x: auto;
+			}
+		}
 	}
 
 	/* ================================================================ */
