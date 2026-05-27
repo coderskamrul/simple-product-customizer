@@ -13,7 +13,6 @@ import Dashboard from '../screens/Dashboard';
 import OptionSet from '../screens/OptionSet';
 import Builder from '../screens/Builder';
 import Assignment from '../screens/Assignment';
-import GlobalStyle from '../screens/GlobalStyle';
 import Settings from '../screens/Settings';
 import Analytics from '../screens/Analytics';
 import License from '../screens/License';
@@ -32,8 +31,6 @@ function Screen( { route } ) {
 			return <Builder setId={ route.params.id } />;
 		case 'assignment':
 			return <Assignment setId={ route.params.id } />;
-		case 'style':
-			return <GlobalStyle />;
 		case 'settings':
 			return <Settings />;
 		case 'analytics':

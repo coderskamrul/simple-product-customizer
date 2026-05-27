@@ -10,7 +10,6 @@ import { __ } from '@wordpress/i18n';
 const NAV = [
 	{ route: 'dashboard', hash: '#/', label: __( 'Dashboard', 'dynamic-product-options-for-woocommerce' ), icon: 'dashboard' },
 	{ route: 'sets', hash: '#/sets', label: __( 'Option Sets', 'dynamic-product-options-for-woocommerce' ), icon: 'screenoptions' },
-	{ route: 'style', hash: '#/style', label: __( 'Global Style', 'dynamic-product-options-for-woocommerce' ), icon: 'admin-customizer' },
 	{ route: 'settings', hash: '#/settings', label: __( 'Settings', 'dynamic-product-options-for-woocommerce' ), icon: 'admin-generic' },
 	{ route: 'analytics', hash: '#/analytics', label: __( 'Analytics', 'dynamic-product-options-for-woocommerce' ), icon: 'chart-bar' },
 	{ route: 'license', hash: '#/license', label: __( 'License', 'dynamic-product-options-for-woocommerce' ), icon: 'admin-network' },

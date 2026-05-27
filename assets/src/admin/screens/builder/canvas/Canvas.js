@@ -13,6 +13,8 @@ import { ImageIcon, MousePointerClick } from 'lucide-react';
 import { useConfig } from '../../../store/ConfigContext';
 import { useBuilder } from '../../../store/BuilderContext';
 import { useBuilderUI } from '../store/builderUi';
+import { useGlobalStyle } from '../store/globalStyle';
+import { cssVars } from '../store/globalStyleModel';
 import SortableContainer from './SortableContainer';
 import AddFieldButton from './AddFieldButton';
 import FieldPreview from '../preview/FieldPreview';
@@ -78,11 +80,19 @@ export default function Canvas() {
 	const { tree } = useBuilder();
 	const { view } = useBuilderUI();
 	const { formatPrice } = useConfig();
+	const tokens = useGlobalStyle( ( s ) => s.tokens );
 	const preview = view === 'preview';
 	const empty = tree.length === 0;
 
+	// Storefront theme tokens drive the in-canvas live preview (consumed by the
+	// `--dpo-gs-*` fallbacks in the canvas SCSS).
+	const styleVars = cssVars( tokens );
+
 	return (
-		<div className={ `dpo-stage${ preview ? ' is-preview' : '' }` }>
+		<div
+			className={ `dpo-stage${ preview ? ' is-preview' : '' }` }
+			style={ styleVars }
+		>
 			<div className="dpo-stage__product">
 				<Gallery />
 

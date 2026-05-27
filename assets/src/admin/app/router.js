@@ -16,7 +16,6 @@ const ROUTES = [
 	{ name: 'sets', pattern: '/sets' },
 	{ name: 'builder', pattern: '/set/:id' },
 	{ name: 'assignment', pattern: '/set/:id/assignment' },
-	{ name: 'style', pattern: '/style' },
 	{ name: 'settings', pattern: '/settings' },
 	{ name: 'analytics', pattern: '/analytics' },
 	{ name: 'license', pattern: '/license' },

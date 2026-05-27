@@ -58,7 +58,6 @@ final class AdminMenu {
 		$submenus = array(
 			array( self::SLUG, esc_html__( 'Dashboard', 'dynamic-product-options-for-woocommerce' ) ),
 			array( self::SLUG . '#/sets', esc_html__( 'Option Sets', 'dynamic-product-options-for-woocommerce' ) ),
-			array( self::SLUG . '#/style', esc_html__( 'Global Style', 'dynamic-product-options-for-woocommerce' ) ),
 			array( self::SLUG . '#/settings', esc_html__( 'Settings', 'dynamic-product-options-for-woocommerce' ) ),
 			array( self::SLUG . '#/analytics', esc_html__( 'Analytics', 'dynamic-product-options-for-woocommerce' ) ),
 			array( self::SLUG . '#/license', esc_html__( 'License', 'dynamic-product-options-for-woocommerce' ) ),

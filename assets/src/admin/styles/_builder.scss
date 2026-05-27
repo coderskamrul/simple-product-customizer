@@ -1342,3 +1342,96 @@
 		width: 64px;
 	}
 }
+
+/* ------------------------------------------------------------------ *
+ * Global Style — live preview.
+ * The Global Style panel writes --dpo-gs-* custom properties onto the
+ * .dpo-stage element (see Canvas.js → globalStyleModel.cssVars). These
+ * scoped overrides let the in-canvas field previews reflect the chosen
+ * storefront size / shape / colours instantly, without a save. Each var
+ * falls back to its admin token so the canvas still renders if unset.
+ * ------------------------------------------------------------------ */
+.dpo-stage {
+	.dpo-stage__options {
+		gap: var(--dpo-gs-gap, 12px);
+	}
+
+	.dpo-canvas__list {
+		gap: var(--dpo-gs-gap, 12px);
+	}
+
+	.dpo-pf__label {
+		color: var(--dpo-gs-text, var(--dpo-c-ink));
+	}
+
+	.dpo-pf__req {
+		color: var(--dpo-gs-error, var(--dpo-c-danger));
+	}
+
+	.dpo-pf__price b {
+		color: var(--dpo-gs-primary, var(--dpo-c-primary));
+	}
+
+	.dpo-pf__input,
+	.dpo-pf__select-box {
+		border-color: var(--dpo-gs-border, var(--dpo-c-border-strong));
+		border-radius: var(--dpo-gs-radius, var(--dpo-c-radius-sm));
+		background: var(--dpo-gs-fill, var(--dpo-c-surface));
+		color: var(--dpo-gs-text, var(--dpo-c-ink));
+		font-size: var(--dpo-gs-font-size, 14px);
+	}
+
+	input.dpo-pf__input,
+	.dpo-pf__select-box {
+		min-height: var(--dpo-gs-control-h, 42px);
+	}
+
+	.dpo-pf__select-list {
+		border-color: var(--dpo-gs-border, var(--dpo-c-border));
+		border-radius: var(--dpo-gs-radius, var(--dpo-c-radius-sm));
+	}
+
+	.dpo-pf__button {
+		border-radius: var(--dpo-gs-radius, var(--dpo-c-radius-sm));
+		border-color: var(--dpo-gs-border, var(--dpo-c-border-strong));
+		font-size: var(--dpo-gs-font-size, 14px);
+
+		&.is-active {
+			background: var(--dpo-gs-primary, var(--dpo-c-primary));
+			border-color: var(--dpo-gs-primary, var(--dpo-c-primary));
+			color: var(--dpo-gs-on-primary, #fff);
+		}
+	}
+
+	.dpo-pf__choice input[type='checkbox'],
+	.dpo-pf__choice input[type='radio'],
+	.dpo-pf__range {
+		accent-color: var(--dpo-gs-primary, var(--dpo-c-primary));
+	}
+
+	.dpo-pf__toggle.is-on {
+		background: var(--dpo-gs-primary, var(--dpo-c-primary));
+	}
+
+	.dpo-pf__swatch,
+	.dpo-pf__img-swatch {
+		width: var(--dpo-gs-swatch, 36px);
+		height: var(--dpo-gs-swatch, 36px);
+		border-radius: var(--dpo-gs-swatch-radius, 50%);
+
+		&.is-active {
+			box-shadow: 0 0 0 2px var(--dpo-gs-fill, #fff),
+				0 0 0 4px var(--dpo-gs-primary, var(--dpo-c-primary));
+		}
+	}
+
+	.dpo-pf__dropzone,
+	.dpo-pf__colorpicker {
+		border-radius: var(--dpo-gs-radius, var(--dpo-c-radius-sm));
+	}
+
+	.dpo-pf__dropzone-btn {
+		border-radius: var(--dpo-gs-radius, var(--dpo-c-radius-sm));
+		color: var(--dpo-gs-primary, var(--dpo-c-primary));
+	}
+}

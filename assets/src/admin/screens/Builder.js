@@ -8,16 +8,19 @@
  * @package
  */
 
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { ArrowLeft, Eye, Pencil, Loader2 } from 'lucide-react';
+import { ArrowLeft, Eye, Pencil, Loader2, Palette } from 'lucide-react';
 import { BuilderProvider, useBuilder } from '../store/BuilderContext';
 import { useToast } from '../store/ToastContext';
 import { navigate } from '../app/router';
 import { errorMessage } from '../api/client';
 import { useBuilderUI } from './builder/store/builderUi';
+import { useGlobalStyle } from './builder/store/globalStyle';
 import Canvas from './builder/canvas/Canvas';
 import FieldPicker from './builder/picker/FieldPicker';
 import SettingsDrawer from './builder/settings/SettingsDrawer';
+import GlobalStylePanel from './builder/settings/GlobalStylePanel';
 
 /**
  * The builder body (consumes BuilderContext).
@@ -27,7 +30,21 @@ import SettingsDrawer from './builder/settings/SettingsDrawer';
 function Editor() {
 	const builder = useBuilder();
 	const { notify } = useToast();
-	const { view, setView } = useBuilderUI();
+	const { view, setView, closeSettings } = useBuilderUI();
+	const openStyle = useGlobalStyle( ( s ) => s.openPanel );
+	const loadStyle = useGlobalStyle( ( s ) => s.load );
+
+	// Load the saved global style once so the canvas reflects it immediately.
+	useEffect( () => {
+		loadStyle();
+	}, [ loadStyle ] );
+
+	/** Open the Global Style panel, closing the field drawer so they don't stack. */
+	const onOpenStyle = () => {
+		closeSettings();
+		builder.dispatch( { type: 'SELECT', id: null } );
+		openStyle();
+	};
 
 	if ( builder.loading ) {
 		return (
@@ -198,6 +215,18 @@ function Editor() {
 
 					<button
 						type="button"
+						className="dpo-btn dpo-btn--ghost"
+						onClick={ onOpenStyle }
+					>
+						<Palette size={ 15 } />
+						{ __(
+							'Global Style',
+							'dynamic-product-options-for-woocommerce'
+						) }
+					</button>
+
+					<button
+						type="button"
 						className="dpo-btn dpo-btn--primary"
 						disabled={ builder.saving }
 						onClick={ onSave }
@@ -221,6 +250,7 @@ function Editor() {
 
 			<FieldPicker />
 			<SettingsDrawer />
+			<GlobalStylePanel />
 		</div>
 	);
 }

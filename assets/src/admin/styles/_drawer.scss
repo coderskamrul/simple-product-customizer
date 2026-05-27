@@ -1020,3 +1020,159 @@ button.dpo-choices__media-btn {
 		color: var(--dpo-c-primary);
 	}
 }
+
+/* ------------------------------------------------------------------ *
+ * Global Style panel (reuses the .dpo-drawer shell, slides from the
+ * left while the canvas stays live on the right for instant preview).
+ * ------------------------------------------------------------------ */
+.dpo-drawer--style {
+	width: min(560px, 92vw);
+}
+
+.dpo-gs {
+	&__loading {
+		display: flex;
+		justify-content: center;
+		padding: 48px 0;
+	}
+
+	&__grid2 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 18px;
+		margin-block-end: 22px;
+	}
+
+	&__group {
+		margin-block-end: 22px;
+
+		&:last-child {
+			margin-block-end: 0;
+		}
+	}
+
+	&__label {
+		display: block;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--dpo-c-ink);
+		margin-block-end: 10px;
+	}
+
+	/* Segmented control (Size / Shape). */
+	&__seg {
+		display: flex;
+		padding: 3px;
+		gap: 3px;
+		background: var(--dpo-c-surface-2);
+		border: 1px solid var(--dpo-c-border);
+		border-radius: var(--dpo-c-radius-sm);
+	}
+
+	&__seg-btn {
+		flex: 1;
+		padding: 8px 4px;
+		border: 0;
+		border-radius: calc(var(--dpo-c-radius-sm) - 3px);
+		background: transparent;
+		color: var(--dpo-c-ink-soft);
+		font-size: 13px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.15s ease, color 0.15s ease,
+			box-shadow 0.15s ease;
+
+		&:hover {
+			color: var(--dpo-c-ink);
+		}
+
+		&.is-active {
+			background: var(--dpo-c-surface);
+			color: var(--dpo-c-primary);
+			box-shadow: var(--dpo-c-shadow-sm);
+		}
+	}
+
+	/* Palette preset tiles. */
+	&__palettes {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+		gap: 12px;
+	}
+
+	&__palette {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 12px;
+		border: 1.5px solid var(--dpo-c-border);
+		border-radius: var(--dpo-c-radius);
+		background: var(--dpo-c-surface);
+		cursor: pointer;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease,
+			transform 0.15s ease;
+
+		&:hover {
+			border-color: var(--dpo-c-border-strong);
+			transform: translateY(-1px);
+		}
+
+		&.is-active {
+			border-color: var(--dpo-c-primary);
+			box-shadow: var(--dpo-c-ring);
+		}
+	}
+
+	&__palette-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--dpo-c-ink);
+
+		svg {
+			color: var(--dpo-c-primary);
+		}
+	}
+
+	&__ramp {
+		display: flex;
+		height: 26px;
+		border-radius: 6px;
+		overflow: hidden;
+		border: 1px solid var(--dpo-c-border);
+	}
+
+	&__chip {
+		flex: 1;
+	}
+
+	/* Customize colours grid. */
+	&__colors {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+	}
+
+	&__color {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	&__color-label {
+		font-size: 12px;
+		font-weight: 600;
+		color: var(--dpo-c-ink-soft);
+	}
+
+	&__foot {
+		display: flex;
+		justify-content: flex-end;
+		gap: 10px;
+		padding: 14px 18px;
+		border-block-start: 1px solid var(--dpo-c-border);
+		background: var(--dpo-c-surface);
+	}
+}
