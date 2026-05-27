@@ -89,7 +89,7 @@ function baseNode( type ) {
 		cssClass: '',
 		pricePlacement: 'with_label',
 		logicEnabled: false,
-		logic: { match: 'all', rules: [] },
+		logic: { action: 'show', match: 'all', rules: [] },
 		defaults: [],
 		choices: [],
 		config: {},

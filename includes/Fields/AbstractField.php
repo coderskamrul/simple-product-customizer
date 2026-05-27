@@ -203,14 +203,20 @@ abstract class AbstractField implements FieldContract {
 	 * @return string
 	 */
 	protected function wrapper_attrs() {
-		$logic   = ! empty( $this->prop( 'logicEnabled' ) );
-		$rules   = $this->prop( 'logic', array() );
-		$classes = $this->classes(
+		$logic     = ! empty( $this->prop( 'logicEnabled' ) );
+		$rules     = $this->prop( 'logic', array() );
+		$has_rules = $logic && is_array( $rules ) && ! empty( $rules['rules'] );
+		// A "show" rule keeps the field hidden until matched; a "hide" rule
+		// starts visible and is toggled off by the JS engine on match, so it
+		// must not render hidden (which would flash/never show).
+		$action       = ( is_array( $rules ) && isset( $rules['action'] ) ) ? $rules['action'] : 'show';
+		$start_hidden = $has_rules && 'hide' !== $action;
+		$classes      = $this->classes(
 			array(
 				'dpo-field',
 				'dpo-field--' . $this->type(),
 				$this->width_class( (string) $this->prop( 'width', 'full' ) ),
-				$logic && ! empty( $rules['rules'] ) ? 'dpo-hidden' : '',
+				$start_hidden ? 'dpo-hidden' : '',
 				(string) $this->prop( 'cssClass', '' ),
 			)
 		);

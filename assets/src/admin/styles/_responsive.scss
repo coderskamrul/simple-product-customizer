@@ -17,9 +17,13 @@
 		max-height: 320px;
 	}
 
-	.dpo-choice-row__grid,
-	.dpo-logic-rule {
+	.dpo-choice-row__grid {
 		grid-template-columns: 1fr;
+	}
+
+	.dpo-logic__head,
+	.dpo-logic__row {
+		grid-template-columns: 1fr 1fr 1fr 30px;
 	}
 }
 

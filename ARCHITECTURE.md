@@ -144,7 +144,7 @@ Ordered array. Each node:
   "cssClass": "",
   "pricePlacement": "with_label|with_choice",
   "logicEnabled": false,
-  "logic": { "match": "all|any",
+  "logic": { "action": "show|hide", "match": "all|any",
              "rules": [ { "source":"<fieldId>", "operator":"<op>", "value":"" } ] },
   "defaults": [],                // selected indexes / default value
   "choices": [                   // choice/priced types

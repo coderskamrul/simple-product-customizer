@@ -2,13 +2,22 @@
  * Conditional-logic engine.
  *
  * Reads each field's `data-logic-rules` JSON
- * ({ match:'all'|'any', rules:[{ source, operator, value }] }) and toggles
- * `.dpo-hidden` on the field wrapper. Operators per ARCHITECTURE §6:
+ * ({ action:'show'|'hide', match:'all'|'any',
+ *    rules:[{ source, operator, value }] }) and toggles `.dpo-hidden` on the
+ * field wrapper. Operators per ARCHITECTURE §6:
  * is, is_not, empty, not_empty, contains, not_contains, gt, lt, gte, lte,
  * starts_with, between, checked.
  *
+ * `action` decides what a satisfied condition does:
+ *   - 'show' (default): field is hidden until the rules match.
+ *   - 'hide': field is visible until the rules match, then hidden.
+ *
  * Hidden fields are excluded from pricing and required validation by the
  * controller, which reads the visibility map produced here.
+ *
+ * Sentinel rule values let a Toggle/boolean source be matched without knowing
+ * its choice label: `__checked__` / `__unchecked__` compare the field's
+ * checked state directly.
  *
  * @package DPO\Store
  */
@@ -49,6 +58,33 @@ function sourceScalar( entry ) {
 }
 
 /**
+ * Reduce a selection entry to the list of comparable scalar strings. A choice
+ * group yields one string per selected choice (so membership operators can
+ * match a single chosen option); a scalar field yields a single-element list.
+ *
+ * @param {object|undefined} entry Selection entry for the source field.
+ * @return {string[]} Comparable strings (empty array when nothing chosen).
+ */
+function sourceValues( entry ) {
+	if ( ! entry ) {
+		return [];
+	}
+	const v = entry.value;
+	if ( v === null || v === undefined || v === '' ) {
+		return [];
+	}
+	if ( Array.isArray( v ) ) {
+		return v.map( ( x ) =>
+			x && typeof x === 'object'
+				? String( x.label !== undefined ? x.label : x.name || '' )
+				: String( x )
+		);
+	}
+	const s = sourceScalar( entry );
+	return s === '' ? [] : [ s ];
+}
+
+/**
  * Whether the source field currently has any selection/value.
  *
  * @param {object|undefined} entry Source selection entry.
@@ -78,22 +114,34 @@ function sourceChecked( entry ) {
 function evalRule( rule, selections ) {
 	const entry = selections[ rule.source ];
 	const left = sourceScalar( entry );
+	const values = sourceValues( entry );
 	const right = rule.value === undefined ? '' : String( rule.value );
 	const op = rule.operator;
 
+	// Boolean sentinels (Toggle "Checked"/"Unchecked"): compare the checked
+	// state directly, regardless of the chosen operator.
+	if ( right === '__checked__' ) {
+		return op === 'is_not' ? ! sourceChecked( entry ) : sourceChecked( entry );
+	}
+	if ( right === '__unchecked__' ) {
+		return op === 'is_not' ? sourceChecked( entry ) : ! sourceChecked( entry );
+	}
+
 	switch ( op ) {
 		case 'is':
-			return left === right;
+			// Match when ANY selected value equals the target (works for both
+			// single-value fields and multi-select choice groups).
+			return values.indexOf( right ) !== -1;
 		case 'is_not':
-			return left !== right;
+			return values.indexOf( right ) === -1;
 		case 'empty':
-			return left === '';
+			return values.length === 0;
 		case 'not_empty':
-			return left !== '';
+			return values.length > 0;
 		case 'contains':
-			return left.indexOf( right ) !== -1;
+			return values.some( ( v ) => v.indexOf( right ) !== -1 );
 		case 'not_contains':
-			return left.indexOf( right ) === -1;
+			return ! values.some( ( v ) => v.indexOf( right ) !== -1 );
 		case 'gt':
 			return toNumber( left ) > toNumber( right );
 		case 'lt':
@@ -143,6 +191,7 @@ export function readLogic( fieldEl ) {
 			parsed.rules.length
 		) {
 			return {
+				action: parsed.action === 'hide' ? 'hide' : 'show',
 				match: parsed.match === 'any' ? 'any' : 'all',
 				rules: parsed.rules,
 			};
@@ -156,7 +205,7 @@ export function readLogic( fieldEl ) {
 /**
  * Decide a field's visibility from its logic + the live selections.
  *
- * @param {object} logic      { match, rules } (from readLogic).
+ * @param {object} logic      { action, match, rules } (from readLogic).
  * @param {object} selections fieldId → selection entry.
  * @return {boolean} True = the field should be visible.
  */
@@ -165,10 +214,13 @@ export function isVisible( logic, selections ) {
 		return true;
 	}
 	const results = logic.rules.map( ( r ) => evalRule( r, selections ) );
-	if ( logic.match === 'any' ) {
-		return results.some( Boolean );
-	}
-	return results.every( Boolean );
+	const matched =
+		logic.match === 'any'
+			? results.some( Boolean )
+			: results.every( Boolean );
+
+	// 'hide' inverts: matched → hidden. 'show' (default): matched → visible.
+	return logic.action === 'hide' ? ! matched : matched;
 }
 
 /**

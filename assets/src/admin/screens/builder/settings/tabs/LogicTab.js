@@ -1,7 +1,16 @@
 /**
- * Settings drawer → Conditional Logic tab. Toggle conditional visibility,
- * choose all/any matching, and build source/operator/value rules referencing
- * any other field in the set (ARCHITECTURE §6).
+ * Settings drawer → Conditional Logic tab.
+ *
+ * Build a Show/Hide rule for the selected field that references any other
+ * value field in the set. The sentence reads:
+ *
+ *   [Show|Hide] this field if [Any|All] of these rules match:
+ *
+ * Each rule is a Field / Comparison / Value row. The Value control adapts to
+ * the chosen source: a dropdown of that field's options for choice fields,
+ * a Checked/Unchecked picker for toggles, or a free text/number input for
+ * plain inputs. The shape persisted to `node.logic` is consumed by the
+ * front-end engine in `store/conditions.js` (ARCHITECTURE §6).
  *
  * @package
  */
@@ -9,17 +18,164 @@
 import { __ } from '@wordpress/i18n';
 import { OPERATORS } from '../../../../fields/registry';
 import { useBuilder } from '../../../../store/BuilderContext';
-import { flatten } from '../../../../store/treeOps';
 import {
-	Field,
 	SelectControl,
 	TextControl,
 	ToggleField,
-	Repeater,
 } from '../../../../components';
 
-/** Operators that don't need a value input. */
+/** Operators that need no value input. */
 const NO_VALUE = [ 'empty', 'not_empty', 'checked' ];
+
+/** Operators that compare against a literal option/text value. */
+const TEXT_VALUE_OPS = [ 'is', 'is_not', 'contains', 'not_contains' ];
+
+/** Field types whose value is one of a fixed set of choices. */
+const CHOICE_TYPES = [
+	'checkbox',
+	'radio',
+	'select',
+	'buttongroup',
+	'colorswatch',
+	'imageswatch',
+	'fontpicker',
+];
+
+/** Field types that carry no comparable value (never usable as a source). */
+const NON_VALUE_TYPES = [
+	'heading',
+	'html',
+	'divider',
+	'spacer',
+	'section',
+	'popup',
+	'shortcode',
+	'formula',
+	'advancedformula',
+	'linkedproducts',
+];
+
+/**
+ * Walk the field tree (including section children) into a flat list of full
+ * nodes, preserving choices/type so the Value control can adapt.
+ *
+ * @param {Array} tree Field tree.
+ * @return {Array} Flat list of nodes.
+ */
+function flattenNodes( tree ) {
+	const out = [];
+	( tree || [] ).forEach( ( node ) => {
+		out.push( node );
+		if ( node.children && node.children.length ) {
+			out.push( ...flattenNodes( node.children ) );
+		}
+	} );
+	return out;
+}
+
+/**
+ * Value control for a single rule, adapting to the source field type.
+ *
+ * @param {Object}   props          Component props.
+ * @param {Object}   props.source   Source field node (or undefined).
+ * @param {string}   props.operator Selected operator.
+ * @param {string}   props.value    Current value.
+ * @param {Function} props.onChange (value) => void.
+ * @return {JSX.Element|null} The control, or null when the operator needs none.
+ */
+function ValueControl( { source, operator, value, onChange } ) {
+	if ( NO_VALUE.includes( operator ) ) {
+		return null;
+	}
+
+	const type = source ? source.type : '';
+
+	// Toggle → Checked / Unchecked picker (sentinel values understood by the
+	// front-end engine).
+	if ( type === 'toggle' && TEXT_VALUE_OPS.includes( operator ) ) {
+		return (
+			<SelectControl
+				value={ value }
+				onChange={ onChange }
+				options={ [
+					{
+						value: '',
+						label: __(
+							'Select state',
+							'dynamic-product-options-for-woocommerce'
+						),
+					},
+					{
+						value: '__checked__',
+						label: __(
+							'Checked / On',
+							'dynamic-product-options-for-woocommerce'
+						),
+					},
+					{
+						value: '__unchecked__',
+						label: __(
+							'Unchecked / Off',
+							'dynamic-product-options-for-woocommerce'
+						),
+					},
+				] }
+			/>
+		);
+	}
+
+	// Choice fields → dropdown of their option labels.
+	if (
+		CHOICE_TYPES.includes( type ) &&
+		TEXT_VALUE_OPS.includes( operator ) &&
+		Array.isArray( source.choices )
+	) {
+		const options = [
+			{
+				value: '',
+				label: __(
+					'Select option',
+					'dynamic-product-options-for-woocommerce'
+				),
+			},
+			...source.choices.map( ( c, i ) => {
+				const label =
+					( c.label || '' ).trim() ||
+					`${ __(
+						'Option',
+						'dynamic-product-options-for-woocommerce'
+					) } ${ i + 1 }`;
+				return { value: c.label || label, label };
+			} ),
+		];
+		return (
+			<SelectControl
+				value={ value }
+				onChange={ onChange }
+				options={ options }
+			/>
+		);
+	}
+
+	// Everything else → free text/number entry.
+	return (
+		<TextControl
+			value={ value }
+			placeholder={
+				operator === 'between'
+					? __(
+							'e.g. 10,20',
+							'dynamic-product-options-for-woocommerce'
+					  )
+					: __(
+							'Value',
+							'dynamic-product-options-for-woocommerce'
+					  )
+			}
+			onChange={ onChange }
+		/>
+	);
+}
 
 /**
  * LogicTab.
@@ -31,25 +187,55 @@ const NO_VALUE = [ 'empty', 'not_empty', 'checked' ];
  */
 export default function LogicTab( { node, patch } ) {
 	const { tree } = useBuilder();
-	const logic = node.logic || { match: 'all', rules: [] };
+	const logic = node.logic || { action: 'show', match: 'all', rules: [] };
+	const action = logic.action === 'hide' ? 'hide' : 'show';
 
-	const sources = flatten( tree )
-		.filter( ( f ) => f.id !== node.id )
-		.map( ( f ) => ( {
-			value: f.id,
-			label: f.label || `${ f.type } (${ f.id.slice( 0, 6 ) })`,
-		} ) );
+	// Candidate source fields: every other value-carrying field in the set.
+	const nodes = flattenNodes( tree ).filter(
+		( f ) =>
+			f.id !== node.id && NON_VALUE_TYPES.indexOf( f.type ) === -1
+	);
+	const byId = {};
+	nodes.forEach( ( f ) => ( byId[ f.id ] = f ) );
 
+	const sourceOptions = nodes.map( ( f ) => ( {
+		value: f.id,
+		label: f.label || `${ f.type } (${ f.id.slice( 0, 6 ) })`,
+	} ) );
+
+	const rules = logic.rules || [];
 	const setLogic = ( delta ) => patch( { logic: { ...logic, ...delta } } );
 
+	const setRule = ( idx, delta ) =>
+		setLogic( {
+			rules: rules.map( ( r, i ) =>
+				i === idx ? { ...r, ...delta } : r
+			),
+		} );
+
+	const addRule = () =>
+		setLogic( {
+			rules: [
+				...rules,
+				{
+					source: sourceOptions[ 0 ].value,
+					operator: 'is',
+					value: '',
+				},
+			],
+		} );
+
+	const removeRule = ( idx ) =>
+		setLogic( { rules: rules.filter( ( _, i ) => i !== idx ) } );
+
 	return (
-		<div className="dpo-settings__pane">
-			<div className="dpo-settings__toggle-row">
+		<div className="dpo-settings__pane dpo-logic">
+			<div className="dpo-logic__enable">
 				<ToggleField
 					checked={ node.logicEnabled }
 					onChange={ ( v ) => patch( { logicEnabled: v } ) }
 					label={ __(
-						'Enable conditional logic',
+						'Enable conditional logic for this element',
 						'dynamic-product-options-for-woocommerce'
 					) }
 				/>
@@ -57,35 +243,63 @@ export default function LogicTab( { node, patch } ) {
 
 			{ node.logicEnabled && (
 				<>
-					<Field
-						label={ __(
-							'Show this field when',
-							'dynamic-product-options-for-woocommerce'
-						) }
-					>
+					{ /* Sentence: [Show|Hide] this field if [Any|All] match */ }
+					<div className="dpo-logic__sentence">
 						<SelectControl
-							value={ logic.match }
-							onChange={ ( v ) => setLogic( { match: v } ) }
+							value={ action }
+							onChange={ ( v ) => setLogic( { action: v } ) }
 							options={ [
 								{
-									value: 'all',
+									value: 'show',
 									label: __(
-										'All rules match',
+										'Show',
 										'dynamic-product-options-for-woocommerce'
 									),
 								},
 								{
-									value: 'any',
+									value: 'hide',
 									label: __(
-										'Any rule matches',
+										'Hide',
 										'dynamic-product-options-for-woocommerce'
 									),
 								},
 							] }
 						/>
-					</Field>
+						<span className="dpo-logic__text">
+							{ __(
+								'this field if',
+								'dynamic-product-options-for-woocommerce'
+							) }
+						</span>
+						<SelectControl
+							value={ logic.match }
+							onChange={ ( v ) => setLogic( { match: v } ) }
+							options={ [
+								{
+									value: 'any',
+									label: __(
+										'Any',
+										'dynamic-product-options-for-woocommerce'
+									),
+								},
+								{
+									value: 'all',
+									label: __(
+										'All',
+										'dynamic-product-options-for-woocommerce'
+									),
+								},
+							] }
+						/>
+						<span className="dpo-logic__text">
+							{ __(
+								'of these rules match:',
+								'dynamic-product-options-for-woocommerce'
+							) }
+						</span>
+					</div>
 
-					{ sources.length === 0 ? (
+					{ sourceOptions.length === 0 ? (
 						<p className="dpo-hint">
 							{ __(
 								'Add another field first to reference it in a rule.',
@@ -93,62 +307,99 @@ export default function LogicTab( { node, patch } ) {
 							) }
 						</p>
 					) : (
-						<Repeater
-							rows={ logic.rules || [] }
-							onChange={ ( rules ) => setLogic( { rules } ) }
-							makeRow={ () => ( {
-								source: sources[ 0 ].value,
-								operator: 'is',
-								value: '',
-							} ) }
-							addLabel={ __(
-								'Add rule',
-								'dynamic-product-options-for-woocommerce'
+						<div className="dpo-logic__table">
+							<div className="dpo-logic__head">
+								<span>
+									{ __(
+										'Field',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</span>
+								<span>
+									{ __(
+										'Comparison',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</span>
+								<span>
+									{ __(
+										'Value',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</span>
+								<span className="dpo-logic__head-act" />
+							</div>
+
+							{ rules.length === 0 && (
+								<p className="dpo-logic__empty">
+									{ __(
+										'No rules yet — add your first condition below.',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</p>
 							) }
-							renderRow={ ( rule, idx ) => {
-								const setRule = ( delta ) =>
-									setLogic( {
-										rules: ( logic.rules || [] ).map(
-											( r, i ) =>
-												i === idx
-													? { ...r, ...delta }
-													: r
-										),
-									} );
-								return (
-									<div className="dpo-logic-rule">
-										<SelectControl
-											value={ rule.source }
+
+							{ rules.map( ( rule, idx ) => (
+								<div className="dpo-logic__row" key={ idx }>
+									<SelectControl
+										value={ rule.source }
+										onChange={ ( v ) =>
+											setRule( idx, {
+												source: v,
+												value: '',
+											} )
+										}
+										options={ sourceOptions }
+									/>
+									<SelectControl
+										value={ rule.operator }
+										onChange={ ( v ) =>
+											setRule( idx, { operator: v } )
+										}
+										options={ OPERATORS }
+									/>
+									<div className="dpo-logic__value">
+										<ValueControl
+											source={ byId[ rule.source ] }
+											operator={ rule.operator }
+											value={ rule.value }
 											onChange={ ( v ) =>
-												setRule( { source: v } )
+												setRule( idx, { value: v } )
 											}
-											options={ sources }
 										/>
-										<SelectControl
-											value={ rule.operator }
-											onChange={ ( v ) =>
-												setRule( { operator: v } )
-											}
-											options={ OPERATORS }
-										/>
-										{ ! NO_VALUE.includes(
-											rule.operator
-										) && (
-											<TextControl
-												value={ rule.value }
-												placeholder={ __(
-													'Value',
-													'dynamic-product-options-for-woocommerce'
-												) }
-												onChange={ ( v ) =>
-													setRule( { value: v } )
-												}
-											/>
-										) }
 									</div>
-								);
-							} }
-						/>
+									<button
+										type="button"
+										className="dpo-logic__del"
+										onClick={ () => removeRule( idx ) }
+										aria-label={ __(
+											'Remove rule',
+											'dynamic-product-options-for-woocommerce'
+										) }
+									>
+										<span
+											className="dashicons dashicons-trash"
+											aria-hidden="true"
+										/>
+									</button>
+								</div>
+							) ) }
+
+							<button
+								type="button"
+								className="dpo-logic__add"
+								onClick={ addRule }
+							>
+								<span
+									className="dashicons dashicons-plus-alt2"
+									aria-hidden="true"
+								/>
+								{ __(
+									'Add condition',
+									'dynamic-product-options-for-woocommerce'
+								) }
+							</button>
+						</div>
 					) }
 				</>
 			) }
