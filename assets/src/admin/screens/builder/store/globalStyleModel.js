@@ -1,26 +1,36 @@
 /**
- * Global Style model — the friendly token shape edited by the Global Style
- * panel and the pure helpers that compile it.
+ * Global Style model — the token shape edited by the Global Style panel and
+ * the pure helpers that compile it.
  *
- * The model is deliberately small (Size, Shape, a colour palette and six named
- * colours). Two compilers turn it into:
- *   - `compileCss()`  → the scoped `.dpo-options{…}` rule saved to the DB and
- *                        printed on the storefront (variables from store.scss).
- *   - `cssVars()`     → a `--dpo-gs-*` style object applied to the builder
- *                        canvas so edits preview live without a save.
+ * The model is small: a field **size** (px) and **corner radius** (px), a
+ * colour palette and six named colours. The size drives a coherent set of
+ * derived metrics (control height, font size, field gap, swatch size) so a
+ * single number scales the whole control consistently.
  *
- * Legacy saved styles (the previous granular token set) are upgraded by
- * `normalize()` so existing installs keep their look.
+ * Two compilers turn the model into CSS:
+ *   - `compileCss()` → the scoped `.dpo-options{…}` rule saved to the DB and
+ *                       printed on the storefront (variables from store.scss).
+ *   - `cssVars()`    → a `--dpo-gs-*` style object applied to the builder
+ *                       canvas so edits preview live without a save.
+ *
+ * `normalize()` upgrades both the previous preset model (size/shape enums) and
+ * the original granular token set, so existing installs keep their look.
  *
  * @package DPO\Admin
  */
 
 import { __ } from '@wordpress/i18n';
 
-/** Default token set (Medium / Rounded / Classic palette). */
+/** Bounds for the two px inputs. */
+export const SIZE_MIN = 28;
+export const SIZE_MAX = 72;
+export const RADIUS_MIN = 0;
+export const RADIUS_MAX = 40;
+
+/** Default token set. */
 export const DEFAULTS = {
-	size: 'medium',
-	shape: 'rounded',
+	sizePx: 44,
+	radiusPx: 10,
 	palette: 'classic',
 	colors: {
 		text: '#1e1e1e',
@@ -32,34 +42,8 @@ export const DEFAULTS = {
 	},
 };
 
-/** Field-size presets → concrete metrics. */
-export const SIZE_MAP = {
-	small: { controlH: 38, fontSize: 13, gap: 14, swatch: 30 },
-	medium: { controlH: 44, fontSize: 15, gap: 20, swatch: 36 },
-	large: { controlH: 52, fontSize: 17, gap: 26, swatch: 44 },
-};
-
-/** Field-shape presets → radii. */
-export const SHAPE_MAP = {
-	sharp: { radius: '0px', pill: '4px', swatchRadius: '4px' },
-	rounded: { radius: '10px', pill: '999px', swatchRadius: '50%' },
-};
-
-/** Size segmented options. */
-export const SIZE_OPTIONS = [
-	{ value: 'small', label: __( 'Small', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'medium', label: __( 'Medium', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'large', label: __( 'Large', 'dynamic-product-options-for-woocommerce' ) },
-];
-
-/** Shape segmented options. */
-export const SHAPE_OPTIONS = [
-	{ value: 'sharp', label: __( 'Sharp', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'rounded', label: __( 'Rounded', 'dynamic-product-options-for-woocommerce' ) },
-];
-
 /**
- * Colour palette presets. `ramp` is the 4-chip preview shown on the tile;
+ * Colour palette presets. `ramp` is the gradient preview shown on the dot;
  * `colors` is applied to the model when the preset is chosen.
  */
 export const PALETTES = [
@@ -114,6 +98,23 @@ export const PALETTES = [
 ];
 
 /**
+ * Clamp a value to a range, falling back when it isn't a finite number.
+ *
+ * @param {*}      val      Candidate value.
+ * @param {number} min      Lower bound.
+ * @param {number} max      Upper bound.
+ * @param {number} fallback Used when val isn't numeric.
+ * @return {number} Clamped number.
+ */
+export function clampNum( val, min, max, fallback ) {
+	const n = parseFloat( val );
+	if ( ! Number.isFinite( n ) ) {
+		return fallback;
+	}
+	return Math.min( max, Math.max( min, n ) );
+}
+
+/**
  * Convert a `#rrggbb` hex to an `rgba()` string at the given alpha. Falls back
  * to the original string when it isn't a 6-digit hex.
  *
@@ -134,8 +135,8 @@ export function hexAlpha( hex, alpha ) {
 }
 
 /**
- * Coerce any stored value (current or legacy granular model) into the current
- * token shape, so old installs keep their colours/shape.
+ * Coerce any stored value (current, preset, or legacy granular model) into the
+ * current token shape, so old installs keep their look.
  *
  * @param {Object} raw Stored `dpo_global_style` value.
  * @return {Object} A complete, current-shape token object.
@@ -143,11 +144,25 @@ export function hexAlpha( hex, alpha ) {
 export function normalize( raw ) {
 	const src = raw && typeof raw === 'object' ? raw : {};
 
-	// Already the current model.
-	if ( src.colors && typeof src.colors === 'object' ) {
+	// Already the current px model.
+	if ( typeof src.sizePx !== 'undefined' || typeof src.radiusPx !== 'undefined' ) {
 		return {
 			...DEFAULTS,
 			...src,
+			sizePx: clampNum( src.sizePx, SIZE_MIN, SIZE_MAX, DEFAULTS.sizePx ),
+			radiusPx: clampNum( src.radiusPx, RADIUS_MIN, RADIUS_MAX, DEFAULTS.radiusPx ),
+			colors: { ...DEFAULTS.colors, ...( src.colors || {} ) },
+		};
+	}
+
+	// Previous preset model (size/shape enums) — map to px.
+	if ( src.colors && ( src.size || src.shape ) ) {
+		const sizeMap = { small: 38, medium: 44, large: 52 };
+		return {
+			...DEFAULTS,
+			sizePx: sizeMap[ src.size ] || DEFAULTS.sizePx,
+			radiusPx: src.shape === 'sharp' ? 0 : 10,
+			palette: src.palette || '',
 			colors: { ...DEFAULTS.colors, ...src.colors },
 		};
 	}
@@ -166,25 +181,34 @@ export function normalize( raw ) {
 	if ( src.borderColor ) {
 		colors.border = src.borderColor;
 	}
-	const radiusNum = parseFloat( src.radius );
-	const shape =
-		src.swatchShape === 'circle' || ( ! Number.isNaN( radiusNum ) && radiusNum >= 6 )
-			? 'rounded'
-			: 'sharp';
-
-	return { ...DEFAULTS, shape, colors };
+	return {
+		...DEFAULTS,
+		sizePx: clampNum( src.controlHeight, SIZE_MIN, SIZE_MAX, DEFAULTS.sizePx ),
+		radiusPx: clampNum( src.radius, RADIUS_MIN, RADIUS_MAX, DEFAULTS.radiusPx ),
+		palette: '',
+		colors,
+	};
 }
 
 /**
- * Resolve the concrete size + shape metric bundles for a token set.
+ * Resolve the concrete metrics for a token set. The single size px drives a
+ * coherent bundle; the radius px drives corners (and circle swatches past a
+ * threshold).
  *
  * @param {Object} tokens Token set.
- * @return {{size:Object, shape:Object, colors:Object}} Resolved bundles.
+ * @return {Object} Resolved metric bundle + colours.
  */
 function resolve( tokens ) {
+	const sizePx = clampNum( tokens.sizePx, SIZE_MIN, SIZE_MAX, DEFAULTS.sizePx );
+	const radiusPx = clampNum( tokens.radiusPx, RADIUS_MIN, RADIUS_MAX, DEFAULTS.radiusPx );
 	return {
-		size: SIZE_MAP[ tokens.size ] || SIZE_MAP.medium,
-		shape: SHAPE_MAP[ tokens.shape ] || SHAPE_MAP.rounded,
+		controlH: Math.round( sizePx ),
+		fontSize: Math.max( 12, Math.min( 20, Math.round( sizePx * 0.32 ) ) ),
+		gap: Math.max( 10, Math.round( sizePx * 0.42 ) ),
+		swatch: Math.round( sizePx * 0.82 ),
+		radius: `${ radiusPx }px`,
+		pill: radiusPx >= 20 ? '999px' : `${ radiusPx }px`,
+		swatchRadius: radiusPx >= 22 ? '50%' : `${ radiusPx }px`,
 		colors: { ...DEFAULTS.colors, ...( tokens.colors || {} ) },
 	};
 }
@@ -197,25 +221,26 @@ function resolve( tokens ) {
  * @return {string} CSS text.
  */
 export function compileCss( tokens ) {
-	const { size, shape, colors } = resolve( tokens );
+	const r = resolve( tokens );
+	const c = r.colors;
 	return [
 		'.dpo-options{',
-		`--dpo-label:${ colors.text };`,
-		`--dpo-text:${ colors.text };`,
-		`--dpo-accent:${ colors.primary };`,
-		`--dpo-accent-contrast:${ colors.onPrimary };`,
-		`--dpo-accent-soft:${ hexAlpha( colors.primary, 0.1 ) };`,
-		`--dpo-border:${ colors.border };`,
-		`--dpo-border-strong:${ colors.border };`,
-		`--dpo-surface:${ colors.fill };`,
-		`--dpo-required:${ colors.error };`,
-		`--dpo-radius:${ shape.radius };`,
-		`--dpo-radius-pill:${ shape.pill };`,
-		`--dpo-swatch-radius:${ shape.swatchRadius };`,
-		`--dpo-font-size:${ size.fontSize }px;`,
-		`--dpo-space:${ size.gap }px;`,
-		`--dpo-control-h:${ size.controlH }px;`,
-		`--dpo-swatch:${ size.swatch }px;`,
+		`--dpo-label:${ c.text };`,
+		`--dpo-text:${ c.text };`,
+		`--dpo-accent:${ c.primary };`,
+		`--dpo-accent-contrast:${ c.onPrimary };`,
+		`--dpo-accent-soft:${ hexAlpha( c.primary, 0.1 ) };`,
+		`--dpo-border:${ c.border };`,
+		`--dpo-border-strong:${ c.border };`,
+		`--dpo-surface:${ c.fill };`,
+		`--dpo-required:${ c.error };`,
+		`--dpo-radius:${ r.radius };`,
+		`--dpo-radius-pill:${ r.pill };`,
+		`--dpo-swatch-radius:${ r.swatchRadius };`,
+		`--dpo-font-size:${ r.fontSize }px;`,
+		`--dpo-space:${ r.gap }px;`,
+		`--dpo-control-h:${ r.controlH }px;`,
+		`--dpo-swatch:${ r.swatch }px;`,
 		'}',
 	].join( '' );
 }
@@ -229,20 +254,21 @@ export function compileCss( tokens ) {
  * @return {Object} React inline-style object.
  */
 export function cssVars( tokens ) {
-	const { size, shape, colors } = resolve( tokens );
+	const r = resolve( tokens );
+	const c = r.colors;
 	return {
-		'--dpo-gs-text': colors.text,
-		'--dpo-gs-primary': colors.primary,
-		'--dpo-gs-on-primary': colors.onPrimary,
-		'--dpo-gs-soft': hexAlpha( colors.primary, 0.1 ),
-		'--dpo-gs-border': colors.border,
-		'--dpo-gs-fill': colors.fill,
-		'--dpo-gs-error': colors.error,
-		'--dpo-gs-radius': shape.radius,
-		'--dpo-gs-swatch-radius': shape.swatchRadius,
-		'--dpo-gs-control-h': `${ size.controlH }px`,
-		'--dpo-gs-font-size': `${ size.fontSize }px`,
-		'--dpo-gs-gap': `${ size.gap }px`,
-		'--dpo-gs-swatch': `${ size.swatch }px`,
+		'--dpo-gs-text': c.text,
+		'--dpo-gs-primary': c.primary,
+		'--dpo-gs-on-primary': c.onPrimary,
+		'--dpo-gs-soft': hexAlpha( c.primary, 0.1 ),
+		'--dpo-gs-border': c.border,
+		'--dpo-gs-fill': c.fill,
+		'--dpo-gs-error': c.error,
+		'--dpo-gs-radius': r.radius,
+		'--dpo-gs-swatch-radius': r.swatchRadius,
+		'--dpo-gs-control-h': `${ r.controlH }px`,
+		'--dpo-gs-font-size': `${ r.fontSize }px`,
+		'--dpo-gs-gap': `${ r.gap }px`,
+		'--dpo-gs-swatch': `${ r.swatch }px`,
 	};
 }

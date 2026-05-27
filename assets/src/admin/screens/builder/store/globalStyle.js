@@ -59,13 +59,13 @@ export const useGlobalStyle = create( ( set, get ) => ( {
 			} );
 	},
 
-	/** @param {'small'|'medium'|'large'} size Field size. */
-	setSize: ( size ) =>
-		set( ( s ) => ( { tokens: { ...s.tokens, size } } ) ),
+	/** @param {number|string} sizePx Field control size in px. */
+	setSizePx: ( sizePx ) =>
+		set( ( s ) => ( { tokens: { ...s.tokens, sizePx } } ) ),
 
-	/** @param {'sharp'|'rounded'} shape Field shape. */
-	setShape: ( shape ) =>
-		set( ( s ) => ( { tokens: { ...s.tokens, shape } } ) ),
+	/** @param {number|string} radiusPx Corner radius in px. */
+	setRadiusPx: ( radiusPx ) =>
+		set( ( s ) => ( { tokens: { ...s.tokens, radiusPx } } ) ),
 
 	/**
 	 * Apply a colour palette preset (sets every colour + remembers the key).

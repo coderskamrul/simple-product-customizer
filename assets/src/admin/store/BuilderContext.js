@@ -6,7 +6,7 @@
  * The reducer owns every structural mutation so the canvas, palette and
  * inspector only ever dispatch intent — never mutate the tree directly.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import {
@@ -30,22 +30,49 @@ import {
 
 const BuilderContext = createContext( {} );
 
+/** A fresh, empty assignment (matches the `_dpo_assignment` shape, §4). */
+const emptyAssignment = () => ( {
+	scope: 'none',
+	include: [],
+	exclude: [],
+} );
+
 /** Initial reducer state. */
 const initialState = {
 	id: 'new',
 	title: '',
 	status: 'draft',
 	tree: [],
+	assignment: emptyAssignment(),
 	selectedId: null,
 	dirty: false,
 };
 
 /**
+ * Whether an assignment actually targets something (so the set may publish).
+ * "All products" counts; an empty products/category/tag/brand list or the
+ * "none" scope does not.
+ *
+ * @param {Object} a Assignment { scope, include }.
+ * @return {boolean} True when at least one product/term (or "all") is targeted.
+ */
+export function hasAssignment( a ) {
+	if ( ! a || ! a.scope || a.scope === 'none' ) {
+		return false;
+	}
+	if ( a.scope === 'all' ) {
+		return true;
+	}
+	return Array.isArray( a.include ) && a.include.length > 0;
+}
+
+/**
  * Builder reducer — every structural field-tree operation lives here.
  *
  * Actions:
- *  HYDRATE      replace state from a fetched set
+ *  HYDRATE      replace state from a fetched set (+ its assignment)
  *  SET_META     patch title/status
+ *  SET_ASSIGNMENT replace the assignment ({ scope, include, exclude })
  *  ADD          add a node ({ fieldType, parentId, index })
  *  UPDATE       shallow-merge a patch into a node ({ id, patch })
  *  REMOVE       delete a node ({ id })
@@ -68,6 +95,7 @@ function reducer( state, action ) {
 				tree: Array.isArray( action.set.fields )
 					? action.set.fields
 					: [],
+				assignment: action.assignment || emptyAssignment(),
 				selectedId: null,
 				dirty: false,
 			};
@@ -75,11 +103,15 @@ function reducer( state, action ) {
 		case 'SET_META':
 			return { ...state, ...action.patch, dirty: true };
 
+		case 'SET_ASSIGNMENT':
+			return {
+				...state,
+				assignment: action.assignment,
+				dirty: true,
+			};
+
 		case 'ADD': {
-			const node = createNode(
-				action.fieldType,
-				action.parentId || ''
-			);
+			const node = createNode( action.fieldType, action.parentId || '' );
 			const tree = insertNode( state.tree, node, {
 				parentId: action.parentId || '',
 				index: action.index,
@@ -105,9 +137,7 @@ function reducer( state, action ) {
 				...state,
 				tree,
 				selectedId:
-					state.selectedId === action.id
-						? null
-						: state.selectedId,
+					state.selectedId === action.id ? null : state.selectedId,
 				dirty: true,
 			};
 		}
@@ -126,8 +156,7 @@ function reducer( state, action ) {
 				parentNode && parentNode.children
 					? parentNode.children
 					: state.tree;
-			const idx =
-				siblings.findIndex( ( n ) => n.id === action.id ) + 1;
+			const idx = siblings.findIndex( ( n ) => n.id === action.id ) + 1;
 			const tree = insertNode( state.tree, copy, {
 				parentId: original.parent,
 				index: idx,
@@ -185,12 +214,32 @@ export function BuilderProvider( { setId, children } ) {
 		let cancelled = false;
 		setLoading( true );
 		setLoadError( '' );
-		api.getSet( setId )
-			.then( ( res ) => {
+		const isNew = ! setId || setId === 'new';
+		// Load the set and (for saved sets) its stored assignment together so
+		// the builder hydrates with everything the publish guard needs.
+		Promise.all( [
+			api.getSet( setId ),
+			isNew
+				? Promise.resolve( null )
+				: api.getAssignment( setId ).catch( () => null ),
+		] )
+			.then( ( [ setRes, assignRes ] ) => {
 				if ( cancelled ) {
 					return;
 				}
-				dispatch( { type: 'HYDRATE', set: res.set } );
+				const assignment =
+					assignRes && assignRes.assignment
+						? {
+								scope: assignRes.assignment.scope || 'none',
+								include: assignRes.include || [],
+								exclude: assignRes.exclude || [],
+						  }
+						: emptyAssignment();
+				dispatch( {
+					type: 'HYDRATE',
+					set: setRes.set,
+					assignment,
+				} );
 			} )
 			.catch( ( e ) => {
 				if ( ! cancelled ) {
@@ -212,25 +261,40 @@ export function BuilderProvider( { setId, children } ) {
 	 *
 	 * @return {Promise<number>} The persisted set id.
 	 */
-	const save = useCallback( async () => {
-		setSaving( true );
-		try {
-			const res = await api.saveSet( {
-				id: state.id,
-				title:
-					state.title ||
-					/* translators: default option set title */
-					'Untitled',
-				status: state.status,
-				fields: JSON.stringify( state.tree ),
-				css: '',
-			} );
-			dispatch( { type: 'MARK_SAVED', id: res.id } );
-			return res.id;
-		} finally {
-			setSaving( false );
-		}
-	}, [ state.id, state.title, state.status, state.tree ] );
+	const save = useCallback(
+		async ( overrides = {} ) => {
+			setSaving( true );
+			try {
+				const status = overrides.status ?? state.status;
+				const res = await api.saveSet( {
+					id: state.id,
+					title:
+						state.title ||
+						/* translators: default option set title */
+						'Untitled',
+					status,
+					fields: JSON.stringify( state.tree ),
+					css: '',
+				} );
+				// Persist the assignment against the (possibly new) set id so the
+				// builder and storefront stay in sync from a single Save.
+				const savedId = res.id;
+				const a = state.assignment || emptyAssignment();
+				await api.saveAssignment( {
+					set_id: savedId,
+					scope: a.scope || 'none',
+					include: ( a.include || [] ).map( ( i ) => i.id ),
+					exclude: ( a.exclude || [] ).map( ( i ) => i.id ),
+					product_image: JSON.stringify( [] ),
+				} );
+				dispatch( { type: 'MARK_SAVED', id: savedId } );
+				return savedId;
+			} finally {
+				setSaving( false );
+			}
+		},
+		[ state.id, state.title, state.status, state.tree, state.assignment ]
+	);
 
 	const selected = state.selectedId
 		? findNode( state.tree, state.selectedId )

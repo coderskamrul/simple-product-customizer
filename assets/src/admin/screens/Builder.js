@@ -8,16 +8,30 @@
  * @package
  */
 
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { ArrowLeft, Eye, Pencil, Loader2, Palette } from 'lucide-react';
-import { BuilderProvider, useBuilder } from '../store/BuilderContext';
+import {
+	ArrowLeft,
+	Eye,
+	Pencil,
+	Loader2,
+	Palette,
+	Target,
+	AlertTriangle,
+} from 'lucide-react';
+import {
+	BuilderProvider,
+	useBuilder,
+	hasAssignment,
+} from '../store/BuilderContext';
 import { useToast } from '../store/ToastContext';
 import { navigate } from '../app/router';
 import { errorMessage } from '../api/client';
+import { Modal } from '../components';
 import { useBuilderUI } from './builder/store/builderUi';
 import { useGlobalStyle } from './builder/store/globalStyle';
 import Canvas from './builder/canvas/Canvas';
+import AssignmentModal from './builder/AssignmentModal';
 import FieldPicker from './builder/picker/FieldPicker';
 import SettingsDrawer from './builder/settings/SettingsDrawer';
 import GlobalStylePanel from './builder/settings/GlobalStylePanel';
@@ -33,6 +47,8 @@ function Editor() {
 	const { view, setView, closeSettings } = useBuilderUI();
 	const openStyle = useGlobalStyle( ( s ) => s.openPanel );
 	const loadStyle = useGlobalStyle( ( s ) => s.load );
+	const [ showAssign, setShowAssign ] = useState( false );
+	const [ showPublishWarn, setShowPublishWarn ] = useState( false );
 
 	// Load the saved global style once so the canvas reflects it immediately.
 	useEffect( () => {
@@ -81,11 +97,12 @@ function Editor() {
 	/**
 	 * Persist the set and surface a toast.
 	 *
+	 * @param {Object} [overrides] Optional save overrides (e.g. { status }).
 	 * @return {Promise<void>} Resolves after save.
 	 */
-	const onSave = async () => {
+	const persist = async ( overrides ) => {
 		try {
-			const id = await builder.save();
+			const id = await builder.save( overrides );
 			notify(
 				__(
 					'Option set saved.',
@@ -99,6 +116,33 @@ function Editor() {
 		} catch ( e ) {
 			notify( errorMessage( e ), 'error' );
 		}
+	};
+
+	/**
+	 * Save — but block publishing a set that targets no products. Drafts may
+	 * always be saved.
+	 *
+	 * @return {Promise<void>} Resolves after save (or after showing the guard).
+	 */
+	const onSave = async () => {
+		if (
+			builder.status === 'publish' &&
+			! hasAssignment( builder.assignment )
+		) {
+			setShowPublishWarn( true );
+			return;
+		}
+		await persist();
+	};
+
+	/** Resolve the publish guard by saving as a Draft instead. */
+	const onSaveAsDraft = async () => {
+		setShowPublishWarn( false );
+		builder.dispatch( {
+			type: 'SET_META',
+			patch: { status: 'draft' },
+		} );
+		await persist( { status: 'draft' } );
 	};
 
 	const isPublished = builder.status === 'publish';
@@ -203,15 +247,17 @@ function Editor() {
 						</span>
 					</label>
 
-					<a
+					<button
+						type="button"
 						className="dpo-btn dpo-btn--ghost"
-						href={ `#/set/${ builder.id }/assignment` }
+						onClick={ () => setShowAssign( true ) }
 					>
+						<Target size={ 15 } />
 						{ __(
 							'Assignment',
 							'dynamic-product-options-for-woocommerce'
 						) }
-					</a>
+					</button>
 
 					<button
 						type="button"
@@ -251,6 +297,64 @@ function Editor() {
 			<FieldPicker />
 			<SettingsDrawer />
 			<GlobalStylePanel />
+
+			{ showAssign && (
+				<AssignmentModal onClose={ () => setShowAssign( false ) } />
+			) }
+
+			{ showPublishWarn && (
+				<Modal
+					size="sm"
+					title={ __(
+						'Assignment required',
+						'dynamic-product-options-for-woocommerce'
+					) }
+					onClose={ () => setShowPublishWarn( false ) }
+					footer={
+						<>
+							<button
+								type="button"
+								className="dpo-btn dpo-btn--ghost"
+								onClick={ onSaveAsDraft }
+							>
+								{ __(
+									'Save as Draft',
+									'dynamic-product-options-for-woocommerce'
+								) }
+							</button>
+							<button
+								type="button"
+								className="dpo-btn dpo-btn--primary"
+								onClick={ () => {
+									setShowPublishWarn( false );
+									setShowAssign( true );
+								} }
+							>
+								<Target size={ 15 } />
+								{ __(
+									'Assign products',
+									'dynamic-product-options-for-woocommerce'
+								) }
+							</button>
+						</>
+					}
+				>
+					<div className="dpo-publish-warn">
+						<span
+							className="dpo-publish-warn__icon"
+							aria-hidden="true"
+						>
+							<AlertTriangle size={ 22 } />
+						</span>
+						<p className="dpo-publish-warn__msg">
+							{ __(
+								"Please select at least one product to continue. To save without selecting any products, choose the 'Draft' status instead.",
+								'dynamic-product-options-for-woocommerce'
+							) }
+						</p>
+					</div>
+				</Modal>
+			) }
 		</div>
 	);
 }

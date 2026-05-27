@@ -4,8 +4,9 @@
  * shared global-style store immediately, so the builder canvas on the right
  * re-renders as a live preview; Save persists tokens + compiled CSS.
  *
- * Premium, original UI: Field Size + Shape segmented controls, a colour-palette
- * preset grid, and six named colour pickers.
+ * Original UI: stacked section cards with an icon header — a Dimensions card
+ * (slider + custom px inputs for field size and corner radius), a quarter-dot
+ * colour-palette picker, and a list of named colour rows.
  *
  * @package
  */
@@ -13,15 +14,23 @@
 import { __ } from '@wordpress/i18n';
 import * as Dialog from '@radix-ui/react-dialog';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Palette, Check } from 'lucide-react';
+import {
+	X,
+	Palette,
+	Check,
+	SlidersHorizontal,
+	Droplets,
+} from 'lucide-react';
 import { useGlobalStyle } from '../store/globalStyle';
 import { useToast } from '../../../store/ToastContext';
 import { errorMessage } from '../../../api/client';
 import { ColorField, Spinner } from '../../../components';
 import {
 	PALETTES,
-	SIZE_OPTIONS,
-	SHAPE_OPTIONS,
+	SIZE_MIN,
+	SIZE_MAX,
+	RADIUS_MIN,
+	RADIUS_MAX,
 } from '../store/globalStyleModel';
 
 /** The six customizable colours, in display order. */
@@ -35,34 +44,75 @@ const COLOR_FIELDS = [
 ];
 
 /**
- * Segmented control row.
+ * Section card with an icon header.
+ *
+ * @param {Object}      props          Component props.
+ * @param {Function}    props.icon     Lucide icon component.
+ * @param {string}      props.title    Card title.
+ * @param {string}      props.desc     Sub-text.
+ * @param {JSX.Element} props.children Card body.
+ * @return {JSX.Element} The card.
+ */
+function Card( { icon: Icon, title, desc, children } ) {
+	return (
+		<section className="dpo-gs__card">
+			<header className="dpo-gs__card-head">
+				<span className="dpo-gs__card-icon">
+					<Icon size={ 15 } aria-hidden="true" />
+				</span>
+				<span className="dpo-gs__card-titles">
+					<span className="dpo-gs__card-title">{ title }</span>
+					{ desc && (
+						<span className="dpo-gs__card-desc">{ desc }</span>
+					) }
+				</span>
+			</header>
+			<div className="dpo-gs__card-body">{ children }</div>
+		</section>
+	);
+}
+
+/**
+ * A custom px dimension control: a label, a numeric px box and a fine slider.
  *
  * @param {Object}   props          Component props.
- * @param {string}   props.label    Group label.
- * @param {Array}    props.options  [{ value, label }].
- * @param {string}   props.value    Selected value.
+ * @param {string}   props.label    Field label.
+ * @param {number}   props.value    Current value.
+ * @param {number}   props.min      Min bound.
+ * @param {number}   props.max      Max bound.
  * @param {Function} props.onChange (value) => void.
  * @return {JSX.Element} The control.
  */
-function Segmented( { label, options, value, onChange } ) {
+function PxField( { label, value, min, max, onChange } ) {
 	return (
-		<div className="dpo-gs__group">
-			<span className="dpo-gs__label">{ label }</span>
-			<div className="dpo-gs__seg" role="group">
-				{ options.map( ( o ) => (
-					<button
-						key={ o.value }
-						type="button"
-						className={ `dpo-gs__seg-btn${
-							value === o.value ? ' is-active' : ''
-						}` }
-						aria-pressed={ value === o.value }
-						onClick={ () => onChange( o.value ) }
-					>
-						{ o.label }
-					</button>
-				) ) }
+		<div className="dpo-gs__dim">
+			<div className="dpo-gs__dim-head">
+				<span className="dpo-gs__dim-label">{ label }</span>
+				<span className="dpo-gs__px">
+					<input
+						type="number"
+						className="dpo-gs__px-input"
+						value={ value }
+						min={ min }
+						max={ max }
+						onChange={ ( e ) => onChange( e.target.value ) }
+					/>
+					<span className="dpo-gs__px-unit">
+						{ __(
+							'px',
+							'dynamic-product-options-for-woocommerce'
+						) }
+					</span>
+				</span>
 			</div>
+			<input
+				type="range"
+				className="dpo-gs__slider"
+				min={ min }
+				max={ max }
+				value={ Number( value ) || min }
+				onChange={ ( e ) => onChange( e.target.value ) }
+			/>
 		</div>
 	);
 }
@@ -80,8 +130,8 @@ export default function GlobalStylePanel() {
 		saving,
 		tokens,
 		closePanel,
-		setSize,
-		setShape,
+		setSizePx,
+		setRadiusPx,
 		applyPalette,
 		setColor,
 		save,
@@ -163,98 +213,112 @@ export default function GlobalStylePanel() {
 									</div>
 								) : (
 									<>
-										<div className="dpo-gs__grid2">
-											<Segmented
+										<Card
+											icon={ SlidersHorizontal }
+											title={ __(
+												'Dimensions',
+												'dynamic-product-options-for-woocommerce'
+											) }
+											desc={ __(
+												'Set exact pixel values.',
+												'dynamic-product-options-for-woocommerce'
+											) }
+										>
+											<PxField
 												label={ __(
 													'Option Fields Size',
 													'dynamic-product-options-for-woocommerce'
 												) }
-												options={ SIZE_OPTIONS }
-												value={ tokens.size }
-												onChange={ setSize }
+												value={ tokens.sizePx }
+												min={ SIZE_MIN }
+												max={ SIZE_MAX }
+												onChange={ setSizePx }
 											/>
-											<Segmented
+											<PxField
 												label={ __(
 													'Option Fields Shape',
 													'dynamic-product-options-for-woocommerce'
 												) }
-												options={ SHAPE_OPTIONS }
-												value={ tokens.shape }
-												onChange={ setShape }
+												value={ tokens.radiusPx }
+												min={ RADIUS_MIN }
+												max={ RADIUS_MAX }
+												onChange={ setRadiusPx }
 											/>
-										</div>
+										</Card>
 
-										<div className="dpo-gs__group">
-											<span className="dpo-gs__label">
-												{ __(
-													'Choose Color Palette',
-													'dynamic-product-options-for-woocommerce'
-												) }
-											</span>
-											<div className="dpo-gs__palettes">
-												{ PALETTES.map( ( p ) => (
-													<button
-														key={ p.key }
-														type="button"
-														className={ `dpo-gs__palette${
-															tokens.palette ===
-															p.key
-																? ' is-active'
-																: ''
-														}` }
-														onClick={ () =>
-															applyPalette(
-																p.key
-															)
-														}
-													>
-														<span className="dpo-gs__palette-head">
-															<span className="dpo-gs__palette-name">
-																{ p.label }
-															</span>
-															{ tokens.palette ===
-																p.key && (
-																<Check
-																	size={ 14 }
-																	aria-hidden="true"
-																/>
-															) }
-														</span>
-														<span className="dpo-gs__ramp">
-															{ p.ramp.map(
-																( c, i ) => (
-																	<span
-																		key={
-																			i
-																		}
-																		className="dpo-gs__chip"
-																		style={ {
-																			background:
-																				c,
-																		} }
-																	/>
+										<Card
+											icon={ Palette }
+											title={ __(
+												'Color Palette',
+												'dynamic-product-options-for-woocommerce'
+											) }
+											desc={ __(
+												'Pick a preset, then fine-tune below.',
+												'dynamic-product-options-for-woocommerce'
+											) }
+										>
+											<div className="dpo-gs__dots">
+												{ PALETTES.map( ( p ) => {
+													const active =
+														tokens.palette ===
+														p.key;
+													const quarters = `conic-gradient(${ p.ramp[ 0 ] } 0 25%, ${ p.ramp[ 1 ] } 0 50%, ${ p.ramp[ 2 ] } 0 75%, ${ p.ramp[ 3 ] } 0)`;
+													return (
+														<button
+															key={ p.key }
+															type="button"
+															className={ `dpo-gs__dot${
+																active
+																	? ' is-active'
+																	: ''
+															}` }
+															title={ p.label }
+															aria-label={
+																p.label
+															}
+															onClick={ () =>
+																applyPalette(
+																	p.key
 																)
+															}
+														>
+															<span
+																className="dpo-gs__dot-fill"
+																style={ {
+																	background:
+																		quarters,
+																} }
+															/>
+															{ active && (
+																<span className="dpo-gs__dot-check">
+																	<Check
+																		size={
+																			13
+																		}
+																		aria-hidden="true"
+																	/>
+																</span>
 															) }
-														</span>
-													</button>
-												) ) }
+														</button>
+													);
+												} ) }
 											</div>
-										</div>
+										</Card>
 
-										<div className="dpo-gs__group">
-											<span className="dpo-gs__label">
-												{ __(
-													'Customize Colors',
-													'dynamic-product-options-for-woocommerce'
-												) }
-											</span>
+										<Card
+											icon={ Droplets }
+											title={ __(
+												'Colors',
+												'dynamic-product-options-for-woocommerce'
+											) }
+										>
 											<div className="dpo-gs__colors">
 												{ COLOR_FIELDS.map( ( f ) => (
 													<div
 														key={ f.key }
-														className="dpo-gs__color"
+														className="dpo-gs__crow"
 													>
-														<span className="dpo-gs__color-label">
+														<span className="dpo-gs__crow-label">
 															{ f.label }
 														</span>
 														<ColorField
@@ -274,7 +338,7 @@ export default function GlobalStylePanel() {
 													</div>
 												) ) }
 											</div>
-										</div>
+										</Card>
 									</>
 								) }
 							</div>

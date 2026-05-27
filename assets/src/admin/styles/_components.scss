@@ -470,6 +470,26 @@
 }
 
 /* Modal */
+@keyframes dpo-modal-overlay-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes dpo-modal-pop-in {
+	from {
+		opacity: 0;
+		transform: translateY(14px) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
 .dpo-modal-overlay {
 	position: fixed;
 	inset: 0;
@@ -479,6 +499,7 @@
 	justify-content: center;
 	z-index: 100000;
 	padding: $dpo-space;
+	animation: dpo-modal-overlay-in 0.2s ease both;
 }
 
 .dpo-modal {
@@ -489,6 +510,7 @@
 	display: flex;
 	flex-direction: column;
 	max-height: 90vh;
+	animation: dpo-modal-pop-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 
 	&--sm {
 		max-width: 420px;
@@ -682,6 +704,91 @@
 	&.is-active {
 		border-color: $dpo-accent;
 		background: rgba($dpo-accent, 0.06);
+	}
+
+	&__label {
+		font-weight: 600;
+		color: $dpo-text;
+	}
+
+	&__hint {
+		font-size: 11.5px;
+		line-height: 1.35;
+		color: $dpo-text-muted;
+	}
+}
+
+/* Assignment modal */
+.dpo-assign-modal {
+	&__intro {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		margin: 0 0 $dpo-space;
+		font-size: 13px;
+		color: $dpo-text-muted;
+
+		svg {
+			flex: none;
+			margin-block-start: 1px;
+			color: $dpo-accent;
+		}
+	}
+
+	&__scopes {
+		margin-block-end: $dpo-space;
+
+		/* Stack label + hint; the card highlight is the selected indicator. */
+		.dpo-radio-card {
+			position: relative;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 2px;
+			transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+
+			&:hover {
+				border-color: $dpo-border-strong;
+			}
+
+			&.is-active {
+				box-shadow: 0 0 0 3px rgba($dpo-accent, 0.14);
+			}
+
+			/* Native radio hidden; selection shown via card highlight. */
+			input[type="radio"] {
+				position: absolute;
+				opacity: 0;
+				width: 1px;
+				height: 1px;
+				margin: 0;
+				pointer-events: none;
+			}
+		}
+	}
+}
+
+/* Publish guard warning */
+.dpo-publish-warn {
+	display: flex;
+	align-items: flex-start;
+	gap: 14px;
+
+	&__icon {
+		flex: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: rgba($dpo-warning, 0.14);
+		color: $dpo-warning;
+	}
+
+	&__msg {
+		margin: 0;
+		line-height: 1.55;
+		color: $dpo-text;
 	}
 }
 
