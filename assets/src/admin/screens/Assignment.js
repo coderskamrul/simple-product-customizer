@@ -15,10 +15,10 @@ import { useConfig } from '../store/ConfigContext';
 import { navigate } from '../app/router';
 import {
 	Panel,
-	Spinner,
 	Field,
 	AsyncSelect,
 	ProBadge,
+	SkeletonForm,
 } from '../components';
 
 /** Scope radio definitions. */
@@ -215,7 +215,7 @@ export default function Assignment( { setId } ) {
 
 			{ status === 'loading' && (
 				<Panel>
-					<Spinner />
+					<SkeletonForm fields={ 4 } />
 				</Panel>
 			) }
 			{ status === 'error' && (

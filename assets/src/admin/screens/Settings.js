@@ -8,7 +8,12 @@
 
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Spinner, PageFrame } from '../components';
+import {
+	PageFrame,
+	SkeletonNav,
+	SkeletonForm,
+	FadeIn,
+} from '../components';
 import { SECTIONS } from './settings/config';
 import useSettings from './settings/useSettings';
 import SettingsNav from './settings/SettingsNav';
@@ -83,26 +88,40 @@ export default function Settings() {
 			actions={ actions }
 		>
 			<div className="dpo-set__body">
-				<SettingsNav active={ activeId } onSelect={ setActiveId } />
+				{ status === 'loading' ? (
+					<SkeletonNav items={ 5 } />
+				) : (
+					<SettingsNav
+						active={ activeId }
+						onSelect={ setActiveId }
+					/>
+				) }
 
-				<SectionPanel section={ section }>
-					{ status === 'loading' && (
-						<div className="dpo-set-state">
-							<Spinner />
-						</div>
-					) }
-					{ status === 'error' && (
-						<div className="dpo-set-state">
-							<p className="dpo-error">{ error }</p>
-						</div>
-					) }
-					{ status === 'ready' &&
-						( section.id === 'fonts' ? (
-							<Body />
-						) : (
-							<Body values={ values } set={ set } />
-						) ) }
-				</SectionPanel>
+				{ status === 'loading' ? (
+					<div className="dpo-set-state">
+						<SkeletonForm fields={ 5 } />
+					</div>
+				) : (
+					<SectionPanel section={ section }>
+						{ status === 'error' && (
+							<div className="dpo-set-state">
+								<p className="dpo-error">{ error }</p>
+							</div>
+						) }
+						{ status === 'ready' && (
+							<FadeIn>
+								{ section.id === 'fonts' ? (
+									<Body />
+								) : (
+									<Body
+										values={ values }
+										set={ set }
+									/>
+								) }
+							</FadeIn>
+						) }
+					</SectionPanel>
+				) }
 			</div>
 		</PageFrame>
 	);

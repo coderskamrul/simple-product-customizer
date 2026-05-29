@@ -14,7 +14,6 @@ import {
 	ArrowLeft,
 	Eye,
 	Pencil,
-	Loader2,
 	Palette,
 	Target,
 	AlertTriangle,
@@ -27,7 +26,7 @@ import {
 import { useToast } from '../store/ToastContext';
 import { navigate } from '../app/router';
 import { errorMessage } from '../api/client';
-import { Modal } from '../components';
+import { Modal, SkeletonBuilder } from '../components';
 import { useBuilderUI } from './builder/store/builderUi';
 import { useGlobalStyle } from './builder/store/globalStyle';
 import Canvas from './builder/canvas/Canvas';
@@ -63,17 +62,7 @@ function Editor() {
 	};
 
 	if ( builder.loading ) {
-		return (
-			<div className="dpo-builder__loading">
-				<Loader2 className="dpo-spin" size={ 28 } />
-				<p>
-					{ __(
-						'Loading option set…',
-						'dynamic-product-options-for-woocommerce'
-					) }
-				</p>
-			</div>
-		);
+		return <SkeletonBuilder />;
 	}
 
 	if ( builder.loadError ) {

@@ -8,7 +8,13 @@
  */
 
 import { __ } from '@wordpress/i18n';
-import { Spinner, PageFrame } from '../components';
+import {
+	PageFrame,
+	SkeletonStatGrid,
+	SkeletonChart,
+	SkeletonCard,
+	FadeIn,
+} from '../components';
 import useAnalytics from './analytics/useAnalytics';
 import RangeTabs from './analytics/RangeTabs';
 import KpiGrid from './analytics/KpiGrid';
@@ -59,11 +65,15 @@ export default function Analytics() {
 					<p className="dpo-error">{ error }</p>
 				</div>
 			) : loading ? (
-				<div className="dpo-an-card dpo-an-state">
-					<Spinner />
-				</div>
-			) : (
 				<>
+					<SkeletonStatGrid count={ 4 } />
+					<div className="dpo-an-split">
+						<SkeletonChart />
+						<SkeletonChart />
+					</div>
+				</>
+			) : (
+				<FadeIn>
 					<KpiGrid totals={ totals } deltas={ deltas } />
 
 					<div className="dpo-an-split">
@@ -118,10 +128,20 @@ export default function Analytics() {
 							<ConversionFunnel funnel={ funnel } />
 						</section>
 					</div>
-				</>
+				</FadeIn>
 			) }
 
-			<OptionTable status={ status } error={ error } rows={ table } />
+			{ loading ? (
+				<SkeletonCard lines={ 6 } />
+			) : (
+				<FadeIn>
+					<OptionTable
+						status={ status }
+						error={ error }
+						rows={ table }
+					/>
+				</FadeIn>
+			) }
 		</PageFrame>
 	);
 }

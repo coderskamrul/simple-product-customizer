@@ -9,7 +9,12 @@
 
 import { __, sprintf } from '@wordpress/i18n';
 import { useConfig } from '../store/ConfigContext';
-import { PageFrame } from '../components';
+import {
+	PageFrame,
+	SkeletonStatGrid,
+	SkeletonCard,
+	FadeIn,
+} from '../components';
 import useDashboard from './dashboard/useDashboard';
 import StatStrip from './dashboard/StatStrip';
 import GettingStarted from './dashboard/GettingStarted';
@@ -17,7 +22,6 @@ import QuickActions from './dashboard/QuickActions';
 import RecentActivity from './dashboard/RecentActivity';
 import TopPerformers from './dashboard/TopPerformers';
 import ProCard from './dashboard/ProCard';
-import { StripSkeleton, PanelSkeleton } from './dashboard/Skeletons';
 
 /**
  * Dashboard.
@@ -61,26 +65,30 @@ export default function Dashboard() {
 					<p className="dpo-error">{ error }</p>
 				</div>
 			) : loading ? (
-				<StripSkeleton />
+				<SkeletonStatGrid count={ 4 } />
 			) : (
-				<StatStrip
-					totals={ totals }
-					deltas={ deltas }
-					setsCount={ setsCount }
-					publishedCount={ publishedCount }
-					cartRate={ cartRate }
-				/>
+				<FadeIn>
+					<StatStrip
+						totals={ totals }
+						deltas={ deltas }
+						setsCount={ setsCount }
+						publishedCount={ publishedCount }
+						cartRate={ cartRate }
+					/>
+				</FadeIn>
 			) }
 
 			<div className="dpo-db-grid dpo-db-grid--main">
 				{ loading ? (
-					<PanelSkeleton rows={ 4 } />
+					<SkeletonCard lines={ 4 } action />
 				) : (
 					! failed && (
-						<GettingStarted
-							checklist={ checklist }
-							progress={ progress }
-						/>
+						<FadeIn>
+							<GettingStarted
+								checklist={ checklist }
+								progress={ progress }
+							/>
+						</FadeIn>
 					)
 				) }
 				<QuickActions />
@@ -89,14 +97,18 @@ export default function Dashboard() {
 			<div className="dpo-db-grid dpo-db-grid--bottom">
 				{ loading ? (
 					<>
-						<PanelSkeleton rows={ 4 } />
-						<PanelSkeleton rows={ 3 } />
+						<SkeletonCard lines={ 4 } />
+						<SkeletonCard lines={ 3 } />
 					</>
 				) : (
 					! failed && (
 						<>
-							<RecentActivity activity={ activity } />
-							<TopPerformers performers={ performers } />
+							<FadeIn>
+								<RecentActivity activity={ activity } />
+							</FadeIn>
+							<FadeIn>
+								<TopPerformers performers={ performers } />
+							</FadeIn>
 						</>
 					)
 				) }

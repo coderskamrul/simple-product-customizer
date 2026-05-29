@@ -8,7 +8,7 @@
 
 import { useState, useRef, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Field, TextControl, Spinner } from '../../../components';
+import { Field, TextControl, Skeleton } from '../../../components';
 import { useToast } from '../../../store/ToastContext';
 import { injectFontFaces } from '../../../hooks/useCustomFonts';
 import SettingCard from '../SettingCard';
@@ -188,7 +188,9 @@ export default function FontsSection() {
 
 				{ loading && (
 					<div className="dpo-set-fonts__empty">
-						<Spinner />
+						<Skeleton w="60%" h={ 14 } />
+						<Skeleton w="80%" h={ 12 } />
+						<Skeleton w="40%" h={ 12 } />
 					</div>
 				) }
 				{ ! loading && fonts.length === 0 && (

@@ -24,7 +24,7 @@ import {
 import { useGlobalStyle } from '../store/globalStyle';
 import { useToast } from '../../../store/ToastContext';
 import { errorMessage } from '../../../api/client';
-import { ColorField, Spinner } from '../../../components';
+import { ColorField, SkeletonForm } from '../../../components';
 import {
 	PALETTES,
 	SIZE_MIN,
@@ -209,7 +209,7 @@ export default function GlobalStylePanel() {
 							<div className="dpo-drawer__body dpo-gs">
 								{ ! loaded ? (
 									<div className="dpo-gs__loading">
-										<Spinner />
+										<SkeletonForm fields={ 6 } />
 									</div>
 								) : (
 									<>

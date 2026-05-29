@@ -7,7 +7,7 @@
 
 import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Spinner, EmptyState } from '../../components';
+import { SkeletonTable, EmptyState } from '../../components';
 import OptionSetRow from './OptionSetRow';
 
 /** Column descriptors. `sort` keys map to OptionSetScreen's comparator. */
@@ -73,11 +73,7 @@ export default function OptionSetTable( props ) {
 	}, [ someChecked ] );
 
 	if ( status === 'loading' ) {
-		return (
-			<div className="dpo-os-state">
-				<Spinner />
-			</div>
-		);
+		return <SkeletonTable rows={ 8 } cols={ 5 } />;
 	}
 
 	if ( status === 'error' ) {

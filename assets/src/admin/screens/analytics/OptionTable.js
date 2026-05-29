@@ -10,7 +10,7 @@
 
 import { useMemo, useState, useCallback } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { Spinner, EmptyState, Pagination } from '../../components';
+import { SkeletonTable, EmptyState, Pagination } from '../../components';
 import { ratio, tableToCsv, downloadFile } from './helpers';
 import OptionTableToolbar from './OptionTableToolbar';
 import OptionRow from './OptionRow';
@@ -220,9 +220,7 @@ export default function OptionTable( { status, error, rows } ) {
 			</header>
 
 			{ status === 'loading' && (
-				<div className="dpo-an-state">
-					<Spinner />
-				</div>
+				<SkeletonTable rows={ 6 } cols={ 5 } />
 			) }
 
 			{ status === 'error' && (
