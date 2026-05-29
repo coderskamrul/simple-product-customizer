@@ -8,9 +8,15 @@
   },
   "scripts": {
     "start": "wp-scripts start",
+    "dev": "wp-scripts start",
+    "watch": "wp-scripts start",
     "build": "wp-scripts build",
     "lint:js": "wp-scripts lint-js",
-    "lint:css": "wp-scripts lint-style"
+    "lint:css": "wp-scripts lint-style",
+    "pot": "wp i18n make-pot . languages/dynamic-product-options-for-woocommerce.pot --slug=dynamic-product-options-for-woocommerce --domain=dynamic-product-options-for-woocommerce --include=includes,assets/src --exclude=node_modules,vendor,assets/build,tests,dist,build,.git,.github,.claude",
+    "prezip": "npm run build && npm run pot",
+    "zip": "rm -f dynamic-product-options-for-woocommerce.zip && wp dist-archive . ./dynamic-product-options-for-woocommerce.zip --plugin-dirname=dynamic-product-options-for-woocommerce",
+    "release": "npm run zip"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
