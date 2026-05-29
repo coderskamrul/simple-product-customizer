@@ -30,7 +30,6 @@ const FILTERS = [
  * @param {Function} props.onFilter   (id) => void.
  * @param {Function} props.onExport   Export handler.
  * @param {Function} props.onImport   Import handler (opens file picker).
- * @param {Function} props.onCreate   Create-new handler.
  * @return {JSX.Element} The toolbar.
  */
 export default function OptionSetToolbar( {
@@ -40,7 +39,6 @@ export default function OptionSetToolbar( {
 	onFilter,
 	onExport,
 	onImport,
-	onCreate,
 } ) {
 	const [ open, setOpen ] = useState( false );
 	const filterRef = useRef( null );
@@ -169,20 +167,6 @@ export default function OptionSetToolbar( {
 					aria-hidden="true"
 				/>
 				{ __( 'Import', 'dynamic-product-options-for-woocommerce' ) }
-			</button>
-			<button
-				type="button"
-				className="dpo-os-btn dpo-os-btn--primary"
-				onClick={ onCreate }
-			>
-				<span
-					className="dashicons dashicons-plus-alt2"
-					aria-hidden="true"
-				/>
-				{ __(
-					'New Option',
-					'dynamic-product-options-for-woocommerce'
-				) }
 			</button>
 		</div>
 	);

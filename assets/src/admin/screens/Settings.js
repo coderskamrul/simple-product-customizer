@@ -1,19 +1,16 @@
 /**
- * Settings screen — composition root only. A sticky branded header with
- * the primary save action, a left section rail, and the active section
- * rendered inside a tinted content panel. All data lives in useSettings;
- * fonts manage themselves. Every visual concern is delegated to a
- * presentational component under ./settings so this file stays a
- * readable layout map.
+ * Settings screen — wrapped in the unified PageFrame. The previous
+ * SettingsHeader (sticky branded header) is superseded: the title row lives
+ * in PageFrame and the Save action sits in the page actions slot.
  *
  * @package DPO\Admin
  */
 
 import { useState } from '@wordpress/element';
-import { Spinner } from '../components';
+import { __ } from '@wordpress/i18n';
+import { Spinner, PageFrame } from '../components';
 import { SECTIONS } from './settings/config';
 import useSettings from './settings/useSettings';
-import SettingsHeader from './settings/SettingsHeader';
 import SettingsNav from './settings/SettingsNav';
 import SectionPanel from './settings/SectionPanel';
 import PriceDisplaySection from './settings/sections/PriceDisplaySection';
@@ -37,27 +34,56 @@ const BODIES = {
  * @return {JSX.Element} The screen.
  */
 export default function Settings() {
-	const { status, error, values, dirty, saving, set, save } =
-		useSettings();
+	const { status, error, values, dirty, saving, set, save } = useSettings();
 	const [ activeId, setActiveId ] = useState( SECTIONS[ 0 ].id );
 
 	const section =
 		SECTIONS.find( ( s ) => s.id === activeId ) || SECTIONS[ 0 ];
 	const Body = BODIES[ section.id ];
 
-	return (
-		<div className="dpo-set">
-			<SettingsHeader
-				saving={ saving }
-				dirty={ dirty }
-				onSave={ save }
-			/>
+	const actions = (
+		<>
+			{ dirty && ! saving && (
+				<span className="dpo-page__unsaved" role="status">
+					{ __(
+						'Unsaved changes',
+						'dynamic-product-options-for-woocommerce'
+					) }
+				</span>
+			) }
+			<button
+				type="button"
+				className="dpo-pg-btn dpo-pg-btn--primary"
+				disabled={ saving }
+				onClick={ save }
+			>
+				{ saving
+					? __(
+							'Saving…',
+							'dynamic-product-options-for-woocommerce'
+					  )
+					: __(
+							'Save Settings',
+							'dynamic-product-options-for-woocommerce'
+					  ) }
+			</button>
+		</>
+	);
 
+	return (
+		<PageFrame
+			title={ __(
+				'Settings',
+				'dynamic-product-options-for-woocommerce'
+			) }
+			subtitle={ __(
+				'Manage your plugin configuration.',
+				'dynamic-product-options-for-woocommerce'
+			) }
+			actions={ actions }
+		>
 			<div className="dpo-set__body">
-				<SettingsNav
-					active={ activeId }
-					onSelect={ setActiveId }
-				/>
+				<SettingsNav active={ activeId } onSelect={ setActiveId } />
 
 				<SectionPanel section={ section }>
 					{ status === 'loading' && (
@@ -78,6 +104,6 @@ export default function Settings() {
 						) ) }
 				</SectionPanel>
 			</div>
-		</div>
+		</PageFrame>
 	);
 }

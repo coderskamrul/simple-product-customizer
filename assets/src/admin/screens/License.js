@@ -1,7 +1,6 @@
 /**
- * License screen — key input + activate/deactivate UI. There is no license
- * REST route in the contract, so this keeps local UI state and explains
- * that Pro gating is driven by `dpoAdmin.proActive` (server-side).
+ * License screen — wrapped in the unified PageFrame. Pro/Free status moves
+ * into the page actions slot; the bespoke `.dpo-screen-head` is gone.
  *
  * @package DPO\Admin
  */
@@ -10,7 +9,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useConfig } from '../store/ConfigContext';
 import { useToast } from '../store/ToastContext';
-import { Panel, Field, TextControl } from '../components';
+import { Panel, Field, TextControl, PageFrame } from '../components';
 
 /**
  * License.
@@ -23,40 +22,30 @@ export default function License() {
 	const [ key, setKey ] = useState( license || '' );
 	const [ active, setActive ] = useState( !! proActive );
 
-	return (
-		<div className="dpo-license">
-			<header className="dpo-screen-head">
-				<div>
-					<h1 className="dpo-screen-title">
-						{ __(
-							'License',
-							'dynamic-product-options-for-woocommerce'
-						) }
-					</h1>
-					<p className="dpo-screen-sub">
-						{ __(
-							'Activate Pro to unlock advanced fields and pricing.',
-							'dynamic-product-options-for-woocommerce'
-						) }
-					</p>
-				</div>
-				<span
-					className={ `dpo-status-pill dpo-status-pill--${
-						active ? 'live' : 'draft'
-					}` }
-				>
-					{ active
-						? __(
-								'Pro active',
-								'dynamic-product-options-for-woocommerce'
-						  )
-						: __(
-								'Free',
-								'dynamic-product-options-for-woocommerce'
-						  ) }
-				</span>
-			</header>
+	const statusPill = (
+		<span
+			className={ `dpo-status-pill dpo-status-pill--${
+				active ? 'live' : 'draft'
+			}` }
+		>
+			{ active
+				? __( 'Pro active', 'dynamic-product-options-for-woocommerce' )
+				: __( 'Free', 'dynamic-product-options-for-woocommerce' ) }
+		</span>
+	);
 
+	return (
+		<PageFrame
+			title={ __(
+				'License',
+				'dynamic-product-options-for-woocommerce'
+			) }
+			subtitle={ __(
+				'Activate Pro to unlock advanced fields and pricing.',
+				'dynamic-product-options-for-woocommerce'
+			) }
+			actions={ statusPill }
+		>
 			<Panel
 				title={ __(
 					'License key',
@@ -83,7 +72,7 @@ export default function License() {
 					{ ! active ? (
 						<button
 							type="button"
-							className="dpo-btn dpo-btn--primary"
+							className="dpo-pg-btn dpo-pg-btn--primary"
 							onClick={ () => {
 								if ( ! key.trim() ) {
 									notify(
@@ -113,7 +102,7 @@ export default function License() {
 					) : (
 						<button
 							type="button"
-							className="dpo-btn dpo-btn--ghost"
+							className="dpo-pg-btn dpo-pg-btn--ghost"
 							onClick={ () => {
 								setActive( false );
 								notify(
@@ -168,7 +157,7 @@ export default function License() {
 					</li>
 				</ul>
 				<a
-					className="dpo-btn dpo-btn--primary"
+					className="dpo-pg-btn dpo-pg-btn--primary"
 					href="https://wpdeveloper.com"
 					target="_blank"
 					rel="noreferrer"
@@ -179,6 +168,6 @@ export default function License() {
 					) }
 				</a>
 			</Panel>
-		</div>
+		</PageFrame>
 	);
 }

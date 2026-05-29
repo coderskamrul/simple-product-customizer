@@ -1,103 +1,152 @@
 /**
- * Application top bar / nav header — brand mark + plan/upgrade action.
- * Rendered by the layout shell on most screens, but hidden on the
- * builder (option create) and settings screens.
+ * Unified premium TopBar — single navigation chrome shared by every screen.
+ *
+ * Layout (matches the reference SaaS dashboard):
+ *
+ *   [ Logo + version pill ]  [ + context CTA ]   [ tabs… ]   [ Upgrade Pro ]
+ *
+ * The TopBar is the ONLY top-level navigation in the admin SPA. All previous
+ * per-screen headers (DashboardHeader, AnalyticsHeader, SettingsHeader, the
+ * Option Sets head block) are superseded by it.
  *
  * @package DPO\Admin
  */
 
 import { __ } from '@wordpress/i18n';
 import { useConfig } from '../store/ConfigContext';
+import { useRouter, navigate } from '../app/router';
+
+/** Top-level tab registry. */
+const TABS = [
+	{ route: 'dashboard', hash: '#/',          label: __( 'Dashboard',    'dynamic-product-options-for-woocommerce' ) },
+	{ route: 'sets',      hash: '#/sets',      label: __( 'Option Sets',  'dynamic-product-options-for-woocommerce' ) },
+	{ route: 'analytics', hash: '#/analytics', label: __( 'Analytics',    'dynamic-product-options-for-woocommerce' ) },
+	{ route: 'settings',  hash: '#/settings',  label: __( 'Settings',     'dynamic-product-options-for-woocommerce' ) },
+	{ route: 'license',   hash: '#/license',   label: __( 'License',      'dynamic-product-options-for-woocommerce' ) },
+];
+
+/**
+ * Resolve the context-aware primary CTA for the active route. Returns null
+ * on screens that have no obvious "create" action (Dashboard's create lives
+ * on the screen itself; Analytics/License are read-only).
+ *
+ * @param {string} routeName Active route descriptor name.
+ * @return {?{label:string, onClick:Function}} CTA or null.
+ */
+function resolveCTA( routeName ) {
+	switch ( routeName ) {
+		case 'sets':
+			return {
+				label: __( 'Create Option Set', 'dynamic-product-options-for-woocommerce' ),
+				onClick: () => navigate( '/set/new' ),
+			};
+		case 'dashboard':
+			return {
+				label: __( 'New Option Set', 'dynamic-product-options-for-woocommerce' ),
+				onClick: () => navigate( '/set/new' ),
+			};
+		default:
+			return null;
+	}
+}
+
+/**
+ * Match the active tab when nested routes are in play (builder/assignment
+ * highlight "Option Sets").
+ *
+ * @param {string} routeName Active route name.
+ * @return {string} Tab route key.
+ */
+function activeTab( routeName ) {
+	if ( routeName === 'builder' || routeName === 'assignment' ) {
+		return 'sets';
+	}
+	return routeName;
+}
 
 /**
  * TopBar.
  *
- * @return {JSX.Element} The header / nav bar.
+ * @return {JSX.Element} The unified top bar.
  */
 export default function TopBar() {
-	const { proActive } = useConfig();
+	const { proActive, version } = useConfig();
+	const route = useRouter();
+	const cta = resolveCTA( route.name );
+	const current = activeTab( route.name );
 
 	return (
-		<header className="dpo-app__topbar" role="banner">
-			<div className="dpo-app__brand">
-				<span className="dpo-app__brand-icon" aria-hidden="true">
-					<svg
-						width="22"
-						height="22"
-						viewBox="0 0 24 24"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
+		<header className="dpo-topbar" role="banner">
+			{ /* Left — brand + version pill + (context CTA) ------------- */ }
+			<div className="dpo-topbar__lead">
+				<a href="#/" className="dpo-topbar__brand" aria-label={ __(
+					'Dynamic Product Options home',
+					'dynamic-product-options-for-woocommerce'
+				) }>
+					<span className="dpo-topbar__logo" aria-hidden="true">
+						<svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+							<path d="M12 2.5 3 7v10l9 4.5L21 17V7l-9-4.5Z"
+								stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+							<path d="M3 7l9 4.5L21 7M12 11.5V21"
+								stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+						</svg>
+					</span>
+					{ version && (
+						<span className="dpo-topbar__version">
+							{ version }
+						</span>
+					) }
+				</a>
+
+				{ cta && (
+					<button
+						type="button"
+						className="dpo-topbar__cta"
+						onClick={ cta.onClick }
 					>
-						<path
-							d="M12 2.5 3 7v10l9 4.5L21 17V7l-9-4.5Z"
-							stroke="currentColor"
-							strokeWidth="1.6"
-							strokeLinejoin="round"
-						/>
-						<path
-							d="M3 7l9 4.5L21 7M12 11.5V21"
-							stroke="currentColor"
-							strokeWidth="1.6"
-							strokeLinejoin="round"
-						/>
-						<path
-							d="M7.5 4.75 16.5 9.25"
-							stroke="currentColor"
-							strokeWidth="1.6"
-							strokeLinecap="round"
-						/>
-					</svg>
-				</span>
-				<div className="dpo-app__brand-text">
-					<span className="dpo-app__brand-title">
-						{ __(
-							'Product Options Manager kl',
-							'dynamic-product-options-for-woocommerce'
-						) }
-					</span>
-					<span className="dpo-app__brand-sub">
-						{ __(
-							'for WooCommerce',
-							'dynamic-product-options-for-woocommerce'
-						) }
-					</span>
-				</div>
+						<span aria-hidden="true">+</span>
+						<span>{ cta.label }</span>
+					</button>
+				) }
 			</div>
-			<div className="dpo-app__topbar-actions">
+
+			{ /* Center — tabs ------------------------------------------- */ }
+			<nav
+				className="dpo-topbar__tabs"
+				aria-label={ __( 'Primary', 'dynamic-product-options-for-woocommerce' ) }
+			>
+				{ TABS.map( ( t ) => {
+					const isActive = current === t.route;
+					return (
+						<a
+							key={ t.route }
+							href={ t.hash }
+							className={ `dpo-topbar__tab${ isActive ? ' is-active' : '' }` }
+							aria-current={ isActive ? 'page' : undefined }
+						>
+							{ t.label }
+						</a>
+					);
+				} ) }
+			</nav>
+
+			{ /* Right — upgrade pill ------------------------------------ */ }
+			<div className="dpo-topbar__trail">
 				{ proActive ? (
-					<span className="dpo-app__plan dpo-app__plan--pro">
-						{ __(
-							'Pro',
-							'dynamic-product-options-for-woocommerce'
-						) }
+					<span className="dpo-topbar__plan">
+						{ __( 'Pro', 'dynamic-product-options-for-woocommerce' ) }
 					</span>
 				) : (
 					<a
-						className="dpo-app__upgrade"
+						className="dpo-topbar__upgrade"
 						href="https://wpdeveloper.com/in/upgrade-dynamic-product-options"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<svg
-							className="dpo-app__upgrade-icon"
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-							aria-hidden="true"
-						>
-							<path
-								d="M3 7.5 7.5 12 12 5l4.5 7L21 7.5 19 18H5L3 7.5Z"
-								fill="currentColor"
-							/>
+						<span>{ __( 'Upgrade Pro', 'dynamic-product-options-for-woocommerce' ) }</span>
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+							<path d="M5 4h11l-1.5 4H18l-7 12 1.5-8H7l-2-8Z" />
 						</svg>
-						<span>
-							{ __(
-								'Upgrade',
-								'dynamic-product-options-for-woocommerce'
-							) }
-						</span>
 					</a>
 				) }
 			</div>

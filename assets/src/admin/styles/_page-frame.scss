@@ -1,0 +1,237 @@
+/**
+ * PageFrame — uniform screen chrome shared by every top-level screen.
+ *
+ * Provides a consistent title row, a toolbar slot for filters/search/bulk
+ * actions, and a padded body container. All measurements are theme-token
+ * based so screens stay pixel-aligned across the admin SPA.
+ */
+
+.dpo-page {
+	max-width: 1400px;
+	margin-inline: auto;
+	padding: var(--dpo-s-6) var(--dpo-s-6) var(--dpo-s-8);
+	font-family: var(--dpo-font);
+	color: var(--dpo-c-ink);
+
+	/* ── Head (title + actions) ─────────────────────────────────────── */
+	&__head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: var(--dpo-s-4);
+		flex-wrap: wrap;
+		margin-block-end: var(--dpo-s-6);
+	}
+
+	&__titles {
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	&__title {
+		margin: 0;
+		font-size: 24px;
+		font-weight: 700;
+		line-height: 1.15;
+		letter-spacing: -0.01em;
+		color: var(--dpo-c-ink);
+	}
+
+	&__sub {
+		margin: 0;
+		font-size: 14px;
+		color: var(--dpo-c-muted);
+		line-height: 1.5;
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		gap: var(--dpo-s-3);
+		flex-shrink: 0;
+	}
+
+	&__unsaved {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--dpo-c-warning);
+
+		&::before {
+			content: '';
+			inline-size: 8px;
+			block-size: 8px;
+			border-radius: 50%;
+			background: var(--dpo-c-warning);
+		}
+	}
+
+	/* ── Toolbar (search + filters + bulk action) ───────────────────── */
+	&__toolbar {
+		// display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--dpo-s-3);
+		flex-wrap: wrap;
+		margin-block-end: var(--dpo-s-5);
+		padding: var(--dpo-s-3) var(--dpo-s-4);
+		background: var(--dpo-c-surface-2);
+		border: 1px solid var(--dpo-c-border);
+		border-radius: var(--dpo-r-md);
+	}
+
+	/* ── Body ───────────────────────────────────────────────────────── */
+	&__body {
+		display: flex;
+		flex-direction: column;
+		gap: var(--dpo-s-5);
+
+		&--bleed { padding: 0; }
+	}
+}
+
+/* ── Generic page-level button + select primitives ──────────────────── */
+/* These get a `pg-` prefix so they never collide with existing
+   `.dpo-btn` / `.dpo-input` style islands used by other components. */
+
+.dpo-pg-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--dpo-s-2);
+	min-height: 36px;
+	padding: 0 var(--dpo-s-4);
+	border: 1px solid var(--dpo-c-border-strong);
+	border-radius: var(--dpo-r-md);
+	background: var(--dpo-c-surface);
+	color: var(--dpo-c-ink);
+	font: 600 13px/1 var(--dpo-font);
+	text-decoration: none;
+	cursor: pointer;
+	box-shadow: var(--dpo-sh-1);
+	transition:
+		border-color var(--dpo-dur) var(--dpo-ease),
+		color var(--dpo-dur) var(--dpo-ease),
+		background var(--dpo-dur) var(--dpo-ease),
+		box-shadow var(--dpo-dur) var(--dpo-ease),
+		transform var(--dpo-dur) var(--dpo-ease);
+
+	&:hover:not(:disabled) {
+		border-color: var(--dpo-c-primary);
+		color: var(--dpo-c-primary);
+		box-shadow: var(--dpo-sh-2);
+		transform: translateY(-1px);
+	}
+
+	&:focus-visible {
+		outline: none;
+		box-shadow: var(--dpo-sh-ring);
+	}
+
+	&:disabled {
+		opacity: 0.55;
+		cursor: not-allowed;
+	}
+
+	&--primary {
+		background: var(--dpo-c-primary);
+		border-color: var(--dpo-c-primary);
+		color: var(--dpo-c-primary-ink);
+		box-shadow:
+			0 1px 2px rgba(var(--dpo-c-primary-rgb), 0.25),
+			0 4px 14px rgba(var(--dpo-c-primary-rgb), 0.20);
+
+		&:hover:not(:disabled) {
+			background: var(--dpo-c-primary-hover);
+			border-color: var(--dpo-c-primary-hover);
+			color: var(--dpo-c-primary-ink);
+		}
+	}
+
+	&--danger {
+		color: var(--dpo-c-danger);
+		border-color: var(--dpo-c-border-strong);
+
+		&:hover:not(:disabled) {
+			background: rgba(var(--dpo-c-danger-rgb), 0.08);
+			border-color: var(--dpo-c-danger);
+			color: var(--dpo-c-danger);
+		}
+	}
+
+	&--ghost {
+		background: transparent;
+		border-color: transparent;
+		box-shadow: none;
+
+		&:hover:not(:disabled) {
+			background: var(--dpo-c-primary-soft);
+			border-color: transparent;
+			color: var(--dpo-c-primary);
+			box-shadow: none;
+		}
+	}
+
+	&--icon {
+		width: 36px;
+		padding: 0;
+
+		svg { display: block; }
+	}
+}
+
+.dpo-pg-select,
+.dpo-pg-search {
+	display: inline-flex;
+	align-items: center;
+	min-height: 36px;
+	padding: 8px 12px;
+	border: 1px solid var(--dpo-c-border-strong);
+	border-radius: var(--dpo-r-md);
+	background: var(--dpo-c-surface);
+	color: var(--dpo-c-ink);
+	font: 13px/1.4 var(--dpo-font);
+	transition:
+		border-color var(--dpo-dur) var(--dpo-ease),
+		box-shadow var(--dpo-dur) var(--dpo-ease);
+
+	&::placeholder { color: var(--dpo-c-faint); }
+	&:hover { border-color: var(--dpo-c-primary); }
+	&:focus,
+	&:focus-visible {
+		outline: none;
+		border-color: var(--dpo-c-primary);
+		box-shadow: var(--dpo-sh-ring);
+	}
+}
+
+.dpo-pg-search { min-inline-size: 240px; }
+.dpo-pg-select { min-inline-size: 160px; appearance: none; padding-inline-end: 32px;
+	background-image: linear-gradient(45deg, transparent 50%, var(--dpo-c-muted) 50%),
+					 linear-gradient(135deg, var(--dpo-c-muted) 50%, transparent 50%);
+	background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+	background-size: 5px 5px;
+	background-repeat: no-repeat; }
+
+.dpo-pg-toolbar-group {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--dpo-s-2);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+	.dpo-page {
+		padding: var(--dpo-s-4);
+
+		&__head { margin-block-end: var(--dpo-s-4); }
+		&__title { font-size: 20px; }
+		&__toolbar { padding: var(--dpo-s-2) var(--dpo-s-3); }
+	}
+
+	.dpo-pg-search { min-inline-size: 0; flex: 1; }
+}

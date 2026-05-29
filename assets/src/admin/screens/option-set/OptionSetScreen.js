@@ -22,7 +22,7 @@ import { useToast } from '../../store/ToastContext';
 import { navigate } from '../../app/router';
 import * as api from '../../api/endpoints';
 import { errorMessage } from '../../api/client';
-import { ConfirmDialog, Pagination } from '../../components';
+import { ConfirmDialog, Pagination, PageFrame } from '../../components';
 import OptionSetStats from './OptionSetStats';
 import OptionSetToolbar from './OptionSetToolbar';
 import OptionSetTable from './OptionSetTable';
@@ -316,24 +316,30 @@ export default function OptionSet() {
 	const rangeEnd = ( sets.page - 1 ) * PER_PAGE + visible.length;
 
 	return (
-		<div className="dpo-os">
-			<header className="dpo-os-head">
-				<div className="dpo-os-head__titles">
-					<h1 className="dpo-os-title">
-						{ __(
-							'Product Options',
-							'dynamic-product-options-for-woocommerce'
-						) }
-					</h1>
-					<p className="dpo-os-sub">
-						{ __(
-							'Manage your product customization options',
-							'dynamic-product-options-for-woocommerce'
-						) }
-					</p>
-				</div>
-				<OptionSetStats stats={ stats } />
-			</header>
+		<>
+		<PageFrame
+			// title={ __(
+			// 	'Product Options',
+			// 	'dynamic-product-options-for-woocommerce'
+			// ) }
+			// subtitle={ __(
+			// 	'Manage your product customization options.',
+			// 	'dynamic-product-options-for-woocommerce'
+			// ) }
+			toolbar={
+				<OptionSetToolbar
+					term={ term }
+					onSearch={ onSearch }
+					filter={ filter }
+					onFilter={ setFilter }
+					onExport={ onExport }
+					onImport={ () =>
+						fileRef.current && fileRef.current.click()
+					}
+				/>
+			}
+		>
+			<OptionSetStats stats={ stats } />
 
 			<input
 				type="file"
@@ -342,16 +348,6 @@ export default function OptionSet() {
 				className="dpo-visually-hidden"
 				onChange={ onImportFile }
 				tabIndex={ -1 }
-			/>
-
-			<OptionSetToolbar
-				term={ term }
-				onSearch={ onSearch }
-				filter={ filter }
-				onFilter={ setFilter }
-				onExport={ onExport }
-				onImport={ () => fileRef.current && fileRef.current.click() }
-				onCreate={ () => navigate( '/set/new' ) }
 			/>
 
 			<section className="dpo-os-card">
@@ -464,8 +460,9 @@ export default function OptionSet() {
 					</footer>
 				) }
 			</section>
+		</PageFrame>
 
-			{ confirm && (
+		{ confirm && (
 				<ConfirmDialog
 					title={
 						confirm.bulk
@@ -508,7 +505,7 @@ export default function OptionSet() {
 						}
 					} }
 				/>
-			) }
-		</div>
+		) }
+		</>
 	);
 }

@@ -37,10 +37,9 @@ $dpo-set-card-bd:    var(--dpo-c-border, #ecedf2);
 $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 /* ---- Canvas ----------------------------------------------- */
+/* Settings now renders inside the unified PageFrame, so the screen no
+   longer needs a bleed margin or its own background. */
 .dpo-set {
-	margin: -$dpo-space-lg;
-	min-height: calc(100vh - #{$dpo-topbar-h} - 32px);
-	background: $dpo-set-bg;
 	color: $dpo-os-ink-soft;
 	font-size: 14px;
 	font-family: $dpo-font;
@@ -187,12 +186,13 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Body grid : rail + panel ----------------------------- */
+/* PageFrame supplies the outer padding now, so this just sets the
+   two-column geometry. */
 .dpo-set__body {
 	display: grid;
 	grid-template-columns: 300px minmax(0, 1fr);
 	align-items: start;
 	gap: 24px;
-	padding: 24px 32px 40px;
 }
 
 /* ---- Section rail ----------------------------------------- */

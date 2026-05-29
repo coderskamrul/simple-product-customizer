@@ -1,15 +1,16 @@
 /**
- * Dashboard screen — composition root only. All data lives in
- * useDashboard(); every visual concern is delegated to a presentational
- * component under ./dashboard so this file stays a readable layout map
- * (mirrors the Analytics screen architecture).
+ * Dashboard screen — wired into the unified PageFrame. The top-level
+ * welcome / CTA used to live in DashboardHeader; that role moved to the
+ * shared TopBar (logo + version + tabs + context CTA), so here we just
+ * render the page title row and the data widgets.
  *
  * @package DPO\Admin
  */
 
+import { __, sprintf } from '@wordpress/i18n';
 import { useConfig } from '../store/ConfigContext';
+import { PageFrame } from '../components';
 import useDashboard from './dashboard/useDashboard';
-import DashboardHeader from './dashboard/DashboardHeader';
 import StatStrip from './dashboard/StatStrip';
 import GettingStarted from './dashboard/GettingStarted';
 import QuickActions from './dashboard/QuickActions';
@@ -24,7 +25,9 @@ import { StripSkeleton, PanelSkeleton } from './dashboard/Skeletons';
  * @return {JSX.Element} The dashboard screen.
  */
 export default function Dashboard() {
-	const { proActive } = useConfig();
+	const { proActive, user } = useConfig();
+	const name = user && user.name ? user.name : '';
+
 	const {
 		status,
 		error,
@@ -42,10 +45,17 @@ export default function Dashboard() {
 	const loading = status === 'loading';
 	const failed = status === 'error';
 
-	return (
-		<div className="dpo-db">
-			<DashboardHeader />
+	const title = name
+		? sprintf(
+				/* translators: %s: display name */
+				__( 'Welcome back, %s', 'dynamic-product-options-for-woocommerce' ),
+				name
+		  )
+		: __( 'Welcome back', 'dynamic-product-options-for-woocommerce' );
 
+	return (
+		<PageFrame
+		>
 			{ failed ? (
 				<div className="dpo-db-card dpo-db-state">
 					<p className="dpo-error">{ error }</p>
@@ -93,6 +103,6 @@ export default function Dashboard() {
 
 				{ ! proActive && <ProCard /> }
 			</div>
-		</div>
+		</PageFrame>
 	);
 }

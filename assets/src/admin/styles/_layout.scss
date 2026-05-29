@@ -1,4 +1,5 @@
-/* App shell + screen scaffolding. */
+/* App shell scaffolding only. The top navigation lives in `_topbar.scss`
+   and per-screen layout in `_page-frame.scss`. */
 
 .dpo-app {
 	display: flex;
@@ -7,159 +8,9 @@
 	background: $dpo-bg;
 }
 
-.dpo-app__topbar {
-	min-height: 72px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: $dpo-space;
-	padding: 12px $dpo-space-lg;
-	background: $dpo-os-bg;
-	border-block-end: 1px solid $dpo-os-border;
-}
-
-.dpo-app__brand {
-	display: flex;
-	align-items: center;
-	gap: 14px;
-	min-width: 0;
-}
-
-.dpo-app__brand-icon {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 44px;
-	height: 44px;
-	flex: 0 0 44px;
-	border-radius: 12px;
-	background: linear-gradient(135deg, var(--dpo-c-primary) 0%, var(--dpo-c-primary-hover) 100%);
-	color: var(--dpo-c-primary-ink, #fff);
-	box-shadow: 0 4px 12px rgba(var(--dpo-c-primary-rgb), 0.28);
-}
-
-.dpo-app__brand-text {
-	display: flex;
-	flex-direction: column;
-	min-width: 0;
-	line-height: 1.2;
-}
-
-.dpo-app__brand-title {
-	font-size: 18px;
-	font-weight: 700;
-	color: $dpo-os-ink;
-	letter-spacing: -0.01em;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.dpo-app__brand-sub {
-	font-size: 13px;
-	color: $dpo-os-muted;
-	margin-top: 2px;
-}
-
-.dpo-app__topbar-actions {
-	display: flex;
-	align-items: center;
-	gap: $dpo-space-sm;
-	flex-shrink: 0;
-}
-
-.dpo-app__upgrade {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	padding: 8px 14px;
-	border-radius: 8px;
-	background: $dpo-surface;
-	border: 1px solid $dpo-os-border-strong;
-	color: $dpo-os-ink;
-	font-size: 13px;
-	font-weight: 600;
-	text-decoration: none;
-	box-shadow: $dpo-os-shadow;
-	transition: border-color 0.15s ease, box-shadow 0.15s ease,
-		transform 0.15s ease;
-
-	&:hover,
-	&:focus {
-		border-color: $dpo-os-blue;
-		color: $dpo-os-ink;
-		box-shadow: 0 2px 6px rgba(51, 88, 244, 0.15);
-		transform: translateY(-1px);
-	}
-
-	&:focus-visible {
-		outline: none;
-		box-shadow: $dpo-os-ring;
-	}
-}
-
-.dpo-app__upgrade-icon {
-	color: #f0a93b;
-	flex-shrink: 0;
-}
-
-.dpo-app__plan {
-	font-size: 11px;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.04em;
-	padding: 4px 10px;
-	border-radius: 999px;
-
-	&--free {
-		background: $dpo-surface-2;
-		color: $dpo-text-muted;
-	}
-
-	&--pro {
-		background: rgba($dpo-pro, 0.12);
-		color: $dpo-pro;
-	}
-}
-
-@media (max-width: 600px) {
-	.dpo-app__topbar {
-		padding: 12px $dpo-space;
-		gap: $dpo-space-sm;
-	}
-
-	.dpo-app__brand {
-		gap: 10px;
-	}
-
-	.dpo-app__brand-icon {
-		width: 38px;
-		height: 38px;
-		flex-basis: 38px;
-		border-radius: 10px;
-	}
-
-	.dpo-app__brand-title {
-		font-size: 15px;
-	}
-
-	.dpo-app__brand-sub {
-		font-size: 12px;
-	}
-
-	.dpo-app__upgrade span {
-		display: none;
-	}
-
-	.dpo-app__upgrade {
-		padding: 8px 10px;
-	}
-}
-
 .dpo-app__outlet {
 	flex: 1;
 	min-height: 0;
-	padding: $dpo-space-lg;
 
 	&--bleed {
 		padding: 0;
@@ -167,6 +18,8 @@
 	}
 }
 
+/* Legacy screen-head primitives kept around for screens that still reference
+   them. New screens should use `.dpo-page__*` from PageFrame. */
 .dpo-screen-head {
 	display: flex;
 	align-items: flex-start;
@@ -182,9 +35,7 @@
 	align-items: center;
 }
 
-.dpo-screen-title {
-	font-size: 22px;
-}
+.dpo-screen-title { font-size: 22px; }
 
 .dpo-screen-sub {
 	color: $dpo-text-muted;

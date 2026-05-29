@@ -53,9 +53,10 @@ function Shell() {
 	const route = useRouter();
 	const isBuilder = route.name === 'builder';
 
-	// The top nav is hidden on the builder (option create) and
-	// settings screens so they get the full canvas.
-	const hideTopBar = isBuilder || route.name === 'settings';
+	// Only the builder is full-bleed (it's a three-pane editor that needs
+	// every pixel). Every other screen shares the unified TopBar so admin
+	// navigation stays consistent.
+	const hideTopBar = isBuilder;
 
 	return (
 		<div className="dpo-app">

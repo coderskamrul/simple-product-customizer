@@ -5,13 +5,10 @@
    RTL-safe (logical properties), responsive and accessible.
    ============================================================ */
 
-/* Fill the outlet with the screen's own canvas (bleeds the
-   24px outlet padding; matched in the responsive block below). */
+/* The Option Sets screen now renders inside the unified PageFrame
+   (`.dpo-page` from _page-frame.scss). The bespoke full-bleed canvas is
+   gone; we only need an inner text-colour fallback. */
 .dpo-os {
-	margin: -$dpo-space-lg;
-	padding: $dpo-space-lg;
-	min-height: calc(100vh - #{$dpo-topbar-h} - 32px);
-	background: $dpo-os-bg;
 	color: $dpo-os-ink-soft;
 	font-size: 14px;
 }
