@@ -27,12 +27,14 @@ $dpo-set-banners: (
 	"pink": #fdeef4 #be185d #f8d7e6,
 );
 
-$dpo-set-bg: #f4f5fa;
-$dpo-set-violet: #8b7cf6;
-$dpo-set-violet-ink: #5b4fd6;
-$dpo-set-card-bg: #fafbfc;
-$dpo-set-card-bd: #ecedf2;
-$dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
+/* Settings palette — rebound to the Global Theme so the screen follows the
+   active brand colour instead of its own historical violet. */
+$dpo-set-bg:         var(--dpo-c-bg, #f7f8fb);
+$dpo-set-violet:     var(--dpo-c-primary, #{$dpo-c-primary-fallback});
+$dpo-set-violet-ink: var(--dpo-c-primary-hover, #{$dpo-c-primary-hover-fallback});
+$dpo-set-card-bg:    var(--dpo-c-surface-2, #fafbfc);
+$dpo-set-card-bd:    var(--dpo-c-border, #ecedf2);
+$dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 /* ---- Canvas ----------------------------------------------- */
 .dpo-set {
@@ -148,13 +150,13 @@ $dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
 	padding-inline: 24px;
 	border: 0;
 	border-radius: 12px;
-	background: linear-gradient(135deg, #a78bfa, #8b7cf6);
-	color: #fff;
+	background: linear-gradient(135deg, var(--dpo-c-primary), var(--dpo-c-primary-hover));
+	color: var(--dpo-c-primary-ink, #fff);
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
 	white-space: nowrap;
-	box-shadow: 0 8px 18px rgba($dpo-set-violet, 0.35);
+	box-shadow: 0 8px 18px rgba(var(--dpo-c-primary-rgb), 0.35);
 	transition: filter 0.15s, box-shadow 0.15s, opacity 0.15s;
 
 	svg {
@@ -167,7 +169,7 @@ $dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
 
 	&:focus-visible {
 		outline: none;
-		box-shadow: $dpo-set-ring, 0 8px 18px rgba($dpo-set-violet, 0.35);
+		box-shadow: $dpo-set-ring, 0 8px 18px rgba(var(--dpo-c-primary-rgb), 0.35);
 	}
 
 	&:disabled {
@@ -180,7 +182,7 @@ $dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
 		height: 42px;
 		padding-inline: 20px;
 		font-size: 13.5px;
-		box-shadow: 0 4px 12px rgba($dpo-set-violet, 0.3);
+		box-shadow: 0 4px 12px rgba(var(--dpo-c-primary-rgb), 0.3);
 	}
 }
 
@@ -225,8 +227,8 @@ $dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
 		}
 
 		&.is-active {
-			background: #eef0fe;
-			border-color: #dadcfb;
+			background: var(--dpo-c-primary-soft);
+			border-color: rgba(var(--dpo-c-primary-rgb), 0.25);
 		}
 
 		&:focus-visible {
@@ -260,7 +262,7 @@ $dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
 		white-space: nowrap;
 
 		.is-active & {
-			color: rgba($dpo-set-violet-ink, 0.75);
+			color: rgba(var(--dpo-c-primary-hover-rgb), 0.75);
 		}
 	}
 
@@ -657,7 +659,7 @@ $dpo-set-ring: 0 0 0 3px rgba($dpo-set-violet, 0.22);
 	&__type {
 		padding: 3px 10px;
 		border-radius: 999px;
-		background: #ece9fe;
+		background: var(--dpo-c-primary-soft);
 		color: $dpo-set-violet-ink;
 		font-size: 11px;
 		font-weight: 700;

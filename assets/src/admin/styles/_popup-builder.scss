@@ -69,8 +69,8 @@
 	transition: background 0.12s, color 0.12s, border-color 0.12s;
 
 	&:hover:not( :disabled ) {
-		background: rgba( $dpo-accent, 0.1 );
-		border-color: rgba( $dpo-accent, 0.25 );
+		background: rgba(var(--dpo-c-primary-rgb), 0.1 );
+		border-color: rgba(var(--dpo-c-primary-rgb), 0.25 );
 	}
 
 	&.is-active {
@@ -85,8 +85,8 @@
 	}
 
 	&.is-danger:hover:not( :disabled ) {
-		background: rgba( $dpo-danger, 0.12 );
-		border-color: rgba( $dpo-danger, 0.3 );
+		background: rgba(var(--dpo-c-danger-rgb), 0.12 );
+		border-color: rgba(var(--dpo-c-danger-rgb), 0.3 );
 		color: $dpo-danger;
 	}
 }
@@ -98,7 +98,7 @@
 	align-items: center;
 	gap: 2px;
 	padding: 6px 8px;
-	background: rgba( $dpo-accent, 0.06 );
+	background: rgba(var(--dpo-c-primary-rgb), 0.06 );
 	border-block-end: 1px solid $dpo-border;
 }
 
@@ -125,11 +125,11 @@
 	cursor: pointer;
 
 	&:hover {
-		background: rgba( $dpo-accent, 0.12 );
+		background: rgba(var(--dpo-c-primary-rgb), 0.12 );
 	}
 
 	&.is-danger:hover {
-		background: rgba( $dpo-danger, 0.12 );
+		background: rgba(var(--dpo-c-danger-rgb), 0.12 );
 		color: $dpo-danger;
 	}
 }
@@ -260,7 +260,7 @@
 			content: '';
 			position: absolute;
 			inset: 0;
-			background: rgba( $dpo-accent, 0.12 );
+			background: rgba(var(--dpo-c-primary-rgb), 0.12 );
 			pointer-events: none;
 		}
 	}

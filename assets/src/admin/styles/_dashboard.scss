@@ -101,7 +101,7 @@ $dpo-db-pro-b: #8b5cf6;
 
 	&:focus-visible {
 		outline: none;
-		box-shadow: 0 0 0 3px rgba($dpo-os-blue, 0.4);
+		box-shadow: 0 0 0 3px rgba(var(--dpo-c-primary-rgb), 0.4);
 	}
 }
 
@@ -414,8 +414,8 @@ $dpo-db-pro-b: #8b5cf6;
 	}
 
 	&.is-next:not(.is-done) {
-		border-color: rgba($dpo-os-blue, 0.5);
-		background: rgba($dpo-os-blue-soft, 0.5);
+		border-color: rgba(var(--dpo-c-primary-rgb), 0.5);
+		background: rgba(var(--dpo-c-primary-rgb), 0.5);
 
 		.dpo-db-step__marker {
 			background: $dpo-os-blue-soft;
@@ -424,7 +424,7 @@ $dpo-db-pro-b: #8b5cf6;
 	}
 
 	&.is-done {
-		border-color: rgba($dpo-an-green, 0.35);
+		border-color: rgba(var(--dpo-c-success-rgb), 0.35);
 		background: $dpo-an-green-soft;
 
 		.dpo-db-step__marker {

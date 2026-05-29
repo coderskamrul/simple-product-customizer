@@ -33,9 +33,9 @@
 	height: 44px;
 	flex: 0 0 44px;
 	border-radius: 12px;
-	background: linear-gradient(135deg, #3358f4 0%, #4f6ff7 100%);
-	color: #fff;
-	box-shadow: 0 4px 12px rgba(51, 88, 244, 0.28);
+	background: linear-gradient(135deg, var(--dpo-c-primary) 0%, var(--dpo-c-primary-hover) 100%);
+	color: var(--dpo-c-primary-ink, #fff);
+	box-shadow: 0 4px 12px rgba(var(--dpo-c-primary-rgb), 0.28);
 }
 
 .dpo-app__brand-text {

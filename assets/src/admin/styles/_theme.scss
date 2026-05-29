@@ -1,0 +1,97 @@
+/**
+ * DPO Admin — Global Theme.
+ *
+ * Single source of truth for every themed colour, shadow, radius, spacing
+ * and typography token in the admin dashboard. Tokens are exposed as CSS
+ * custom properties on `#dpo-admin-root` so they are strictly scoped to the
+ * admin SPA — the storefront / front-end is never touched.
+ *
+ * To rebrand the dashboard, change the values in this file. Every screen,
+ * button, card, modal, input, table and tab updates automatically.
+ */
+
+#dpo-admin-root {
+	/* Brand / primary --------------------------------------------------------*/
+	--dpo-c-primary:        #059669;
+	--dpo-c-primary-hover:  #047857;
+	--dpo-c-primary-soft:   #d1fae5;
+	--dpo-c-primary-ink:    #ffffff;
+	--dpo-c-primary-rgb:        5, 150, 105;
+	--dpo-c-primary-hover-rgb:  4, 120, 87;
+
+	/* Secondary / accent -----------------------------------------------------*/
+	--dpo-c-secondary:      #34d399;
+	--dpo-c-secondary-soft: #ecfdf5;
+
+	/* Semantic ---------------------------------------------------------------*/
+	--dpo-c-success:        #10b981;
+	--dpo-c-success-soft:   #dcfce7;
+	--dpo-c-success-rgb:    16, 185, 129;
+	--dpo-c-warning:        #f59e0b;
+	--dpo-c-warning-soft:   #fef3c7;
+	--dpo-c-warning-rgb:    245, 158, 11;
+	--dpo-c-danger:         #ef4444;
+	--dpo-c-danger-soft:    #fdeaea;
+	--dpo-c-danger-rgb:     239, 68, 68;
+	--dpo-c-info:           #0ea5e9;
+	--dpo-c-info-soft:      #e0f2fe;
+	--dpo-c-info-rgb:       14, 165, 233;
+
+	/* Pro / upsell -----------------------------------------------------------*/
+	--dpo-c-pro:            #8b5cf6;
+	--dpo-c-pro-soft:       #f3eefe;
+
+	/* Surfaces ---------------------------------------------------------------*/
+	--dpo-c-bg:             #f7f8fb;
+	--dpo-c-surface:        #ffffff;
+	--dpo-c-surface-2:      #f6f7f9;
+	--dpo-c-surface-3:      #eef1f6;
+	--dpo-c-row-hover:      #f8fafc;
+
+	/* Borders ----------------------------------------------------------------*/
+	--dpo-c-border:         #eceef3;
+	--dpo-c-border-strong:  #dfe3ea;
+	--dpo-c-border-soft:    #f1f3f7;
+
+	/* Ink / typography colours ----------------------------------------------*/
+	--dpo-c-ink:            #0f172a;
+	--dpo-c-ink-soft:       #334155;
+	--dpo-c-muted:          #64748b;
+	--dpo-c-faint:          #94a3b8;
+
+	/* Radius -----------------------------------------------------------------*/
+	--dpo-r-sm:   6px;
+	--dpo-r-md:   10px;
+	--dpo-r-lg:   14px;
+	--dpo-r-xl:   20px;
+	--dpo-r-full: 999px;
+
+	/* Spacing ----------------------------------------------------------------*/
+	--dpo-s-1:  4px;
+	--dpo-s-2:  8px;
+	--dpo-s-3:  12px;
+	--dpo-s-4:  16px;
+	--dpo-s-5:  20px;
+	--dpo-s-6:  24px;
+	--dpo-s-7:  32px;
+	--dpo-s-8:  40px;
+
+	/* Elevation / shadows ----------------------------------------------------*/
+	--dpo-sh-1: 0 1px 2px rgba(15, 23, 42, 0.04),
+				0 1px 3px rgba(15, 23, 42, 0.06);
+	--dpo-sh-2: 0 4px 14px rgba(15, 23, 42, 0.08);
+	--dpo-sh-3: 0 8px 30px rgba(15, 23, 42, 0.12);
+	--dpo-sh-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+	--dpo-sh-ring: 0 0 0 3px rgba(var(--dpo-c-primary-rgb), 0.20);
+
+	/* Motion -----------------------------------------------------------------*/
+	--dpo-ease:        cubic-bezier(0.16, 1, 0.3, 1);
+	--dpo-dur-fast:    120ms;
+	--dpo-dur:         180ms;
+	--dpo-dur-slow:    260ms;
+
+	/* Typography -------------------------------------------------------------*/
+	--dpo-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+				Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	--dpo-font-mono: Menlo, Consolas, "SFMono-Regular", monospace;
+}

@@ -1,0 +1,98 @@
+/**
+ * DPO Admin — Theme-aware utility classes.
+ *
+ * Lightweight composable atoms. Every value below resolves to a CSS custom
+ * property declared in `_theme.scss`, so switching the active template
+ * automatically updates every utility. Scoped to `#dpo-admin-root` so they
+ * never leak to the WP front-end.
+ */
+
+#dpo-admin-root {
+	/* — text colours ——————————————————————————————————————————————————— */
+	.dpo-u-text-ink     { color: var(--dpo-c-ink); }
+	.dpo-u-text-muted   { color: var(--dpo-c-muted); }
+	.dpo-u-text-primary { color: var(--dpo-c-primary); }
+	.dpo-u-text-success { color: var(--dpo-c-success); }
+	.dpo-u-text-danger  { color: var(--dpo-c-danger); }
+	.dpo-u-text-warning { color: var(--dpo-c-warning); }
+
+	/* — backgrounds ———————————————————————————————————————————————————— */
+	.dpo-u-bg-surface   { background: var(--dpo-c-surface); }
+	.dpo-u-bg-surface-2 { background: var(--dpo-c-surface-2); }
+	.dpo-u-bg-primary   { background: var(--dpo-c-primary); color: var(--dpo-c-primary-ink); }
+	.dpo-u-bg-soft      { background: var(--dpo-c-primary-soft); }
+
+	/* — borders ——————————————————————————————————————————————————————— */
+	.dpo-u-border       { border: 1px solid var(--dpo-c-border); }
+	.dpo-u-border-strong{ border: 1px solid var(--dpo-c-border-strong); }
+	.dpo-u-border-primary{ border: 1px solid var(--dpo-c-primary); }
+
+	/* — radii ————————————————————————————————————————————————————————— */
+	.dpo-u-r-sm   { border-radius: var(--dpo-r-sm); }
+	.dpo-u-r-md   { border-radius: var(--dpo-r-md); }
+	.dpo-u-r-lg   { border-radius: var(--dpo-r-lg); }
+	.dpo-u-r-full { border-radius: var(--dpo-r-full); }
+
+	/* — elevation ————————————————————————————————————————————————————— */
+	.dpo-u-elev-1 { box-shadow: var(--dpo-sh-1); }
+	.dpo-u-elev-2 { box-shadow: var(--dpo-sh-2); }
+	.dpo-u-elev-3 { box-shadow: var(--dpo-sh-3); }
+
+	/* — spacing (margin & padding scale) —————————————————————————————— */
+	@for $i from 0 through 8 {
+		.dpo-u-m-#{$i}  { margin: var(--dpo-s-#{$i}, 0); }
+		.dpo-u-mt-#{$i} { margin-top: var(--dpo-s-#{$i}, 0); }
+		.dpo-u-mb-#{$i} { margin-bottom: var(--dpo-s-#{$i}, 0); }
+		.dpo-u-p-#{$i}  { padding: var(--dpo-s-#{$i}, 0); }
+		.dpo-u-px-#{$i} { padding-inline: var(--dpo-s-#{$i}, 0); }
+		.dpo-u-py-#{$i} { padding-block: var(--dpo-s-#{$i}, 0); }
+	}
+
+	/* — layout —————————————————————————————————————————————————————————— */
+	.dpo-u-flex        { display: flex; }
+	.dpo-u-inline-flex { display: inline-flex; }
+	.dpo-u-grid        { display: grid; }
+	.dpo-u-items-center{ align-items: center; }
+	.dpo-u-items-start { align-items: flex-start; }
+	.dpo-u-justify-between { justify-content: space-between; }
+	.dpo-u-justify-center  { justify-content: center; }
+
+	@for $i from 1 through 6 {
+		.dpo-u-gap-#{$i} { gap: var(--dpo-s-#{$i}); }
+	}
+
+	.dpo-u-w-full { width: 100%; }
+	.dpo-u-h-full { height: 100%; }
+
+	/* — type ———————————————————————————————————————————————————————————— */
+	.dpo-u-font   { font-family: var(--dpo-font); }
+	.dpo-u-mono   { font-family: var(--dpo-font-mono); }
+	.dpo-u-weight-medium { font-weight: 500; }
+	.dpo-u-weight-bold   { font-weight: 700; }
+	.dpo-u-truncate {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	/* — interaction ————————————————————————————————————————————————————— */
+	.dpo-u-clickable {
+		cursor: pointer;
+		transition:
+			background var(--dpo-dur) var(--dpo-ease),
+			border-color var(--dpo-dur) var(--dpo-ease),
+			box-shadow var(--dpo-dur) var(--dpo-ease),
+			transform var(--dpo-dur) var(--dpo-ease);
+
+		&:hover { transform: translateY(-1px); }
+		&:active { transform: translateY(0); }
+	}
+
+	.dpo-u-focus-ring:focus-visible {
+		outline: none;
+		box-shadow: var(--dpo-sh-ring);
+	}
+
+	/* — visibility ——————————————————————————————————————————————————————— */
+	.dpo-u-hide { display: none !important; }
+}

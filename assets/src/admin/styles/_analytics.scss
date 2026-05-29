@@ -62,7 +62,7 @@ $dpo-an-violet: #a78bfa;
 		background: linear-gradient(135deg, $dpo-an-blue, #5b73f7);
 		color: #fff;
 		flex-shrink: 0;
-		box-shadow: 0 6px 16px rgba($dpo-an-blue, 0.35);
+		box-shadow: 0 6px 16px rgba(var(--dpo-c-primary-rgb), 0.35);
 
 		.dashicons {
 			font-size: 22px;
@@ -117,7 +117,7 @@ $dpo-an-violet: #a78bfa;
 		&.is-active {
 			background: $dpo-an-blue;
 			color: #fff;
-			box-shadow: 0 4px 10px rgba($dpo-an-blue, 0.3);
+			box-shadow: 0 4px 10px rgba(var(--dpo-c-primary-rgb), 0.3);
 		}
 
 		&:focus-visible {
@@ -884,7 +884,7 @@ $dpo-an-violet: #a78bfa;
 		&--green {
 			background: linear-gradient(
 				90deg,
-				rgba($dpo-an-green, 0.5),
+				rgba(var(--dpo-c-success-rgb), 0.5),
 				$dpo-an-green
 			);
 		}

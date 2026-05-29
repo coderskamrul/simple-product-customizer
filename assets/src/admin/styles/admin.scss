@@ -3,9 +3,11 @@
  * RTL-friendly via logical properties. Compiled by wp-scripts.
  */
 
+@import 'theme';
 @import 'variables';
 @import 'builder-tokens';
 @import 'base';
+@import 'utilities';
 @import 'layout';
 @import 'sidebar';
 @import 'builder';
