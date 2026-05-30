@@ -375,10 +375,18 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	padding: 20px;
-	background: $dpo-set-card-bg;
+	padding: 24px;
+	background: $dpo-os-surface;
 	border: 1px solid $dpo-set-card-bd;
 	border-radius: 14px;
+	box-shadow: var(--dpo-sh-1);
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: $dpo-set-violet;
+		box-shadow: var(--dpo-sh-2);
+		background: linear-gradient(135deg, rgba(5, 150, 105, 0.01) 0%, rgba(5, 150, 105, 0.005) 100%);
+	}
 
 	&__head {
 		display: flex;
@@ -394,15 +402,17 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 
 	&__title {
-		font-size: 15px;
+		font-size: 16px;
 		font-weight: 700;
 		color: $dpo-os-ink;
+		letter-spacing: -0.3px;
 	}
 
 	&__sub {
 		margin: 0;
 		font-size: 13px;
 		color: $dpo-os-muted;
+		line-height: 1.4;
 	}
 
 	&__body {
@@ -415,6 +425,9 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		margin: 0;
 		font-size: 13px;
 		color: $dpo-os-muted;
+		padding-block-start: 4px;
+		border-block-start: 1px solid var(--dpo-c-border-soft);
+		line-height: 1.5;
 	}
 }
 
@@ -527,34 +540,38 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	&__btn {
 		display: inline-flex;
 		align-items: center;
-		gap: 8px;
+		gap: 10px;
 		inline-size: 100%;
-		height: 44px;
-		padding: 0 14px;
-		border: 1px solid #e4e6ee;
-		border-radius: 10px;
+		height: 46px;
+		padding: 0 16px;
+		border: 1px solid var(--dpo-c-border);
+		border-radius: 11px;
 		background: $dpo-os-surface;
 		color: $dpo-os-muted;
 		font-size: 14px;
+		font-weight: 500;
 		cursor: pointer;
-		transition: border-color 0.15s, color 0.15s;
+		transition: all 0.15s ease;
+		box-shadow: var(--dpo-sh-1);
 
 		.dashicons {
-			font-size: 17px;
-			inline-size: 17px;
-			block-size: 17px;
+			font-size: 18px;
+			inline-size: 18px;
+			block-size: 18px;
 			flex-shrink: 0;
 		}
 
 		&:hover {
 			border-color: $dpo-set-violet;
-			color: $dpo-set-violet-ink;
+			color: $dpo-set-violet;
+			box-shadow: var(--dpo-sh-2);
+			background: linear-gradient(135deg, rgba(5, 150, 105, 0.01) 0%, rgba(5, 150, 105, 0) 100%);
 		}
 
 		&:focus-visible {
 			outline: none;
 			border-color: $dpo-set-violet;
-			box-shadow: $dpo-set-ring;
+			box-shadow: $dpo-set-ring, var(--dpo-sh-2);
 		}
 	}
 
@@ -610,7 +627,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 .dpo-set-fontlist {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 12px;
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -620,55 +637,75 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 10px 16px;
-	padding: 14px 18px;
-	background: $dpo-set-card-bg;
+	gap: 12px 16px;
+	padding: 20px 24px;
+	background: $dpo-os-surface;
 	border: 1px solid $dpo-set-card-bd;
-	border-radius: 12px;
+	border-radius: 14px;
+	box-shadow: var(--dpo-sh-1);
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: $dpo-set-violet;
+		box-shadow: var(--dpo-sh-2);
+		background: linear-gradient(135deg, rgba(5, 150, 105, 0.02) 0%, rgba(5, 150, 105, 0.01) 100%);
+	}
 
 	&__sample {
 		flex: 1 1 100%;
-		padding-block-start: 10px;
-		border-block-start: 1px dashed $dpo-set-card-bd;
-		font-size: 20px;
-		line-height: 1.4;
+		padding-block-start: 14px;
+		padding-block-end: 0;
+		margin-block-start: 8px;
+		border-block-start: 1px solid var(--dpo-c-border-soft);
+		font-size: 22px;
+		line-height: 1.5;
 		color: $dpo-os-ink;
+		font-weight: 500;
 	}
 
 	&__name {
-		flex: 1 1 40%;
+		flex: 1 1 auto;
 		min-width: 0;
-		font-size: 14px;
-		font-weight: 600;
+		font-size: 15px;
+		font-weight: 700;
 		color: $dpo-os-ink;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		letter-spacing: -0.3px;
 	}
 
 	&__meta {
-		flex: 1 1 40%;
+		flex: 0 1 auto;
 		min-width: 0;
 		font-size: 13px;
 		color: $dpo-os-muted;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		background: var(--dpo-c-surface-2);
+		padding: 6px 12px;
+		border-radius: 8px;
+		border: 1px solid var(--dpo-c-border-soft);
 	}
 
 	&__type {
-		padding: 3px 10px;
-		border-radius: 999px;
+		padding: 5px 12px;
+		border-radius: 6px;
 		background: var(--dpo-c-primary-soft);
-		color: $dpo-set-violet-ink;
-		font-size: 11px;
+		color: $dpo-set-violet;
+		font-size: 12px;
 		font-weight: 700;
-		letter-spacing: 0.04em;
+		letter-spacing: 0.5px;
+		text-transform: uppercase;
+		flex: 0 0 auto;
 	}
 
 	&--editing {
 		align-items: flex-end;
 		flex-wrap: wrap;
+		background: linear-gradient(135deg, rgba(5, 150, 105, 0.04) 0%, rgba(5, 150, 105, 0.02) 100%);
+		border: 2px solid $dpo-set-violet;
 	}
 }
 
@@ -676,13 +713,15 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 .dpo-set-fontedit {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 12px;
+	gap: 16px;
 	flex: 1 1 100%;
 
 	&__actions {
 		display: flex;
-		gap: 8px;
+		gap: 10px;
 		align-items: center;
+		flex: 1 1 100%;
+		margin-block-start: 8px;
 	}
 }
 
@@ -690,24 +729,25 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	inline-size: 34px;
-	block-size: 34px;
-	border: 0;
-	border-radius: 9px;
-	background: none;
-	color: $dpo-os-faint;
+	inline-size: 40px;
+	block-size: 40px;
+	border: 1px solid transparent;
+	border-radius: 10px;
+	background: var(--dpo-c-surface-2);
+	color: $dpo-os-muted;
 	cursor: pointer;
-	transition: background 0.12s, color 0.12s;
+	transition: all 0.15s ease;
 
 	.dashicons {
-		font-size: 16px;
-		inline-size: 16px;
-		block-size: 16px;
+		font-size: 18px;
+		inline-size: 18px;
+		block-size: 18px;
 	}
 
 	&:hover {
-		background: #eef0f4;
+		background: var(--dpo-c-border);
 		color: $dpo-os-ink-soft;
+		transform: translateY(-1px);
 	}
 
 	&--danger:hover {
