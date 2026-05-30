@@ -9,7 +9,7 @@
  * chart and funnel react to the range while the option table is honest
  * about being all-time.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState, useEffect, useMemo, useCallback } from '@wordpress/element';
@@ -18,7 +18,13 @@ import { errorMessage } from '../../api/client';
 import { rangeToken, ratio, trend } from './helpers';
 
 /** Metrics summed from the daily series for the KPI row. */
-const SUM_KEYS = [ 'impressions', 'clicks', 'add_to_cart', 'orders', 'revenue' ];
+const SUM_KEYS = [
+	'impressions',
+	'clicks',
+	'add_to_cart',
+	'orders',
+	'revenue',
+];
 
 /**
  * useAnalytics.

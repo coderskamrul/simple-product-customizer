@@ -3,7 +3,7 @@
  * a few derived helpers (price formatting, Pro gate). Provided once at the
  * app root so screens never touch the global directly.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { createContext, useContext, useMemo } from '@wordpress/element';

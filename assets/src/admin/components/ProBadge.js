@@ -2,7 +2,7 @@
  * "Pro" pill + optional upsell hint. Used to gate Pro-only field types,
  * price modes, and free-tier caps when `!proActive`.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -10,9 +10,9 @@ import { __ } from '@wordpress/i18n';
 /**
  * ProBadge.
  *
- * @param {Object}  props        Component props.
- * @param {string}  [props.text] Override label (default "Pro").
- * @param {string}  [props.hint] Tooltip / title text explaining the gate.
+ * @param {Object} props        Component props.
+ * @param {string} [props.text] Override label (default "Pro").
+ * @param {string} [props.hint] Tooltip / title text explaining the gate.
  * @return {JSX.Element} The badge.
  */
 export default function ProBadge( {

@@ -4,7 +4,7 @@
  * Completed steps are inert; the rest are keyboard-activatable rows that
  * deep-link to the screen where the work happens.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf } from '@wordpress/i18n';

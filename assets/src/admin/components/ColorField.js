@@ -2,7 +2,7 @@
  * Color input pairing a native color picker with a hex text field so the
  * value stays editable/clearable.
  *
- * @package DPO\Admin
+ * @package
  */
 
 /**

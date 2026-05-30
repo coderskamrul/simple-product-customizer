@@ -12,7 +12,7 @@
  * the submit when invalid. Never throws — a runtime error must not wedge the
  * native add-to-cart flow.
  *
- * @package DPO\Store
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -83,9 +83,7 @@ function isFilled( entry ) {
 		return v.length > 0;
 	}
 	if ( typeof v === 'object' ) {
-		return Object.keys( v ).some(
-			( k ) => String( v[ k ] ).trim() !== ''
-		);
+		return Object.keys( v ).some( ( k ) => String( v[ k ] ).trim() !== '' );
 	}
 	return String( v ).trim() !== '';
 }
@@ -150,9 +148,7 @@ function validateField( fieldEl, entry ) {
 	// Char limits for text-ish controls.
 	if ( entry && typeof entry.value === 'string' ) {
 		const ctrl = fieldEl.querySelector(
-			'[name="dpo_input_' +
-				fieldEl.getAttribute( 'data-field-id' ) +
-				'"]'
+			'[name="dpo_input_' + fieldEl.getAttribute( 'data-field-id' ) + '"]'
 		);
 		if ( ctrl ) {
 			const minLen = parseInt(
@@ -168,12 +164,7 @@ function validateField( fieldEl, entry ) {
 				10
 			);
 			const len = entry.value.length;
-			if (
-				! isNaN( minLen ) &&
-				minLen > 0 &&
-				len > 0 &&
-				len < minLen
-			) {
+			if ( ! isNaN( minLen ) && minLen > 0 && len > 0 && len < minLen ) {
 				return __( 'Entry is too short.', TD );
 			}
 			if ( ! isNaN( maxLen ) && maxLen > 0 && len > maxLen ) {
@@ -212,9 +203,9 @@ function validateField( fieldEl, entry ) {
  * Validate every visible field for a form.
  *
  * @param {HTMLElement} root          `.dpo-options` wrapper.
- * @param {object}      selections    fieldId → selection entry.
- * @param {object}      fieldElements fieldId → wrapper element.
- * @param {object}      visibility    fieldId → boolean (true = visible).
+ * @param {Object}      selections    fieldId → selection entry.
+ * @param {Object}      fieldElements fieldId → wrapper element.
+ * @param {Object}      visibility    fieldId → boolean (true = visible).
  * @return {{ ok:boolean, required:string[], minmax:string[] }} Result.
  */
 export function validateAll( root, selections, fieldElements, visibility ) {
@@ -228,21 +219,16 @@ export function validateAll( root, selections, fieldElements, visibility ) {
 			setError( fieldEl, '' );
 			return;
 		}
-		const msg = (function () {
+		const msg = ( function () {
 			try {
-				return validateField(
-					fieldEl,
-					selections[ fieldId ] || null
-				);
+				return validateField( fieldEl, selections[ fieldId ] || null );
 			} catch ( e ) {
 				return '';
 			}
-		})();
+		} )();
 		if ( msg ) {
 			setError( fieldEl, msg );
-			if (
-				msg === __( 'This field is required.', TD )
-			) {
+			if ( msg === __( 'This field is required.', TD ) ) {
 				required.push( fieldId );
 			} else {
 				minmax.push( fieldId );
@@ -259,10 +245,7 @@ export function validateAll( root, selections, fieldElements, visibility ) {
 	if ( ! ok ) {
 		toast(
 			root,
-			__(
-				'Please complete the required product options.',
-				TD
-			)
+			__( 'Please complete the required product options.', TD )
 		);
 		if ( firstInvalid && firstInvalid.scrollIntoView ) {
 			try {

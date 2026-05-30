@@ -12,7 +12,7 @@
  *   - [{name,path}]         fileupload (decoded from the hidden JSON input)
  *   - "#hex"                colorpicker
  *
- * @package DPO\Store
+ * @package
  */
 
 import { findCountry } from '../shared/phone';
@@ -49,7 +49,7 @@ const CHOICE_TYPES = [
  * Read the field-level metadata from the wrapper element.
  *
  * @param {HTMLElement} fieldEl `.dpo-field` wrapper.
- * @return {object} { id, type, setId, label }.
+ * @return {Object} { id, type, setId, label }.
  */
 export function fieldMeta( fieldEl ) {
 	const id = fieldEl.getAttribute( 'data-field-id' ) || '';
@@ -86,8 +86,8 @@ function choiceQty( fieldEl, fieldId, index ) {
  * Build the selection entry for a choice-group field.
  *
  * @param {HTMLElement} fieldEl Field wrapper.
- * @param {object}      meta    Field meta.
- * @return {object} Selection entry.
+ * @param {Object}      meta    Field meta.
+ * @return {Object} Selection entry.
  */
 function collectChoice( fieldEl, meta ) {
 	const inputs = fieldEl.querySelectorAll(
@@ -128,8 +128,8 @@ function collectChoice( fieldEl, meta ) {
  * Build the selection entry for a toggle field.
  *
  * @param {HTMLElement} fieldEl Field wrapper.
- * @param {object}      meta    Field meta.
- * @return {object} Selection entry.
+ * @param {Object}      meta    Field meta.
+ * @return {Object} Selection entry.
  */
 function collectToggle( fieldEl, meta ) {
 	const input = fieldEl.querySelector( '.dpo-toggle__input' );
@@ -167,8 +167,8 @@ function collectToggle( fieldEl, meta ) {
  * Build the selection entry for select / fontpicker (hidden value input).
  *
  * @param {HTMLElement} fieldEl Field wrapper.
- * @param {object}      meta    Field meta.
- * @return {object} Selection entry.
+ * @param {Object}      meta    Field meta.
+ * @return {Object} Selection entry.
  */
 function collectSelect( fieldEl, meta ) {
 	const hidden = fieldEl.querySelector( '.dpo-select__value' );
@@ -199,12 +199,14 @@ function collectSelect( fieldEl, meta ) {
  * Build the selection entry for a single scalar input field.
  *
  * @param {HTMLElement} fieldEl Field wrapper.
- * @param {object}      meta    Field meta.
- * @return {object} Selection entry.
+ * @param {Object}      meta    Field meta.
+ * @return {Object} Selection entry.
  */
 function collectScalar( fieldEl, meta ) {
 	const input = fieldEl.querySelector(
-		'input[name="dpo_input_' + meta.id + '"], textarea[name="dpo_input_' +
+		'input[name="dpo_input_' +
+			meta.id +
+			'"], textarea[name="dpo_input_' +
 			meta.id +
 			'"]'
 	);
@@ -225,8 +227,8 @@ function collectScalar( fieldEl, meta ) {
  * ("+880 1712…"). Other flag styles store the typed number as-is.
  *
  * @param {HTMLElement} fieldEl Field wrapper.
- * @param {object}      meta    Field meta.
- * @return {object} Selection entry.
+ * @param {Object}      meta    Field meta.
+ * @return {Object} Selection entry.
  */
 function collectPhone( fieldEl, meta ) {
 	const input = fieldEl.querySelector(
@@ -258,8 +260,8 @@ function collectPhone( fieldEl, meta ) {
  * Build the selection entry for the color picker (returns "#hex").
  *
  * @param {HTMLElement} fieldEl Field wrapper.
- * @param {object}      meta    Field meta.
- * @return {object} Selection entry.
+ * @param {Object}      meta    Field meta.
+ * @return {Object} Selection entry.
  */
 function collectColor( fieldEl, meta ) {
 	const input = fieldEl.querySelector( '.dpo-colorpicker__input' );
@@ -277,8 +279,8 @@ function collectColor( fieldEl, meta ) {
  * Build the selection entry for datetime ({ date, time }).
  *
  * @param {HTMLElement} fieldEl Field wrapper.
- * @param {object}      meta    Field meta.
- * @return {object} Selection entry.
+ * @param {Object}      meta    Field meta.
+ * @return {Object} Selection entry.
  */
 function collectDatetime( fieldEl, meta ) {
 	const dateEl = fieldEl.querySelector(
@@ -304,8 +306,8 @@ function collectDatetime( fieldEl, meta ) {
  * Build the selection entry for fileupload ([{ name, path }]).
  *
  * @param {HTMLElement} fieldEl Field wrapper.
- * @param {object}      meta    Field meta.
- * @return {object} Selection entry.
+ * @param {Object}      meta    Field meta.
+ * @return {Object} Selection entry.
  */
 function collectUpload( fieldEl, meta ) {
 	const hidden = fieldEl.querySelector( '.dpo-upload__data' );
@@ -337,9 +339,7 @@ function collectUpload( fieldEl, meta ) {
  * @return {Array<object>} [{ id, count, variation }].
  */
 export function collectLinkedProducts( fieldEl ) {
-	const selected = fieldEl.querySelectorAll(
-		'.dpo-linked__native:checked'
-	);
+	const selected = fieldEl.querySelectorAll( '.dpo-linked__native:checked' );
 	const list = [];
 	selected.forEach( ( input ) => {
 		const pid = parseInt(
@@ -359,7 +359,9 @@ export function collectLinkedProducts( fieldEl ) {
 		}
 		// Per-card quantity stepper, when the field enables quantity.
 		const qtyEl = card && card.querySelector( '.dpo-linked__qty' );
-		const count = qtyEl ? Math.max( 1, parseInt( qtyEl.value, 10 ) || 1 ) : 1;
+		const count = qtyEl
+			? Math.max( 1, parseInt( qtyEl.value, 10 ) || 1 )
+			: 1;
 
 		// Effective unit price for the on-page total. A merged variable card
 		// reads the price of its selected variation <option>; otherwise the

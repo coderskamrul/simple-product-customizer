@@ -11,7 +11,7 @@
  * The upload REST route returns `{ ok:true, file:{ url, name } }`; we map
  * `path = file.url` for the §9 [{name,path}] contract.
  *
- * @package DPO\Store
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -21,7 +21,7 @@ const TD = 'dynamic-product-options-for-woocommerce';
 /**
  * Read the localised store config defensively.
  *
- * @return {object} dpoStore global or {}.
+ * @return {Object} dpoStore global or {}.
  */
 function store() {
 	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
@@ -117,7 +117,10 @@ export function initUpload( fieldEl, onChange ) {
 		return ( n / ( 1024 * 1024 ) ).toFixed( 2 ) + ' MB';
 	};
 
-	/** Whether a path/name points at a previewable image. */
+	/**
+	 * Whether a path/name points at a previewable image.
+	 * @param path
+	 */
 	const isImage = ( path ) =>
 		/\.(png|jpe?g|gif|webp|svg|bmp)$/i.test( String( path || '' ) );
 

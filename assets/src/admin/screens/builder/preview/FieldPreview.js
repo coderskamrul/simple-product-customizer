@@ -183,15 +183,18 @@ function FontPickerPreview( { choices, formatPrice } ) {
 /**
  * Format a variation/product price pair, striking the regular when on sale.
  *
- * @param {Object}   meta        Row carrying regular/sale.
- * @param {Function} formatPrice Currency formatter.
+ * @param            meta.meta
+ * @param {Object}   meta             Row carrying regular/sale.
+ * @param {Function} formatPrice      Currency formatter.
+ * @param            meta.formatPrice
  * @return {JSX.Element|null} The price tag.
  */
 function ProductPrice( { meta, formatPrice } ) {
 	const reg = Number( meta.regular );
 	const sale = Number( meta.sale );
 	const hasReg = meta.regular !== '' && ! Number.isNaN( reg );
-	const hasSale = meta.sale !== '' && meta.sale !== null && ! Number.isNaN( sale );
+	const hasSale =
+		meta.sale !== '' && meta.sale !== null && ! Number.isNaN( sale );
 	if ( ! hasReg && ! hasSale ) {
 		return null;
 	}
@@ -296,9 +299,7 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 		: undefined;
 
 	return (
-		<div
-			className={ `dpo-pf__linked${ isMockup ? ' is-mockup' : '' }` }
-		>
+		<div className={ `dpo-pf__linked${ isMockup ? ' is-mockup' : '' }` }>
 			{ rows.map( ( card ) => (
 				<span
 					key={ card.key }
@@ -310,16 +311,10 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 						checked={ !! card.selected }
 						readOnly
 					/>
-					<span
-						className="dpo-pf__linked-check"
-						aria-hidden="true"
-					>
+					<span className="dpo-pf__linked-check" aria-hidden="true">
 						<Check size={ 13 } />
 					</span>
-					<span
-						className="dpo-pf__linked-thumb"
-						style={ thumbStyle }
-					>
+					<span className="dpo-pf__linked-thumb" style={ thumbStyle }>
 						{ card.img ? (
 							<img src={ card.img } alt="" />
 						) : (
@@ -494,9 +489,9 @@ function SectionPreview( { node } ) {
 
 	return (
 		<div
-			className={ `dpo-pf__section${ isAccordion ? ' is-accordion' : '' }${
-				isAccordion && ! open ? ' is-collapsed' : ''
-			}` }
+			className={ `dpo-pf__section${
+				isAccordion ? ' is-accordion' : ''
+			}${ isAccordion && ! open ? ' is-collapsed' : '' }` }
 		>
 			{ isAccordion ? (
 				<button
@@ -678,9 +673,7 @@ export default function FieldPreview( { node } ) {
 		return (
 			<hr
 				className="dpo-pf__divider"
-				style={
-					h > 0 ? { borderTopWidth: `${ h }px` } : undefined
-				}
+				style={ h > 0 ? { borderTopWidth: `${ h }px` } : undefined }
 			/>
 		);
 	}
@@ -1060,13 +1053,9 @@ export default function FieldPreview( { node } ) {
 				<input
 					className="dpo-pf__input"
 					type={
-						[
-							'email',
-							'url',
-							'number',
-							'date',
-							'time',
-						].includes( node.type )
+						[ 'email', 'url', 'number', 'date', 'time' ].includes(
+							node.type
+						)
 							? node.type
 							: 'text'
 					}

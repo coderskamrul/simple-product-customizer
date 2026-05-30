@@ -9,7 +9,7 @@
  * Also publishes `window.dpoEvaluateFormula(expr, vars, mode)` for theme /
  * integration use, mirroring the two PHP formula engines.
  *
- * @package DPO\Store
+ * @package
  */
 
 import '../scss/store.scss';

@@ -3,7 +3,7 @@
  * the loaded page (the list API does not expose global aggregates), so the
  * component stays honest about what it can show.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -11,8 +11,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * OptionSetStats.
  *
- * @param {Object} props        Component props.
- * @param {Object} props.stats  { total, active, inactive, fields }.
+ * @param {Object} props       Component props.
+ * @param {Object} props.stats { total, active, inactive, fields }.
  * @return {JSX.Element} The stat cluster.
  */
 export default function OptionSetStats( { stats } ) {
@@ -32,10 +32,7 @@ export default function OptionSetStats( { stats } ) {
 		{
 			key: 'inactive',
 			tone: 'muted',
-			label: __(
-				'Inactive',
-				'dynamic-product-options-for-woocommerce'
-			),
+			label: __( 'Inactive', 'dynamic-product-options-for-woocommerce' ),
 			value: stats.inactive,
 		},
 		{
@@ -47,10 +44,13 @@ export default function OptionSetStats( { stats } ) {
 	];
 
 	return (
-		<dl className="dpo-os-stats" aria-label={ __(
-			'Option set summary',
-			'dynamic-product-options-for-woocommerce'
-		) }>
+		<dl
+			className="dpo-os-stats"
+			aria-label={ __(
+				'Option set summary',
+				'dynamic-product-options-for-woocommerce'
+			) }
+		>
 			{ items.map( ( s ) => (
 				<div
 					key={ s.key }
@@ -62,10 +62,7 @@ export default function OptionSetStats( { stats } ) {
 							aria-hidden="true"
 						/>
 					) : (
-						<span
-							className="dpo-os-stat__dot"
-							aria-hidden="true"
-						/>
+						<span className="dpo-os-stat__dot" aria-hidden="true" />
 					) }
 					<dt className="dpo-os-stat__label">{ s.label }:</dt>
 					<dd className="dpo-os-stat__value">{ s.value }</dd>

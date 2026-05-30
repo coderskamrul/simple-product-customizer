@@ -12,12 +12,7 @@
 
 import { create } from 'zustand';
 import * as api from '../../../api/endpoints';
-import {
-	DEFAULTS,
-	PALETTES,
-	normalize,
-	compileCss,
-} from './globalStyleModel';
+import { DEFAULTS, PALETTES, normalize, compileCss } from './globalStyleModel';
 
 export const useGlobalStyle = create( ( set, get ) => ( {
 	open: false,

@@ -4,7 +4,7 @@
  * Implemented as a single-select radio group: roving focus, Arrow/Home/End
  * keyboard support and an aria-checked state per option.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useRef } from '@wordpress/element';

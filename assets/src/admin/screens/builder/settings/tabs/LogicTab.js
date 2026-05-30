@@ -167,10 +167,7 @@ function ValueControl( { source, operator, value, onChange } ) {
 							'e.g. 10,20',
 							'dynamic-product-options-for-woocommerce'
 					  )
-					: __(
-							'Value',
-							'dynamic-product-options-for-woocommerce'
-					  )
+					: __( 'Value', 'dynamic-product-options-for-woocommerce' )
 			}
 			onChange={ onChange }
 		/>
@@ -192,8 +189,7 @@ export default function LogicTab( { node, patch } ) {
 
 	// Candidate source fields: every other value-carrying field in the set.
 	const nodes = flattenNodes( tree ).filter(
-		( f ) =>
-			f.id !== node.id && NON_VALUE_TYPES.indexOf( f.type ) === -1
+		( f ) => f.id !== node.id && NON_VALUE_TYPES.indexOf( f.type ) === -1
 	);
 	const byId = {};
 	nodes.forEach( ( f ) => ( byId[ f.id ] = f ) );

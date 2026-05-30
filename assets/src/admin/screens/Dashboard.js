@@ -4,7 +4,7 @@
  * shared TopBar (logo + version + tabs + context CTA), so here we just
  * render the page title row and the data widgets.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf } from '@wordpress/i18n';
@@ -52,14 +52,16 @@ export default function Dashboard() {
 	const title = name
 		? sprintf(
 				/* translators: %s: display name */
-				__( 'Welcome back, %s', 'dynamic-product-options-for-woocommerce' ),
+				__(
+					'Welcome back, %s',
+					'dynamic-product-options-for-woocommerce'
+				),
 				name
 		  )
 		: __( 'Welcome back', 'dynamic-product-options-for-woocommerce' );
 
 	return (
-		<PageFrame
-		>
+		<PageFrame>
 			{ failed ? (
 				<div className="dpo-db-card dpo-db-state">
 					<p className="dpo-error">{ error }</p>

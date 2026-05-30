@@ -135,7 +135,12 @@ function RestrictionBlock( { cfg, setKey } ) {
 	);
 }
 
-/** Single "Allow multiple" toggle. */
+/**
+ * Single "Allow multiple" toggle.
+ * @param root0
+ * @param root0.cfg
+ * @param root0.setKey
+ */
 function MultipleToggle( { cfg, setKey } ) {
 	return (
 		<div className="dpo-settings__toggle-row">

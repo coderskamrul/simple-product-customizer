@@ -1,7 +1,7 @@
 /**
  * Empty / zero-data placeholder with an optional call-to-action.
  *
- * @package DPO\Admin
+ * @package
  */
 
 /**
@@ -28,9 +28,7 @@ export default function EmptyState( {
 			/>
 			<h3 className="dpo-empty__title">{ title }</h3>
 			{ text && <p className="dpo-empty__text">{ text }</p> }
-			{ action && (
-				<div className="dpo-empty__action">{ action }</div>
-			) }
+			{ action && <div className="dpo-empty__action">{ action }</div> }
 		</div>
 	);
 }

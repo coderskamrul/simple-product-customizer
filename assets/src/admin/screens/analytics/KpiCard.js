@@ -2,7 +2,7 @@
  * A single KPI stat card: tinted surface, icon tile, big figure, a signed
  * period delta and a thin meter encoding the relevant conversion rate.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { formatDelta } from './helpers';
@@ -10,13 +10,13 @@ import { formatDelta } from './helpers';
 /**
  * KpiCard.
  *
- * @param {Object}      props          Component props.
- * @param {string}      props.tone     blue|purple|pink|green.
- * @param {string}      props.icon     Dashicon slug.
- * @param {string}      props.label    Metric name.
- * @param {string}      props.value    Formatted figure.
- * @param {number|null} props.delta    Signed % change (null → hidden).
- * @param {number}      props.meter    Meter fill 0–100 (conversion rate).
+ * @param {Object}      props            Component props.
+ * @param {string}      props.tone       blue|purple|pink|green.
+ * @param {string}      props.icon       Dashicon slug.
+ * @param {string}      props.label      Metric name.
+ * @param {string}      props.value      Formatted figure.
+ * @param {number|null} props.delta      Signed % change (null → hidden).
+ * @param {number}      props.meter      Meter fill 0–100 (conversion rate).
  * @param {string}      props.meterLabel Accessible meter description.
  * @return {JSX.Element} The card.
  */

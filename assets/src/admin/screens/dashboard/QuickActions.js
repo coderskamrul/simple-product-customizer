@@ -2,7 +2,7 @@
  * Quick actions — a compact, keyboard-navigable launcher list that deep
  * links to the most-used admin screens.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';

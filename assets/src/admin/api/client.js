@@ -7,7 +7,7 @@
  * envelope and a serialized WP_Error for failures; api-fetch rejects the
  * promise on a non-2xx, so callers only need to `catch ( e ) { e.message }`.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import apiFetch from '@wordpress/api-fetch';
@@ -86,7 +86,10 @@ function authHeaders() {
  */
 export function errorMessage( error ) {
 	if ( ! error ) {
-		return __( 'Unknown error.', 'dynamic-product-options-for-woocommerce' );
+		return __(
+			'Unknown error.',
+			'dynamic-product-options-for-woocommerce'
+		);
 	}
 	if ( typeof error === 'string' ) {
 		return error;
@@ -116,7 +119,9 @@ export function qs( params = {} ) {
 		if ( Array.isArray( value ) ) {
 			value.forEach( ( v ) =>
 				parts.push(
-					`${ encodeURIComponent( key ) }[]=${ encodeURIComponent( v ) }`
+					`${ encodeURIComponent( key ) }[]=${ encodeURIComponent(
+						v
+					) }`
 				)
 			);
 			return;

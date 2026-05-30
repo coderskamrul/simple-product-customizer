@@ -3,17 +3,12 @@
  * SettingsHeader (sticky branded header) is superseded: the title row lives
  * in PageFrame and the Save action sits in the page actions slot.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import {
-	PageFrame,
-	SkeletonNav,
-	SkeletonForm,
-	FadeIn,
-} from '../components';
+import { PageFrame, SkeletonNav, SkeletonForm, FadeIn } from '../components';
 import { SECTIONS } from './settings/config';
 import useSettings from './settings/useSettings';
 import SettingsNav from './settings/SettingsNav';
@@ -63,10 +58,7 @@ export default function Settings() {
 				onClick={ save }
 			>
 				{ saving
-					? __(
-							'Saving…',
-							'dynamic-product-options-for-woocommerce'
-					  )
+					? __( 'Saving…', 'dynamic-product-options-for-woocommerce' )
 					: __(
 							'Save Settings',
 							'dynamic-product-options-for-woocommerce'
@@ -91,10 +83,7 @@ export default function Settings() {
 				{ status === 'loading' ? (
 					<SkeletonNav items={ 5 } />
 				) : (
-					<SettingsNav
-						active={ activeId }
-						onSelect={ setActiveId }
-					/>
+					<SettingsNav active={ activeId } onSelect={ setActiveId } />
 				) }
 
 				{ status === 'loading' ? (
@@ -113,10 +102,7 @@ export default function Settings() {
 								{ section.id === 'fonts' ? (
 									<Body />
 								) : (
-									<Body
-										values={ values }
-										set={ set }
-									/>
+									<Body values={ values } set={ set } />
 								) }
 							</FadeIn>
 						) }

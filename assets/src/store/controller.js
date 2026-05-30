@@ -9,7 +9,7 @@
  *
  * Defensive throughout: a thrown error must never break add-to-cart.
  *
- * @package DPO\Store
+ * @package
  */
 
 import State from './state';
@@ -98,9 +98,7 @@ export default class Controller {
 	 * @return {void}
 	 */
 	discoverFields() {
-		const els = this.root.querySelectorAll(
-			'.dpo-field[data-field-id]'
-		);
+		const els = this.root.querySelectorAll( '.dpo-field[data-field-id]' );
 		els.forEach( ( el ) => {
 			const id = el.getAttribute( 'data-field-id' );
 			if ( ! id ) {
@@ -220,10 +218,7 @@ export default class Controller {
 			} );
 
 			// 3. Price each visible field.
-			const formulaVars = collectFormulaVars(
-				selections,
-				this.fields
-			);
+			const formulaVars = collectFormulaVars( selections, this.fields );
 			const dynamics = this.shippingDynamics();
 			let optionsTotal = 0;
 
@@ -237,10 +232,7 @@ export default class Controller {
 				}
 
 				let price = 0;
-				if (
-					type === 'formula' ||
-					type === 'advancedformula'
-				) {
+				if ( type === 'formula' || type === 'advancedformula' ) {
 					price = priceFormula(
 						el,
 						type,
@@ -269,9 +261,9 @@ export default class Controller {
 						'linkedproducts' &&
 					visibility[ id ] !== false
 				) {
-					collectLinkedProducts(
-						this.fields[ id ]
-					).forEach( ( p ) => linked.push( p ) );
+					collectLinkedProducts( this.fields[ id ] ).forEach( ( p ) =>
+						linked.push( p )
+					);
 				}
 			} );
 			this.state.setLinkedProducts( linked );
@@ -298,7 +290,7 @@ export default class Controller {
 	 * Build the advancedformula shipping/dynamics variable bag from the
 	 * `dpo_shipping_dynamics` hidden input + current product price.
 	 *
-	 * @return {object} Dynamic variable map.
+	 * @return {Object} Dynamic variable map.
 	 */
 	shippingDynamics() {
 		const out = {
@@ -307,9 +299,7 @@ export default class Controller {
 		};
 		try {
 			const el = this.form
-				? this.form.querySelector(
-						'[name="dpo_shipping_dynamics"]'
-				  )
+				? this.form.querySelector( '[name="dpo_shipping_dynamics"]' )
 				: null;
 			if ( el && el.value ) {
 				const s = JSON.parse( el.value );
@@ -321,9 +311,7 @@ export default class Controller {
 				}
 			}
 			const qty = this.form
-				? this.form.querySelector(
-						'input.qty, [name="quantity"]'
-				  )
+				? this.form.querySelector( 'input.qty, [name="quantity"]' )
 				: null;
 			if ( qty ) {
 				out.product_quantity = Math.max(
@@ -340,9 +328,9 @@ export default class Controller {
 	/**
 	 * Write the §8 hidden inputs (raw selection, linked products).
 	 *
-	 * @param {object} selections fieldId → entry.
+	 * @param {Object} selections fieldId → entry.
 	 * @param {Array}  linked     Linked-product list.
-	 * @param {object} visibility fieldId → boolean.
+	 * @param {Object} visibility fieldId → boolean.
 	 * @return {void}
 	 */
 	writeHiddenInputs( selections, linked, visibility ) {
@@ -359,9 +347,7 @@ export default class Controller {
 		} );
 
 		const set = ( name, value ) => {
-			const el = this.form.querySelector(
-				'[name="' + name + '"]'
-			);
+			const el = this.form.querySelector( '[name="' + name + '"]' );
 			if ( el ) {
 				el.value = value;
 			}

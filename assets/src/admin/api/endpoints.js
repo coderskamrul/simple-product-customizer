@@ -6,7 +6,7 @@
  * screens never hand-build paths or remember which body keys the server
  * expects.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { get, write, upload } from './client';

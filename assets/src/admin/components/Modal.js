@@ -1,7 +1,7 @@
 /**
  * Accessible modal dialog (focus trap-lite + Escape + backdrop close).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useEffect, useRef } from '@wordpress/element';

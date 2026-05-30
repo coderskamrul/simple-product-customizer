@@ -3,7 +3,7 @@
  * products / category / tag / brand / none), with async pickers, an
  * exclude list, and a resolved product-link preview.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState, useEffect } from '@wordpress/element';
@@ -23,12 +23,39 @@ import {
 
 /** Scope radio definitions. */
 const SCOPES = [
-	{ value: 'all', label: __( 'All products', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'products', label: __( 'Specific products', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'category', label: __( 'Product category', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'tag', label: __( 'Product tag', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'brand', label: __( 'Product brand', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'none', label: __( 'None (disabled)', 'dynamic-product-options-for-woocommerce' ) },
+	{
+		value: 'all',
+		label: __( 'All products', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'products',
+		label: __(
+			'Specific products',
+			'dynamic-product-options-for-woocommerce'
+		),
+	},
+	{
+		value: 'category',
+		label: __(
+			'Product category',
+			'dynamic-product-options-for-woocommerce'
+		),
+	},
+	{
+		value: 'tag',
+		label: __( 'Product tag', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'brand',
+		label: __( 'Product brand', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'none',
+		label: __(
+			'None (disabled)',
+			'dynamic-product-options-for-woocommerce'
+		),
+	},
 ];
 
 const FREE_PRODUCT_CAP = 2;
@@ -237,9 +264,7 @@ export default function Assignment( { setId } ) {
 								<label
 									key={ s.value }
 									className={ `dpo-radio-card${
-										scope === s.value
-											? ' is-active'
-											: ''
+										scope === s.value ? ' is-active' : ''
 									}` }
 								>
 									<input
@@ -247,9 +272,7 @@ export default function Assignment( { setId } ) {
 										name="dpo-scope"
 										value={ s.value }
 										checked={ scope === s.value }
-										onChange={ () =>
-											setScope( s.value )
-										}
+										onChange={ () => setScope( s.value ) }
 									/>
 									<span>{ s.label }</span>
 								</label>
@@ -273,16 +296,9 @@ export default function Assignment( { setId } ) {
 								<AsyncSelect
 									value={ include }
 									onChange={ setInclude }
-									max={
-										proActive
-											? 0
-											: FREE_PRODUCT_CAP
-									}
+									max={ proActive ? 0 : FREE_PRODUCT_CAP }
 									fetcher={ async ( t ) => {
-										const r =
-											await api.searchProducts(
-												t
-											);
+										const r = await api.searchProducts( t );
 										return r.items;
 									} }
 								/>
@@ -304,9 +320,9 @@ export default function Assignment( { setId } ) {
 
 					{ termKind && (
 						<Panel
-							title={ SCOPES.find(
-								( s ) => s.value === scope
-							).label }
+							title={
+								SCOPES.find( ( s ) => s.value === scope ).label
+							}
 						>
 							<Field
 								label={ __(
@@ -318,11 +334,10 @@ export default function Assignment( { setId } ) {
 									value={ include }
 									onChange={ setInclude }
 									fetcher={ async ( t ) => {
-										const r =
-											await api.searchTerms(
-												termKind,
-												t
-											);
+										const r = await api.searchTerms(
+											termKind,
+											t
+										);
 										return r.items;
 									} }
 								/>
@@ -351,10 +366,7 @@ export default function Assignment( { setId } ) {
 									value={ exclude }
 									onChange={ setExclude }
 									fetcher={ async ( t ) => {
-										const r =
-											await api.searchProducts(
-												t
-											);
+										const r = await api.searchProducts( t );
 										return r.items;
 									} }
 								/>

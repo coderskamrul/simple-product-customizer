@@ -154,6 +154,10 @@ final class StoreAssets {
 		return array(
 			'url'         => admin_url( 'admin-ajax.php' ),
 			'restUrl'     => esc_url_raw( rest_url( 'dpo/v1/' ) ),
+			// X-WP-Nonce header — must be `wp_rest` so WP core's REST
+			// cookie auth (rest_cookie_check_errors) passes for logged-in
+			// visitors. Our routes additionally verify a body `dpo_nonce`
+			// against the `dpo_rest` action below.
 			'nonce'       => wp_create_nonce( 'wp_rest' ),
 			'uploadNonce' => wp_create_nonce( 'dpo_rest' ),
 			'currency'    => $currency,

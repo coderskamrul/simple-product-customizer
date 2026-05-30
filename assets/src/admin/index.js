@@ -5,7 +5,7 @@
  * React tree into #dpo-admin-root via createRoot. SCSS is imported here so
  * wp-scripts compiles it into admin.css alongside the bundle.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import './styles/admin.scss';

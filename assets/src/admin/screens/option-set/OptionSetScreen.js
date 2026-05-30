@@ -6,7 +6,7 @@
  * Consumes SetsContext; presentational concerns live in sibling
  * components (Stats / Toolbar / Table / Row) for a clean, scalable tree.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import {
@@ -144,18 +144,14 @@ export default function OptionSet() {
 	const onSelect = useCallback(
 		( id ) =>
 			setSelected( ( s ) =>
-				s.includes( id )
-					? s.filter( ( x ) => x !== id )
-					: [ ...s, id ]
+				s.includes( id ) ? s.filter( ( x ) => x !== id ) : [ ...s, id ]
 			),
 		[]
 	);
 
 	const onSelectAll = useCallback( () => {
 		setSelected( ( s ) =>
-			s.length === visible.length
-				? []
-				: visible.map( ( r ) => r.id )
+			s.length === visible.length ? [] : visible.map( ( r ) => r.id )
 		);
 	}, [ visible ] );
 
@@ -170,9 +166,9 @@ export default function OptionSet() {
 	/**
 	 * Run an optimistic single-row mutation with a busy lock.
 	 *
-	 * @param {number}   id      Row id.
-	 * @param {Function} fn      Async mutation.
-	 * @param {string}   okMsg   Success toast.
+	 * @param {number}   id    Row id.
+	 * @param {Function} fn    Async mutation.
+	 * @param {string}   okMsg Success toast.
 	 * @return {Promise<void>} Resolves when settled.
 	 */
 	const mutate = async ( id, fn, okMsg ) => {
@@ -208,9 +204,7 @@ export default function OptionSet() {
 	 * @return {Promise<void>} Resolves after the download starts.
 	 */
 	const onExport = async () => {
-		const ids = selected.length
-			? selected
-			: visible.map( ( r ) => r.id );
+		const ids = selected.length ? selected : visible.map( ( r ) => r.id );
 		if ( ! ids.length ) {
 			return;
 		}
@@ -317,152 +311,154 @@ export default function OptionSet() {
 
 	return (
 		<>
-		<PageFrame
-			// title={ __(
-			// 	'Product Options',
-			// 	'dynamic-product-options-for-woocommerce'
-			// ) }
-			// subtitle={ __(
-			// 	'Manage your product customization options.',
-			// 	'dynamic-product-options-for-woocommerce'
-			// ) }
-			toolbar={
-				<OptionSetToolbar
-					term={ term }
-					onSearch={ onSearch }
-					filter={ filter }
-					onFilter={ setFilter }
-					onExport={ onExport }
-					onImport={ () =>
-						fileRef.current && fileRef.current.click()
-					}
+			<PageFrame
+				// title={ __(
+				// 	'Product Options',
+				// 	'dynamic-product-options-for-woocommerce'
+				// ) }
+				// subtitle={ __(
+				// 	'Manage your product customization options.',
+				// 	'dynamic-product-options-for-woocommerce'
+				// ) }
+				toolbar={
+					<OptionSetToolbar
+						term={ term }
+						onSearch={ onSearch }
+						filter={ filter }
+						onFilter={ setFilter }
+						onExport={ onExport }
+						onImport={ () =>
+							fileRef.current && fileRef.current.click()
+						}
+					/>
+				}
+			>
+				<OptionSetStats stats={ stats } />
+
+				<input
+					type="file"
+					accept="application/json,.json"
+					ref={ fileRef }
+					className="dpo-visually-hidden"
+					onChange={ onImportFile }
+					tabIndex={ -1 }
 				/>
-			}
-		>
-			<OptionSetStats stats={ stats } />
 
-			<input
-				type="file"
-				accept="application/json,.json"
-				ref={ fileRef }
-				className="dpo-visually-hidden"
-				onChange={ onImportFile }
-				tabIndex={ -1 }
-			/>
-
-			<section className="dpo-os-card">
-				{ selected.length > 0 && (
-					<div className="dpo-os-bulkbar">
-						<span className="dpo-os-bulkbar__count">
-							{ sprintf(
-								/* translators: %d: number selected */
-								__(
-									'%d selected',
-									'dynamic-product-options-for-woocommerce'
-								),
-								selected.length
-							) }
-						</span>
-						<div className="dpo-os-bulkbar__actions">
-							<button
-								type="button"
-								className="dpo-os-btn dpo-os-btn--ghost"
-								onClick={ () => runBulk( 'status-publish' ) }
-							>
-								{ __(
-									'Activate',
-									'dynamic-product-options-for-woocommerce'
+				<section className="dpo-os-card">
+					{ selected.length > 0 && (
+						<div className="dpo-os-bulkbar">
+							<span className="dpo-os-bulkbar__count">
+								{ sprintf(
+									/* translators: %d: number selected */
+									__(
+										'%d selected',
+										'dynamic-product-options-for-woocommerce'
+									),
+									selected.length
 								) }
-							</button>
-							<button
-								type="button"
-								className="dpo-os-btn dpo-os-btn--ghost"
-								onClick={ () => runBulk( 'status-draft' ) }
-							>
-								{ __(
-									'Deactivate',
-									'dynamic-product-options-for-woocommerce'
-								) }
-							</button>
-							<button
-								type="button"
-								className="dpo-os-btn dpo-os-btn--ghost"
-								onClick={ () => runBulk( 'duplicate' ) }
-							>
-								{ __(
-									'Duplicate',
-									'dynamic-product-options-for-woocommerce'
-								) }
-							</button>
-							<button
-								type="button"
-								className="dpo-os-btn dpo-os-btn--danger"
-								onClick={ () =>
-									setConfirm( { bulk: true } )
-								}
-							>
-								{ __(
-									'Delete',
-									'dynamic-product-options-for-woocommerce'
-								) }
-							</button>
-							<button
-								type="button"
-								className="dpo-os-btn dpo-os-btn--link"
-								onClick={ () => setSelected( [] ) }
-							>
-								{ __(
-									'Clear',
-									'dynamic-product-options-for-woocommerce'
-								) }
-							</button>
+							</span>
+							<div className="dpo-os-bulkbar__actions">
+								<button
+									type="button"
+									className="dpo-os-btn dpo-os-btn--ghost"
+									onClick={ () =>
+										runBulk( 'status-publish' )
+									}
+								>
+									{ __(
+										'Activate',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</button>
+								<button
+									type="button"
+									className="dpo-os-btn dpo-os-btn--ghost"
+									onClick={ () => runBulk( 'status-draft' ) }
+								>
+									{ __(
+										'Deactivate',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</button>
+								<button
+									type="button"
+									className="dpo-os-btn dpo-os-btn--ghost"
+									onClick={ () => runBulk( 'duplicate' ) }
+								>
+									{ __(
+										'Duplicate',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</button>
+								<button
+									type="button"
+									className="dpo-os-btn dpo-os-btn--danger"
+									onClick={ () =>
+										setConfirm( { bulk: true } )
+									}
+								>
+									{ __(
+										'Delete',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</button>
+								<button
+									type="button"
+									className="dpo-os-btn dpo-os-btn--link"
+									onClick={ () => setSelected( [] ) }
+								>
+									{ __(
+										'Clear',
+										'dynamic-product-options-for-woocommerce'
+									) }
+								</button>
+							</div>
 						</div>
-					</div>
-				) }
+					) }
 
-				<OptionSetTable
-					status={ sets.status }
-					error={ sets.error }
-					items={ visible }
-					sort={ sort }
-					onSort={ onSort }
-					selected={ selected }
-					onSelect={ onSelect }
-					onSelectAll={ onSelectAll }
-					onToggleStatus={ onToggleStatus }
-					onDuplicate={ onDuplicate }
-					onDelete={ ( id ) => setConfirm( { id } ) }
-					onOpen={ ( id ) => navigate( `/set/${ id }` ) }
-					onCreate={ () => navigate( '/set/new' ) }
-					busyId={ busyId }
-				/>
+					<OptionSetTable
+						status={ sets.status }
+						error={ sets.error }
+						items={ visible }
+						sort={ sort }
+						onSort={ onSort }
+						selected={ selected }
+						onSelect={ onSelect }
+						onSelectAll={ onSelectAll }
+						onToggleStatus={ onToggleStatus }
+						onDuplicate={ onDuplicate }
+						onDelete={ ( id ) => setConfirm( { id } ) }
+						onOpen={ ( id ) => navigate( `/set/${ id }` ) }
+						onCreate={ () => navigate( '/set/new' ) }
+						busyId={ busyId }
+					/>
 
-				{ sets.status === 'ready' && visible.length > 0 && (
-					<footer className="dpo-os-foot">
-						<span className="dpo-os-foot__info">
-							{ sprintf(
-								/* translators: 1: from 2: to 3: page 4: total pages */
-								__(
-									'Showing %1$d to %2$d (page %3$d of %4$d)',
-									'dynamic-product-options-for-woocommerce'
-								),
-								rangeStart,
-								rangeEnd,
-								sets.page,
-								sets.totalPages
-							) }
-						</span>
-						<Pagination
-							page={ sets.page }
-							total={ sets.totalPages }
-							onChange={ goToPage }
-						/>
-					</footer>
-				) }
-			</section>
-		</PageFrame>
+					{ sets.status === 'ready' && visible.length > 0 && (
+						<footer className="dpo-os-foot">
+							<span className="dpo-os-foot__info">
+								{ sprintf(
+									/* translators: 1: from 2: to 3: page 4: total pages */
+									__(
+										'Showing %1$d to %2$d (page %3$d of %4$d)',
+										'dynamic-product-options-for-woocommerce'
+									),
+									rangeStart,
+									rangeEnd,
+									sets.page,
+									sets.totalPages
+								) }
+							</span>
+							<Pagination
+								page={ sets.page }
+								total={ sets.totalPages }
+								onChange={ goToPage }
+							/>
+						</footer>
+					) }
+				</section>
+			</PageFrame>
 
-		{ confirm && (
+			{ confirm && (
 				<ConfirmDialog
 					title={
 						confirm.bulk
@@ -505,7 +501,7 @@ export default function OptionSet() {
 						}
 					} }
 				/>
-		) }
+			) }
 		</>
 	);
 }

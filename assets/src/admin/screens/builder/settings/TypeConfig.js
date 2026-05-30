@@ -143,14 +143,13 @@ export default function TypeConfig( { node, patch } ) {
 		patch( { config: { ...cfg, [ key ]: value } } );
 
 	// Filtered by field type / Enable Quantity; saved value is preserved.
-	const priceModeOptions = priceModeOptionsFor(
-		node,
-		cfg.priceModeFull
-	).map( ( m ) => ( {
-		value: m.value,
-		label: m.label,
-		disabled: m.pro && ! proActive,
-	} ) );
+	const priceModeOptions = priceModeOptionsFor( node, cfg.priceModeFull ).map(
+		( m ) => ( {
+			value: m.value,
+			label: m.label,
+			disabled: m.pro && ! proActive,
+		} )
+	);
 
 	// Layout/special types have no placeholder; everything else does.
 	const showPlaceholder = ! [

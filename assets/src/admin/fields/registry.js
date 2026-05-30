@@ -14,7 +14,7 @@
  *   defaultNode()   factory returning a §6 node skeleton (sans id/parent)
  *   inspectorSchema array of Advanced-tab config field descriptors
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -97,14 +97,26 @@ function baseNode( type ) {
 	};
 }
 
-/** Convenience: a node with N starter choices. */
-const withChoices = ( type, n = 2, extra = {} ) => () => ( {
-	...baseNode( type ),
-	choices: Array.from( { length: n }, ( _, i ) =>
-		makeChoice( { label: `${ __( 'Option', 'dynamic-product-options-for-woocommerce' ) } ${ i + 1 }` } )
-	),
-	...extra,
-} );
+/**
+ * Convenience: a node with N starter choices.
+ * @param type
+ * @param n
+ * @param extra
+ */
+const withChoices =
+	( type, n = 2, extra = {} ) =>
+	() => ( {
+		...baseNode( type ),
+		choices: Array.from( { length: n }, ( _, i ) =>
+			makeChoice( {
+				label: `${ __(
+					'Option',
+					'dynamic-product-options-for-woocommerce'
+				) } ${ i + 1 }`,
+			} )
+		),
+		...extra,
+	} );
 
 /**
  * The registry keyed by slug. Order within a category defines palette order.
@@ -114,39 +126,92 @@ const withChoices = ( type, n = 2, extra = {} ) => () => ( {
 export const FIELD_TYPES = {
 	/* ---- Input ---- */
 	text: {
-		slug: 'text', label: __( 'Text', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'editor-textcolor', priceable: true,
+		slug: 'text',
+		label: __( 'Text', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'editor-textcolor',
+		priceable: true,
 		// choices[0] carries the single-value price (per_char/per_word/flat).
-		defaultNode: () => ( { ...baseNode( 'text' ), choices: [ makeChoice() ] } ),
+		defaultNode: () => ( {
+			...baseNode( 'text' ),
+			choices: [ makeChoice() ],
+		} ),
 		inspectorSchema: [
-			{ key: 'minLength', label: __( 'Min length', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-			{ key: 'maxLength', label: __( 'Max length', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
+			{
+				key: 'minLength',
+				label: __(
+					'Min length',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'number',
+			},
+			{
+				key: 'maxLength',
+				label: __(
+					'Max length',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'number',
+			},
 		],
 	},
 	textarea: {
-		slug: 'textarea', label: __( 'Textarea', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'editor-paragraph', priceable: true,
+		slug: 'textarea',
+		label: __( 'Textarea', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'editor-paragraph',
+		priceable: true,
 		// choices[0] carries the single-value price (per_char/per_word/flat).
-		defaultNode: () => ( { ...baseNode( 'textarea' ), choices: [ makeChoice() ] } ),
+		defaultNode: () => ( {
+			...baseNode( 'textarea' ),
+			choices: [ makeChoice() ],
+		} ),
 		inspectorSchema: [
-			{ key: 'rows', label: __( 'Rows', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
-			{ key: 'maxLength', label: __( 'Max length', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
+			{
+				key: 'rows',
+				label: __( 'Rows', 'dynamic-product-options-for-woocommerce' ),
+				control: 'number',
+			},
+			{
+				key: 'maxLength',
+				label: __(
+					'Max length',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'number',
+			},
 		],
 	},
 	email: {
-		slug: 'email', label: __( 'Email', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'email', priceable: true,
-		defaultNode: () => ( { ...baseNode( 'email' ), choices: [ makeChoice() ] } ),
+		slug: 'email',
+		label: __( 'Email', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'email',
+		priceable: true,
+		defaultNode: () => ( {
+			...baseNode( 'email' ),
+			choices: [ makeChoice() ],
+		} ),
 		inspectorSchema: [],
 	},
 	url: {
-		slug: 'url', label: __( 'URL', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'admin-links', priceable: true,
-		defaultNode: () => ( { ...baseNode( 'url' ), choices: [ makeChoice() ] } ), inspectorSchema: [],
+		slug: 'url',
+		label: __( 'URL', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'admin-links',
+		priceable: true,
+		defaultNode: () => ( {
+			...baseNode( 'url' ),
+			choices: [ makeChoice() ],
+		} ),
+		inspectorSchema: [],
 	},
 	tel: {
-		slug: 'tel', label: __( 'Phone', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'phone', priceable: true,
+		slug: 'tel',
+		label: __( 'Phone', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'phone',
+		priceable: true,
 		// flagStyle: 'number' | 'flag' | 'flag_dial'. defaultCountry is an ISO-2
 		// code ('' = resolve to the store base country at render time).
 		defaultNode: () => ( {
@@ -158,8 +223,11 @@ export const FIELD_TYPES = {
 		inspectorSchema: [],
 	},
 	number: {
-		slug: 'number', label: __( 'Number', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'calculator', priceable: true,
+		slug: 'number',
+		label: __( 'Number', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'calculator',
+		priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'number' ),
 			choices: [ makeChoice() ],
@@ -168,8 +236,11 @@ export const FIELD_TYPES = {
 		inspectorSchema: [],
 	},
 	date: {
-		slug: 'date', label: __( 'Date', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'calendar-alt', priceable: true,
+		slug: 'date',
+		label: __( 'Date', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'calendar-alt',
+		priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'date' ),
 			choices: [ makeChoice() ],
@@ -189,8 +260,11 @@ export const FIELD_TYPES = {
 		inspectorSchema: [],
 	},
 	time: {
-		slug: 'time', label: __( 'Time', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'clock', priceable: true,
+		slug: 'time',
+		label: __( 'Time', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'clock',
+		priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'time' ),
 			choices: [ makeChoice() ],
@@ -205,8 +279,11 @@ export const FIELD_TYPES = {
 		inspectorSchema: [],
 	},
 	datetime: {
-		slug: 'datetime', label: __( 'Date & Time', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'calendar', priceable: true,
+		slug: 'datetime',
+		label: __( 'Date & Time', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'calendar',
+		priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'datetime' ),
 			choices: [ makeChoice() ],
@@ -232,22 +309,46 @@ export const FIELD_TYPES = {
 		inspectorSchema: [],
 	},
 	fileupload: {
-		slug: 'fileupload', label: __( 'File Upload', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Input', icon: 'upload', priceable: true,
+		slug: 'fileupload',
+		label: __( 'File Upload', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Input',
+		icon: 'upload',
+		priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'fileupload' ),
 			choices: [ makeChoice() ],
 			config: {
-				uploadText: __( 'Upload', 'dynamic-product-options-for-woocommerce' ),
-				dragText: __( 'Click or drag and drop', 'dynamic-product-options-for-woocommerce' ),
+				uploadText: __(
+					'Upload',
+					'dynamic-product-options-for-woocommerce'
+				),
+				dragText: __(
+					'Click or drag and drop',
+					'dynamic-product-options-for-woocommerce'
+				),
 				maxSize: 2,
-				sizeError: __( 'File is too large', 'dynamic-product-options-for-woocommerce' ),
-				sizePrefix: __( 'Max File Size: [max_size]', 'dynamic-product-options-for-woocommerce' ),
+				sizeError: __(
+					'File is too large',
+					'dynamic-product-options-for-woocommerce'
+				),
+				sizePrefix: __(
+					'Max File Size: [max_size]',
+					'dynamic-product-options-for-woocommerce'
+				),
 				minNumber: 0,
 				maxNumber: 3,
-				countError: __( 'Too many files', 'dynamic-product-options-for-woocommerce' ),
-				countPrefix: __( 'Maximum Number of Files: [max_files]', 'dynamic-product-options-for-woocommerce' ),
-				typePrefix: __( 'Allowed Types are: [allowed_types]', 'dynamic-product-options-for-woocommerce' ),
+				countError: __(
+					'Too many files',
+					'dynamic-product-options-for-woocommerce'
+				),
+				countPrefix: __(
+					'Maximum Number of Files: [max_files]',
+					'dynamic-product-options-for-woocommerce'
+				),
+				typePrefix: __(
+					'Allowed Types are: [allowed_types]',
+					'dynamic-product-options-for-woocommerce'
+				),
 				allowedTypes: [ 'png', 'jpg' ],
 			},
 		} ),
@@ -256,68 +357,142 @@ export const FIELD_TYPES = {
 
 	/* ---- Choice ---- */
 	checkbox: {
-		slug: 'checkbox', label: __( 'Checkboxes', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Choice', icon: 'yes', priceable: true, hasChoices: true,
-		defaultNode: withChoices( 'checkbox' ), inspectorSchema: [],
+		slug: 'checkbox',
+		label: __( 'Checkboxes', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Choice',
+		icon: 'yes',
+		priceable: true,
+		hasChoices: true,
+		defaultNode: withChoices( 'checkbox' ),
+		inspectorSchema: [],
 	},
 	radio: {
-		slug: 'radio', label: __( 'Radio Buttons', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Choice', icon: 'marker', priceable: true, hasChoices: true,
-		defaultNode: withChoices( 'radio' ), inspectorSchema: [],
+		slug: 'radio',
+		label: __( 'Radio Buttons', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Choice',
+		icon: 'marker',
+		priceable: true,
+		hasChoices: true,
+		defaultNode: withChoices( 'radio' ),
+		inspectorSchema: [],
 	},
 	select: {
-		slug: 'select', label: __( 'Dropdown', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Choice', icon: 'arrow-down-alt2', priceable: true, hasChoices: true,
+		slug: 'select',
+		label: __( 'Dropdown', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Choice',
+		icon: 'arrow-down-alt2',
+		priceable: true,
+		hasChoices: true,
 		defaultNode: withChoices( 'select' ),
 		inspectorSchema: [
-			{ key: 'multiple', label: __( 'Allow multiple', 'dynamic-product-options-for-woocommerce' ), control: 'toggle' },
+			{
+				key: 'multiple',
+				label: __(
+					'Allow multiple',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'toggle',
+			},
 		],
 	},
 	toggle: {
-		slug: 'toggle', label: __( 'Toggle', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Choice', icon: 'controls-play', priceable: true, hasChoices: true,
-		defaultNode: withChoices( 'toggle', 1, {} ), inspectorSchema: [],
+		slug: 'toggle',
+		label: __( 'Toggle', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Choice',
+		icon: 'controls-play',
+		priceable: true,
+		hasChoices: true,
+		defaultNode: withChoices( 'toggle', 1, {} ),
+		inspectorSchema: [],
 	},
 	buttongroup: {
-		slug: 'buttongroup', label: __( 'Button Group', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Choice', icon: 'grid-view', priceable: true, hasChoices: true,
+		slug: 'buttongroup',
+		label: __( 'Button Group', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Choice',
+		icon: 'grid-view',
+		priceable: true,
+		hasChoices: true,
 		defaultNode: withChoices( 'buttongroup' ),
 		inspectorSchema: [
-			{ key: 'multiple', label: __( 'Allow multiple', 'dynamic-product-options-for-woocommerce' ), control: 'toggle' },
+			{
+				key: 'multiple',
+				label: __(
+					'Allow multiple',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'toggle',
+			},
 		],
 	},
 	colorswatch: {
-		slug: 'colorswatch', label: __( 'Color Swatch', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Choice', icon: 'art', priceable: true, hasChoices: true,
+		slug: 'colorswatch',
+		label: __( 'Color Swatch', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Choice',
+		icon: 'art',
+		priceable: true,
+		hasChoices: true,
 		defaultNode: () => ( {
 			...baseNode( 'colorswatch' ),
 			choices: [
-				makeChoice( { label: __( 'Black', 'dynamic-product-options-for-woocommerce' ), color: '#000000' } ),
-				makeChoice( { label: __( 'White', 'dynamic-product-options-for-woocommerce' ), color: '#ffffff' } ),
+				makeChoice( {
+					label: __(
+						'Black',
+						'dynamic-product-options-for-woocommerce'
+					),
+					color: '#000000',
+				} ),
+				makeChoice( {
+					label: __(
+						'White',
+						'dynamic-product-options-for-woocommerce'
+					),
+					color: '#ffffff',
+				} ),
 			],
 		} ),
 		inspectorSchema: [
-			{ key: 'shape', label: __( 'Swatch shape', 'dynamic-product-options-for-woocommerce' ), control: 'select',
-				options: [ 'circle', 'square', 'rounded' ] },
+			{
+				key: 'shape',
+				label: __(
+					'Swatch shape',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'select',
+				options: [ 'circle', 'square', 'rounded' ],
+			},
 		],
 	},
 	imageswatch: {
-		slug: 'imageswatch', label: __( 'Image Swatch', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Choice', icon: 'format-image', priceable: true, hasChoices: true,
+		slug: 'imageswatch',
+		label: __( 'Image Swatch', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Choice',
+		icon: 'format-image',
+		priceable: true,
+		hasChoices: true,
 		defaultNode: () => ( {
 			...baseNode( 'imageswatch' ),
 			choices: [ makeChoice(), makeChoice() ],
 		} ),
 		inspectorSchema: [
-			{ key: 'shape', label: __( 'Swatch shape', 'dynamic-product-options-for-woocommerce' ), control: 'select',
-				options: [ 'circle', 'square', 'rounded' ] },
+			{
+				key: 'shape',
+				label: __(
+					'Swatch shape',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'select',
+				options: [ 'circle', 'square', 'rounded' ],
+			},
 		],
 	},
 
 	/* ---- Advanced ---- */
 	range: {
-		slug: 'range', label: __( 'Range Slider', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Advanced', icon: 'leftright', priceable: true,
+		slug: 'range',
+		label: __( 'Range Slider', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Advanced',
+		icon: 'leftright',
+		priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'range' ),
 			choices: [ makeChoice() ],
@@ -326,8 +501,11 @@ export const FIELD_TYPES = {
 		inspectorSchema: [],
 	},
 	colorpicker: {
-		slug: 'colorpicker', label: __( 'Color Picker', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Advanced', icon: 'admin-customizer', priceable: true,
+		slug: 'colorpicker',
+		label: __( 'Color Picker', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Advanced',
+		icon: 'admin-customizer',
+		priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'colorpicker' ),
 			choices: [ makeChoice() ],
@@ -336,42 +514,79 @@ export const FIELD_TYPES = {
 		inspectorSchema: [],
 	},
 	fontpicker: {
-		slug: 'fontpicker', label: __( 'Font Picker', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Advanced', icon: 'editor-textcolor', priceable: true,
-		proOnly: true, hasChoices: true,
+		slug: 'fontpicker',
+		label: __( 'Font Picker', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Advanced',
+		icon: 'editor-textcolor',
+		priceable: true,
+		proOnly: true,
+		hasChoices: true,
 		defaultNode: () => ( {
 			...baseNode( 'fontpicker' ),
 			choices: [
-				makeChoice( { label: 'Arial', fontFamily: 'Arial, sans-serif' } ),
+				makeChoice( {
+					label: 'Arial',
+					fontFamily: 'Arial, sans-serif',
+				} ),
 			],
 		} ),
 		inspectorSchema: [],
 	},
 	formula: {
-		slug: 'formula', label: __( 'Formula', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Advanced', icon: 'calculator', priceable: true,
+		slug: 'formula',
+		label: __( 'Formula', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Advanced',
+		icon: 'calculator',
+		priceable: true,
 		defaultNode: () => ( {
 			...baseNode( 'formula' ),
 			config: { formula: '' },
 		} ),
 		inspectorSchema: [
-			{ key: 'formula', label: __( 'Formula', 'dynamic-product-options-for-woocommerce' ), control: 'formula' },
+			{
+				key: 'formula',
+				label: __(
+					'Formula',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'formula',
+			},
 		],
 	},
 	advancedformula: {
-		slug: 'advancedformula', label: __( 'Advanced Formula', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Advanced', icon: 'superhero', priceable: true, proOnly: true,
+		slug: 'advancedformula',
+		label: __(
+			'Advanced Formula',
+			'dynamic-product-options-for-woocommerce'
+		),
+		category: 'Advanced',
+		icon: 'superhero',
+		priceable: true,
+		proOnly: true,
 		defaultNode: () => ( {
 			...baseNode( 'advancedformula' ),
 			config: { formula: '' },
 		} ),
 		inspectorSchema: [
-			{ key: 'formula', label: __( 'Expression', 'dynamic-product-options-for-woocommerce' ), control: 'formula' },
+			{
+				key: 'formula',
+				label: __(
+					'Expression',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'formula',
+			},
 		],
 	},
 	linkedproducts: {
-		slug: 'linkedproducts', label: __( 'Linked Products', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Advanced', icon: 'cart', priceable: false,
+		slug: 'linkedproducts',
+		label: __(
+			'Linked Products',
+			'dynamic-product-options-for-woocommerce'
+		),
+		category: 'Advanced',
+		icon: 'cart',
+		priceable: false,
 		defaultNode: () => ( {
 			...baseNode( 'linkedproducts' ),
 			config: {
@@ -395,41 +610,94 @@ export const FIELD_TYPES = {
 
 	/* ---- Layout ---- */
 	heading: {
-		slug: 'heading', label: __( 'Heading', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Layout', icon: 'heading', priceable: false,
-		defaultNode: () => ( { ...baseNode( 'heading' ), config: { level: 'h3' } } ),
+		slug: 'heading',
+		label: __( 'Heading', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Layout',
+		icon: 'heading',
+		priceable: false,
+		defaultNode: () => ( {
+			...baseNode( 'heading' ),
+			config: { level: 'h3' },
+		} ),
 		inspectorSchema: [
-			{ key: 'level', label: __( 'Heading level', 'dynamic-product-options-for-woocommerce' ), control: 'select',
-				options: [ 'h2', 'h3', 'h4', 'h5' ] },
+			{
+				key: 'level',
+				label: __(
+					'Heading level',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'select',
+				options: [ 'h2', 'h3', 'h4', 'h5' ],
+			},
 		],
 	},
 	html: {
-		slug: 'html', label: __( 'HTML', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Layout', icon: 'editor-code', priceable: false,
+		slug: 'html',
+		label: __( 'HTML', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Layout',
+		icon: 'editor-code',
+		priceable: false,
 		defaultNode: () => ( { ...baseNode( 'html' ), config: { html: '' } } ),
 		inspectorSchema: [
-			{ key: 'html', label: __( 'HTML content', 'dynamic-product-options-for-woocommerce' ), control: 'textarea' },
+			{
+				key: 'html',
+				label: __(
+					'HTML content',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'textarea',
+			},
 		],
 	},
 	divider: {
-		slug: 'divider', label: __( 'Divider', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Layout', icon: 'minus', priceable: false,
-		defaultNode: () => ( { ...baseNode( 'divider' ), config: { height: 1 } } ),
+		slug: 'divider',
+		label: __( 'Divider', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Layout',
+		icon: 'minus',
+		priceable: false,
+		defaultNode: () => ( {
+			...baseNode( 'divider' ),
+			config: { height: 1 },
+		} ),
 		inspectorSchema: [
-			{ key: 'height', label: __( 'Height (px)', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
+			{
+				key: 'height',
+				label: __(
+					'Height (px)',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'number',
+			},
 		],
 	},
 	spacer: {
-		slug: 'spacer', label: __( 'Spacer', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Layout', icon: 'image-flip-vertical', priceable: false,
-		defaultNode: () => ( { ...baseNode( 'spacer' ), config: { height: 24 } } ),
+		slug: 'spacer',
+		label: __( 'Spacer', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Layout',
+		icon: 'image-flip-vertical',
+		priceable: false,
+		defaultNode: () => ( {
+			...baseNode( 'spacer' ),
+			config: { height: 24 },
+		} ),
 		inspectorSchema: [
-			{ key: 'height', label: __( 'Height (px)', 'dynamic-product-options-for-woocommerce' ), control: 'number' },
+			{
+				key: 'height',
+				label: __(
+					'Height (px)',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'number',
+			},
 		],
 	},
 	section: {
-		slug: 'section', label: __( 'Section', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Layout', icon: 'screenoptions', priceable: false, container: true,
+		slug: 'section',
+		label: __( 'Section', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Layout',
+		icon: 'screenoptions',
+		priceable: false,
+		container: true,
 		defaultNode: () => ( {
 			...baseNode( 'section' ),
 			// style: 'section' (plain group) | 'accordion' (collapsible).
@@ -443,33 +711,70 @@ export const FIELD_TYPES = {
 
 	/* ---- Special ---- */
 	popup: {
-		slug: 'popup', label: __( 'Popup', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Special', icon: 'external', priceable: false,
+		slug: 'popup',
+		label: __( 'Popup', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Special',
+		icon: 'external',
+		priceable: false,
 		defaultNode: () => ( {
 			...baseNode( 'popup' ),
-			config: { triggerText: __( 'Open', 'dynamic-product-options-for-woocommerce' ), content: '' },
+			config: {
+				triggerText: __(
+					'Open',
+					'dynamic-product-options-for-woocommerce'
+				),
+				content: '',
+			},
 		} ),
 		// Settings UI is the bespoke PopupConfig panel / Popup Builder modal
 		// (see GeneralTab). `config.content` holds the rich HTML.
 		inspectorSchema: [],
 	},
 	shortcode: {
-		slug: 'shortcode', label: __( 'Shortcode', 'dynamic-product-options-for-woocommerce' ),
-		category: 'Special', icon: 'shortcode', priceable: false,
-		defaultNode: () => ( { ...baseNode( 'shortcode' ), config: { shortcode: '' } } ),
+		slug: 'shortcode',
+		label: __( 'Shortcode', 'dynamic-product-options-for-woocommerce' ),
+		category: 'Special',
+		icon: 'shortcode',
+		priceable: false,
+		defaultNode: () => ( {
+			...baseNode( 'shortcode' ),
+			config: { shortcode: '' },
+		} ),
 		inspectorSchema: [
-			{ key: 'shortcode', label: __( 'Shortcode', 'dynamic-product-options-for-woocommerce' ), control: 'text' },
+			{
+				key: 'shortcode',
+				label: __(
+					'Shortcode',
+					'dynamic-product-options-for-woocommerce'
+				),
+				control: 'text',
+			},
 		],
 	},
 };
 
 /** Category display order + labels. */
 export const CATEGORIES = [
-	{ key: 'Input', label: __( 'Input', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'Choice', label: __( 'Choice', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'Advanced', label: __( 'Advanced', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'Layout', label: __( 'Layout', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'Special', label: __( 'Special', 'dynamic-product-options-for-woocommerce' ) },
+	{
+		key: 'Input',
+		label: __( 'Input', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		key: 'Choice',
+		label: __( 'Choice', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		key: 'Advanced',
+		label: __( 'Advanced', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		key: 'Layout',
+		label: __( 'Layout', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		key: 'Special',
+		label: __( 'Special', 'dynamic-product-options-for-woocommerce' ),
+	},
 ];
 
 /** Ordered list of every registry entry. */
@@ -500,13 +805,41 @@ export function typesByCategory() {
 
 /** Price mode option list (ARCHITECTURE §7), with Pro flags. */
 export const PRICE_MODES = [
-	{ value: 'none', label: __( 'No price', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'flat', label: __( 'Fixed', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'percent', label: __( 'Percentage', 'dynamic-product-options-for-woocommerce' ), pro: true },
-	{ value: 'per_unit', label: __( 'Per Unit', 'dynamic-product-options-for-woocommerce' ), pro: true },
-	{ value: 'per_char', label: __( 'Per Character', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'per_char_nospace', label: __( 'Per Character (no spaces)', 'dynamic-product-options-for-woocommerce' ), pro: true },
-	{ value: 'per_word', label: __( 'Per Word', 'dynamic-product-options-for-woocommerce' ), pro: true },
+	{
+		value: 'none',
+		label: __( 'No price', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'flat',
+		label: __( 'Fixed', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'percent',
+		label: __( 'Percentage', 'dynamic-product-options-for-woocommerce' ),
+		pro: true,
+	},
+	{
+		value: 'per_unit',
+		label: __( 'Per Unit', 'dynamic-product-options-for-woocommerce' ),
+		pro: true,
+	},
+	{
+		value: 'per_char',
+		label: __( 'Per Character', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'per_char_nospace',
+		label: __(
+			'Per Character (no spaces)',
+			'dynamic-product-options-for-woocommerce'
+		),
+		pro: true,
+	},
+	{
+		value: 'per_word',
+		label: __( 'Per Word', 'dynamic-product-options-for-woocommerce' ),
+		pro: true,
+	},
 ];
 
 /** Field types whose value is freeform text — per-character / per-word make sense here. */
@@ -545,16 +878,13 @@ export function allowedPriceModes( node ) {
  * never silently loses their stored choice when they toggle Enable Quantity
  * off (or change the field type).
  *
- * @param {Object} node          Field node.
+ * @param {Object} node           Field node.
  * @param {string} [currentValue] Currently-saved priceMode (optional).
  * @return {Array} { value, label, pro? } entries ready for SelectControl.
  */
 export function priceModeOptionsFor( node, currentValue ) {
 	const list = allowedPriceModes( node ).slice();
-	if (
-		currentValue &&
-		! list.some( ( m ) => m.value === currentValue )
-	) {
+	if ( currentValue && ! list.some( ( m ) => m.value === currentValue ) ) {
 		const orig = PRICE_MODES.find( ( m ) => m.value === currentValue );
 		if ( orig ) {
 			list.push( orig );
@@ -565,26 +895,86 @@ export function priceModeOptionsFor( node, currentValue ) {
 
 /** Conditional-logic operator vocabulary (ARCHITECTURE §6). */
 export const OPERATORS = [
-	{ value: 'is', label: __( 'is', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'is_not', label: __( 'is not', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'empty', label: __( 'is empty', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'not_empty', label: __( 'is not empty', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'contains', label: __( 'contains', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'not_contains', label: __( 'does not contain', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'gt', label: __( 'greater than', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'lt', label: __( 'less than', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'gte', label: __( 'greater or equal', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'lte', label: __( 'less or equal', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'starts_with', label: __( 'starts with', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'between', label: __( 'between', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'checked', label: __( 'is checked', 'dynamic-product-options-for-woocommerce' ) },
+	{
+		value: 'is',
+		label: __( 'is', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'is_not',
+		label: __( 'is not', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'empty',
+		label: __( 'is empty', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'not_empty',
+		label: __( 'is not empty', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'contains',
+		label: __( 'contains', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'not_contains',
+		label: __(
+			'does not contain',
+			'dynamic-product-options-for-woocommerce'
+		),
+	},
+	{
+		value: 'gt',
+		label: __( 'greater than', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'lt',
+		label: __( 'less than', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'gte',
+		label: __(
+			'greater or equal',
+			'dynamic-product-options-for-woocommerce'
+		),
+	},
+	{
+		value: 'lte',
+		label: __( 'less or equal', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'starts_with',
+		label: __( 'starts with', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'between',
+		label: __( 'between', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'checked',
+		label: __( 'is checked', 'dynamic-product-options-for-woocommerce' ),
+	},
 ];
 
 /** Field width options (ARCHITECTURE §6). */
 export const WIDTHS = [
-	{ value: 'full', label: __( 'Full', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'half', label: __( '1/2', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'third', label: __( '1/3', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'two-third', label: __( '2/3', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'quarter', label: __( '1/4', 'dynamic-product-options-for-woocommerce' ) },
+	{
+		value: 'full',
+		label: __( 'Full', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'half',
+		label: __( '1/2', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'third',
+		label: __( '1/3', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'two-third',
+		label: __( '2/3', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'quarter',
+		label: __( '1/4', 'dynamic-product-options-for-woocommerce' ),
+	},
 ];

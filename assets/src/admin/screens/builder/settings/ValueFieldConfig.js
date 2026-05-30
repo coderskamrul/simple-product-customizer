@@ -10,7 +10,12 @@
  */
 
 import { __ } from '@wordpress/i18n';
-import { Field, TextControl, ToggleField, ColorField } from '../../../components';
+import {
+	Field,
+	TextControl,
+	ToggleField,
+	ColorField,
+} from '../../../components';
 import ValuePricing from './ValuePricing';
 
 /**

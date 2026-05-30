@@ -5,7 +5,7 @@
  * `children` array. Every helper is non-mutating and returns a fresh tree
  * so the reducer stays predictable and undo-friendly.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { getType, newFieldId, makeChoice } from '../fields/registry';
@@ -14,8 +14,8 @@ import { getType, newFieldId, makeChoice } from '../fields/registry';
  * Deep clone a node (and its subtree), assigning fresh ids/uids so a
  * duplicated branch never collides with the original.
  *
- * @param {Object} node       Source node.
- * @param {string} parentId   Parent id for the clone.
+ * @param {Object} node     Source node.
+ * @param {string} parentId Parent id for the clone.
  * @return {Object} Cloned node.
  */
 export function cloneNode( node, parentId = '' ) {
@@ -24,9 +24,7 @@ export function cloneNode( node, parentId = '' ) {
 		...JSON.parse( JSON.stringify( node ) ),
 		id,
 		parent: parentId,
-		choices: ( node.choices || [] ).map( ( c ) =>
-			makeChoice( { ...c } )
-		),
+		choices: ( node.choices || [] ).map( ( c ) => makeChoice( { ...c } ) ),
 		children: ( node.children || [] ).map( ( child ) =>
 			cloneNode( child, id )
 		),
@@ -137,8 +135,7 @@ export function insertNode( tree, node, location = {} ) {
 
 	if ( ! parentId ) {
 		const next = [ ...tree ];
-		const idx =
-			location.index === undefined ? next.length : location.index;
+		const idx = location.index === undefined ? next.length : location.index;
 		next.splice( idx, 0, placed );
 		return next;
 	}
@@ -159,8 +156,8 @@ export function insertNode( tree, node, location = {} ) {
  * Flatten the tree to a depth-first list of {id,type,label,depth}, useful
  * for the logic field picker (a field can reference any prior field).
  *
- * @param {Array}  tree    Field tree.
- * @param {number} depth   Current depth (internal).
+ * @param {Array}  tree  Field tree.
+ * @param {number} depth Current depth (internal).
  * @return {Array} Flat descriptor list.
  */
 export function flatten( tree, depth = 0 ) {

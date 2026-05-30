@@ -2,7 +2,7 @@
  * License screen — wrapped in the unified PageFrame. Pro/Free status moves
  * into the page actions slot; the bespoke `.dpo-screen-head` is gone.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState } from '@wordpress/element';
@@ -36,10 +36,7 @@ export default function License() {
 
 	return (
 		<PageFrame
-			title={ __(
-				'License',
-				'dynamic-product-options-for-woocommerce'
-			) }
+			title={ __( 'License', 'dynamic-product-options-for-woocommerce' ) }
 			subtitle={ __(
 				'Activate Pro to unlock advanced fields and pricing.',
 				'dynamic-product-options-for-woocommerce'

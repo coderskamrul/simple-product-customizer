@@ -3,7 +3,7 @@
  * sublabel, a divider, the tinted info banner, then the section body.
  * Purely presentational — the active section supplies `children`.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import InfoBanner from './InfoBanner';
@@ -11,8 +11,8 @@ import InfoBanner from './InfoBanner';
 /**
  * SectionPanel.
  *
- * @param {Object}      props         Props.
- * @param {Object}      props.section Section descriptor from config.
+ * @param {Object}      props          Props.
+ * @param {Object}      props.section  Section descriptor from config.
  * @param {JSX.Element} props.children Section body.
  * @return {JSX.Element} The panel.
  */

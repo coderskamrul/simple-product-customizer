@@ -8,7 +8,7 @@
  * mirror useAnalytics() — daily sums when present, falling back to the
  * lifetime table — so the Dashboard and Analytics screens never disagree.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState, useEffect, useMemo, useCallback } from '@wordpress/element';

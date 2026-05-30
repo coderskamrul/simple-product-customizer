@@ -3,7 +3,7 @@
  * order placed, after order completed). 0 means keep forever; the hint
  * line restates the effect of the current value.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf, _n } from '@wordpress/i18n';
@@ -19,10 +19,7 @@ import SettingCard from '../SettingCard';
 function retentionHint( days ) {
 	const n = parseInt( days, 10 ) || 0;
 	if ( n <= 0 ) {
-		return __(
-			'Kept forever',
-			'dynamic-product-options-for-woocommerce'
-		);
+		return __( 'Kept forever', 'dynamic-product-options-for-woocommerce' );
 	}
 	return sprintf(
 		/* translators: %d: number of days. */

@@ -19,7 +19,7 @@
  * its choice label: `__checked__` / `__unchecked__` compare the field's
  * checked state directly.
  *
- * @package DPO\Store
+ * @package
  */
 
 import { toNumber } from './money';
@@ -94,10 +94,7 @@ function sourceChecked( entry ) {
 	if ( ! entry ) {
 		return false;
 	}
-	if (
-		Array.isArray( entry.choiceIndexes ) &&
-		entry.choiceIndexes.length
-	) {
+	if ( Array.isArray( entry.choiceIndexes ) && entry.choiceIndexes.length ) {
 		return true;
 	}
 	const s = sourceScalar( entry );
@@ -107,8 +104,8 @@ function sourceChecked( entry ) {
 /**
  * Evaluate one rule against the live selections map.
  *
- * @param {object} rule       { source, operator, value }.
- * @param {object} selections fieldId → selection entry.
+ * @param {Object} rule       { source, operator, value }.
+ * @param {Object} selections fieldId → selection entry.
  * @return {boolean} Rule outcome.
  */
 function evalRule( rule, selections ) {
@@ -121,10 +118,14 @@ function evalRule( rule, selections ) {
 	// Boolean sentinels (Toggle "Checked"/"Unchecked"): compare the checked
 	// state directly, regardless of the chosen operator.
 	if ( right === '__checked__' ) {
-		return op === 'is_not' ? ! sourceChecked( entry ) : sourceChecked( entry );
+		return op === 'is_not'
+			? ! sourceChecked( entry )
+			: sourceChecked( entry );
 	}
 	if ( right === '__unchecked__' ) {
-		return op === 'is_not' ? sourceChecked( entry ) : ! sourceChecked( entry );
+		return op === 'is_not'
+			? sourceChecked( entry )
+			: ! sourceChecked( entry );
 	}
 
 	switch ( op ) {
@@ -185,11 +186,7 @@ export function readLogic( fieldEl ) {
 	}
 	try {
 		const parsed = JSON.parse( raw );
-		if (
-			parsed &&
-			Array.isArray( parsed.rules ) &&
-			parsed.rules.length
-		) {
+		if ( parsed && Array.isArray( parsed.rules ) && parsed.rules.length ) {
 			return {
 				action: parsed.action === 'hide' ? 'hide' : 'show',
 				match: parsed.match === 'any' ? 'any' : 'all',
@@ -205,8 +202,8 @@ export function readLogic( fieldEl ) {
 /**
  * Decide a field's visibility from its logic + the live selections.
  *
- * @param {object} logic      { action, match, rules } (from readLogic).
- * @param {object} selections fieldId → selection entry.
+ * @param {Object} logic      { action, match, rules } (from readLogic).
+ * @param {Object} selections fieldId → selection entry.
  * @return {boolean} True = the field should be visible.
  */
 export function isVisible( logic, selections ) {

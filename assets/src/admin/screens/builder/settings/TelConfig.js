@@ -22,10 +22,7 @@ const FLAG_STYLES = [
 	},
 	{
 		value: 'flag',
-		label: __(
-			'Number & Flag',
-			'dynamic-product-options-for-woocommerce'
-		),
+		label: __( 'Number & Flag', 'dynamic-product-options-for-woocommerce' ),
 	},
 	{
 		value: 'flag_dial',
@@ -121,9 +118,7 @@ export default function TelConfig( { node, patch } ) {
 					>
 						<SelectControl
 							value={ cfg.defaultCountry || '' }
-							onChange={ ( v ) =>
-								setKey( 'defaultCountry', v )
-							}
+							onChange={ ( v ) => setKey( 'defaultCountry', v ) }
 							options={ countryOptions }
 						/>
 					</Field>

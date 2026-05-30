@@ -14,13 +14,7 @@
 import { __ } from '@wordpress/i18n';
 import * as Dialog from '@radix-ui/react-dialog';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-	X,
-	Palette,
-	Check,
-	SlidersHorizontal,
-	Droplets,
-} from 'lucide-react';
+import { X, Palette, Check, SlidersHorizontal, Droplets } from 'lucide-react';
 import { useGlobalStyle } from '../store/globalStyle';
 import { useToast } from '../../../store/ToastContext';
 import { errorMessage } from '../../../api/client';
@@ -35,12 +29,36 @@ import {
 
 /** The six customizable colours, in display order. */
 const COLOR_FIELDS = [
-	{ key: 'text', label: __( 'Text Color', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'primary', label: __( 'Primary', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'border', label: __( 'Field Border', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'fill', label: __( 'Field Fill', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'onPrimary', label: __( 'Over Primary Color', 'dynamic-product-options-for-woocommerce' ) },
-	{ key: 'error', label: __( 'Required / Error Color', 'dynamic-product-options-for-woocommerce' ) },
+	{
+		key: 'text',
+		label: __( 'Text Color', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		key: 'primary',
+		label: __( 'Primary', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		key: 'border',
+		label: __( 'Field Border', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		key: 'fill',
+		label: __( 'Field Fill', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		key: 'onPrimary',
+		label: __(
+			'Over Primary Color',
+			'dynamic-product-options-for-woocommerce'
+		),
+	},
+	{
+		key: 'error',
+		label: __(
+			'Required / Error Color',
+			'dynamic-product-options-for-woocommerce'
+		),
+	},
 ];
 
 /**
@@ -323,8 +341,7 @@ export default function GlobalStylePanel() {
 														</span>
 														<ColorField
 															value={
-																tokens
-																	.colors[
+																tokens.colors[
 																	f.key
 																]
 															}

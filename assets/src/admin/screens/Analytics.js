@@ -4,7 +4,7 @@
  * TopBar handling primary navigation, this screen now only renders its
  * title row (PageFrame) and the range-tabs control as the toolbar.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';

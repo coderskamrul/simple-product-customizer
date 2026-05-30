@@ -3,7 +3,7 @@
  * inherited from the section accent so the cue colour matches the header
  * icon tile.
  *
- * @package DPO\Admin
+ * @package
  */
 
 /**
@@ -16,10 +16,7 @@
  */
 export default function InfoBanner( { tone, text } ) {
 	return (
-		<p
-			className={ `dpo-set-banner dpo-set-banner--${ tone }` }
-			role="note"
-		>
+		<p className={ `dpo-set-banner dpo-set-banner--${ tone }` } role="note">
 			<span
 				className="dashicons dashicons-info-outline"
 				aria-hidden="true"

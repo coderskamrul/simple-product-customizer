@@ -3,7 +3,7 @@
  * layout never collapses or jumps — static panels (Quick Actions, Pro)
  * stay live alongside these placeholders.
  *
- * @package DPO\Admin
+ * @package
  */
 
 /**

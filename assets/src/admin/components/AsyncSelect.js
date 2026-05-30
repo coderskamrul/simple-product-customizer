@@ -2,28 +2,23 @@
  * Debounced async multiselect. Queries a fetcher on keystroke, shows a
  * results dropdown, and renders selected items as removable chips.
  *
- * @package DPO\Admin
+ * @package
  */
 
-import {
-	useState,
-	useEffect,
-	useRef,
-	useCallback,
-} from '@wordpress/element';
+import { useState, useEffect, useRef, useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { errorMessage } from '../api/client';
 
 /**
  * AsyncSelect.
  *
- * @param {Object}   props             Component props.
- * @param {Array}    props.value       Selected items [{id,label}].
- * @param {Function} props.onChange    (nextItems) => void.
- * @param {Function} props.fetcher     async (term) => items[].
+ * @param {Object}   props               Component props.
+ * @param {Array}    props.value         Selected items [{id,label}].
+ * @param {Function} props.onChange      (nextItems) => void.
+ * @param {Function} props.fetcher       async (term) => items[].
  * @param {string}   [props.placeholder] Input placeholder.
- * @param {boolean}  [props.single]    Single-select mode.
- * @param {number}   [props.max]       Optional cap on selection count.
+ * @param {boolean}  [props.single]      Single-select mode.
+ * @param {number}   [props.max]         Optional cap on selection count.
  * @return {JSX.Element} The control.
  */
 export default function AsyncSelect( {
@@ -100,8 +95,7 @@ export default function AsyncSelect( {
 	 * @param {number|string} id Item id.
 	 * @return {void}
 	 */
-	const remove = ( id ) =>
-		onChange( value.filter( ( v ) => v.id !== id ) );
+	const remove = ( id ) => onChange( value.filter( ( v ) => v.id !== id ) );
 
 	return (
 		<div className="dpo-async-select" ref={ boxRef }>
@@ -168,16 +162,14 @@ export default function AsyncSelect( {
 							{ err }
 						</li>
 					) }
-					{ ! busy &&
-						! err &&
-						results.length === 0 && (
-							<li className="dpo-async-select__msg">
-								{ __(
-									'No results.',
-									'dynamic-product-options-for-woocommerce'
-								) }
-							</li>
-						) }
+					{ ! busy && ! err && results.length === 0 && (
+						<li className="dpo-async-select__msg">
+							{ __(
+								'No results.',
+								'dynamic-product-options-for-woocommerce'
+							) }
+						</li>
+					) }
 					{ ! busy &&
 						results.map( ( r ) => (
 							<li key={ r.id }>
@@ -187,9 +179,7 @@ export default function AsyncSelect( {
 									disabled={ selectedIds.has( r.id ) }
 									onClick={ () => add( r ) }
 								>
-									{ r.img && (
-										<img src={ r.img } alt="" />
-									) }
+									{ r.img && <img src={ r.img } alt="" /> }
 									<span>{ r.label }</span>
 								</button>
 							</li>

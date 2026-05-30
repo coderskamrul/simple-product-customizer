@@ -20,7 +20,7 @@
  * each choice input/option: `data-price-mode`, plus `data-cost` (regular) and
  * `data-cost-sale` (sale). Absent → treated as 0 (see report assumptions).
  *
- * @package DPO\Store
+ * @package
  */
 
 import { toNumber, formatMoney } from './money';
@@ -29,7 +29,7 @@ import { evaluateSimple, evaluateAdvanced } from './formula';
 /**
  * Read the localised store config defensively.
  *
- * @return {object} dpoStore global or {}.
+ * @return {Object} dpoStore global or {}.
  */
 function store() {
 	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
@@ -130,7 +130,8 @@ function isEmptyValue( value ) {
 	}
 	if ( typeof value === 'object' ) {
 		return Object.keys( value ).every(
-			( k ) => String( value[ k ] == null ? '' : value[ k ] ).trim() === ''
+			( k ) =>
+				String( value[ k ] == null ? '' : value[ k ] ).trim() === ''
 		);
 	}
 	return false;
@@ -238,7 +239,7 @@ function valueControl( fieldEl ) {
  * Compute the price contribution for one (non-formula) field.
  *
  * @param {HTMLElement} fieldEl     Field wrapper.
- * @param {object}      entry       Selection entry.
+ * @param {Object}      entry       Selection entry.
  * @param {number}      percentBase Percent base.
  * @return {number} Price.
  */
@@ -298,9 +299,9 @@ export function priceField( fieldEl, entry, percentBase ) {
  * id (mirrors PriceCalculator::collectFormulaVars): number/range values and
  * resolved select choice costs.
  *
- * @param {object} selections    State selections map.
- * @param {object} fieldElements fieldId → wrapper element map.
- * @return {object} name → number map.
+ * @param {Object} selections    State selections map.
+ * @param {Object} fieldElements fieldId → wrapper element map.
+ * @return {Object} name → number map.
  */
 export function collectFormulaVars( selections, fieldElements ) {
 	const vars = {};
@@ -343,8 +344,8 @@ export function collectFormulaVars( selections, fieldElements ) {
  * @param {HTMLElement} fieldEl     Field wrapper.
  * @param {string}      type        'formula' | 'advancedformula'.
  * @param {number}      percentBase Product percent base.
- * @param {object}      simpleVars  Numeric vars for the simple engine.
- * @param {object}      dynamics    Dynamic vars for the advanced engine.
+ * @param {Object}      simpleVars  Numeric vars for the simple engine.
+ * @param {Object}      dynamics    Dynamic vars for the advanced engine.
  * @return {number} Computed price.
  */
 export function priceFormula(
@@ -375,10 +376,7 @@ export function priceFormula(
 				bidMap = {};
 			}
 		}
-		return evaluateAdvanced(
-			expr,
-			Object.assign( {}, bidMap, dynamics )
-		);
+		return evaluateAdvanced( expr, Object.assign( {}, bidMap, dynamics ) );
 	}
 	const vars = Object.assign(
 		{ product_price: percentBase },
@@ -392,9 +390,9 @@ export function priceFormula(
  * Display amounts honour currency + conversion; the values written to the
  * hidden inputs elsewhere remain raw/base.
  *
- * @param {HTMLElement} root         `.dpo-options` wrapper.
- * @param {number}      optionsPrice Sum of option prices (base ccy).
- * @param {number}      basePrice    Product base price (base ccy).
+ * @param {HTMLElement} root          `.dpo-options` wrapper.
+ * @param {number}      optionsPrice  Sum of option prices (base ccy).
+ * @param {number}      basePrice     Product base price (base ccy).
  * @param {number}      [linkedPrice] Sum of selected linked-product prices.
  * @return {void}
  */

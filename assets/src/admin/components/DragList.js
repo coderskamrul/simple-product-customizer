@@ -2,7 +2,7 @@
  * Generic HTML5 drag-to-reorder list (no DnD library). Caller renders each
  * row; DragList wires draggable handles and emits a reorder on drop.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState } from '@wordpress/element';
@@ -25,10 +25,10 @@ export function reorder( arr, from, to ) {
 /**
  * DragList.
  *
- * @param {Object}   props            Component props.
- * @param {Array}    props.items      Row data.
- * @param {Function} props.onReorder  (fromIdx, toIdx) => void.
- * @param {Function} props.renderItem (item, index, dragHandleProps) => JSX.
+ * @param {Object}   props             Component props.
+ * @param {Array}    props.items       Row data.
+ * @param {Function} props.onReorder   (fromIdx, toIdx) => void.
+ * @param {Function} props.renderItem  (item, index, dragHandleProps) => JSX.
  * @param {string}   [props.className] Extra class.
  * @return {JSX.Element} The list.
  */
@@ -59,9 +59,7 @@ export default function DragList( {
 					<li
 						key={ item.key ?? idx }
 						className={ `dpo-draglist__row${
-							overIdx === idx
-								? ' is-dragover'
-								: ''
+							overIdx === idx ? ' is-dragover' : ''
 						}${ dragIdx === idx ? ' is-dragging' : '' }` }
 						onDragOver={ ( e ) => {
 							e.preventDefault();
@@ -69,10 +67,7 @@ export default function DragList( {
 						} }
 						onDrop={ ( e ) => {
 							e.preventDefault();
-							if (
-								dragIdx !== null &&
-								dragIdx !== idx
-							) {
+							if ( dragIdx !== null && dragIdx !== idx ) {
 								onReorder( dragIdx, idx );
 							}
 							setDragIdx( null );

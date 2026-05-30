@@ -2,7 +2,7 @@
  * The option-set data table: a sortable header, selectable rows and the
  * loading / error / empty states — all inside the card surface.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useEffect, useRef } from '@wordpress/element';
@@ -12,7 +12,11 @@ import OptionSetRow from './OptionSetRow';
 
 /** Column descriptors. `sort` keys map to OptionSetScreen's comparator. */
 const COLUMNS = [
-	{ key: 'id', label: __( 'ID', 'dynamic-product-options-for-woocommerce' ), sort: 'id' },
+	{
+		key: 'id',
+		label: __( 'ID', 'dynamic-product-options-for-woocommerce' ),
+		sort: 'id',
+	},
 	{
 		key: 'name',
 		label: __( 'Option Name', 'dynamic-product-options-for-woocommerce' ),
@@ -148,10 +152,7 @@ export default function OptionSetTable( props ) {
 			<table className="dpo-os-table">
 				<thead>
 					<tr>
-						<th
-							scope="col"
-							className="dpo-os-th dpo-os-th--check"
-						>
+						<th scope="col" className="dpo-os-th dpo-os-th--check">
 							<input
 								ref={ allRef }
 								type="checkbox"
@@ -172,9 +173,7 @@ export default function OptionSetTable( props ) {
 									col.end ? ' dpo-os-th--end' : ''
 								}` }
 								aria-sort={
-									col.sort
-										? ariaSort( col.sort )
-										: undefined
+									col.sort ? ariaSort( col.sort ) : undefined
 								}
 							>
 								{ col.sort ? (
@@ -185,9 +184,7 @@ export default function OptionSetTable( props ) {
 												? ' is-active'
 												: ''
 										}` }
-										onClick={ () =>
-											onSort( col.sort )
-										}
+										onClick={ () => onSort( col.sort ) }
 									>
 										{ col.label }
 										<span

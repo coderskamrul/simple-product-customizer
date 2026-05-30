@@ -7,7 +7,7 @@
  * `#dpo-variation-prices-pct` holder maps (keyed by variation id), then
  * triggers a recompute.
  *
- * @package DPO\Store
+ * @package
  */
 
 /**
@@ -15,7 +15,7 @@
  *
  * @param {HTMLElement} root `.dpo-options` wrapper.
  * @param {string}      id   Holder element id.
- * @return {object} Parsed map (empty on failure).
+ * @return {Object} Parsed map (empty on failure).
  */
 function holderMap( root, id ) {
 	const el = root.querySelector( '#' + id );
@@ -51,9 +51,9 @@ export function readBase( root ) {
 /**
  * Wire WooCommerce variation events to a base-price setter.
  *
- * @param {HTMLElement} root    `.dpo-options` wrapper.
- * @param {HTMLElement} form    The product `form.cart`.
- * @param {Function}    apply   Called with ({ base, pct }) to set + recompute.
+ * @param {HTMLElement} root  `.dpo-options` wrapper.
+ * @param {HTMLElement} form  The product `form.cart`.
+ * @param {Function}    apply Called with ({ base, pct }) to set + recompute.
  * @return {Function} Cleanup function.
  */
 export function initVariations( root, form, apply ) {
@@ -79,9 +79,7 @@ export function initVariations( root, form, apply ) {
 				? parseFloat( prices[ vid ] ) || 0
 				: staticBase.base;
 		const pct =
-			pcts[ vid ] !== undefined
-				? parseFloat( pcts[ vid ] ) || 0
-				: base;
+			pcts[ vid ] !== undefined ? parseFloat( pcts[ vid ] ) || 0 : base;
 		apply( { base, pct } );
 	};
 

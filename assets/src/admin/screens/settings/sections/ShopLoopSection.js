@@ -2,7 +2,7 @@
  * Shop Loop section — how option-bearing products behave on shop/archive
  * pages: force the "Select options" button and customise its text.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -74,9 +74,7 @@ export default function ShopLoopSection( { values, set } ) {
 				>
 					<TextControl
 						value={ values.shopButtonText }
-						onChange={ ( v ) =>
-							set( 'shopButtonText', v )
-						}
+						onChange={ ( v ) => set( 'shopButtonText', v ) }
 					/>
 				</Field>
 			</SettingCard>

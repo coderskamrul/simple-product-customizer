@@ -7,13 +7,13 @@
  * DISPLAY only — the raw, base-currency amounts are what get serialised to
  * the hidden inputs so the server recomputes authoritatively.
  *
- * @package DPO\Store
+ * @package
  */
 
 /**
  * Read the localised store config defensively.
  *
- * @return {object} The dpoStore global, or a safe default.
+ * @return {Object} The dpoStore global, or a safe default.
  */
 function cfg() {
 	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
@@ -97,10 +97,7 @@ function numberFormat( amount, decimals, decSep, thoSep ) {
 		Math.max( 0, decimals )
 	);
 	const parts = fixed.split( '.' );
-	parts[ 0 ] = parts[ 0 ].replace(
-		/\B(?=(\d{3})+(?!\d))/g,
-		thoSep || ''
-	);
+	parts[ 0 ] = parts[ 0 ].replace( /\B(?=(\d{3})+(?!\d))/g, thoSep || '' );
 	const joined = parts.join( decSep || '.' );
 	return ( neg ? '-' : '' ) + joined;
 }
@@ -109,8 +106,8 @@ function numberFormat( amount, decimals, decSep, thoSep ) {
  * Format a base-currency amount into a display HTML/string honouring the
  * WooCommerce currency position. Applies conversion when active.
  *
- * @param {number}  amount      Base-currency amount.
- * @param {boolean} [skipConv]  When true, do not currency-convert.
+ * @param {number}  amount     Base-currency amount.
+ * @param {boolean} [skipConv] When true, do not currency-convert.
  * @return {string} Formatted price string with symbol.
  */
 export function formatMoney( amount, skipConv ) {

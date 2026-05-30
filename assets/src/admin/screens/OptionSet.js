@@ -2,7 +2,7 @@
  * Option Sets route entry — owns the SetsContext provider and renders the
  * <OptionSet /> screen (formerly <List /> inside SetsList).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { SetsProvider } from '../store/SetsContext';

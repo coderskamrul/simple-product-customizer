@@ -1,18 +1,43 @@
 /**
  * Primary admin navigation rail.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
 
 /** Nav items: { route, hash, label, icon }. */
 const NAV = [
-	{ route: 'dashboard', hash: '#/', label: __( 'Dashboard', 'dynamic-product-options-for-woocommerce' ), icon: 'dashboard' },
-	{ route: 'sets', hash: '#/sets', label: __( 'Option Sets', 'dynamic-product-options-for-woocommerce' ), icon: 'screenoptions' },
-	{ route: 'settings', hash: '#/settings', label: __( 'Settings', 'dynamic-product-options-for-woocommerce' ), icon: 'admin-generic' },
-	{ route: 'analytics', hash: '#/analytics', label: __( 'Analytics', 'dynamic-product-options-for-woocommerce' ), icon: 'chart-bar' },
-	{ route: 'license', hash: '#/license', label: __( 'License', 'dynamic-product-options-for-woocommerce' ), icon: 'admin-network' },
+	{
+		route: 'dashboard',
+		hash: '#/',
+		label: __( 'Dashboard', 'dynamic-product-options-for-woocommerce' ),
+		icon: 'dashboard',
+	},
+	{
+		route: 'sets',
+		hash: '#/sets',
+		label: __( 'Option Sets', 'dynamic-product-options-for-woocommerce' ),
+		icon: 'screenoptions',
+	},
+	{
+		route: 'settings',
+		hash: '#/settings',
+		label: __( 'Settings', 'dynamic-product-options-for-woocommerce' ),
+		icon: 'admin-generic',
+	},
+	{
+		route: 'analytics',
+		hash: '#/analytics',
+		label: __( 'Analytics', 'dynamic-product-options-for-woocommerce' ),
+		icon: 'chart-bar',
+	},
+	{
+		route: 'license',
+		hash: '#/license',
+		label: __( 'License', 'dynamic-product-options-for-woocommerce' ),
+		icon: 'admin-network',
+	},
 ];
 
 /**
@@ -53,14 +78,10 @@ export default function Sidebar( { active } ) {
 						<a
 							href={ item.hash }
 							className={ `dpo-sidebar__link${
-								current === item.route
-									? ' is-active'
-									: ''
+								current === item.route ? ' is-active' : ''
 							}` }
 							aria-current={
-								current === item.route
-									? 'page'
-									: undefined
+								current === item.route ? 'page' : undefined
 							}
 						>
 							<span

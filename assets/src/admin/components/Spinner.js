@@ -1,7 +1,7 @@
 /**
  * Minimal inline loading spinner with an accessible label.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Spinner.
  *
- * @param {Object} props        Component props.
+ * @param {Object} props         Component props.
  * @param {string} [props.label] Visually-hidden status text.
  * @return {JSX.Element} The spinner.
  */

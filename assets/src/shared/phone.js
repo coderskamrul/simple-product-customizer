@@ -7,7 +7,7 @@
  * glyphs are derived from the iso2 code as Unicode regional-indicator pairs
  * (no flag images bundled).
  *
- * @package DPO
+ * @package
  */
 
 import data from '../../data/countries.json';
@@ -60,9 +60,5 @@ export function findCountry( iso2 ) {
  * @return {Object} The resolved country record.
  */
 export function resolveDefault( preferred ) {
-	return (
-		findCountry( preferred ) ||
-		findCountry( 'us' ) ||
-		COUNTRIES[ 0 ]
-	);
+	return findCountry( preferred ) || findCountry( 'us' ) || COUNTRIES[ 0 ];
 }

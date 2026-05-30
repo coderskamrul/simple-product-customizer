@@ -21,13 +21,13 @@
  *   total:            number                   // basePrice + optionsPrice
  * }
  *
- * @package DPO\Store
+ * @package
  */
 
 /**
  * Build a fresh empty state object.
  *
- * @return {object} Default state.
+ * @return {Object} Default state.
  */
 function emptyState() {
 	return {
@@ -124,8 +124,8 @@ export default class State {
 	/**
 	 * Replace the selection entry for a field.
 	 *
-	 * @param {string} fieldId Field id.
-	 * @param {object|null} entry Selection entry, or null to clear.
+	 * @param {string}      fieldId Field id.
+	 * @param {object|null} entry   Selection entry, or null to clear.
 	 * @return {void}
 	 */
 	setSelection( fieldId, entry ) {

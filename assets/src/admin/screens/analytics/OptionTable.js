@@ -5,7 +5,7 @@
  * aggregate (the API does not range-filter it), which the subtitle and
  * column labels stay honest about.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useMemo, useState, useCallback } from '@wordpress/element';
@@ -40,10 +40,7 @@ const COLUMNS = [
 	{
 		key: 'conversion',
 		sort: 'conversion',
-		label: __(
-			'Conversion',
-			'dynamic-product-options-for-woocommerce'
-		),
+		label: __( 'Conversion', 'dynamic-product-options-for-woocommerce' ),
 	},
 	{
 		key: 'revenue',
@@ -144,10 +141,7 @@ export default function OptionTable( { status, error, rows } ) {
 	const max = useMemo(
 		() => ( {
 			clicks: Math.max( 1, ...filtered.map( ( r ) => r.clicks || 0 ) ),
-			revenue: Math.max(
-				1,
-				...filtered.map( ( r ) => r.revenue || 0 )
-			),
+			revenue: Math.max( 1, ...filtered.map( ( r ) => r.revenue || 0 ) ),
 		} ),
 		[ filtered ]
 	);
@@ -219,9 +213,7 @@ export default function OptionTable( { status, error, rows } ) {
 				/>
 			</header>
 
-			{ status === 'loading' && (
-				<SkeletonTable rows={ 6 } cols={ 5 } />
-			) }
+			{ status === 'loading' && <SkeletonTable rows={ 6 } cols={ 5 } /> }
 
 			{ status === 'error' && (
 				<div className="dpo-an-state">
@@ -263,13 +255,9 @@ export default function OptionTable( { status, error, rows } ) {
 											key={ col.key }
 											scope="col"
 											className={ `dpo-an-th${
-												col.end
-													? ' dpo-an-th--end'
-													: ''
+												col.end ? ' dpo-an-th--end' : ''
 											}` }
-											aria-sort={ ariaSort(
-												col.sort
-											) }
+											aria-sort={ ariaSort( col.sort ) }
 										>
 											<button
 												type="button"

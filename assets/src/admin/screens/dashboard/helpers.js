@@ -4,7 +4,7 @@
  * Analytics helpers so the two screens stay numerically consistent and we
  * never duplicate the period-over-period logic.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf, _n } from '@wordpress/i18n';

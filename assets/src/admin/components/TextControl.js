@@ -3,20 +3,20 @@
  * over @wordpress/components so the builder stays light, but keeps the same
  * value/onChange contract.
  *
- * @package DPO\Admin
+ * @package
  */
 
 /**
  * TextControl.
  *
- * @param {Object}   props             Component props.
- * @param {string}   props.value       Current value.
- * @param {Function} props.onChange    (nextValue) => void.
- * @param {string}   [props.type]      Input type or "textarea".
+ * @param {Object}   props               Component props.
+ * @param {string}   props.value         Current value.
+ * @param {Function} props.onChange      (nextValue) => void.
+ * @param {string}   [props.type]        Input type or "textarea".
  * @param {string}   [props.placeholder] Placeholder.
- * @param {number}   [props.rows]      Textarea rows.
- * @param {string}   [props.id]        Element id (injected by <Field/>).
- * @param {Object}   [props.rest]      Any extra DOM props.
+ * @param {number}   [props.rows]        Textarea rows.
+ * @param {string}   [props.id]          Element id (injected by <Field/>).
+ * @param {Object}   [props.rest]        Any extra DOM props.
  * @return {JSX.Element} The control.
  */
 export default function TextControl( {

@@ -2,7 +2,7 @@
  * Dashboard header — personalised welcome, supporting copy and the
  * primary "New Option Set" call to action.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf } from '@wordpress/i18n';

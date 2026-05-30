@@ -4,15 +4,10 @@
  * Fonts are managed independently (see useFonts) because they persist
  * immediately rather than on "Save settings".
  *
- * @package DPO\Admin
+ * @package
  */
 
-import {
-	useState,
-	useEffect,
-	useCallback,
-	useMemo,
-} from '@wordpress/element';
+import { useState, useEffect, useCallback, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import * as api from '../../api/endpoints';
 import { errorMessage } from '../../api/client';
@@ -80,8 +75,7 @@ export default function useSettings() {
 	}, [] );
 
 	const set = useCallback(
-		( key, val ) =>
-			setValues( ( v ) => ( { ...v, [ key ]: val } ) ),
+		( key, val ) => setValues( ( v ) => ( { ...v, [ key ]: val } ) ),
 		[]
 	);
 

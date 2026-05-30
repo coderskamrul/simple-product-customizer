@@ -1,7 +1,7 @@
 /**
  * Compact labelled progress bar (track + fill + trailing value).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf } from '@wordpress/i18n';
@@ -9,10 +9,10 @@ import { __, sprintf } from '@wordpress/i18n';
 /**
  * ProgressBar.
  *
- * @param {Object}      props          Component props.
- * @param {number|null} props.value    Current value (null → empty/“n/a”).
- * @param {number}      [props.max]    Scale max for the fill width.
- * @param {string}      [props.label]  Accessible label.
+ * @param {Object}      props             Component props.
+ * @param {number|null} props.value       Current value (null → empty/“n/a”).
+ * @param {number}      [props.max]       Scale max for the fill width.
+ * @param {string}      [props.label]     Accessible label.
  * @param {string}      [props.className] Extra class.
  * @return {JSX.Element} The progress bar.
  */
@@ -37,10 +37,7 @@ export default function ProgressBar( {
 					),
 					value
 			  )
-			: __(
-					'No data',
-					'dynamic-product-options-for-woocommerce'
-			  ) );
+			: __( 'No data', 'dynamic-product-options-for-woocommerce' ) );
 
 	return (
 		<span className={ `dpo-progress ${ className }`.trim() }>
@@ -57,9 +54,7 @@ export default function ProgressBar( {
 					style={ { width: `${ pct }%` } }
 				/>
 			</span>
-			<span className="dpo-progress__value">
-				{ has ? value : '—' }
-			</span>
+			<span className="dpo-progress__value">{ has ? value : '—' }</span>
 		</span>
 	);
 }

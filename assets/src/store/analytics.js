@@ -2,21 +2,25 @@
  * Storefront analytics pings.
  *
  * Fires POST `restUrl + 'analytics/hit'` with { setId, metric }:
- *   - 'impressions' once per set when it scrolls into view (IntersectionObserver)
- *   - 'clicks'      on the first interaction within a set
- * Throttled per set + metric via localStorage (cookie fallback):
- *   impression window 18h, click window 16h.
+ *   - 'impressions' once per set when it scrolls into view (IntersectionObserver).
+ *                   Deduped via localStorage with an 18h window so a customer
+ *                   reloading the same product page rapidly doesn't inflate it.
+ *   - 'clicks'      on the first interaction within a set (any click / change
+ *                   / input). Deduped via sessionStorage so each browser
+ *                   session counts once — closing the tab/browser starts a
+ *                   new session and the next click is recorded again.
  *
- * @package DPO\Store
+ * Cookie fallback is used when storage is blocked (private mode, etc.).
+ *
+ * @package
  */
 
 const IMPRESSION_WINDOW = 18 * 60 * 60 * 1000;
-const CLICK_WINDOW = 16 * 60 * 60 * 1000;
 
 /**
  * Read the localised store config defensively.
  *
- * @return {object} dpoStore global or {}.
+ * @return {Object} dpoStore global or {}.
  */
 function store() {
 	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
@@ -34,57 +38,135 @@ function key( setId, metric ) {
 }
 
 /**
- * Read a stored timestamp (localStorage, cookie fallback).
+ * Read a stored value from a web Storage (localStorage / sessionStorage).
+ *
+ * @param {Storage} storage Storage object.
+ * @param {string}  k       Key.
+ * @return {string} The value, or '' when absent / blocked.
+ */
+function readStore( storage, k ) {
+	try {
+		return storage.getItem( k ) || '';
+	} catch ( e ) {
+		return '';
+	}
+}
+
+/**
+ * Write a value to a web Storage (no-op when blocked).
+ *
+ * @param {Storage} storage Storage object.
+ * @param {string}  k       Key.
+ * @param {string}  v       Value.
+ * @return {boolean} True when stored successfully.
+ */
+function writeStore( storage, k, v ) {
+	try {
+		storage.setItem( k, v );
+		return true;
+	} catch ( e ) {
+		return false;
+	}
+}
+
+/**
+ * Whether a session cookie marker exists for this key (used as a fallback
+ * when storage is blocked, mirroring the sessionStorage semantics — the
+ * cookie has no expires attribute so it lives only for the browser session).
  *
  * @param {string} k Key.
- * @return {number} Epoch ms, 0 when absent.
+ * @return {boolean} True when the marker is present.
  */
-function readTs( k ) {
-	try {
-		const v = window.localStorage.getItem( k );
-		if ( v ) {
-			return parseInt( v, 10 ) || 0;
+function hasCookieMarker( k ) {
+	return new RegExp( '(?:^|; )' + k + '=' ).test( document.cookie );
+}
+
+/**
+ * Set a session-scoped cookie marker (no Expires → session cookie).
+ *
+ * @param {string} k Key.
+ * @return {void}
+ */
+function setCookieMarker( k ) {
+	document.cookie = k + '=1; path=/; SameSite=Lax';
+}
+
+/**
+ * Impression throttle — localStorage timestamp + 18h window. Falls back to a
+ * dated cookie when storage is blocked.
+ *
+ * @param {number} setId Set id.
+ * @return {boolean} True when within the window (skip ping).
+ */
+function impressionThrottled( setId ) {
+	const k = key( setId, 'impressions' );
+	const v = readStore( window.localStorage, k );
+	if ( v ) {
+		const last = parseInt( v, 10 ) || 0;
+		if ( last > 0 && Date.now() - last < IMPRESSION_WINDOW ) {
+			return true;
 		}
-	} catch ( e ) {
-		/* localStorage blocked — fall through to cookie. */
 	}
 	const m = document.cookie.match(
 		new RegExp( '(?:^|; )' + k + '=([^;]+)' )
 	);
-	return m ? parseInt( decodeURIComponent( m[ 1 ] ), 10 ) || 0 : 0;
+	if ( m ) {
+		const last = parseInt( decodeURIComponent( m[ 1 ] ), 10 ) || 0;
+		return last > 0 && Date.now() - last < IMPRESSION_WINDOW;
+	}
+	return false;
 }
 
 /**
- * Persist a timestamp (localStorage, cookie fallback).
+ * Record that an impression ping was sent (localStorage; cookie fallback).
  *
- * @param {string} k  Key.
- * @param {number} ts Epoch ms.
+ * @param {number} setId Set id.
  * @return {void}
  */
-function writeTs( k, ts ) {
-	try {
-		window.localStorage.setItem( k, String( ts ) );
+function impressionMark( setId ) {
+	const k = key( setId, 'impressions' );
+	const ts = Date.now();
+	if ( writeStore( window.localStorage, k, String( ts ) ) ) {
 		return;
-	} catch ( e ) {
-		/* fall through to cookie. */
 	}
 	const expires = new Date( ts + IMPRESSION_WINDOW ).toUTCString();
 	document.cookie =
-		k + '=' + encodeURIComponent( ts ) + '; expires=' + expires +
+		k +
+		'=' +
+		encodeURIComponent( ts ) +
+		'; expires=' +
+		expires +
 		'; path=/; SameSite=Lax';
 }
 
 /**
- * Whether a metric for a set is still throttled.
+ * Click throttle — once per browser session via sessionStorage. Cookie
+ * fallback is a session cookie (no Expires) so it also clears on browser
+ * close, matching the sessionStorage semantics.
  *
- * @param {number} setId  Set id.
- * @param {string} metric Metric.
- * @param {number} window Throttle window ms.
- * @return {boolean} True when within the window.
+ * @param {number} setId Set id.
+ * @return {boolean} True when already counted this session.
  */
-function throttled( setId, metric, window ) {
-	const last = readTs( key( setId, metric ) );
-	return last > 0 && Date.now() - last < window;
+function clickThrottled( setId ) {
+	const k = key( setId, 'clicks' );
+	if ( readStore( window.sessionStorage, k ) ) {
+		return true;
+	}
+	return hasCookieMarker( k );
+}
+
+/**
+ * Record that a click was already counted this session.
+ *
+ * @param {number} setId Set id.
+ * @return {void}
+ */
+function clickMark( setId ) {
+	const k = key( setId, 'clicks' );
+	if ( writeStore( window.sessionStorage, k, '1' ) ) {
+		return;
+	}
+	setCookieMarker( k );
 }
 
 /**
@@ -100,7 +182,15 @@ function ping( setId, metric ) {
 	if ( ! cfg.restUrl || ! setId ) {
 		return;
 	}
-	const body = JSON.stringify( { setId, metric } );
+	// X-WP-Nonce satisfies WP core's REST cookie check (action `wp_rest`).
+	// `dpo_nonce` satisfies our route's own verify_nonce body-fallback
+	// (action `dpo_rest`) — required because public_nonce() opens the gate
+	// but the callback still re-checks the body nonce before recording.
+	const body = JSON.stringify( {
+		setId,
+		metric,
+		dpo_nonce: cfg.uploadNonce || '',
+	} );
 	const headers = {
 		'Content-Type': 'application/json',
 		'X-WP-Nonce': cfg.nonce || '',
@@ -126,7 +216,11 @@ function ping( setId, metric ) {
 	} catch ( e ) {
 		/* never break the page on analytics. */
 	}
-	writeTs( key( setId, metric ), Date.now() );
+	if ( metric === 'clicks' ) {
+		clickMark( setId );
+	} else {
+		impressionMark( setId );
+	}
 }
 
 /**
@@ -150,7 +244,7 @@ export function initAnalytics( root ) {
 
 		// Impressions via IntersectionObserver (fallback: immediate).
 		const fireImpression = () => {
-			if ( ! throttled( setId, 'impressions', IMPRESSION_WINDOW ) ) {
+			if ( ! impressionThrottled( setId ) ) {
 				ping( setId, 'impressions' );
 			}
 		};
@@ -172,19 +266,23 @@ export function initAnalytics( root ) {
 			fireImpression();
 		}
 
-		// First interaction → click.
+		// First interaction → click. Listen for `click` too so non-form
+		// interactions (popup triggers, image / colour swatches, button
+		// groups) count alongside `change` / `input` on real form controls.
+		const events = [ 'click', 'change', 'input' ];
 		const onInteract = () => {
-			if ( ! throttled( setId, 'clicks', CLICK_WINDOW ) ) {
+			if ( ! clickThrottled( setId ) ) {
 				ping( setId, 'clicks' );
 			}
-			setEl.removeEventListener( 'change', onInteract );
-			setEl.removeEventListener( 'input', onInteract );
+			events.forEach( ( ev ) =>
+				setEl.removeEventListener( ev, onInteract )
+			);
 		};
-		setEl.addEventListener( 'change', onInteract );
-		setEl.addEventListener( 'input', onInteract );
+		events.forEach( ( ev ) => setEl.addEventListener( ev, onInteract ) );
 		cleanups.push( () => {
-			setEl.removeEventListener( 'change', onInteract );
-			setEl.removeEventListener( 'input', onInteract );
+			events.forEach( ( ev ) =>
+				setEl.removeEventListener( ev, onInteract )
+			);
 		} );
 	} );
 

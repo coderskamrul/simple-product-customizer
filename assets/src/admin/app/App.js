@@ -2,7 +2,7 @@
  * Root application: providers + layout (topbar / screen outlet)
  * and the hash-route → screen mapping.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { ConfigProvider } from '../store/ConfigContext';
@@ -20,7 +20,8 @@ import License from '../screens/License';
 /**
  * Resolve the active route to a screen element.
  *
- * @param {Object} route Router descriptor.
+ * @param          route.route
+ * @param {Object} route       Router descriptor.
  * @return {JSX.Element} The screen.
  */
 function Screen( { route } ) {
@@ -63,9 +64,7 @@ function Shell() {
 			{ ! hideTopBar && <TopBar /> }
 			<main
 				className={ `dpo-app__outlet${
-					isBuilder
-						? ' dpo-app__outlet--bleed'
-						: ''
+					isBuilder ? ' dpo-app__outlet--bleed' : ''
 				}` }
 			>
 				<Screen route={ route } />

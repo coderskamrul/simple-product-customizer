@@ -136,7 +136,8 @@ export function wirePhone( fieldEl, onChange ) {
 				flag.textContent = flagEmoji( code );
 			}
 			if ( dial ) {
-				dial.textContent = '+' + ( opt.getAttribute( 'data-dial' ) || '' );
+				dial.textContent =
+					'+' + ( opt.getAttribute( 'data-dial' ) || '' );
 			}
 			opts.forEach( ( o ) => o.classList.remove( 'is-active' ) );
 			opt.classList.add( 'is-active' );

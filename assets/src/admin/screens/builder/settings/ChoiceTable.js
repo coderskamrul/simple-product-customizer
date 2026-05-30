@@ -192,6 +192,7 @@ function FontCell( { choice, onPatch } ) {
  * @param {Function} props.onPatch      (delta) => void.
  * @param {Function} props.onActive     (checked:boolean) => void.
  * @param {Function} props.onRemove     () => void.
+ * @param            props.hideRemove
  * @return {JSX.Element} The row.
  */
 function ChoiceRow( {
@@ -394,10 +395,7 @@ export default function ChoiceTable( { node, patch } ) {
 		priceModeOptionsFor( node, choice && choice.priceMode ).map(
 			( m ) => ( {
 				value: m.value,
-				label:
-					m.pro && ! proActive
-						? `${ m.label } (Pro)`
-						: m.label,
+				label: m.pro && ! proActive ? `${ m.label } (Pro)` : m.label,
 				disabled: m.pro && ! proActive,
 			} )
 		);
@@ -526,10 +524,7 @@ export default function ChoiceTable( { node, patch } ) {
 				</SortableContext>
 			</DndContext>
 
-			<div
-				className="dpo-choices__foot"
-				hidden={ single }
-			>
+			<div className="dpo-choices__foot" hidden={ single }>
 				<button
 					type="button"
 					className="dpo-btn dpo-btn--primary dpo-choices__add"

@@ -4,7 +4,7 @@
  * segment (or its legend row) highlights it and swaps the centre readout;
  * the ring sweeps in on mount.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useMemo, useState } from '@wordpress/element';
@@ -105,9 +105,7 @@ export default function ConversionFunnel( { funnel } ) {
 		);
 	}
 
-	const focused = active
-		? stages.find( ( s ) => s.key === active )
-		: null;
+	const focused = active ? stages.find( ( s ) => s.key === active ) : null;
 	const centerValue = focused
 		? focused.value
 		: stages[ 0 ].value; /* default: Viewed */
@@ -157,9 +155,7 @@ export default function ConversionFunnel( { funnel } ) {
 									aria-label={ `${ a.label }: ${ Number(
 										a.value || 0
 									).toLocaleString() }` }
-									onMouseEnter={ () =>
-										setActive( a.key )
-									}
+									onMouseEnter={ () => setActive( a.key ) }
 									onMouseLeave={ () => setActive( null ) }
 									onFocus={ () => setActive( a.key ) }
 									onBlur={ () => setActive( null ) }

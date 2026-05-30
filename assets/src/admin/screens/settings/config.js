@@ -4,7 +4,7 @@
  * this declarative means <SettingsNav/> and the panel header stay in sync
  * with the section list automatically.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';

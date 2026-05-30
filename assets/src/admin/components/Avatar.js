@@ -2,7 +2,7 @@
  * Initials avatar — a coloured rounded tile derived deterministically from
  * a label so the same option set always gets the same colour.
  *
- * @package DPO\Admin
+ * @package
  */
 
 /** Must mirror $dpo-os-avatars in _variables.scss (length matters). */
@@ -46,9 +46,9 @@ function paletteIndex( seed ) {
 /**
  * Avatar.
  *
- * @param {Object}        props        Component props.
- * @param {string}        props.label  Text to derive initials from.
- * @param {string|number} [props.seed] Colour seed (defaults to label).
+ * @param {Object}        props             Component props.
+ * @param {string}        props.label       Text to derive initials from.
+ * @param {string|number} [props.seed]      Colour seed (defaults to label).
  * @param {string}        [props.className] Extra class.
  * @return {JSX.Element} The avatar tile.
  */

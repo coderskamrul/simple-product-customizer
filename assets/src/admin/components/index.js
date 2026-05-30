@@ -1,7 +1,7 @@
 /**
  * Barrel export for reusable admin components.
  *
- * @package DPO\Admin
+ * @package
  */
 
 export { default as Panel } from './Panel';

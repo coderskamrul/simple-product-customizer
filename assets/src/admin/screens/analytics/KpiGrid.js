@@ -2,7 +2,7 @@
  * The four-up KPI row. Each meter encodes the funnel-stage conversion the
  * card represents (real ratios, not decoration) so the bar stays honest.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -79,10 +79,7 @@ export default function KpiGrid( { totals, deltas } ) {
 		{
 			tone: 'green',
 			icon: 'money-alt',
-			label: __(
-				'Revenue',
-				'dynamic-product-options-for-woocommerce'
-			),
+			label: __( 'Revenue', 'dynamic-product-options-for-woocommerce' ),
 			value: formatPrice( t.revenue ),
 			delta: deltas.revenue,
 			meter: ratio( t.orders, t.impressions ),

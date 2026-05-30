@@ -2,7 +2,7 @@
  * Numbered pager with first / prev / next / last controls and a windowed
  * range of page buttons. Purely presentational — the parent owns the page.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf } from '@wordpress/i18n';

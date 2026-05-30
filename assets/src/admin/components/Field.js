@@ -3,7 +3,7 @@
  * Wraps any control to keep inspector/settings markup consistent and
  * accessible (label `htmlFor` wiring is the caller's job via children id).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { cloneElement, isValidElement } from '@wordpress/element';

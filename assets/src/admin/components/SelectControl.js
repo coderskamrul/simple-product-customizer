@@ -1,7 +1,7 @@
 /**
  * Controlled native <select> wrapper with a normalised options prop.
  *
- * @package DPO\Admin
+ * @package
  */
 
 /**

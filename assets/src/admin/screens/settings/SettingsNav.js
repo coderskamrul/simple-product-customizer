@@ -3,7 +3,7 @@
  * accent icon tile, a label + sublabel, and a chevron that flips when the
  * section is active. Keyboard: native tab order plus Up/Down roving.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useRef } from '@wordpress/element';
@@ -52,28 +52,19 @@ export default function SettingsNav( { active, onSelect } ) {
 						<li key={ s.id }>
 							<button
 								type="button"
-								ref={ ( el ) =>
-									( refs.current[ i ] = el )
-								}
-								className={ classNames(
-									'dpo-set-nav__item',
-									{ 'is-active': isActive }
-								) }
-								aria-current={
-									isActive ? 'true' : undefined
-								}
+								ref={ ( el ) => ( refs.current[ i ] = el ) }
+								className={ classNames( 'dpo-set-nav__item', {
+									'is-active': isActive,
+								} ) }
+								aria-current={ isActive ? 'true' : undefined }
 								onClick={ () => onSelect( s.id ) }
-								onKeyDown={ ( e ) =>
-									onKeyDown( e, i )
-								}
+								onKeyDown={ ( e ) => onKeyDown( e, i ) }
 							>
 								<span
 									className={ classNames(
 										'dpo-set-tile',
 										`dpo-set-tile--${
-											isActive
-												? 'violet'
-												: 'neutral'
+											isActive ? 'violet' : 'neutral'
 										}`
 									) }
 									aria-hidden="true"

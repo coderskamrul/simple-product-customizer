@@ -2,7 +2,7 @@
  * WordPress media-library image picker (uses window.wp.media). Gracefully
  * degrades to a disabled state if wp.media is unavailable.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -19,25 +19,15 @@ function openFrame( onPick ) {
 		return;
 	}
 	const frame = media( {
-		title: __(
-			'Select image',
-			'dynamic-product-options-for-woocommerce'
-		),
+		title: __( 'Select image', 'dynamic-product-options-for-woocommerce' ),
 		button: {
-			text: __(
-				'Use image',
-				'dynamic-product-options-for-woocommerce'
-			),
+			text: __( 'Use image', 'dynamic-product-options-for-woocommerce' ),
 		},
 		multiple: false,
 		library: { type: 'image' },
 	} );
 	frame.on( 'select', () => {
-		const att = frame
-			.state()
-			.get( 'selection' )
-			.first()
-			.toJSON();
+		const att = frame.state().get( 'selection' ).first().toJSON();
 		onPick( { id: att.id, url: att.url } );
 	} );
 	frame.open();

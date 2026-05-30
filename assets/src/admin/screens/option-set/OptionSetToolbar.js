@@ -1,7 +1,7 @@
 /**
  * Search + status filter + export / import / new-set actions.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useEffect, useRef, useState } from '@wordpress/element';
@@ -9,7 +9,10 @@ import { __ } from '@wordpress/i18n';
 
 /** Status filter choices (client-side over the loaded page). */
 const FILTERS = [
-	{ id: 'all', label: __( 'All', 'dynamic-product-options-for-woocommerce' ) },
+	{
+		id: 'all',
+		label: __( 'All', 'dynamic-product-options-for-woocommerce' ),
+	},
 	{
 		id: 'active',
 		label: __( 'Active', 'dynamic-product-options-for-woocommerce' ),
@@ -23,13 +26,13 @@ const FILTERS = [
 /**
  * OptionSetToolbar.
  *
- * @param {Object}   props            Component props.
- * @param {string}   props.term       Search term.
- * @param {Function} props.onSearch   (value) => void.
- * @param {string}   props.filter     Active status filter id.
- * @param {Function} props.onFilter   (id) => void.
- * @param {Function} props.onExport   Export handler.
- * @param {Function} props.onImport   Import handler (opens file picker).
+ * @param {Object}   props          Component props.
+ * @param {string}   props.term     Search term.
+ * @param {Function} props.onSearch (value) => void.
+ * @param {string}   props.filter   Active status filter id.
+ * @param {Function} props.onFilter (id) => void.
+ * @param {Function} props.onExport Export handler.
+ * @param {Function} props.onImport Import handler (opens file picker).
  * @return {JSX.Element} The toolbar.
  */
 export default function OptionSetToolbar( {
@@ -123,9 +126,7 @@ export default function OptionSetToolbar( {
 									role="menuitemradio"
 									aria-checked={ f.id === filter }
 									className={ `dpo-os-menu__item${
-										f.id === filter
-											? ' is-active'
-											: ''
+										f.id === filter ? ' is-active' : ''
 									}` }
 									onClick={ () => {
 										onFilter( f.id );

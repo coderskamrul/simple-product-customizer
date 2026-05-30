@@ -3,7 +3,7 @@
  * Reuses the shared `dpo-os-btn` system so it stays visually consistent
  * with the Option Sets screen.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useEffect, useRef, useState } from '@wordpress/element';
@@ -11,32 +11,29 @@ import { __ } from '@wordpress/i18n';
 
 /** Client-side filters over the (all-time) per-set table. */
 export const FILTERS = [
-	{ id: 'all', label: __( 'All options', 'dynamic-product-options-for-woocommerce' ) },
+	{
+		id: 'all',
+		label: __( 'All options', 'dynamic-product-options-for-woocommerce' ),
+	},
 	{
 		id: 'orders',
-		label: __(
-			'With orders',
-			'dynamic-product-options-for-woocommerce'
-		),
+		label: __( 'With orders', 'dynamic-product-options-for-woocommerce' ),
 	},
 	{
 		id: 'revenue',
-		label: __(
-			'With revenue',
-			'dynamic-product-options-for-woocommerce'
-		),
+		label: __( 'With revenue', 'dynamic-product-options-for-woocommerce' ),
 	},
 ];
 
 /**
  * OptionTableToolbar.
  *
- * @param {Object}   props          Component props.
- * @param {string}   props.term     Search term.
- * @param {Function} props.onSearch (value) => void.
- * @param {string}   props.filter   Active filter id.
- * @param {Function} props.onFilter (id) => void.
- * @param {Function} props.onExport Export handler.
+ * @param {Object}   props           Component props.
+ * @param {string}   props.term      Search term.
+ * @param {Function} props.onSearch  (value) => void.
+ * @param {string}   props.filter    Active filter id.
+ * @param {Function} props.onFilter  (id) => void.
+ * @param {Function} props.onExport  Export handler.
  * @param {boolean}  props.canExport Whether there is data to export.
  * @return {JSX.Element} The toolbar.
  */

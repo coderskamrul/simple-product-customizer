@@ -2,7 +2,7 @@
  * Lightweight toast notification system. `useToast()` returns a `notify`
  * dispatcher; the visual stack is rendered by the layout via <ToastStack/>.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import {

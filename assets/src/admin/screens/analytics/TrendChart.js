@@ -6,7 +6,7 @@
  *
  * No chart library: keeps the bundle lean and the styling on-system.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useMemo, useState, useRef, useCallback } from '@wordpress/element';
@@ -113,14 +113,10 @@ export default function TrendChart( { daily } ) {
 				return;
 			}
 			const vbX = ( ( e.clientX - rect.left ) / rect.width ) * W;
-			const ratioX =
-				( vbX - PAD.l ) / Math.max( 1, W - PAD.l - PAD.r );
+			const ratioX = ( vbX - PAD.l ) / Math.max( 1, W - PAD.l - PAD.r );
 			const idx = Math.max(
 				0,
-				Math.min(
-					model.n - 1,
-					Math.round( ratioX * ( model.n - 1 ) )
-				)
+				Math.min( model.n - 1, Math.round( ratioX * ( model.n - 1 ) ) )
 			);
 			setHover( idx );
 		},
@@ -280,9 +276,7 @@ export default function TrendChart( { daily } ) {
 					role="status"
 					aria-live="polite"
 				>
-					<span className="dpo-an-tip__title">
-						{ row.day }
-					</span>
+					<span className="dpo-an-tip__title">{ row.day }</span>
 					{ SERIES.map( ( s ) => (
 						<span key={ s.key } className="dpo-an-tip__row">
 							<span

@@ -4,7 +4,7 @@
  * carries an honest secondary chip: real period deltas where the daily
  * series supports it, otherwise a contextual figure (live count / rate).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';

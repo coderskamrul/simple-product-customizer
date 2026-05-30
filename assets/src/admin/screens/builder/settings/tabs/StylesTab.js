@@ -12,18 +12,27 @@ import { Field, SelectControl, TextControl } from '../../../../components';
 
 /** Swatch style presets (shape) offered in the visual picker. */
 const SWATCH_SHAPES = [
-	{ value: 'circle', label: __( 'Circle', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'square', label: __( 'Square', 'dynamic-product-options-for-woocommerce' ) },
-	{ value: 'rounded', label: __( 'Rounded', 'dynamic-product-options-for-woocommerce' ) },
+	{
+		value: 'circle',
+		label: __( 'Circle', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'square',
+		label: __( 'Square', 'dynamic-product-options-for-woocommerce' ),
+	},
+	{
+		value: 'rounded',
+		label: __( 'Rounded', 'dynamic-product-options-for-woocommerce' ),
+	},
 ];
 
 /**
  * A px number field with a trailing "PX" suffix.
  *
- * @param {Object}   props          Component props.
- * @param {string}   props.label    Field label.
- * @param {*}        props.value    Current value.
- * @param {Function} props.onChange (value) => void.
+ * @param {Object}   props               Component props.
+ * @param {string}   props.label         Field label.
+ * @param {*}        props.value         Current value.
+ * @param {Function} props.onChange      (value) => void.
  * @param {string}   [props.placeholder] Placeholder.
  * @return {JSX.Element} The field.
  */
@@ -37,7 +46,9 @@ function PxField( { label, value, onChange, placeholder } ) {
 					placeholder={ placeholder }
 					onChange={ onChange }
 				/>
-				<em>{ __( 'PX', 'dynamic-product-options-for-woocommerce' ) }</em>
+				<em>
+					{ __( 'PX', 'dynamic-product-options-for-woocommerce' ) }
+				</em>
 			</span>
 		</Field>
 	);
@@ -239,9 +250,7 @@ export default function StylesTab( { node, patch } ) {
 				</Field>
 			) }
 
-			{ isSwatch && (
-				<SwatchStyles node={ node } patch={ patch } />
-			) }
+			{ isSwatch && <SwatchStyles node={ node } patch={ patch } /> }
 
 			<Field
 				label={ __(

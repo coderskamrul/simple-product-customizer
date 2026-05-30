@@ -2,7 +2,7 @@
  * Price Display section — the options price line and running total line,
  * each in its own card with an enable toggle + custom label.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -49,9 +49,7 @@ export default function PriceDisplaySection( { values, set } ) {
 				>
 					<TextControl
 						value={ values.priceLineLabel }
-						onChange={ ( v ) =>
-							set( 'priceLineLabel', v )
-						}
+						onChange={ ( v ) => set( 'priceLineLabel', v ) }
 					/>
 				</Field>
 			</SettingCard>
@@ -84,9 +82,7 @@ export default function PriceDisplaySection( { values, set } ) {
 				>
 					<TextControl
 						value={ values.totalLineLabel }
-						onChange={ ( v ) =>
-							set( 'totalLineLabel', v )
-						}
+						onChange={ ( v ) => set( 'totalLineLabel', v ) }
 					/>
 				</Field>
 			</SettingCard>

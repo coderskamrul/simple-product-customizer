@@ -14,12 +14,15 @@
  *   <SkeletonCard lines={ 3 } media />
  *   <SkeletonText lines={ 4 } />
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
 
-/** [0..n-1] helper for repeating placeholder nodes. */
+/**
+ * [0..n-1] helper for repeating placeholder nodes.
+ * @param n
+ */
 const range = ( n ) => Array.from( { length: n }, ( _, i ) => i );
 
 /**
@@ -27,15 +30,21 @@ const range = ( n ) => Array.from( { length: n }, ( _, i ) => i );
  * shape (width / height / radius) is driven by inline styles or extra
  * className modifiers, so consumers stay in full control of geometry.
  *
- * @param {Object}        props          Props.
- * @param {string|number} [props.w]      Width (any CSS length, default 100%).
- * @param {string|number} [props.h]      Height (default 12px).
- * @param {string}        [props.r]      Border-radius (default `--dpo-r-sm`).
+ * @param {Object}        props             Props.
+ * @param {string|number} [props.w]         Width (any CSS length, default 100%).
+ * @param {string|number} [props.h]         Height (default 12px).
+ * @param {string}        [props.r]         Border-radius (default `--dpo-r-sm`).
  * @param {string}        [props.className] Extra class names.
- * @param {Object}        [props.style]  Inline style overrides.
+ * @param {Object}        [props.style]     Inline style overrides.
  * @return {JSX.Element} Block element.
  */
-export function Skeleton( { w = '100%', h = 12, r, className = '', style = {} } ) {
+export function Skeleton( {
+	w = '100%',
+	h = 12,
+	r,
+	className = '',
+	style = {},
+} ) {
 	const css = {
 		inlineSize: typeof w === 'number' ? `${ w }px` : w,
 		blockSize: typeof h === 'number' ? `${ h }px` : h,
@@ -81,9 +90,9 @@ export function SkeletonText( { lines = 3 } ) {
  * Generic card placeholder — title, optional media block, body lines and
  * a trailing action row.
  *
- * @param {Object}  props         Props.
- * @param {number}  [props.lines] Body lines (default 3).
- * @param {boolean} [props.media] Render a wide media block above the body.
+ * @param {Object}  props          Props.
+ * @param {number}  [props.lines]  Body lines (default 3).
+ * @param {boolean} [props.media]  Render a wide media block above the body.
  * @param {boolean} [props.action] Render an action row at the bottom.
  * @return {JSX.Element} Card.
  */
@@ -125,8 +134,8 @@ export function SkeletonStat() {
 /**
  * Grid of stat tiles — matches the dashboard / analytics KPI strips.
  *
- * @param {Object} props          Props.
- * @param {number} [props.count]  Tile count (default 4).
+ * @param {Object} props         Props.
+ * @param {number} [props.count] Tile count (default 4).
  * @return {JSX.Element} Grid.
  */
 export function SkeletonStatGrid( { count = 4 } ) {
@@ -145,9 +154,9 @@ export function SkeletonStatGrid( { count = 4 } ) {
  * narrower too (acts as an action cluster), so the layout reads like a
  * real table.
  *
- * @param {Object} props         Props.
- * @param {number} [props.rows]  Body rows (default 6).
- * @param {number} [props.cols]  Columns (default 5).
+ * @param {Object} props        Props.
+ * @param {number} [props.rows] Body rows (default 6).
+ * @param {number} [props.cols] Columns (default 5).
  * @return {JSX.Element} Table.
  */
 export function SkeletonTable( { rows = 6, cols = 5 } ) {
@@ -155,7 +164,10 @@ export function SkeletonTable( { rows = 6, cols = 5 } ) {
 		<div
 			className="dpo-skel-table"
 			role="status"
-			aria-label={ __( 'Loading…', 'dynamic-product-options-for-woocommerce' ) }
+			aria-label={ __(
+				'Loading…',
+				'dynamic-product-options-for-woocommerce'
+			) }
 		>
 			<div className="dpo-skel-table__head">
 				{ range( cols ).map( ( i ) => (
@@ -242,7 +254,12 @@ export function SkeletonTabs( { count = 4 } ) {
 	return (
 		<div className="dpo-skel-tabs" aria-hidden="true">
 			{ range( count ).map( ( i ) => (
-				<Skeleton key={ i } w={ 90 + ( i % 3 ) * 14 } h={ 32 } r="var(--dpo-r-md)" />
+				<Skeleton
+					key={ i }
+					w={ 90 + ( i % 3 ) * 14 }
+					h={ 32 }
+					r="var(--dpo-r-md)"
+				/>
 			) ) }
 		</div>
 	);
@@ -398,9 +415,15 @@ export function SkeletonBuilder() {
  * @param {Object}      props           Props.
  * @param {JSX.Element} props.children  Content.
  * @param {string}      [props.as]      Wrapper element (default 'div').
+ * @param               props.className
  * @return {JSX.Element} Wrapper.
  */
-export function FadeIn( { children, as: Tag = 'div', className = '', ...rest } ) {
+export function FadeIn( {
+	children,
+	as: Tag = 'div',
+	className = '',
+	...rest
+} ) {
 	return (
 		<Tag className={ `dpo-fadein ${ className }`.trim() } { ...rest }>
 			{ children }

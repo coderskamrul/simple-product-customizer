@@ -3,7 +3,7 @@
  * <input type="file"> and surfaces the chosen filename. Exposes the
  * underlying input via `inputRef` so the parent can read / reset it.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState } from '@wordpress/element';

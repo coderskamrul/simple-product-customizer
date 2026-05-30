@@ -2,7 +2,7 @@
  * Renders the live toast stack from ToastContext. Mounted once by the
  * layout so any screen can `notify()`.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';

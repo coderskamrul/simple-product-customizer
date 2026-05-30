@@ -3,7 +3,7 @@
  * in the admin script's declared handle deps). Returns a unique id that is
  * stable across renders of the same component instance.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useRef } from '@wordpress/element';

@@ -3,7 +3,7 @@
  * "Save settings" action on the right. The save button reflects the
  * dirty + saving state of useSettings.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -70,10 +70,7 @@ export default function SettingsHeader( { saving, dirty, onSave } ) {
 
 			<div className="dpo-set-header__actions">
 				{ dirty && ! saving && (
-					<span
-						className="dpo-set-header__unsaved"
-						role="status"
-					>
+					<span className="dpo-set-header__unsaved" role="status">
 						{ __(
 							'Unsaved changes',
 							'dynamic-product-options-for-woocommerce'

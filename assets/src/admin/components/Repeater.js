@@ -2,7 +2,7 @@
  * Reorderable repeatable rows with add/remove. Used by the Choices inspector
  * tab. Rows are reordered by drag (via DragList) and rendered by the caller.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -11,14 +11,14 @@ import DragList, { reorder } from './DragList';
 /**
  * Repeater.
  *
- * @param {Object}   props             Component props.
- * @param {Array}    props.rows        Row data array.
- * @param {Function} props.onChange    (nextRows) => void.
- * @param {Function} props.renderRow   (row, index) => JSX (row body).
- * @param {Function} props.makeRow     () => newRow.
- * @param {string}   [props.addLabel]  Add button label.
- * @param {boolean}  [props.canAdd]    Whether adding is allowed.
- * @param {JSX.Element} [props.addHint] Node shown next to a disabled add.
+ * @param {Object}      props            Component props.
+ * @param {Array}       props.rows       Row data array.
+ * @param {Function}    props.onChange   (nextRows) => void.
+ * @param {Function}    props.renderRow  (row, index) => JSX (row body).
+ * @param {Function}    props.makeRow    () => newRow.
+ * @param {string}      [props.addLabel] Add button label.
+ * @param {boolean}     [props.canAdd]   Whether adding is allowed.
+ * @param {JSX.Element} [props.addHint]  Node shown next to a disabled add.
  * @return {JSX.Element} The repeater.
  */
 export default function Repeater( {

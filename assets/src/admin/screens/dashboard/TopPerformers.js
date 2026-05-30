@@ -3,7 +3,7 @@
  * Rows deep-link into the builder for the set; the header links to the
  * full Analytics screen.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf, _n } from '@wordpress/i18n';

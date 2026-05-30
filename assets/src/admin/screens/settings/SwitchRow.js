@@ -3,7 +3,7 @@
  * label is the toggle's own <label> text (kept accessible) and CSS
  * pushes the switch to the trailing edge.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { ToggleField } from '../../components';

@@ -3,7 +3,7 @@
  * by modified time. Each entry is honest about what the API exposes
  * (published vs. still a draft) and shows a relative timestamp.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf } from '@wordpress/i18n';

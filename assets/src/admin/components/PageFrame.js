@@ -11,21 +11,21 @@
  * Every measurement comes from the global theme tokens, so all screens stay
  * pixel-aligned and follow the active emerald palette.
  *
- * @package DPO\Admin
+ * @package
  */
 
 /**
  * PageFrame.
  *
- * @param {Object}      props          Component props.
- * @param {string}      props.title    Screen title.
+ * @param {Object}      props            Component props.
+ * @param {string}      props.title      Screen title.
  * @param {string}      [props.subtitle] Supporting copy under the title.
- * @param {JSX.Element} [props.actions] Right-aligned actions (buttons, links).
- * @param {JSX.Element} [props.toolbar] Optional row below the title (filters /
- *                                      search / bulk actions).
- * @param {string}      [props.tone]    Optional accent for the title row.
- * @param {boolean}     [props.bleed]   When true, body has no padding.
- * @param {JSX.Element} props.children  Screen body.
+ * @param {JSX.Element} [props.actions]  Right-aligned actions (buttons, links).
+ * @param {JSX.Element} [props.toolbar]  Optional row below the title (filters /
+ *                                       search / bulk actions).
+ * @param {string}      [props.tone]     Optional accent for the title row.
+ * @param {boolean}     [props.bleed]    When true, body has no padding.
+ * @param {JSX.Element} props.children   Screen body.
  * @return {JSX.Element} Frame.
  */
 export default function PageFrame( {
@@ -38,7 +38,7 @@ export default function PageFrame( {
 } ) {
 	return (
 		<div className="dpo-page">
-			{/* <header className="dpo-page__head">
+			{ /* <header className="dpo-page__head">
 				<div className="dpo-page__titles">
 					{ title && (
 						<h1 className="dpo-page__title">{ title }</h1>
@@ -50,11 +50,9 @@ export default function PageFrame( {
 				{ actions && (
 					<div className="dpo-page__actions">{ actions }</div>
 				) }
-			</header> */}
+			</header> */ }
 
-			{ toolbar && (
-				<div className="dpo-page__toolbar">{ toolbar }</div>
-			) }
+			{ toolbar && <div className="dpo-page__toolbar">{ toolbar }</div> }
 
 			<div
 				className={ `dpo-page__body${

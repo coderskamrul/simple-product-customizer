@@ -11,7 +11,7 @@
  * These exist only for the live storefront preview — the server recomputes
  * authoritatively from the raw selection on add-to-cart.
  *
- * @package DPO\Store
+ * @package
  */
 
 /* -------------------------------------------------------------------------- */
@@ -129,7 +129,7 @@ function balancedParens( expr ) {
  * Evaluate the simple {{var}} arithmetic formula.
  *
  * @param {string} expression Raw formula.
- * @param {object} vars       name => numeric value map.
+ * @param {Object} vars       name => numeric value map.
  * @return {number} Result clamped to >= 0 (0 on any failure).
  */
 export function evaluateSimple( expression, vars ) {
@@ -137,15 +137,12 @@ export function evaluateSimple( expression, vars ) {
 		let expr = String( expression == null ? '' : expression );
 		const bag = vars || {};
 
-		expr = expr.replace(
-			/\{\{([a-zA-Z0-9_-]+)\}\}/g,
-			( _all, key ) => {
-				const v = bag[ key ];
-				return v !== undefined && v !== '' && v !== null
-					? String( v )
-					: '0';
-			}
-		);
+		expr = expr.replace( /\{\{([a-zA-Z0-9_-]+)\}\}/g, ( _all, key ) => {
+			const v = bag[ key ];
+			return v !== undefined && v !== '' && v !== null
+				? String( v )
+				: '0';
+		} );
 
 		expr = expr.replace( /(\d+(?:\.\d+)?)%/g, '($1/100)' );
 		expr = expr.replace( /\s+/g, '' );
@@ -350,9 +347,7 @@ function tokenize( src ) {
 			continue;
 		}
 
-		throw new Error(
-			'Unexpected character "' + ch + '" at position ' + i
-		);
+		throw new Error( 'Unexpected character "' + ch + '" at position ' + i );
 	}
 
 	tokens.push( { type: T_EOF, value: null, pos: len } );
@@ -530,16 +525,12 @@ function parse( tokens ) {
 			switch ( name ) {
 				case 'abs':
 					if ( argc !== 1 ) {
-						throw new Error(
-							'abs() expects exactly 1 argument.'
-						);
+						throw new Error( 'abs() expects exactly 1 argument.' );
 					}
 					return Math.abs( v[ 0 ] );
 				case 'ceil':
 					if ( argc !== 1 ) {
-						throw new Error(
-							'ceil() expects exactly 1 argument.'
-						);
+						throw new Error( 'ceil() expects exactly 1 argument.' );
 					}
 					return Math.ceil( v[ 0 ] );
 				case 'floor':
@@ -551,9 +542,7 @@ function parse( tokens ) {
 					return Math.floor( v[ 0 ] );
 				case 'round': {
 					if ( argc < 1 || argc > 2 ) {
-						throw new Error(
-							'round() expects 1 or 2 arguments.'
-						);
+						throw new Error( 'round() expects 1 or 2 arguments.' );
 					}
 					const p = argc === 2 ? Math.trunc( v[ 1 ] ) : 0;
 					const f = Math.pow( 10, p );
@@ -561,23 +550,17 @@ function parse( tokens ) {
 				}
 				case 'pow':
 					if ( argc !== 2 ) {
-						throw new Error(
-							'pow() expects exactly 2 arguments.'
-						);
+						throw new Error( 'pow() expects exactly 2 arguments.' );
 					}
 					return Math.pow( v[ 0 ], v[ 1 ] );
 				case 'min':
 					if ( argc < 1 ) {
-						throw new Error(
-							'min() expects at least 1 argument.'
-						);
+						throw new Error( 'min() expects at least 1 argument.' );
 					}
 					return Math.min.apply( null, v );
 				case 'max':
 					if ( argc < 1 ) {
-						throw new Error(
-							'max() expects at least 1 argument.'
-						);
+						throw new Error( 'max() expects at least 1 argument.' );
 					}
 					return Math.max.apply( null, v );
 				default:
@@ -628,9 +611,7 @@ function parse( tokens ) {
 			return node;
 		}
 
-		throw new Error(
-			'Unexpected token at position ' + tok.pos + '.'
-		);
+		throw new Error( 'Unexpected token at position ' + tok.pos + '.' );
 	}
 
 	const root = parseOr();
@@ -660,12 +641,14 @@ function normalizeNumber( value ) {
  * Evaluate an advanced AST expression (soft-fail → 0).
  *
  * @param {string} expression Source.
- * @param {object} vars       [name] => value context.
+ * @param {Object} vars       [name] => value context.
  * @return {number} Numeric result (booleans become 1/0), 0 on failure.
  */
 export function evaluateAdvanced( expression, vars ) {
 	try {
-		const tokens = tokenize( String( expression == null ? '' : expression ) );
+		const tokens = tokenize(
+			String( expression == null ? '' : expression )
+		);
 		const root = parse( tokens );
 		const result = root( vars || {} );
 		if ( typeof result === 'boolean' ) {
@@ -684,7 +667,7 @@ export function evaluateAdvanced( expression, vars ) {
  * Public facade: evaluate a formula by mode (mirrors the two PHP engines).
  *
  * @param {string} expr Expression text.
- * @param {object} vars Variable map.
+ * @param {Object} vars Variable map.
  * @param {string} mode 'simple' | 'advanced'.
  * @return {number} Numeric result, 0 on any failure.
  */

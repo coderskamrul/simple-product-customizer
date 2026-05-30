@@ -2,7 +2,7 @@
  * Option-set list state: paginated fetch, search, optimistic mutations
  * (status toggle / duplicate / delete / import) shared by SetsList.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import {
@@ -96,9 +96,7 @@ export function SetsProvider( { children } ) {
 		} catch ( e ) {
 			setItems( ( list ) =>
 				list.map( ( i ) =>
-					i.id === item.id
-						? { ...i, published: item.published }
-						: i
+					i.id === item.id ? { ...i, published: item.published } : i
 				)
 			);
 			throw e;

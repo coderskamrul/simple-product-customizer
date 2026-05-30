@@ -2,7 +2,7 @@
  * Compact circular gauge used in the option table (Cart Rate / Conversion).
  * Percentage label sits beside the ring, mirroring the reference layout.
  *
- * @package DPO\Admin
+ * @package
  */
 
 const SIZE = 38;
@@ -13,9 +13,9 @@ const C = 2 * Math.PI * R;
 /**
  * Ring.
  *
- * @param {Object} props        Component props.
- * @param {number} props.value  Percentage 0–100.
- * @param {string} props.tone   blue|purple|green|pink.
+ * @param {Object} props          Component props.
+ * @param {number} props.value    Percentage 0–100.
+ * @param {string} props.tone     blue|purple|green|pink.
  * @param {string} [props.suffix] Trailing unit (default "%").
  * @return {JSX.Element} The gauge.
  */

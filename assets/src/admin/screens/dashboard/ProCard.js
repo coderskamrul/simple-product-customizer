@@ -3,7 +3,7 @@
  * outbound upgrade CTA. Rendered only on the free plan (gated by the
  * Dashboard composition root).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';

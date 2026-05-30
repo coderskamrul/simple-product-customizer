@@ -2,7 +2,7 @@
  * Cart & Checkout section — visibility of the chosen options on the cart
  * and checkout pages. The hint line reflects the live toggle state.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';

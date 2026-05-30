@@ -27,14 +27,13 @@ export default function ValuePricing( { node, patch } ) {
 	// Filter by field type / Enable Quantity (allowedPriceModes in
 	// fields/registry), keep any saved value visible, then layer the Pro
 	// gate on top.
-	const priceOptions = priceModeOptionsFor(
-		node,
-		choice.priceMode
-	).map( ( m ) => ( {
-		value: m.value,
-		label: m.pro && ! proActive ? `${ m.label } (Pro)` : m.label,
-		disabled: m.pro && ! proActive,
-	} ) );
+	const priceOptions = priceModeOptionsFor( node, choice.priceMode ).map(
+		( m ) => ( {
+			value: m.value,
+			label: m.pro && ! proActive ? `${ m.label } (Pro)` : m.label,
+			disabled: m.pro && ! proActive,
+		} )
+	);
 
 	const setPrice = ( delta ) => {
 		const base =

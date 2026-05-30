@@ -5,7 +5,7 @@
  * Category and Products cells render an honest neutral placeholder rather
  * than fabricated data — the layout still matches the design 1:1.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf } from '@wordpress/i18n';

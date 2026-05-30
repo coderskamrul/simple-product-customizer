@@ -16,7 +16,7 @@
  * `normalize()` upgrades both the previous preset model (size/shape enums) and
  * the original granular token set, so existing installs keep their look.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -51,49 +51,105 @@ export const PALETTES = [
 		key: 'classic',
 		label: __( 'Classic', 'dynamic-product-options-for-woocommerce' ),
 		ramp: [ '#1e1e1e', '#3a3a3a', '#9a9a9a', '#ffffff' ],
-		colors: { text: '#1e1e1e', primary: '#1e1e1e', border: '#d4d4d8', fill: '#ffffff', onPrimary: '#ffffff', error: '#df1c41' },
+		colors: {
+			text: '#1e1e1e',
+			primary: '#1e1e1e',
+			border: '#d4d4d8',
+			fill: '#ffffff',
+			onPrimary: '#ffffff',
+			error: '#df1c41',
+		},
 	},
 	{
 		key: 'blue',
 		label: __( 'Blue', 'dynamic-product-options-for-woocommerce' ),
 		ramp: [ '#0b1f4d', '#2563eb', '#7d9bd6', '#ffffff' ],
-		colors: { text: '#0b1f4d', primary: '#2563eb', border: '#c7d6f0', fill: '#ffffff', onPrimary: '#ffffff', error: '#df1c41' },
+		colors: {
+			text: '#0b1f4d',
+			primary: '#2563eb',
+			border: '#c7d6f0',
+			fill: '#ffffff',
+			onPrimary: '#ffffff',
+			error: '#df1c41',
+		},
 	},
 	{
 		key: 'purple',
 		label: __( 'Purple', 'dynamic-product-options-for-woocommerce' ),
 		ramp: [ '#1c004f', '#7126ff', '#a99bd6', '#ffffff' ],
-		colors: { text: '#1c004f', primary: '#7126ff', border: '#d3c9f2', fill: '#ffffff', onPrimary: '#ffffff', error: '#df1c41' },
+		colors: {
+			text: '#1c004f',
+			primary: '#7126ff',
+			border: '#d3c9f2',
+			fill: '#ffffff',
+			onPrimary: '#ffffff',
+			error: '#df1c41',
+		},
 	},
 	{
 		key: 'pink',
 		label: __( 'Pink', 'dynamic-product-options-for-woocommerce' ),
 		ramp: [ '#4a0d2e', '#db2777', '#c79bb0', '#ffffff' ],
-		colors: { text: '#4a0d2e', primary: '#db2777', border: '#f2c9dd', fill: '#ffffff', onPrimary: '#ffffff', error: '#df1c41' },
+		colors: {
+			text: '#4a0d2e',
+			primary: '#db2777',
+			border: '#f2c9dd',
+			fill: '#ffffff',
+			onPrimary: '#ffffff',
+			error: '#df1c41',
+		},
 	},
 	{
 		key: 'orange',
 		label: __( 'Orange', 'dynamic-product-options-for-woocommerce' ),
 		ramp: [ '#2b1700', '#ea8a1e', '#b3a08a', '#ffffff' ],
-		colors: { text: '#2b1700', primary: '#ea8a1e', border: '#f0dcc2', fill: '#ffffff', onPrimary: '#ffffff', error: '#df1c41' },
+		colors: {
+			text: '#2b1700',
+			primary: '#ea8a1e',
+			border: '#f0dcc2',
+			fill: '#ffffff',
+			onPrimary: '#ffffff',
+			error: '#df1c41',
+		},
 	},
 	{
 		key: 'green',
 		label: __( 'Green', 'dynamic-product-options-for-woocommerce' ),
 		ramp: [ '#0d2b1a', '#16a34a', '#8aa897', '#ffffff' ],
-		colors: { text: '#0d2b1a', primary: '#16a34a', border: '#c2e7d1', fill: '#ffffff', onPrimary: '#ffffff', error: '#df1c41' },
+		colors: {
+			text: '#0d2b1a',
+			primary: '#16a34a',
+			border: '#c2e7d1',
+			fill: '#ffffff',
+			onPrimary: '#ffffff',
+			error: '#df1c41',
+		},
 	},
 	{
 		key: 'teal',
 		label: __( 'Teal', 'dynamic-product-options-for-woocommerce' ),
 		ramp: [ '#0a2b2b', '#0d9488', '#8aa8a5', '#ffffff' ],
-		colors: { text: '#0a2b2b', primary: '#0d9488', border: '#c2e5e2', fill: '#ffffff', onPrimary: '#ffffff', error: '#df1c41' },
+		colors: {
+			text: '#0a2b2b',
+			primary: '#0d9488',
+			border: '#c2e5e2',
+			fill: '#ffffff',
+			onPrimary: '#ffffff',
+			error: '#df1c41',
+		},
 	},
 	{
 		key: 'lime',
 		label: __( 'Lime', 'dynamic-product-options-for-woocommerce' ),
 		ramp: [ '#1a2b00', '#84cc16', '#a3b08a', '#ffffff' ],
-		colors: { text: '#1a2b00', primary: '#65a30d', border: '#dcedc2', fill: '#ffffff', onPrimary: '#ffffff', error: '#df1c41' },
+		colors: {
+			text: '#1a2b00',
+			primary: '#65a30d',
+			border: '#dcedc2',
+			fill: '#ffffff',
+			onPrimary: '#ffffff',
+			error: '#df1c41',
+		},
 	},
 ];
 
@@ -145,12 +201,20 @@ export function normalize( raw ) {
 	const src = raw && typeof raw === 'object' ? raw : {};
 
 	// Already the current px model.
-	if ( typeof src.sizePx !== 'undefined' || typeof src.radiusPx !== 'undefined' ) {
+	if (
+		typeof src.sizePx !== 'undefined' ||
+		typeof src.radiusPx !== 'undefined'
+	) {
 		return {
 			...DEFAULTS,
 			...src,
 			sizePx: clampNum( src.sizePx, SIZE_MIN, SIZE_MAX, DEFAULTS.sizePx ),
-			radiusPx: clampNum( src.radiusPx, RADIUS_MIN, RADIUS_MAX, DEFAULTS.radiusPx ),
+			radiusPx: clampNum(
+				src.radiusPx,
+				RADIUS_MIN,
+				RADIUS_MAX,
+				DEFAULTS.radiusPx
+			),
 			colors: { ...DEFAULTS.colors, ...( src.colors || {} ) },
 		};
 	}
@@ -183,8 +247,18 @@ export function normalize( raw ) {
 	}
 	return {
 		...DEFAULTS,
-		sizePx: clampNum( src.controlHeight, SIZE_MIN, SIZE_MAX, DEFAULTS.sizePx ),
-		radiusPx: clampNum( src.radius, RADIUS_MIN, RADIUS_MAX, DEFAULTS.radiusPx ),
+		sizePx: clampNum(
+			src.controlHeight,
+			SIZE_MIN,
+			SIZE_MAX,
+			DEFAULTS.sizePx
+		),
+		radiusPx: clampNum(
+			src.radius,
+			RADIUS_MIN,
+			RADIUS_MAX,
+			DEFAULTS.radiusPx
+		),
 		palette: '',
 		colors,
 	};
@@ -199,8 +273,18 @@ export function normalize( raw ) {
  * @return {Object} Resolved metric bundle + colours.
  */
 function resolve( tokens ) {
-	const sizePx = clampNum( tokens.sizePx, SIZE_MIN, SIZE_MAX, DEFAULTS.sizePx );
-	const radiusPx = clampNum( tokens.radiusPx, RADIUS_MIN, RADIUS_MAX, DEFAULTS.radiusPx );
+	const sizePx = clampNum(
+		tokens.sizePx,
+		SIZE_MIN,
+		SIZE_MAX,
+		DEFAULTS.sizePx
+	);
+	const radiusPx = clampNum(
+		tokens.radiusPx,
+		RADIUS_MIN,
+		RADIUS_MAX,
+		DEFAULTS.radiusPx
+	);
 	return {
 		controlH: Math.round( sizePx ),
 		fontSize: Math.max( 12, Math.min( 20, Math.round( sizePx * 0.32 ) ) ),

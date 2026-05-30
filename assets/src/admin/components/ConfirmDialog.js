@@ -1,7 +1,7 @@
 /**
  * Confirmation modal for destructive actions (delete set, etc.).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -10,13 +10,13 @@ import Modal from './Modal';
 /**
  * ConfirmDialog.
  *
- * @param {Object}   props              Component props.
- * @param {string}   props.title        Dialog title.
- * @param {string}   props.message      Confirmation copy.
- * @param {Function} props.onConfirm    Confirm handler.
- * @param {Function} props.onCancel     Cancel/close handler.
+ * @param {Object}   props               Component props.
+ * @param {string}   props.title         Dialog title.
+ * @param {string}   props.message       Confirmation copy.
+ * @param {Function} props.onConfirm     Confirm handler.
+ * @param {Function} props.onCancel      Cancel/close handler.
  * @param {string}   [props.confirmText] Confirm button label.
- * @param {boolean}  [props.danger]     Style confirm as destructive.
+ * @param {boolean}  [props.danger]      Style confirm as destructive.
  * @return {JSX.Element} The dialog.
  */
 export default function ConfirmDialog( {
@@ -47,9 +47,7 @@ export default function ConfirmDialog( {
 					<button
 						type="button"
 						className={ `dpo-btn ${
-							danger
-								? 'dpo-btn--danger'
-								: 'dpo-btn--primary'
+							danger ? 'dpo-btn--danger' : 'dpo-btn--primary'
 						}` }
 						onClick={ onConfirm }
 					>

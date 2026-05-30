@@ -1,7 +1,7 @@
 /**
  * Accessible on/off switch (checkbox under the hood, styled as a toggle).
  *
- * @package DPO\Admin
+ * @package
  */
 
 import useId from '../app/useId';
@@ -29,9 +29,7 @@ export default function ToggleField( { checked, onChange, label } ) {
 			<span className="dpo-toggle__track" aria-hidden="true">
 				<span className="dpo-toggle__thumb" />
 			</span>
-			{ label && (
-				<span className="dpo-toggle__label">{ label }</span>
-			) }
+			{ label && <span className="dpo-toggle__label">{ label }</span> }
 		</label>
 	);
 }

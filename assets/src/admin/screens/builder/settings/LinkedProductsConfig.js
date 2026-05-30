@@ -65,10 +65,10 @@ function toProduct( item ) {
 /**
  * Debounced product search box that appends the chosen product to the table.
  *
- * @param {Object}   props            Component props.
- * @param {Array}    props.selected   Already-linked product ids.
- * @param {boolean}  props.disabled   Whether the picker is capped/locked.
- * @param {Function} props.onAdd      (product) => void.
+ * @param {Object}   props          Component props.
+ * @param {Array}    props.selected Already-linked product ids.
+ * @param {boolean}  props.disabled Whether the picker is capped/locked.
+ * @param {Function} props.onAdd    (product) => void.
  * @return {JSX.Element} The search control.
  */
 function ProductSearch( { selected, disabled, onAdd } ) {
@@ -90,24 +90,27 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 		return () => document.removeEventListener( 'mousedown', onDoc );
 	}, [] );
 
-	const runSearch = useCallback( ( q ) => {
-		if ( timer.current ) {
-			window.clearTimeout( timer.current );
-		}
-		timer.current = window.setTimeout( async () => {
-			setBusy( true );
-			setErr( '' );
-			try {
-				const r = await api.searchProducts( q, selected );
-				setResults( r.items || [] );
-				setOpen( true );
-			} catch ( e ) {
-				setErr( errorMessage( e ) );
-			} finally {
-				setBusy( false );
+	const runSearch = useCallback(
+		( q ) => {
+			if ( timer.current ) {
+				window.clearTimeout( timer.current );
 			}
-		}, 300 );
-	}, [ selected ] );
+			timer.current = window.setTimeout( async () => {
+				setBusy( true );
+				setErr( '' );
+				try {
+					const r = await api.searchProducts( q, selected );
+					setResults( r.items || [] );
+					setOpen( true );
+				} catch ( e ) {
+					setErr( errorMessage( e ) );
+				} finally {
+					setBusy( false );
+				}
+			}, 300 );
+		},
+		[ selected ]
+	);
 
 	const selectedSet = new Set( selected );
 
@@ -167,7 +170,9 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 								<button
 									type="button"
 									className="dpo-lp-search__opt"
-									disabled={ selectedSet.has( Number( r.id ) ) }
+									disabled={ selectedSet.has(
+										Number( r.id )
+									) }
 									onClick={ () => {
 										onAdd( toProduct( r ) );
 										setTerm( '' );
@@ -244,7 +249,10 @@ function VariationPopover( { product, onToggle, onClose } ) {
 							{ on ? (
 								<X size={ 14 } className="dpo-lp-vars__x" />
 							) : (
-								<Plus size={ 14 } className="dpo-lp-vars__add" />
+								<Plus
+									size={ 14 }
+									className="dpo-lp-vars__add"
+								/>
 							) }
 						</button>
 					);
@@ -409,7 +417,9 @@ export default function LinkedProductsConfig( { node, patch } ) {
 										{ ! p.isVariable && (
 											<span className="dpo-lp__active">
 												<ToggleField
-													checked={ p.active === true }
+													checked={
+														p.active === true
+													}
 													onChange={ ( v ) =>
 														setActive( idx, v )
 													}

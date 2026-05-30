@@ -1,7 +1,7 @@
 /**
  * Screen header — branded icon tile, title/subtitle and the range control.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -10,10 +10,10 @@ import RangeTabs from './RangeTabs';
 /**
  * AnalyticsHeader.
  *
- * @param {Object}   props          Component props.
- * @param {string}   props.range    Active range id.
- * @param {Function} props.onRange  (id) => void.
- * @param {boolean}  [props.busy]   Whether a fetch is in flight.
+ * @param {Object}   props         Component props.
+ * @param {string}   props.range   Active range id.
+ * @param {Function} props.onRange (id) => void.
+ * @param {boolean}  [props.busy]  Whether a fetch is in flight.
  * @return {JSX.Element} The header.
  */
 export default function AnalyticsHeader( { range, onRange, busy } ) {

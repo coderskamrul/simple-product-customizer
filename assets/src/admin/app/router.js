@@ -5,7 +5,7 @@
  * `hashchange`. Route patterns use `:name` segments. This keeps the admin
  * SPA self-contained — no react-router dependency.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { useState, useEffect, useCallback } from '@wordpress/element';
@@ -56,8 +56,7 @@ function matchRoute( path ) {
 
 	for ( const route of ROUTES ) {
 		const rClean = route.pattern.replace( /\/+$/, '' ) || '/';
-		const rSegs =
-			rClean === '/' ? [ '' ] : rClean.split( '/' ).slice( 1 );
+		const rSegs = rClean === '/' ? [ '' ] : rClean.split( '/' ).slice( 1 );
 		if ( rSegs.length !== segs.length ) {
 			continue;
 		}

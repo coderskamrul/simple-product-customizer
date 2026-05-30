@@ -5,7 +5,7 @@
  * The "CTR" column reuses the reference's trend-pill styling but stays
  * honestly labelled — per-set time series are not exposed by the API.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __, sprintf } from '@wordpress/i18n';
@@ -17,9 +17,9 @@ import Ring from './Ring';
 /**
  * OptionRow.
  *
- * @param {Object} props      Component props.
- * @param {Object} props.row  Analytics table row.
- * @param {Object} props.max  { clicks, revenue } column maxima for meters.
+ * @param {Object} props     Component props.
+ * @param {Object} props.row Analytics table row.
+ * @param {Object} props.max { clicks, revenue } column maxima for meters.
  * @return {JSX.Element} The table row.
  */
 export default function OptionRow( { row, max } ) {
@@ -53,9 +53,7 @@ export default function OptionRow( { row, max } ) {
 				<span className="dpo-an-option">
 					<Avatar label={ title } seed={ row.set_id } />
 					<span className="dpo-an-option__meta">
-						<span className="dpo-an-option__name">
-							{ title }
-						</span>
+						<span className="dpo-an-option__name">{ title }</span>
 						<span className="dpo-an-option__code">{ code }</span>
 					</span>
 				</span>

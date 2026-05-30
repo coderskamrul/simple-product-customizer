@@ -4,7 +4,7 @@
  * and CSV serialization. Kept out of the components so the rendering
  * tree stays declarative and unit-testable.
  *
- * @package DPO\Admin
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -17,7 +17,10 @@ export const RANGES = [
 	{ id: '90d', days: 90 },
 ];
 
-/** Human label for a range id (translated lazily so __() runs at call time). */
+/**
+ * Human label for a range id (translated lazily so __() runs at call time).
+ * @param id
+ */
 export function rangeLabel( id ) {
 	switch ( id ) {
 		case 'today':
@@ -234,7 +237,9 @@ export function tableToCsv( rows ) {
  * @return {void}
  */
 export function downloadFile( name, text, mime = 'text/csv' ) {
-	const blob = new window.Blob( [ text ], { type: `${ mime };charset=utf-8` } );
+	const blob = new window.Blob( [ text ], {
+		type: `${ mime };charset=utf-8`,
+	} );
 	const url = window.URL.createObjectURL( blob );
 	const a = document.createElement( 'a' );
 	a.href = url;

@@ -97,9 +97,7 @@ export default function FieldPicker() {
 									'dynamic-product-options-for-woocommerce'
 								) }
 								aria-describedby={ undefined }
-								onOpenAutoFocus={ ( e ) =>
-									e.preventDefault()
-								}
+								onOpenAutoFocus={ ( e ) => e.preventDefault() }
 							>
 								<motion.div
 									className="dpo-picker"
@@ -114,124 +112,126 @@ export default function FieldPicker() {
 										mass: 0.7,
 									} }
 								>
-								<Command className="dpo-picker__cmd" loop>
-									<header className="dpo-picker__head">
-										<div className="dpo-picker__search">
-											<Search
-												size={ 18 }
-												className="dpo-picker__search-icon"
-												aria-hidden="true"
-											/>
-											<Command.Input
-												ref={ inputRef }
-												value={ query }
-												onValueChange={ setQuery }
-												placeholder={ __(
-													'Search fields…',
-													'dynamic-product-options-for-woocommerce'
-												) }
-												className="dpo-picker__input"
-											/>
-										</div>
-										<Dialog.Close asChild>
-											<button
-												type="button"
-												className="dpo-picker__close"
-												aria-label={ __(
-													'Close',
-													'dynamic-product-options-for-woocommerce'
-												) }
-											>
-												<X size={ 18 } />
-											</button>
-										</Dialog.Close>
-									</header>
-
-									<Command.List className="dpo-picker__list">
-										<Command.Empty className="dpo-picker__empty">
-											{ __(
-												'No fields match your search.',
-												'dynamic-product-options-for-woocommerce'
-											) }
-										</Command.Empty>
-
-										{ groups.map( ( group ) => {
-											const Cat =
-												CATEGORY_ICONS[ group.key ];
-											return (
-												<Command.Group
-													key={ group.key }
-													heading={
-														<span className="dpo-picker__cat">
-															{ Cat && (
-																<Cat
-																	size={ 13 }
-																	aria-hidden="true"
-																/>
-															) }
-															{ group.label }
-														</span>
-													}
-													className="dpo-picker__group"
-												>
-													{ group.items.map(
-														( type ) => {
-															const Icon =
-																fieldIcon(
-																	type.slug
-																);
-															const locked =
-																type.proOnly &&
-																! proActive;
-															return (
-																<Command.Item
-																	key={
-																		type.slug
-																	}
-																	value={ `${ type.label } ${ type.slug } ${ group.label }` }
-																	onSelect={ () =>
-																		add(
-																			type
-																		)
-																	}
-																	className={ `dpo-picker__item${
-																		locked
-																			? ' is-locked'
-																			: ''
-																	}` }
-																>
-																	<span className="dpo-picker__item-icon">
-																		<Icon
-																			size={
-																				18
-																			}
-																			aria-hidden="true"
-																		/>
-																	</span>
-																	<span className="dpo-picker__item-label">
-																		{
-																			type.label
-																		}
-																	</span>
-																	{ locked && (
-																		<span className="dpo-picker__pro">
-																			<Lock
-																				size={
-																					11
-																				}
-																			/>
-																			Pro
-																		</span>
-																	) }
-																</Command.Item>
-															);
-														}
+									<Command className="dpo-picker__cmd" loop>
+										<header className="dpo-picker__head">
+											<div className="dpo-picker__search">
+												<Search
+													size={ 18 }
+													className="dpo-picker__search-icon"
+													aria-hidden="true"
+												/>
+												<Command.Input
+													ref={ inputRef }
+													value={ query }
+													onValueChange={ setQuery }
+													placeholder={ __(
+														'Search fields…',
+														'dynamic-product-options-for-woocommerce'
 													) }
-												</Command.Group>
-											);
-										} ) }
-									</Command.List>
-								</Command>
+													className="dpo-picker__input"
+												/>
+											</div>
+											<Dialog.Close asChild>
+												<button
+													type="button"
+													className="dpo-picker__close"
+													aria-label={ __(
+														'Close',
+														'dynamic-product-options-for-woocommerce'
+													) }
+												>
+													<X size={ 18 } />
+												</button>
+											</Dialog.Close>
+										</header>
+
+										<Command.List className="dpo-picker__list">
+											<Command.Empty className="dpo-picker__empty">
+												{ __(
+													'No fields match your search.',
+													'dynamic-product-options-for-woocommerce'
+												) }
+											</Command.Empty>
+
+											{ groups.map( ( group ) => {
+												const Cat =
+													CATEGORY_ICONS[ group.key ];
+												return (
+													<Command.Group
+														key={ group.key }
+														heading={
+															<span className="dpo-picker__cat">
+																{ Cat && (
+																	<Cat
+																		size={
+																			13
+																		}
+																		aria-hidden="true"
+																	/>
+																) }
+																{ group.label }
+															</span>
+														}
+														className="dpo-picker__group"
+													>
+														{ group.items.map(
+															( type ) => {
+																const Icon =
+																	fieldIcon(
+																		type.slug
+																	);
+																const locked =
+																	type.proOnly &&
+																	! proActive;
+																return (
+																	<Command.Item
+																		key={
+																			type.slug
+																		}
+																		value={ `${ type.label } ${ type.slug } ${ group.label }` }
+																		onSelect={ () =>
+																			add(
+																				type
+																			)
+																		}
+																		className={ `dpo-picker__item${
+																			locked
+																				? ' is-locked'
+																				: ''
+																		}` }
+																	>
+																		<span className="dpo-picker__item-icon">
+																			<Icon
+																				size={
+																					18
+																				}
+																				aria-hidden="true"
+																			/>
+																		</span>
+																		<span className="dpo-picker__item-label">
+																			{
+																				type.label
+																			}
+																		</span>
+																		{ locked && (
+																			<span className="dpo-picker__pro">
+																				<Lock
+																					size={
+																						11
+																					}
+																				/>
+																				Pro
+																			</span>
+																		) }
+																	</Command.Item>
+																);
+															}
+														) }
+													</Command.Group>
+												);
+											} ) }
+										</Command.List>
+									</Command>
 								</motion.div>
 							</Dialog.Content>
 						</div>
