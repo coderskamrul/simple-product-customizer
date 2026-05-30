@@ -27,7 +27,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Trash2, Plus, ImageIcon, X } from 'lucide-react';
-import { PRICE_MODES, makeChoice } from '../../../fields/registry';
+import { priceModeOptionsFor, makeChoice } from '../../../fields/registry';
 import { useConfig } from '../../../store/ConfigContext';
 import useCustomFonts from '../../../hooks/useCustomFonts';
 
@@ -386,11 +386,21 @@ export default function ChoiceTable( { node, patch } ) {
 		} )
 	);
 
-	const priceOptions = PRICE_MODES.map( ( m ) => ( {
-		value: m.value,
-		label: m.pro && ! proActive ? `${ m.label } (Pro)` : m.label,
-		disabled: m.pro && ! proActive,
-	} ) );
+	// Per-row price options: filtered by field type / Enable Quantity (see
+	// allowedPriceModes in fields/registry) and gated for Pro. The saved
+	// value is always preserved so toggling Enable Quantity off (etc.)
+	// never silently drops a stored mode from a choice.
+	const priceOptionsForChoice = ( choice ) =>
+		priceModeOptionsFor( node, choice && choice.priceMode ).map(
+			( m ) => ( {
+				value: m.value,
+				label:
+					m.pro && ! proActive
+						? `${ m.label } (Pro)`
+						: m.label,
+				disabled: m.pro && ! proActive,
+			} )
+		);
 
 	const setChoice = ( idx, delta ) =>
 		patch( {
@@ -501,7 +511,7 @@ export default function ChoiceTable( { node, patch } ) {
 							key={ choice.uid }
 							choice={ choice }
 							index={ idx }
-							priceOptions={ priceOptions }
+							priceOptions={ priceOptionsForChoice( choice ) }
 							proActive={ proActive }
 							extra={ extra }
 							labelless={ labelless }

@@ -60,7 +60,7 @@ body.toplevel_page_dpo-options {
 	}
 
 	:focus-visible {
-		outline: 2px solid $dpo-accent;
+		outline: 1px solid $dpo-accent !important;
 		outline-offset: 1px;
 	}
 }

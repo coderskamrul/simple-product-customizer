@@ -8,7 +8,7 @@
  */
 
 import { __ } from '@wordpress/i18n';
-import { PRICE_MODES, makeChoice } from '../../../fields/registry';
+import { priceModeOptionsFor, makeChoice } from '../../../fields/registry';
 import { useConfig } from '../../../store/ConfigContext';
 import { TextControl, SelectControl } from '../../../components';
 
@@ -24,7 +24,13 @@ export default function ValuePricing( { node, patch } ) {
 	const { proActive } = useConfig();
 	const choice = ( node.choices && node.choices[ 0 ] ) || {};
 
-	const priceOptions = PRICE_MODES.map( ( m ) => ( {
+	// Filter by field type / Enable Quantity (allowedPriceModes in
+	// fields/registry), keep any saved value visible, then layer the Pro
+	// gate on top.
+	const priceOptions = priceModeOptionsFor(
+		node,
+		choice.priceMode
+	).map( ( m ) => ( {
 		value: m.value,
 		label: m.pro && ! proActive ? `${ m.label } (Pro)` : m.label,
 		disabled: m.pro && ! proActive,

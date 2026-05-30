@@ -59,7 +59,9 @@ function gatedMode( mode ) {
 }
 
 /**
- * Effective cost for a choice input element (sale honoured only under Pro).
+ * Effective cost for a choice input element. Sale price takes priority
+ * whenever it is set — mirrors the PHP PriceCalculator + the badge display
+ * so the live price preview agrees with the cart line.
  *
  * @param {HTMLElement} el Choice input / option element.
  * @return {number} Cost.
@@ -67,7 +69,7 @@ function gatedMode( mode ) {
 function choiceCost( el ) {
 	const regular = el.getAttribute( 'data-cost' );
 	const sale = el.getAttribute( 'data-cost-sale' );
-	if ( isPro() && sale !== null && sale !== '' ) {
+	if ( sale !== null && sale !== '' ) {
 		return toNumber( sale );
 	}
 	return toNumber( regular );

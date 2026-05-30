@@ -147,6 +147,28 @@
 		font-weight: 500;
 		color: var(--dpo-muted);
 		white-space: nowrap;
+
+		/* When both regular + sale are set, render the regular struck-through
+		   next to the sale (mirrors the builder preview + WooCommerce's own
+		   sale-price treatment). */
+		&--has-sale {
+			display: inline-flex;
+			align-items: baseline;
+			gap: 6px;
+		}
+
+		&__regular {
+			color: var(--dpo-muted);
+			text-decoration: line-through;
+			font-weight: 400;
+			opacity: 0.7;
+		}
+
+		&__sale {
+			color: var(--dpo-label);
+			font-weight: 600;
+			text-decoration: none; /* clear the default <ins> underline */
+		}
 	}
 
 	/* ---------------------------------------------------------------- */

@@ -509,6 +509,60 @@ export const PRICE_MODES = [
 	{ value: 'per_word', label: __( 'Per Word', 'dynamic-product-options-for-woocommerce' ), pro: true },
 ];
 
+/** Field types whose value is freeform text — per-character / per-word make sense here. */
+const TEXT_LIKE_TYPES = new Set( [ 'text', 'textarea', 'email', 'url' ] );
+
+/**
+ * Resolve which price modes are meaningful for a given field. Rules:
+ *  - Always available: none, flat, percent.
+ *  - per_char / per_char_nospace / per_word: only for text-like fields
+ *    (text, textarea, email, url) — the only fields whose value has a
+ *    character/word count to multiply against.
+ *  - per_unit: only when the field has "Enable Quantity" turned on
+ *    (cfg.enableQty), because the multiplier is the per-choice qty input.
+ *
+ * @param {Object} node A field node (or partial { type, config }).
+ * @return {Array} Filtered PRICE_MODES entries (same shape, same order).
+ */
+export function allowedPriceModes( node ) {
+	const type = node?.type;
+	const cfg = ( node && node.config ) || {};
+	const allowed = new Set( [ 'none', 'flat', 'percent' ] );
+	if ( TEXT_LIKE_TYPES.has( type ) ) {
+		allowed.add( 'per_char' );
+		allowed.add( 'per_char_nospace' );
+		allowed.add( 'per_word' );
+	}
+	if ( cfg.enableQty ) {
+		allowed.add( 'per_unit' );
+	}
+	return PRICE_MODES.filter( ( m ) => allowed.has( m.value ) );
+}
+
+/**
+ * Price-mode dropdown options for a field. Filters by field type/config and
+ * preserves a saved value that is no longer in the allowed set, so the user
+ * never silently loses their stored choice when they toggle Enable Quantity
+ * off (or change the field type).
+ *
+ * @param {Object} node          Field node.
+ * @param {string} [currentValue] Currently-saved priceMode (optional).
+ * @return {Array} { value, label, pro? } entries ready for SelectControl.
+ */
+export function priceModeOptionsFor( node, currentValue ) {
+	const list = allowedPriceModes( node ).slice();
+	if (
+		currentValue &&
+		! list.some( ( m ) => m.value === currentValue )
+	) {
+		const orig = PRICE_MODES.find( ( m ) => m.value === currentValue );
+		if ( orig ) {
+			list.push( orig );
+		}
+	}
+	return list;
+}
+
 /** Conditional-logic operator vocabulary (ARCHITECTURE §6). */
 export const OPERATORS = [
 	{ value: 'is', label: __( 'is', 'dynamic-product-options-for-woocommerce' ) },

@@ -8,7 +8,7 @@
  */
 
 import { __ } from '@wordpress/i18n';
-import { getType, PRICE_MODES } from '../../../fields/registry';
+import { getType, priceModeOptionsFor } from '../../../fields/registry';
 import { useConfig } from '../../../store/ConfigContext';
 import { useBuilder } from '../../../store/BuilderContext';
 import { flatten } from '../../../store/treeOps';
@@ -142,7 +142,11 @@ export default function TypeConfig( { node, patch } ) {
 	const setKey = ( key, value ) =>
 		patch( { config: { ...cfg, [ key ]: value } } );
 
-	const priceModeOptions = PRICE_MODES.map( ( m ) => ( {
+	// Filtered by field type / Enable Quantity; saved value is preserved.
+	const priceModeOptions = priceModeOptionsFor(
+		node,
+		cfg.priceModeFull
+	).map( ( m ) => ( {
 		value: m.value,
 		label: m.label,
 		disabled: m.pro && ! proActive,

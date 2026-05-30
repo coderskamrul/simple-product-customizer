@@ -259,7 +259,9 @@ final class PriceCalculator {
 	}
 
 	/**
-	 * Resolve a choice cost honouring sale price + license gate.
+	 * Resolve a choice cost — sale price takes priority whenever it is set
+	 * (matches the badge display and the builder preview, so the cart line
+	 * agrees with what the customer just saw on the product page).
 	 *
 	 * @param array $choice Choice node.
 	 * @return float
@@ -268,7 +270,7 @@ final class PriceCalculator {
 		$regular = isset( $choice['regular'] ) ? $choice['regular'] : '';
 		$sale    = isset( $choice['sale'] ) ? $choice['sale'] : '';
 
-		if ( Capabilities::pro() && '' !== $sale && null !== $sale ) {
+		if ( '' !== $sale && null !== $sale ) {
 			return Money::f( $sale );
 		}
 		return Money::f( $regular );
