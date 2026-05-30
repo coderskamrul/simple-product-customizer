@@ -13,9 +13,12 @@ use DPO\Support\Money;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Produces the small "+$5" / "+15%" badge shown next to choices/labels.
- * This is presentation only — authoritative pricing lives in
- * PriceCalculator. Pro-gated modes degrade exactly like the calculator.
+ * Produces the small "+$5" badge shown next to choices / labels. This is
+ * presentation only — authoritative pricing lives in PriceCalculator. Pro-
+ * gated modes degrade exactly like the calculator. For `percent` mode the
+ * badge shows the *calculated* currency amount (product price × percent),
+ * not the raw "+50%", so the customer sees the same number the cart will
+ * charge.
  */
 trait HandlesPricing {
 
@@ -30,10 +33,7 @@ trait HandlesPricing {
 	}
 
 	/**
-	 * Numeric sale cost (or null when no sale price is set). The legacy Pro
-	 * gate is intentionally not applied here — when a sale price is stored
-	 * for a choice it is honoured everywhere it would be otherwise displayed,
-	 * matching the builder preview.
+	 * Numeric sale cost (or null when no sale price is set).
 	 *
 	 * @param array $choice Choice node.
 	 * @return float|null
@@ -76,23 +76,26 @@ trait HandlesPricing {
 	}
 
 	/**
-	 * Format a single amount for the badge based on the mode.
+	 * Product price used as the multiplier for percent-mode badges. Matches
+	 * what WooCommerce charges (sale-or-regular) and what
+	 * PriceCalculator::productPercentBase resolves at cart time.
 	 *
-	 * @param float  $amount Numeric amount.
-	 * @param string $mode   Effective price mode.
-	 * @return string Inline HTML (already escaped where needed).
+	 * @return float
 	 */
-	private function badge_amount_html( $amount, $mode ) {
-		if ( 'percent' === $mode ) {
-			$text = rtrim( rtrim( number_format( (float) $amount, 2, '.', '' ), '0' ), '.' ) . '%';
-			return esc_html( $text );
+	private function percent_base() {
+		if ( ! $this->product_id || ! function_exists( 'wc_get_product' ) ) {
+			return 0.0;
 		}
-		return wp_kses_post( Money::html( $amount ) );
+		$product = wc_get_product( $this->product_id );
+		if ( ! $product || ! method_exists( $product, 'get_price' ) ) {
+			return 0.0;
+		}
+		return Money::f( $product->get_price() );
 	}
 
 	/**
 	 * Badge HTML for a choice, or '' when it has no price. When both a
-	 * regular and a (smaller) sale price are set the regular shows struck
+	 * regular and a (smaller) sale price are set the regular renders struck
 	 * through next to the sale — mirroring the builder preview and the
 	 * standard WooCommerce sale-price treatment.
 	 *
@@ -105,8 +108,8 @@ trait HandlesPricing {
 			return '';
 		}
 
-		// Pro-only modes collapse to flat for non-licensed sites (mirrors the
-		// PriceCalculator gate so the badge and the cart line agree).
+		// Pro-only modes collapse to flat for non-licensed sites (mirrors
+		// the PriceCalculator gate so badge and cart line agree).
 		$pro_modes = array( 'percent', 'per_unit', 'per_word', 'per_char_nospace' );
 		if ( in_array( $mode, $pro_modes, true ) && ! Capabilities::pro() ) {
 			$mode = 'flat';
@@ -115,7 +118,17 @@ trait HandlesPricing {
 		$regular = $this->choice_regular( $choice );
 		$sale    = $this->choice_sale( $choice );
 
-		// Per-mode unit suffix shown after the price.
+		// For `percent`, surface the calculated currency amount the cart will
+		// actually add, not the raw "%" the author typed.
+		if ( 'percent' === $mode ) {
+			$base    = $this->percent_base();
+			$regular = $base * $regular / 100;
+			if ( null !== $sale ) {
+				$sale = $base * $sale / 100;
+			}
+		}
+
+		// Per-mode per-unit suffix (percent/flat are one-off, so no suffix).
 		$suffix = '';
 		if ( 'per_char' === $mode || 'per_char_nospace' === $mode ) {
 			$suffix = '/' . esc_html__( 'char', 'dynamic-product-options-for-woocommerce' );
@@ -128,16 +141,13 @@ trait HandlesPricing {
 		$show_pair = ( null !== $sale && $sale < $regular );
 
 		if ( $show_pair ) {
-			$reg_html  = $this->badge_amount_html( $regular, $mode );
-			$sale_html = $this->badge_amount_html( $sale, $mode );
-
 			return '<span class="dpo-price-badge dpo-price-badge--has-sale">'
-				. '<del class="dpo-price-badge__regular" aria-hidden="true">' . $reg_html . '</del>'
-				. ' <ins class="dpo-price-badge__sale">+' . $sale_html . $suffix . '</ins>'
+				. '<del class="dpo-price-badge__regular" aria-hidden="true">' . wp_kses_post( Money::html( $regular ) ) . '</del>'
+				. ' <ins class="dpo-price-badge__sale">+' . wp_kses_post( Money::html( $sale ) ) . $suffix . '</ins>'
 				. '</span>';
 		}
 
 		$amount = ( null !== $sale ) ? $sale : $regular;
-		return '<span class="dpo-price-badge">+' . $this->badge_amount_html( $amount, $mode ) . $suffix . '</span>';
+		return '<span class="dpo-price-badge">+' . wp_kses_post( Money::html( $amount ) ) . $suffix . '</span>';
 	}
 }
