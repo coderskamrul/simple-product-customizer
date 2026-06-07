@@ -24,7 +24,7 @@ export default function ConfirmDialog( {
 	message,
 	onConfirm,
 	onCancel,
-	confirmText = __( 'Confirm', 'dynamic-product-options-for-woocommerce' ),
+	confirmText = __( 'Confirm', 'productkit-for-woocommerce' ),
 	danger = true,
 } ) {
 	return (
@@ -36,18 +36,18 @@ export default function ConfirmDialog( {
 				<>
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--ghost"
+						className="pkitfw-btn pkitfw-btn--ghost"
 						onClick={ onCancel }
 					>
 						{ __(
 							'Cancel',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</button>
 					<button
 						type="button"
-						className={ `dpo-btn ${
-							danger ? 'dpo-btn--danger' : 'dpo-btn--primary'
+						className={ `pkitfw-btn ${
+							danger ? 'pkitfw-btn--danger' : 'pkitfw-btn--primary'
 						}` }
 						onClick={ onConfirm }
 					>

@@ -26,7 +26,7 @@ export default function Repeater( {
 	onChange,
 	renderRow,
 	makeRow,
-	addLabel = __( 'Add row', 'dynamic-product-options-for-woocommerce' ),
+	addLabel = __( 'Add row', 'productkit-for-woocommerce' ),
 	canAdd = true,
 	addHint = null,
 } ) {
@@ -40,7 +40,7 @@ export default function Repeater( {
 		onChange( rows.filter( ( _, i ) => i !== idx ) );
 
 	return (
-		<div className="dpo-repeater">
+		<div className="pkitfw-repeater">
 			<DragList
 				items={ rows.map( ( r, i ) => ( {
 					...r,
@@ -50,25 +50,25 @@ export default function Repeater( {
 					onChange( reorder( rows, from, to ) )
 				}
 				renderItem={ ( row, idx, handleProps ) => (
-					<div className="dpo-repeater__row">
+					<div className="pkitfw-repeater__row">
 						<span
-							className="dpo-repeater__handle dashicons dashicons-move"
+							className="pkitfw-repeater__handle dashicons dashicons-move"
 							{ ...handleProps }
 							aria-label={ __(
 								'Drag to reorder',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						/>
-						<div className="dpo-repeater__body">
+						<div className="pkitfw-repeater__body">
 							{ renderRow( rows[ idx ], idx ) }
 						</div>
 						<button
 							type="button"
-							className="dpo-icon-btn dpo-repeater__remove"
+							className="pkitfw-icon-btn pkitfw-repeater__remove"
 							onClick={ () => removeAt( idx ) }
 							aria-label={ __(
 								'Remove row',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<span
@@ -79,10 +79,10 @@ export default function Repeater( {
 					</div>
 				) }
 			/>
-			<div className="dpo-repeater__foot">
+			<div className="pkitfw-repeater__foot">
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost"
+					className="pkitfw-btn pkitfw-btn--ghost"
 					disabled={ ! canAdd }
 					onClick={ () => onChange( [ ...rows, makeRow() ] ) }
 				>

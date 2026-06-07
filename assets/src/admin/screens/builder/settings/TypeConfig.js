@@ -42,22 +42,22 @@ function FormulaEditor( { node, patch, advanced } ) {
 					advanced
 						? __(
 								'Expression',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 						: __(
 								'Formula',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 				}
 				help={
 					advanced
 						? __(
 								'Variables in [brackets]; functions and comparisons supported.',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 						: __(
 								'Variables in {{double braces}}; arithmetic and % only.',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 				}
 			>
@@ -70,19 +70,19 @@ function FormulaEditor( { node, patch, advanced } ) {
 					}
 				/>
 			</Field>
-			<div className="dpo-formula-vars">
-				<span className="dpo-formula-vars__title">
+			<div className="pkitfw-formula-vars">
+				<span className="pkitfw-formula-vars__title">
 					{ __(
 						'Available variables',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</span>
-				<div className="dpo-formula-vars__list">
+				<div className="pkitfw-formula-vars__list">
 					{ vars.length === 0 && (
-						<span className="dpo-hint">
+						<span className="pkitfw-hint">
 							{ __(
 								'No other fields yet.',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</span>
 					) }
@@ -90,7 +90,7 @@ function FormulaEditor( { node, patch, advanced } ) {
 						<button
 							key={ v.id }
 							type="button"
-							className="dpo-token"
+							className="pkitfw-token"
 							onClick={ () =>
 								patch( {
 									config: {
@@ -211,7 +211,7 @@ export default function TypeConfig( { node, patch } ) {
 			{ def.priceable && <ValuePricing node={ node } patch={ patch } /> }
 
 			{ toggleItems.map( ( item ) => (
-				<div key={ item.key } className="dpo-settings__toggle-row">
+				<div key={ item.key } className="pkitfw-settings__toggle-row">
 					<ToggleField
 						checked={ !! cfg[ item.key ] }
 						onChange={ ( v ) => setKey( item.key, v ) }
@@ -221,12 +221,12 @@ export default function TypeConfig( { node, patch } ) {
 			) ) }
 
 			{ ( showPlaceholder || compactItems.length > 0 ) && (
-				<div className="dpo-settings__grid2">
+				<div className="pkitfw-settings__grid2">
 					{ showPlaceholder && (
 						<Field
 							label={ __(
 								'Placeholder',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<TextControl

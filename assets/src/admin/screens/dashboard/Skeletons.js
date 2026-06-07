@@ -21,13 +21,13 @@ const times = ( n ) => Array.from( { length: n }, ( _, i ) => i );
  */
 export function StripSkeleton() {
 	return (
-		<section className="dpo-db-strip" aria-hidden="true">
+		<section className="pkitfw-db-strip" aria-hidden="true">
 			{ times( 4 ).map( ( i ) => (
-				<div key={ i } className="dpo-db-stat">
-					<span className="dpo-db-skel dpo-db-skel--icon" />
-					<div className="dpo-db-stat__body">
-						<span className="dpo-db-skel dpo-db-skel--lg" />
-						<span className="dpo-db-skel dpo-db-skel--sm" />
+				<div key={ i } className="pkitfw-db-stat">
+					<span className="pkitfw-db-skel pkitfw-db-skel--icon" />
+					<div className="pkitfw-db-stat__body">
+						<span className="pkitfw-db-skel pkitfw-db-skel--lg" />
+						<span className="pkitfw-db-skel pkitfw-db-skel--sm" />
 					</div>
 				</div>
 			) ) }
@@ -44,13 +44,13 @@ export function StripSkeleton() {
  */
 export function PanelSkeleton( { rows = 4 } ) {
 	return (
-		<section className="dpo-db-card dpo-db-panel" aria-hidden="true">
-			<header className="dpo-db-panel__head">
-				<span className="dpo-db-skel dpo-db-skel--title" />
+		<section className="pkitfw-db-card pkitfw-db-panel" aria-hidden="true">
+			<header className="pkitfw-db-panel__head">
+				<span className="pkitfw-db-skel pkitfw-db-skel--title" />
 			</header>
-			<div className="dpo-db-skel-rows">
+			<div className="pkitfw-db-skel-rows">
 				{ times( rows ).map( ( i ) => (
-					<span key={ i } className="dpo-db-skel dpo-db-skel--row" />
+					<span key={ i } className="pkitfw-db-skel pkitfw-db-skel--row" />
 				) ) }
 			</div>
 		</section>

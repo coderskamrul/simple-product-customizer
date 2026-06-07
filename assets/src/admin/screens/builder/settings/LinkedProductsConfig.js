@@ -115,24 +115,24 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 	const selectedSet = new Set( selected );
 
 	return (
-		<div className="dpo-lp-search" ref={ boxRef }>
-			<span className="dpo-lp-search__icon" aria-hidden="true">
+		<div className="pkitfw-lp-search" ref={ boxRef }>
+			<span className="pkitfw-lp-search__icon" aria-hidden="true">
 				<Search size={ 15 } />
 			</span>
 			<input
 				type="text"
-				className="dpo-input dpo-lp-search__input"
+				className="pkitfw-input pkitfw-lp-search__input"
 				value={ term }
 				disabled={ disabled }
 				placeholder={
 					disabled
 						? __(
 								'Product limit reached',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 						: __(
 								'Search…',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 				}
 				onChange={ ( e ) => {
@@ -142,25 +142,25 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 				onFocus={ () => results.length && setOpen( true ) }
 			/>
 			{ open && ! disabled && (
-				<ul className="dpo-lp-search__menu" role="listbox">
+				<ul className="pkitfw-lp-search__menu" role="listbox">
 					{ busy && (
-						<li className="dpo-lp-search__msg">
+						<li className="pkitfw-lp-search__msg">
 							{ __(
 								'Searching…',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</li>
 					) }
 					{ ! busy && err && (
-						<li className="dpo-lp-search__msg dpo-lp-search__msg--err">
+						<li className="pkitfw-lp-search__msg pkitfw-lp-search__msg--err">
 							{ err }
 						</li>
 					) }
 					{ ! busy && ! err && results.length === 0 && (
-						<li className="dpo-lp-search__msg">
+						<li className="pkitfw-lp-search__msg">
 							{ __(
 								'No products found.',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</li>
 					) }
@@ -169,7 +169,7 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 							<li key={ r.id }>
 								<button
 									type="button"
-									className="dpo-lp-search__opt"
+									className="pkitfw-lp-search__opt"
 									disabled={ selectedSet.has(
 										Number( r.id )
 									) }
@@ -216,19 +216,19 @@ function VariationPopover( { product, onToggle, onClose } ) {
 	}, [ onClose ] );
 
 	return (
-		<div className="dpo-lp-vars" ref={ ref }>
-			<p className="dpo-lp-vars__title">
+		<div className="pkitfw-lp-vars" ref={ ref }>
+			<p className="pkitfw-lp-vars__title">
 				{ __(
 					'Select Variations',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			</p>
-			<div className="dpo-lp-vars__list">
+			<div className="pkitfw-lp-vars__list">
 				{ ( product.variationsMeta || [] ).length === 0 && (
-					<p className="dpo-lp-vars__empty">
+					<p className="pkitfw-lp-vars__empty">
 						{ __(
 							'No purchasable variations.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</p>
 				) }
@@ -238,20 +238,20 @@ function VariationPopover( { product, onToggle, onClose } ) {
 						<button
 							key={ v.id }
 							type="button"
-							className={ `dpo-lp-vars__row${
+							className={ `pkitfw-lp-vars__row${
 								on ? ' is-on' : ''
 							}` }
 							onClick={ () => onToggle( v.id ) }
 						>
-							<span className="dpo-lp-vars__label">
+							<span className="pkitfw-lp-vars__label">
 								{ v.label }
 							</span>
 							{ on ? (
-								<X size={ 14 } className="dpo-lp-vars__x" />
+								<X size={ 14 } className="pkitfw-lp-vars__x" />
 							) : (
 								<Plus
 									size={ 14 }
-									className="dpo-lp-vars__add"
+									className="pkitfw-lp-vars__add"
 								/>
 							) }
 						</button>
@@ -339,32 +339,32 @@ export default function LinkedProductsConfig( { node, patch } ) {
 	};
 
 	return (
-		<div className="dpo-lp">
-			<div className="dpo-lp__table" role="table">
-				<div className="dpo-lp__head" role="row">
+		<div className="pkitfw-lp">
+			<div className="pkitfw-lp__table" role="table">
+				<div className="pkitfw-lp__head" role="row">
 					<span>
 						{ __(
 							'Product',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</span>
 					<span>
 						{ __(
 							'Variation',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</span>
 					<span>
 						{ __(
 							'Active',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</span>
 				</div>
 
 				{ products.length > 0 && (
 					<DragList
-						className="dpo-lp__rows"
+						className="pkitfw-lp__rows"
 						items={ products.map( ( p, i ) => ( {
 							...p,
 							key: p.id ?? i,
@@ -377,45 +377,45 @@ export default function LinkedProductsConfig( { node, patch } ) {
 						renderItem={ ( p, idx, handleProps ) => {
 							const varCount = ( p.variations || [] ).length;
 							return (
-								<div className="dpo-lp__row" role="row">
+								<div className="pkitfw-lp__row" role="row">
 									<span
-										className="dpo-lp__grip"
+										className="pkitfw-lp__grip"
 										{ ...handleProps }
 										aria-label={ __(
 											'Reorder',
-											'dynamic-product-options-for-woocommerce'
+											'productkit-for-woocommerce'
 										) }
 									>
 										<GripVertical size={ 15 } />
 									</span>
-									<span className="dpo-lp__product">
-										<span className="dpo-lp__avatar">
+									<span className="pkitfw-lp__product">
+										<span className="pkitfw-lp__avatar">
 											{ p.img ? (
 												<img src={ p.img } alt="" />
 											) : null }
 										</span>
-										<span className="dpo-lp__name">
+										<span className="pkitfw-lp__name">
 											{ p.name }
 										</span>
 									</span>
-									<span className="dpo-lp__variation">
+									<span className="pkitfw-lp__variation">
 										{ p.isVariable
 											? sprintf(
 													/* translators: %d: number of selected variations. */
 													__(
 														'%d Variations',
-														'dynamic-product-options-for-woocommerce'
+														'productkit-for-woocommerce'
 													),
 													varCount
 											  )
 											: __(
 													'N/A',
-													'dynamic-product-options-for-woocommerce'
+													'productkit-for-woocommerce'
 											  ) }
 									</span>
-									<span className="dpo-lp__actions">
+									<span className="pkitfw-lp__actions">
 										{ ! p.isVariable && (
-											<span className="dpo-lp__active">
+											<span className="pkitfw-lp__active">
 												<ToggleField
 													checked={
 														p.active === true
@@ -428,13 +428,13 @@ export default function LinkedProductsConfig( { node, patch } ) {
 											</span>
 										) }
 										{ p.isVariable && (
-											<span className="dpo-lp__var-wrap">
+											<span className="pkitfw-lp__var-wrap">
 												<button
 													type="button"
-													className="dpo-lp__icon-btn dpo-lp__icon-btn--add"
+													className="pkitfw-lp__icon-btn pkitfw-lp__icon-btn--add"
 													aria-label={ __(
 														'Select variations',
-														'dynamic-product-options-for-woocommerce'
+														'productkit-for-woocommerce'
 													) }
 													onClick={ () =>
 														setOpenIdx(
@@ -464,10 +464,10 @@ export default function LinkedProductsConfig( { node, patch } ) {
 										) }
 										<button
 											type="button"
-											className="dpo-lp__icon-btn dpo-lp__icon-btn--del"
+											className="pkitfw-lp__icon-btn pkitfw-lp__icon-btn--del"
 											aria-label={ __(
 												'Remove product',
-												'dynamic-product-options-for-woocommerce'
+												'productkit-for-woocommerce'
 											) }
 											onClick={ () =>
 												removeProduct( idx )
@@ -482,7 +482,7 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					/>
 				) }
 
-				<div className="dpo-lp__search-row">
+				<div className="pkitfw-lp__search-row">
 					<ProductSearch
 						selected={ products.map( ( p ) => p.id ) }
 						disabled={ capped }
@@ -497,20 +497,20 @@ export default function LinkedProductsConfig( { node, patch } ) {
 						/* translators: %d: free product cap. */
 						__(
 							'Free version links up to %d products.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 						FREE_PRODUCT_CAP
 					) }
 				/>
 			) }
 
-			<div className="dpo-lp__switches">
+			<div className="pkitfw-lp__switches">
 				<ToggleField
 					checked={ !! cfg.mergeVariations }
 					onChange={ ( v ) => setKey( 'mergeVariations', v ) }
 					label={ __(
 						'Merge Variation Products into one product',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 				<ToggleField
@@ -518,7 +518,7 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					onChange={ ( v ) => setKey( 'enableQty', v ) }
 					label={ __(
 						'Enable Quantity',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 				<ToggleField
@@ -526,17 +526,17 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					onChange={ ( v ) => setMultiple( v ) }
 					label={ __(
 						'Allow Multiple',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 			</div>
 
 			{ cfg.enableQty && (
-				<div className="dpo-settings__grid2">
+				<div className="pkitfw-settings__grid2">
 					<Field
 						label={ __(
 							'Min quantity',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TextControl
@@ -548,7 +548,7 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Max quantity',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TextControl

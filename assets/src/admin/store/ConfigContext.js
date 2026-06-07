@@ -1,5 +1,5 @@
 /**
- * Read-only access to the localized `window.dpoAdmin` bootstrap config plus
+ * Read-only access to the localized `window.pkitfwAdmin` bootstrap config plus
  * a few derived helpers (price formatting, Pro gate). Provided once at the
  * app root so screens never touch the global directly.
  *
@@ -28,7 +28,7 @@ const DEFAULT_CURRENCY = {
  */
 export function ConfigProvider( { children } ) {
 	const value = useMemo( () => {
-		const cfg = ( typeof window !== 'undefined' && window.dpoAdmin ) || {};
+		const cfg = ( typeof window !== 'undefined' && window.pkitfwAdmin ) || {};
 		const currency = { ...DEFAULT_CURRENCY, ...( cfg.currency || {} ) };
 
 		/**

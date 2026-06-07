@@ -20,17 +20,17 @@ const SERIES = [
 	{
 		key: 'clicks',
 		tone: 'blue',
-		label: __( 'Clicks', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Clicks', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'add_to_cart',
 		tone: 'purple',
-		label: __( 'Carts', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Carts', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'orders',
 		tone: 'green',
-		label: __( 'Sales', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Sales', 'productkit-for-woocommerce' ),
 	},
 ];
 
@@ -131,11 +131,11 @@ export default function TrendChart( { daily } ) {
 				icon="chart-area"
 				title={ __(
 					'No activity yet',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				text={ __(
 					'The trend appears once shoppers start interacting with your option sets.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			/>
 		);
@@ -160,16 +160,16 @@ export default function TrendChart( { daily } ) {
 			: Number( r[ key ] || 0 ).toLocaleString();
 
 	return (
-		<figure className="dpo-an-chart">
+		<figure className="pkitfw-an-chart">
 			<svg
 				ref={ svgRef }
 				viewBox={ `0 0 ${ W } ${ H }` }
-				className="dpo-an-chart__svg"
+				className="pkitfw-an-chart__svg"
 				preserveAspectRatio="none"
 				role="img"
 				aria-label={ __(
 					'Daily clicks, cart additions and sales trend',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				onMouseMove={ onMove }
 				onMouseLeave={ clear }
@@ -178,7 +178,7 @@ export default function TrendChart( { daily } ) {
 					{ SERIES.map( ( s ) => (
 						<linearGradient
 							key={ s.tone }
-							id={ `dpo-an-grad-${ s.tone }` }
+							id={ `pkitfw-an-grad-${ s.tone }` }
 							x1="0"
 							y1="0"
 							x2="0"
@@ -186,11 +186,11 @@ export default function TrendChart( { daily } ) {
 						>
 							<stop
 								offset="0%"
-								className={ `dpo-an-grad__a dpo-an-grad__a--${ s.tone }` }
+								className={ `pkitfw-an-grad__a pkitfw-an-grad__a--${ s.tone }` }
 							/>
 							<stop
 								offset="100%"
-								className={ `dpo-an-grad__b dpo-an-grad__b--${ s.tone }` }
+								className={ `pkitfw-an-grad__b pkitfw-an-grad__b--${ s.tone }` }
 							/>
 						</linearGradient>
 					) ) }
@@ -203,25 +203,25 @@ export default function TrendChart( { daily } ) {
 							y1={ tk.y }
 							x2={ W - PAD.r }
 							y2={ tk.y }
-							className="dpo-an-chart__grid"
+							className="pkitfw-an-chart__grid"
 						/>
 						<text
 							x={ PAD.l - 10 }
 							y={ tk.y + 4 }
-							className="dpo-an-chart__ylabel"
+							className="pkitfw-an-chart__ylabel"
 						>
 							{ tk.label }
 						</text>
 					</g>
 				) ) }
 
-				<g className="dpo-an-chart__plot">
+				<g className="pkitfw-an-chart__plot">
 					{ model.series.map( ( s ) => (
 						<path
 							key={ `area-${ s.tone }` }
 							d={ s.area }
-							fill={ `url(#dpo-an-grad-${ s.tone })` }
-							className="dpo-an-chart__area"
+							fill={ `url(#pkitfw-an-grad-${ s.tone })` }
+							className="pkitfw-an-chart__area"
 						/>
 					) ) }
 					{ model.series.map( ( s ) => (
@@ -229,19 +229,19 @@ export default function TrendChart( { daily } ) {
 							key={ `line-${ s.tone }` }
 							d={ s.line }
 							fill="none"
-							className={ `dpo-an-chart__line dpo-an-chart__line--${ s.tone }` }
+							className={ `pkitfw-an-chart__line pkitfw-an-chart__line--${ s.tone }` }
 						/>
 					) ) }
 				</g>
 
 				{ hover !== null && (
-					<g className="dpo-an-chart__cursor">
+					<g className="pkitfw-an-chart__cursor">
 						<line
 							x1={ hoverX }
 							y1={ model.top }
 							x2={ hoverX }
 							y2={ model.baseline }
-							className="dpo-an-chart__crosshair"
+							className="pkitfw-an-chart__crosshair"
 						/>
 						{ model.series.map( ( s ) => (
 							<circle
@@ -249,7 +249,7 @@ export default function TrendChart( { daily } ) {
 								cx={ s.pts[ hover ].x }
 								cy={ s.pts[ hover ].y }
 								r={ 4 }
-								className={ `dpo-an-chart__pt dpo-an-chart__pt--${ s.tone }` }
+								className={ `pkitfw-an-chart__pt pkitfw-an-chart__pt--${ s.tone }` }
 							/>
 						) ) }
 					</g>
@@ -261,7 +261,7 @@ export default function TrendChart( { daily } ) {
 							key={ `x-${ i }` }
 							x={ tk.x }
 							y={ H - 10 }
-							className="dpo-an-chart__xlabel"
+							className="pkitfw-an-chart__xlabel"
 						>
 							{ tk.label }
 						</text>
@@ -271,22 +271,22 @@ export default function TrendChart( { daily } ) {
 
 			{ row && (
 				<div
-					className={ `dpo-an-tip dpo-an-tip--${ tipSide }` }
+					className={ `pkitfw-an-tip pkitfw-an-tip--${ tipSide }` }
 					style={ { insetInlineStart: `${ hoverPct }%` } }
 					role="status"
 					aria-live="polite"
 				>
-					<span className="dpo-an-tip__title">{ row.day }</span>
+					<span className="pkitfw-an-tip__title">{ row.day }</span>
 					{ SERIES.map( ( s ) => (
-						<span key={ s.key } className="dpo-an-tip__row">
+						<span key={ s.key } className="pkitfw-an-tip__row">
 							<span
-								className={ `dpo-an-dot dpo-an-dot--${ s.tone }` }
+								className={ `pkitfw-an-dot pkitfw-an-dot--${ s.tone }` }
 								aria-hidden="true"
 							/>
-							<span className="dpo-an-tip__label">
+							<span className="pkitfw-an-tip__label">
 								{ s.label }
 							</span>
-							<span className="dpo-an-tip__val">
+							<span className="pkitfw-an-tip__val">
 								{ fmt( s.key, row ) }
 							</span>
 						</span>
@@ -294,11 +294,11 @@ export default function TrendChart( { daily } ) {
 				</div>
 			) }
 
-			<table className="dpo-visually-hidden">
+			<table className="pkitfw-visually-hidden">
 				<caption>
 					{ __(
 						'Daily performance data',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</caption>
 				<thead>
@@ -306,7 +306,7 @@ export default function TrendChart( { daily } ) {
 						<th>
 							{ __(
 								'Day',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</th>
 						{ SERIES.map( ( s ) => (

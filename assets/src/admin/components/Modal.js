@@ -49,7 +49,7 @@ export default function Modal( {
 
 	return (
 		<div
-			className="dpo-modal-overlay"
+			className="pkitfw-modal-overlay"
 			onMouseDown={ ( e ) => {
 				if ( e.target === e.currentTarget ) {
 					onClose();
@@ -57,22 +57,22 @@ export default function Modal( {
 			} }
 		>
 			<div
-				className={ `dpo-modal dpo-modal--${ size }` }
+				className={ `pkitfw-modal pkitfw-modal--${ size }` }
 				role="dialog"
 				aria-modal="true"
 				aria-label={ title }
 				tabIndex={ -1 }
 				ref={ ref }
 			>
-				<header className="dpo-modal__head">
-					<h2 className="dpo-modal__title">{ title }</h2>
+				<header className="pkitfw-modal__head">
+					<h2 className="pkitfw-modal__title">{ title }</h2>
 					<button
 						type="button"
-						className="dpo-icon-btn"
+						className="pkitfw-icon-btn"
 						onClick={ onClose }
 						aria-label={ __(
 							'Close',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<span
@@ -81,9 +81,9 @@ export default function Modal( {
 						/>
 					</button>
 				</header>
-				<div className="dpo-modal__body">{ children }</div>
+				<div className="pkitfw-modal__body">{ children }</div>
 				{ footer && (
-					<footer className="dpo-modal__foot">{ footer }</footer>
+					<footer className="pkitfw-modal__foot">{ footer }</footer>
 				) }
 			</div>
 		</div>

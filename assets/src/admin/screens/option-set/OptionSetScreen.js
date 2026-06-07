@@ -194,7 +194,7 @@ export default function OptionSet() {
 			() => sets.duplicate( id ),
 			__(
 				'Option set duplicated.',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			)
 		);
 
@@ -220,7 +220,7 @@ export default function OptionSet() {
 					/* translators: %d: number of sets exported */
 					__(
 						'Exported %d option set(s).',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					),
 					ids.length
 				),
@@ -249,7 +249,7 @@ export default function OptionSet() {
 				notify(
 					__(
 						'Import complete.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					),
 					'success'
 				);
@@ -258,7 +258,7 @@ export default function OptionSet() {
 					err instanceof SyntaxError
 						? __(
 								'Invalid JSON file.',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 						: errorMessage( err ),
 					'error'
@@ -296,7 +296,7 @@ export default function OptionSet() {
 			notify(
 				__(
 					'Bulk action applied.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				'success'
 			);
@@ -314,11 +314,11 @@ export default function OptionSet() {
 			<PageFrame
 				// title={ __(
 				// 	'Product Options',
-				// 	'dynamic-product-options-for-woocommerce'
+				// 	'productkit-for-woocommerce'
 				// ) }
 				// subtitle={ __(
 				// 	'Manage your product customization options.',
-				// 	'dynamic-product-options-for-woocommerce'
+				// 	'productkit-for-woocommerce'
 				// ) }
 				toolbar={
 					<OptionSetToolbar
@@ -339,77 +339,77 @@ export default function OptionSet() {
 					type="file"
 					accept="application/json,.json"
 					ref={ fileRef }
-					className="dpo-visually-hidden"
+					className="pkitfw-visually-hidden"
 					onChange={ onImportFile }
 					tabIndex={ -1 }
 				/>
 
-				<section className="dpo-os-card">
+				<section className="pkitfw-os-card">
 					{ selected.length > 0 && (
-						<div className="dpo-os-bulkbar">
-							<span className="dpo-os-bulkbar__count">
+						<div className="pkitfw-os-bulkbar">
+							<span className="pkitfw-os-bulkbar__count">
 								{ sprintf(
 									/* translators: %d: number selected */
 									__(
 										'%d selected',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 									selected.length
 								) }
 							</span>
-							<div className="dpo-os-bulkbar__actions">
+							<div className="pkitfw-os-bulkbar__actions">
 								<button
 									type="button"
-									className="dpo-os-btn dpo-os-btn--ghost"
+									className="pkitfw-os-btn pkitfw-os-btn--ghost"
 									onClick={ () =>
 										runBulk( 'status-publish' )
 									}
 								>
 									{ __(
 										'Activate',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</button>
 								<button
 									type="button"
-									className="dpo-os-btn dpo-os-btn--ghost"
+									className="pkitfw-os-btn pkitfw-os-btn--ghost"
 									onClick={ () => runBulk( 'status-draft' ) }
 								>
 									{ __(
 										'Deactivate',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</button>
 								<button
 									type="button"
-									className="dpo-os-btn dpo-os-btn--ghost"
+									className="pkitfw-os-btn pkitfw-os-btn--ghost"
 									onClick={ () => runBulk( 'duplicate' ) }
 								>
 									{ __(
 										'Duplicate',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</button>
 								<button
 									type="button"
-									className="dpo-os-btn dpo-os-btn--danger"
+									className="pkitfw-os-btn pkitfw-os-btn--danger"
 									onClick={ () =>
 										setConfirm( { bulk: true } )
 									}
 								>
 									{ __(
 										'Delete',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</button>
 								<button
 									type="button"
-									className="dpo-os-btn dpo-os-btn--link"
+									className="pkitfw-os-btn pkitfw-os-btn--link"
 									onClick={ () => setSelected( [] ) }
 								>
 									{ __(
 										'Clear',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</button>
 							</div>
@@ -434,13 +434,13 @@ export default function OptionSet() {
 					/>
 
 					{ sets.status === 'ready' && visible.length > 0 && (
-						<footer className="dpo-os-foot">
-							<span className="dpo-os-foot__info">
+						<footer className="pkitfw-os-foot">
+							<span className="pkitfw-os-foot__info">
 								{ sprintf(
 									/* translators: 1: from 2: to 3: page 4: total pages */
 									__(
 										'Showing %1$d to %2$d (page %3$d of %4$d)',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 									rangeStart,
 									rangeEnd,
@@ -464,20 +464,20 @@ export default function OptionSet() {
 						confirm.bulk
 							? __(
 									'Delete selected option sets',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  )
 							: __(
 									'Delete option set',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  )
 					}
 					message={ __(
 						'This permanently removes the option set(s) and detaches them from all products. Continue?',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					confirmText={ __(
 						'Delete',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					onCancel={ () => setConfirm( null ) }
 					onConfirm={ async () => {
@@ -489,7 +489,7 @@ export default function OptionSet() {
 								notify(
 									__(
 										'Option set deleted.',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 									'success'
 								);

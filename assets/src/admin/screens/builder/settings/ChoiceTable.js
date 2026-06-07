@@ -64,12 +64,12 @@ function ImageCell( { value, onChange } ) {
 		const frame = media( {
 			title: __(
 				'Select image',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			),
 			button: {
 				text: __(
 					'Use image',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 			},
 			multiple: false,
@@ -84,25 +84,25 @@ function ImageCell( { value, onChange } ) {
 
 	if ( value ) {
 		return (
-			<span className="dpo-choices__media dpo-choices__media--set">
+			<span className="pkitfw-choices__media pkitfw-choices__media--set">
 				<button
 					type="button"
-					className="dpo-choices__media-btn"
+					className="pkitfw-choices__media-btn"
 					onClick={ open }
 					aria-label={ __(
 						'Change image',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<img src={ value } alt="" />
 				</button>
 				<button
 					type="button"
-					className="dpo-choices__media-clear"
+					className="pkitfw-choices__media-clear"
 					onClick={ () => onChange( null ) }
 					aria-label={ __(
 						'Remove image',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<X size={ 11 } />
@@ -114,12 +114,12 @@ function ImageCell( { value, onChange } ) {
 	return (
 		<button
 			type="button"
-			className="dpo-choices__media dpo-choices__media-btn"
+			className="pkitfw-choices__media pkitfw-choices__media-btn"
 			onClick={ open }
 			disabled={ ! available }
 			aria-label={ __(
 				'Select image',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			) }
 		>
 			<ImageIcon size={ 16 } />
@@ -152,7 +152,7 @@ function FontCell( { choice, onPatch } ) {
 
 	return (
 		<select
-			className="dpo-input dpo-select-control dpo-choices__font"
+			className="pkitfw-input pkitfw-select-control pkitfw-choices__font"
 			style={ current ? { fontFamily: current } : undefined }
 			value={ current }
 			onChange={ ( e ) => onPick( e.target.value ) }
@@ -160,7 +160,7 @@ function FontCell( { choice, onPatch } ) {
 			<option value="">
 				{ __(
 					'Select font',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			</option>
 			{ fonts.map( ( f ) => (
@@ -223,16 +223,16 @@ function ChoiceRow( {
 				transform: CSS.Transform.toString( transform ),
 				transition,
 			} }
-			className={ `dpo-choices__row${
+			className={ `pkitfw-choices__row${
 				isDragging ? ' is-dragging' : ''
 			}` }
 		>
 			<button
 				type="button"
-				className="dpo-choices__grip"
+				className="pkitfw-choices__grip"
 				aria-label={ __(
 					'Reorder',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				{ ...attributes }
 				{ ...listeners }
@@ -246,13 +246,13 @@ function ChoiceRow( {
 				<FontCell choice={ choice } onPatch={ onPatch } />
 			) : (
 				<input
-					className="dpo-input"
+					className="pkitfw-input"
 					value={ choice.label }
 					placeholder={ sprintf(
 						/* translators: %d: row number */
 						__(
 							'Option %d',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 						index + 1
 					) }
@@ -274,7 +274,7 @@ function ChoiceRow( {
 			{ extra === 'color' && (
 				<input
 					type="color"
-					className="dpo-choices__color"
+					className="pkitfw-choices__color"
 					value={
 						/^#[0-9a-fA-F]{6}$/.test( choice.color || '' )
 							? choice.color
@@ -283,13 +283,13 @@ function ChoiceRow( {
 					onChange={ ( e ) => onPatch( { color: e.target.value } ) }
 					aria-label={ __(
 						'Choose colour',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 			) }
 
 			<select
-				className="dpo-input dpo-select-control"
+				className="pkitfw-input pkitfw-select-control"
 				value={ choice.priceMode }
 				onChange={ ( e ) => onPatch( { priceMode: e.target.value } ) }
 			>
@@ -305,7 +305,7 @@ function ChoiceRow( {
 			</select>
 
 			<input
-				className="dpo-input"
+				className="pkitfw-input"
 				type="number"
 				value={ choice.regular }
 				placeholder="0"
@@ -313,45 +313,45 @@ function ChoiceRow( {
 			/>
 
 			<input
-				className="dpo-input"
+				className="pkitfw-input"
 				type="number"
 				value={ choice.sale }
 				placeholder={
 					proActive
 						? ''
-						: __( 'Pro', 'dynamic-product-options-for-woocommerce' )
+						: __( 'Pro', 'productkit-for-woocommerce' )
 				}
 				disabled={ ! proActive }
 				onChange={ ( e ) => onPatch( { sale: e.target.value } ) }
 			/>
 
 			<span
-				className="dpo-switch dpo-choices__active"
+				className="pkitfw-switch pkitfw-choices__active"
 				title={ __(
 					'Selected by default',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				<input
 					type="checkbox"
-					className="dpo-switch__input"
+					className="pkitfw-switch__input"
 					aria-label={ __(
 						'Selected by default',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					checked={ !! choice.selected }
 					onChange={ ( e ) => onActive( e.target.checked ) }
 				/>
-				<span className="dpo-switch__track" aria-hidden="true" />
+				<span className="pkitfw-switch__track" aria-hidden="true" />
 			</span>
 
 			{ ! hideRemove && (
 				<button
 					type="button"
-					className="dpo-choices__del"
+					className="pkitfw-choices__del"
 					aria-label={ __(
 						'Delete option',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					onClick={ onRemove }
 				>
@@ -441,55 +441,55 @@ export default function ChoiceTable( { node, patch } ) {
 
 	const canAdd = proActive || choices.length < FREE_CAP;
 	const mediaLabels = {
-		color: __( 'Color', 'dynamic-product-options-for-woocommerce' ),
-		font: __( 'Font', 'dynamic-product-options-for-woocommerce' ),
-		image: __( 'Image', 'dynamic-product-options-for-woocommerce' ),
+		color: __( 'Color', 'productkit-for-woocommerce' ),
+		font: __( 'Font', 'productkit-for-woocommerce' ),
+		image: __( 'Image', 'productkit-for-woocommerce' ),
 	};
 	const mediaLabel = mediaLabels[ extra ] || mediaLabels.image;
 
 	let containerMod = '';
 	if ( labelless ) {
-		containerMod = ' dpo-choices--fontpicker';
+		containerMod = ' pkitfw-choices--fontpicker';
 	} else if ( extra ) {
-		containerMod = ' dpo-choices--media';
+		containerMod = ' pkitfw-choices--media';
 	}
 
 	return (
-		<div className={ `dpo-choices${ containerMod }` }>
-			<div className="dpo-choices__head">
+		<div className={ `pkitfw-choices${ containerMod }` }>
+			<div className="pkitfw-choices__head">
 				<span />
 				<span>
 					{ labelless
 						? __(
 								'Font',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 						: __(
 								'Title',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  ) }
 				</span>
 				{ extra && ! labelless && <span>{ mediaLabel }</span> }
 				<span>
 					{ __(
 						'Price Type',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</span>
 				<span>
 					{ __(
 						'Regular',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</span>
-				<span className="dpo-choices__pro-col">
-					{ __( 'Sales', 'dynamic-product-options-for-woocommerce' ) }
-					{ ! proActive && <em className="dpo-pro-tag">Pro</em> }
+				<span className="pkitfw-choices__pro-col">
+					{ __( 'Sales', 'productkit-for-woocommerce' ) }
+					{ ! proActive && <em className="pkitfw-pro-tag">Pro</em> }
 				</span>
 				<span>
 					{ __(
 						'Active',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</span>
 				<span />
@@ -524,26 +524,26 @@ export default function ChoiceTable( { node, patch } ) {
 				</SortableContext>
 			</DndContext>
 
-			<div className="dpo-choices__foot" hidden={ single }>
+			<div className="pkitfw-choices__foot" hidden={ single }>
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--primary dpo-choices__add"
+					className="pkitfw-btn pkitfw-btn--primary pkitfw-choices__add"
 					onClick={ addChoice }
 					disabled={ ! canAdd }
 				>
 					<Plus size={ 15 } />
 					{ __(
 						'Add New Option',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</button>
 				{ ! canAdd && (
-					<p className="dpo-choices__cap">
+					<p className="pkitfw-choices__cap">
 						{ sprintf(
 							/* translators: %d: free choice cap */
 							__(
 								'The free version allows up to %d options. Upgrade for unlimited.',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							),
 							FREE_CAP
 						) }

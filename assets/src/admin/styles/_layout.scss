@@ -1,14 +1,14 @@
 /* App shell scaffolding only. The top navigation lives in `_topbar.scss`
    and per-screen layout in `_page-frame.scss`. */
 
-.dpo-app {
+.pkitfw-app {
 	display: flex;
 	flex-direction: column;
 	min-height: calc(100vh - 32px);
-	background: $dpo-bg;
+	background: $pkitfw-bg;
 }
 
-.dpo-app__outlet {
+.pkitfw-app__outlet {
 	flex: 1;
 	min-height: 0;
 
@@ -19,41 +19,41 @@
 }
 
 /* Legacy screen-head primitives kept around for screens that still reference
-   them. New screens should use `.dpo-page__*` from PageFrame. */
-.dpo-screen-head {
+   them. New screens should use `.pkitfw-page__*` from PageFrame. */
+.pkitfw-screen-head {
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
-	gap: $dpo-space;
-	margin-block-end: $dpo-space-lg;
+	gap: $pkitfw-space;
+	margin-block-end: $pkitfw-space-lg;
 	flex-wrap: wrap;
 }
 
-.dpo-screen-head__actions {
+.pkitfw-screen-head__actions {
 	display: flex;
-	gap: $dpo-space-sm;
+	gap: $pkitfw-space-sm;
 	align-items: center;
 }
 
-.dpo-screen-title { font-size: 22px; }
+.pkitfw-screen-title { font-size: 22px; }
 
-.dpo-screen-sub {
-	color: $dpo-text-muted;
+.pkitfw-screen-sub {
+	color: $pkitfw-text-muted;
 	margin: 4px 0 0;
 }
 
-.dpo-style__grid {
+.pkitfw-style__grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: $dpo-space;
+	gap: $pkitfw-space;
 }
 
-.dpo-promo {
-	border-color: rgba($dpo-pro, 0.4);
-	background: linear-gradient(180deg, rgba($dpo-pro, 0.05), transparent);
+.pkitfw-promo {
+	border-color: rgba($pkitfw-pro, 0.4);
+	background: linear-gradient(180deg, rgba($pkitfw-pro, 0.05), transparent);
 }
 
-.dpo-feature-list {
-	margin: 0 0 $dpo-space;
+.pkitfw-feature-list {
+	margin: 0 0 $pkitfw-space;
 	padding-inline-start: 18px;
 }

@@ -1,4 +1,4 @@
-=== Dynamic Product Options for WooCommerce ===
+=== ProductKit – Product Options for WooCommerce ===
 Contributors: wpdeveloper
 Tags: woocommerce, product options, product addons, custom fields, conditional logic
 Requires at least: 6.2
@@ -12,7 +12,7 @@ Build dynamic single-product option sets — swatches, uploads, conditional logi
 
 == Description ==
 
-Dynamic Product Options for WooCommerce adds a flexible option-set builder to any
+ProductKit – Product Options for WooCommerce adds a flexible option-set builder to any
 WooCommerce product. Create reusable option sets, assign them to products,
 categories, tags, brands, or the whole catalog, and let customers personalise
 products with live price updates.

@@ -24,14 +24,14 @@ export const RANGES = [
 export function rangeLabel( id ) {
 	switch ( id ) {
 		case 'today':
-			return __( 'Today', 'dynamic-product-options-for-woocommerce' );
+			return __( 'Today', 'productkit-for-woocommerce' );
 		case '7d':
-			return __( '7 Days', 'dynamic-product-options-for-woocommerce' );
+			return __( '7 Days', 'productkit-for-woocommerce' );
 		case '30d':
-			return __( '30 Days', 'dynamic-product-options-for-woocommerce' );
+			return __( '30 Days', 'productkit-for-woocommerce' );
 		case '90d':
 		default:
-			return __( '90 Days', 'dynamic-product-options-for-woocommerce' );
+			return __( '90 Days', 'productkit-for-woocommerce' );
 	}
 }
 

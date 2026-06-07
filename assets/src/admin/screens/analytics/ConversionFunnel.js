@@ -34,7 +34,7 @@ export default function ConversionFunnel( { funnel } ) {
 				tone: 'blue',
 				label: __(
 					'Viewed',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				value: funnel.viewed,
 			},
@@ -43,7 +43,7 @@ export default function ConversionFunnel( { funnel } ) {
 				tone: 'purple',
 				label: __(
 					'Clicked',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				value: funnel.clicked,
 			},
@@ -52,7 +52,7 @@ export default function ConversionFunnel( { funnel } ) {
 				tone: 'violet',
 				label: __(
 					'Added to Cart',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				value: funnel.carted,
 			},
@@ -61,7 +61,7 @@ export default function ConversionFunnel( { funnel } ) {
 				tone: 'pink',
 				label: __(
 					'Purchased',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				value: funnel.purchased,
 			},
@@ -95,11 +95,11 @@ export default function ConversionFunnel( { funnel } ) {
 				icon="chart-pie"
 				title={ __(
 					'No journey data yet',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				text={ __(
 					'Stages populate as shoppers move from view to purchase.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			/>
 		);
@@ -111,32 +111,32 @@ export default function ConversionFunnel( { funnel } ) {
 		: stages[ 0 ].value; /* default: Viewed */
 	const centerLabel = focused
 		? focused.label
-		: __( 'Total viewed', 'dynamic-product-options-for-woocommerce' );
+		: __( 'Total viewed', 'productkit-for-woocommerce' );
 	const centerPct =
 		focused && total > 0
 			? Math.round( ( focused.value / total ) * 100 )
 			: null;
 
 	return (
-		<div className="dpo-an-funnel">
-			<div className="dpo-an-funnel__chart">
+		<div className="pkitfw-an-funnel">
+			<div className="pkitfw-an-funnel__chart">
 				<svg
 					viewBox={ `0 0 ${ SIZE } ${ SIZE }` }
 					role="img"
 					aria-label={ __(
 						'Conversion funnel from viewed to purchased',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<circle
 						cx={ SIZE / 2 }
 						cy={ SIZE / 2 }
 						r={ R }
-						className="dpo-an-funnel__track"
+						className="pkitfw-an-funnel__track"
 						strokeWidth={ STROKE }
 						fill="none"
 					/>
-					<g className="dpo-an-funnel__ring">
+					<g className="pkitfw-an-funnel__ring">
 						{ arcs.map( ( a ) => {
 							const dim = active && active !== a.key;
 							return (
@@ -159,7 +159,7 @@ export default function ConversionFunnel( { funnel } ) {
 									onMouseLeave={ () => setActive( null ) }
 									onFocus={ () => setActive( a.key ) }
 									onBlur={ () => setActive( null ) }
-									className={ `dpo-an-funnel__arc dpo-an-funnel__arc--${
+									className={ `pkitfw-an-funnel__arc pkitfw-an-funnel__arc--${
 										a.tone
 									}${ active === a.key ? ' is-active' : '' }${
 										dim ? ' is-dim' : ''
@@ -177,26 +177,26 @@ export default function ConversionFunnel( { funnel } ) {
 					</g>
 				</svg>
 
-				<div className="dpo-an-funnel__center" aria-hidden="true">
-					<span className="dpo-an-funnel__cval">
+				<div className="pkitfw-an-funnel__center" aria-hidden="true">
+					<span className="pkitfw-an-funnel__cval">
 						{ Number( centerValue || 0 ).toLocaleString() }
 					</span>
-					<span className="dpo-an-funnel__clabel">
+					<span className="pkitfw-an-funnel__clabel">
 						{ centerLabel }
 					</span>
 					{ centerPct !== null && (
-						<span className="dpo-an-funnel__cpct">
+						<span className="pkitfw-an-funnel__cpct">
 							{ centerPct }%
 						</span>
 					) }
 				</div>
 			</div>
 
-			<dl className="dpo-an-funnel__legend">
+			<dl className="pkitfw-an-funnel__legend">
 				{ stages.map( ( s ) => (
 					<div
 						key={ s.key }
-						className={ `dpo-an-funnel__item${
+						className={ `pkitfw-an-funnel__item${
 							active === s.key ? ' is-active' : ''
 						}` }
 						onMouseEnter={ () => setActive( s.key ) }
@@ -204,7 +204,7 @@ export default function ConversionFunnel( { funnel } ) {
 					>
 						<dt>
 							<span
-								className={ `dpo-an-dot dpo-an-dot--${ s.tone }` }
+								className={ `pkitfw-an-dot pkitfw-an-dot--${ s.tone }` }
 								aria-hidden="true"
 							/>
 							{ s.label }

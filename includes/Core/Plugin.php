@@ -2,28 +2,28 @@
 /**
  * Plugin orchestrator.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Core;
+namespace ProductKit\Core;
 
-use DPO\Admin\AdminAssets;
-use DPO\Admin\AdminMenu;
-use DPO\Admin\AdminNotices;
-use DPO\Analytics\CleanupCron;
-use DPO\Analytics\StatsRepository;
-use DPO\Data\AssignmentResolver;
-use DPO\Data\OptionSetRepository;
-use DPO\Fields\FieldRegistry;
-use DPO\Frontend\StoreRenderer;
-use DPO\Integration\WooCommerce\CartHooks;
-use DPO\Integration\WooCommerce\CheckoutHooks;
-use DPO\Integration\WooCommerce\Compatibility;
-use DPO\Integration\WooCommerce\OrderHooks;
-use DPO\Integration\WooCommerce\ProductPanel;
-use DPO\Integration\WooCommerce\ShopLoop;
-use DPO\Pricing\PriceCalculator;
-use DPO\Rest\RestServer;
+use ProductKit\Admin\AdminAssets;
+use ProductKit\Admin\AdminMenu;
+use ProductKit\Admin\AdminNotices;
+use ProductKit\Analytics\CleanupCron;
+use ProductKit\Analytics\StatsRepository;
+use ProductKit\Data\AssignmentResolver;
+use ProductKit\Data\OptionSetRepository;
+use ProductKit\Fields\FieldRegistry;
+use ProductKit\Frontend\StoreRenderer;
+use ProductKit\Integration\WooCommerce\CartHooks;
+use ProductKit\Integration\WooCommerce\CheckoutHooks;
+use ProductKit\Integration\WooCommerce\Compatibility;
+use ProductKit\Integration\WooCommerce\OrderHooks;
+use ProductKit\Integration\WooCommerce\ProductPanel;
+use ProductKit\Integration\WooCommerce\ShopLoop;
+use ProductKit\Pricing\PriceCalculator;
+use ProductKit\Rest\RestServer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Plugin {
 
-	const POST_TYPE = 'dpo_option_set';
+	const POST_TYPE = 'pkitfw_option_set';
 
 	/**
 	 * Singleton.
@@ -75,7 +75,7 @@ final class Plugin {
 		$this->register_post_type();
 		$this->boot();
 
-		do_action( 'dpo_booted', $this );
+		do_action( 'pkitfw_booted', $this );
 	}
 
 	/**
@@ -106,7 +106,7 @@ final class Plugin {
 		if ( ! class_exists( \WooCommerce::class ) ) {
 			return false;
 		}
-		return defined( 'WC_VERSION' ) ? version_compare( WC_VERSION, DPO_MIN_WC, '>=' ) : true;
+		return defined( 'WC_VERSION' ) ? version_compare( WC_VERSION, PKITFW_MIN_WC, '>=' ) : true;
 	}
 
 	/**
@@ -145,8 +145,8 @@ final class Plugin {
 					self::POST_TYPE,
 					array(
 						'labels'              => array(
-							'name'          => __( 'Option Sets', 'dynamic-product-options-for-woocommerce' ),
-							'singular_name' => __( 'Option Set', 'dynamic-product-options-for-woocommerce' ),
+							'name'          => __( 'Option Sets', 'productkit-for-woocommerce' ),
+							'singular_name' => __( 'Option Set', 'productkit-for-woocommerce' ),
 						),
 						'public'              => false,
 						'show_ui'             => false,
@@ -175,7 +175,7 @@ final class Plugin {
 
 		// Stats recorder — single action used everywhere counters change.
 		add_action(
-			'dpo_stats_record',
+			'pkitfw_stats_record',
 			array( $c->get( 'stats' ), 'record' ),
 			10,
 			3
@@ -205,7 +205,7 @@ final class Plugin {
 	 */
 	public function render_missing_wc_notice() {
 		echo '<div class="notice notice-error"><p>';
-		echo esc_html__( 'Dynamic Product Options for WooCommerce requires an active, up-to-date WooCommerce installation.', 'dynamic-product-options-for-woocommerce' );
+		echo esc_html__( 'ProductKit – Product Options for WooCommerce requires an active, up-to-date WooCommerce installation.', 'productkit-for-woocommerce' );
 		echo '</p></div>';
 	}
 }

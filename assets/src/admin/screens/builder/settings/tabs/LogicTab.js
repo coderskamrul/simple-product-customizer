@@ -102,21 +102,21 @@ function ValueControl( { source, operator, value, onChange } ) {
 						value: '',
 						label: __(
 							'Select state',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 					},
 					{
 						value: '__checked__',
 						label: __(
 							'Checked / On',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 					},
 					{
 						value: '__unchecked__',
 						label: __(
 							'Unchecked / Off',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 					},
 				] }
@@ -135,7 +135,7 @@ function ValueControl( { source, operator, value, onChange } ) {
 				value: '',
 				label: __(
 					'Select option',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 			},
 			...source.choices.map( ( c, i ) => {
@@ -143,7 +143,7 @@ function ValueControl( { source, operator, value, onChange } ) {
 					( c.label || '' ).trim() ||
 					`${ __(
 						'Option',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) } ${ i + 1 }`;
 				return { value: c.label || label, label };
 			} ),
@@ -165,9 +165,9 @@ function ValueControl( { source, operator, value, onChange } ) {
 				operator === 'between'
 					? __(
 							'e.g. 10,20',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 					  )
-					: __( 'Value', 'dynamic-product-options-for-woocommerce' )
+					: __( 'Value', 'productkit-for-woocommerce' )
 			}
 			onChange={ onChange }
 		/>
@@ -225,14 +225,14 @@ export default function LogicTab( { node, patch } ) {
 		setLogic( { rules: rules.filter( ( _, i ) => i !== idx ) } );
 
 	return (
-		<div className="dpo-settings__pane dpo-logic">
-			<div className="dpo-logic__enable">
+		<div className="pkitfw-settings__pane pkitfw-logic">
+			<div className="pkitfw-logic__enable">
 				<ToggleField
 					checked={ node.logicEnabled }
 					onChange={ ( v ) => patch( { logicEnabled: v } ) }
 					label={ __(
 						'Enable conditional logic for this element',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 			</div>
@@ -240,7 +240,7 @@ export default function LogicTab( { node, patch } ) {
 			{ node.logicEnabled && (
 				<>
 					{ /* Sentence: [Show|Hide] this field if [Any|All] match */ }
-					<div className="dpo-logic__sentence">
+					<div className="pkitfw-logic__sentence">
 						<SelectControl
 							value={ action }
 							onChange={ ( v ) => setLogic( { action: v } ) }
@@ -249,22 +249,22 @@ export default function LogicTab( { node, patch } ) {
 									value: 'show',
 									label: __(
 										'Show',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 								},
 								{
 									value: 'hide',
 									label: __(
 										'Hide',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 								},
 							] }
 						/>
-						<span className="dpo-logic__text">
+						<span className="pkitfw-logic__text">
 							{ __(
 								'this field if',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</span>
 						<SelectControl
@@ -275,68 +275,68 @@ export default function LogicTab( { node, patch } ) {
 									value: 'any',
 									label: __(
 										'Any',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 								},
 								{
 									value: 'all',
 									label: __(
 										'All',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 								},
 							] }
 						/>
-						<span className="dpo-logic__text">
+						<span className="pkitfw-logic__text">
 							{ __(
 								'of these rules match:',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</span>
 					</div>
 
 					{ sourceOptions.length === 0 ? (
-						<p className="dpo-hint">
+						<p className="pkitfw-hint">
 							{ __(
 								'Add another field first to reference it in a rule.',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</p>
 					) : (
-						<div className="dpo-logic__table">
-							<div className="dpo-logic__head">
+						<div className="pkitfw-logic__table">
+							<div className="pkitfw-logic__head">
 								<span>
 									{ __(
 										'Field',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</span>
 								<span>
 									{ __(
 										'Comparison',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</span>
 								<span>
 									{ __(
 										'Value',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</span>
-								<span className="dpo-logic__head-act" />
+								<span className="pkitfw-logic__head-act" />
 							</div>
 
 							{ rules.length === 0 && (
-								<p className="dpo-logic__empty">
+								<p className="pkitfw-logic__empty">
 									{ __(
 										'No rules yet — add your first condition below.',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</p>
 							) }
 
 							{ rules.map( ( rule, idx ) => (
-								<div className="dpo-logic__row" key={ idx }>
+								<div className="pkitfw-logic__row" key={ idx }>
 									<SelectControl
 										value={ rule.source }
 										onChange={ ( v ) =>
@@ -354,7 +354,7 @@ export default function LogicTab( { node, patch } ) {
 										}
 										options={ OPERATORS }
 									/>
-									<div className="dpo-logic__value">
+									<div className="pkitfw-logic__value">
 										<ValueControl
 											source={ byId[ rule.source ] }
 											operator={ rule.operator }
@@ -366,11 +366,11 @@ export default function LogicTab( { node, patch } ) {
 									</div>
 									<button
 										type="button"
-										className="dpo-logic__del"
+										className="pkitfw-logic__del"
 										onClick={ () => removeRule( idx ) }
 										aria-label={ __(
 											'Remove rule',
-											'dynamic-product-options-for-woocommerce'
+											'productkit-for-woocommerce'
 										) }
 									>
 										<span
@@ -383,7 +383,7 @@ export default function LogicTab( { node, patch } ) {
 
 							<button
 								type="button"
-								className="dpo-logic__add"
+								className="pkitfw-logic__add"
 								onClick={ addRule }
 							>
 								<span
@@ -392,7 +392,7 @@ export default function LogicTab( { node, patch } ) {
 								/>
 								{ __(
 									'Add condition',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</button>
 						</div>

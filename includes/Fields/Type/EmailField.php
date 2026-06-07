@@ -2,12 +2,12 @@
 /**
  * Email input field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,7 +48,7 @@ final class EmailField extends AbstractField {
 		$def     = $this->prop( 'defaults', '' );
 		$def     = is_array( $def ) ? ( isset( $def[0] ) ? $def[0] : '' ) : $def;
 
-		return '<input type="email" class="dpo-input" name="' . esc_attr( $this->input_name() ) . '"'
+		return '<input type="email" class="pkitfw-input" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(

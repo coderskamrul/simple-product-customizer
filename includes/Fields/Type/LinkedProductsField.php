@@ -2,13 +2,13 @@
 /**
  * Linked products field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Core\Capabilities;
-use DPO\Fields\AbstractField;
+use ProductKit\Core\Capabilities;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -70,11 +70,11 @@ final class LinkedProductsField extends AbstractField {
 		$multiple     = ! empty( $this->cfg( 'multiple' ) );
 		$merge        = ! empty( $this->cfg( 'mergeVariations' ) );
 		$input_t      = $multiple ? 'checkbox' : 'radio';
-		$name         = 'dpo_lp_' . $this->id() . ( $multiple ? '[]' : '' );
+		$name         = 'pkitfw_lp_' . $this->id() . ( $multiple ? '[]' : '' );
 		$index        = 0;
 		$checked_used = false;
 
-		$html = '<div class="dpo-linked dpo-linked--cards"'
+		$html = '<div class="pkitfw-linked pkitfw-linked--cards"'
 			. $this->attrs(
 				array(
 					'data-multiple' => $multiple ? 'yes' : 'no',
@@ -157,8 +157,8 @@ final class LinkedProductsField extends AbstractField {
 		$card_style  = $this->card_size_style();
 		$radius_style = $this->thumb_radius_style();
 
-		$html  = '<label class="dpo-linked__card"' . ( '' !== $card_style ? ' style="' . esc_attr( $card_style ) . '"' : '' ) . '>';
-		$html .= '<input type="' . esc_attr( $input_t ) . '" class="dpo-linked__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( (string) $lookup ) . '"'
+		$html  = '<label class="pkitfw-linked__card"' . ( '' !== $card_style ? ' style="' . esc_attr( $card_style ) . '"' : '' ) . '>';
+		$html .= '<input type="' . esc_attr( $input_t ) . '" class="pkitfw-linked__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( (string) $lookup ) . '"'
 			. $this->attrs(
 				array(
 					'data-product-id' => $pid,
@@ -169,14 +169,14 @@ final class LinkedProductsField extends AbstractField {
 					'checked'         => (bool) $checked,
 				)
 			) . ' />';
-		$html .= '<span class="dpo-linked__check" aria-hidden="true"></span>';
-		$html .= '<span class="dpo-linked__thumb"' . ( '' !== $radius_style ? ' style="' . esc_attr( $radius_style ) . '"' : '' ) . '>'
+		$html .= '<span class="pkitfw-linked__check" aria-hidden="true"></span>';
+		$html .= '<span class="pkitfw-linked__thumb"' . ( '' !== $radius_style ? ' style="' . esc_attr( $radius_style ) . '"' : '' ) . '>'
 			. $product->get_image( 'woocommerce_thumbnail' ) . '</span>';
-		$html .= '<span class="dpo-linked__meta">';
-		$html .= '<span class="dpo-linked__title">' . esc_html( $product->get_name() ) . '</span>';
+		$html .= '<span class="pkitfw-linked__meta">';
+		$html .= '<span class="pkitfw-linked__title">' . esc_html( $product->get_name() ) . '</span>';
 
 		if ( ! empty( $variations ) ) {
-			$html .= '<select class="dpo-linked__varsel">';
+			$html .= '<select class="pkitfw-linked__varsel">';
 			foreach ( $variations as $variation ) {
 				$html .= '<option value="' . esc_attr( (string) $variation->get_id() ) . '"'
 					. $this->attrs( array( 'data-price' => (string) (float) $variation->get_price() ) ) . '>'
@@ -185,7 +185,7 @@ final class LinkedProductsField extends AbstractField {
 			$html .= '</select>';
 		}
 
-		$html .= '<span class="dpo-linked__price">' . wp_kses_post( $product->get_price_html() ) . '</span>';
+		$html .= '<span class="pkitfw-linked__price">' . wp_kses_post( $product->get_price_html() ) . '</span>';
 		$html .= '</span>';
 		$html .= $this->qty_box( $index );
 		$html .= '</label>';
@@ -248,7 +248,7 @@ final class LinkedProductsField extends AbstractField {
 		$min = '' !== (string) $this->cfg( 'minQty', '' ) ? max( 1, (int) $this->cfg( 'minQty' ) ) : 1;
 		$max = '' !== (string) $this->cfg( 'maxQty', '' ) ? (int) $this->cfg( 'maxQty' ) : '';
 
-		return '<input type="number" class="dpo-linked__qty" name="dpo_lpq_' . esc_attr( $this->id() ) . '_' . esc_attr( (string) $index ) . '"'
+		return '<input type="number" class="pkitfw-linked__qty" name="pkitfw_lpq_' . esc_attr( $this->id() ) . '_' . esc_attr( (string) $index ) . '"'
 			. $this->attrs(
 				array(
 					'min'   => $min,

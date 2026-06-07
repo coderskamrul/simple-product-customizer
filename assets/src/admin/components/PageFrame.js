@@ -37,26 +37,26 @@ export default function PageFrame( {
 	children,
 } ) {
 	return (
-		<div className="dpo-page">
-			{ /* <header className="dpo-page__head">
-				<div className="dpo-page__titles">
+		<div className="pkitfw-page">
+			<header className="pkitfw-page__head">
+				<div className="pkitfw-page__titles">
 					{ title && (
-						<h1 className="dpo-page__title">{ title }</h1>
+						<h1 className="pkitfw-page__title">{ title }</h1>
 					) }
 					{ subtitle && (
-						<p className="dpo-page__sub">{ subtitle }</p>
+						<p className="pkitfw-page__sub">{ subtitle }</p>
 					) }
 				</div>
 				{ actions && (
-					<div className="dpo-page__actions">{ actions }</div>
+					<div className="pkitfw-page__actions">{ actions }</div>
 				) }
-			</header> */ }
+			</header>
 
-			{ toolbar && <div className="dpo-page__toolbar">{ toolbar }</div> }
+			{ toolbar && <div className="pkitfw-page__toolbar">{ toolbar }</div> }
 
 			<div
-				className={ `dpo-page__body${
-					bleed ? ' dpo-page__body--bleed' : ''
+				className={ `pkitfw-page__body${
+					bleed ? ' pkitfw-page__body--bleed' : ''
 				}` }
 			>
 				{ children }

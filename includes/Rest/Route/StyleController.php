@@ -2,14 +2,14 @@
 /**
  * Global style (tokens + generated CSS) controller.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Rest\Route;
+namespace ProductKit\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Rest\RestServer;
-use DPO\Support\Str;
+use ProductKit\Core\Container;
+use ProductKit\Rest\RestServer;
+use ProductKit\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,10 +19,10 @@ defined( 'ABSPATH' ) || exit;
  */
 final class StyleController {
 
-	const OPT_STYLE          = 'dpo_global_style';
-	const OPT_STYLE_CSS      = 'dpo_global_style_css';
-	const OPT_STYLE_THEMATIC = 'dpo_global_style_thematic';
-	const OPT_THEMATIC_CSS   = 'dpo_global_style_thematic_css';
+	const OPT_STYLE          = 'pkitfw_global_style';
+	const OPT_STYLE_CSS      = 'pkitfw_global_style_css';
+	const OPT_STYLE_THEMATIC = 'pkitfw_global_style_thematic';
+	const OPT_THEMATIC_CSS   = 'pkitfw_global_style_thematic_css';
 
 	/**
 	 * Container.
@@ -94,7 +94,7 @@ final class StyleController {
 	 */
 	private function save_style( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
 		}
 
 		$style    = Str::json( $r->get_param( 'style' ), array() );

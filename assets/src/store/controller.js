@@ -1,7 +1,7 @@
 /**
  * Per-form orchestrator.
  *
- * One Controller owns a single `.dpo-options` wrapper (its product
+ * One Controller owns a single `.pkitfw-options` wrapper (its product
  * `form.cart`). It: discovers fields, wires change/widget/upload events,
  * recomputes conditions + pricing on every change, writes the hidden inputs
  * the server reads, syncs variation prices, fires analytics, and validates
@@ -30,7 +30,7 @@ import { validateAll } from './validate';
 /**
  * Find the owning WooCommerce form for an options wrapper.
  *
- * @param {HTMLElement} root `.dpo-options` element.
+ * @param {HTMLElement} root `.pkitfw-options` element.
  * @return {HTMLElement|null} The `form.cart`, or null.
  */
 function ownerForm( root ) {
@@ -46,7 +46,7 @@ function ownerForm( root ) {
  */
 export default class Controller {
 	/**
-	 * @param {HTMLElement} root `.dpo-options` wrapper.
+	 * @param {HTMLElement} root `.pkitfw-options` wrapper.
 	 */
 	constructor( root ) {
 		this.root = root;
@@ -64,10 +64,10 @@ export default class Controller {
 	 * @return {void}
 	 */
 	init() {
-		if ( this.root.__dpoBound ) {
+		if ( this.root.__pkitfwBound ) {
 			return;
 		}
-		this.root.__dpoBound = true;
+		this.root.__pkitfwBound = true;
 
 		try {
 			this.discoverFields();
@@ -85,20 +85,20 @@ export default class Controller {
 			this.cleanups.push( initAnalytics( this.root ) );
 
 			this.recompute();
-			this.root.classList.remove( 'dpo-loading' );
+			this.root.classList.remove( 'pkitfw-loading' );
 		} catch ( e ) {
 			// Never leave the form unusable.
-			this.root.classList.remove( 'dpo-loading' );
+			this.root.classList.remove( 'pkitfw-loading' );
 		}
 	}
 
 	/**
-	 * Index every `.dpo-field` wrapper and prepare its logic + widgets.
+	 * Index every `.pkitfw-field` wrapper and prepare its logic + widgets.
 	 *
 	 * @return {void}
 	 */
 	discoverFields() {
-		const els = this.root.querySelectorAll( '.dpo-field[data-field-id]' );
+		const els = this.root.querySelectorAll( '.pkitfw-field[data-field-id]' );
 		els.forEach( ( el ) => {
 			const id = el.getAttribute( 'data-field-id' );
 			if ( ! id ) {
@@ -288,7 +288,7 @@ export default class Controller {
 
 	/**
 	 * Build the advancedformula shipping/dynamics variable bag from the
-	 * `dpo_shipping_dynamics` hidden input + current product price.
+	 * `pkitfw_shipping_dynamics` hidden input + current product price.
 	 *
 	 * @return {Object} Dynamic variable map.
 	 */
@@ -299,7 +299,7 @@ export default class Controller {
 		};
 		try {
 			const el = this.form
-				? this.form.querySelector( '[name="dpo_shipping_dynamics"]' )
+				? this.form.querySelector( '[name="pkitfw_shipping_dynamics"]' )
 				: null;
 			if ( el && el.value ) {
 				const s = JSON.parse( el.value );
@@ -352,8 +352,8 @@ export default class Controller {
 				el.value = value;
 			}
 		};
-		set( 'dpo_field_data', JSON.stringify( payload ) );
-		set( 'dpo_linked_products', JSON.stringify( linked ) );
+		set( 'pkitfw_field_data', JSON.stringify( payload ) );
+		set( 'pkitfw_linked_products', JSON.stringify( linked ) );
 	}
 
 	/**
@@ -394,6 +394,6 @@ export default class Controller {
 			}
 		} );
 		this.cleanups = [];
-		this.root.__dpoBound = false;
+		this.root.__pkitfwBound = false;
 	}
 }

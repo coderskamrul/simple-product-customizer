@@ -19,21 +19,21 @@ export default function ToastStack() {
 		return null;
 	}
 	return (
-		<div className="dpo-toast-stack" aria-live="polite" aria-atomic="false">
+		<div className="pkitfw-toast-stack" aria-live="polite" aria-atomic="false">
 			{ toasts.map( ( t ) => (
 				<div
 					key={ t.id }
-					className={ `dpo-toast dpo-toast--${ t.type }` }
+					className={ `pkitfw-toast pkitfw-toast--${ t.type }` }
 					role={ t.type === 'error' ? 'alert' : 'status' }
 				>
-					<span className="dpo-toast__msg">{ t.message }</span>
+					<span className="pkitfw-toast__msg">{ t.message }</span>
 					<button
 						type="button"
-						className="dpo-toast__close"
+						className="pkitfw-toast__close"
 						onClick={ () => dismiss( t.id ) }
 						aria-label={ __(
 							'Dismiss',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<span

@@ -6,10 +6,10 @@
  * (a number, variable, identifier, operator or punctuation mark).
  * Instances are treated as immutable: construct once, read via accessors.
  *
- * @package DPO\Formula\Ast
+ * @package ProductKit\Formula\Ast
  */
 
-namespace DPO\Formula\Ast;
+namespace ProductKit\Formula\Ast;
 
 defined( 'ABSPATH' ) || exit;
 

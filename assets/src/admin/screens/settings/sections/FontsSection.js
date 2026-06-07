@@ -51,7 +51,7 @@ export default function FontsSection() {
 			notify(
 				__(
 					'Font title is required.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				'error'
 			);
@@ -80,7 +80,7 @@ export default function FontsSection() {
 			notify(
 				__(
 					'Font title is required.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				'error'
 			);
@@ -90,7 +90,7 @@ export default function FontsSection() {
 			notify(
 				__(
 					'Choose a font file first.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				'error'
 			);
@@ -107,31 +107,31 @@ export default function FontsSection() {
 	};
 
 	return (
-		<div className="dpo-set-stack">
+		<div className="pkitfw-set-stack">
 			<SettingCard
 				icon="plus-alt2"
 				tone="pink"
 				title={ __(
 					'Add New Font',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				subtitle={ __(
 					'Upload a font file and give it a name',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
-				<div className="dpo-set-fontform">
+				<div className="pkitfw-set-fontform">
 					<Field
 						label={ __(
 							'Font Title *',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TextControl
 							value={ title }
 							placeholder={ __(
 								'My Custom Font',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 							onChange={ setTitle }
 						/>
@@ -139,14 +139,14 @@ export default function FontsSection() {
 					<Field
 						label={ __(
 							'CSS Family (optional)',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TextControl
 							value={ family }
 							placeholder={ __(
 								"'My Custom Font', sans-serif",
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 							onChange={ setFamily }
 						/>
@@ -154,78 +154,78 @@ export default function FontsSection() {
 					<Field
 						label={ __(
 							'Font File *',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<FilePicker inputRef={ fileRef } accept={ ACCEPT } />
 					</Field>
 					<button
 						type="button"
-						className="dpo-set-save dpo-set-save--sm"
+						className="pkitfw-set-save pkitfw-set-save--sm"
 						disabled={ busy }
 						onClick={ onUpload }
 					>
 						{ busy
 							? __(
 									'Uploading…',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  )
 							: __(
 									'Upload',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  ) }
 					</button>
 				</div>
 			</SettingCard>
 
-			<div className="dpo-set-fonts">
-				<h3 className="dpo-set-fonts__title">
+			<div className="pkitfw-set-fonts">
+				<h3 className="pkitfw-set-fonts__title">
 					{ __(
 						'Uploaded Fonts',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</h3>
 
 				{ loading && (
-					<div className="dpo-set-fonts__empty">
+					<div className="pkitfw-set-fonts__empty">
 						<Skeleton w="60%" h={ 14 } />
 						<Skeleton w="80%" h={ 12 } />
 						<Skeleton w="40%" h={ 12 } />
 					</div>
 				) }
 				{ ! loading && fonts.length === 0 && (
-					<div className="dpo-set-fonts__empty">
+					<div className="pkitfw-set-fonts__empty">
 						<span
-							className="dashicons dashicons-editor-textcolor dpo-set-fonts__emptyicon"
+							className="dashicons dashicons-editor-textcolor pkitfw-set-fonts__emptyicon"
 							aria-hidden="true"
 						/>
-						<p className="dpo-set-fonts__emptytitle">
+						<p className="pkitfw-set-fonts__emptytitle">
 							{ __(
 								'No custom fonts uploaded yet',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</p>
-						<p className="dpo-set-fonts__emptysub">
+						<p className="pkitfw-set-fonts__emptysub">
 							{ __(
 								'Add your first font above',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</p>
 					</div>
 				) }
 				{ ! loading && fonts.length > 0 && (
-					<ul className="dpo-set-fontlist">
+					<ul className="pkitfw-set-fontlist">
 						{ fonts.map( ( f ) =>
 							editingId === f.id ? (
 								<li
 									key={ f.id }
-									className="dpo-set-fontrow dpo-set-fontrow--editing"
+									className="pkitfw-set-fontrow pkitfw-set-fontrow--editing"
 								>
-									<div className="dpo-set-fontedit">
+									<div className="pkitfw-set-fontedit">
 										<Field
 											label={ __(
 												'Font Title',
-												'dynamic-product-options-for-woocommerce'
+												'productkit-for-woocommerce'
 											) }
 										>
 											<TextControl
@@ -236,7 +236,7 @@ export default function FontsSection() {
 										<Field
 											label={ __(
 												'CSS Family',
-												'dynamic-product-options-for-woocommerce'
+												'productkit-for-woocommerce'
 											) }
 										>
 											<TextControl
@@ -245,53 +245,53 @@ export default function FontsSection() {
 											/>
 										</Field>
 									</div>
-									<div className="dpo-set-fontedit__actions">
+									<div className="pkitfw-set-fontedit__actions">
 										<button
 											type="button"
-											className="dpo-set-save dpo-set-save--sm"
+											className="pkitfw-set-save pkitfw-set-save--sm"
 											disabled={ busy }
 											onClick={ () => saveEdit( f.id ) }
 										>
 											{ __(
 												'Save',
-												'dynamic-product-options-for-woocommerce'
+												'productkit-for-woocommerce'
 											) }
 										</button>
 										<button
 											type="button"
-											className="dpo-btn dpo-btn--ghost"
+											className="pkitfw-btn pkitfw-btn--ghost"
 											onClick={ cancelEdit }
 										>
 											{ __(
 												'Cancel',
-												'dynamic-product-options-for-woocommerce'
+												'productkit-for-woocommerce'
 											) }
 										</button>
 									</div>
 								</li>
 							) : (
-								<li key={ f.id } className="dpo-set-fontrow">
+								<li key={ f.id } className="pkitfw-set-fontrow">
 									<span
-										className="dpo-set-fontrow__name"
+										className="pkitfw-set-fontrow__name"
 										style={ {
 											fontFamily: f.family || 'inherit',
 										} }
 									>
 										{ f.title }
 									</span>
-									<span className="dpo-set-fontrow__meta">
+									<span className="pkitfw-set-fontrow__meta">
 										{ f.family || '—' }
 									</span>
-									<span className="dpo-set-fontrow__type">
+									<span className="pkitfw-set-fontrow__type">
 										{ ( f.file_type || '' ).toUpperCase() }
 									</span>
 									<button
 										type="button"
-										className="dpo-set-iconbtn"
+										className="pkitfw-set-iconbtn"
 										onClick={ () => startEdit( f ) }
 										aria-label={ __(
 											'Edit font',
-											'dynamic-product-options-for-woocommerce'
+											'productkit-for-woocommerce'
 										) }
 									>
 										<span
@@ -301,11 +301,11 @@ export default function FontsSection() {
 									</button>
 									<button
 										type="button"
-										className="dpo-set-iconbtn dpo-set-iconbtn--danger"
+										className="pkitfw-set-iconbtn pkitfw-set-iconbtn--danger"
 										onClick={ () => remove( f.id ) }
 										aria-label={ __(
 											'Delete font',
-											'dynamic-product-options-for-woocommerce'
+											'productkit-for-woocommerce'
 										) }
 									>
 										<span
@@ -314,14 +314,14 @@ export default function FontsSection() {
 										/>
 									</button>
 									<span
-										className="dpo-set-fontrow__sample"
+										className="pkitfw-set-fontrow__sample"
 										style={ {
 											fontFamily: f.family || 'inherit',
 										} }
 									>
 										{ __(
 											'The quick brown fox jumps over the lazy dog',
-											'dynamic-product-options-for-woocommerce'
+											'productkit-for-woocommerce'
 										) }
 									</span>
 								</li>

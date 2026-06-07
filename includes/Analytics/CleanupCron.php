@@ -2,13 +2,13 @@
 /**
  * Scheduled upload-bucket cleanup.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Analytics;
+namespace ProductKit\Analytics;
 
-use DPO\Core\Settings;
-use DPO\Support\Upload;
+use ProductKit\Core\Settings;
+use ProductKit\Support\Upload;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -53,7 +53,7 @@ final class CleanupCron {
 	 * @return void
 	 */
 	public function register() {
-		add_action( 'dpo_cleanup_uploads', array( $this, 'run' ) );
+		add_action( 'pkitfw_cleanup_uploads', array( $this, 'run' ) );
 	}
 
 	/**

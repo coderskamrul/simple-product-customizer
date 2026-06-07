@@ -2,12 +2,12 @@
 /**
  * Shortcode embed field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -51,7 +51,7 @@ final class ShortcodeField extends AbstractField {
 	public function render() {
 		$shortcode = (string) $this->cfg( 'shortcode', '' );
 		$html      = '<div ' . $this->wrapper_attrs() . '>';
-		$html     .= '<div class="dpo-shortcode">';
+		$html     .= '<div class="pkitfw-shortcode">';
 		if ( '' !== $shortcode ) {
 			$html .= do_shortcode( $shortcode );
 		}

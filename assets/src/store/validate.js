@@ -8,7 +8,7 @@
  *   - min/max selection count (choice groups, fileupload count)
  *   - number/range min & max
  *   - char limits (data-minlength / data-maxlength on the control)
- * Shows `.dpo-field__error` messages + a single dismissible toast and blocks
+ * Shows `.pkitfw-field__error` messages + a single dismissible toast and blocks
  * the submit when invalid. Never throws — a runtime error must not wedge the
  * native add-to-cart flow.
  *
@@ -18,7 +18,7 @@
 import { __ } from '@wordpress/i18n';
 import { toNumber } from './money';
 
-const TD = 'dynamic-product-options-for-woocommerce';
+const TD = 'productkit-for-woocommerce';
 
 /**
  * Set or clear a field's inline error.
@@ -28,40 +28,40 @@ const TD = 'dynamic-product-options-for-woocommerce';
  * @return {void}
  */
 function setError( fieldEl, msg ) {
-	const el = fieldEl.querySelector( '.dpo-field__error' );
+	const el = fieldEl.querySelector( '.pkitfw-field__error' );
 	if ( ! el ) {
 		return;
 	}
 	el.textContent = msg || '';
 	if ( msg ) {
-		el.classList.add( 'dpo-field__error--visible' );
-		fieldEl.classList.add( 'dpo-field--invalid' );
+		el.classList.add( 'pkitfw-field__error--visible' );
+		fieldEl.classList.add( 'pkitfw-field--invalid' );
 	} else {
-		el.classList.remove( 'dpo-field__error--visible' );
-		fieldEl.classList.remove( 'dpo-field--invalid' );
+		el.classList.remove( 'pkitfw-field__error--visible' );
+		fieldEl.classList.remove( 'pkitfw-field--invalid' );
 	}
 }
 
 /**
  * Show a transient toast inside the options wrapper.
  *
- * @param {HTMLElement} root `.dpo-options` wrapper.
+ * @param {HTMLElement} root `.pkitfw-options` wrapper.
  * @param {string}      msg  Toast text.
  * @return {void}
  */
 function toast( root, msg ) {
-	let el = root.querySelector( '.dpo-toast' );
+	let el = root.querySelector( '.pkitfw-toast' );
 	if ( ! el ) {
 		el = document.createElement( 'div' );
-		el.className = 'dpo-toast';
+		el.className = 'pkitfw-toast';
 		el.setAttribute( 'role', 'alert' );
 		root.appendChild( el );
 	}
 	el.textContent = msg;
-	el.classList.add( 'dpo-toast--visible' );
+	el.classList.add( 'pkitfw-toast--visible' );
 	window.clearTimeout( el._t );
 	el._t = window.setTimeout( () => {
-		el.classList.remove( 'dpo-toast--visible' );
+		el.classList.remove( 'pkitfw-toast--visible' );
 	}, 4000 );
 }
 
@@ -128,7 +128,7 @@ function validateField( fieldEl, entry ) {
 	// Number / range bounds.
 	if ( ( type === 'number' || type === 'range' ) && entry ) {
 		const ctrl = fieldEl.querySelector(
-			'input[name="dpo_input_' +
+			'input[name="pkitfw_input_' +
 				fieldEl.getAttribute( 'data-field-id' ) +
 				'"]'
 		);
@@ -148,7 +148,7 @@ function validateField( fieldEl, entry ) {
 	// Char limits for text-ish controls.
 	if ( entry && typeof entry.value === 'string' ) {
 		const ctrl = fieldEl.querySelector(
-			'[name="dpo_input_' + fieldEl.getAttribute( 'data-field-id' ) + '"]'
+			'[name="pkitfw_input_' + fieldEl.getAttribute( 'data-field-id' ) + '"]'
 		);
 		if ( ctrl ) {
 			const minLen = parseInt(
@@ -175,7 +175,7 @@ function validateField( fieldEl, entry ) {
 
 	// File count bounds.
 	if ( type === 'fileupload' ) {
-		const fileInput = fieldEl.querySelector( '.dpo-upload__input' );
+		const fileInput = fieldEl.querySelector( '.pkitfw-upload__input' );
 		const count =
 			entry && Array.isArray( entry.value ) ? entry.value.length : 0;
 		if ( fileInput ) {
@@ -202,7 +202,7 @@ function validateField( fieldEl, entry ) {
 /**
  * Validate every visible field for a form.
  *
- * @param {HTMLElement} root          `.dpo-options` wrapper.
+ * @param {HTMLElement} root          `.pkitfw-options` wrapper.
  * @param {Object}      selections    fieldId → selection entry.
  * @param {Object}      fieldElements fieldId → wrapper element.
  * @param {Object}      visibility    fieldId → boolean (true = visible).

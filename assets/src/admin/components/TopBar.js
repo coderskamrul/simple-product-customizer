@@ -21,27 +21,27 @@ const TABS = [
 	{
 		route: 'dashboard',
 		hash: '#/',
-		label: __( 'Dashboard', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Dashboard', 'productkit-for-woocommerce' ),
 	},
 	{
 		route: 'sets',
 		hash: '#/sets',
-		label: __( 'Option Sets', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Option Sets', 'productkit-for-woocommerce' ),
 	},
 	{
 		route: 'analytics',
 		hash: '#/analytics',
-		label: __( 'Analytics', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Analytics', 'productkit-for-woocommerce' ),
 	},
 	{
 		route: 'settings',
 		hash: '#/settings',
-		label: __( 'Settings', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Settings', 'productkit-for-woocommerce' ),
 	},
 	{
 		route: 'license',
 		hash: '#/license',
-		label: __( 'License', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'License', 'productkit-for-woocommerce' ),
 	},
 ];
 
@@ -59,7 +59,7 @@ function resolveCTA( routeName ) {
 			return {
 				label: __(
 					'Create Option Set',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				onClick: () => navigate( '/set/new' ),
 			};
@@ -67,7 +67,7 @@ function resolveCTA( routeName ) {
 			return {
 				label: __(
 					'New Option Set',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				onClick: () => navigate( '/set/new' ),
 			};
@@ -102,18 +102,18 @@ export default function TopBar() {
 	const current = activeTab( route.name );
 
 	return (
-		<header className="dpo-topbar" role="banner">
+		<header className="pkitfw-topbar" role="banner">
 			{ /* Left — brand + version pill + (context CTA) ------------- */ }
-			<div className="dpo-topbar__lead">
+			<div className="pkitfw-topbar__lead">
 				<a
 					href="#/"
-					className="dpo-topbar__brand"
+					className="pkitfw-topbar__brand"
 					aria-label={ __(
-						'Dynamic Product Options home',
-						'dynamic-product-options-for-woocommerce'
+						'ProductKit home',
+						'productkit-for-woocommerce'
 					) }
 				>
-					<span className="dpo-topbar__logo" aria-hidden="true">
+					<span className="pkitfw-topbar__logo" aria-hidden="true">
 						<svg
 							width="22"
 							height="22"
@@ -135,14 +135,14 @@ export default function TopBar() {
 						</svg>
 					</span>
 					{ version && (
-						<span className="dpo-topbar__version">{ version }</span>
+						<span className="pkitfw-topbar__version">{ version }</span>
 					) }
 				</a>
 
 				{ cta && (
 					<button
 						type="button"
-						className="dpo-topbar__cta"
+						className="pkitfw-topbar__cta"
 						onClick={ cta.onClick }
 					>
 						<span aria-hidden="true">+</span>
@@ -153,10 +153,10 @@ export default function TopBar() {
 
 			{ /* Center — tabs ------------------------------------------- */ }
 			<nav
-				className="dpo-topbar__tabs"
+				className="pkitfw-topbar__tabs"
 				aria-label={ __(
 					'Primary',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				{ TABS.map( ( t ) => {
@@ -165,7 +165,7 @@ export default function TopBar() {
 						<a
 							key={ t.route }
 							href={ t.hash }
-							className={ `dpo-topbar__tab${
+							className={ `pkitfw-topbar__tab${
 								isActive ? ' is-active' : ''
 							}` }
 							aria-current={ isActive ? 'page' : undefined }
@@ -177,17 +177,17 @@ export default function TopBar() {
 			</nav>
 
 			{ /* Right — upgrade pill ------------------------------------ */ }
-			<div className="dpo-topbar__trail">
+			<div className="pkitfw-topbar__trail">
 				{ proActive ? (
-					<span className="dpo-topbar__plan">
+					<span className="pkitfw-topbar__plan">
 						{ __(
 							'Pro',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</span>
 				) : (
 					<a
-						className="dpo-topbar__upgrade"
+						className="pkitfw-topbar__upgrade"
 						href="https://wpdeveloper.com/in/upgrade-dynamic-product-options"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -195,7 +195,7 @@ export default function TopBar() {
 						<span>
 							{ __(
 								'Upgrade Pro',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</span>
 						<svg

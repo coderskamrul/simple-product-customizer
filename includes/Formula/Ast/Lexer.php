@@ -18,10 +18,10 @@
  *   - Punctuation         : ( ) ,
  *   - Anything else       : EvaluationError "Unexpected character".
  *
- * @package DPO\Formula\Ast
+ * @package ProductKit\Formula\Ast
  */
 
-namespace DPO\Formula\Ast;
+namespace ProductKit\Formula\Ast;
 
 defined( 'ABSPATH' ) || exit;
 

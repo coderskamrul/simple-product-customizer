@@ -30,7 +30,7 @@ import {
 
 const BuilderContext = createContext( {} );
 
-/** A fresh, empty assignment (matches the `_dpo_assignment` shape, §4). */
+/** A fresh, empty assignment (matches the `_pkitfw_assignment` shape, §4). */
 const emptyAssignment = () => ( {
 	scope: 'none',
 	include: [],

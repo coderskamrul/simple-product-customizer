@@ -45,26 +45,26 @@ export default function ValuePricing( { node, patch } ) {
 	};
 
 	return (
-		<div className="dpo-vprice">
-			<div className="dpo-vprice__head">
+		<div className="pkitfw-vprice">
+			<div className="pkitfw-vprice__head">
 				<span>
 					{ __(
 						'Price Type',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</span>
 				<span>
 					{ __(
 						'Regular',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</span>
-				<span className="dpo-vprice__pro">
-					{ __( 'Sales', 'dynamic-product-options-for-woocommerce' ) }
-					{ ! proActive && <em className="dpo-pro-tag">Pro</em> }
+				<span className="pkitfw-vprice__pro">
+					{ __( 'Sales', 'productkit-for-woocommerce' ) }
+					{ ! proActive && <em className="pkitfw-pro-tag">Pro</em> }
 				</span>
 			</div>
-			<div className="dpo-vprice__row">
+			<div className="pkitfw-vprice__row">
 				<SelectControl
 					value={ choice.priceMode || 'none' }
 					options={ priceOptions }
@@ -84,7 +84,7 @@ export default function ValuePricing( { node, patch } ) {
 							? ''
 							: __(
 									'Pro',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  )
 					}
 					onChange={ ( v ) => setPrice( { sale: v } ) }

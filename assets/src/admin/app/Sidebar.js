@@ -11,31 +11,31 @@ const NAV = [
 	{
 		route: 'dashboard',
 		hash: '#/',
-		label: __( 'Dashboard', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Dashboard', 'productkit-for-woocommerce' ),
 		icon: 'dashboard',
 	},
 	{
 		route: 'sets',
 		hash: '#/sets',
-		label: __( 'Option Sets', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Option Sets', 'productkit-for-woocommerce' ),
 		icon: 'screenoptions',
 	},
 	{
 		route: 'settings',
 		hash: '#/settings',
-		label: __( 'Settings', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Settings', 'productkit-for-woocommerce' ),
 		icon: 'admin-generic',
 	},
 	{
 		route: 'analytics',
 		hash: '#/analytics',
-		label: __( 'Analytics', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Analytics', 'productkit-for-woocommerce' ),
 		icon: 'chart-bar',
 	},
 	{
 		route: 'license',
 		hash: '#/license',
-		label: __( 'License', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'License', 'productkit-for-woocommerce' ),
 		icon: 'admin-network',
 	},
 ];
@@ -54,30 +54,30 @@ export default function Sidebar( { active } ) {
 
 	return (
 		<nav
-			className="dpo-sidebar"
+			className="pkitfw-sidebar"
 			aria-label={ __(
-				'Dynamic Product Options navigation',
-				'dynamic-product-options-for-woocommerce'
+				'ProductKit navigation',
+				'productkit-for-woocommerce'
 			) }
 		>
-			<div className="dpo-sidebar__brand">
+			<div className="pkitfw-sidebar__brand">
 				<span
-					className="dashicons dashicons-cart dpo-sidebar__logo"
+					className="dashicons dashicons-cart pkitfw-sidebar__logo"
 					aria-hidden="true"
 				/>
-				<span className="dpo-sidebar__name">
+				<span className="pkitfw-sidebar__name">
 					{ __(
 						'Dynamic Options',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</span>
 			</div>
-			<ul className="dpo-sidebar__nav">
+			<ul className="pkitfw-sidebar__nav">
 				{ NAV.map( ( item ) => (
 					<li key={ item.route }>
 						<a
 							href={ item.hash }
-							className={ `dpo-sidebar__link${
+							className={ `pkitfw-sidebar__link${
 								current === item.route ? ' is-active' : ''
 							}` }
 							aria-current={

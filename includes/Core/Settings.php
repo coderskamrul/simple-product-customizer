@@ -1,11 +1,11 @@
 <?php
 /**
- * Settings store (option `dpo_settings`).
+ * Settings store (option `pkitfw_settings`).
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Core;
+namespace ProductKit\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Settings {
 
-	const OPTION = 'dpo_settings';
+	const OPTION = 'pkitfw_settings';
 
 	/**
 	 * Default values for every known setting.
@@ -24,13 +24,13 @@ final class Settings {
 	public static function defaults() {
 		return array(
 			'showPriceLine'       => true,
-			'priceLineLabel'      => __( 'Options Price', 'dynamic-product-options-for-woocommerce' ),
+			'priceLineLabel'      => __( 'Options Price', 'productkit-for-woocommerce' ),
 			'showTotalLine'       => true,
-			'totalLineLabel'      => __( 'Total Price', 'dynamic-product-options-for-woocommerce' ),
+			'totalLineLabel'      => __( 'Total Price', 'productkit-for-woocommerce' ),
 			'hideInCart'          => false,
 			'hideInCheckout'      => false,
 			'shopForceSelect'     => true,
-			'shopButtonText'      => __( 'Select Options', 'dynamic-product-options-for-woocommerce' ),
+			'shopButtonText'      => __( 'Select Options', 'productkit-for-woocommerce' ),
 			'uploadTempDays'      => 7,
 			'uploadPlacedDays'    => 0,
 			'uploadCompletedDays' => 0,

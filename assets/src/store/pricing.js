@@ -1,5 +1,5 @@
 /**
- * Client-side option pricing — mirrors DPO\Pricing\PriceCalculator (§13).
+ * Client-side option pricing — mirrors ProductKit\Pricing\PriceCalculator (§13).
  *
  * This is a LIVE PREVIEW computation only. The raw selection (base values,
  * never currency-converted) is what gets serialised to the hidden inputs so
@@ -29,10 +29,10 @@ import { evaluateSimple, evaluateAdvanced } from './formula';
 /**
  * Read the localised store config defensively.
  *
- * @return {Object} dpoStore global or {}.
+ * @return {Object} pkitfwStore global or {}.
  */
 function store() {
-	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
+	return ( typeof window !== 'undefined' && window.pkitfwStore ) || {};
 }
 
 /**
@@ -204,7 +204,7 @@ function modePrice( mode, cost, value, percentBase, slot ) {
  * @return {HTMLElement[]} Choice elements indexed by choice index.
  */
 function choiceElements( fieldEl ) {
-	const opts = fieldEl.querySelectorAll( '.dpo-select__opt[data-index]' );
+	const opts = fieldEl.querySelectorAll( '.pkitfw-select__opt[data-index]' );
 	if ( opts.length ) {
 		const out = [];
 		opts.forEach( ( o ) => {
@@ -324,7 +324,7 @@ export function collectFormulaVars( selections, fieldElements ) {
 				return;
 			}
 			const opt = el.querySelector(
-				'.dpo-select__opt[data-index="' + indexes[ 0 ] + '"]'
+				'.pkitfw-select__opt[data-index="' + indexes[ 0 ] + '"]'
 			);
 			if ( ! opt ) {
 				return;
@@ -355,7 +355,7 @@ export function priceFormula(
 	simpleVars,
 	dynamics
 ) {
-	const node = fieldEl.querySelector( '.dpo-formula' );
+	const node = fieldEl.querySelector( '.pkitfw-formula' );
 	if ( ! node ) {
 		return 0;
 	}
@@ -386,19 +386,19 @@ export function priceFormula(
 }
 
 /**
- * Render the price spans (#dpo-options-price / #dpo-options-total).
+ * Render the price spans (#pkitfw-options-price / #pkitfw-options-total).
  * Display amounts honour currency + conversion; the values written to the
  * hidden inputs elsewhere remain raw/base.
  *
- * @param {HTMLElement} root          `.dpo-options` wrapper.
+ * @param {HTMLElement} root          `.pkitfw-options` wrapper.
  * @param {number}      optionsPrice  Sum of option prices (base ccy).
  * @param {number}      basePrice     Product base price (base ccy).
  * @param {number}      [linkedPrice] Sum of selected linked-product prices.
  * @return {void}
  */
 export function renderPriceSpans( root, optionsPrice, basePrice, linkedPrice ) {
-	const priceEl = root.querySelector( '#dpo-options-price' );
-	const totalEl = root.querySelector( '#dpo-options-total' );
+	const priceEl = root.querySelector( '#pkitfw-options-price' );
+	const totalEl = root.querySelector( '#pkitfw-options-total' );
 	if ( priceEl ) {
 		priceEl.innerHTML = formatMoney( optionsPrice );
 	}

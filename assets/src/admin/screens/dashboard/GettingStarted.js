@@ -15,41 +15,41 @@ const COPY = {
 	create: {
 		title: __(
 			'Create an option set',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		desc: __(
 			'Add fields like dropdowns, colour swatches or text inputs',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	fields: {
 		title: __(
 			'Add fields to a set',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		desc: __(
 			'Build the form shoppers see on the product page',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	publish: {
 		title: __(
 			'Assign & publish',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		desc: __(
 			'Link a set to products, categories or tags',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	track: {
 		title: __(
 			'Track performance',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		desc: __(
 			'Monitor impressions and conversions in Analytics',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 };
@@ -68,24 +68,24 @@ export default function GettingStarted( { checklist, progress } ) {
 	const nextId = ( checklist.find( ( s ) => ! s.done ) || {} ).id;
 
 	return (
-		<section className="dpo-db-card dpo-db-panel">
-			<header className="dpo-db-panel__head">
-				<h2 className="dpo-db-panel__title">
+		<section className="pkitfw-db-card pkitfw-db-panel">
+			<header className="pkitfw-db-panel__head">
+				<h2 className="pkitfw-db-panel__title">
 					<span
-						className="dashicons dashicons-book-alt dpo-db-panel__ico"
+						className="dashicons dashicons-book-alt pkitfw-db-panel__ico"
 						aria-hidden="true"
 					/>
 					{ __(
 						'Getting Started',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</h2>
-				<span className="dpo-db-panel__meta">
+				<span className="pkitfw-db-panel__meta">
 					{ sprintf(
 						/* translators: 1: completed steps, 2: total steps */
 						__(
 							'%1$d of %2$d completed',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 						progress,
 						total
@@ -93,12 +93,12 @@ export default function GettingStarted( { checklist, progress } ) {
 				</span>
 			</header>
 
-			<ol className="dpo-db-steps">
+			<ol className="pkitfw-db-steps">
 				{ checklist.map( ( step, i ) => {
 					const copy = COPY[ step.id ];
 					const isNext = step.id === nextId;
 					const cls = [
-						'dpo-db-step',
+						'pkitfw-db-step',
 						step.done && 'is-done',
 						isNext && 'is-next',
 					]
@@ -110,7 +110,7 @@ export default function GettingStarted( { checklist, progress } ) {
 					return (
 						<li key={ step.id } className={ cls }>
 							<span
-								className="dpo-db-step__marker"
+								className="pkitfw-db-step__marker"
 								aria-hidden="true"
 							>
 								{ step.done ? (
@@ -120,32 +120,32 @@ export default function GettingStarted( { checklist, progress } ) {
 								) }
 							</span>
 
-							<div className="dpo-db-step__text">
-								<span className="dpo-db-step__title">
+							<div className="pkitfw-db-step__text">
+								<span className="pkitfw-db-step__title">
 									{ copy.title }
 								</span>
-								<span className="dpo-db-step__desc">
+								<span className="pkitfw-db-step__desc">
 									{ copy.desc }
 								</span>
 							</div>
 
 							{ step.done ? (
-								<span className="dpo-db-step__state">
+								<span className="pkitfw-db-step__state">
 									{ __(
 										'Done',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 								</span>
 							) : (
 								<button
 									type="button"
-									className="dpo-db-step__go"
+									className="pkitfw-db-step__go"
 									onClick={ go }
 									aria-label={ sprintf(
 										/* translators: %s: step title */
 										__(
 											'Start: %s',
-											'dynamic-product-options-for-woocommerce'
+											'productkit-for-woocommerce'
 										),
 										copy.title
 									) }

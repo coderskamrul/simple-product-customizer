@@ -20,10 +20,10 @@ const IMPRESSION_WINDOW = 18 * 60 * 60 * 1000;
 /**
  * Read the localised store config defensively.
  *
- * @return {Object} dpoStore global or {}.
+ * @return {Object} pkitfwStore global or {}.
  */
 function store() {
-	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
+	return ( typeof window !== 'undefined' && window.pkitfwStore ) || {};
 }
 
 /**
@@ -34,7 +34,7 @@ function store() {
  * @return {string} Storage key.
  */
 function key( setId, metric ) {
-	return 'dpo_a_' + metric + '_' + setId;
+	return 'pkitfw_a_' + metric + '_' + setId;
 }
 
 /**
@@ -183,13 +183,13 @@ function ping( setId, metric ) {
 		return;
 	}
 	// X-WP-Nonce satisfies WP core's REST cookie check (action `wp_rest`).
-	// `dpo_nonce` satisfies our route's own verify_nonce body-fallback
-	// (action `dpo_rest`) — required because public_nonce() opens the gate
+	// `pkitfw_nonce` satisfies our route's own verify_nonce body-fallback
+	// (action `pkitfw_rest`) — required because public_nonce() opens the gate
 	// but the callback still re-checks the body nonce before recording.
 	const body = JSON.stringify( {
 		setId,
 		metric,
-		dpo_nonce: cfg.uploadNonce || '',
+		pkitfw_nonce: cfg.uploadNonce || '',
 	} );
 	const headers = {
 		'Content-Type': 'application/json',
@@ -226,11 +226,11 @@ function ping( setId, metric ) {
 /**
  * Attach impression + click tracking for every set under a root.
  *
- * @param {HTMLElement} root `.dpo-options` wrapper.
+ * @param {HTMLElement} root `.pkitfw-options` wrapper.
  * @return {Function} Cleanup function.
  */
 export function initAnalytics( root ) {
-	const sets = root.querySelectorAll( '.dpo-set[data-set-id]' );
+	const sets = root.querySelectorAll( '.pkitfw-set[data-set-id]' );
 	const cleanups = [];
 
 	sets.forEach( ( setEl ) => {

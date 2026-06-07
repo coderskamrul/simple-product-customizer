@@ -2,10 +2,10 @@
 /**
  * Money / price formatting helpers.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Support;
+namespace ProductKit\Support;
 
 defined( 'ABSPATH' ) || exit;
 

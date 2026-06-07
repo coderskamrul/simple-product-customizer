@@ -2,10 +2,10 @@
 /**
  * Build-asset enqueue helper.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Core;
+namespace ProductKit\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,19 +23,19 @@ final class Assets {
 	 * @return array{deps:array,version:string,exists:bool}
 	 */
 	public static function manifest( $handle_base, array $fallback_deps = array() ) {
-		$asset_file = DPO_PATH . 'assets/build/' . $handle_base . '.asset.php';
+		$asset_file = PKITFW_PATH . 'assets/build/' . $handle_base . '.asset.php';
 		if ( is_readable( $asset_file ) ) {
 			$data = include $asset_file;
 			return array(
 				'deps'    => isset( $data['dependencies'] ) ? $data['dependencies'] : $fallback_deps,
-				'version' => isset( $data['version'] ) ? $data['version'] : DPO_VERSION,
+				'version' => isset( $data['version'] ) ? $data['version'] : PKITFW_VERSION,
 				'exists'  => true,
 			);
 		}
 		return array(
 			'deps'    => $fallback_deps,
-			'version' => DPO_VERSION,
-			'exists'  => is_readable( DPO_PATH . 'assets/build/' . $handle_base . '.js' ),
+			'version' => PKITFW_VERSION,
+			'exists'  => is_readable( PKITFW_PATH . 'assets/build/' . $handle_base . '.js' ),
 		);
 	}
 
@@ -53,7 +53,7 @@ final class Assets {
 		if ( ! $m['exists'] ) {
 			return false;
 		}
-		wp_enqueue_script( $handle, DPO_ASSETS . $base . '.js', $m['deps'], $m['version'], $in_footer );
+		wp_enqueue_script( $handle, PKITFW_ASSETS . $base . '.js', $m['deps'], $m['version'], $in_footer );
 		return true;
 	}
 
@@ -65,14 +65,14 @@ final class Assets {
 	 * @return void
 	 */
 	public static function style( $handle, $base ) {
-		$file = DPO_PATH . 'assets/build/' . $base . '.css';
+		$file = PKITFW_PATH . 'assets/build/' . $base . '.css';
 		if ( is_readable( $file ) ) {
 			// Cache-bust on file contents (mtime) so rebuilt CSS is never
 			// served stale between plugin versions; fall back to the plugin
 			// version if the mtime is unavailable.
 			$version = filemtime( $file );
-			$version = $version ? (string) $version : DPO_VERSION;
-			wp_enqueue_style( $handle, DPO_ASSETS . $base . '.css', array(), $version );
+			$version = $version ? (string) $version : PKITFW_VERSION;
+			wp_enqueue_style( $handle, PKITFW_ASSETS . $base . '.css', array(), $version );
 		}
 	}
 }

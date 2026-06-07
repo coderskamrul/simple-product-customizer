@@ -6,7 +6,7 @@
  * a two-row stack with the tabs in a horizontally scrollable strip.
  */
 
-.dpo-topbar {
+.pkitfw-topbar {
 	position: sticky;
 	inset-block-start: 32px;
 	z-index: 30;
@@ -15,36 +15,36 @@
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	align-items: center;
-	gap: var(--dpo-s-4);
+	gap: var(--pkitfw-s-4);
 
 	min-height: 64px;
-	padding: var(--dpo-s-3) var(--dpo-s-6);
-	background: var(--dpo-c-surface);
-	border-block-end: 1px solid var(--dpo-c-border);
-	box-shadow: var(--dpo-sh-1);
-	font-family: var(--dpo-font);
+	padding: var(--pkitfw-s-3) var(--pkitfw-s-6);
+	background: var(--pkitfw-c-surface);
+	border-block-end: 1px solid var(--pkitfw-c-border);
+	box-shadow: var(--pkitfw-sh-1);
+	font-family: var(--pkitfw-font);
 
 	/* ── Lead (logo + version + context CTA) ────────────────────────── */
 	&__lead {
 		display: flex;
 		align-items: center;
-		gap: var(--dpo-s-4);
+		gap: var(--pkitfw-s-4);
 		min-width: 0;
 	}
 
 	&__brand {
 		display: inline-flex;
 		align-items: center;
-		gap: var(--dpo-s-2);
-		color: var(--dpo-c-primary);
+		gap: var(--pkitfw-s-2);
+		color: var(--pkitfw-c-primary);
 		text-decoration: none;
 		flex-shrink: 0;
 
-		&:hover { color: var(--dpo-c-primary-hover); }
+		&:hover { color: var(--pkitfw-c-primary-hover); }
 		&:focus-visible {
 			outline: none;
-			box-shadow: var(--dpo-sh-ring);
-			border-radius: var(--dpo-r-md);
+			box-shadow: var(--pkitfw-sh-ring);
+			border-radius: var(--pkitfw-r-md);
 		}
 	}
 
@@ -54,10 +54,10 @@
 		justify-content: center;
 		inline-size: 36px;
 		block-size: 36px;
-		border-radius: var(--dpo-r-md);
-		background: linear-gradient(135deg, var(--dpo-c-primary), var(--dpo-c-primary-hover));
-		color: var(--dpo-c-primary-ink);
-		box-shadow: 0 4px 12px rgba(var(--dpo-c-primary-rgb), 0.25);
+		border-radius: var(--pkitfw-r-md);
+		background: linear-gradient(135deg, var(--pkitfw-c-primary), var(--pkitfw-c-primary-hover));
+		color: var(--pkitfw-c-primary-ink);
+		box-shadow: 0 4px 12px rgba(var(--pkitfw-c-primary-rgb), 0.25);
 		flex-shrink: 0;
 	}
 
@@ -65,9 +65,9 @@
 		display: inline-flex;
 		align-items: center;
 		padding: 4px 12px;
-		border-radius: var(--dpo-r-full);
-		background: var(--dpo-c-primary-soft);
-		color: var(--dpo-c-primary-hover);
+		border-radius: var(--pkitfw-r-full);
+		background: var(--pkitfw-c-primary-soft);
+		color: var(--pkitfw-c-primary-hover);
 		font-size: 12px;
 		font-weight: 700;
 		letter-spacing: 0.02em;
@@ -79,22 +79,22 @@
 		align-items: center;
 		gap: 6px;
 		min-height: 38px;
-		padding: 0 var(--dpo-s-4);
+		padding: 0 var(--pkitfw-s-4);
 		border: 0;
-		border-radius: var(--dpo-r-md);
-		background: var(--dpo-c-primary);
-		color: var(--dpo-c-primary-ink);
+		border-radius: var(--pkitfw-r-md);
+		background: var(--pkitfw-c-primary);
+		color: var(--pkitfw-c-primary-ink);
 		font-size: 13px;
 		font-weight: 600;
 		cursor: pointer;
 		white-space: nowrap;
 		box-shadow:
-			0 1px 2px rgba(var(--dpo-c-primary-rgb), 0.25),
-			0 4px 14px rgba(var(--dpo-c-primary-rgb), 0.20);
+			0 1px 2px rgba(var(--pkitfw-c-primary-rgb), 0.25),
+			0 4px 14px rgba(var(--pkitfw-c-primary-rgb), 0.20);
 		transition:
-			background var(--dpo-dur) var(--dpo-ease),
-			box-shadow var(--dpo-dur) var(--dpo-ease),
-			transform var(--dpo-dur) var(--dpo-ease);
+			background var(--pkitfw-dur) var(--pkitfw-ease),
+			box-shadow var(--pkitfw-dur) var(--pkitfw-ease),
+			transform var(--pkitfw-dur) var(--pkitfw-ease);
 
 		span:first-child {
 			font-size: 18px;
@@ -103,16 +103,16 @@
 		}
 
 		&:hover {
-			background: var(--dpo-c-primary-hover);
+			background: var(--pkitfw-c-primary-hover);
 			box-shadow:
-				0 2px 6px rgba(var(--dpo-c-primary-rgb), 0.30),
-				0 10px 24px rgba(var(--dpo-c-primary-rgb), 0.25);
+				0 2px 6px rgba(var(--pkitfw-c-primary-rgb), 0.30),
+				0 10px 24px rgba(var(--pkitfw-c-primary-rgb), 0.25);
 			transform: translateY(-1px);
 		}
 		&:active { transform: translateY(0); }
 		&:focus-visible {
 			outline: none;
-			box-shadow: var(--dpo-sh-ring);
+			box-shadow: var(--pkitfw-sh-ring);
 		}
 	}
 
@@ -121,7 +121,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--dpo-s-1);
+		gap: var(--pkitfw-s-1);
 		min-width: 0;
 		overflow-x: auto;
 		scrollbar-width: none;
@@ -134,15 +134,15 @@
 		display: inline-flex;
 		align-items: center;
 		padding: 10px 16px;
-		color: var(--dpo-c-ink);
+		color: var(--pkitfw-c-ink);
 		font-size: 14px;
 		font-weight: 600;
 		text-decoration: none;
 		white-space: nowrap;
-		border-radius: var(--dpo-r-md);
+		border-radius: var(--pkitfw-r-md);
 		transition:
-			color var(--dpo-dur) var(--dpo-ease),
-			background var(--dpo-dur) var(--dpo-ease);
+			color var(--pkitfw-dur) var(--pkitfw-ease),
+			background var(--pkitfw-dur) var(--pkitfw-ease);
 
 		&::after {
 			content: '';
@@ -152,25 +152,25 @@
 			block-size: 2px;
 			background: transparent;
 			border-radius: 2px 2px 0 0;
-			transition: background var(--dpo-dur) var(--dpo-ease);
+			transition: background var(--pkitfw-dur) var(--pkitfw-ease);
 		}
 
 		&:hover {
-			color: var(--dpo-c-primary);
-			background: var(--dpo-c-primary-soft);
+			color: var(--pkitfw-c-primary);
+			background: var(--pkitfw-c-primary-soft);
 		}
 
 		&.is-active {
-			color: var(--dpo-c-primary);
+			color: var(--pkitfw-c-primary);
 
 			&::after {
-				background: var(--dpo-c-primary);
+				background: var(--pkitfw-c-primary);
 			}
 		}
 
 		&:focus-visible {
 			outline: none;
-			box-shadow: var(--dpo-sh-ring);
+			box-shadow: var(--pkitfw-sh-ring);
 		}
 	}
 
@@ -178,7 +178,7 @@
 	&__trail {
 		display: flex;
 		align-items: center;
-		gap: var(--dpo-s-2);
+		gap: var(--pkitfw-s-2);
 		justify-self: end;
 	}
 
@@ -187,24 +187,24 @@
 		align-items: center;
 		gap: 6px;
 		padding: 8px 16px;
-		border: 1.5px solid var(--dpo-c-primary);
-		border-radius: var(--dpo-r-md);
+		border: 1.5px solid var(--pkitfw-c-primary);
+		border-radius: var(--pkitfw-r-md);
 		background: transparent;
-		color: var(--dpo-c-primary);
+		color: var(--pkitfw-c-primary);
 		font-size: 13px;
 		font-weight: 700;
 		text-decoration: none;
 		white-space: nowrap;
 		transition:
-			background var(--dpo-dur) var(--dpo-ease),
-			color var(--dpo-dur) var(--dpo-ease),
-			box-shadow var(--dpo-dur) var(--dpo-ease),
-			transform var(--dpo-dur) var(--dpo-ease);
+			background var(--pkitfw-dur) var(--pkitfw-ease),
+			color var(--pkitfw-dur) var(--pkitfw-ease),
+			box-shadow var(--pkitfw-dur) var(--pkitfw-ease),
+			transform var(--pkitfw-dur) var(--pkitfw-ease);
 
 		&:hover {
-			background: var(--dpo-c-primary);
-			color: var(--dpo-c-primary-ink);
-			box-shadow: 0 4px 14px rgba(var(--dpo-c-primary-rgb), 0.25);
+			background: var(--pkitfw-c-primary);
+			color: var(--pkitfw-c-primary-ink);
+			box-shadow: 0 4px 14px rgba(var(--pkitfw-c-primary-rgb), 0.25);
 			transform: translateY(-1px);
 		}
 
@@ -217,42 +217,42 @@
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
 		padding: 5px 12px;
-		border-radius: var(--dpo-r-full);
-		background: var(--dpo-c-primary-soft);
-		color: var(--dpo-c-primary-hover);
+		border-radius: var(--pkitfw-r-full);
+		background: var(--pkitfw-c-primary-soft);
+		color: var(--pkitfw-c-primary-hover);
 	}
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────── */
 @media (max-width: 980px) {
-	.dpo-topbar {
+	.pkitfw-topbar {
 		grid-template-columns: 1fr auto;
 		grid-template-areas:
 			"lead trail"
 			"tabs tabs";
-		padding: var(--dpo-s-3) var(--dpo-s-4);
-		gap: var(--dpo-s-3);
+		padding: var(--pkitfw-s-3) var(--pkitfw-s-4);
+		gap: var(--pkitfw-s-3);
 
 		&__lead  { grid-area: lead; }
 		&__trail { grid-area: trail; }
 		&__tabs  {
 			grid-area: tabs;
 			justify-content: flex-start;
-			padding-block-start: var(--dpo-s-2);
-			border-block-start: 1px solid var(--dpo-c-border-soft);
-			margin: 0 calc(var(--dpo-s-4) * -1);
-			padding-inline: var(--dpo-s-4);
+			padding-block-start: var(--pkitfw-s-2);
+			border-block-start: 1px solid var(--pkitfw-c-border-soft);
+			margin: 0 calc(var(--pkitfw-s-4) * -1);
+			padding-inline: var(--pkitfw-s-4);
 		}
 	}
 }
 
 @media (max-width: 600px) {
-	.dpo-topbar {
+	.pkitfw-topbar {
 		&__cta span:last-child,
 		&__upgrade span { display: none; }
 
 		&__cta {
-			padding: 0 var(--dpo-s-3);
+			padding: 0 var(--pkitfw-s-3);
 			min-height: 36px;
 		}
 

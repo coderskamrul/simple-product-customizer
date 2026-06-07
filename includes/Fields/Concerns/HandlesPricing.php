@@ -2,13 +2,13 @@
 /**
  * Display-side price badge helpers.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Concerns;
+namespace ProductKit\Fields\Concerns;
 
-use DPO\Core\Capabilities;
-use DPO\Support\Money;
+use ProductKit\Core\Capabilities;
+use ProductKit\Support\Money;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -131,23 +131,23 @@ trait HandlesPricing {
 		// Per-mode per-unit suffix (percent/flat are one-off, so no suffix).
 		$suffix = '';
 		if ( 'per_char' === $mode || 'per_char_nospace' === $mode ) {
-			$suffix = '/' . esc_html__( 'char', 'dynamic-product-options-for-woocommerce' );
+			$suffix = '/' . esc_html__( 'char', 'productkit-for-woocommerce' );
 		} elseif ( 'per_word' === $mode ) {
-			$suffix = '/' . esc_html__( 'word', 'dynamic-product-options-for-woocommerce' );
+			$suffix = '/' . esc_html__( 'word', 'productkit-for-woocommerce' );
 		} elseif ( 'per_unit' === $mode ) {
-			$suffix = '/' . esc_html__( 'unit', 'dynamic-product-options-for-woocommerce' );
+			$suffix = '/' . esc_html__( 'unit', 'productkit-for-woocommerce' );
 		}
 
 		$show_pair = ( null !== $sale && $sale < $regular );
 
 		if ( $show_pair ) {
-			return '<span class="dpo-price-badge dpo-price-badge--has-sale">'
-				. '<del class="dpo-price-badge__regular" aria-hidden="true">' . wp_kses_post( Money::html( $regular ) ) . '</del>'
-				. ' <ins class="dpo-price-badge__sale">+' . wp_kses_post( Money::html( $sale ) ) . $suffix . '</ins>'
+			return '<span class="pkitfw-price-badge pkitfw-price-badge--has-sale">'
+				. '<del class="pkitfw-price-badge__regular" aria-hidden="true">' . wp_kses_post( Money::html( $regular ) ) . '</del>'
+				. ' <ins class="pkitfw-price-badge__sale">+' . wp_kses_post( Money::html( $sale ) ) . $suffix . '</ins>'
 				. '</span>';
 		}
 
 		$amount = ( null !== $sale ) ? $sale : $regular;
-		return '<span class="dpo-price-badge">+' . wp_kses_post( Money::html( $amount ) ) . $suffix . '</span>';
+		return '<span class="pkitfw-price-badge">+' . wp_kses_post( Money::html( $amount ) ) . $suffix . '</span>';
 	}
 }

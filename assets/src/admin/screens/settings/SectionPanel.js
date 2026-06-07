@@ -19,12 +19,12 @@ import InfoBanner from './InfoBanner';
 export default function SectionPanel( { section, children } ) {
 	return (
 		<section
-			className="dpo-set-panel"
-			aria-labelledby={ `dpo-set-h-${ section.id }` }
+			className="pkitfw-set-panel"
+			aria-labelledby={ `pkitfw-set-h-${ section.id }` }
 		>
-			<header className="dpo-set-panel__head">
+			<header className="pkitfw-set-panel__head">
 				<span
-					className={ `dpo-set-tile dpo-set-tile--lg dpo-set-tile--${ section.tone }` }
+					className={ `pkitfw-set-tile pkitfw-set-tile--lg pkitfw-set-tile--${ section.tone }` }
 					aria-hidden="true"
 				>
 					<span
@@ -33,20 +33,20 @@ export default function SectionPanel( { section, children } ) {
 				</span>
 				<div>
 					<h2
-						id={ `dpo-set-h-${ section.id }` }
-						className="dpo-set-panel__title"
+						id={ `pkitfw-set-h-${ section.id }` }
+						className="pkitfw-set-panel__title"
 					>
 						{ section.title }
 					</h2>
-					<p className="dpo-set-panel__sub">{ section.nav }</p>
+					<p className="pkitfw-set-panel__sub">{ section.nav }</p>
 				</div>
 			</header>
 
-			<div className="dpo-set-panel__divider" />
+			<div className="pkitfw-set-panel__divider" />
 
 			<InfoBanner tone={ section.tone } text={ section.banner } />
 
-			<div className="dpo-set-panel__body">{ children }</div>
+			<div className="pkitfw-set-panel__body">{ children }</div>
 		</section>
 	);
 }

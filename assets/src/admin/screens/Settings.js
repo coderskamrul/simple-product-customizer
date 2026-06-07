@@ -40,46 +40,47 @@ export default function Settings() {
 	const section =
 		SECTIONS.find( ( s ) => s.id === activeId ) || SECTIONS[ 0 ];
 	const Body = BODIES[ section.id ];
-
+	
 	const actions = (
 		<>
 			{ dirty && ! saving && (
-				<span className="dpo-page__unsaved" role="status">
+				<span className="pkitfw-page__unsaved" role="status">
 					{ __(
 						'Unsaved changes',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</span>
 			) }
 			<button
 				type="button"
-				className="dpo-pg-btn dpo-pg-btn--primary"
+				className="pkitfw-pg-btn pkitfw-pg-btn--primary"
 				disabled={ saving }
 				onClick={ save }
 			>
 				{ saving
-					? __( 'Saving…', 'dynamic-product-options-for-woocommerce' )
+					? __( 'Saving…', 'productkit-for-woocommerce' )
 					: __(
 							'Save Settings',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 					  ) }
 			</button>
 		</>
 	);
+	console.log('Save Settings by...', actions);
 
 	return (
 		<PageFrame
 			title={ __(
 				'Settings',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			) }
 			subtitle={ __(
 				'Manage your plugin configuration.',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			) }
 			actions={ actions }
 		>
-			<div className="dpo-set__body">
+			<div className="pkitfw-set__body">
 				{ status === 'loading' ? (
 					<SkeletonNav items={ 5 } />
 				) : (
@@ -87,14 +88,14 @@ export default function Settings() {
 				) }
 
 				{ status === 'loading' ? (
-					<div className="dpo-set-state">
+					<div className="pkitfw-set-state">
 						<SkeletonForm fields={ 5 } />
 					</div>
 				) : (
 					<SectionPanel section={ section }>
 						{ status === 'error' && (
-							<div className="dpo-set-state">
-								<p className="dpo-error">{ error }</p>
+							<div className="pkitfw-set-state">
+								<p className="pkitfw-error">{ error }</p>
 							</div>
 						) }
 						{ status === 'ready' && (

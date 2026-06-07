@@ -34,18 +34,18 @@ export default function PopupConfig( { node, patch } ) {
 
 	return (
 		<>
-			<div className="dpo-settings__grid2">
+			<div className="pkitfw-settings__grid2">
 				<Field
 					label={ __(
 						'Trigger button text',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<TextControl
 						value={ cfg.triggerText ?? '' }
 						placeholder={ __(
 							'Open',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 						onChange={ ( v ) => setKey( 'triggerText', v ) }
 					/>
@@ -55,27 +55,27 @@ export default function PopupConfig( { node, patch } ) {
 			<Field
 				label={ __(
 					'Popup content',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				help={ __(
 					'Design the content shown inside the popup — text, images, links and tables.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost dpo-popupcfg__launch"
+					className="pkitfw-btn pkitfw-btn--ghost pkitfw-popupcfg__launch"
 					onClick={ () => setOpen( true ) }
 				>
 					<Pencil size={ 15 } />
 					{ hasContent
 						? __(
 								'Edit popup content',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 						: __(
 								'Design popup content',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  ) }
 				</button>
 			</Field>
@@ -85,31 +85,31 @@ export default function PopupConfig( { node, patch } ) {
 					size="lg"
 					title={ __(
 						'Popup Builder',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					onClose={ () => setOpen( false ) }
 					footer={
 						<>
 							<button
 								type="button"
-								className="dpo-btn dpo-btn--ghost dpo-popupcfg__foot-preview"
+								className="pkitfw-btn pkitfw-btn--ghost pkitfw-popupcfg__foot-preview"
 								onClick={ () => setPreview( true ) }
 							>
 								<Eye size={ 15 } />
 								{ __(
 									'Preview',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</button>
 							<button
 								type="button"
-								className="dpo-btn dpo-btn--primary"
+								className="pkitfw-btn pkitfw-btn--primary"
 								onClick={ () => setOpen( false ) }
 							>
 								<Check size={ 15 } />
 								{ __(
 									'Done',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</button>
 						</>

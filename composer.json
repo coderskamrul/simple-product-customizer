@@ -1,6 +1,6 @@
 {
-    "name": "wpdeveloper/dynamic-product-options-for-woocommerce",
-    "description": "Dynamic Product Options for WooCommerce.",
+    "name": "wpdeveloper/productkit-for-woocommerce",
+    "description": "ProductKit – Product Options for WooCommerce.",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
     "require": {
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DPO\\": "includes/"
+            "ProductKit\\": "includes/"
         }
     },
     "config": {

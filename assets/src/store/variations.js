@@ -3,8 +3,8 @@
  *
  * Listens for WooCommerce's jQuery `found_variation` / `reset_data` events
  * on the variations form and updates the controller's base price /
- * percent-base from the `#dpo-variation-prices` and
- * `#dpo-variation-prices-pct` holder maps (keyed by variation id), then
+ * percent-base from the `#pkitfw-variation-prices` and
+ * `#pkitfw-variation-prices-pct` holder maps (keyed by variation id), then
  * triggers a recompute.
  *
  * @package
@@ -13,7 +13,7 @@
 /**
  * Parse a holder span's JSON `data-value`.
  *
- * @param {HTMLElement} root `.dpo-options` wrapper.
+ * @param {HTMLElement} root `.pkitfw-options` wrapper.
  * @param {string}      id   Holder element id.
  * @return {Object} Parsed map (empty on failure).
  */
@@ -37,12 +37,12 @@ function holderMap( root, id ) {
 /**
  * Read the static (non-variation) base price holders.
  *
- * @param {HTMLElement} root `.dpo-options` wrapper.
+ * @param {HTMLElement} root `.pkitfw-options` wrapper.
  * @return {{ base:number, pct:number }} Static base values.
  */
 export function readBase( root ) {
-	const baseEl = root.querySelector( '#dpo-base-price' );
-	const pctEl = root.querySelector( '#dpo-base-price-pct' );
+	const baseEl = root.querySelector( '#pkitfw-base-price' );
+	const pctEl = root.querySelector( '#pkitfw-base-price-pct' );
 	const num = ( el ) =>
 		el ? parseFloat( el.getAttribute( 'data-value' ) || '0' ) || 0 : 0;
 	return { base: num( baseEl ), pct: num( pctEl ) };
@@ -51,7 +51,7 @@ export function readBase( root ) {
 /**
  * Wire WooCommerce variation events to a base-price setter.
  *
- * @param {HTMLElement} root  `.dpo-options` wrapper.
+ * @param {HTMLElement} root  `.pkitfw-options` wrapper.
  * @param {HTMLElement} form  The product `form.cart`.
  * @param {Function}    apply Called with ({ base, pct }) to set + recompute.
  * @return {Function} Cleanup function.
@@ -72,8 +72,8 @@ export function initVariations( root, form, apply ) {
 			return;
 		}
 		const vid = String( variation.variation_id );
-		const prices = holderMap( root, 'dpo-variation-prices' );
-		const pcts = holderMap( root, 'dpo-variation-prices-pct' );
+		const prices = holderMap( root, 'pkitfw-variation-prices' );
+		const pcts = holderMap( root, 'pkitfw-variation-prices-pct' );
 		const base =
 			prices[ vid ] !== undefined
 				? parseFloat( prices[ vid ] ) || 0

@@ -9,12 +9,12 @@
  * recursively, then * and / (left to right), then + and - (left to
  * right). The final result is clamped to be non-negative.
  *
- * @package DPO\Formula
+ * @package ProductKit\Formula
  */
 
-namespace DPO\Formula;
+namespace ProductKit\Formula;
 
-use DPO\Formula\Ast\EvaluationError;
+use ProductKit\Formula\Ast\EvaluationError;
 
 defined( 'ABSPATH' ) || exit;
 

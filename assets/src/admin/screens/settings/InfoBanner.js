@@ -16,7 +16,7 @@
  */
 export default function InfoBanner( { tone, text } ) {
 	return (
-		<p className={ `dpo-set-banner dpo-set-banner--${ tone }` } role="note">
+		<p className={ `pkitfw-set-banner pkitfw-set-banner--${ tone }` } role="note">
 			<span
 				className="dashicons dashicons-info-outline"
 				aria-hidden="true"

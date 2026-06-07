@@ -2,12 +2,12 @@
 /**
  * Numeric input field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -46,7 +46,7 @@ final class NumberField extends AbstractField {
 		$choices = $this->choices();
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 
-		return '<input type="number" class="dpo-input dpo-input--number" name="' . esc_attr( $this->input_name() ) . '"'
+		return '<input type="number" class="pkitfw-input pkitfw-input--number" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(

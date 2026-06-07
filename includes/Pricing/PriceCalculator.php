@@ -2,18 +2,18 @@
 /**
  * Central price calculator for product options.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Pricing;
+namespace ProductKit\Pricing;
 
-use DPO\Core\Capabilities;
-use DPO\Data\AssignmentResolver;
-use DPO\Data\OptionSetRepository;
-use DPO\Fields\FieldRegistry;
-use DPO\Pricing\Currency\CurrencyBridge;
-use DPO\Support\Money;
-use DPO\Support\Str;
+use ProductKit\Core\Capabilities;
+use ProductKit\Data\AssignmentResolver;
+use ProductKit\Data\OptionSetRepository;
+use ProductKit\Fields\FieldRegistry;
+use ProductKit\Pricing\Currency\CurrencyBridge;
+use ProductKit\Support\Money;
+use ProductKit\Support\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -68,7 +68,7 @@ final class PriceCalculator {
 	/**
 	 * Compute the options price + breakdown for a selection.
 	 *
-	 * @param string $rawSelectionJson Raw `dpo_field_data` JSON string.
+	 * @param string $rawSelectionJson Raw `pkitfw_field_data` JSON string.
 	 * @param int    $productId        Product id.
 	 * @param int[]  $publishedSetIds  Resolved published set ids (may be empty).
 	 * @param int    $variationId      Variation id (0 = none).
@@ -198,7 +198,7 @@ final class PriceCalculator {
 		 * @param int   $productId   Product id.
 		 * @param int   $variationId Variation id.
 		 */
-		return (float) apply_filters( 'dpo_price_base', $base, $productId, $variationId );
+		return (float) apply_filters( 'pkitfw_price_base', $base, $productId, $variationId );
 	}
 
 	/**
@@ -218,7 +218,7 @@ final class PriceCalculator {
 		 * @param int   $productId   Product id.
 		 * @param int   $variationId Variation id.
 		 */
-		return (float) apply_filters( 'dpo_price_percent_base', $base, $productId, $variationId );
+		return (float) apply_filters( 'pkitfw_price_percent_base', $base, $productId, $variationId );
 	}
 
 	/* ----------------------------------------------------------------- */
@@ -333,7 +333,7 @@ final class PriceCalculator {
 		 * @param array $node  Field node.
 		 * @param array $field Selection entry.
 		 */
-		return (float) apply_filters( 'dpo_price_choice', $total, $node, $field );
+		return (float) apply_filters( 'pkitfw_price_choice', $total, $node, $field );
 	}
 
 	/**
@@ -454,7 +454,7 @@ final class PriceCalculator {
 	 * @return float
 	 */
 	private function priceFormula( array $node, float $base, array $numeric ): float {
-		if ( ! class_exists( '\\DPO\\Formula\\ArithmeticEvaluator' ) ) {
+		if ( ! class_exists( '\\ProductKit\\Formula\\ArithmeticEvaluator' ) ) {
 			return 0.0;
 		}
 
@@ -466,7 +466,7 @@ final class PriceCalculator {
 		$vars = array_merge( array( 'product_price' => $base ), $numeric );
 
 		try {
-			return (float) \DPO\Formula\ArithmeticEvaluator::evaluate( $expression, $vars );
+			return (float) \ProductKit\Formula\ArithmeticEvaluator::evaluate( $expression, $vars );
 		} catch ( \Throwable $e ) {
 			return 0.0;
 		}
@@ -480,7 +480,7 @@ final class PriceCalculator {
 	 * @return float
 	 */
 	private function priceAdvancedFormula( array $node, array $dynamics ): float {
-		if ( ! class_exists( '\\DPO\\Formula\\Ast\\ExpressionEngine' ) ) {
+		if ( ! class_exists( '\\ProductKit\\Formula\\Ast\\ExpressionEngine' ) ) {
 			return 0.0;
 		}
 
@@ -490,7 +490,7 @@ final class PriceCalculator {
 		}
 
 		try {
-			$result = \DPO\Formula\Ast\ExpressionEngine::evaluateSafe( $expression, $dynamics );
+			$result = \ProductKit\Formula\Ast\ExpressionEngine::evaluateSafe( $expression, $dynamics );
 		} catch ( \Throwable $e ) {
 			return 0.0;
 		}
@@ -615,7 +615,7 @@ final class PriceCalculator {
 			: ( isset( $field['label'] ) ? (string) $field['label'] : '' );
 
 		if ( '' === $label ) {
-			$label = __( 'Option', 'dynamic-product-options-for-woocommerce' );
+			$label = __( 'Option', 'productkit-for-woocommerce' );
 		}
 		return esc_html( $label );
 	}
@@ -634,7 +634,7 @@ final class PriceCalculator {
 		}
 
 		$shown  = TaxBridge::taxAndCurrency( $optPrice, $product, 'cart' );
-		$suffix = ' <strong class="dpo-line-price">+' . Money::html( $shown ) . '</strong>';
+		$suffix = ' <strong class="pkitfw-line-price">+' . Money::html( $shown ) . '</strong>';
 
 		return $display . $suffix;
 	}

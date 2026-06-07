@@ -2,12 +2,12 @@
 /**
  * Tax + currency display bridge.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Pricing;
+namespace ProductKit\Pricing;
 
-use DPO\Pricing\Currency\CurrencyBridge;
+use ProductKit\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
 

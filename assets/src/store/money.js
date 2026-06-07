@@ -1,7 +1,7 @@
 /**
  * Currency formatting + numeric parse helpers.
  *
- * Honours the `window.dpoStore.currency` shape
+ * Honours the `window.pkitfwStore.currency` shape
  * ({ symbol, pos, decimals, decimalSep, thousandSep }) and the optional
  * `conversion` block ({ active, rate, extra }). Conversion is applied for
  * DISPLAY only — the raw, base-currency amounts are what get serialised to
@@ -13,10 +13,10 @@
 /**
  * Read the localised store config defensively.
  *
- * @return {Object} The dpoStore global, or a safe default.
+ * @return {Object} The pkitfwStore global, or a safe default.
  */
 function cfg() {
-	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
+	return ( typeof window !== 'undefined' && window.pkitfwStore ) || {};
 }
 
 /**

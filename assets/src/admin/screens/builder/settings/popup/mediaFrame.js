@@ -31,12 +31,12 @@ export function openImageFrame( onPick ) {
 	const frame = media( {
 		title: __(
 			'Select or upload image',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		button: {
 			text: __(
 				'Use this image',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			),
 		},
 		multiple: false,

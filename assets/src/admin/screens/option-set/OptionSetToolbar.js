@@ -11,15 +11,15 @@ import { __ } from '@wordpress/i18n';
 const FILTERS = [
 	{
 		id: 'all',
-		label: __( 'All', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'All', 'productkit-for-woocommerce' ),
 	},
 	{
 		id: 'active',
-		label: __( 'Active', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Active', 'productkit-for-woocommerce' ),
 	},
 	{
 		id: 'inactive',
-		label: __( 'Inactive', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Inactive', 'productkit-for-woocommerce' ),
 	},
 ];
 
@@ -71,32 +71,32 @@ export default function OptionSetToolbar( {
 		FILTERS.find( ( f ) => f.id === filter ) || FILTERS[ 0 ];
 
 	return (
-		<div className="dpo-os-toolbar">
-			<div className="dpo-os-search">
+		<div className="pkitfw-os-toolbar">
+			<div className="pkitfw-os-search">
 				<span
-					className="dashicons dashicons-search dpo-os-search__icon"
+					className="dashicons dashicons-search pkitfw-os-search__icon"
 					aria-hidden="true"
 				/>
 				<input
 					type="search"
-					className="dpo-os-search__input"
+					className="pkitfw-os-search__input"
 					placeholder={ __(
 						'Search options…',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					value={ term }
 					onChange={ ( e ) => onSearch( e.target.value ) }
 					aria-label={ __(
 						'Search option sets',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 			</div>
 
-			<div className="dpo-os-filter" ref={ filterRef }>
+			<div className="pkitfw-os-filter" ref={ filterRef }>
 				<button
 					type="button"
-					className={ `dpo-os-btn dpo-os-btn--ghost${
+					className={ `pkitfw-os-btn pkitfw-os-btn--ghost${
 						filter !== 'all' ? ' is-on' : ''
 					}` }
 					aria-haspopup="menu"
@@ -109,23 +109,23 @@ export default function OptionSetToolbar( {
 					/>
 					{ __(
 						'Filter',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					{ filter !== 'all' && (
-						<span className="dpo-os-filter__tag">
+						<span className="pkitfw-os-filter__tag">
 							{ activeFilter.label }
 						</span>
 					) }
 				</button>
 				{ open && (
-					<ul className="dpo-os-menu" role="menu">
+					<ul className="pkitfw-os-menu" role="menu">
 						{ FILTERS.map( ( f ) => (
 							<li key={ f.id } role="none">
 								<button
 									type="button"
 									role="menuitemradio"
 									aria-checked={ f.id === filter }
-									className={ `dpo-os-menu__item${
+									className={ `pkitfw-os-menu__item${
 										f.id === filter ? ' is-active' : ''
 									}` }
 									onClick={ () => {
@@ -134,7 +134,7 @@ export default function OptionSetToolbar( {
 									} }
 								>
 									<span
-										className="dashicons dashicons-yes dpo-os-menu__tick"
+										className="dashicons dashicons-yes pkitfw-os-menu__tick"
 										aria-hidden="true"
 									/>
 									{ f.label }
@@ -145,29 +145,29 @@ export default function OptionSetToolbar( {
 				) }
 			</div>
 
-			<div className="dpo-os-toolbar__spacer" />
+			<div className="pkitfw-os-toolbar__spacer" />
 
 			<button
 				type="button"
-				className="dpo-os-btn dpo-os-btn--ghost"
+				className="pkitfw-os-btn pkitfw-os-btn--ghost"
 				onClick={ onExport }
 			>
 				<span
 					className="dashicons dashicons-download"
 					aria-hidden="true"
 				/>
-				{ __( 'Export', 'dynamic-product-options-for-woocommerce' ) }
+				{ __( 'Export', 'productkit-for-woocommerce' ) }
 			</button>
 			<button
 				type="button"
-				className="dpo-os-btn dpo-os-btn--ghost"
+				className="pkitfw-os-btn pkitfw-os-btn--ghost"
 				onClick={ onImport }
 			>
 				<span
 					className="dashicons dashicons-upload"
 					aria-hidden="true"
 				/>
-				{ __( 'Import', 'dynamic-product-options-for-woocommerce' ) }
+				{ __( 'Import', 'productkit-for-woocommerce' ) }
 			</button>
 		</div>
 	);

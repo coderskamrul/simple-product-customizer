@@ -2,24 +2,24 @@
 /**
  * Storefront option-set renderer.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Frontend;
+namespace ProductKit\Frontend;
 
-use DPO\Core\Container;
-use DPO\Data\AssignmentResolver;
-use DPO\Data\OptionSetRepository;
-use DPO\Fields\FieldRegistry;
-use DPO\Pricing\PriceCalculator;
-use DPO\Support\Money;
+use ProductKit\Core\Container;
+use ProductKit\Data\AssignmentResolver;
+use ProductKit\Data\OptionSetRepository;
+use ProductKit\Fields\FieldRegistry;
+use ProductKit\Pricing\PriceCalculator;
+use ProductKit\Support\Money;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Emits the full storefront DOM for a product's resolved option sets,
  * faithfully following ARCHITECTURE §8 (exact ids / classes / data-*). The
- * store JS bundle (window.dpoStore) consumes everything written here, so the
+ * store JS bundle (window.pkitfwStore) consumes everything written here, so the
  * markup contract is load-bearing.
  */
 final class StoreRenderer {
@@ -124,14 +124,14 @@ final class StoreRenderer {
 			}
 
 			$rendered_sets[] = sprintf(
-				'<div class="dpo-set" data-set-id="%d">%s</div>',
+				'<div class="pkitfw-set" data-set-id="%d">%s</div>',
 				$set_id,
 				$inner
 			);
 			$published_ids[] = $set_id;
 
 			// Impression counter — recorded once per rendered set.
-			do_action( 'dpo_stats_record', $set_id, 'impressions', 0 );
+			do_action( 'pkitfw_stats_record', $set_id, 'impressions', 0 );
 		}
 
 		if ( array() === $rendered_sets ) {
@@ -139,13 +139,13 @@ final class StoreRenderer {
 		}
 
 		// Tell StoreAssets to attach (handles the AJAX-loaded page case too).
-		do_action( 'dpo_enqueue_store_assets', $product_id, $published_ids );
+		do_action( 'pkitfw_enqueue_store_assets', $product_id, $published_ids );
 
 		$html  = sprintf(
-			'<div class="dpo-options dpo-loading" data-product-id="%d">',
+			'<div class="pkitfw-options pkitfw-loading" data-product-id="%d">',
 			$product_id
 		);
-		$html .= '<div class="dpo-loader" aria-hidden="true"></div>';
+		$html .= '<div class="pkitfw-loader" aria-hidden="true"></div>';
 		$html .= $this->hidden_inputs( $product, $published_ids );
 		$html .= implode( '', $rendered_sets );
 		$html .= $this->price_summary( $product );
@@ -205,35 +205,35 @@ final class StoreRenderer {
 			'height' => method_exists( $product, 'get_height' ) ? Money::f( $product->get_height() ) : 0,
 		);
 
-		$html  = '<input type="hidden" name="dpo_field_data" class="dpo-field-data" value="" />';
-		$html .= '<input type="hidden" name="dpo_linked_products" class="dpo-linked-products" value="" />';
+		$html  = '<input type="hidden" name="pkitfw_field_data" class="pkitfw-field-data" value="" />';
+		$html .= '<input type="hidden" name="pkitfw_linked_products" class="pkitfw-linked-products" value="" />';
 		$html .= sprintf(
-			'<input type="hidden" name="dpo_published_set_ids" value="%s" />',
+			'<input type="hidden" name="pkitfw_published_set_ids" value="%s" />',
 			esc_attr( (string) wp_json_encode( array_values( array_map( 'intval', $published_ids ) ) ) )
 		);
 		$html .= sprintf(
-			'<input type="hidden" name="dpo_shipping_dynamics" value="%s" />',
+			'<input type="hidden" name="pkitfw_shipping_dynamics" value="%s" />',
 			esc_attr( (string) wp_json_encode( $shipping ) )
 		);
 
 		$html .= sprintf(
-			'<span class="dpo-holder" id="dpo-base-price" data-value="%s"></span>',
+			'<span class="pkitfw-holder" id="pkitfw-base-price" data-value="%s"></span>',
 			esc_attr( (string) $base )
 		);
 		$html .= sprintf(
-			'<span class="dpo-holder" id="dpo-base-price-pct" data-value="%s"></span>',
+			'<span class="pkitfw-holder" id="pkitfw-base-price-pct" data-value="%s"></span>',
 			esc_attr( (string) $base_pct )
 		);
 		$html .= sprintf(
-			'<span class="dpo-holder" id="dpo-variation-prices" data-value="%s"></span>',
+			'<span class="pkitfw-holder" id="pkitfw-variation-prices" data-value="%s"></span>',
 			esc_attr( (string) wp_json_encode( $variation_prices ) )
 		);
 		$html .= sprintf(
-			'<span class="dpo-holder" id="dpo-variation-prices-pct" data-value="%s"></span>',
+			'<span class="pkitfw-holder" id="pkitfw-variation-prices-pct" data-value="%s"></span>',
 			esc_attr( (string) wp_json_encode( $variation_prices_pct ) )
 		);
 		$html .= sprintf(
-			'<span class="dpo-holder" id="dpo-product-attributes" data-product-type="%s" data-value="%s"></span>',
+			'<span class="pkitfw-holder" id="pkitfw-product-attributes" data-product-type="%s" data-value="%s"></span>',
 			esc_attr( method_exists( $product, 'get_type' ) ? (string) $product->get_type() : '' ),
 			esc_attr( (string) wp_json_encode( $attribute_map ) )
 		);
@@ -263,20 +263,20 @@ final class StoreRenderer {
 		$pricing = $this->container->get( 'pricing' );
 		$base    = $pricing ? $pricing->productBasePrice( (int) $product->get_id(), 0 ) : 0.0;
 
-		$out = '<div class="dpo-price-summary">';
+		$out = '<div class="pkitfw-price-summary">';
 
 		if ( $show_price ) {
 			$out .= sprintf(
-				'<div class="dpo-price-row"><strong class="dpo-price-label">%s</strong> <span id="dpo-options-price" class="dpo-price-value">%s</span></div>',
-				esc_html( (string) $settings->get( 'priceLineLabel', __( 'Options Price', 'dynamic-product-options-for-woocommerce' ) ) ),
+				'<div class="pkitfw-price-row"><strong class="pkitfw-price-label">%s</strong> <span id="pkitfw-options-price" class="pkitfw-price-value">%s</span></div>',
+				esc_html( (string) $settings->get( 'priceLineLabel', __( 'Options Price', 'productkit-for-woocommerce' ) ) ),
 				wp_kses_post( Money::html( 0 ) )
 			);
 		}
 
 		if ( $show_total ) {
 			$out .= sprintf(
-				'<div class="dpo-price-row"><strong class="dpo-price-label">%s</strong> <span id="dpo-options-total" class="dpo-price-value">%s</span></div>',
-				esc_html( (string) $settings->get( 'totalLineLabel', __( 'Total Price', 'dynamic-product-options-for-woocommerce' ) ) ),
+				'<div class="pkitfw-price-row"><strong class="pkitfw-price-label">%s</strong> <span id="pkitfw-options-total" class="pkitfw-price-value">%s</span></div>',
+				esc_html( (string) $settings->get( 'totalLineLabel', __( 'Total Price', 'productkit-for-woocommerce' ) ) ),
 				wp_kses_post( Money::html( $base ) )
 			);
 		}

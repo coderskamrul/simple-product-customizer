@@ -4,7 +4,7 @@
 /* ================================================================ */
 
 /* Inspector launch button. */
-.dpo-popupcfg__launch {
+.pkitfw-popupcfg__launch {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -13,31 +13,31 @@
 }
 
 /* Editor shell. */
-.dpo-rte {
+.pkitfw-rte {
 	display: flex;
 	flex-direction: column;
-	border: 1px solid $dpo-border;
-	border-radius: $dpo-radius;
-	background: $dpo-surface;
+	border: 1px solid $pkitfw-border;
+	border-radius: $pkitfw-radius;
+	background: $pkitfw-surface;
 	overflow: hidden;
 	min-height: 360px;
 }
 
 /* --- Toolbar --------------------------------------------------- */
-.dpo-rte__toolbar {
+.pkitfw-rte__toolbar {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 2px;
 	padding: 8px;
-	background: $dpo-surface-2;
-	border-block-end: 1px solid $dpo-border;
+	background: $pkitfw-surface-2;
+	border-block-end: 1px solid $pkitfw-border;
 	position: sticky;
 	inset-block-start: 0;
 	z-index: 2;
 }
 
-.dpo-rte__group {
+.pkitfw-rte__group {
 	display: flex;
 	align-items: center;
 	gap: 2px;
@@ -47,14 +47,14 @@
 	}
 }
 
-.dpo-rte__sep {
+.pkitfw-rte__sep {
 	width: 1px;
 	align-self: stretch;
 	margin: 2px 6px;
-	background: $dpo-border;
+	background: $pkitfw-border;
 }
 
-.dpo-rte__btn {
+.pkitfw-rte__btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -62,20 +62,20 @@
 	height: 30px;
 	padding: 0;
 	border: 1px solid transparent;
-	border-radius: $dpo-radius;
+	border-radius: $pkitfw-radius;
 	background: transparent;
-	color: $dpo-text;
+	color: $pkitfw-text;
 	cursor: pointer;
 	transition: background 0.12s, color 0.12s, border-color 0.12s;
 
 	&:hover:not( :disabled ) {
-		background: rgba(var(--dpo-c-primary-rgb), 0.1 );
-		border-color: rgba(var(--dpo-c-primary-rgb), 0.25 );
+		background: rgba(var(--pkitfw-c-primary-rgb), 0.1 );
+		border-color: rgba(var(--pkitfw-c-primary-rgb), 0.25 );
 	}
 
 	&.is-active {
-		background: $dpo-accent;
-		border-color: $dpo-accent;
+		background: $pkitfw-accent;
+		border-color: $pkitfw-accent;
 		color: #fff;
 	}
 
@@ -85,33 +85,33 @@
 	}
 
 	&.is-danger:hover:not( :disabled ) {
-		background: rgba(var(--dpo-c-danger-rgb), 0.12 );
-		border-color: rgba(var(--dpo-c-danger-rgb), 0.3 );
-		color: $dpo-danger;
+		background: rgba(var(--pkitfw-c-danger-rgb), 0.12 );
+		border-color: rgba(var(--pkitfw-c-danger-rgb), 0.3 );
+		color: $pkitfw-danger;
 	}
 }
 
 /* --- Contextual table toolbar ---------------------------------- */
-.dpo-rte__tablebar {
+.pkitfw-rte__tablebar {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 2px;
 	padding: 6px 8px;
-	background: rgba(var(--dpo-c-primary-rgb), 0.06 );
-	border-block-end: 1px solid $dpo-border;
+	background: rgba(var(--pkitfw-c-primary-rgb), 0.06 );
+	border-block-end: 1px solid $pkitfw-border;
 }
 
-.dpo-rte__tablebar-label {
+.pkitfw-rte__tablebar-label {
 	font-size: 11px;
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
-	color: $dpo-accent;
+	color: $pkitfw-accent;
 	margin-inline-end: 6px;
 }
 
-.dpo-rte__tbtn {
+.pkitfw-rte__tbtn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -119,63 +119,63 @@
 	height: 28px;
 	padding: 0;
 	border: 1px solid transparent;
-	border-radius: $dpo-radius;
+	border-radius: $pkitfw-radius;
 	background: transparent;
-	color: $dpo-text;
+	color: $pkitfw-text;
 	cursor: pointer;
 
 	&:hover {
-		background: rgba(var(--dpo-c-primary-rgb), 0.12 );
+		background: rgba(var(--pkitfw-c-primary-rgb), 0.12 );
 	}
 
 	&.is-danger:hover {
-		background: rgba(var(--dpo-c-danger-rgb), 0.12 );
-		color: $dpo-danger;
+		background: rgba(var(--pkitfw-c-danger-rgb), 0.12 );
+		color: $pkitfw-danger;
 	}
 }
 
 /* --- Link bar -------------------------------------------------- */
-.dpo-rte__linkbar {
+.pkitfw-rte__linkbar {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 8px;
 	padding: 8px;
-	background: $dpo-surface-2;
-	border-block-end: 1px solid $dpo-border;
+	background: $pkitfw-surface-2;
+	border-block-end: 1px solid $pkitfw-border;
 }
 
-.dpo-rte__linkinput {
+.pkitfw-rte__linkinput {
 	flex: 1 1 220px;
 	min-width: 0;
 	height: 32px;
 	padding: 0 10px;
-	border: 1px solid $dpo-border-strong;
-	border-radius: $dpo-radius;
+	border: 1px solid $pkitfw-border-strong;
+	border-radius: $pkitfw-radius;
 	font-size: 13px;
 }
 
-.dpo-rte__linkcheck {
+.pkitfw-rte__linkcheck {
 	display: inline-flex;
 	align-items: center;
 	gap: 4px;
 	font-size: 12px;
-	color: $dpo-text-muted;
+	color: $pkitfw-text-muted;
 	white-space: nowrap;
 }
 
 /* --- Editable surface ------------------------------------------ */
-.dpo-rte__surface {
+.pkitfw-rte__surface {
 	flex: 1;
 	overflow: auto;
 	max-height: 56vh;
 }
 
-.dpo-rte__content {
+.pkitfw-rte__content {
 	min-height: 280px;
 	padding: 18px 22px;
 	outline: none;
-	color: $dpo-text;
+	color: $pkitfw-text;
 	font-size: 14px;
 	line-height: 1.65;
 
@@ -218,7 +218,7 @@
 	}
 
 	a {
-		color: $dpo-accent;
+		color: $pkitfw-accent;
 		text-decoration: underline;
 	}
 
@@ -231,7 +231,7 @@
 	img {
 		max-width: 100%;
 		height: auto;
-		border-radius: $dpo-radius;
+		border-radius: $pkitfw-radius;
 	}
 
 	/* Dynamic tables. */
@@ -242,7 +242,7 @@
 
 		td,
 		th {
-			border: 1px solid $dpo-border-strong;
+			border: 1px solid $pkitfw-border-strong;
 			padding: 8px 10px;
 			vertical-align: top;
 			position: relative;
@@ -250,7 +250,7 @@
 		}
 
 		th {
-			background: $dpo-surface-2;
+			background: $pkitfw-surface-2;
 			font-weight: 600;
 			text-align: start;
 		}
@@ -260,20 +260,20 @@
 			content: '';
 			position: absolute;
 			inset: 0;
-			background: rgba(var(--dpo-c-primary-rgb), 0.12 );
+			background: rgba(var(--pkitfw-c-primary-rgb), 0.12 );
 			pointer-events: none;
 		}
 	}
 }
 
 /* ProseMirror placeholder + selection chrome. */
-.dpo-rte__surface .ProseMirror-selectednode {
-	outline: 2px solid $dpo-accent;
+.pkitfw-rte__surface .ProseMirror-selectednode {
+	outline: 2px solid $pkitfw-accent;
 	outline-offset: 1px;
 }
 
 /* --- HTML source view ------------------------------------------ */
-.dpo-rte__source {
+.pkitfw-rte__source {
 	width: 100%;
 	min-height: 320px;
 	max-height: 56vh;
@@ -283,7 +283,7 @@
 	font-size: 12.5px;
 	line-height: 1.6;
 	resize: vertical;
-	color: $dpo-text;
+	color: $pkitfw-text;
 	background: #fbfbfc;
 
 	&:focus {
@@ -293,21 +293,21 @@
 
 /* --- Responsive ------------------------------------------------ */
 @media ( max-width: 600px ) {
-	.dpo-rte__toolbar {
+	.pkitfw-rte__toolbar {
 		gap: 1px;
 		padding: 6px;
 	}
 
-	.dpo-rte__sep {
+	.pkitfw-rte__sep {
 		margin: 2px 3px;
 	}
 
-	.dpo-rte__btn {
+	.pkitfw-rte__btn {
 		width: 28px;
 		height: 28px;
 	}
 
-	.dpo-rte__content {
+	.pkitfw-rte__content {
 		padding: 14px 16px;
 	}
 }
@@ -317,7 +317,7 @@
 /* builder matches the frontend: corner close button + open anim).    */
 /* ================================================================ */
 
-@keyframes dpo-pp-backdrop-in {
+@keyframes pkitfw-pp-backdrop-in {
 	from {
 		opacity: 0;
 	}
@@ -326,7 +326,7 @@
 	}
 }
 
-@keyframes dpo-pp-box-in {
+@keyframes pkitfw-pp-box-in {
 	from {
 		opacity: 0;
 		transform: translateY(14px) scale(0.94);
@@ -338,14 +338,14 @@
 }
 
 /* Push the Preview button to the left of the modal footer. */
-.dpo-popupcfg__foot-preview {
+.pkitfw-popupcfg__foot-preview {
 	margin-inline-end: auto;
 }
 
-.dpo-pp-preview {
+.pkitfw-pp-preview {
 	position: fixed;
 	inset: 0;
-	z-index: 100002; /* above .dpo-modal-overlay (100000) */
+	z-index: 100002; /* above .pkitfw-modal-overlay (100000) */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -354,7 +354,7 @@
 		position: absolute;
 		inset: 0;
 		background: rgba(0, 0, 0, 0.55);
-		animation: dpo-pp-backdrop-in 0.25s ease both;
+		animation: pkitfw-pp-backdrop-in 0.25s ease both;
 		cursor: pointer;
 	}
 
@@ -367,9 +367,9 @@
 		max-height: 85vh;
 		padding: 24px;
 		background: #fff;
-		border-radius: $dpo-radius-lg;
+		border-radius: $pkitfw-radius-lg;
 		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-		animation: dpo-pp-box-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+		animation: pkitfw-pp-box-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 	}
 
 	&__close {

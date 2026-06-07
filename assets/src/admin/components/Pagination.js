@@ -62,7 +62,7 @@ export default function Pagination( { page, total, onChange } ) {
 	const edge = ( { icon, label, to, disabled } ) => (
 		<button
 			type="button"
-			className="dpo-pagination__btn dpo-pagination__btn--edge"
+			className="pkitfw-pagination__btn pkitfw-pagination__btn--edge"
 			onClick={ go( to ) }
 			disabled={ disabled }
 			aria-label={ label }
@@ -76,17 +76,17 @@ export default function Pagination( { page, total, onChange } ) {
 
 	return (
 		<nav
-			className="dpo-pagination"
+			className="pkitfw-pagination"
 			aria-label={ __(
 				'Pagination',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			) }
 		>
 			{ edge( {
 				icon: 'controls-skipback',
 				label: __(
 					'First page',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				to: 1,
 				disabled: page <= 1,
@@ -95,7 +95,7 @@ export default function Pagination( { page, total, onChange } ) {
 				icon: 'arrow-left-alt2',
 				label: __(
 					'Previous page',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				to: page - 1,
 				disabled: page <= 1,
@@ -105,7 +105,7 @@ export default function Pagination( { page, total, onChange } ) {
 				p === '…' ? (
 					<span
 						key={ `gap-${ i }` }
-						className="dpo-pagination__gap"
+						className="pkitfw-pagination__gap"
 						aria-hidden="true"
 					>
 						…
@@ -114,7 +114,7 @@ export default function Pagination( { page, total, onChange } ) {
 					<button
 						key={ p }
 						type="button"
-						className={ `dpo-pagination__btn${
+						className={ `pkitfw-pagination__btn${
 							p === page ? ' is-current' : ''
 						}` }
 						onClick={ go( p ) }
@@ -123,7 +123,7 @@ export default function Pagination( { page, total, onChange } ) {
 							/* translators: %d: page number */
 							__(
 								'Page %d',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							),
 							p
 						) }
@@ -137,7 +137,7 @@ export default function Pagination( { page, total, onChange } ) {
 				icon: 'arrow-right-alt2',
 				label: __(
 					'Next page',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				to: page + 1,
 				disabled: page >= total,
@@ -146,7 +146,7 @@ export default function Pagination( { page, total, onChange } ) {
 				icon: 'controls-skipforward',
 				label: __(
 					'Last page',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				to: total,
 				disabled: page >= total,

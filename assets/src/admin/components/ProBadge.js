@@ -16,17 +16,17 @@ import { __ } from '@wordpress/i18n';
  * @return {JSX.Element} The badge.
  */
 export default function ProBadge( {
-	text = __( 'Pro', 'dynamic-product-options-for-woocommerce' ),
+	text = __( 'Pro', 'productkit-for-woocommerce' ),
 	hint,
 } ) {
 	return (
 		<span
-			className="dpo-pro-badge"
+			className="pkitfw-pro-badge"
 			title={
 				hint ||
 				__(
 					'Available in the Pro version.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				)
 			}
 		>

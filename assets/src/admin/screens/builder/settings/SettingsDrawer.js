@@ -23,17 +23,17 @@ import LogicTab from './tabs/LogicTab';
 const TABS = [
 	{
 		key: 'general',
-		label: __( 'General', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'General', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'styles',
-		label: __( 'Styles', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Styles', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'logic',
 		label: __(
 			'Conditional logic',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 ];
@@ -88,7 +88,7 @@ export default function SettingsDrawer() {
 						onOpenAutoFocus={ ( e ) => e.preventDefault() }
 					>
 						<motion.aside
-							className="dpo-drawer"
+							className="pkitfw-drawer"
 							initial={ { x: '-100%', opacity: 0.4 } }
 							animate={ { x: 0, opacity: 1 } }
 							exit={ { x: '-100%', opacity: 0.4 } }
@@ -97,26 +97,26 @@ export default function SettingsDrawer() {
 								ease: [ 0.16, 1, 0.3, 1 ],
 							} }
 						>
-							<header className="dpo-drawer__head">
-								<span className="dpo-drawer__icon">
+							<header className="pkitfw-drawer__head">
+								<span className="pkitfw-drawer__icon">
 									{ Icon && (
 										<Icon size={ 18 } aria-hidden="true" />
 									) }
 								</span>
-								<Dialog.Title className="dpo-drawer__title">
+								<Dialog.Title className="pkitfw-drawer__title">
 									{ selected
 										? selected.label || def.label
 										: '' }
-									<span className="dpo-drawer__subtitle">
+									<span className="pkitfw-drawer__subtitle">
 										{ def && def.label }
 									</span>
 								</Dialog.Title>
 								<button
 									type="button"
-									className="dpo-drawer__close"
+									className="pkitfw-drawer__close"
 									aria-label={ __(
 										'Close',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									) }
 									onClick={ close }
 								>
@@ -124,14 +124,14 @@ export default function SettingsDrawer() {
 								</button>
 							</header>
 
-							<div className="dpo-drawer__tabs" role="tablist">
+							<div className="pkitfw-drawer__tabs" role="tablist">
 								{ TABS.map( ( t ) => (
 									<button
 										key={ t.key }
 										type="button"
 										role="tab"
 										aria-selected={ tab === t.key }
-										className={ `dpo-drawer__tab${
+										className={ `pkitfw-drawer__tab${
 											tab === t.key ? ' is-active' : ''
 										}` }
 										onClick={ () => setTab( t.key ) }
@@ -141,7 +141,7 @@ export default function SettingsDrawer() {
 								) ) }
 							</div>
 
-							<div className="dpo-drawer__body">
+							<div className="pkitfw-drawer__body">
 								{ selected && tab === 'general' && (
 									<GeneralTab
 										node={ selected }

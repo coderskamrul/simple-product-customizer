@@ -53,14 +53,14 @@ export default function GeneralTab( { node, patch } ) {
 		patch( { config: { ...cfg, [ key ]: value } } );
 
 	return (
-		<div className="dpo-settings__pane">
-			<div className="dpo-settings__switches">
+		<div className="pkitfw-settings__pane">
+			<div className="pkitfw-settings__switches">
 				<ToggleField
 					checked={ node.hideLabel }
 					onChange={ ( v ) => patch( { hideLabel: v } ) }
 					label={ __(
 						'Hide title',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 				{ ! isLayout && (
@@ -69,13 +69,13 @@ export default function GeneralTab( { node, patch } ) {
 						onChange={ ( v ) => patch( { required: v } ) }
 						label={ __(
 							'Required',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					/>
 				) }
 				{ def.priceable && def.hasChoices && (
 					<span
-						className={ `dpo-settings__switch-pro${
+						className={ `pkitfw-settings__switch-pro${
 							proActive ? '' : ' is-locked'
 						}` }
 					>
@@ -86,7 +86,7 @@ export default function GeneralTab( { node, patch } ) {
 							}
 							label={ __(
 								'Enable Formula Value',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						/>
 						{ ! proActive && <ProBadge text="" /> }
@@ -94,11 +94,11 @@ export default function GeneralTab( { node, patch } ) {
 				) }
 			</div>
 
-			<div className="dpo-settings__grid2">
+			<div className="pkitfw-settings__grid2">
 				<Field
 					label={ __(
 						'Title',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<TextControl
@@ -110,7 +110,7 @@ export default function GeneralTab( { node, patch } ) {
 				<Field
 					label={ __(
 						'Help text',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<TextControl

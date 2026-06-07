@@ -1,14 +1,14 @@
 /* ============================================================
    Settings screen — sticky branded header, left section rail,
    tinted content panel with reusable accent cards.
-   Self-contained (dpo-set-* scope) so no other screen regresses.
-   Reuses the $dpo-os-* surface tokens, restyles the shared
+   Self-contained (pkitfw-set-* scope) so no other screen regresses.
+   Reuses the $pkitfw-os-* surface tokens, restyles the shared
    Field / TextControl / ToggleField in-scope only. Token-driven,
    RTL-safe (logical properties), responsive and accessible.
    ============================================================ */
 
 /* Accent quartet — soft tile bg + icon ink, per tone. */
-$dpo-set-tones: (
+$pkitfw-set-tones: (
 	"neutral": #eef0f4 #5b6472,
 	"violet": #ece9fe #6d4ff2,
 	"blue": #e7edff #3358f4,
@@ -19,7 +19,7 @@ $dpo-set-tones: (
 );
 
 /* Info-banner tones — bg / text / border. */
-$dpo-set-banners: (
+$pkitfw-set-banners: (
 	"blue": #eef2ff #4338ca #e2e6ff,
 	"amber": #fff8e8 #b4690e #fbe3b3,
 	"violet": #f4f1fe #6d28d9 #e7e1fb,
@@ -29,24 +29,24 @@ $dpo-set-banners: (
 
 /* Settings palette — rebound to the Global Theme so the screen follows the
    active brand colour instead of its own historical violet. */
-$dpo-set-bg:         var(--dpo-c-bg, #f7f8fb);
-$dpo-set-violet:     var(--dpo-c-primary, #{$dpo-c-primary-fallback});
-$dpo-set-violet-ink: var(--dpo-c-primary-hover, #{$dpo-c-primary-hover-fallback});
-$dpo-set-card-bg:    var(--dpo-c-surface-2, #fafbfc);
-$dpo-set-card-bd:    var(--dpo-c-border, #ecedf2);
-$dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
+$pkitfw-set-bg:         var(--pkitfw-c-bg, #f7f8fb);
+$pkitfw-set-violet:     var(--pkitfw-c-primary, #{$pkitfw-c-primary-fallback});
+$pkitfw-set-violet-ink: var(--pkitfw-c-primary-hover, #{$pkitfw-c-primary-hover-fallback});
+$pkitfw-set-card-bg:    var(--pkitfw-c-surface-2, #fafbfc);
+$pkitfw-set-card-bd:    var(--pkitfw-c-border, #ecedf2);
+$pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 /* ---- Canvas ----------------------------------------------- */
 /* Settings now renders inside the unified PageFrame, so the screen no
    longer needs a bleed margin or its own background. */
-.dpo-set {
-	color: $dpo-os-ink-soft;
+.pkitfw-set {
+	color: $pkitfw-os-ink-soft;
 	font-size: 14px;
-	font-family: $dpo-font;
+	font-family: $pkitfw-font;
 }
 
 /* ---- Accent icon tile (shared) ---------------------------- */
-.dpo-set-tile {
+.pkitfw-set-tile {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -74,26 +74,26 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 }
 
-@each $name, $pair in $dpo-set-tones {
-	.dpo-set-tile--#{$name} {
+@each $name, $pair in $pkitfw-set-tones {
+	.pkitfw-set-tile--#{$name} {
 		background: nth($pair, 1);
 		color: nth($pair, 2);
 	}
 }
 
 /* ---- Sticky header ---------------------------------------- */
-.dpo-set-header {
+.pkitfw-set-header {
 	position: sticky;
 	inset-block-start: 0;
 	z-index: 20;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: $dpo-space-lg;
+	gap: $pkitfw-space-lg;
 	flex-wrap: wrap;
 	padding: 20px 32px;
-	background: $dpo-os-surface;
-	border-block-end: 1px solid $dpo-os-border;
+	background: $pkitfw-os-surface;
+	border-block-end: 1px solid $pkitfw-os-border;
 
 	&__brand {
 		display: flex;
@@ -106,13 +106,13 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		font-size: 26px;
 		font-weight: 700;
 		line-height: 1.15;
-		color: $dpo-os-ink;
+		color: $pkitfw-os-ink;
 	}
 
 	&__sub {
 		margin: 4px 0 0;
 		font-size: 14px;
-		color: $dpo-os-muted;
+		color: $pkitfw-os-muted;
 	}
 
 	&__actions {
@@ -127,20 +127,20 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		gap: 7px;
 		font-size: 13px;
 		font-weight: 600;
-		color: $dpo-warning;
+		color: $pkitfw-warning;
 
 		&::before {
 			content: "";
 			inline-size: 8px;
 			block-size: 8px;
 			border-radius: 50%;
-			background: $dpo-warning;
+			background: $pkitfw-warning;
 		}
 	}
 }
 
 /* ---- Primary save / upload button ------------------------- */
-.dpo-set-save {
+.pkitfw-set-save {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -149,13 +149,13 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	padding-inline: 24px;
 	border: 0;
 	border-radius: 12px;
-	background: linear-gradient(135deg, var(--dpo-c-primary), var(--dpo-c-primary-hover));
-	color: var(--dpo-c-primary-ink, #fff);
+	background: linear-gradient(135deg, var(--pkitfw-c-primary), var(--pkitfw-c-primary-hover));
+	color: var(--pkitfw-c-primary-ink, #fff);
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
 	white-space: nowrap;
-	box-shadow: 0 8px 18px rgba(var(--dpo-c-primary-rgb), 0.35);
+	box-shadow: 0 8px 18px rgba(var(--pkitfw-c-primary-rgb), 0.35);
 	transition: filter 0.15s, box-shadow 0.15s, opacity 0.15s;
 
 	svg {
@@ -168,7 +168,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 	&:focus-visible {
 		outline: none;
-		box-shadow: $dpo-set-ring, 0 8px 18px rgba(var(--dpo-c-primary-rgb), 0.35);
+		box-shadow: $pkitfw-set-ring, 0 8px 18px rgba(var(--pkitfw-c-primary-rgb), 0.35);
 	}
 
 	&:disabled {
@@ -181,14 +181,14 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		height: 42px;
 		padding-inline: 20px;
 		font-size: 13.5px;
-		box-shadow: 0 4px 12px rgba(var(--dpo-c-primary-rgb), 0.3);
+		box-shadow: 0 4px 12px rgba(var(--pkitfw-c-primary-rgb), 0.3);
 	}
 }
 
 /* ---- Body grid : rail + panel ----------------------------- */
 /* PageFrame supplies the outer padding now, so this just sets the
    two-column geometry. */
-.dpo-set__body {
+.pkitfw-set__body {
 	display: grid;
 	grid-template-columns: 300px minmax(0, 1fr);
 	align-items: start;
@@ -196,7 +196,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Section rail ----------------------------------------- */
-.dpo-set-nav {
+.pkitfw-set-nav {
 	&__list {
 		display: flex;
 		flex-direction: column;
@@ -221,19 +221,19 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 			box-shadow 0.15s;
 
 		&:hover:not(.is-active) {
-			background: $dpo-os-surface;
-			border-color: $dpo-os-border;
-			box-shadow: $dpo-os-shadow;
+			background: $pkitfw-os-surface;
+			border-color: $pkitfw-os-border;
+			box-shadow: $pkitfw-os-shadow;
 		}
 
 		&.is-active {
-			background: var(--dpo-c-primary-soft);
-			border-color: rgba(var(--dpo-c-primary-rgb), 0.25);
+			background: var(--pkitfw-c-primary-soft);
+			border-color: rgba(var(--pkitfw-c-primary-rgb), 0.25);
 		}
 
 		&:focus-visible {
 			outline: none;
-			box-shadow: $dpo-set-ring;
+			box-shadow: $pkitfw-set-ring;
 		}
 	}
 
@@ -247,22 +247,22 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	&__title {
 		font-size: 14px;
 		font-weight: 600;
-		color: $dpo-os-ink;
+		color: $pkitfw-os-ink;
 
 		.is-active & {
-			color: $dpo-set-violet-ink;
+			color: $pkitfw-set-violet-ink;
 		}
 	}
 
 	&__sub {
 		font-size: 12.5px;
-		color: $dpo-os-muted;
+		color: $pkitfw-os-muted;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 
 		.is-active & {
-			color: rgba(var(--dpo-c-primary-hover-rgb), 0.75);
+			color: rgba(var(--pkitfw-c-primary-hover-rgb), 0.75);
 		}
 	}
 
@@ -271,21 +271,21 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		font-size: 18px;
 		inline-size: 18px;
 		block-size: 18px;
-		color: $dpo-os-faint;
+		color: $pkitfw-os-faint;
 		flex-shrink: 0;
 
 		.is-active & {
-			color: $dpo-set-violet-ink;
+			color: $pkitfw-set-violet-ink;
 		}
 	}
 }
 
 /* ---- Content panel ---------------------------------------- */
-.dpo-set-panel {
-	background: $dpo-os-surface;
-	border: 1px solid $dpo-os-border;
+.pkitfw-set-panel {
+	background: $pkitfw-os-surface;
+	border: 1px solid $pkitfw-os-border;
 	border-radius: 18px;
-	box-shadow: $dpo-os-shadow;
+	box-shadow: $pkitfw-os-shadow;
 	padding: 28px 32px 32px;
 
 	&__head {
@@ -298,24 +298,24 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		font-size: 20px;
 		font-weight: 700;
 		line-height: 1.2;
-		color: $dpo-os-ink;
+		color: $pkitfw-os-ink;
 	}
 
 	&__sub {
 		margin: 3px 0 0;
 		font-size: 14px;
-		color: $dpo-os-muted;
+		color: $pkitfw-os-muted;
 	}
 
 	&__divider {
 		block-size: 1px;
-		background: $dpo-os-border;
+		background: $pkitfw-os-border;
 		margin: 22px 0;
 	}
 }
 
 /* ---- Info banner ------------------------------------------ */
-.dpo-set-banner {
+.pkitfw-set-banner {
 	display: flex;
 	align-items: flex-start;
 	gap: 10px;
@@ -335,8 +335,8 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 }
 
-@each $name, $trio in $dpo-set-banners {
-	.dpo-set-banner--#{$name} {
+@each $name, $trio in $pkitfw-set-banners {
+	.pkitfw-set-banner--#{$name} {
 		background: nth($trio, 1);
 		color: nth($trio, 2);
 		border: 1px solid nth($trio, 3);
@@ -344,7 +344,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Layout helpers --------------------------------------- */
-.dpo-set-grid {
+.pkitfw-set-grid {
 	display: grid;
 	gap: 20px;
 
@@ -357,13 +357,13 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 }
 
-.dpo-set-stack {
+.pkitfw-set-stack {
 	display: flex;
 	flex-direction: column;
 	gap: 22px;
 }
 
-.dpo-set-state {
+.pkitfw-set-state {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -371,20 +371,20 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Setting sub-card ------------------------------------- */
-.dpo-set-card {
+.pkitfw-set-card {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 	padding: 24px;
-	background: $dpo-os-surface;
-	border: 1px solid $dpo-set-card-bd;
+	background: $pkitfw-os-surface;
+	border: 1px solid $pkitfw-set-card-bd;
 	border-radius: 14px;
-	box-shadow: var(--dpo-sh-1);
+	box-shadow: var(--pkitfw-sh-1);
 	transition: all 0.2s ease;
 
 	&:hover {
-		border-color: $dpo-set-violet;
-		box-shadow: var(--dpo-sh-2);
+		border-color: $pkitfw-set-violet;
+		box-shadow: var(--pkitfw-sh-2);
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.01) 0%, rgba(5, 150, 105, 0.005) 100%);
 	}
 
@@ -404,14 +404,14 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	&__title {
 		font-size: 16px;
 		font-weight: 700;
-		color: $dpo-os-ink;
+		color: $pkitfw-os-ink;
 		letter-spacing: -0.3px;
 	}
 
 	&__sub {
 		margin: 0;
 		font-size: 13px;
-		color: $dpo-os-muted;
+		color: $pkitfw-os-muted;
 		line-height: 1.4;
 	}
 
@@ -424,16 +424,16 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	&__hint {
 		margin: 0;
 		font-size: 13px;
-		color: $dpo-os-muted;
+		color: $pkitfw-os-muted;
 		padding-block-start: 4px;
-		border-block-start: 1px solid var(--dpo-c-border-soft);
+		border-block-start: 1px solid var(--pkitfw-c-border-soft);
 		line-height: 1.5;
 	}
 }
 
 /* ---- Switch row (label left / toggle right) --------------- */
-.dpo-set-switchrow {
-	.dpo-toggle {
+.pkitfw-set-switchrow {
+	.pkitfw-toggle {
 		inline-size: 100%;
 		flex-direction: row-reverse;
 		justify-content: space-between;
@@ -441,89 +441,89 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		font-size: 14px;
 	}
 
-	.dpo-toggle__label {
+	.pkitfw-toggle__label {
 		flex: 1;
 		font-size: 14px;
 		font-weight: 500;
-		color: $dpo-os-ink-soft;
+		color: $pkitfw-os-ink-soft;
 	}
 }
 
-/* ---- Shared-control restyle (scoped to .dpo-set) ---------- */
-.dpo-set {
-	.dpo-form-field {
+/* ---- Shared-control restyle (scoped to .pkitfw-set) ---------- */
+.pkitfw-set {
+	.pkitfw-form-field {
 		gap: 6px;
 	}
 
-	.dpo-form-field__label {
+	.pkitfw-form-field__label {
 		font-size: 13px;
 		font-weight: 600;
-		color: $dpo-os-ink-soft;
+		color: $pkitfw-os-ink-soft;
 	}
 
-	.dpo-form-field__help {
+	.pkitfw-form-field__help {
 		font-size: 12px;
-		color: $dpo-os-muted;
+		color: $pkitfw-os-muted;
 	}
 
-	.dpo-input {
+	.pkitfw-input {
 		height: 44px;
 		padding: 0 14px;
 		border: 1px solid #e4e6ee;
 		border-radius: 10px;
 		background: #f7f8fc;
-		color: $dpo-os-ink;
+		color: $pkitfw-os-ink;
 		font-size: 14px;
 
 		&::placeholder {
-			color: $dpo-os-faint;
+			color: $pkitfw-os-faint;
 		}
 
 		&:focus {
-			border-color: $dpo-set-violet;
-			background: $dpo-os-surface;
-			box-shadow: $dpo-set-ring;
+			border-color: $pkitfw-set-violet;
+			background: $pkitfw-os-surface;
+			box-shadow: $pkitfw-set-ring;
 		}
 	}
 
-	textarea.dpo-input {
+	textarea.pkitfw-input {
 		height: auto;
 		padding: 10px 14px;
 	}
 
 	/* Toggle — slightly larger, violet when on. */
-	.dpo-toggle__track {
+	.pkitfw-toggle__track {
 		inline-size: 42px;
 		block-size: 24px;
 	}
 
-	.dpo-toggle__thumb {
+	.pkitfw-toggle__thumb {
 		inline-size: 20px;
 		block-size: 20px;
 	}
 
-	.dpo-toggle__input:checked + .dpo-toggle__track {
-		background: $dpo-set-violet;
+	.pkitfw-toggle__input:checked + .pkitfw-toggle__track {
+		background: $pkitfw-set-violet;
 
-		.dpo-toggle__thumb {
+		.pkitfw-toggle__thumb {
 			inset-inline-start: 20px;
 		}
 	}
 
-	.dpo-toggle__input:focus-visible + .dpo-toggle__track {
-		box-shadow: $dpo-set-ring;
+	.pkitfw-toggle__input:focus-visible + .pkitfw-toggle__track {
+		box-shadow: $pkitfw-set-ring;
 	}
 }
 
 /* ---- Font upload form ------------------------------------- */
-.dpo-set-fontform {
+.pkitfw-set-fontform {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr auto;
 	align-items: end;
 	gap: 16px;
 }
 
-.dpo-set-file {
+.pkitfw-set-file {
 	position: relative;
 
 	&__input {
@@ -544,15 +544,15 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		inline-size: 100%;
 		height: 46px;
 		padding: 0 16px;
-		border: 1px solid var(--dpo-c-border);
+		border: 1px solid var(--pkitfw-c-border);
 		border-radius: 11px;
-		background: $dpo-os-surface;
-		color: $dpo-os-muted;
+		background: $pkitfw-os-surface;
+		color: $pkitfw-os-muted;
 		font-size: 14px;
 		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.15s ease;
-		box-shadow: var(--dpo-sh-1);
+		box-shadow: var(--pkitfw-sh-1);
 
 		.dashicons {
 			font-size: 18px;
@@ -562,16 +562,16 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		}
 
 		&:hover {
-			border-color: $dpo-set-violet;
-			color: $dpo-set-violet;
-			box-shadow: var(--dpo-sh-2);
+			border-color: $pkitfw-set-violet;
+			color: $pkitfw-set-violet;
+			box-shadow: var(--pkitfw-sh-2);
 			background: linear-gradient(135deg, rgba(5, 150, 105, 0.01) 0%, rgba(5, 150, 105, 0) 100%);
 		}
 
 		&:focus-visible {
 			outline: none;
-			border-color: $dpo-set-violet;
-			box-shadow: $dpo-set-ring, var(--dpo-sh-2);
+			border-color: $pkitfw-set-violet;
+			box-shadow: $pkitfw-set-ring, var(--pkitfw-sh-2);
 		}
 	}
 
@@ -583,12 +583,12 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Uploaded fonts --------------------------------------- */
-.dpo-set-fonts {
+.pkitfw-set-fonts {
 	&__title {
 		margin: 0 0 12px;
 		font-size: 15px;
 		font-weight: 700;
-		color: $dpo-os-ink;
+		color: $pkitfw-os-ink;
 	}
 
 	&__empty {
@@ -599,7 +599,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		padding: 48px 24px;
 		border: 1px dashed #d8dbe4;
 		border-radius: 14px;
-		background: $dpo-set-card-bg;
+		background: $pkitfw-set-card-bg;
 		text-align: center;
 	}
 
@@ -614,17 +614,17 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		margin: 0;
 		font-size: 14px;
 		font-weight: 600;
-		color: $dpo-os-muted;
+		color: $pkitfw-os-muted;
 	}
 
 	&__emptysub {
 		margin: 0;
 		font-size: 13px;
-		color: $dpo-os-faint;
+		color: $pkitfw-os-faint;
 	}
 }
 
-.dpo-set-fontlist {
+.pkitfw-set-fontlist {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -633,21 +633,21 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	list-style: none;
 }
 
-.dpo-set-fontrow {
+.pkitfw-set-fontrow {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 12px 16px;
 	padding: 20px 24px;
-	background: $dpo-os-surface;
-	border: 1px solid $dpo-set-card-bd;
+	background: $pkitfw-os-surface;
+	border: 1px solid $pkitfw-set-card-bd;
 	border-radius: 14px;
-	box-shadow: var(--dpo-sh-1);
+	box-shadow: var(--pkitfw-sh-1);
 	transition: all 0.2s ease;
 
 	&:hover {
-		border-color: $dpo-set-violet;
-		box-shadow: var(--dpo-sh-2);
+		border-color: $pkitfw-set-violet;
+		box-shadow: var(--pkitfw-sh-2);
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.02) 0%, rgba(5, 150, 105, 0.01) 100%);
 	}
 
@@ -656,10 +656,10 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		padding-block-start: 14px;
 		padding-block-end: 0;
 		margin-block-start: 8px;
-		border-block-start: 1px solid var(--dpo-c-border-soft);
+		border-block-start: 1px solid var(--pkitfw-c-border-soft);
 		font-size: 22px;
 		line-height: 1.5;
-		color: $dpo-os-ink;
+		color: $pkitfw-os-ink;
 		font-weight: 500;
 	}
 
@@ -668,7 +668,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		min-width: 0;
 		font-size: 15px;
 		font-weight: 700;
-		color: $dpo-os-ink;
+		color: $pkitfw-os-ink;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -679,21 +679,21 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		flex: 0 1 auto;
 		min-width: 0;
 		font-size: 13px;
-		color: $dpo-os-muted;
+		color: $pkitfw-os-muted;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		background: var(--dpo-c-surface-2);
+		background: var(--pkitfw-c-surface-2);
 		padding: 6px 12px;
 		border-radius: 8px;
-		border: 1px solid var(--dpo-c-border-soft);
+		border: 1px solid var(--pkitfw-c-border-soft);
 	}
 
 	&__type {
 		padding: 5px 12px;
 		border-radius: 6px;
-		background: var(--dpo-c-primary-soft);
-		color: $dpo-set-violet;
+		background: var(--pkitfw-c-primary-soft);
+		color: $pkitfw-set-violet;
 		font-size: 12px;
 		font-weight: 700;
 		letter-spacing: 0.5px;
@@ -705,12 +705,12 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		align-items: flex-end;
 		flex-wrap: wrap;
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.04) 0%, rgba(5, 150, 105, 0.02) 100%);
-		border: 2px solid $dpo-set-violet;
+		border: 2px solid $pkitfw-set-violet;
 	}
 }
 
 /* Inline edit form within a font row. */
-.dpo-set-fontedit {
+.pkitfw-set-fontedit {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 16px;
@@ -725,7 +725,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 }
 
-.dpo-set-iconbtn {
+.pkitfw-set-iconbtn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -733,8 +733,8 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	block-size: 40px;
 	border: 1px solid transparent;
 	border-radius: 10px;
-	background: var(--dpo-c-surface-2);
-	color: $dpo-os-muted;
+	background: var(--pkitfw-c-surface-2);
+	color: $pkitfw-os-muted;
 	cursor: pointer;
 	transition: all 0.15s ease;
 
@@ -745,19 +745,19 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 
 	&:hover {
-		background: var(--dpo-c-border);
-		color: $dpo-os-ink-soft;
+		background: var(--pkitfw-c-border);
+		color: $pkitfw-os-ink-soft;
 		transform: translateY(-1px);
 	}
 
 	&--danger:hover {
-		background: $dpo-os-danger-soft;
-		color: $dpo-os-danger;
+		background: $pkitfw-os-danger-soft;
+		color: $pkitfw-os-danger;
 	}
 
 	&:focus-visible {
 		outline: none;
-		box-shadow: $dpo-set-ring;
+		box-shadow: $pkitfw-set-ring;
 	}
 }
 
@@ -767,77 +767,77 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 /* Laptop — tighten the rail. */
 @media (max-width: 1200px) {
-	.dpo-set__body {
+	.pkitfw-set__body {
 		grid-template-columns: 260px minmax(0, 1fr);
 	}
 }
 
 /* Tablet — stack rail above the panel, fold the 3-up grid. */
 @media (max-width: 960px) {
-	.dpo-set__body {
+	.pkitfw-set__body {
 		grid-template-columns: 1fr;
 		gap: 20px;
 	}
 
-	.dpo-set-nav__list {
+	.pkitfw-set-nav__list {
 		flex-direction: row;
 		flex-wrap: wrap;
 	}
 
-	.dpo-set-nav__item {
+	.pkitfw-set-nav__item {
 		flex: 1 1 240px;
 	}
 
-	.dpo-set-grid--3 {
+	.pkitfw-set-grid--3 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
-	.dpo-set-fontform {
+	.pkitfw-set-fontform {
 		grid-template-columns: 1fr 1fr;
 	}
 }
 
 /* Cancel the outlet padding exactly (outlet → 16px at 600). */
 @media (max-width: 600px) {
-	.dpo-set {
-		margin: -$dpo-space;
+	.pkitfw-set {
+		margin: -$pkitfw-space;
 	}
 }
 
 /* Phone — single column everywhere. */
 @media (max-width: 782px) {
-	.dpo-set-header {
+	.pkitfw-set-header {
 		padding: 16px 18px;
 		gap: 14px;
 	}
 
-	.dpo-set-header__title {
+	.pkitfw-set-header__title {
 		font-size: 22px;
 	}
 
-	.dpo-set-save {
+	.pkitfw-set-save {
 		margin-inline-start: auto;
 	}
 
-	.dpo-set__body {
+	.pkitfw-set__body {
 		padding: 18px;
 	}
 
-	.dpo-set-panel {
+	.pkitfw-set-panel {
 		padding: 22px 18px 24px;
 	}
 
-	.dpo-set-nav__item {
+	.pkitfw-set-nav__item {
 		flex-basis: 100%;
 	}
 
-	.dpo-set-grid--2,
-	.dpo-set-grid--3,
-	.dpo-set-fontform {
+	.pkitfw-set-grid--2,
+	.pkitfw-set-grid--3,
+	.pkitfw-set-fontform {
 		grid-template-columns: 1fr;
 	}
 
-	.dpo-set-panel__title {
+	.pkitfw-set-panel__title {
 		font-size: 18px;
 	}
 }

@@ -1,8 +1,8 @@
 {
-  "name": "dynamic-product-options-for-woocommerce",
+  "name": "productkit-for-woocommerce",
   "version": "1.0.0",
   "private": true,
-  "description": "Dynamic Product Options for WooCommerce — admin builder and storefront runtime.",
+  "description": "ProductKit – Product Options for WooCommerce — admin builder and storefront runtime.",
   "engines": {
     "node": ">=20"
   },
@@ -13,9 +13,9 @@
     "build": "wp-scripts build",
     "lint:js": "wp-scripts lint-js",
     "lint:css": "wp-scripts lint-style",
-    "pot": "wp i18n make-pot . languages/dynamic-product-options-for-woocommerce.pot --slug=dynamic-product-options-for-woocommerce --domain=dynamic-product-options-for-woocommerce --include=includes,assets/src --exclude=node_modules,vendor,assets/build,tests,dist,build,.git,.github,.claude",
+    "pot": "wp i18n make-pot . languages/productkit-for-woocommerce.pot --slug=productkit-for-woocommerce --domain=productkit-for-woocommerce --include=includes,assets/src --exclude=node_modules,vendor,assets/build,tests,dist,build,.git,.github,.claude",
     "prezip": "npm run build && npm run pot",
-    "zip": "rm -f dynamic-product-options-for-woocommerce.zip && wp dist-archive . ./dynamic-product-options-for-woocommerce.zip --plugin-dirname=dynamic-product-options-for-woocommerce",
+    "zip": "rm -f productkit-for-woocommerce.zip && wp dist-archive . ./productkit-for-woocommerce.zip --plugin-dirname=productkit-for-woocommerce",
     "release": "npm run zip"
   },
   "dependencies": {

@@ -33,19 +33,19 @@ export default function KpiCard( {
 	const deltaTone = delta === null ? 'flat' : up ? 'up' : 'down';
 
 	return (
-		<article className={ `dpo-an-kpi dpo-an-kpi--${ tone }` }>
-			<div className="dpo-an-kpi__top">
-				<span className="dpo-an-kpi__label">{ label }</span>
-				<span className="dpo-an-kpi__icon" aria-hidden="true">
+		<article className={ `pkitfw-an-kpi pkitfw-an-kpi--${ tone }` }>
+			<div className="pkitfw-an-kpi__top">
+				<span className="pkitfw-an-kpi__label">{ label }</span>
+				<span className="pkitfw-an-kpi__icon" aria-hidden="true">
 					<span className={ `dashicons dashicons-${ icon }` } />
 				</span>
 			</div>
 
-			<div className="dpo-an-kpi__value">{ value }</div>
+			<div className="pkitfw-an-kpi__value">{ value }</div>
 
 			{ delta !== null && (
 				<div
-					className={ `dpo-an-kpi__delta dpo-an-kpi__delta--${ deltaTone }` }
+					className={ `pkitfw-an-kpi__delta pkitfw-an-kpi__delta--${ deltaTone }` }
 				>
 					<span
 						className={ `dashicons dashicons-arrow-${
@@ -58,7 +58,7 @@ export default function KpiCard( {
 			) }
 
 			<span
-				className="dpo-an-kpi__meter"
+				className="pkitfw-an-kpi__meter"
 				role="progressbar"
 				aria-valuenow={ meter }
 				aria-valuemin={ 0 }
@@ -66,7 +66,7 @@ export default function KpiCard( {
 				aria-label={ meterLabel }
 			>
 				<span
-					className="dpo-an-kpi__meterfill"
+					className="pkitfw-an-kpi__meterfill"
 					style={ { width: `${ meter }%` } }
 				/>
 			</span>

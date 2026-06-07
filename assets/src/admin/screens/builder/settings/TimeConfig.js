@@ -19,11 +19,11 @@ import ValuePricing from './ValuePricing';
 const FORMAT_MODES = [
 	{
 		value: true,
-		label: __( '12 Hours', 'dynamic-product-options-for-woocommerce' ),
+		label: __( '12 Hours', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: false,
-		label: __( '24 Hours', 'dynamic-product-options-for-woocommerce' ),
+		label: __( '24 Hours', 'productkit-for-woocommerce' ),
 	},
 ];
 
@@ -86,14 +86,14 @@ function to24( h12, mm, ap ) {
  */
 function Segmented( { value, options, onChange } ) {
 	return (
-		<div className="dpo-seg" role="radiogroup">
+		<div className="pkitfw-seg" role="radiogroup">
 			{ options.map( ( opt ) => (
 				<button
 					key={ String( opt.value ) }
 					type="button"
 					role="radio"
 					aria-checked={ value === opt.value }
-					className={ `dpo-seg__btn${
+					className={ `pkitfw-seg__btn${
 						value === opt.value ? ' is-active' : ''
 					}` }
 					onClick={ () => onChange( opt.value ) }
@@ -136,19 +136,19 @@ function TimeInput( { value, hour12, onChange } ) {
 		onChange( to24( parseInt( parts.h12, 10 ), parts.m, ap ) );
 
 	return (
-		<div className="dpo-timeinput">
+		<div className="pkitfw-timeinput">
 			<input
 				type="number"
-				className="dpo-input dpo-timeinput__num"
+				className="pkitfw-input pkitfw-timeinput__num"
 				min={ hour12 ? 1 : 0 }
 				max={ hour12 ? 12 : 23 }
 				value={ hour12 ? parts.h12 : pad( String( parts.h ), 0, 23 ) }
 				onChange={ ( e ) => setHour( e.target.value ) }
 			/>
-			<span className="dpo-timeinput__sep">:</span>
+			<span className="pkitfw-timeinput__sep">:</span>
 			<input
 				type="number"
-				className="dpo-input dpo-timeinput__num"
+				className="pkitfw-input pkitfw-timeinput__num"
 				min={ 0 }
 				max={ 59 }
 				value={ parts.m }
@@ -189,18 +189,18 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 		<>
 			{ showPricing && <ValuePricing node={ node } patch={ patch } /> }
 
-			<div className="dpo-settings__group">
-				<p className="dpo-field-group__title">
+			<div className="pkitfw-settings__group">
+				<p className="pkitfw-field-group__title">
 					{ __(
 						'Display',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</p>
-				<div className="dpo-settings__grid2">
+				<div className="pkitfw-settings__grid2">
 					<Field
 						label={ __(
 							'Time format',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<Segmented
@@ -212,7 +212,7 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 					<Field
 						label={ __(
 							'Step (minutes)',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TextControl
@@ -224,22 +224,22 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 				</div>
 			</div>
 
-			<div className="dpo-settings__group">
-				<p className="dpo-field-group__title">
+			<div className="pkitfw-settings__group">
+				<p className="pkitfw-field-group__title">
 					{ __(
 						'Selectable range',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</p>
-				<div className="dpo-settings__grid2">
+				<div className="pkitfw-settings__grid2">
 					<Field
 						label={ __(
 							'Earliest time',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 						help={ __(
 							'Leave at 00:00 for no limit.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TimeInput
@@ -251,11 +251,11 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 					<Field
 						label={ __(
 							'Latest time',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 						help={ __(
 							'Leave at 00:00 for no limit.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TimeInput

@@ -2,12 +2,12 @@
 /**
  * Horizontal divider field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -60,7 +60,7 @@ final class DividerField extends AbstractField {
 		$inline = $height > 0 ? ' style="border-top-width:' . $height . 'px"' : '';
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<hr class="dpo-divider dpo-divider--' . esc_attr( $style ) . '"' . $inline . ' />';
+		$html .= '<hr class="pkitfw-divider pkitfw-divider--' . esc_attr( $style ) . '"' . $inline . ' />';
 		$html .= '</div>';
 		return $html;
 	}

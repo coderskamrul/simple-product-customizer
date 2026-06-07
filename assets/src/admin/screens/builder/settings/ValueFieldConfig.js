@@ -40,7 +40,7 @@ export default function ValueFieldConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'Default color',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<ColorField
@@ -53,22 +53,22 @@ export default function ValueFieldConfig( { node, patch } ) {
 			{ /* ---- Number ---- */ }
 			{ node.type === 'number' && (
 				<>
-					<div className="dpo-settings__toggle-row">
+					<div className="pkitfw-settings__toggle-row">
 						<ToggleField
 							checked={ !! cfg.enableMinMax }
 							onChange={ ( v ) => setKey( 'enableMinMax', v ) }
 							label={ __(
 								'Enable Min/Max Restriction',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						/>
 					</div>
 					{ cfg.enableMinMax && (
-						<div className="dpo-settings__grid2">
+						<div className="pkitfw-settings__grid2">
 							<Field
 								label={ __(
 									'Minimum value',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							>
 								<TextControl
@@ -80,7 +80,7 @@ export default function ValueFieldConfig( { node, patch } ) {
 							<Field
 								label={ __(
 									'Maximum value',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							>
 								<TextControl
@@ -91,11 +91,11 @@ export default function ValueFieldConfig( { node, patch } ) {
 							</Field>
 						</div>
 					) }
-					<div className="dpo-settings__grid2">
+					<div className="pkitfw-settings__grid2">
 						<Field
 							label={ __(
 								'Steps',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<TextControl
@@ -107,7 +107,7 @@ export default function ValueFieldConfig( { node, patch } ) {
 						<Field
 							label={ __(
 								'Default value',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<TextControl
@@ -123,13 +123,13 @@ export default function ValueFieldConfig( { node, patch } ) {
 			{ /* ---- Range ---- */ }
 			{ node.type === 'range' && (
 				<>
-					<div className="dpo-settings__toggle-row">
+					<div className="pkitfw-settings__toggle-row">
 						<ToggleField
 							checked={ !! cfg.enablePostfix }
 							onChange={ ( v ) => setKey( 'enablePostfix', v ) }
 							label={ __(
 								'Enable PostFix',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						/>
 					</div>
@@ -137,7 +137,7 @@ export default function ValueFieldConfig( { node, patch } ) {
 						<Field
 							label={ __(
 								'Postfix text',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<TextControl
@@ -146,11 +146,11 @@ export default function ValueFieldConfig( { node, patch } ) {
 							/>
 						</Field>
 					) }
-					<div className="dpo-settings__grid2">
+					<div className="pkitfw-settings__grid2">
 						<Field
 							label={ __(
 								'Minimum value',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<TextControl
@@ -162,7 +162,7 @@ export default function ValueFieldConfig( { node, patch } ) {
 						<Field
 							label={ __(
 								'Maximum value',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<TextControl
@@ -172,11 +172,11 @@ export default function ValueFieldConfig( { node, patch } ) {
 							/>
 						</Field>
 					</div>
-					<div className="dpo-settings__grid2">
+					<div className="pkitfw-settings__grid2">
 						<Field
 							label={ __(
 								'Steps',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<TextControl
@@ -188,7 +188,7 @@ export default function ValueFieldConfig( { node, patch } ) {
 						<Field
 							label={ __(
 								'Default value',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<TextControl
@@ -206,7 +206,7 @@ export default function ValueFieldConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'Placeholder',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<TextControl

@@ -2,11 +2,11 @@
 
 /*
  * Strip the default WordPress admin chrome padding on our screen so the
- * SPA can render edge-to-edge (slug: `dpo-options`, body class added by
+ * SPA can render edge-to-edge (slug: `pkitfw-options`, body class added by
  * core for the top-level page). Scoped to the body class so it never
  * leaks to other admin pages.
  */
-body.toplevel_page_dpo-options {
+body.toplevel_page_pkitfw-options {
 	#wpcontent {
 		padding-inline-start: 0;
 	}
@@ -15,15 +15,15 @@ body.toplevel_page_dpo-options {
 		padding-bottom: 0;
 	}
 
-	.dpo-admin-wrap {
+	.pkitfw-admin-wrap {
 		margin: 0;
 	}
 }
 
-#dpo-admin-root {
+#pkitfw-admin-root {
 	box-sizing: border-box;
-	color: $dpo-text;
-	font-family: $dpo-font;
+	color: $pkitfw-text;
+	font-family: $pkitfw-font;
 	font-size: 13px;
 	line-height: 1.5;
 
@@ -39,19 +39,19 @@ body.toplevel_page_dpo-options {
 	h4 {
 		margin: 0;
 		font-weight: 600;
-		color: $dpo-text;
+		color: $pkitfw-text;
 	}
 
 	p {
-		margin: 0 0 $dpo-space-sm;
+		margin: 0 0 $pkitfw-space-sm;
 	}
 
 	a {
-		color: $dpo-accent;
+		color: $pkitfw-accent;
 		text-decoration: none;
 
 		&:hover {
-			color: $dpo-accent-hover;
+			color: $pkitfw-accent-hover;
 		}
 	}
 
@@ -60,12 +60,12 @@ body.toplevel_page_dpo-options {
 	}
 
 	:focus-visible {
-		outline: 1px solid $dpo-accent !important;
+		outline: 1px solid $pkitfw-accent !important;
 		outline-offset: 1px;
 	}
 }
 
-.dpo-visually-hidden,
+.pkitfw-visually-hidden,
 .screen-reader-text {
 	position: absolute !important;
 	width: 1px;
@@ -78,21 +78,21 @@ body.toplevel_page_dpo-options {
 	border: 0;
 }
 
-.dpo-error {
-	color: $dpo-danger;
+.pkitfw-error {
+	color: $pkitfw-danger;
 	font-weight: 500;
 }
 
-.dpo-hint {
-	color: $dpo-text-muted;
+.pkitfw-hint {
+	color: $pkitfw-text-muted;
 	font-size: 12px;
 }
 
-.dpo-codeblock {
-	background: $dpo-surface-2;
-	border: 1px solid $dpo-border;
-	border-radius: $dpo-radius;
-	padding: $dpo-space-sm;
+.pkitfw-codeblock {
+	background: $pkitfw-surface-2;
+	border: 1px solid $pkitfw-border;
+	border-radius: $pkitfw-radius;
+	padding: $pkitfw-space-sm;
 	font-family: Menlo, Consolas, monospace;
 	font-size: 12px;
 	white-space: pre-wrap;

@@ -54,17 +54,17 @@ export default function Dashboard() {
 				/* translators: %s: display name */
 				__(
 					'Welcome back, %s',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				name
 		  )
-		: __( 'Welcome back', 'dynamic-product-options-for-woocommerce' );
+		: __( 'Welcome back', 'productkit-for-woocommerce' );
 
 	return (
 		<PageFrame>
 			{ failed ? (
-				<div className="dpo-db-card dpo-db-state">
-					<p className="dpo-error">{ error }</p>
+				<div className="pkitfw-db-card pkitfw-db-state">
+					<p className="pkitfw-error">{ error }</p>
 				</div>
 			) : loading ? (
 				<SkeletonStatGrid count={ 4 } />
@@ -80,7 +80,7 @@ export default function Dashboard() {
 				</FadeIn>
 			) }
 
-			<div className="dpo-db-grid dpo-db-grid--main">
+			<div className="pkitfw-db-grid pkitfw-db-grid--main">
 				{ loading ? (
 					<SkeletonCard lines={ 4 } action />
 				) : (
@@ -96,7 +96,7 @@ export default function Dashboard() {
 				<QuickActions />
 			</div>
 
-			<div className="dpo-db-grid dpo-db-grid--bottom">
+			<div className="pkitfw-db-grid pkitfw-db-grid--bottom">
 				{ loading ? (
 					<>
 						<SkeletonCard lines={ 4 } />

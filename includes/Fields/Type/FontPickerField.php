@@ -2,13 +2,13 @@
 /**
  * Font picker field (Pro only).
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Core\Capabilities;
-use DPO\Fields\AbstractField;
+use ProductKit\Core\Capabilities;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -60,7 +60,7 @@ final class FontPickerField extends AbstractField {
 			return '';
 		}
 
-		$custom = get_option( 'dpo_custom_fonts', array() );
+		$custom = get_option( 'pkitfw_custom_fonts', array() );
 		$custom = is_array( $custom ) ? $custom : array();
 		$src_by = array();
 		foreach ( $custom as $font ) {
@@ -87,17 +87,17 @@ final class FontPickerField extends AbstractField {
 		$has_default = $selected_index >= 0;
 
 		$placeholder = $has_default
-			? '<span class="dpo-select__placeholder" style="font-family:' . esc_attr( $selected_family ) . '">'
+			? '<span class="pkitfw-select__placeholder" style="font-family:' . esc_attr( $selected_family ) . '">'
 				. esc_html( '' !== $selected_label ? $selected_label : $selected_family ) . '</span>'
-			: '<span class="dpo-select__placeholder">'
-				. esc_html__( 'Select Font', 'dynamic-product-options-for-woocommerce' ) . '</span>';
+			: '<span class="pkitfw-select__placeholder">'
+				. esc_html__( 'Select Font', 'productkit-for-woocommerce' ) . '</span>';
 
 		$face = '';
-		$html = '<div class="dpo-fontpicker dpo-select" data-field-id="' . esc_attr( $this->id() ) . '">';
-		$html .= '<input type="hidden" class="dpo-select__value" name="' . esc_attr( $this->input_name() ) . '" value="'
+		$html = '<div class="pkitfw-fontpicker pkitfw-select" data-field-id="' . esc_attr( $this->id() ) . '">';
+		$html .= '<input type="hidden" class="pkitfw-select__value" name="' . esc_attr( $this->input_name() ) . '" value="'
 			. esc_attr( $has_default ? (string) $selected_index : '' ) . '" />';
-		$html .= '<button type="button" class="dpo-select__toggle">' . $placeholder . '</button>';
-		$html .= '<div class="dpo-select__list" role="listbox">';
+		$html .= '<button type="button" class="pkitfw-select__toggle">' . $placeholder . '</button>';
+		$html .= '<div class="pkitfw-select__list" role="listbox">';
 
 		foreach ( $choices as $index => $choice ) {
 			$label  = isset( $choice['label'] ) ? (string) $choice['label'] : '';
@@ -112,7 +112,7 @@ final class FontPickerField extends AbstractField {
 				);
 			}
 
-			$opt_class = 'dpo-select__opt' . ( (int) $index === $selected_index ? ' dpo-select__opt--active' : '' );
+			$opt_class = 'pkitfw-select__opt' . ( (int) $index === $selected_index ? ' pkitfw-select__opt--active' : '' );
 			$html     .= '<div class="' . esc_attr( $opt_class ) . '" role="option"'
 				. $this->attrs(
 					array_merge(
@@ -126,7 +126,7 @@ final class FontPickerField extends AbstractField {
 					)
 				) . '>';
 			// Font style applies to the label only — never to the price badge.
-			$html .= '<span class="dpo-select__opt-label" style="font-family:' . esc_attr( $family ) . '">'
+			$html .= '<span class="pkitfw-select__opt-label" style="font-family:' . esc_attr( $family ) . '">'
 				. esc_html( '' !== $label ? $label : $family ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= '</div>';

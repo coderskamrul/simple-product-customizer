@@ -2,12 +2,12 @@
 /**
  * Simple formula price field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,8 +38,8 @@ final class FormulaField extends AbstractField {
 			return '';
 		}
 
-		return '<div class="dpo-formula" data-expression="' . esc_attr( $expression ) . '">'
-			. '<span class="dpo-formula__value"></span>'
+		return '<div class="pkitfw-formula" data-expression="' . esc_attr( $expression ) . '">'
+			. '<span class="pkitfw-formula__value"></span>'
 			. '</div>';
 	}
 

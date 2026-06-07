@@ -2,21 +2,21 @@
 /**
  * Public storefront file-upload controller.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Rest\Route;
+namespace ProductKit\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Rest\RestServer;
+use ProductKit\Core\Container;
+use ProductKit\Rest\RestServer;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Handles `fileupload` field submissions from the storefront. Public route
- * (no capability) protected by the `dpo_rest` body nonce. Files land in
- * uploads/dpo_uploads/temp and are relocated on order placement elsewhere.
+ * (no capability) protected by the `pkitfw_rest` body nonce. Files land in
+ * uploads/pkitfw_uploads/temp and are relocated on order placement elsewhere.
  */
 final class UploadController {
 
@@ -80,7 +80,7 @@ final class UploadController {
 		 *
 		 * @param array<string,string> $default Default map.
 		 */
-		$map = apply_filters( 'dpo_upload_mimes', $default );
+		$map = apply_filters( 'pkitfw_upload_mimes', $default );
 		return is_array( $map ) ? $map : $default;
 	}
 
@@ -93,23 +93,23 @@ final class UploadController {
 	 */
 	private function upload( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
 		}
 
 		$files = $r->get_file_params();
-		if ( empty( $files['dpo_file'] ) || empty( $files['dpo_file']['name'] ) ) {
-			return $s->fail( 'no_file', __( 'No file provided.', 'dynamic-product-options-for-woocommerce' ), 400 );
+		if ( empty( $files['pkitfw_file'] ) || empty( $files['pkitfw_file']['name'] ) ) {
+			return $s->fail( 'no_file', __( 'No file provided.', 'productkit-for-woocommerce' ), 400 );
 		}
-		$file = $files['dpo_file'];
+		$file = $files['pkitfw_file'];
 
 		if ( (int) $file['size'] > self::MAX_SIZE ) {
-			return $s->fail( 'too_large', __( 'File exceeds the 25MB limit.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'too_large', __( 'File exceeds the 25MB limit.', 'productkit-for-woocommerce' ), 400 );
 		}
 
 		$allowed  = $this->allowed_mimes();
 		$filetype = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'], $allowed );
 		if ( empty( $filetype['ext'] ) || empty( $filetype['type'] ) ) {
-			return $s->fail( 'bad_type', __( 'Unsupported file type.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_type', __( 'Unsupported file type.', 'productkit-for-woocommerce' ), 400 );
 		}
 
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
@@ -133,7 +133,7 @@ final class UploadController {
 		if ( ! is_array( $uploaded ) || isset( $uploaded['error'] ) ) {
 			$msg = is_array( $uploaded ) && isset( $uploaded['error'] )
 				? $uploaded['error']
-				: __( 'Upload failed.', 'dynamic-product-options-for-woocommerce' );
+				: __( 'Upload failed.', 'productkit-for-woocommerce' );
 			return $s->fail( 'upload_failed', $msg, 400 );
 		}
 
@@ -148,13 +148,13 @@ final class UploadController {
 	}
 
 	/**
-	 * Force uploads into uploads/dpo_uploads/temp for this request.
+	 * Force uploads into uploads/pkitfw_uploads/temp for this request.
 	 *
 	 * @param array $upload Upload dir descriptor.
 	 * @return array
 	 */
 	public function force_temp_dir( $upload ) {
-		$subdir           = '/dpo_uploads/temp';
+		$subdir           = '/pkitfw_uploads/temp';
 		$upload['subdir'] = $subdir;
 		$upload['path']   = $upload['basedir'] . $subdir;
 		$upload['url']    = $upload['baseurl'] . $subdir;

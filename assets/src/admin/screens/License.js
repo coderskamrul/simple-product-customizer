@@ -1,6 +1,6 @@
 /**
  * License screen — wrapped in the unified PageFrame. Pro/Free status moves
- * into the page actions slot; the bespoke `.dpo-screen-head` is gone.
+ * into the page actions slot; the bespoke `.pkitfw-screen-head` is gone.
  *
  * @package
  */
@@ -24,39 +24,39 @@ export default function License() {
 
 	const statusPill = (
 		<span
-			className={ `dpo-status-pill dpo-status-pill--${
+			className={ `pkitfw-status-pill pkitfw-status-pill--${
 				active ? 'live' : 'draft'
 			}` }
 		>
 			{ active
-				? __( 'Pro active', 'dynamic-product-options-for-woocommerce' )
-				: __( 'Free', 'dynamic-product-options-for-woocommerce' ) }
+				? __( 'Pro active', 'productkit-for-woocommerce' )
+				: __( 'Free', 'productkit-for-woocommerce' ) }
 		</span>
 	);
 
 	return (
 		<PageFrame
-			title={ __( 'License', 'dynamic-product-options-for-woocommerce' ) }
+			title={ __( 'License', 'productkit-for-woocommerce' ) }
 			subtitle={ __(
 				'Activate Pro to unlock advanced fields and pricing.',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			) }
 			actions={ statusPill }
 		>
 			<Panel
 				title={ __(
 					'License key',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				<Field
 					label={ __(
 						'Key',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					help={ __(
 						'Pro capabilities are enforced server-side via the plugin license; this screen reflects that status.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<TextControl
@@ -65,17 +65,17 @@ export default function License() {
 						onChange={ setKey }
 					/>
 				</Field>
-				<div className="dpo-license__actions">
+				<div className="pkitfw-license__actions">
 					{ ! active ? (
 						<button
 							type="button"
-							className="dpo-pg-btn dpo-pg-btn--primary"
+							className="pkitfw-pg-btn pkitfw-pg-btn--primary"
 							onClick={ () => {
 								if ( ! key.trim() ) {
 									notify(
 										__(
 											'Enter a license key.',
-											'dynamic-product-options-for-woocommerce'
+											'productkit-for-woocommerce'
 										),
 										'error'
 									);
@@ -85,7 +85,7 @@ export default function License() {
 								notify(
 									__(
 										'License stored. Pro features activate once the server validates the key.',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 									'success'
 								);
@@ -93,19 +93,19 @@ export default function License() {
 						>
 							{ __(
 								'Activate',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</button>
 					) : (
 						<button
 							type="button"
-							className="dpo-pg-btn dpo-pg-btn--ghost"
+							className="pkitfw-pg-btn pkitfw-pg-btn--ghost"
 							onClick={ () => {
 								setActive( false );
 								notify(
 									__(
 										'License marked inactive.',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 									'info'
 								);
@@ -113,7 +113,7 @@ export default function License() {
 						>
 							{ __(
 								'Deactivate',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</button>
 					) }
@@ -123,45 +123,45 @@ export default function License() {
 			<Panel
 				title={ __(
 					'What Pro unlocks',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
-				className="dpo-promo"
+				className="pkitfw-promo"
 			>
-				<ul className="dpo-feature-list">
+				<ul className="pkitfw-feature-list">
 					<li>
 						{ __(
 							'Unlimited choices per field (free caps at 3).',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</li>
 					<li>
 						{ __(
 							'Font picker & advanced formula fields.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</li>
 					<li>
 						{ __(
 							'Percentage, per-unit, per-word & per-char pricing.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</li>
 					<li>
 						{ __(
 							'Sale prices on choices & unlimited linked products.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</li>
 				</ul>
 				<a
-					className="dpo-pg-btn dpo-pg-btn--primary"
+					className="pkitfw-pg-btn pkitfw-pg-btn--primary"
 					href="https://wpdeveloper.com"
 					target="_blank"
 					rel="noreferrer"
 				>
 					{ __(
 						'Get Pro',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</a>
 			</Panel>

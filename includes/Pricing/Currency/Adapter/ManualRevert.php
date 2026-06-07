@@ -2,12 +2,12 @@
 /**
  * Shared manual-revert helper for switchers without a native revert API.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Pricing\Currency\Adapter;
+namespace ProductKit\Pricing\Currency\Adapter;
 
-use DPO\Pricing\Currency\CurrencyBridge;
+use ProductKit\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
 

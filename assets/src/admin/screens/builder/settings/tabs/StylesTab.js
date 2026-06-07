@@ -14,15 +14,15 @@ import { Field, SelectControl, TextControl } from '../../../../components';
 const SWATCH_SHAPES = [
 	{
 		value: 'circle',
-		label: __( 'Circle', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Circle', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'square',
-		label: __( 'Square', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Square', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'rounded',
-		label: __( 'Rounded', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Rounded', 'productkit-for-woocommerce' ),
 	},
 ];
 
@@ -39,7 +39,7 @@ const SWATCH_SHAPES = [
 function PxField( { label, value, onChange, placeholder } ) {
 	return (
 		<Field label={ label }>
-			<span className="dpo-input-suffix">
+			<span className="pkitfw-input-suffix">
 				<TextControl
 					type="number"
 					value={ value ?? '' }
@@ -47,7 +47,7 @@ function PxField( { label, value, onChange, placeholder } ) {
 					onChange={ onChange }
 				/>
 				<em>
-					{ __( 'PX', 'dynamic-product-options-for-woocommerce' ) }
+					{ __( 'PX', 'productkit-for-woocommerce' ) }
 				</em>
 			</span>
 		</Field>
@@ -72,25 +72,25 @@ function SwatchStyles( { node, patch } ) {
 	const isImage = [ 'imageswatch', 'linkedproducts' ].includes( node.type );
 
 	return (
-		<div className="dpo-swatch-styles">
-			<p className="dpo-field-group__title">
+		<div className="pkitfw-swatch-styles">
+			<p className="pkitfw-field-group__title">
 				{ isImage
 					? __(
 							'Image styles',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 					  )
 					: __(
 							'Color styles',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 					  ) }
 			</p>
 
 			<div
-				className="dpo-style-picker"
+				className="pkitfw-style-picker"
 				role="radiogroup"
 				aria-label={ __(
 					'Swatch style',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				{ SWATCH_SHAPES.map( ( s ) => (
@@ -99,26 +99,26 @@ function SwatchStyles( { node, patch } ) {
 						type="button"
 						role="radio"
 						aria-checked={ shape === s.value }
-						className={ `dpo-style-picker__item${
+						className={ `pkitfw-style-picker__item${
 							shape === s.value ? ' is-active' : ''
 						}` }
 						onClick={ () => setCfg( 'shape', s.value ) }
 					>
 						<span
-							className={ `dpo-style-picker__shape is-${ s.value }` }
+							className={ `pkitfw-style-picker__shape is-${ s.value }` }
 						/>
-						<span className="dpo-style-picker__name">
+						<span className="pkitfw-style-picker__name">
 							{ s.label }
 						</span>
 					</button>
 				) ) }
 			</div>
 
-			<div className="dpo-settings__grid3">
+			<div className="pkitfw-settings__grid3">
 				<PxField
 					label={ __(
 						'Width',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					value={ cfg.swatchWidth }
 					placeholder={ isImage ? '72' : '44' }
@@ -127,7 +127,7 @@ function SwatchStyles( { node, patch } ) {
 				<PxField
 					label={ __(
 						'Height',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					value={ cfg.swatchHeight }
 					placeholder={ isImage ? '72' : '44' }
@@ -136,7 +136,7 @@ function SwatchStyles( { node, patch } ) {
 				<PxField
 					label={ __(
 						'Border radius',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					value={ cfg.swatchRadius }
 					onChange={ ( v ) => setCfg( 'swatchRadius', v ) }
@@ -164,12 +164,12 @@ export default function StylesTab( { node, patch } ) {
 	].includes( node.type );
 
 	return (
-		<div className="dpo-settings__pane">
-			<div className="dpo-settings__grid2">
+		<div className="pkitfw-settings__pane">
+			<div className="pkitfw-settings__grid2">
 				<Field
 					label={ __(
 						'Field width',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<SelectControl
@@ -181,7 +181,7 @@ export default function StylesTab( { node, patch } ) {
 				<Field
 					label={ __(
 						'Description placement',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<SelectControl
@@ -194,21 +194,21 @@ export default function StylesTab( { node, patch } ) {
 								value: 'below_label',
 								label: __(
 									'Below label',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 							},
 							{
 								value: 'below_field',
 								label: __(
 									'Below field',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 							},
 							{
 								value: 'tooltip',
 								label: __(
 									'Tooltip',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 							},
 						] }
@@ -220,11 +220,11 @@ export default function StylesTab( { node, patch } ) {
 				<Field
 					label={ __(
 						'Price placement',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					help={ __(
 						'Where the per-choice price appears on the storefront.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<SelectControl
@@ -235,14 +235,14 @@ export default function StylesTab( { node, patch } ) {
 								value: 'with_label',
 								label: __(
 									'Next to the field label',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 							},
 							{
 								value: 'with_choice',
 								label: __(
 									'Next to each choice',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 							},
 						] }
@@ -255,7 +255,7 @@ export default function StylesTab( { node, patch } ) {
 			<Field
 				label={ __(
 					'CSS class',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				<TextControl

@@ -2,12 +2,12 @@
 /**
  * WowStore (Product Blocks Pro) currency switcher adapter.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Pricing\Currency\Adapter;
+namespace ProductKit\Pricing\Currency\Adapter;
 
-use DPO\Pricing\Currency\CurrencyAdapter;
+use ProductKit\Pricing\Currency\CurrencyAdapter;
 
 defined( 'ABSPATH' ) || exit;
 

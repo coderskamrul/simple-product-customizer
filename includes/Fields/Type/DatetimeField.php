@@ -2,12 +2,12 @@
 /**
  * Combined date + time field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -52,19 +52,19 @@ final class DatetimeField extends AbstractField {
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 		$hour12  = false !== $this->cfg( 'hour12', true );
 
-		$cal_icon = '<span class="dpo-date__icon" aria-hidden="true">'
+		$cal_icon = '<span class="pkitfw-date__icon" aria-hidden="true">'
 			. '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
 			. '<rect x="3" y="4.5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.6"/>'
 			. '<path d="M3 9h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'
 			. '</svg></span>';
 
-		$clock_icon = '<span class="dpo-time__icon" aria-hidden="true">'
+		$clock_icon = '<span class="pkitfw-time__icon" aria-hidden="true">'
 			. '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
 			. '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>'
 			. '<path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'
 			. '</svg></span>';
 
-		$date_input = '<input type="text" readonly class="dpo-input dpo-date-input" name="' . esc_attr( $this->input_name() ) . '_date"'
+		$date_input = '<input type="text" readonly class="pkitfw-input pkitfw-date-input" name="' . esc_attr( $this->input_name() ) . '_date"'
 			. $this->attrs(
 				array(
 					'placeholder'            => (string) $this->cfg( 'format', 'd/m/Y' ),
@@ -80,7 +80,7 @@ final class DatetimeField extends AbstractField {
 				)
 			) . ' />';
 
-		$time_input = '<input type="text" readonly class="dpo-input dpo-time-input" name="' . esc_attr( $this->input_name() ) . '_time"'
+		$time_input = '<input type="text" readonly class="pkitfw-input pkitfw-time-input" name="' . esc_attr( $this->input_name() ) . '_time"'
 			. $this->attrs(
 				array(
 					'placeholder'   => $hour12 ? 'hh:mm AM/PM' : 'HH:mm',
@@ -91,10 +91,10 @@ final class DatetimeField extends AbstractField {
 				)
 			) . ' />';
 
-		$html  = '<div class="dpo-datetime" data-variant="datetime" data-field-id="' . esc_attr( $this->id() ) . '"'
+		$html  = '<div class="pkitfw-datetime" data-variant="datetime" data-field-id="' . esc_attr( $this->id() ) . '"'
 			. $this->attrs( $this->choice_price_attrs( $choice ) ) . '>';
-		$html .= '<div class="dpo-datetime__part dpo-date">' . $cal_icon . $date_input . '</div>';
-		$html .= '<div class="dpo-datetime__part dpo-time">' . $clock_icon . $time_input . '</div>';
+		$html .= '<div class="pkitfw-datetime__part pkitfw-date">' . $cal_icon . $date_input . '</div>';
+		$html .= '<div class="pkitfw-datetime__part pkitfw-time">' . $clock_icon . $time_input . '</div>';
 		$html .= '</div>';
 		return $html;
 	}

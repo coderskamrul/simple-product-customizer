@@ -20,32 +20,32 @@ import SwitchRow from '../SwitchRow';
 export default function CartCheckoutSection( { values, set } ) {
 	const visible = __(
 		'Options will be visible',
-		'dynamic-product-options-for-woocommerce'
+		'productkit-for-woocommerce'
 	);
 	const hidden = __(
 		'Options will be hidden',
-		'dynamic-product-options-for-woocommerce'
+		'productkit-for-woocommerce'
 	);
 
 	return (
-		<div className="dpo-set-grid dpo-set-grid--2">
+		<div className="pkitfw-set-grid pkitfw-set-grid--2">
 			<SettingCard
 				icon="cart"
 				tone="amber"
 				title={ __(
 					'Cart Page',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				subtitle={ __(
 					'Visibility in cart',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				hint={ values.hideInCart ? hidden : visible }
 			>
 				<SwitchRow
 					label={ __(
 						'Hide options in cart',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					checked={ values.hideInCart }
 					onChange={ ( v ) => set( 'hideInCart', v ) }
@@ -57,18 +57,18 @@ export default function CartCheckoutSection( { values, set } ) {
 				tone="green"
 				title={ __(
 					'Checkout Page',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				subtitle={ __(
 					'Visibility at checkout',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				hint={ values.hideInCheckout ? hidden : visible }
 			>
 				<SwitchRow
 					label={ __(
 						'Hide options in checkout',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					checked={ values.hideInCheckout }
 					onChange={ ( v ) => set( 'hideInCheckout', v ) }

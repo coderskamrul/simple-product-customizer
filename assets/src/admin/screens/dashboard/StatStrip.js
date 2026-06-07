@@ -25,7 +25,7 @@ function TrendChip( { value } ) {
 	}
 	const up = value >= 0;
 	return (
-		<span className={ `dpo-db-chip dpo-db-chip--${ up ? 'up' : 'down' }` }>
+		<span className={ `pkitfw-db-chip pkitfw-db-chip--${ up ? 'up' : 'down' }` }>
 			<span
 				className={ `dashicons dashicons-arrow-${
 					up ? 'up' : 'down'
@@ -50,19 +50,19 @@ function TrendChip( { value } ) {
  */
 function StatTile( { tone, icon, label, value, chip } ) {
 	return (
-		<div className="dpo-db-stat">
+		<div className="pkitfw-db-stat">
 			<span
-				className={ `dpo-db-stat__icon dpo-db-stat__icon--${ tone }` }
+				className={ `pkitfw-db-stat__icon pkitfw-db-stat__icon--${ tone }` }
 				aria-hidden="true"
 			>
 				<span className={ `dashicons dashicons-${ icon }` } />
 			</span>
-			<div className="dpo-db-stat__body">
-				<div className="dpo-db-stat__top">
-					<span className="dpo-db-stat__value">{ value }</span>
+			<div className="pkitfw-db-stat__body">
+				<div className="pkitfw-db-stat__top">
+					<span className="pkitfw-db-stat__value">{ value }</span>
 					{ chip }
 				</div>
-				<span className="dpo-db-stat__label">{ label }</span>
+				<span className="pkitfw-db-stat__label">{ label }</span>
 			</div>
 		</div>
 	);
@@ -95,15 +95,15 @@ export default function StatStrip( {
 			icon: 'screenoptions',
 			label: __(
 				'Option Sets',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			),
 			value: int( setsCount ),
 			chip: publishedCount > 0 && (
-				<span className="dpo-db-chip dpo-db-chip--neutral">
+				<span className="pkitfw-db-chip pkitfw-db-chip--neutral">
 					{ /* translators: %d: published count */ }
 					{ `${ int( publishedCount ) } ${ __(
 						'live',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }` }
 				</span>
 			),
@@ -113,7 +113,7 @@ export default function StatStrip( {
 			icon: 'visibility',
 			label: __(
 				'Total Impressions',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			),
 			value: int( totals.impressions ),
 			chip: <TrendChip value={ deltas.impressions } />,
@@ -123,11 +123,11 @@ export default function StatStrip( {
 			icon: 'cart',
 			label: __(
 				'Add to Cart',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			),
 			value: int( totals.add_to_cart ),
 			chip: ( totals.impressions || 0 ) > 0 && (
-				<span className="dpo-db-chip dpo-db-chip--neutral">
+				<span className="pkitfw-db-chip pkitfw-db-chip--neutral">
 					{ `${ cartRate }%` }
 				</span>
 			),
@@ -137,12 +137,12 @@ export default function StatStrip( {
 			icon: 'money-alt',
 			label: __(
 				'Revenue Generated',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			),
 			value: formatPrice( totals.revenue ),
 			chip: deltas.revenueAbs !== 0 && (
 				<span
-					className={ `dpo-db-chip dpo-db-chip--${
+					className={ `pkitfw-db-chip pkitfw-db-chip--${
 						revUp ? 'up' : 'down'
 					}` }
 				>
@@ -162,10 +162,10 @@ export default function StatStrip( {
 
 	return (
 		<section
-			className="dpo-db-strip"
+			className="pkitfw-db-strip"
 			aria-label={ __(
 				'Key metrics',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			) }
 		>
 			{ cards.map( ( c ) => (

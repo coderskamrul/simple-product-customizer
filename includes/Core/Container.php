@@ -2,10 +2,10 @@
 /**
  * Tiny service container.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Core;
+namespace ProductKit\Core;
 
 defined( 'ABSPATH' ) || exit;
 

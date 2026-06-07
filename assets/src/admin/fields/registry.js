@@ -111,7 +111,7 @@ const withChoices =
 			makeChoice( {
 				label: `${ __(
 					'Option',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) } ${ i + 1 }`,
 			} )
 		),
@@ -127,7 +127,7 @@ export const FIELD_TYPES = {
 	/* ---- Input ---- */
 	text: {
 		slug: 'text',
-		label: __( 'Text', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Text', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'editor-textcolor',
 		priceable: true,
@@ -141,7 +141,7 @@ export const FIELD_TYPES = {
 				key: 'minLength',
 				label: __(
 					'Min length',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'number',
 			},
@@ -149,7 +149,7 @@ export const FIELD_TYPES = {
 				key: 'maxLength',
 				label: __(
 					'Max length',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'number',
 			},
@@ -157,7 +157,7 @@ export const FIELD_TYPES = {
 	},
 	textarea: {
 		slug: 'textarea',
-		label: __( 'Textarea', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Textarea', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'editor-paragraph',
 		priceable: true,
@@ -169,14 +169,14 @@ export const FIELD_TYPES = {
 		inspectorSchema: [
 			{
 				key: 'rows',
-				label: __( 'Rows', 'dynamic-product-options-for-woocommerce' ),
+				label: __( 'Rows', 'productkit-for-woocommerce' ),
 				control: 'number',
 			},
 			{
 				key: 'maxLength',
 				label: __(
 					'Max length',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'number',
 			},
@@ -184,7 +184,7 @@ export const FIELD_TYPES = {
 	},
 	email: {
 		slug: 'email',
-		label: __( 'Email', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Email', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'email',
 		priceable: true,
@@ -196,7 +196,7 @@ export const FIELD_TYPES = {
 	},
 	url: {
 		slug: 'url',
-		label: __( 'URL', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'URL', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'admin-links',
 		priceable: true,
@@ -208,7 +208,7 @@ export const FIELD_TYPES = {
 	},
 	tel: {
 		slug: 'tel',
-		label: __( 'Phone', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Phone', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'phone',
 		priceable: true,
@@ -224,7 +224,7 @@ export const FIELD_TYPES = {
 	},
 	number: {
 		slug: 'number',
-		label: __( 'Number', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Number', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'calculator',
 		priceable: true,
@@ -237,7 +237,7 @@ export const FIELD_TYPES = {
 	},
 	date: {
 		slug: 'date',
-		label: __( 'Date', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Date', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'calendar-alt',
 		priceable: true,
@@ -261,7 +261,7 @@ export const FIELD_TYPES = {
 	},
 	time: {
 		slug: 'time',
-		label: __( 'Time', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Time', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'clock',
 		priceable: true,
@@ -280,7 +280,7 @@ export const FIELD_TYPES = {
 	},
 	datetime: {
 		slug: 'datetime',
-		label: __( 'Date & Time', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Date & Time', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'calendar',
 		priceable: true,
@@ -310,7 +310,7 @@ export const FIELD_TYPES = {
 	},
 	fileupload: {
 		slug: 'fileupload',
-		label: __( 'File Upload', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'File Upload', 'productkit-for-woocommerce' ),
 		category: 'Input',
 		icon: 'upload',
 		priceable: true,
@@ -320,34 +320,34 @@ export const FIELD_TYPES = {
 			config: {
 				uploadText: __(
 					'Upload',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				dragText: __(
 					'Click or drag and drop',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				maxSize: 2,
 				sizeError: __(
 					'File is too large',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				sizePrefix: __(
 					'Max File Size: [max_size]',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				minNumber: 0,
 				maxNumber: 3,
 				countError: __(
 					'Too many files',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				countPrefix: __(
 					'Maximum Number of Files: [max_files]',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				typePrefix: __(
 					'Allowed Types are: [allowed_types]',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				allowedTypes: [ 'png', 'jpg' ],
 			},
@@ -358,7 +358,7 @@ export const FIELD_TYPES = {
 	/* ---- Choice ---- */
 	checkbox: {
 		slug: 'checkbox',
-		label: __( 'Checkboxes', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Checkboxes', 'productkit-for-woocommerce' ),
 		category: 'Choice',
 		icon: 'yes',
 		priceable: true,
@@ -368,7 +368,7 @@ export const FIELD_TYPES = {
 	},
 	radio: {
 		slug: 'radio',
-		label: __( 'Radio Buttons', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Radio Buttons', 'productkit-for-woocommerce' ),
 		category: 'Choice',
 		icon: 'marker',
 		priceable: true,
@@ -378,7 +378,7 @@ export const FIELD_TYPES = {
 	},
 	select: {
 		slug: 'select',
-		label: __( 'Dropdown', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Dropdown', 'productkit-for-woocommerce' ),
 		category: 'Choice',
 		icon: 'arrow-down-alt2',
 		priceable: true,
@@ -389,7 +389,7 @@ export const FIELD_TYPES = {
 				key: 'multiple',
 				label: __(
 					'Allow multiple',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'toggle',
 			},
@@ -397,7 +397,7 @@ export const FIELD_TYPES = {
 	},
 	toggle: {
 		slug: 'toggle',
-		label: __( 'Toggle', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Toggle', 'productkit-for-woocommerce' ),
 		category: 'Choice',
 		icon: 'controls-play',
 		priceable: true,
@@ -407,7 +407,7 @@ export const FIELD_TYPES = {
 	},
 	buttongroup: {
 		slug: 'buttongroup',
-		label: __( 'Button Group', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Button Group', 'productkit-for-woocommerce' ),
 		category: 'Choice',
 		icon: 'grid-view',
 		priceable: true,
@@ -418,7 +418,7 @@ export const FIELD_TYPES = {
 				key: 'multiple',
 				label: __(
 					'Allow multiple',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'toggle',
 			},
@@ -426,7 +426,7 @@ export const FIELD_TYPES = {
 	},
 	colorswatch: {
 		slug: 'colorswatch',
-		label: __( 'Color Swatch', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Color Swatch', 'productkit-for-woocommerce' ),
 		category: 'Choice',
 		icon: 'art',
 		priceable: true,
@@ -437,14 +437,14 @@ export const FIELD_TYPES = {
 				makeChoice( {
 					label: __(
 						'Black',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					),
 					color: '#000000',
 				} ),
 				makeChoice( {
 					label: __(
 						'White',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					),
 					color: '#ffffff',
 				} ),
@@ -455,7 +455,7 @@ export const FIELD_TYPES = {
 				key: 'shape',
 				label: __(
 					'Swatch shape',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'select',
 				options: [ 'circle', 'square', 'rounded' ],
@@ -464,7 +464,7 @@ export const FIELD_TYPES = {
 	},
 	imageswatch: {
 		slug: 'imageswatch',
-		label: __( 'Image Swatch', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Image Swatch', 'productkit-for-woocommerce' ),
 		category: 'Choice',
 		icon: 'format-image',
 		priceable: true,
@@ -478,7 +478,7 @@ export const FIELD_TYPES = {
 				key: 'shape',
 				label: __(
 					'Swatch shape',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'select',
 				options: [ 'circle', 'square', 'rounded' ],
@@ -489,7 +489,7 @@ export const FIELD_TYPES = {
 	/* ---- Advanced ---- */
 	range: {
 		slug: 'range',
-		label: __( 'Range Slider', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Range Slider', 'productkit-for-woocommerce' ),
 		category: 'Advanced',
 		icon: 'leftright',
 		priceable: true,
@@ -502,7 +502,7 @@ export const FIELD_TYPES = {
 	},
 	colorpicker: {
 		slug: 'colorpicker',
-		label: __( 'Color Picker', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Color Picker', 'productkit-for-woocommerce' ),
 		category: 'Advanced',
 		icon: 'admin-customizer',
 		priceable: true,
@@ -515,7 +515,7 @@ export const FIELD_TYPES = {
 	},
 	fontpicker: {
 		slug: 'fontpicker',
-		label: __( 'Font Picker', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Font Picker', 'productkit-for-woocommerce' ),
 		category: 'Advanced',
 		icon: 'editor-textcolor',
 		priceable: true,
@@ -534,7 +534,7 @@ export const FIELD_TYPES = {
 	},
 	formula: {
 		slug: 'formula',
-		label: __( 'Formula', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Formula', 'productkit-for-woocommerce' ),
 		category: 'Advanced',
 		icon: 'calculator',
 		priceable: true,
@@ -547,7 +547,7 @@ export const FIELD_TYPES = {
 				key: 'formula',
 				label: __(
 					'Formula',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'formula',
 			},
@@ -557,7 +557,7 @@ export const FIELD_TYPES = {
 		slug: 'advancedformula',
 		label: __(
 			'Advanced Formula',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		category: 'Advanced',
 		icon: 'superhero',
@@ -572,7 +572,7 @@ export const FIELD_TYPES = {
 				key: 'formula',
 				label: __(
 					'Expression',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'formula',
 			},
@@ -582,7 +582,7 @@ export const FIELD_TYPES = {
 		slug: 'linkedproducts',
 		label: __(
 			'Linked Products',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		category: 'Advanced',
 		icon: 'cart',
@@ -611,7 +611,7 @@ export const FIELD_TYPES = {
 	/* ---- Layout ---- */
 	heading: {
 		slug: 'heading',
-		label: __( 'Heading', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Heading', 'productkit-for-woocommerce' ),
 		category: 'Layout',
 		icon: 'heading',
 		priceable: false,
@@ -624,7 +624,7 @@ export const FIELD_TYPES = {
 				key: 'level',
 				label: __(
 					'Heading level',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'select',
 				options: [ 'h2', 'h3', 'h4', 'h5' ],
@@ -633,7 +633,7 @@ export const FIELD_TYPES = {
 	},
 	html: {
 		slug: 'html',
-		label: __( 'HTML', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'HTML', 'productkit-for-woocommerce' ),
 		category: 'Layout',
 		icon: 'editor-code',
 		priceable: false,
@@ -643,7 +643,7 @@ export const FIELD_TYPES = {
 				key: 'html',
 				label: __(
 					'HTML content',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'textarea',
 			},
@@ -651,7 +651,7 @@ export const FIELD_TYPES = {
 	},
 	divider: {
 		slug: 'divider',
-		label: __( 'Divider', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Divider', 'productkit-for-woocommerce' ),
 		category: 'Layout',
 		icon: 'minus',
 		priceable: false,
@@ -664,7 +664,7 @@ export const FIELD_TYPES = {
 				key: 'height',
 				label: __(
 					'Height (px)',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'number',
 			},
@@ -672,7 +672,7 @@ export const FIELD_TYPES = {
 	},
 	spacer: {
 		slug: 'spacer',
-		label: __( 'Spacer', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Spacer', 'productkit-for-woocommerce' ),
 		category: 'Layout',
 		icon: 'image-flip-vertical',
 		priceable: false,
@@ -685,7 +685,7 @@ export const FIELD_TYPES = {
 				key: 'height',
 				label: __(
 					'Height (px)',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'number',
 			},
@@ -693,7 +693,7 @@ export const FIELD_TYPES = {
 	},
 	section: {
 		slug: 'section',
-		label: __( 'Section', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Section', 'productkit-for-woocommerce' ),
 		category: 'Layout',
 		icon: 'screenoptions',
 		priceable: false,
@@ -712,7 +712,7 @@ export const FIELD_TYPES = {
 	/* ---- Special ---- */
 	popup: {
 		slug: 'popup',
-		label: __( 'Popup', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Popup', 'productkit-for-woocommerce' ),
 		category: 'Special',
 		icon: 'external',
 		priceable: false,
@@ -721,7 +721,7 @@ export const FIELD_TYPES = {
 			config: {
 				triggerText: __(
 					'Open',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				content: '',
 			},
@@ -732,7 +732,7 @@ export const FIELD_TYPES = {
 	},
 	shortcode: {
 		slug: 'shortcode',
-		label: __( 'Shortcode', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Shortcode', 'productkit-for-woocommerce' ),
 		category: 'Special',
 		icon: 'shortcode',
 		priceable: false,
@@ -745,7 +745,7 @@ export const FIELD_TYPES = {
 				key: 'shortcode',
 				label: __(
 					'Shortcode',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				control: 'text',
 			},
@@ -757,23 +757,23 @@ export const FIELD_TYPES = {
 export const CATEGORIES = [
 	{
 		key: 'Input',
-		label: __( 'Input', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Input', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'Choice',
-		label: __( 'Choice', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Choice', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'Advanced',
-		label: __( 'Advanced', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Advanced', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'Layout',
-		label: __( 'Layout', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Layout', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'Special',
-		label: __( 'Special', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Special', 'productkit-for-woocommerce' ),
 	},
 ];
 
@@ -807,37 +807,37 @@ export function typesByCategory() {
 export const PRICE_MODES = [
 	{
 		value: 'none',
-		label: __( 'No price', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'No price', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'flat',
-		label: __( 'Fixed', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Fixed', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'percent',
-		label: __( 'Percentage', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Percentage', 'productkit-for-woocommerce' ),
 		pro: true,
 	},
 	{
 		value: 'per_unit',
-		label: __( 'Per Unit', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Per Unit', 'productkit-for-woocommerce' ),
 		pro: true,
 	},
 	{
 		value: 'per_char',
-		label: __( 'Per Character', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Per Character', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'per_char_nospace',
 		label: __(
 			'Per Character (no spaces)',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		pro: true,
 	},
 	{
 		value: 'per_word',
-		label: __( 'Per Word', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Per Word', 'productkit-for-woocommerce' ),
 		pro: true,
 	},
 ];
@@ -897,61 +897,61 @@ export function priceModeOptionsFor( node, currentValue ) {
 export const OPERATORS = [
 	{
 		value: 'is',
-		label: __( 'is', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'is', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'is_not',
-		label: __( 'is not', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'is not', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'empty',
-		label: __( 'is empty', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'is empty', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'not_empty',
-		label: __( 'is not empty', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'is not empty', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'contains',
-		label: __( 'contains', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'contains', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'not_contains',
 		label: __(
 			'does not contain',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'gt',
-		label: __( 'greater than', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'greater than', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'lt',
-		label: __( 'less than', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'less than', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'gte',
 		label: __(
 			'greater or equal',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'lte',
-		label: __( 'less or equal', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'less or equal', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'starts_with',
-		label: __( 'starts with', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'starts with', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'between',
-		label: __( 'between', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'between', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'checked',
-		label: __( 'is checked', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'is checked', 'productkit-for-woocommerce' ),
 	},
 ];
 
@@ -959,22 +959,22 @@ export const OPERATORS = [
 export const WIDTHS = [
 	{
 		value: 'full',
-		label: __( 'Full', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Full', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'half',
-		label: __( '1/2', 'dynamic-product-options-for-woocommerce' ),
+		label: __( '1/2', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'third',
-		label: __( '1/3', 'dynamic-product-options-for-woocommerce' ),
+		label: __( '1/3', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'two-third',
-		label: __( '2/3', 'dynamic-product-options-for-woocommerce' ),
+		label: __( '2/3', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'quarter',
-		label: __( '1/4', 'dynamic-product-options-for-woocommerce' ),
+		label: __( '1/4', 'productkit-for-woocommerce' ),
 	},
 ];

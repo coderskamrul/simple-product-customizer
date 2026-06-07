@@ -1,12 +1,12 @@
 /**
- * DPO Admin — SCSS token bridge.
+ * ProductKit Admin — SCSS token bridge.
  *
  * Historically every screen declared its own colour palette. This file is now
  * the *bridge* between legacy SCSS variable names and the centralized Global
  * Theme System (`_theme.scss`). Each token below resolves to a `var(--…)`
  * reference with a hex fallback, so:
  *
- *   • Changing a token in `_theme.scss` (or switching `data-dpo-theme`) cascades
+ *   • Changing a token in `_theme.scss` (or switching `data-pkitfw-theme`) cascades
  *     to every screen, button, card, modal, input, table and tab automatically.
  *   • Existing styles compile unchanged — no per-file rewrite required.
  *
@@ -14,103 +14,103 @@
  *   • `rgba($var, .12)` callsites are evaluated at compile time, so the SCSS
  *     value for those tokens must be a real colour. We expose both forms:
  *     a `var()` reference for solid uses and a `*-fallback` raw hex for the
- *     rare rgba() math. Prefer `rgba(var(--dpo-c-primary-rgb), .12)` in any
+ *     rare rgba() math. Prefer `rgba(var(--pkitfw-c-primary-rgb), .12)` in any
  *     new code so the alpha tint also follows the active theme.
- *   • Maps / lists (`$dpo-an-tones`, `$dpo-os-avatars`) and the font stack
+ *   • Maps / lists (`$pkitfw-an-tones`, `$pkitfw-os-avatars`) and the font stack
  *     stay as Sass literals — they aren't colours that need theming.
  */
 
 /* ─── Brand / primary ──────────────────────────────────────────────────── */
-$dpo-c-primary-fallback:       #059669;
-$dpo-c-primary-hover-fallback: #047857;
+$pkitfw-c-primary-fallback:       #059669;
+$pkitfw-c-primary-hover-fallback: #047857;
 
 /* ─── Surfaces ─────────────────────────────────────────────────────────── */
-$dpo-bg:            var(--dpo-c-bg, #f7f8fb);
-$dpo-surface:       var(--dpo-c-surface, #ffffff);
-$dpo-surface-2:     var(--dpo-c-surface-2, #f6f7f9);
-$dpo-border:        var(--dpo-c-border, #eceef3);
-$dpo-border-strong: var(--dpo-c-border-strong, #dfe3ea);
-$dpo-text:          var(--dpo-c-ink, #0f172a);
-$dpo-text-muted:    var(--dpo-c-muted, #64748b);
+$pkitfw-bg:            var(--pkitfw-c-bg, #f7f8fb);
+$pkitfw-surface:       var(--pkitfw-c-surface, #ffffff);
+$pkitfw-surface-2:     var(--pkitfw-c-surface-2, #f6f7f9);
+$pkitfw-border:        var(--pkitfw-c-border, #eceef3);
+$pkitfw-border-strong: var(--pkitfw-c-border-strong, #dfe3ea);
+$pkitfw-text:          var(--pkitfw-c-ink, #0f172a);
+$pkitfw-text-muted:    var(--pkitfw-c-muted, #64748b);
 
 /* ─── Brand-mapped legacy aliases (used widely as solid colours) ───────── */
-$dpo-accent:        var(--dpo-c-primary, #{$dpo-c-primary-fallback});
-$dpo-accent-hover:  var(--dpo-c-primary-hover, #{$dpo-c-primary-hover-fallback});
+$pkitfw-accent:        var(--pkitfw-c-primary, #{$pkitfw-c-primary-fallback});
+$pkitfw-accent-hover:  var(--pkitfw-c-primary-hover, #{$pkitfw-c-primary-hover-fallback});
 
 /* ─── Semantic ─────────────────────────────────────────────────────────── */
-$dpo-danger:        var(--dpo-c-danger, #ef4444);
-$dpo-danger-hover:  #c53030;
-$dpo-success:       var(--dpo-c-success, #10b981);
-$dpo-warning:       var(--dpo-c-warning, #f59e0b);
+$pkitfw-danger:        var(--pkitfw-c-danger, #ef4444);
+$pkitfw-danger-hover:  #c53030;
+$pkitfw-success:       var(--pkitfw-c-success, #10b981);
+$pkitfw-warning:       var(--pkitfw-c-warning, #f59e0b);
 
 /* ─── Radius / spacing ─────────────────────────────────────────────────── */
-$dpo-radius:    var(--dpo-r-sm, 6px);
-$dpo-radius-lg: var(--dpo-r-md, 10px);
-$dpo-radius-xl: var(--dpo-r-lg, 14px);
-$dpo-space:     var(--dpo-s-4, 16px);
-$dpo-space-sm:  var(--dpo-s-2, 8px);
-$dpo-space-lg:  var(--dpo-s-6, 24px);
+$pkitfw-radius:    var(--pkitfw-r-sm, 6px);
+$pkitfw-radius-lg: var(--pkitfw-r-md, 10px);
+$pkitfw-radius-xl: var(--pkitfw-r-lg, 14px);
+$pkitfw-space:     var(--pkitfw-s-4, 16px);
+$pkitfw-space-sm:  var(--pkitfw-s-2, 8px);
+$pkitfw-space-lg:  var(--pkitfw-s-6, 24px);
 
 /* ─── Option Sets palette (token-driven for the rest of the admin) ─────── */
-$dpo-os-bg:            var(--dpo-c-bg, #f7f8fb);
-$dpo-os-surface:       var(--dpo-c-surface, #ffffff);
-$dpo-os-border:        var(--dpo-c-border, #eceef3);
-$dpo-os-border-strong: var(--dpo-c-border-strong, #dfe3ea);
-$dpo-os-ink:           var(--dpo-c-ink, #0f172a);
-$dpo-os-ink-soft:      var(--dpo-c-ink-soft, #334155);
-$dpo-os-muted:         var(--dpo-c-muted, #64748b);
-$dpo-os-faint:         var(--dpo-c-faint, #94a3b8);
+$pkitfw-os-bg:            var(--pkitfw-c-bg, #f7f8fb);
+$pkitfw-os-surface:       var(--pkitfw-c-surface, #ffffff);
+$pkitfw-os-border:        var(--pkitfw-c-border, #eceef3);
+$pkitfw-os-border-strong: var(--pkitfw-c-border-strong, #dfe3ea);
+$pkitfw-os-ink:           var(--pkitfw-c-ink, #0f172a);
+$pkitfw-os-ink-soft:      var(--pkitfw-c-ink-soft, #334155);
+$pkitfw-os-muted:         var(--pkitfw-c-muted, #64748b);
+$pkitfw-os-faint:         var(--pkitfw-c-faint, #94a3b8);
 
-/* `rgba($dpo-os-blue, .x)` is used in places — keep a hex fallback usable
+/* `rgba($pkitfw-os-blue, .x)` is used in places — keep a hex fallback usable
    by Sass colour functions, but expose a CSS-var solid form for paint. */
-$dpo-os-blue:          var(--dpo-c-primary, #{$dpo-c-primary-fallback});
-$dpo-os-blue-hover:    var(--dpo-c-primary-hover, #{$dpo-c-primary-hover-fallback});
-$dpo-os-blue-soft:     var(--dpo-c-primary-soft, #d1fae5);
+$pkitfw-os-blue:          var(--pkitfw-c-primary, #{$pkitfw-c-primary-fallback});
+$pkitfw-os-blue-hover:    var(--pkitfw-c-primary-hover, #{$pkitfw-c-primary-hover-fallback});
+$pkitfw-os-blue-soft:     var(--pkitfw-c-primary-soft, #d1fae5);
 
-$dpo-os-green:         var(--dpo-c-success, #16a34a);
-$dpo-os-green-soft:    var(--dpo-c-success-soft, #dcfce7);
-$dpo-os-track:         var(--dpo-c-surface-3, #eef1f6);
-$dpo-os-row-hover:     var(--dpo-c-row-hover, #f8fafc);
-$dpo-os-danger:        var(--dpo-c-danger, #ef4444);
-$dpo-os-danger-soft:   var(--dpo-c-danger-soft, #fdeaea);
+$pkitfw-os-green:         var(--pkitfw-c-success, #16a34a);
+$pkitfw-os-green-soft:    var(--pkitfw-c-success-soft, #dcfce7);
+$pkitfw-os-track:         var(--pkitfw-c-surface-3, #eef1f6);
+$pkitfw-os-row-hover:     var(--pkitfw-c-row-hover, #f8fafc);
+$pkitfw-os-danger:        var(--pkitfw-c-danger, #ef4444);
+$pkitfw-os-danger-soft:   var(--pkitfw-c-danger-soft, #fdeaea);
 
-$dpo-os-shadow:        var(--dpo-sh-1,
+$pkitfw-os-shadow:        var(--pkitfw-sh-1,
 						0 1px 2px rgba(15, 23, 42, 0.04),
 						0 1px 3px rgba(15, 23, 42, 0.06));
-$dpo-os-ring:          var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.20));
+$pkitfw-os-ring:          var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.20));
 
 /* Initials-tile palette — unrelated to theming. */
-$dpo-os-avatars: #6366f1, #0ea5e9, #f59e0b, #10b981, #ec4899, #8b5cf6,
+$pkitfw-os-avatars: #6366f1, #0ea5e9, #f59e0b, #10b981, #ec4899, #8b5cf6,
 	#ef4444, #14b8a6;
 
 /* ─── Analytics palette ────────────────────────────────────────────────── */
-$dpo-an-blue:       var(--dpo-c-primary, #{$dpo-c-primary-fallback});
-$dpo-an-blue-soft:  var(--dpo-c-primary-soft, #d1fae5);
-$dpo-an-purple:     #8b5cf6;
-$dpo-an-purple-soft:#f3eefe;
-$dpo-an-pink:       #ec4899;
-$dpo-an-pink-soft:  #fdeef7;
-$dpo-an-green:      var(--dpo-c-success, #16a34a);
-$dpo-an-green-soft: var(--dpo-c-success-soft, #e6f7ee);
+$pkitfw-an-blue:       var(--pkitfw-c-primary, #{$pkitfw-c-primary-fallback});
+$pkitfw-an-blue-soft:  var(--pkitfw-c-primary-soft, #d1fae5);
+$pkitfw-an-purple:     #8b5cf6;
+$pkitfw-an-purple-soft:#f3eefe;
+$pkitfw-an-pink:       #ec4899;
+$pkitfw-an-pink-soft:  #fdeef7;
+$pkitfw-an-green:      var(--pkitfw-c-success, #16a34a);
+$pkitfw-an-green-soft: var(--pkitfw-c-success-soft, #e6f7ee);
 
 /* Sass map for `@each` colour rotation — needs real Sass colour values so
    that `rgba($solid, …)` math inside the loop still works. */
-$dpo-an-tones: (
-	"blue":   $dpo-c-primary-fallback #eef1fe,
+$pkitfw-an-tones: (
+	"blue":   $pkitfw-c-primary-fallback #eef1fe,
 	"purple": #8b5cf6                 #f3eefe,
 	"pink":   #ec4899                 #fdeef7,
 	"green":  #16a34a                 #e6f7ee,
 );
 
 /* ─── Layout primitives ────────────────────────────────────────────────── */
-$dpo-sidebar-w: 220px;
-$dpo-topbar-h:  48px;
-$dpo-shadow:    var(--dpo-sh-1, 0 1px 2px rgba(0, 0, 0, 0.08));
-$dpo-shadow-lg: var(--dpo-sh-3, 0 8px 30px rgba(0, 0, 0, 0.16));
+$pkitfw-sidebar-w: 220px;
+$pkitfw-topbar-h:  48px;
+$pkitfw-shadow:    var(--pkitfw-sh-1, 0 1px 2px rgba(0, 0, 0, 0.08));
+$pkitfw-shadow-lg: var(--pkitfw-sh-3, 0 8px 30px rgba(0, 0, 0, 0.16));
 
 /* ─── Pro / upsell ─────────────────────────────────────────────────────── */
-$dpo-pro: #8b5cf6;
+$pkitfw-pro: #8b5cf6;
 
 /* ─── Typography (font stack stays a Sass literal) ─────────────────────── */
-$dpo-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+$pkitfw-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 	Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;

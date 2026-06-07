@@ -15,17 +15,17 @@
  * and folds left-associatively, which yields the table above without an
  * explicit precedence-climbing loop.
  *
- * @package DPO\Formula\Ast
+ * @package ProductKit\Formula\Ast
  */
 
-namespace DPO\Formula\Ast;
+namespace ProductKit\Formula\Ast;
 
-use DPO\Formula\Ast\Node\BinaryNode;
-use DPO\Formula\Ast\Node\FunctionNode;
-use DPO\Formula\Ast\Node\NodeInterface;
-use DPO\Formula\Ast\Node\NumberNode;
-use DPO\Formula\Ast\Node\UnaryNode;
-use DPO\Formula\Ast\Node\VariableNode;
+use ProductKit\Formula\Ast\Node\BinaryNode;
+use ProductKit\Formula\Ast\Node\FunctionNode;
+use ProductKit\Formula\Ast\Node\NodeInterface;
+use ProductKit\Formula\Ast\Node\NumberNode;
+use ProductKit\Formula\Ast\Node\UnaryNode;
+use ProductKit\Formula\Ast\Node\VariableNode;
 
 defined( 'ABSPATH' ) || exit;
 

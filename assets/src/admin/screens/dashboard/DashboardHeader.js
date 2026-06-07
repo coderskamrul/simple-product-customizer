@@ -19,34 +19,34 @@ export default function DashboardHeader() {
 	const name = user && user.name ? user.name : '';
 
 	return (
-		<header className="dpo-db-head">
-			<div className="dpo-db-head__intro">
-				<h1 className="dpo-db-head__h1">
+		<header className="pkitfw-db-head">
+			<div className="pkitfw-db-head__intro">
+				<h1 className="pkitfw-db-head__h1">
 					{ name
 						? sprintf(
 								/* translators: %s: display name */
 								__(
 									'Welcome back, %s',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 								name
 						  )
 						: __(
 								'Welcome back',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  ) }
 				</h1>
-				<p className="dpo-db-head__sub">
+				<p className="pkitfw-db-head__sub">
 					{ __(
 						'Create dynamic pricing options for your WooCommerce products',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</p>
 			</div>
 
 			<button
 				type="button"
-				className="dpo-db-cta"
+				className="pkitfw-db-cta"
 				onClick={ () => navigate( '/set/new' ) }
 			>
 				<span
@@ -55,7 +55,7 @@ export default function DashboardHeader() {
 				/>
 				{ __(
 					'New Option Set',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			</button>
 		</header>

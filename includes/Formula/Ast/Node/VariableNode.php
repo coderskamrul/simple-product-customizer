@@ -2,12 +2,12 @@
 /**
  * Dynamic variable placeholder node (e.g. [product_price]).
  *
- * @package DPO\Formula\Ast\Node
+ * @package ProductKit\Formula\Ast\Node
  */
 
-namespace DPO\Formula\Ast\Node;
+namespace ProductKit\Formula\Ast\Node;
 
-use DPO\Formula\Ast\ExpressionEngine;
+use ProductKit\Formula\Ast\ExpressionEngine;
 
 defined( 'ABSPATH' ) || exit;
 

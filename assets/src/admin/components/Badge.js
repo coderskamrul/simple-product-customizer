@@ -20,7 +20,7 @@ export default function Badge( {
 } ) {
 	return (
 		<span
-			className={ `dpo-badge dpo-badge--${ variant } ${ className }`.trim() }
+			className={ `pkitfw-badge pkitfw-badge--${ variant } ${ className }`.trim() }
 		>
 			{ children }
 		</span>

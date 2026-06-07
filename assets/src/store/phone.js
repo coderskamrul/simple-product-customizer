@@ -1,9 +1,9 @@
 /**
  * Storefront phone-field enhancement.
  *
- * Turns the `.dpo-phone` wrapper rendered by TelField.php into an intl-style
+ * Turns the `.pkitfw-phone` wrapper rendered by TelField.php into an intl-style
  * control: a flag (+ dial code) button that opens a searchable country list.
- * Picking a country updates the button and the hidden `.dpo-phone__iso` input
+ * Picking a country updates the button and the hidden `.pkitfw-phone__iso` input
  * (read back by collect.js, which prefixes the dial code to the submitted
  * number when the dial code is shown). The country list is built here from the
  * shared dataset so the markup PHP emits stays tiny.
@@ -21,36 +21,36 @@ import { COUNTRIES, flagEmoji } from '../shared/phone';
  */
 function buildDropdown( showDial ) {
 	const drop = document.createElement( 'div' );
-	drop.className = 'dpo-phone__drop';
+	drop.className = 'pkitfw-phone__drop';
 	drop.hidden = true;
 
 	const search = document.createElement( 'input' );
 	search.type = 'text';
-	search.className = 'dpo-phone__search';
+	search.className = 'pkitfw-phone__search';
 	search.setAttribute( 'placeholder', 'Search' );
 	drop.appendChild( search );
 
 	const list = document.createElement( 'div' );
-	list.className = 'dpo-phone__list';
+	list.className = 'pkitfw-phone__list';
 	drop.appendChild( list );
 
 	COUNTRIES.forEach( ( c ) => {
 		const opt = document.createElement( 'button' );
 		opt.type = 'button';
-		opt.className = 'dpo-phone__opt';
+		opt.className = 'pkitfw-phone__opt';
 		opt.setAttribute( 'data-iso', c.iso2 );
 		opt.setAttribute( 'data-dial', c.dial );
 		opt.setAttribute( 'data-name', c.name.toLowerCase() );
 		opt.innerHTML =
-			'<span class="dpo-phone__flag">' +
+			'<span class="pkitfw-phone__flag">' +
 			flagEmoji( c.iso2 ) +
 			'</span>' +
-			'<span class="dpo-phone__name"></span>' +
+			'<span class="pkitfw-phone__name"></span>' +
 			( showDial
-				? '<span class="dpo-phone__dial">+' + c.dial + '</span>'
+				? '<span class="pkitfw-phone__dial">+' + c.dial + '</span>'
 				: '' );
 		// Name is set via textContent to avoid injecting markup.
-		opt.querySelector( '.dpo-phone__name' ).textContent = c.name;
+		opt.querySelector( '.pkitfw-phone__name' ).textContent = c.name;
 		list.appendChild( opt );
 	} );
 
@@ -65,16 +65,16 @@ function buildDropdown( showDial ) {
  * @return {void}
  */
 export function wirePhone( fieldEl, onChange ) {
-	const box = fieldEl.querySelector( '.dpo-phone' );
-	if ( ! box || box.__dpoPhone ) {
+	const box = fieldEl.querySelector( '.pkitfw-phone' );
+	if ( ! box || box.__pkitfwPhone ) {
 		return;
 	}
-	box.__dpoPhone = true;
+	box.__pkitfwPhone = true;
 
-	const button = box.querySelector( '.dpo-phone__country' );
-	const iso = box.querySelector( '.dpo-phone__iso' );
-	const flag = box.querySelector( '.dpo-phone__flag' );
-	const dial = box.querySelector( '.dpo-phone__dial' );
+	const button = box.querySelector( '.pkitfw-phone__country' );
+	const iso = box.querySelector( '.pkitfw-phone__iso' );
+	const flag = box.querySelector( '.pkitfw-phone__flag' );
+	const dial = box.querySelector( '.pkitfw-phone__dial' );
 	if ( ! button || ! iso ) {
 		return;
 	}
@@ -82,19 +82,19 @@ export function wirePhone( fieldEl, onChange ) {
 	const showDial = box.getAttribute( 'data-flag-style' ) === 'flag_dial';
 	const drop = buildDropdown( showDial );
 	box.appendChild( drop );
-	const search = drop.querySelector( '.dpo-phone__search' );
+	const search = drop.querySelector( '.pkitfw-phone__search' );
 	const opts = Array.prototype.slice.call(
-		drop.querySelectorAll( '.dpo-phone__opt' )
+		drop.querySelectorAll( '.pkitfw-phone__opt' )
 	);
 
 	const close = () => {
 		drop.hidden = true;
-		box.classList.remove( 'dpo-phone--open' );
+		box.classList.remove( 'pkitfw-phone--open' );
 		button.setAttribute( 'aria-expanded', 'false' );
 	};
 	const open = () => {
 		drop.hidden = false;
-		box.classList.add( 'dpo-phone--open' );
+		box.classList.add( 'pkitfw-phone--open' );
 		button.setAttribute( 'aria-expanded', 'true' );
 		search.value = '';
 		filter( '' );

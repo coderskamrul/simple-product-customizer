@@ -2,12 +2,12 @@
 /**
  * Range slider field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,12 +63,12 @@ final class RangeField extends AbstractField {
 			$this->choice_price_attrs( $choice )
 		);
 
-		$html  = '<div class="dpo-range">';
-		$html .= '<input type="range" class="dpo-range__slider" name="' . esc_attr( $this->input_name() ) . '"' . $this->attrs( $attrs ) . ' />';
-		$html .= '<span class="dpo-range__readout">';
-		$html .= '<input type="number" class="dpo-range__mirror" min="' . esc_attr( (string) $min ) . '" max="' . esc_attr( (string) $max ) . '" step="' . esc_attr( $step ) . '" value="' . esc_attr( $value ) . '" />';
+		$html  = '<div class="pkitfw-range">';
+		$html .= '<input type="range" class="pkitfw-range__slider" name="' . esc_attr( $this->input_name() ) . '"' . $this->attrs( $attrs ) . ' />';
+		$html .= '<span class="pkitfw-range__readout">';
+		$html .= '<input type="number" class="pkitfw-range__mirror" min="' . esc_attr( (string) $min ) . '" max="' . esc_attr( (string) $max ) . '" step="' . esc_attr( $step ) . '" value="' . esc_attr( $value ) . '" />';
 		if ( '' !== $postfix ) {
-			$html .= '<span class="dpo-range__postfix">' . esc_html( $postfix ) . '</span>';
+			$html .= '<span class="pkitfw-range__postfix">' . esc_html( $postfix ) . '</span>';
 		}
 		$html .= '</span>';
 		$html .= '</div>';

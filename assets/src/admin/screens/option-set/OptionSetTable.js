@@ -14,35 +14,35 @@ import OptionSetRow from './OptionSetRow';
 const COLUMNS = [
 	{
 		key: 'id',
-		label: __( 'ID', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'ID', 'productkit-for-woocommerce' ),
 		sort: 'id',
 	},
 	{
 		key: 'name',
-		label: __( 'Option Name', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Option Name', 'productkit-for-woocommerce' ),
 		sort: 'title',
 	},
 	{
 		key: 'status',
-		label: __( 'Status', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Status', 'productkit-for-woocommerce' ),
 		sort: 'published',
 	},
 	{
 		key: 'category',
-		label: __( 'Category', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Category', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'products',
-		label: __( 'Products', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Products', 'productkit-for-woocommerce' ),
 	},
 	{
 		key: 'options',
-		label: __( 'Options', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Options', 'productkit-for-woocommerce' ),
 		sort: 'fields',
 	},
 	{
 		key: 'actions',
-		label: __( 'Actions', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Actions', 'productkit-for-woocommerce' ),
 		end: true,
 	},
 ];
@@ -82,28 +82,28 @@ export default function OptionSetTable( props ) {
 
 	if ( status === 'error' ) {
 		return (
-			<div className="dpo-os-state">
-				<p className="dpo-error">{ error }</p>
+			<div className="pkitfw-os-state">
+				<p className="pkitfw-error">{ error }</p>
 			</div>
 		);
 	}
 
 	if ( status === 'ready' && items.length === 0 ) {
 		return (
-			<div className="dpo-os-state">
+			<div className="pkitfw-os-state">
 				<EmptyState
 					title={ __(
 						'No option sets found',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					text={ __(
 						'Create your first option set to start selling configurable products.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					action={
 						<button
 							type="button"
-							className="dpo-os-btn dpo-os-btn--primary"
+							className="pkitfw-os-btn pkitfw-os-btn--primary"
 							onClick={ onCreate }
 						>
 							<span
@@ -112,7 +112,7 @@ export default function OptionSetTable( props ) {
 							/>
 							{ __(
 								'New Option',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</button>
 					}
@@ -148,20 +148,20 @@ export default function OptionSetTable( props ) {
 	};
 
 	return (
-		<div className="dpo-os-tablewrap">
-			<table className="dpo-os-table">
+		<div className="pkitfw-os-tablewrap">
+			<table className="pkitfw-os-table">
 				<thead>
 					<tr>
-						<th scope="col" className="dpo-os-th dpo-os-th--check">
+						<th scope="col" className="pkitfw-os-th pkitfw-os-th--check">
 							<input
 								ref={ allRef }
 								type="checkbox"
-								className="dpo-os-check"
+								className="pkitfw-os-check"
 								checked={ allChecked }
 								onChange={ onSelectAll }
 								aria-label={ __(
 									'Select all option sets',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							/>
 						</th>
@@ -169,8 +169,8 @@ export default function OptionSetTable( props ) {
 							<th
 								key={ col.key }
 								scope="col"
-								className={ `dpo-os-th dpo-os-th--${ col.key }${
-									col.end ? ' dpo-os-th--end' : ''
+								className={ `pkitfw-os-th pkitfw-os-th--${ col.key }${
+									col.end ? ' pkitfw-os-th--end' : ''
 								}` }
 								aria-sort={
 									col.sort ? ariaSort( col.sort ) : undefined
@@ -179,7 +179,7 @@ export default function OptionSetTable( props ) {
 								{ col.sort ? (
 									<button
 										type="button"
-										className={ `dpo-os-sort${
+										className={ `pkitfw-os-sort${
 											sort.key === col.sort
 												? ' is-active'
 												: ''
@@ -190,7 +190,7 @@ export default function OptionSetTable( props ) {
 										<span
 											className={ `dashicons dashicons-${ sortIcon(
 												col.sort
-											) } dpo-os-sort__icon` }
+											) } pkitfw-os-sort__icon` }
 											aria-hidden="true"
 										/>
 									</button>

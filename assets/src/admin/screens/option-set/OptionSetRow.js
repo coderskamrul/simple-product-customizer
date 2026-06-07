@@ -36,10 +36,10 @@ export default function OptionSetRow( {
 	onDelete,
 	onOpen,
 } ) {
-	const switchId = useId( 'dpo-os-switch' );
+	const switchId = useId( 'pkitfw-os-switch' );
 	const title =
 		item.title ||
-		__( '(untitled)', 'dynamic-product-options-for-woocommerce' );
+		__( '(untitled)', 'productkit-for-woocommerce' );
 
 	/**
 	 * Action icon button.
@@ -54,8 +54,8 @@ export default function OptionSetRow( {
 	const action = ( { icon, label, onClick, danger } ) => (
 		<button
 			type="button"
-			className={ `dpo-os-iconbtn${
-				danger ? ' dpo-os-iconbtn--danger' : ''
+			className={ `pkitfw-os-iconbtn${
+				danger ? ' pkitfw-os-iconbtn--danger' : ''
 			}` }
 			title={ label }
 			aria-label={ label }
@@ -71,21 +71,21 @@ export default function OptionSetRow( {
 
 	return (
 		<tr
-			className={ `dpo-os-row${ selected ? ' is-selected' : '' }${
+			className={ `pkitfw-os-row${ selected ? ' is-selected' : '' }${
 				item.published ? '' : ' is-draft'
 			}` }
 		>
-			<td className="dpo-os-cell dpo-os-cell--check">
+			<td className="pkitfw-os-cell pkitfw-os-cell--check">
 				<input
 					type="checkbox"
-					className="dpo-os-check"
+					className="pkitfw-os-check"
 					checked={ selected }
 					onChange={ () => onSelect( item.id ) }
 					aria-label={ sprintf(
 						/* translators: %s: option set title */
 						__(
 							'Select %s',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 						title
 					) }
@@ -93,106 +93,106 @@ export default function OptionSetRow( {
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--id"
+				className="pkitfw-os-cell pkitfw-os-cell--id"
 				data-label={ __(
 					'ID',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
-				<span className="dpo-os-id">#{ item.id }</span>
+				<span className="pkitfw-os-id">#{ item.id }</span>
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--name"
+				className="pkitfw-os-cell pkitfw-os-cell--name"
 				data-label={ __(
 					'Option Name',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				<button
 					type="button"
-					className="dpo-os-name"
+					className="pkitfw-os-name"
 					onClick={ () => onOpen( item.id ) }
 				>
 					<Avatar label={ title } seed={ item.id } />
-					<span className="dpo-os-name__text">{ title }</span>
+					<span className="pkitfw-os-name__text">{ title }</span>
 				</button>
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--status"
+				className="pkitfw-os-cell pkitfw-os-cell--status"
 				data-label={ __(
 					'Status',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
-				<span className="dpo-os-switch">
+				<span className="pkitfw-os-switch">
 					<input
 						id={ switchId }
 						type="checkbox"
-						className="dpo-os-switch__input"
+						className="pkitfw-os-switch__input"
 						checked={ !! item.published }
 						disabled={ busy }
 						onChange={ () => onToggleStatus( item ) }
 					/>
 					<label
-						className="dpo-os-switch__track"
+						className="pkitfw-os-switch__track"
 						htmlFor={ switchId }
 					>
-						<span className="dpo-os-switch__thumb" />
+						<span className="pkitfw-os-switch__thumb" />
 						<span className="screen-reader-text">
 							{ sprintf(
 								/* translators: %s: option set title */
 								__(
 									'Toggle status for %s',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 								title
 							) }
 						</span>
 					</label>
-					<span className="dpo-os-switch__label">
+					<span className="pkitfw-os-switch__label">
 						{ item.published
 							? __(
 									'Active',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  )
 							: __(
 									'Inactive',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  ) }
 					</span>
 				</span>
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--category"
+				className="pkitfw-os-cell pkitfw-os-cell--category"
 				data-label={ __(
 					'Category',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				<Badge variant="muted">—</Badge>
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--products"
+				className="pkitfw-os-cell pkitfw-os-cell--products"
 				data-label={ __(
 					'Products',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				<ProgressBar value={ null } />
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--options"
+				className="pkitfw-os-cell pkitfw-os-cell--options"
 				data-label={ __(
 					'Options',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
-				<span className="dpo-os-count">
+				<span className="pkitfw-os-count">
 					<span
 						className="dashicons dashicons-screenoptions"
 						aria-hidden="true"
@@ -202,18 +202,18 @@ export default function OptionSetRow( {
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--actions"
+				className="pkitfw-os-cell pkitfw-os-cell--actions"
 				data-label={ __(
 					'Actions',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
-				<div className="dpo-os-actions">
+				<div className="pkitfw-os-actions">
 					{ action( {
 						icon: 'visibility',
 						label: __(
 							'Open option set',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 						onClick: () => onOpen( item.id ),
 					} ) }
@@ -221,7 +221,7 @@ export default function OptionSetRow( {
 						icon: 'edit',
 						label: __(
 							'Edit option set',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 						onClick: () => onOpen( item.id ),
 					} ) }
@@ -229,7 +229,7 @@ export default function OptionSetRow( {
 						icon: 'admin-page',
 						label: __(
 							'Duplicate option set',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 						onClick: () => onDuplicate( item.id ),
 					} ) }
@@ -237,7 +237,7 @@ export default function OptionSetRow( {
 						icon: 'trash',
 						label: __(
 							'Delete option set',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						),
 						onClick: () => onDelete( item.id ),
 						danger: true,

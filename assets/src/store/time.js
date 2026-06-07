@@ -1,7 +1,7 @@
 /**
  * Storefront time-field enhancement.
  *
- * Turns the readonly `.dpo-time-input` rendered by TimeField.php into a
+ * Turns the readonly `.pkitfw-time-input` rendered by TimeField.php into a
  * flatpickr time-only picker, honouring the builder settings: 12/24-hour
  * display, earliest/latest bounds and the minute step. Bounds are stored as
  * 24-hour "HH:MM" strings; "00:00" (or empty) means "no limit". Calls
@@ -36,11 +36,11 @@ function bound( raw ) {
  * @return {void}
  */
 export function wireTime( fieldEl, onChange ) {
-	const input = fieldEl.querySelector( '.dpo-time-input' );
-	if ( ! input || input.__dpoTime ) {
+	const input = fieldEl.querySelector( '.pkitfw-time-input' );
+	if ( ! input || input.__pkitfwTime ) {
 		return;
 	}
-	input.__dpoTime = true;
+	input.__pkitfwTime = true;
 
 	const hour12 = input.getAttribute( 'data-hour12' ) !== 'no';
 	const step = parseInt( input.getAttribute( 'data-step' ) || '0', 10 );

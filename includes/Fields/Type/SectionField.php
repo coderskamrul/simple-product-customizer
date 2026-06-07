@@ -2,13 +2,13 @@
 /**
  * Section container field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Core\Plugin;
-use DPO\Fields\AbstractField;
+use ProductKit\Core\Plugin;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -72,8 +72,8 @@ final class SectionField extends AbstractField {
 		}
 
 		$collapsed = $accordion && ! $open;
-		$sec_class = 'dpo-section'
-			. ( $accordion ? ' dpo-section--accordion' : '' )
+		$sec_class = 'pkitfw-section'
+			. ( $accordion ? ' pkitfw-section--accordion' : '' )
 			. ( $collapsed ? ' is-collapsed' : '' );
 
 		$html  = '<div ' . $this->wrapper_attrs()
@@ -81,14 +81,14 @@ final class SectionField extends AbstractField {
 			. ' data-open="' . ( $open ? 'yes' : 'no' ) . '">';
 		$html .= '<div class="' . esc_attr( $sec_class ) . '">';
 		if ( $accordion ) {
-			$html .= '<button type="button" class="dpo-section__header" aria-expanded="' . ( $open ? 'true' : 'false' ) . '">';
-			$html .= '<span class="dpo-section__title">' . esc_html( $label ) . '</span>';
-			$html .= '<span class="dpo-section__chevron" aria-hidden="true"></span>';
+			$html .= '<button type="button" class="pkitfw-section__header" aria-expanded="' . ( $open ? 'true' : 'false' ) . '">';
+			$html .= '<span class="pkitfw-section__title">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="pkitfw-section__chevron" aria-hidden="true"></span>';
 			$html .= '</button>';
 		} elseif ( '' !== $label ) {
-			$html .= '<div class="dpo-section__header dpo-section__header--static"><span class="dpo-section__title">' . esc_html( $label ) . '</span></div>';
+			$html .= '<div class="pkitfw-section__header pkitfw-section__header--static"><span class="pkitfw-section__title">' . esc_html( $label ) . '</span></div>';
 		}
-		$html .= '<div class="dpo-section__body">' . $body . '</div>';
+		$html .= '<div class="pkitfw-section__body">' . $body . '</div>';
 		$html .= '</div>';
 		$html .= '</div>';
 		return $html;

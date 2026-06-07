@@ -18,34 +18,34 @@ import { wireTime } from './time';
 import { wirePhone } from './phone';
 
 /**
- * Wire a custom `.dpo-select` / `.dpo-fontpicker` dropdown.
+ * Wire a custom `.pkitfw-select` / `.pkitfw-fontpicker` dropdown.
  *
  * @param {HTMLElement} fieldEl  Field wrapper.
  * @param {Function}    onChange Change callback.
  * @return {void}
  */
 function wireSelect( fieldEl, onChange ) {
-	const box = fieldEl.querySelector( '.dpo-select' );
+	const box = fieldEl.querySelector( '.pkitfw-select' );
 	if ( ! box ) {
 		return;
 	}
-	const toggle = box.querySelector( '.dpo-select__toggle' );
-	const list = box.querySelector( '.dpo-select__list' );
-	const hidden = box.querySelector( '.dpo-select__value' );
+	const toggle = box.querySelector( '.pkitfw-select__toggle' );
+	const list = box.querySelector( '.pkitfw-select__list' );
+	const hidden = box.querySelector( '.pkitfw-select__value' );
 	if ( ! toggle || ! list || ! hidden ) {
 		return;
 	}
-	const placeholder = box.querySelector( '.dpo-select__placeholder' );
+	const placeholder = box.querySelector( '.pkitfw-select__placeholder' );
 	const placeholderText = placeholder ? placeholder.textContent : '';
 
-	const close = () => box.classList.remove( 'dpo-select--open' );
+	const close = () => box.classList.remove( 'pkitfw-select--open' );
 
 	toggle.addEventListener( 'click', ( e ) => {
 		e.preventDefault();
-		box.classList.toggle( 'dpo-select--open' );
+		box.classList.toggle( 'pkitfw-select--open' );
 	} );
 
-	list.querySelectorAll( '.dpo-select__opt' ).forEach( ( opt ) => {
+	list.querySelectorAll( '.pkitfw-select__opt' ).forEach( ( opt ) => {
 		opt.addEventListener( 'click', () => {
 			const idx = opt.getAttribute( 'data-index' );
 			const label = opt.getAttribute( 'data-label' ) || '';
@@ -58,10 +58,10 @@ function wireSelect( fieldEl, onChange ) {
 					placeholder.style.fontFamily = font || '';
 				}
 			}
-			list.querySelectorAll( '.dpo-select__opt--active' ).forEach(
-				( o ) => o.classList.remove( 'dpo-select__opt--active' )
+			list.querySelectorAll( '.pkitfw-select__opt--active' ).forEach(
+				( o ) => o.classList.remove( 'pkitfw-select__opt--active' )
 			);
-			opt.classList.add( 'dpo-select__opt--active' );
+			opt.classList.add( 'pkitfw-select__opt--active' );
 			close();
 			onChange();
 		} );
@@ -82,16 +82,16 @@ function wireSelect( fieldEl, onChange ) {
  * @return {void}
  */
 function wireColorPicker( fieldEl, onChange ) {
-	const box = fieldEl.querySelector( '.dpo-colorpicker' );
+	const box = fieldEl.querySelector( '.pkitfw-colorpicker' );
 	if ( ! box ) {
 		return;
 	}
-	const input = box.querySelector( '.dpo-colorpicker__input' );
+	const input = box.querySelector( '.pkitfw-colorpicker__input' );
 	if ( ! input ) {
 		return;
 	}
-	const hex = box.querySelector( '.dpo-colorpicker__hex' );
-	const reset = box.querySelector( '.dpo-colorpicker__reset' );
+	const hex = box.querySelector( '.pkitfw-colorpicker__hex' );
+	const reset = box.querySelector( '.pkitfw-colorpicker__reset' );
 
 	input.addEventListener( 'input', () => {
 		if ( hex ) {
@@ -127,11 +127,11 @@ function wireColorPicker( fieldEl, onChange ) {
  * @return {void}
  */
 function wireRange( fieldEl, onChange ) {
-	const slider = fieldEl.querySelector( '.dpo-range__slider' );
+	const slider = fieldEl.querySelector( '.pkitfw-range__slider' );
 	if ( ! slider ) {
 		return;
 	}
-	const mirror = fieldEl.querySelector( '.dpo-range__mirror' );
+	const mirror = fieldEl.querySelector( '.pkitfw-range__mirror' );
 	slider.addEventListener( 'input', () => {
 		if ( mirror ) {
 			mirror.value = slider.value;
@@ -153,8 +153,8 @@ function wireRange( fieldEl, onChange ) {
  * @return {void}
  */
 function wireToggle( fieldEl ) {
-	const input = fieldEl.querySelector( '.dpo-toggle__input' );
-	const text = fieldEl.querySelector( '.dpo-toggle__text' );
+	const input = fieldEl.querySelector( '.pkitfw-toggle__input' );
+	const text = fieldEl.querySelector( '.pkitfw-toggle__text' );
 	if ( ! input || ! text ) {
 		return;
 	}
@@ -174,8 +174,8 @@ function wireToggle( fieldEl ) {
  * @return {void}
  */
 function wirePopup( fieldEl ) {
-	const trigger = fieldEl.querySelector( '.dpo-popup__trigger' );
-	const modal = fieldEl.querySelector( '.dpo-popup__modal' );
+	const trigger = fieldEl.querySelector( '.pkitfw-popup__trigger' );
+	const modal = fieldEl.querySelector( '.pkitfw-popup__modal' );
 	if ( ! trigger || ! modal ) {
 		return;
 	}
@@ -207,7 +207,7 @@ function wirePopup( fieldEl ) {
  */
 function wireLinked( fieldEl ) {
 	fieldEl
-		.querySelectorAll( '.dpo-linked__varsel, .dpo-linked__qty' )
+		.querySelectorAll( '.pkitfw-linked__varsel, .pkitfw-linked__qty' )
 		.forEach( ( el ) => {
 			el.addEventListener( 'click', ( e ) => e.stopPropagation() );
 		} );
@@ -222,11 +222,11 @@ function wireLinked( fieldEl ) {
  * @return {void}
  */
 function wireSection( fieldEl ) {
-	const section = fieldEl.querySelector( '.dpo-section--accordion' );
+	const section = fieldEl.querySelector( '.pkitfw-section--accordion' );
 	if ( ! section ) {
 		return;
 	}
-	const header = section.querySelector( '.dpo-section__header' );
+	const header = section.querySelector( '.pkitfw-section__header' );
 	if ( ! header ) {
 		return;
 	}
@@ -245,16 +245,16 @@ function wireSection( fieldEl ) {
  */
 function wireImageSwatchSwap( fieldEl ) {
 	const wrap = fieldEl.querySelector(
-		'.dpo-swatches--image[data-update-image="yes"]'
+		'.pkitfw-swatches--image[data-update-image="yes"]'
 	);
 	if ( ! wrap ) {
 		return;
 	}
-	wrap.querySelectorAll( '.dpo-swatch-item__native' ).forEach( ( input ) => {
+	wrap.querySelectorAll( '.pkitfw-swatch-item__native' ).forEach( ( input ) => {
 		input.addEventListener( 'change', () => {
 			const img = fieldEl
-				.querySelector( 'input.dpo-swatch-item__native:checked' )
-				?.closest( '.dpo-swatch-item' )
+				.querySelector( 'input.pkitfw-swatch-item__native:checked' )
+				?.closest( '.pkitfw-swatch-item' )
 				?.querySelector( 'img' );
 			const gallery = document.querySelector(
 				'.woocommerce-product-gallery__image img, .wp-post-image'

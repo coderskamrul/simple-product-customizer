@@ -2,11 +2,11 @@
 /**
  * Uninstall routine — removes all plugin data.
  *
- * @package DPO
+ * @package ProductKit
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 require_once __DIR__ . '/includes/Core/Uninstaller.php';
 
-\DPO\Core\Uninstaller::purge();
+\ProductKit\Core\Uninstaller::purge();

@@ -23,22 +23,22 @@ import { Field, TextControl, ToggleField } from '../../../components';
 function QuantityBlock( { cfg, setKey } ) {
 	return (
 		<>
-			<div className="dpo-settings__toggle-row">
+			<div className="pkitfw-settings__toggle-row">
 				<ToggleField
 					checked={ !! cfg.enableQty }
 					onChange={ ( v ) => setKey( 'enableQty', v ) }
 					label={ __(
 						'Enable Quantity',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 			</div>
 			{ cfg.enableQty && (
-				<div className="dpo-settings__grid2">
+				<div className="pkitfw-settings__grid2">
 					<Field
 						label={ __(
 							'Minimum quantity',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TextControl
@@ -50,7 +50,7 @@ function QuantityBlock( { cfg, setKey } ) {
 					<Field
 						label={ __(
 							'Maximum quantity',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<TextControl
@@ -77,25 +77,25 @@ function QuantityBlock( { cfg, setKey } ) {
 function RestrictionBlock( { cfg, setKey } ) {
 	return (
 		<>
-			<div className="dpo-settings__toggle-row">
+			<div className="pkitfw-settings__toggle-row">
 				<ToggleField
 					checked={ !! cfg.minMaxRestriction }
 					onChange={ ( v ) => setKey( 'minMaxRestriction', v ) }
 					label={ __(
 						'Min Max Restriction',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 			</div>
 			{ cfg.minMaxRestriction && (
-				<div className="dpo-settings__grid2">
+				<div className="pkitfw-settings__grid2">
 					<Field
 						label={ __(
 							'Min restriction',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
-						<span className="dpo-input-suffix">
+						<span className="pkitfw-input-suffix">
 							<TextControl
 								type="number"
 								value={ cfg.minSelect ?? '' }
@@ -104,7 +104,7 @@ function RestrictionBlock( { cfg, setKey } ) {
 							<em>
 								{ __(
 									'Item',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</em>
 						</span>
@@ -112,10 +112,10 @@ function RestrictionBlock( { cfg, setKey } ) {
 					<Field
 						label={ __(
 							'Max restriction',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
-						<span className="dpo-input-suffix">
+						<span className="pkitfw-input-suffix">
 							<TextControl
 								type="number"
 								value={ cfg.maxSelect ?? '' }
@@ -124,7 +124,7 @@ function RestrictionBlock( { cfg, setKey } ) {
 							<em>
 								{ __(
 									'Item',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</em>
 						</span>
@@ -143,13 +143,13 @@ function RestrictionBlock( { cfg, setKey } ) {
  */
 function MultipleToggle( { cfg, setKey } ) {
 	return (
-		<div className="dpo-settings__toggle-row">
+		<div className="pkitfw-settings__toggle-row">
 			<ToggleField
 				checked={ !! cfg.multiple }
 				onChange={ ( v ) => setKey( 'multiple', v ) }
 				label={ __(
 					'Allow Multiple',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			/>
 		</div>
@@ -201,7 +201,7 @@ export default function ChoiceFieldExtras( { node, patch } ) {
 		case 'imageswatch':
 			return (
 				<>
-					<div className="dpo-settings__toggle-row">
+					<div className="pkitfw-settings__toggle-row">
 						<ToggleField
 							checked={ !! cfg.updateProductImage }
 							onChange={ ( v ) =>
@@ -209,7 +209,7 @@ export default function ChoiceFieldExtras( { node, patch } ) {
 							}
 							label={ __(
 								'Update product image on selection',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						/>
 					</div>
@@ -224,7 +224,7 @@ export default function ChoiceFieldExtras( { node, patch } ) {
 				<Field
 					label={ __(
 						'Placeholder',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<TextControl

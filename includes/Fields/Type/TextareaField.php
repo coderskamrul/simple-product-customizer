@@ -2,12 +2,12 @@
 /**
  * Multi-line text field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,7 +48,7 @@ final class TextareaField extends AbstractField {
 		$def     = $this->prop( 'defaults', '' );
 		$def     = is_array( $def ) ? ( isset( $def[0] ) ? $def[0] : '' ) : $def;
 
-		return '<textarea class="dpo-input dpo-textarea" name="' . esc_attr( $this->input_name() ) . '"'
+		return '<textarea class="pkitfw-input pkitfw-textarea" name="' . esc_attr( $this->input_name() ) . '"'
 			. ' rows="' . esc_attr( $rows > 0 ? $rows : 4 ) . '"'
 			. $this->attrs(
 				array_merge(

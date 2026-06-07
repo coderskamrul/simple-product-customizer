@@ -19,59 +19,59 @@ import { Modal, Field, AsyncSelect, ProBadge } from '../../components';
 const SCOPES = [
 	{
 		value: 'all',
-		label: __( 'All products', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'All products', 'productkit-for-woocommerce' ),
 		hint: __(
 			'Show on every product in the store.',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'products',
 		label: __(
 			'Specific products',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		hint: __(
 			'Pick individual products.',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'category',
 		label: __(
 			'Product category',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		hint: __(
 			'Apply to one or more categories.',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'tag',
-		label: __( 'Product tag', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Product tag', 'productkit-for-woocommerce' ),
 		hint: __(
 			'Apply to tagged products.',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'brand',
-		label: __( 'Product brand', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Product brand', 'productkit-for-woocommerce' ),
 		hint: __(
 			'Apply to a product brand.',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'none',
 		label: __(
 			'None (disabled)',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 		hint: __(
 			'Not shown anywhere yet.',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 ];
@@ -114,49 +114,49 @@ export default function AssignmentModal( { onClose } ) {
 			size="md"
 			title={ __(
 				'Assign to products',
-				'dynamic-product-options-for-woocommerce'
+				'productkit-for-woocommerce'
 			) }
 			onClose={ onClose }
 			footer={
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--primary"
+					className="pkitfw-btn pkitfw-btn--primary"
 					onClick={ onClose }
 				>
-					{ __( 'Done', 'dynamic-product-options-for-woocommerce' ) }
+					{ __( 'Done', 'productkit-for-woocommerce' ) }
 				</button>
 			}
 		>
-			<div className="dpo-assign-modal">
-				<p className="dpo-assign-modal__intro">
+			<div className="pkitfw-assign-modal">
+				<p className="pkitfw-assign-modal__intro">
 					<Target size={ 15 } />
 					{ __(
 						'Choose where this option set appears. Changes are saved with the option set.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</p>
 
-				<div className="dpo-radio-grid dpo-assign-modal__scopes">
+				<div className="pkitfw-radio-grid pkitfw-assign-modal__scopes">
 					{ SCOPES.map( ( s ) => (
 						<label
 							key={ s.value }
-							htmlFor={ `dpo-assign-scope-${ s.value }` }
-							className={ `dpo-radio-card${
+							htmlFor={ `pkitfw-assign-scope-${ s.value }` }
+							className={ `pkitfw-radio-card${
 								a.scope === s.value ? ' is-active' : ''
 							}` }
 						>
 							<input
-								id={ `dpo-assign-scope-${ s.value }` }
+								id={ `pkitfw-assign-scope-${ s.value }` }
 								type="radio"
-								name="dpo-assign-scope"
+								name="pkitfw-assign-scope"
 								value={ s.value }
 								checked={ a.scope === s.value }
 								onChange={ () => setScope( s.value ) }
 							/>
-							<span className="dpo-radio-card__label">
+							<span className="pkitfw-radio-card__label">
 								{ s.label }
 							</span>
-							<span className="dpo-radio-card__hint">
+							<span className="pkitfw-radio-card__hint">
 								{ s.hint }
 							</span>
 						</label>
@@ -167,7 +167,7 @@ export default function AssignmentModal( { onClose } ) {
 					<Field
 						label={ __(
 							'Include products',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<AsyncSelect
@@ -176,7 +176,7 @@ export default function AssignmentModal( { onClose } ) {
 							max={ proActive ? 0 : FREE_PRODUCT_CAP }
 							placeholder={ __(
 								'Search products…',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 							fetcher={ async ( t ) => {
 								const r = await api.searchProducts( t );
@@ -189,7 +189,7 @@ export default function AssignmentModal( { onClose } ) {
 									/* translators: %d: free product cap */
 									__(
 										'Free version links up to %d products.',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 									),
 									FREE_PRODUCT_CAP
 								) }
@@ -209,7 +209,7 @@ export default function AssignmentModal( { onClose } ) {
 							onChange={ ( v ) => update( { include: v } ) }
 							placeholder={ __(
 								'Search…',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 							fetcher={ async ( t ) => {
 								const r = await api.searchTerms( termKind, t );
@@ -223,11 +223,11 @@ export default function AssignmentModal( { onClose } ) {
 					<Field
 						label={ __(
 							'Exclude products',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 						help={ __(
 							'These products never show this option set.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						<AsyncSelect
@@ -235,7 +235,7 @@ export default function AssignmentModal( { onClose } ) {
 							onChange={ ( v ) => update( { exclude: v } ) }
 							placeholder={ __(
 								'Search products…',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 							fetcher={ async ( t ) => {
 								const r = await api.searchProducts( t );

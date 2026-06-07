@@ -2,12 +2,12 @@
 /**
  * Heading layout field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,9 +57,9 @@ final class HeadingField extends AbstractField {
 		$text = (string) $this->prop( 'label', '' );
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<' . $tag . ' class="dpo-heading">' . esc_html( $text ) . '</' . $tag . '>';
+		$html .= '<' . $tag . ' class="pkitfw-heading">' . esc_html( $text ) . '</' . $tag . '>';
 		if ( '' !== (string) $this->prop( 'description', '' ) ) {
-			$html .= '<div class="dpo-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
+			$html .= '<div class="pkitfw-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
 		}
 		$html .= '</div>';
 		return $html;

@@ -1,42 +1,42 @@
 /* Builder design tokens as CSS custom properties.
  *
  * Defined on :root so they reach the field picker and settings drawer, which
- * Radix portals to <body> (outside .dpo-app). Values are kept in lockstep
+ * Radix portals to <body> (outside .pkitfw-app). Values are kept in lockstep
  * with the Global Theme in `_theme.scss` so portaled UI matches the admin
  * SPA. To rebrand, edit `_theme.scss` and mirror the primary/surface tokens
  * here. */
 
 /* Builder tokens kept at :root so Radix-portaled UI (settings drawer, field
-   picker) that mounts outside `#dpo-admin-root` can still read them. The
+   picker) that mounts outside `#pkitfw-admin-root` can still read them. The
    colour values are intentionally synced with the Global Theme in
    `_theme.scss` so the portaled UI matches the admin SPA. */
 :root {
-	--dpo-c-bg: #f7f8fb;
-	--dpo-c-surface: #ffffff;
-	--dpo-c-surface-2: #f6f7f9;
-	--dpo-c-surface-3: #eef1f6;
-	--dpo-c-border: #eceef3;
-	--dpo-c-border-strong: #dfe3ea;
-	--dpo-c-ink: #0f172a;
-	--dpo-c-ink-soft: #334155;
-	--dpo-c-muted: #64748b;
-	--dpo-c-primary: #059669;
-	--dpo-c-primary-hover: #047857;
-	--dpo-c-primary-soft: #d1fae5;
-	--dpo-c-active: #111827;
-	--dpo-c-active-ink: #ffffff;
-	--dpo-c-danger: #ef4444;
-	--dpo-c-danger-soft: #fdeaea;
-	--dpo-c-overlay: rgba(15, 23, 42, 0.45);
+	--pkitfw-c-bg: #f7f8fb;
+	--pkitfw-c-surface: #ffffff;
+	--pkitfw-c-surface-2: #f6f7f9;
+	--pkitfw-c-surface-3: #eef1f6;
+	--pkitfw-c-border: #eceef3;
+	--pkitfw-c-border-strong: #dfe3ea;
+	--pkitfw-c-ink: #0f172a;
+	--pkitfw-c-ink-soft: #334155;
+	--pkitfw-c-muted: #64748b;
+	--pkitfw-c-primary: #059669;
+	--pkitfw-c-primary-hover: #047857;
+	--pkitfw-c-primary-soft: #d1fae5;
+	--pkitfw-c-active: #111827;
+	--pkitfw-c-active-ink: #ffffff;
+	--pkitfw-c-danger: #ef4444;
+	--pkitfw-c-danger-soft: #fdeaea;
+	--pkitfw-c-overlay: rgba(15, 23, 42, 0.45);
 
-	--dpo-c-radius-sm: 8px;
-	--dpo-c-radius: 12px;
-	--dpo-c-radius-lg: 18px;
+	--pkitfw-c-radius-sm: 8px;
+	--pkitfw-c-radius: 12px;
+	--pkitfw-c-radius-lg: 18px;
 
-	--dpo-c-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06),
+	--pkitfw-c-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06),
 		0 1px 3px rgba(15, 23, 42, 0.05);
-	--dpo-c-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
-	--dpo-c-shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.22);
-	--dpo-c-ring: 0 0 0 3px rgba(5, 150, 105, 0.2);
+	--pkitfw-c-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+	--pkitfw-c-shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.22);
+	--pkitfw-c-ring: 0 0 0 3px rgba(5, 150, 105, 0.2);
 }
 

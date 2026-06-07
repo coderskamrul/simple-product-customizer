@@ -60,11 +60,11 @@ function Shell() {
 	const hideTopBar = isBuilder;
 
 	return (
-		<div className="dpo-app">
+		<div className="pkitfw-app">
 			{ ! hideTopBar && <TopBar /> }
 			<main
-				className={ `dpo-app__outlet${
-					isBuilder ? ' dpo-app__outlet--bleed' : ''
+				className={ `pkitfw-app__outlet${
+					isBuilder ? ' pkitfw-app__outlet--bleed' : ''
 				}` }
 			>
 				<Screen route={ route } />

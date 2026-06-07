@@ -2,13 +2,13 @@
 /**
  * Analytics read + public hit-recording controller.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Rest\Route;
+namespace ProductKit\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Rest\RestServer;
+use ProductKit\Core\Container;
+use ProductKit\Rest\RestServer;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -115,14 +115,14 @@ final class AnalyticsController {
 	 */
 	private function hit( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
 		}
 
 		$set_id = (int) $r->get_param( 'setId' );
 		$metric = sanitize_key( (string) $r->get_param( 'metric' ) );
 
 		if ( $set_id <= 0 || ! in_array( $metric, self::METRICS, true ) ) {
-			return $s->fail( 'bad_metric', __( 'Invalid analytics payload.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_metric', __( 'Invalid analytics payload.', 'productkit-for-woocommerce' ), 400 );
 		}
 
 		/**
@@ -132,7 +132,7 @@ final class AnalyticsController {
 		 * @param string $metric Metric key.
 		 * @param int    $amount Amount (0 = increment by one).
 		 */
-		do_action( 'dpo_stats_record', $set_id, $metric, 0 );
+		do_action( 'pkitfw_stats_record', $set_id, $metric, 0 );
 
 		return $s->ok(
 			array(

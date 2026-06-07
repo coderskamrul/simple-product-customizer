@@ -2,12 +2,12 @@
 /**
  * Vertical spacer field.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -55,7 +55,7 @@ final class SpacerField extends AbstractField {
 		}
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<div class="dpo-spacer" style="height:' . esc_attr( $height ) . 'px"></div>';
+		$html .= '<div class="pkitfw-spacer" style="height:' . esc_attr( $height ) . 'px"></div>';
 		$html .= '</div>';
 		return $html;
 	}

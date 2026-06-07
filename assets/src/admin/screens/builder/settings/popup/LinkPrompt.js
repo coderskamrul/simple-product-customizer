@@ -34,7 +34,7 @@ export default function LinkPrompt( {
 	const [ href, setHref ] = useState( initialHref );
 	const [ newTab, setNewTab ] = useState( initialNewTab );
 	const inputRef = useRef( null );
-	const newTabId = useId( 'dpo-rte-newtab' );
+	const newTabId = useId( 'pkitfw-rte-newtab' );
 
 	useEffect( () => {
 		if ( inputRef.current ) {
@@ -52,14 +52,14 @@ export default function LinkPrompt( {
 	};
 
 	return (
-		<div className="dpo-rte__linkbar">
+		<div className="pkitfw-rte__linkbar">
 			<input
 				ref={ inputRef }
 				type="url"
-				className="dpo-rte__linkinput"
+				className="pkitfw-rte__linkinput"
 				placeholder={ __(
 					'https://example.com',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				value={ href }
 				onChange={ ( e ) => setHref( e.target.value ) }
@@ -74,21 +74,21 @@ export default function LinkPrompt( {
 					}
 				} }
 			/>
-			<label className="dpo-rte__linkcheck" htmlFor={ newTabId }>
+			<label className="pkitfw-rte__linkcheck" htmlFor={ newTabId }>
 				<input
 					id={ newTabId }
 					type="checkbox"
 					checked={ newTab }
 					onChange={ ( e ) => setNewTab( e.target.checked ) }
 				/>
-				{ __( 'New tab', 'dynamic-product-options-for-woocommerce' ) }
+				{ __( 'New tab', 'productkit-for-woocommerce' ) }
 			</label>
 			<button
 				type="button"
-				className="dpo-rte__btn"
+				className="pkitfw-rte__btn"
 				title={ __(
 					'Apply link',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				onClick={ apply }
 			>
@@ -97,10 +97,10 @@ export default function LinkPrompt( {
 			{ hasLink && (
 				<button
 					type="button"
-					className="dpo-rte__btn is-danger"
+					className="pkitfw-rte__btn is-danger"
 					title={ __(
 						'Remove link',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					onClick={ onRemove }
 				>
@@ -109,10 +109,10 @@ export default function LinkPrompt( {
 			) }
 			<button
 				type="button"
-				className="dpo-rte__btn"
+				className="pkitfw-rte__btn"
 				title={ __(
 					'Cancel',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 				onClick={ onCancel }
 			>

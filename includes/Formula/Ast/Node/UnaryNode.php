@@ -2,13 +2,13 @@
 /**
  * Prefix unary operator node (+x / -x).
  *
- * @package DPO\Formula\Ast\Node
+ * @package ProductKit\Formula\Ast\Node
  */
 
-namespace DPO\Formula\Ast\Node;
+namespace ProductKit\Formula\Ast\Node;
 
-use DPO\Formula\Ast\EvaluationError;
-use DPO\Formula\Ast\ExpressionEngine;
+use ProductKit\Formula\Ast\EvaluationError;
+use ProductKit\Formula\Ast\ExpressionEngine;
 
 defined( 'ABSPATH' ) || exit;
 

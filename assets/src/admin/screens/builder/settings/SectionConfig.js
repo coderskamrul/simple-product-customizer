@@ -22,14 +22,14 @@ import { Field } from '../../../components';
  */
 function Segmented( { value, options, onChange } ) {
 	return (
-		<div className="dpo-seg" role="radiogroup">
+		<div className="pkitfw-seg" role="radiogroup">
 			{ options.map( ( opt ) => (
 				<button
 					key={ opt.value }
 					type="button"
 					role="radio"
 					aria-checked={ value === opt.value }
-					className={ `dpo-seg__btn${
+					className={ `pkitfw-seg__btn${
 						value === opt.value ? ' is-active' : ''
 					}` }
 					onClick={ () => onChange( opt.value ) }
@@ -57,11 +57,11 @@ export default function SectionConfig( { node, patch } ) {
 		patch( { config: { ...cfg, [ key ]: value } } );
 
 	return (
-		<div className="dpo-settings__grid2">
+		<div className="pkitfw-settings__grid2">
 			<Field
 				label={ __(
 					'Style',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
 				<Segmented
@@ -72,14 +72,14 @@ export default function SectionConfig( { node, patch } ) {
 							value: 'section',
 							label: __(
 								'Section',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							),
 						},
 						{
 							value: 'accordion',
 							label: __(
 								'Accordion',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							),
 						},
 					] }
@@ -90,7 +90,7 @@ export default function SectionConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'Initial state',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				>
 					<Segmented
@@ -101,14 +101,14 @@ export default function SectionConfig( { node, patch } ) {
 								value: 'open',
 								label: __(
 									'Open',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 							},
 							{
 								value: 'close',
 								label: __(
 									'Close',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								),
 							},
 						] }

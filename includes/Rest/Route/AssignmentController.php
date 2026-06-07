@@ -2,16 +2,16 @@
 /**
  * Assignment read/write + product-link resolution controller.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Rest\Route;
+namespace ProductKit\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Data\AssignmentResolver;
-use DPO\Data\OptionSetRepository;
-use DPO\Rest\RestServer;
-use DPO\Support\Str;
+use ProductKit\Core\Container;
+use ProductKit\Data\AssignmentResolver;
+use ProductKit\Data\OptionSetRepository;
+use ProductKit\Rest\RestServer;
+use ProductKit\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class AssignmentController {
 
-	const OPT_IMAGE_MAP = 'dpo_product_image_map';
+	const OPT_IMAGE_MAP = 'pkitfw_product_image_map';
 
 	/**
 	 * Container.
@@ -108,13 +108,13 @@ final class AssignmentController {
 	private function get_assignment( WP_REST_Request $r, RestServer $s ) {
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Storage unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Storage unavailable.', 'productkit-for-woocommerce' ), 500 );
 		}
 
 		$id  = (int) $r->get_param( 'id' );
 		$set = $repo->get( $id );
 		if ( ! $set ) {
-			return $s->fail( 'not_found', __( 'Option set not found.', 'dynamic-product-options-for-woocommerce' ), 404 );
+			return $s->fail( 'not_found', __( 'Option set not found.', 'productkit-for-woocommerce' ), 404 );
 		}
 
 		$assignment = isset( $set['assignment'] ) && is_array( $set['assignment'] )
@@ -148,16 +148,16 @@ final class AssignmentController {
 	 */
 	private function save_assignment( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
 		}
 		$resolver = $this->resolver();
 		if ( ! $resolver ) {
-			return $s->fail( 'unavailable', __( 'Assignment resolver unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Assignment resolver unavailable.', 'productkit-for-woocommerce' ), 500 );
 		}
 
 		$set_id = (int) $r->get_param( 'set_id' );
 		if ( $set_id <= 0 ) {
-			return $s->fail( 'bad_id', __( 'Missing set id.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_id', __( 'Missing set id.', 'productkit-for-woocommerce' ), 400 );
 		}
 
 		$scope   = sanitize_key( (string) $r->get_param( 'scope' ) );

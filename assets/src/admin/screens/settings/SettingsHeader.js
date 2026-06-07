@@ -44,42 +44,42 @@ const SaveIcon = () => (
  */
 export default function SettingsHeader( { saving, dirty, onSave } ) {
 	return (
-		<header className="dpo-set-header">
-			<div className="dpo-set-header__brand">
+		<header className="pkitfw-set-header">
+			<div className="pkitfw-set-header__brand">
 				<span
-					className="dpo-set-tile dpo-set-tile--lg dpo-set-tile--violet"
+					className="pkitfw-set-tile pkitfw-set-tile--lg pkitfw-set-tile--violet"
 					aria-hidden="true"
 				>
 					<span className="dashicons dashicons-admin-settings" />
 				</span>
 				<div>
-					<h1 className="dpo-set-header__title">
+					<h1 className="pkitfw-set-header__title">
 						{ __(
 							'Settings',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</h1>
-					<p className="dpo-set-header__sub">
+					<p className="pkitfw-set-header__sub">
 						{ __(
 							'Manage your plugin configuration',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</p>
 				</div>
 			</div>
 
-			<div className="dpo-set-header__actions">
+			<div className="pkitfw-set-header__actions">
 				{ dirty && ! saving && (
-					<span className="dpo-set-header__unsaved" role="status">
+					<span className="pkitfw-set-header__unsaved" role="status">
 						{ __(
 							'Unsaved changes',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</span>
 				) }
 				<button
 					type="button"
-					className="dpo-set-save"
+					className="pkitfw-set-save"
 					disabled={ saving }
 					onClick={ onSave }
 				>
@@ -87,11 +87,11 @@ export default function SettingsHeader( { saving, dirty, onSave } ) {
 					{ saving
 						? __(
 								'Saving…',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  )
 						: __(
 								'Save Settings',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 						  ) }
 				</button>
 			</div>

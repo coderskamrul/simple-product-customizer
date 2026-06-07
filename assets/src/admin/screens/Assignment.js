@@ -25,35 +25,35 @@ import {
 const SCOPES = [
 	{
 		value: 'all',
-		label: __( 'All products', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'All products', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'products',
 		label: __(
 			'Specific products',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'category',
 		label: __(
 			'Product category',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 	{
 		value: 'tag',
-		label: __( 'Product tag', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Product tag', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'brand',
-		label: __( 'Product brand', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Product brand', 'productkit-for-woocommerce' ),
 	},
 	{
 		value: 'none',
 		label: __(
 			'None (disabled)',
-			'dynamic-product-options-for-woocommerce'
+			'productkit-for-woocommerce'
 		),
 	},
 ];
@@ -155,7 +155,7 @@ export default function Assignment( { setId } ) {
 			notify(
 				__(
 					'Assignment saved.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				'success'
 			);
@@ -171,23 +171,23 @@ export default function Assignment( { setId } ) {
 			<Panel
 				title={ __(
 					'Assignment',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				) }
 			>
-				<p className="dpo-hint">
+				<p className="pkitfw-hint">
 					{ __(
 						'Save the option set first, then assign it to products.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</p>
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost"
+					className="pkitfw-btn pkitfw-btn--ghost"
 					onClick={ () => navigate( `/set/${ setId }` ) }
 				>
 					{ __(
 						'Back to builder',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</button>
 			</Panel>
@@ -195,46 +195,46 @@ export default function Assignment( { setId } ) {
 	}
 
 	return (
-		<div className="dpo-assignment">
-			<header className="dpo-screen-head">
+		<div className="pkitfw-assignment">
+			<header className="pkitfw-screen-head">
 				<div>
-					<h1 className="dpo-screen-title">
+					<h1 className="pkitfw-screen-title">
 						{ __(
 							'Assignment',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</h1>
-					<p className="dpo-screen-sub">
+					<p className="pkitfw-screen-sub">
 						{ __(
 							'Decide which products show this option set.',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</p>
 				</div>
-				<div className="dpo-screen-head__actions">
+				<div className="pkitfw-screen-head__actions">
 					<a
-						className="dpo-btn dpo-btn--ghost"
+						className="pkitfw-btn pkitfw-btn--ghost"
 						href={ `#/set/${ setId }` }
 					>
 						{ __(
 							'Back to builder',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</a>
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--primary"
+						className="pkitfw-btn pkitfw-btn--primary"
 						disabled={ saving || status !== 'ready' }
 						onClick={ onSave }
 					>
 						{ saving
 							? __(
 									'Saving…',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  )
 							: __(
 									'Save assignment',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  ) }
 					</button>
 				</div>
@@ -247,7 +247,7 @@ export default function Assignment( { setId } ) {
 			) }
 			{ status === 'error' && (
 				<Panel>
-					<p className="dpo-error">{ error }</p>
+					<p className="pkitfw-error">{ error }</p>
 				</Panel>
 			) }
 
@@ -256,20 +256,20 @@ export default function Assignment( { setId } ) {
 					<Panel
 						title={ __(
 							'Scope',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
-						<div className="dpo-radio-grid">
+						<div className="pkitfw-radio-grid">
 							{ SCOPES.map( ( s ) => (
 								<label
 									key={ s.value }
-									className={ `dpo-radio-card${
+									className={ `pkitfw-radio-card${
 										scope === s.value ? ' is-active' : ''
 									}` }
 								>
 									<input
 										type="radio"
-										name="dpo-scope"
+										name="pkitfw-scope"
 										value={ s.value }
 										checked={ scope === s.value }
 										onChange={ () => setScope( s.value ) }
@@ -284,13 +284,13 @@ export default function Assignment( { setId } ) {
 						<Panel
 							title={ __(
 								'Products',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<Field
 								label={ __(
 									'Include products',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							>
 								<AsyncSelect
@@ -309,7 +309,7 @@ export default function Assignment( { setId } ) {
 										/* translators: %d: free product cap */
 										__(
 											'Free version links up to %d products.',
-											'dynamic-product-options-for-woocommerce'
+											'productkit-for-woocommerce'
 										),
 										FREE_PRODUCT_CAP
 									) }
@@ -327,7 +327,7 @@ export default function Assignment( { setId } ) {
 							<Field
 								label={ __(
 									'Terms',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							>
 								<AsyncSelect
@@ -349,17 +349,17 @@ export default function Assignment( { setId } ) {
 						<Panel
 							title={ __(
 								'Exclusions',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						>
 							<Field
 								label={ __(
 									'Exclude products',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 								help={ __(
 									'These products never show this option set.',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							>
 								<AsyncSelect
@@ -377,14 +377,14 @@ export default function Assignment( { setId } ) {
 					<Panel
 						title={ __(
 							'Preview link',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					>
 						{ ! link.published ? (
-							<p className="dpo-hint">
+							<p className="pkitfw-hint">
 								{ __(
 									'Publish the option set to preview it on a product.',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</p>
 						) : link.productLink ? (
@@ -392,18 +392,18 @@ export default function Assignment( { setId } ) {
 								href={ link.productLink }
 								target="_blank"
 								rel="noreferrer"
-								className="dpo-btn dpo-btn--ghost"
+								className="pkitfw-btn pkitfw-btn--ghost"
 							>
 								{ __(
 									'Open a matching product',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</a>
 						) : (
-							<p className="dpo-hint">
+							<p className="pkitfw-hint">
 								{ __(
 									'No matching published product found yet.',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</p>
 						) }

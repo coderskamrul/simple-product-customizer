@@ -16,16 +16,16 @@
  */
 export default function Panel( { title, actions, className = '', children } ) {
 	return (
-		<section className={ `dpo-panel ${ className }`.trim() }>
+		<section className={ `pkitfw-panel ${ className }`.trim() }>
 			{ ( title || actions ) && (
-				<header className="dpo-panel__head">
-					{ title && <h2 className="dpo-panel__title">{ title }</h2> }
+				<header className="pkitfw-panel__head">
+					{ title && <h2 className="pkitfw-panel__title">{ title }</h2> }
 					{ actions && (
-						<div className="dpo-panel__actions">{ actions }</div>
+						<div className="pkitfw-panel__actions">{ actions }</div>
 					) }
 				</header>
 			) }
-			<div className="dpo-panel__body">{ children }</div>
+			<div className="pkitfw-panel__body">{ children }</div>
 		</section>
 	);
 }

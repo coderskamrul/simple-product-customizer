@@ -2,10 +2,10 @@
 /**
  * Field rendering contract.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields;
+namespace ProductKit\Fields;
 
 defined( 'ABSPATH' ) || exit;
 

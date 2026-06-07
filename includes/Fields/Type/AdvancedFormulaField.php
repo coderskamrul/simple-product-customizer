@@ -2,13 +2,13 @@
 /**
  * Advanced formula price field (Pro only).
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Fields\Type;
+namespace ProductKit\Fields\Type;
 
-use DPO\Core\Capabilities;
-use DPO\Fields\AbstractField;
+use ProductKit\Core\Capabilities;
+use ProductKit\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -45,9 +45,9 @@ final class AdvancedFormulaField extends AbstractField {
 
 		$bid_map = $this->cfg( 'bidMap', array() );
 
-		return '<div class="dpo-formula dpo-formula--advanced" data-expression="' . esc_attr( $expression ) . '"'
+		return '<div class="pkitfw-formula pkitfw-formula--advanced" data-expression="' . esc_attr( $expression ) . '"'
 			. $this->attrs( array( 'data-bidmap' => $bid_map ) ) . '>'
-			. '<span class="dpo-formula__value"></span>'
+			. '<span class="pkitfw-formula__value"></span>'
 			. '</div>';
 	}
 

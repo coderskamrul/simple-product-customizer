@@ -2,18 +2,18 @@
 /**
  * Admin menu + React app shell.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Admin;
+namespace ProductKit\Admin;
 
-use DPO\Core\Capabilities;
+use ProductKit\Core\Capabilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Registers the single-page admin app. All "screens" are hash-routed
- * inside the same React mount (`#dpo-admin-root`); the submenu entries
+ * inside the same React mount (`#pkitfw-admin-root`); the submenu entries
  * simply deep-link into that router. On the app screen we strip every
  * other admin notice so the SPA gets a clean shell.
  */
@@ -24,7 +24,7 @@ final class AdminMenu {
 	 *
 	 * @var string
 	 */
-	const SLUG = 'dpo-options';
+	const SLUG = 'pkitfw-options';
 
 	/**
 	 * Hook the menu + chrome.
@@ -34,7 +34,7 @@ final class AdminMenu {
 	public function register() {
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
 		add_action( 'in_admin_header', array( $this, 'strip_other_notices' ) );
-		add_filter( 'plugin_action_links_' . DPO_BASENAME, array( $this, 'action_links' ) );
+		add_filter( 'plugin_action_links_' . PKITFW_BASENAME, array( $this, 'action_links' ) );
 	}
 
 	/**
@@ -46,8 +46,8 @@ final class AdminMenu {
 		$cap = Capabilities::read();
 
 		add_menu_page(
-			esc_html__( 'Product Options', 'dynamic-product-options-for-woocommerce' ),
-			esc_html__( 'Product Options', 'dynamic-product-options-for-woocommerce' ),
+			esc_html__( 'Product Options', 'productkit-for-woocommerce' ),
+			esc_html__( 'Product Options', 'productkit-for-woocommerce' ),
 			$cap,
 			self::SLUG,
 			array( $this, 'render' ),
@@ -56,11 +56,11 @@ final class AdminMenu {
 		);
 
 		$submenus = array(
-			array( self::SLUG, esc_html__( 'Dashboard', 'dynamic-product-options-for-woocommerce' ) ),
-			array( self::SLUG . '#/sets', esc_html__( 'Option Sets', 'dynamic-product-options-for-woocommerce' ) ),
-			array( self::SLUG . '#/analytics', esc_html__( 'Analytics', 'dynamic-product-options-for-woocommerce' ) ),
-			array( self::SLUG . '#/settings', esc_html__( 'Settings', 'dynamic-product-options-for-woocommerce' ) ),
-			array( self::SLUG . '#/license', esc_html__( 'License', 'dynamic-product-options-for-woocommerce' ) ),
+			array( self::SLUG, esc_html__( 'Dashboard', 'productkit-for-woocommerce' ) ),
+			array( self::SLUG . '#/sets', esc_html__( 'Option Sets', 'productkit-for-woocommerce' ) ),
+			array( self::SLUG . '#/analytics', esc_html__( 'Analytics', 'productkit-for-woocommerce' ) ),
+			array( self::SLUG . '#/settings', esc_html__( 'Settings', 'productkit-for-woocommerce' ) ),
+			array( self::SLUG . '#/license', esc_html__( 'License', 'productkit-for-woocommerce' ) ),
 		);
 
 		foreach ( $submenus as $submenu ) {
@@ -81,9 +81,9 @@ final class AdminMenu {
 	 * @return void
 	 */
 	public function render() {
-		echo '<div class="wrap dpo-admin-wrap">';
-		echo '<h1 class="screen-reader-text">' . esc_html__( 'Product Options', 'dynamic-product-options-for-woocommerce' ) . '</h1>';
-		echo '<div id="dpo-admin-root"></div>';
+		echo '<div class="wrap pkitfw-admin-wrap">';
+		echo '<h1 class="screen-reader-text">' . esc_html__( 'Product Options', 'productkit-for-woocommerce' ) . '</h1>';
+		echo '<div id="pkitfw-admin-root"></div>';
 		echo '</div>';
 	}
 
@@ -108,7 +108,7 @@ final class AdminMenu {
 	 */
 	public function action_links( $links ) {
 		$url   = admin_url( 'admin.php?page=' . self::SLUG . '#/sets' );
-		$entry = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Option Sets', 'dynamic-product-options-for-woocommerce' ) . '</a>';
+		$entry = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Option Sets', 'productkit-for-woocommerce' ) . '</a>';
 		array_unshift( $links, $entry );
 		return $links;
 	}
@@ -126,7 +126,7 @@ final class AdminMenu {
 		if ( ! $screen ) {
 			return false;
 		}
-		// Top-level: toplevel_page_dpo-options. Submenus share the same base.
+		// Top-level: toplevel_page_pkitfw-options. Submenus share the same base.
 		return ( false !== strpos( (string) $screen->id, self::SLUG ) );
 	}
 }

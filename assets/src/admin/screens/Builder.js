@@ -67,16 +67,16 @@ function Editor() {
 
 	if ( builder.loadError ) {
 		return (
-			<div className="dpo-builder__loading">
-				<p className="dpo-error">{ builder.loadError }</p>
+			<div className="pkitfw-builder__loading">
+				<p className="pkitfw-error">{ builder.loadError }</p>
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost"
+					className="pkitfw-btn pkitfw-btn--ghost"
 					onClick={ () => navigate( '/sets' ) }
 				>
 					{ __(
 						'Back to option sets',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				</button>
 			</div>
@@ -95,7 +95,7 @@ function Editor() {
 			notify(
 				__(
 					'Option set saved.',
-					'dynamic-product-options-for-woocommerce'
+					'productkit-for-woocommerce'
 				),
 				'success'
 			);
@@ -137,14 +137,14 @@ function Editor() {
 	const isPublished = builder.status === 'publish';
 
 	return (
-		<div className="dpo-builder">
-			<header className="dpo-builder__topbar">
+		<div className="pkitfw-builder">
+			<header className="pkitfw-builder__topbar">
 				<button
 					type="button"
-					className="dpo-icon-btn"
+					className="pkitfw-icon-btn"
 					aria-label={ __(
 						'Back',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					onClick={ () => navigate( '/sets' ) }
 				>
@@ -153,11 +153,11 @@ function Editor() {
 
 				<input
 					type="text"
-					className="dpo-builder__title-input"
+					className="pkitfw-builder__title-input"
 					value={ builder.title }
 					placeholder={ __(
 						'Untitled option set',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					onChange={ ( e ) =>
 						builder.dispatch( {
@@ -167,8 +167,8 @@ function Editor() {
 					}
 				/>
 
-				<div className="dpo-builder__topbar-right">
-					<div className="dpo-segmented" role="tablist">
+				<div className="pkitfw-builder__topbar-right">
+					<div className="pkitfw-segmented" role="tablist">
 						<button
 							type="button"
 							role="tab"
@@ -179,7 +179,7 @@ function Editor() {
 							<Pencil size={ 14 } />
 							{ __(
 								'Build',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</button>
 						<button
@@ -192,20 +192,20 @@ function Editor() {
 							<Eye size={ 14 } />
 							{ __(
 								'Preview',
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</button>
 					</div>
 
 					<label
-						className="dpo-status-toggle"
-						htmlFor="dpo-status-toggle"
+						className="pkitfw-status-toggle"
+						htmlFor="pkitfw-status-toggle"
 					>
-						<span className="dpo-switch">
+						<span className="pkitfw-switch">
 							<input
-								id="dpo-status-toggle"
+								id="pkitfw-status-toggle"
 								type="checkbox"
-								className="dpo-switch__input"
+								className="pkitfw-switch__input"
 								checked={ isPublished }
 								onChange={ ( e ) =>
 									builder.dispatch( {
@@ -219,7 +219,7 @@ function Editor() {
 								}
 							/>
 							<span
-								className="dpo-switch__track"
+								className="pkitfw-switch__track"
 								aria-hidden="true"
 							/>
 						</span>
@@ -227,59 +227,59 @@ function Editor() {
 							{ isPublished
 								? __(
 										'Published',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 								  )
 								: __(
 										'Draft',
-										'dynamic-product-options-for-woocommerce'
+										'productkit-for-woocommerce'
 								  ) }
 						</span>
 					</label>
 
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--ghost"
+						className="pkitfw-btn pkitfw-btn--ghost"
 						onClick={ () => setShowAssign( true ) }
 					>
 						<Target size={ 15 } />
 						{ __(
 							'Assignment',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</button>
 
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--ghost"
+						className="pkitfw-btn pkitfw-btn--ghost"
 						onClick={ onOpenStyle }
 					>
 						<Palette size={ 15 } />
 						{ __(
 							'Global Style',
-							'dynamic-product-options-for-woocommerce'
+							'productkit-for-woocommerce'
 						) }
 					</button>
 
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--primary"
+						className="pkitfw-btn pkitfw-btn--primary"
 						disabled={ builder.saving }
 						onClick={ onSave }
 					>
 						{ builder.saving
 							? __(
 									'Saving…',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  )
 							: __(
 									'Save',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 							  ) }
 					</button>
 				</div>
 			</header>
 
-			<div className="dpo-builder__stage-wrap">
+			<div className="pkitfw-builder__stage-wrap">
 				<Canvas />
 			</div>
 
@@ -296,24 +296,24 @@ function Editor() {
 					size="sm"
 					title={ __(
 						'Assignment required',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					onClose={ () => setShowPublishWarn( false ) }
 					footer={
 						<>
 							<button
 								type="button"
-								className="dpo-btn dpo-btn--ghost"
+								className="pkitfw-btn pkitfw-btn--ghost"
 								onClick={ onSaveAsDraft }
 							>
 								{ __(
 									'Save as Draft',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</button>
 							<button
 								type="button"
-								className="dpo-btn dpo-btn--primary"
+								className="pkitfw-btn pkitfw-btn--primary"
 								onClick={ () => {
 									setShowPublishWarn( false );
 									setShowAssign( true );
@@ -322,23 +322,23 @@ function Editor() {
 								<Target size={ 15 } />
 								{ __(
 									'Assign products',
-									'dynamic-product-options-for-woocommerce'
+									'productkit-for-woocommerce'
 								) }
 							</button>
 						</>
 					}
 				>
-					<div className="dpo-publish-warn">
+					<div className="pkitfw-publish-warn">
 						<span
-							className="dpo-publish-warn__icon"
+							className="pkitfw-publish-warn__icon"
 							aria-hidden="true"
 						>
 							<AlertTriangle size={ 22 } />
 						</span>
-						<p className="dpo-publish-warn__msg">
+						<p className="pkitfw-publish-warn__msg">
 							{ __(
 								"Please select at least one product to continue. To save without selecting any products, choose the 'Draft' status instead.",
-								'dynamic-product-options-for-woocommerce'
+								'productkit-for-woocommerce'
 							) }
 						</p>
 					</div>

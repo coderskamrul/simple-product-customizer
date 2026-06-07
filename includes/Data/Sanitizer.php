@@ -2,12 +2,12 @@
 /**
  * Field-tree + payload sanitization.
  *
- * @package DPO
+ * @package ProductKit
  */
 
-namespace DPO\Data;
+namespace ProductKit\Data;
 
-use DPO\Support\Arr;
+use ProductKit\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 

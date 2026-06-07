@@ -47,7 +47,7 @@ export default function useFonts() {
 				notify(
 					__(
 						'Font uploaded.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					),
 					'success'
 				);
@@ -71,7 +71,7 @@ export default function useFonts() {
 				notify(
 					__(
 						'Font updated.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					),
 					'success'
 				);
@@ -94,7 +94,7 @@ export default function useFonts() {
 				notify(
 					__(
 						'Font deleted.',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					),
 					'success'
 				);

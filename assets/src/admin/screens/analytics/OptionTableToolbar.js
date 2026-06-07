@@ -1,6 +1,6 @@
 /**
  * Option-table toolbar: live search, a filter popover and a CSV export.
- * Reuses the shared `dpo-os-btn` system so it stays visually consistent
+ * Reuses the shared `pkitfw-os-btn` system so it stays visually consistent
  * with the Option Sets screen.
  *
  * @package
@@ -13,15 +13,15 @@ import { __ } from '@wordpress/i18n';
 export const FILTERS = [
 	{
 		id: 'all',
-		label: __( 'All options', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'All options', 'productkit-for-woocommerce' ),
 	},
 	{
 		id: 'orders',
-		label: __( 'With orders', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'With orders', 'productkit-for-woocommerce' ),
 	},
 	{
 		id: 'revenue',
-		label: __( 'With revenue', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'With revenue', 'productkit-for-woocommerce' ),
 	},
 ];
 
@@ -69,32 +69,32 @@ export default function OptionTableToolbar( {
 	const active = FILTERS.find( ( f ) => f.id === filter ) || FILTERS[ 0 ];
 
 	return (
-		<div className="dpo-an-toolbar">
-			<div className="dpo-os-search dpo-an-search">
+		<div className="pkitfw-an-toolbar">
+			<div className="pkitfw-os-search pkitfw-an-search">
 				<span
-					className="dashicons dashicons-search dpo-os-search__icon"
+					className="dashicons dashicons-search pkitfw-os-search__icon"
 					aria-hidden="true"
 				/>
 				<input
 					type="search"
-					className="dpo-os-search__input"
+					className="pkitfw-os-search__input"
 					placeholder={ __(
 						'Search options…',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					value={ term }
 					onChange={ ( e ) => onSearch( e.target.value ) }
 					aria-label={ __(
 						'Search options',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 				/>
 			</div>
 
-			<div className="dpo-os-filter" ref={ wrapRef }>
+			<div className="pkitfw-os-filter" ref={ wrapRef }>
 				<button
 					type="button"
-					className={ `dpo-os-btn dpo-os-btn--ghost${
+					className={ `pkitfw-os-btn pkitfw-os-btn--ghost${
 						filter !== 'all' ? ' is-on' : ''
 					}` }
 					aria-haspopup="menu"
@@ -107,23 +107,23 @@ export default function OptionTableToolbar( {
 					/>
 					{ __(
 						'Filter',
-						'dynamic-product-options-for-woocommerce'
+						'productkit-for-woocommerce'
 					) }
 					{ filter !== 'all' && (
-						<span className="dpo-os-filter__tag">
+						<span className="pkitfw-os-filter__tag">
 							{ active.label }
 						</span>
 					) }
 				</button>
 				{ open && (
-					<ul className="dpo-os-menu" role="menu">
+					<ul className="pkitfw-os-menu" role="menu">
 						{ FILTERS.map( ( f ) => (
 							<li key={ f.id } role="none">
 								<button
 									type="button"
 									role="menuitemradio"
 									aria-checked={ f.id === filter }
-									className={ `dpo-os-menu__item${
+									className={ `pkitfw-os-menu__item${
 										f.id === filter ? ' is-active' : ''
 									}` }
 									onClick={ () => {
@@ -132,7 +132,7 @@ export default function OptionTableToolbar( {
 									} }
 								>
 									<span
-										className="dashicons dashicons-yes dpo-os-menu__tick"
+										className="dashicons dashicons-yes pkitfw-os-menu__tick"
 										aria-hidden="true"
 									/>
 									{ f.label }
@@ -145,7 +145,7 @@ export default function OptionTableToolbar( {
 
 			<button
 				type="button"
-				className="dpo-os-btn dpo-os-btn--ghost"
+				className="pkitfw-os-btn pkitfw-os-btn--ghost"
 				onClick={ onExport }
 				disabled={ ! canExport }
 			>
@@ -153,7 +153,7 @@ export default function OptionTableToolbar( {
 					className="dashicons dashicons-download"
 					aria-hidden="true"
 				/>
-				{ __( 'Export', 'dynamic-product-options-for-woocommerce' ) }
+				{ __( 'Export', 'productkit-for-woocommerce' ) }
 			</button>
 		</div>
 	);
