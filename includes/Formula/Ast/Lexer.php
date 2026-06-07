@@ -61,12 +61,12 @@ final class Lexer {
 					++$i;
 				}
 				if ( $i >= $len || ']' !== $src[ $i ] ) {
-					throw new EvaluationError( 'Unclosed variable placeholder at position ' . $start );
+					throw new EvaluationError( esc_html( 'Unclosed variable placeholder at position ' . $start ) );
 				}
 				++$i; // Consume the closing ].
 				$name = trim( $name );
 				if ( '' === $name ) {
-					throw new EvaluationError( 'Empty variable placeholder at position ' . $start );
+					throw new EvaluationError( esc_html( 'Empty variable placeholder at position ' . $start ) );
 				}
 				$tokens[] = new Token( Token::T_VAR, $name, $start );
 				continue;
@@ -96,7 +96,7 @@ final class Lexer {
 					break;
 				}
 				if ( '.' === $number || '' === $number ) {
-					throw new EvaluationError( 'Invalid number at position ' . $start );
+					throw new EvaluationError( esc_html( 'Invalid number at position ' . $start ) );
 				}
 				$tokens[] = new Token( Token::T_NUMBER, (float) $number, $start );
 				continue;
@@ -147,7 +147,7 @@ final class Lexer {
 			}
 
 			// 8. Anything outside the fixed alphabet is rejected.
-			throw new EvaluationError( 'Unexpected character "' . $ch . '" at position ' . $i );
+			throw new EvaluationError( esc_html( 'Unexpected character "' . $ch . '" at position ' . $i ) );
 		}
 
 		$tokens[] = new Token( Token::T_EOF, null, $len );

@@ -184,7 +184,9 @@ final class StatsRepository {
 
 		$table = self::table_name();
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+		// Metric is whitelisted (self::valid_metric) and table/columns are class
+		// constants prefixed with $wpdb->prefix — never user input.
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT id, `{$metric}` AS val FROM `{$table}` WHERE set_id = %d",
@@ -247,7 +249,9 @@ final class StatsRepository {
 		$table = self::daily_table_name();
 		$day   = current_time( 'Y-m-d' );
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+		// Metric is whitelisted (self::valid_metric) and table/columns are class
+		// constants prefixed with $wpdb->prefix — never user input.
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT id, `{$metric}` AS val FROM `{$table}` WHERE day = %s",
@@ -311,7 +315,8 @@ final class StatsRepository {
 			return array();
 		}
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// $table is a class constant prefixed with $wpdb->prefix; columns are literal.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$rows = $wpdb->get_results( "SELECT set_id, impressions, clicks, add_to_cart, orders, revenue FROM `{$table}` ORDER BY revenue DESC, orders DESC", ARRAY_A );
 
 		if ( empty( $rows ) || ! is_array( $rows ) ) {
@@ -379,7 +384,9 @@ final class StatsRepository {
 
 		$columns = 'day, impressions, clicks, add_to_cart, orders, revenue';
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+		// Metric is whitelisted (self::valid_metric) and table/columns are class
+		// constants prefixed with $wpdb->prefix — never user input.
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		if ( '' !== $from && '' !== $to ) {
 			$rows = $wpdb->get_results(
 				$wpdb->prepare(

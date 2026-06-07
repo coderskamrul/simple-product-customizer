@@ -39,6 +39,7 @@ final class AeliaAdapter implements CurrencyAdapter {
 			return;
 		}
 		$this->active_currency = function_exists( 'get_woocommerce_currency' ) ? (string) get_woocommerce_currency() : '';
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- third-party Aelia integration hook.
 		$this->base_currency   = (string) apply_filters( 'wc_aelia_cs_base_currency', '' );
 	}
 
@@ -52,6 +53,7 @@ final class AeliaAdapter implements CurrencyAdapter {
 		if ( ! $this->active() ) {
 			return $price;
 		}
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- third-party Aelia integration hook.
 		return (float) apply_filters( 'wc_aelia_cs_convert', $price, $this->base_currency, $this->active_currency );
 	}
 
@@ -65,6 +67,7 @@ final class AeliaAdapter implements CurrencyAdapter {
 		if ( ! $this->active() ) {
 			return $price;
 		}
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- third-party Aelia integration hook.
 		return (float) apply_filters( 'wc_aelia_cs_convert', $price, $this->active_currency, $this->base_currency );
 	}
 

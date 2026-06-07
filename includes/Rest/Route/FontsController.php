@@ -144,22 +144,39 @@ final class FontsController {
 			return $s->fail( 'bad_type', __( 'Allowed font types: woff, woff2, ttf.', 'productkit-for-woocommerce' ), 400 );
 		}
 
-		$dir       = Upload::dir( 'fonts' );
-		$safe_name = wp_unique_filename( $dir, sanitize_file_name( $file['name'] ) );
-		$target    = $dir . $safe_name;
+		// Ensure the fonts bucket exists, then route wp_handle_upload() into it.
+		Upload::dir( 'fonts' );
+		require_once ABSPATH . 'wp-admin/includes/file.php';
 
-		$moved = is_uploaded_file( $file['tmp_name'] )
-			? @move_uploaded_file( $file['tmp_name'], $target ) // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-			: @copy( $file['tmp_name'], $target ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		$into_fonts = static function ( $dirs ) {
+			$dirs['subdir'] = '/pkitfw_fonts';
+			$dirs['path']   = $dirs['basedir'] . $dirs['subdir'];
+			$dirs['url']    = $dirs['baseurl'] . $dirs['subdir'];
+			return $dirs;
+		};
 
-		if ( ! $moved || ! is_file( $target ) ) {
+		add_filter( 'upload_dir', $into_fonts );
+		$moved = wp_handle_upload(
+			$file,
+			array(
+				'test_form' => false,
+				'mimes'     => array(
+					'woff'  => 'font/woff',
+					'woff2' => 'font/woff2',
+					'ttf'   => 'font/ttf',
+				),
+			)
+		);
+		remove_filter( 'upload_dir', $into_fonts );
+
+		if ( ! is_array( $moved ) || isset( $moved['error'] ) || empty( $moved['url'] ) ) {
 			return $s->fail( 'move_failed', __( 'Could not store the font file.', 'productkit-for-woocommerce' ), 500 );
 		}
 
 		$entry = array(
 			'id'        => uniqid( 'font_' ),
 			'title'     => $title,
-			'src'       => Upload::url( 'fonts' ) . $safe_name,
+			'src'       => $moved['url'],
 			'family'    => $family,
 			'file_type' => $ext,
 		);

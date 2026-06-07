@@ -104,6 +104,7 @@ final class Installer {
 
 		if ( $post_id && ! is_wp_error( $post_id ) ) {
 			update_post_meta( $post_id, '_pkitfw_fields', wp_slash( wp_json_encode( $fields ) ) );
+			// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- JSON storage key, not a query argument.
 			update_post_meta( $post_id, '_pkitfw_assignment', wp_json_encode( array( 'scope' => 'none', 'include' => array(), 'exclude' => array() ) ) );
 		}
 	}

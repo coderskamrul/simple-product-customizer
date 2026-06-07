@@ -193,10 +193,10 @@ final class RestServer {
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( isset( $_POST['pkitfw_nonce'] ) ) {
-			$candidates[] = wp_unslash( $_POST['pkitfw_nonce'] );
+			$candidates[] = sanitize_text_field( wp_unslash( $_POST['pkitfw_nonce'] ) );
 		}
 		if ( isset( $_POST['wpnonce'] ) ) {
-			$candidates[] = wp_unslash( $_POST['wpnonce'] );
+			$candidates[] = sanitize_text_field( wp_unslash( $_POST['wpnonce'] ) );
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 

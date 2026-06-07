@@ -26,6 +26,7 @@ final class YayCurrencyAdapter implements CurrencyAdapter {
 		if ( ! $this->active() ) {
 			return $price;
 		}
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- third-party Yay Currency integration hook.
 		return (float) apply_filters( 'yay_currency_convert_price', $price, '' );
 	}
 
@@ -39,6 +40,7 @@ final class YayCurrencyAdapter implements CurrencyAdapter {
 		if ( ! $this->active() ) {
 			return $price;
 		}
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- third-party Yay Currency integration hook.
 		return (float) apply_filters( 'yay_currency_revert_price', $price, '' );
 	}
 

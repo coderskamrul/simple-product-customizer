@@ -110,6 +110,6 @@ final class BinaryNode implements NodeInterface {
 				return $ln / $rn;
 		}
 
-		throw new EvaluationError( 'Unsupported operator: ' . $op );
+		throw new EvaluationError( esc_html( 'Unsupported operator: ' . $op ) );
 	}
 }

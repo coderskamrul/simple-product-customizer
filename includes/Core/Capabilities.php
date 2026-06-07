@@ -83,6 +83,6 @@ final class Capabilities {
 	 * @return bool
 	 */
 	public static function pro() {
-		return (bool) apply_filters( 'pkitfw_pro_features', true );
+		return (bool) apply_filters( 'pkitfw_pro_features', false );
 	}
 }

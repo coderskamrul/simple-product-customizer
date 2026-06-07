@@ -30,11 +30,10 @@ final class Uninstaller {
 		// Option sets.
 		$ids = get_posts(
 			array(
-				'post_type'      => 'pkitfw_option_set',
-				'post_status'    => 'any',
-				'numberposts'    => -1,
-				'fields'         => 'ids',
-				'suppress_filters' => true,
+				'post_type'   => 'pkitfw_option_set',
+				'post_status' => 'any',
+				'numberposts' => -1,
+				'fields'      => 'ids',
 			)
 		);
 		foreach ( $ids as $id ) {
@@ -60,6 +59,11 @@ final class Uninstaller {
 			delete_option( $option );
 		}
 
+		// One-time uninstall cleanup of plugin-owned rows and tables. Direct
+		// queries are intentional here: there is nothing to cache on teardown
+		// and the schema drops have no Core API equivalent.
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+
 		// Product / term meta.
 		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('_pkitfw_assigned_include','_pkitfw_assigned_exclude')" );
 		$wpdb->query( "DELETE FROM {$wpdb->termmeta} WHERE meta_key = '_pkitfw_term_assigned'" );
@@ -70,5 +74,7 @@ final class Uninstaller {
 
 		// Transients.
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_pkitfw\_%' OR option_name LIKE '\_transient\_timeout\_pkitfw\_%'" );
+
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 	}
 }

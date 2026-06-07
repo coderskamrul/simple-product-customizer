@@ -77,7 +77,8 @@ final class CartHooks {
 			return $passed;
 		}
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WC core nonce-verifies the add-to-cart request.
+		// JSON payload: unslashed here and sanitized field-by-field after decoding.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WC core nonce-verifies the add-to-cart request; value is JSON sanitized after json_decode.
 		$raw       = isset( $_POST['pkitfw_field_data'] ) ? Str::unslash( wp_unslash( $_POST['pkitfw_field_data'] ) ) : '';
 		$selection = Str::json( $raw, array() );
 		$selection = is_array( $selection ) ? $selection : array();
@@ -118,14 +119,15 @@ final class CartHooks {
 	 * @return array
 	 */
 	public function add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WC core nonce-verifies the add-to-cart request.
+		// JSON payloads: unslashed here and sanitized field-by-field after decoding.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WC core nonce-verifies the add-to-cart request; values are JSON sanitized after json_decode.
 		$raw_json   = isset( $_POST['pkitfw_field_data'] ) ? Str::unslash( wp_unslash( $_POST['pkitfw_field_data'] ) ) : '';
 		$set_ids    = isset( $_POST['pkitfw_published_set_ids'] ) ? Str::json( wp_unslash( $_POST['pkitfw_published_set_ids'] ), array() ) : array();
 		$linked     = isset( $_POST['pkitfw_linked_products'] ) ? Str::json( wp_unslash( $_POST['pkitfw_linked_products'] ), array() ) : array();
 		$quantity   = isset( $_POST['quantity'] ) ? max( 1, absint( wp_unslash( $_POST['quantity'] ) ) ) : 1;
 
 		unset( $_POST['pkitfw_field_data'], $_POST['pkitfw_published_set_ids'], $_POST['pkitfw_linked_products'] );
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
+		// phpcs:enable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$selection = Str::json( $raw_json, array() );
 		$selection = is_array( $selection ) ? $selection : array();

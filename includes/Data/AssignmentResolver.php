@@ -150,6 +150,7 @@ final class AssignmentResolver {
 				array(
 					'scope'   => $scope,
 					'include' => $include,
+					// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- JSON storage key, not a query argument.
 					'exclude' => $exclude,
 				)
 			)
@@ -172,6 +173,8 @@ final class AssignmentResolver {
 		update_option( self::OPT_ALL, wp_json_encode( $all ) );
 
 		foreach ( array( self::META_PROD_INC, self::META_PROD_EXC ) as $meta ) {
+			// Maintenance scan to strip a deleted set id from every assignment row.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- one-off cleanup keyed by indexed meta_key; nothing to cache.
 			$rows = $wpdb->get_results(
 				$wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", $meta )
 			);
@@ -181,6 +184,8 @@ final class AssignmentResolver {
 			}
 		}
 
+		// Maintenance scan to strip a deleted set id from every term assignment row.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- one-off cleanup keyed by indexed meta_key; nothing to cache.
 		$rows = $wpdb->get_results(
 			$wpdb->prepare( "SELECT term_id, meta_value FROM {$wpdb->termmeta} WHERE meta_key = %s", self::META_TERM )
 		);

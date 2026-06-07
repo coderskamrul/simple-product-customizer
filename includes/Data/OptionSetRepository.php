@@ -56,6 +56,7 @@ final class OptionSetRepository {
 				array(
 					'scope'   => 'none',
 					'include' => array(),
+					// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- decoded JSON storage key, not a query argument.
 					'exclude' => array(),
 				)
 			),

@@ -29,6 +29,7 @@ final class YithCurrencyAdapter implements CurrencyAdapter {
 		if ( ! $this->active() ) {
 			return $price;
 		}
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- third-party YITH integration hook.
 		return (float) apply_filters( 'yith_wcmcs_convert_price', $price, '' );
 	}
 

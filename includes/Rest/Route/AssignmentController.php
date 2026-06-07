@@ -122,6 +122,7 @@ final class AssignmentController {
 			: array(
 				'scope'   => 'none',
 				'include' => array(),
+				// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- assignment data key, not a query argument.
 				'exclude' => array(),
 			);
 
@@ -133,6 +134,7 @@ final class AssignmentController {
 			array(
 				'assignment' => $assignment,
 				'include'    => $this->expand_objects( $scope, (array) ( $assignment['include'] ?? array() ) ),
+				// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- response payload key, not a query argument.
 				'exclude'    => $this->expand_objects( 'products', (array) ( $assignment['exclude'] ?? array() ) ),
 				'imageMap'   => isset( $image_map[ $id ] ) ? $image_map[ $id ] : array(),
 			)
@@ -169,6 +171,7 @@ final class AssignmentController {
 			array(
 				'scope'   => '' === $scope ? 'none' : $scope,
 				'include' => array_values( array_filter( $include ) ),
+				// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- persisted assignment key, not a query argument.
 				'exclude' => array_values( array_filter( $exclude ) ),
 			)
 		);
@@ -289,11 +292,14 @@ final class AssignmentController {
 			'brand'    => 'product_brand',
 		);
 
+		// Single-product preview-URL lookup (posts_per_page = 1). The exclude set
+		// is small (a set's manually excluded products), so this stays cheap.
 		$query_args = array(
 			'post_type'      => 'product',
 			'post_status'    => 'publish',
 			'posts_per_page' => 1,
 			'fields'         => 'ids',
+			// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- bounded single-row preview lookup.
 			'post__not_in'   => $exclude,
 		);
 
@@ -303,6 +309,7 @@ final class AssignmentController {
 		}
 
 		if ( isset( $tax_map[ $scope ] ) && ! empty( $include ) ) {
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- bounded single-row preview lookup (posts_per_page = 1).
 			$query_args['tax_query'] = array(
 				array(
 					'taxonomy' => $tax_map[ $scope ],
