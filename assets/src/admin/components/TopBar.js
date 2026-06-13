@@ -188,7 +188,7 @@ export default function TopBar() {
 				) : (
 					<a
 						className="pkitfw-topbar__upgrade"
-						href="https://wpdeveloper.com/in/upgrade-dynamic-product-options"
+						href="https://pluginshift.com/in/upgrade-dynamic-product-options"
 						target="_blank"
 						rel="noopener noreferrer"
 					>

@@ -53,12 +53,16 @@ final class Capabilities {
 	/**
 	 * Is a valid Pro license active?
 	 *
+	 * Reads the validation result the Pro plugin wrote after talking to the
+	 * licence server. Intentionally NOT filterable: a filter here would be a
+	 * trivial unlock bypass, so the stored, server-validated status is the only
+	 * source of truth.
+	 *
 	 * @return bool
 	 */
 	public static function license_active() {
 		$data = get_option( 'pkitfw_license_data', array() );
-		$ok   = is_array( $data ) && isset( $data['status'] ) && 'valid' === $data['status'];
-		return (bool) apply_filters( 'pkitfw_license_active', $ok );
+		return is_array( $data ) && isset( $data['status'] ) && 'valid' === $data['status'];
 	}
 
 	/**
@@ -74,15 +78,25 @@ final class Capabilities {
 	/**
 	 * Should Pro-only features render/compute?
 	 *
-	 * TEMPORARY (development): all Pro features are unlocked for everyone while
-	 * the feature set is being finalised. To restore licence-based gating later,
-	 * revert the default below from `true` back to `self::license_active()`.
-	 * The `pkitfw_pro_features` filter still wins, so gating can also be toggled
-	 * externally without touching this method.
+	 * Gated exactly like product-addons-pro's `is_pro_feature_available()`:
+	 * Pro unlocks ONLY when the dedicated **ProductKit for WooCommerce Pro**
+	 * plugin is active (it is the only thing that defines `PKITPRO_VERSION`)
+	 * AND the licence has been validated by the licence server. An expired but
+	 * previously-valid licence keeps feature access (only updates stop), which
+	 * matches the reference plugin's grace behaviour.
+	 *
+	 * There is deliberately NO filter that can enable Pro — the unlock signal is
+	 * shared state (a constant the Pro plugin defines + a server-written option),
+	 * not anything a code snippet can set. Nothing short of editing this source
+	 * file (i.e. pirating the plugin) can grant Pro, which is the strongest gate
+	 * any GPL PHP plugin — including the reference — can offer.
 	 *
 	 * @return bool
 	 */
 	public static function pro() {
-		return (bool) apply_filters( 'pkitfw_pro_features', false );
+		if ( ! defined( 'PKITPRO_VERSION' ) ) {
+			return false;
+		}
+		return self::license_active() || self::license_expired();
 	}
 }

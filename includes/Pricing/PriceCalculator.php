@@ -7,7 +7,6 @@
 
 namespace ProductKit\Pricing;
 
-use ProductKit\Core\Capabilities;
 use ProductKit\Data\AssignmentResolver;
 use ProductKit\Data\OptionSetRepository;
 use ProductKit\Fields\FieldRegistry;
@@ -277,21 +276,6 @@ final class PriceCalculator {
 	}
 
 	/**
-	 * Effective price mode for a choice, applying the Pro gate (the gated
-	 * modes degrade to flat when the license is inactive).
-	 *
-	 * @param string $mode Raw mode.
-	 * @return string
-	 */
-	private function gatedMode( string $mode ): string {
-		$gated = array( 'percent', 'per_unit', 'per_word', 'per_char_nospace' );
-		if ( ! Capabilities::pro() && in_array( $mode, $gated, true ) ) {
-			return 'flat';
-		}
-		return $mode;
-	}
-
-	/**
 	 * Price a non-formula field (choice / value driven).
 	 *
 	 * @param array $field       Selection entry.
@@ -348,8 +332,9 @@ final class PriceCalculator {
 	 */
 	private function modePrice( array $choice, $value, float $percentBase, int $slot, array $field ): float {
 		$cost = $this->choiceCost( $choice );
-		$mode = $this->gatedMode( isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'none' );
+		$mode = isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'none';
 
+		// Modes the free plugin computes natively.
 		switch ( $mode ) {
 			case 'none':
 				return 0.0;
@@ -357,46 +342,38 @@ final class PriceCalculator {
 			case 'flat':
 				return $cost;
 
-			case 'percent':
-				return $percentBase * $cost / 100;
-
-			case 'per_unit':
-				$count = $this->unitCount( $value, $slot );
-				return $count * $cost;
-
 			case 'per_char':
 				return mb_strlen( $this->scalar( $value ) ) * $cost;
-
-			case 'per_char_nospace':
-				return mb_strlen( str_replace( ' ', '', $this->scalar( $value ) ) ) * $cost;
-
-			case 'per_word':
-				return (float) str_word_count( $this->scalar( $value ) ) * $cost;
-
-			default:
-				return $cost;
 		}
-	}
 
-	/**
-	 * Determine the per_unit multiplier: a choice's `count` when present,
-	 * otherwise the numeric value of the field.
-	 *
-	 * @param mixed $value Selection value.
-	 * @param int   $slot  Slot index.
-	 * @return float
-	 */
-	private function unitCount( $value, int $slot ): float {
-		if ( is_array( $value ) ) {
-			if ( isset( $value[ $slot ] ) && is_array( $value[ $slot ] ) && isset( $value[ $slot ]['count'] ) && '' !== $value[ $slot ]['count'] ) {
-				return Money::f( $value[ $slot ]['count'] );
-			}
-			if ( isset( $value['count'] ) && '' !== $value['count'] ) {
-				return Money::f( $value['count'] );
-			}
-			return 1.0;
-		}
-		return Money::f( $value );
+		/**
+		 * Every other mode (percent, per_unit, per_word, per_char_nospace, …) is
+		 * a Pro pricing mode. The free plugin ships NO math for these — the Pro
+		 * plugin supplies it by returning a numeric amount from this filter, and
+		 * only when its license is valid. When nothing handles the mode (Pro
+		 * inactive/unlicensed) the value stays null and the surcharge degrades to
+		 * flat, exactly as before. There is no boolean to flip: the computation
+		 * does not exist in this codebase.
+		 *
+		 * @param float|null $amount  Computed amount, or null if unhandled.
+		 * @param string     $mode    Raw price mode.
+		 * @param array      $context cost, value, percentBase, slot, choice, field.
+		 */
+		$amount = apply_filters(
+			'pkitfw_price_mode_amount',
+			null,
+			$mode,
+			array(
+				'cost'        => $cost,
+				'value'       => $value,
+				'percentBase' => $percentBase,
+				'slot'        => $slot,
+				'choice'      => $choice,
+				'field'       => $field,
+			)
+		);
+
+		return is_numeric( $amount ) ? (float) $amount : $cost;
 	}
 
 	/**
@@ -480,20 +457,25 @@ final class PriceCalculator {
 	 * @return float
 	 */
 	private function priceAdvancedFormula( array $node, array $dynamics ): float {
-		if ( ! class_exists( '\\ProductKit\\Formula\\Ast\\ExpressionEngine' ) ) {
-			return 0.0;
-		}
-
 		$expression = $this->configExpression( $node );
 		if ( '' === $expression ) {
 			return 0.0;
 		}
 
-		try {
-			$result = \ProductKit\Formula\Ast\ExpressionEngine::evaluateSafe( $expression, $dynamics );
-		} catch ( \Throwable $e ) {
-			return 0.0;
-		}
+		/**
+		 * Advanced-formula evaluation (functions, comparisons, dynamic product
+		 * variables) is a Pro feature. The free plugin delegates it entirely: the
+		 * Pro plugin returns a numeric result from this filter, and only when its
+		 * license is valid. Unhandled (Pro inactive/unlicensed) => 0. The generic
+		 * expression engine in ProductKit\Formula\Ast remains available as shared
+		 * infrastructure, but the feature wiring lives in the Pro plugin.
+		 *
+		 * @param float|null $result     Computed result, or null if unhandled.
+		 * @param string     $expression The formula expression.
+		 * @param array      $dynamics   Variable bag (product + dynamic vars).
+		 * @param array      $node       Field node.
+		 */
+		$result = apply_filters( 'pkitfw_price_advanced_formula', null, $expression, $dynamics, $node );
 
 		return is_numeric( $result ) ? (float) $result : 0.0;
 	}
@@ -551,7 +533,9 @@ final class PriceCalculator {
 				}
 				$choice = $choices[ $idx ];
 				$cost   = $this->choiceCost( $choice );
-				$mode   = $this->gatedMode( isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'flat' );
+				// A "none"-priced option contributes 0 to a formula variable;
+				// any other mode contributes its resolved cost.
+				$mode = isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'flat';
 				if ( 'none' === $mode ) {
 					$cost = 0.0;
 				}
@@ -657,7 +641,7 @@ final class PriceCalculator {
 		$idx     = ( array() !== $indexes && isset( $indexes[0] ) ) ? $indexes[0] : 0;
 
 		if ( isset( $choices[ $idx ]['priceMode'] ) ) {
-			return $this->gatedMode( (string) $choices[ $idx ]['priceMode'] );
+			return (string) $choices[ $idx ]['priceMode'];
 		}
 		return 'none';
 	}

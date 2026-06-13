@@ -63,6 +63,10 @@ final class UploadController {
 	 * @return array<string,string>
 	 */
 	private function allowed_mimes() {
+		// NOTE: SVG is deliberately excluded. This is a public (capability-less,
+		// nonce-only) storefront endpoint, and SVG can carry executable script —
+		// allowing it here would be a stored-XSS vector. Sites that genuinely need
+		// SVG can opt in (with their own sanitization) via the filter below.
 		$default = array(
 			'png'  => 'image/png',
 			'jpg'  => 'image/jpeg',
@@ -71,7 +75,6 @@ final class UploadController {
 			'csv'  => 'text/csv',
 			'doc'  => 'application/msword',
 			'txt'  => 'text/plain',
-			'svg'  => 'image/svg+xml',
 			'heic' => 'image/heic',
 		);
 
@@ -160,6 +163,12 @@ final class UploadController {
 		$upload['url']    = $upload['baseurl'] . $subdir;
 		if ( ! is_dir( $upload['path'] ) ) {
 			wp_mkdir_p( $upload['path'] );
+		}
+		// Drop a silent index so the public bucket cannot be browsed/listed.
+		$index = trailingslashit( $upload['path'] ) . 'index.html';
+		if ( ! file_exists( $index ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			@file_put_contents( $index, '' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		}
 		return $upload;
 	}

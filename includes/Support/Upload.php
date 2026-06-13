@@ -84,11 +84,42 @@ final class Upload {
 	/**
 	 * Translate an uploads URL back to an absolute path.
 	 *
+	 * Defends against traversal: the resolved path is rejected (empty string
+	 * returned) unless it provably resolves inside the uploads base directory.
+	 * Callers feed this stored option/order-meta data, so a tampered value must
+	 * never be able to point copy()/wp_delete_file() outside the uploads tree.
+	 *
 	 * @param string $url URL.
-	 * @return string
+	 * @return string Absolute path, or '' if it escapes the uploads dir.
 	 */
 	public static function url_to_path( $url ) {
-		$base = wp_upload_dir();
-		return str_replace( $base['baseurl'], $base['basedir'], (string) $url );
+		$base    = wp_upload_dir();
+		$basedir = (string) $base['basedir'];
+		$url     = (string) $url;
+
+		// Only map URLs that actually live under the uploads base URL.
+		if ( '' === $url || 0 !== strpos( $url, (string) $base['baseurl'] ) ) {
+			return '';
+		}
+
+		$path = str_replace( $base['baseurl'], $basedir, $url );
+
+		// Reject any traversal sequences outright before touching the filesystem.
+		if ( false !== strpos( $path, '..' ) ) {
+			return '';
+		}
+
+		// When the target exists, confirm its real path is contained in basedir.
+		$real = realpath( $path );
+		if ( false !== $real ) {
+			$real_base = realpath( $basedir );
+			if ( false === $real_base || 0 !== strpos( $real, $real_base ) ) {
+				return '';
+			}
+			return $real;
+		}
+
+		// Non-existent (e.g. about to be created): rely on the prefix + ".." guard.
+		return $path;
 	}
 }

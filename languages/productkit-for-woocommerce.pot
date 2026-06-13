@@ -1,4 +1,4 @@
-# Copyright (C) 2026 hasandev
+# Copyright (C) 2026 pluginshift
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
@@ -9,13 +9,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-07T04:39:24+00:00\n"
+"POT-Creation-Date: 2026-06-07T18:42:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: productkit-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-#: includes/Admin/AdminNotices.php:124
+#: includes/Admin/AdminNotices.php:126
 msgid "ProductKit – Product Options for WooCommerce"
 msgstr ""
 
@@ -24,11 +24,11 @@ msgid "Build dynamic single-product option sets — swatches, uploads, condition
 msgstr ""
 
 #. Author of the plugin
-msgid "hasandev"
+msgid "pluginshift"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://wpdeveloper.com"
+msgid "https://pluginshift.com"
 msgstr ""
 
 #: includes/Admin/AdminMenu.php:49
@@ -65,7 +65,7 @@ msgstr ""
 #: assets/src/admin/app/Sidebar.js:26
 #: assets/src/admin/components/TopBar.js:39
 #: assets/src/admin/screens/dashboard/QuickActions.js:36
-#: assets/src/admin/screens/Settings.js:72
+#: assets/src/admin/screens/Settings.js:73
 #: assets/src/admin/screens/settings/SettingsHeader.js:57
 msgid "Settings"
 msgstr ""
@@ -74,20 +74,20 @@ msgstr ""
 #: assets/src/admin/app/Sidebar.js:38
 #: assets/src/admin/components/TopBar.js:44
 #: assets/src/admin/screens/dashboard/QuickActions.js:54
-#: assets/src/admin/screens/License.js:39
+#: assets/src/admin/screens/License.js:147
 msgid "License"
 msgstr ""
 
-#: includes/Admin/AdminNotices.php:126
+#: includes/Admin/AdminNotices.php:128
 msgid "Thanks for installing! Build your first option set to start adding custom fields to products."
 msgstr ""
 
-#: includes/Admin/AdminNotices.php:128
+#: includes/Admin/AdminNotices.php:130
 #: includes/Integration/WooCommerce/ProductPanel.php:94
 msgid "Create an Option Set"
 msgstr ""
 
-#: includes/Admin/AdminNotices.php:133
+#: includes/Admin/AdminNotices.php:135
 #: assets/src/admin/components/ToastStack.js:34
 msgid "Dismiss"
 msgstr ""
@@ -135,19 +135,19 @@ msgstr ""
 msgid "Select Options"
 msgstr ""
 
-#: includes/Data/OptionSetRepository.php:86
+#: includes/Data/OptionSetRepository.php:87
 #: includes/Rest/Route/SetsController.php:164
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:142
 msgid "Untitled"
 msgstr ""
 
-#: includes/Data/OptionSetRepository.php:144
+#: includes/Data/OptionSetRepository.php:145
 #: includes/Rest/Route/AssignmentController.php:117
 #: includes/Rest/Route/SetsController.php:180
 msgid "Option set not found."
 msgstr ""
 
-#: includes/Data/OptionSetRepository.php:149
+#: includes/Data/OptionSetRepository.php:150
 msgid "Copy"
 msgstr ""
 
@@ -180,11 +180,6 @@ msgstr ""
 msgid "Click or drag and drop"
 msgstr ""
 
-#: includes/Fields/Type/FontPickerField.php:93
-#: assets/src/admin/screens/builder/preview/FieldPreview.js:149
-msgid "Select Font"
-msgstr ""
-
 #: includes/Fields/Type/PopupField.php:60
 #: assets/src/admin/fields/registry.js:722
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:964
@@ -208,7 +203,7 @@ msgstr ""
 msgid "Select an option"
 msgstr ""
 
-#: includes/Integration/WooCommerce/CartHooks.php:101
+#: includes/Integration/WooCommerce/CartHooks.php:102
 msgid "Please fill in all required product options."
 msgstr ""
 
@@ -233,24 +228,24 @@ msgstr ""
 msgid "Assignment is managed in the ProductKit app."
 msgstr ""
 
-#: includes/Pricing/PriceCalculator.php:618
+#: includes/Pricing/PriceCalculator.php:602
 #: assets/src/admin/fields/registry.js:112
 #: assets/src/admin/screens/builder/settings/tabs/LogicTab.js:144
 msgid "Option"
 msgstr ""
 
 #: includes/Rest/Route/AnalyticsController.php:118
-#: includes/Rest/Route/AssignmentController.php:151
+#: includes/Rest/Route/AssignmentController.php:153
 #: includes/Rest/Route/FontsController.php:122
-#: includes/Rest/Route/FontsController.php:183
-#: includes/Rest/Route/FontsController.php:221
+#: includes/Rest/Route/FontsController.php:200
+#: includes/Rest/Route/FontsController.php:238
 #: includes/Rest/Route/PluginController.php:69
 #: includes/Rest/Route/SetsController.php:205
 #: includes/Rest/Route/SetsController.php:241
 #: includes/Rest/Route/SetsController.php:282
 #: includes/Rest/Route/SettingsController.php:100
 #: includes/Rest/Route/StyleController.php:97
-#: includes/Rest/Route/UploadController.php:96
+#: includes/Rest/Route/UploadController.php:99
 msgid "Invalid or missing nonce."
 msgstr ""
 
@@ -262,11 +257,11 @@ msgstr ""
 msgid "Storage unavailable."
 msgstr ""
 
-#: includes/Rest/Route/AssignmentController.php:155
+#: includes/Rest/Route/AssignmentController.php:157
 msgid "Assignment resolver unavailable."
 msgstr ""
 
-#: includes/Rest/Route/AssignmentController.php:160
+#: includes/Rest/Route/AssignmentController.php:162
 msgid "Missing set id."
 msgstr ""
 
@@ -288,12 +283,12 @@ msgstr ""
 msgid "Allowed font types: woff, woff2, ttf."
 msgstr ""
 
-#: includes/Rest/Route/FontsController.php:156
+#: includes/Rest/Route/FontsController.php:173
 msgid "Could not store the font file."
 msgstr ""
 
-#: includes/Rest/Route/FontsController.php:205
-#: includes/Rest/Route/FontsController.php:245
+#: includes/Rest/Route/FontsController.php:222
+#: includes/Rest/Route/FontsController.php:262
 msgid "Font not found."
 msgstr ""
 
@@ -366,19 +361,19 @@ msgstr ""
 msgid "Invalid settings payload."
 msgstr ""
 
-#: includes/Rest/Route/UploadController.php:101
+#: includes/Rest/Route/UploadController.php:104
 msgid "No file provided."
 msgstr ""
 
-#: includes/Rest/Route/UploadController.php:106
+#: includes/Rest/Route/UploadController.php:109
 msgid "File exceeds the 25MB limit."
 msgstr ""
 
-#: includes/Rest/Route/UploadController.php:112
+#: includes/Rest/Route/UploadController.php:115
 msgid "Unsupported file type."
 msgstr ""
 
-#: includes/Rest/Route/UploadController.php:136
+#: includes/Rest/Route/UploadController.php:139
 msgid "Upload failed."
 msgstr ""
 
@@ -1378,6 +1373,10 @@ msgstr ""
 
 #: assets/src/admin/screens/builder/picker/FieldPicker.js:150
 msgid "No fields match your search."
+msgstr ""
+
+#: assets/src/admin/screens/builder/preview/FieldPreview.js:149
+msgid "Select Font"
 msgstr ""
 
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:277
@@ -2562,73 +2561,97 @@ msgid_plural "%d conversions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/src/admin/screens/License.js:32
-msgid "Pro active"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:33
-msgid "Free"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:40
-msgid "Activate Pro to unlock advanced fields and pricing."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:47
-msgid "License key"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:53
-msgid "Key"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:57
-msgid "Pro capabilities are enforced server-side via the plugin license; this screen reflects that status."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:76
+#: assets/src/admin/screens/License.js:83
 msgid "Enter a license key."
 msgstr ""
 
-#: assets/src/admin/screens/License.js:86
-msgid "License stored. Pro features activate once the server validates the key."
+#: assets/src/admin/screens/License.js:93
+msgid "License activated."
 msgstr ""
 
-#: assets/src/admin/screens/License.js:94
+#: assets/src/admin/screens/License.js:119
+msgid "License deactivated."
+msgstr ""
+
+#: assets/src/admin/screens/License.js:140
+msgid "Pro active"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:141
+msgid "Free"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:148
+msgid "Activate Pro to unlock advanced fields and pricing."
+msgstr ""
+
+#: assets/src/admin/screens/License.js:156
+msgid "License key"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:162
+msgid "Key"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:165
+msgid "Enter the license key from your pluginshift account."
+msgstr ""
+
+#: assets/src/admin/screens/License.js:183
+msgid "Plan:"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:192
+msgid "Expires:"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:211
+msgid "Activating…"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:215
 #: assets/src/admin/screens/option-set/OptionSetScreen.js:368
 msgid "Activate"
 msgstr ""
 
-#: assets/src/admin/screens/License.js:106
-msgid "License marked inactive."
+#: assets/src/admin/screens/License.js:228
+msgid "Deactivating…"
 msgstr ""
 
-#: assets/src/admin/screens/License.js:114
+#: assets/src/admin/screens/License.js:232
 #: assets/src/admin/screens/option-set/OptionSetScreen.js:378
 msgid "Deactivate"
 msgstr ""
 
-#: assets/src/admin/screens/License.js:124
+#: assets/src/admin/screens/License.js:245
 msgid "What Pro unlocks"
 msgstr ""
 
-#: assets/src/admin/screens/License.js:132
+#: assets/src/admin/screens/License.js:249
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:258
+msgid "Install the ProductKit for WooCommerce Pro plugin, then activate your license here to unlock:"
+msgstr ""
+
+#: assets/src/admin/screens/License.js:266
 msgid "Unlimited choices per field (free caps at 3)."
 msgstr ""
 
-#: assets/src/admin/screens/License.js:138
+#: assets/src/admin/screens/License.js:272
 msgid "Font picker & advanced formula fields."
 msgstr ""
 
-#: assets/src/admin/screens/License.js:144
+#: assets/src/admin/screens/License.js:278
 msgid "Percentage, per-unit, per-word & per-char pricing."
 msgstr ""
 
-#: assets/src/admin/screens/License.js:150
+#: assets/src/admin/screens/License.js:284
 msgid "Sale prices on choices & unlimited linked products."
 msgstr ""
 
-#: assets/src/admin/screens/License.js:162
+#: assets/src/admin/screens/License.js:297
 msgid "Get Pro"
 msgstr ""
 
@@ -2788,7 +2811,7 @@ msgstr ""
 msgid "Save Settings"
 msgstr ""
 
-#: assets/src/admin/screens/Settings.js:76
+#: assets/src/admin/screens/Settings.js:77
 msgid "Manage your plugin configuration."
 msgstr ""
 

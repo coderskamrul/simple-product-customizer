@@ -58,7 +58,7 @@ export default function ProCard() {
 
 			<a
 				className="pkitfw-db-pro__cta"
-				href="https://wpdeveloper.com/in/upgrade-dynamic-product-options"
+				href="https://pluginshift.com/in/upgrade-dynamic-product-options"
 				target="_blank"
 				rel="noreferrer"
 			>

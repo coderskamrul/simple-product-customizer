@@ -5,8 +5,8 @@
  * Version:           1.0.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
- * Author:            hasandev
- * Author URI:        https://wpdeveloper.com
+ * Author:            pluginshift
+ * Author URI:        https://pluginshift.com
  * Text Domain:       productkit-for-woocommerce
  * Domain Path:       /languages
  * Requires Plugins:  woocommerce

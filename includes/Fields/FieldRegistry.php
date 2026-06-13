@@ -11,7 +11,13 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Maps a type slug to its renderer class and instantiates field objects.
- * Third parties can register additional types via pkitfw_field_types.
+ *
+ * Pro-only types (e.g. fontpicker, advancedformula) are NOT defined here — they
+ * are injected by the ProductKit Pro plugin through the `pkitfw_field_types`
+ * filter, and only when its license is valid. With Pro absent the slugs are
+ * unknown, so {@see self::make()} returns null and the type renders nothing.
+ * There is no boolean flag to flip: the renderer code for those types simply
+ * does not exist in the free plugin.
  */
 final class FieldRegistry {
 
@@ -47,7 +53,6 @@ final class FieldRegistry {
 				'colorpicker'     => $base . 'ColorPickerField',
 				'colorswatch'     => $base . 'ColorSwatchField',
 				'imageswatch'     => $base . 'ImageSwatchField',
-				'fontpicker'      => $base . 'FontPickerField',
 				'fileupload'      => $base . 'FileUploadField',
 				'heading'         => $base . 'HeadingField',
 				'html'            => $base . 'HtmlField',
@@ -59,7 +64,6 @@ final class FieldRegistry {
 				'shortcode'       => $base . 'ShortcodeField',
 				'linkedproducts'  => $base . 'LinkedProductsField',
 				'formula'         => $base . 'FormulaField',
-				'advancedformula' => $base . 'AdvancedFormulaField',
 			)
 		);
 	}
