@@ -1,6 +1,6 @@
 /* Data tables (analytics, fonts). */
 
-.pkitfw-table {
+.optset-table {
 	width: 100%;
 	border-collapse: collapse;
 	font-size: 13px;
@@ -9,19 +9,19 @@
 	td {
 		text-align: start;
 		padding: 10px 12px;
-		border-block-end: 1px solid $pkitfw-border;
+		border-block-end: 1px solid $optset-border;
 	}
 
 	th {
 		font-weight: 600;
-		color: $pkitfw-text-muted;
+		color: $optset-text-muted;
 		font-size: 11px;
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
-		background: $pkitfw-surface-2;
+		background: $optset-surface-2;
 	}
 
 	tbody tr:hover {
-		background: $pkitfw-surface-2;
+		background: $optset-surface-2;
 	}
 }

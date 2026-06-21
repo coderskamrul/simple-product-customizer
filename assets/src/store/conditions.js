@@ -3,7 +3,7 @@
  *
  * Reads each field's `data-logic-rules` JSON
  * ({ action:'show'|'hide', match:'all'|'any',
- *    rules:[{ source, operator, value }] }) and toggles `.pkitfw-hidden` on the
+ *    rules:[{ source, operator, value }] }) and toggles `.optset-hidden` on the
  * field wrapper. Operators per ARCHITECTURE §6:
  * is, is_not, empty, not_empty, contains, not_contains, gt, lt, gte, lte,
  * starts_with, between, checked.
@@ -173,7 +173,7 @@ function evalRule( rule, selections ) {
 /**
  * Parse a field's logic rules from its wrapper.
  *
- * @param {HTMLElement} fieldEl `.pkitfw-field` wrapper.
+ * @param {HTMLElement} fieldEl `.optset-field` wrapper.
  * @return {object|null} { match, rules } or null when no logic.
  */
 export function readLogic( fieldEl ) {
@@ -229,8 +229,8 @@ export function isVisible( logic, selections ) {
  */
 export function applyVisibility( fieldEl, visible ) {
 	if ( visible ) {
-		fieldEl.classList.remove( 'pkitfw-hidden' );
+		fieldEl.classList.remove( 'optset-hidden' );
 	} else {
-		fieldEl.classList.add( 'pkitfw-hidden' );
+		fieldEl.classList.add( 'optset-hidden' );
 	}
 }

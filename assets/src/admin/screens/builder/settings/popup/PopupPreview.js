@@ -2,7 +2,7 @@
  * Live popup preview shown from the Popup Builder. Renders the authored content
  * with the same modal chrome, corner close button and open animation as the
  * storefront (`includes/Fields/Type/PopupField.php` + blocks.scss) so the
- * builder preview matches the frontend 1:1. Reuses `.pkitfw-rte__content` for
+ * builder preview matches the frontend 1:1. Reuses `.optset-rte__content` for
  * identical rich-text typography.
  *
  * @package
@@ -35,38 +35,38 @@ export default function PopupPreview( { content, onClose } ) {
 			? content
 			: `<p><em>${ __(
 					'Nothing to preview yet — add some content.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 			  ) }</em></p>`;
 
 	return (
 		<div
-			className="pkitfw-pp-preview"
+			className="optset-pp-preview"
 			role="dialog"
 			aria-modal="true"
 			aria-label={ __(
 				'Popup preview',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 		>
 			<div
-				className="pkitfw-pp-preview__backdrop"
+				className="optset-pp-preview__backdrop"
 				onClick={ onClose }
 				role="presentation"
 			/>
-			<div className="pkitfw-pp-preview__box">
+			<div className="optset-pp-preview__box">
 				<button
 					type="button"
-					className="pkitfw-pp-preview__close"
+					className="optset-pp-preview__close"
 					onClick={ onClose }
 					aria-label={ __(
 						'Close',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					&times;
 				</button>
 				<div
-					className="pkitfw-rte__content pkitfw-pp-preview__content"
+					className="optset-rte__content optset-pp-preview__content"
 					// eslint-disable-next-line react/no-danger
 					dangerouslySetInnerHTML={ { __html: html } }
 				/>

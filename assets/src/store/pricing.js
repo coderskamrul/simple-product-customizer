@@ -1,11 +1,11 @@
 /**
- * Client-side option pricing — mirrors ProductKit\Pricing\PriceCalculator (§13).
+ * Client-side option pricing — mirrors OptionSetBuilder\Pricing\PriceCalculator (§13).
  *
  * This is a LIVE PREVIEW computation only. The raw selection (base values,
  * never currency-converted) is what gets serialised to the hidden inputs so
  * the server recomputes the authoritative price.
  *
- * Per choice, cost = (proActive && sale !== '') ? sale : regular:
+ * Per choice, cost = sale !== '' ? sale : regular:
  *   none             → 0
  *   flat             → cost
  *   percent          → percentBase * cost / 100
@@ -13,8 +13,6 @@
  *   per_char         → mb-len(value) * cost
  *   per_char_nospace → mb-len(value w/o spaces) * cost
  *   per_word         → wordCount(value) * cost
- * Pro-gated modes (percent/per_unit/per_word/per_char_nospace) degrade to
- * `flat` when proActive is false; sale ignored unless proActive.
  *
  * Choice price data is read from data-* attributes the PHP renderers put on
  * each choice input/option: `data-price-mode`, plus `data-cost` (regular) and
@@ -27,34 +25,12 @@ import { toNumber, formatMoney } from './money';
 import { evaluateSimple, evaluateAdvanced } from './formula';
 
 /**
- * Read the localised store config defensively.
- *
- * @return {Object} pkitfwStore global or {}.
- */
-function store() {
-	return ( typeof window !== 'undefined' && window.pkitfwStore ) || {};
-}
-
-/**
- * Whether the Pro license is active.
- *
- * @return {boolean} Pro flag.
- */
-function isPro() {
-	return !! store().proActive;
-}
-
-/**
- * Apply the Pro gate: gated modes degrade to flat for free sites.
+ * Resolve the effective price mode.
  *
  * @param {string} mode Raw price mode.
  * @return {string} Effective mode.
  */
 function gatedMode( mode ) {
-	const gated = [ 'percent', 'per_unit', 'per_word', 'per_char_nospace' ];
-	if ( ! isPro() && gated.indexOf( mode ) !== -1 ) {
-		return 'flat';
-	}
 	return mode || 'none';
 }
 
@@ -204,7 +180,7 @@ function modePrice( mode, cost, value, percentBase, slot ) {
  * @return {HTMLElement[]} Choice elements indexed by choice index.
  */
 function choiceElements( fieldEl ) {
-	const opts = fieldEl.querySelectorAll( '.pkitfw-select__opt[data-index]' );
+	const opts = fieldEl.querySelectorAll( '.optset-select__opt[data-index]' );
 	if ( opts.length ) {
 		const out = [];
 		opts.forEach( ( o ) => {
@@ -324,7 +300,7 @@ export function collectFormulaVars( selections, fieldElements ) {
 				return;
 			}
 			const opt = el.querySelector(
-				'.pkitfw-select__opt[data-index="' + indexes[ 0 ] + '"]'
+				'.optset-select__opt[data-index="' + indexes[ 0 ] + '"]'
 			);
 			if ( ! opt ) {
 				return;
@@ -355,7 +331,7 @@ export function priceFormula(
 	simpleVars,
 	dynamics
 ) {
-	const node = fieldEl.querySelector( '.pkitfw-formula' );
+	const node = fieldEl.querySelector( '.optset-formula' );
 	if ( ! node ) {
 		return 0;
 	}
@@ -364,9 +340,6 @@ export function priceFormula(
 		return 0;
 	}
 	if ( type === 'advancedformula' ) {
-		if ( ! isPro() ) {
-			return 0;
-		}
 		let bidMap = {};
 		const raw = node.getAttribute( 'data-bidmap' );
 		if ( raw ) {
@@ -386,19 +359,19 @@ export function priceFormula(
 }
 
 /**
- * Render the price spans (#pkitfw-options-price / #pkitfw-options-total).
+ * Render the price spans (#optset-options-price / #optset-options-total).
  * Display amounts honour currency + conversion; the values written to the
  * hidden inputs elsewhere remain raw/base.
  *
- * @param {HTMLElement} root          `.pkitfw-options` wrapper.
+ * @param {HTMLElement} root          `.optset-options` wrapper.
  * @param {number}      optionsPrice  Sum of option prices (base ccy).
  * @param {number}      basePrice     Product base price (base ccy).
  * @param {number}      [linkedPrice] Sum of selected linked-product prices.
  * @return {void}
  */
 export function renderPriceSpans( root, optionsPrice, basePrice, linkedPrice ) {
-	const priceEl = root.querySelector( '#pkitfw-options-price' );
-	const totalEl = root.querySelector( '#pkitfw-options-total' );
+	const priceEl = root.querySelector( '#optset-options-price' );
+	const totalEl = root.querySelector( '#optset-options-total' );
 	if ( priceEl ) {
 		priceEl.innerHTML = formatMoney( optionsPrice );
 	}

@@ -19,21 +19,21 @@ export default function ToastStack() {
 		return null;
 	}
 	return (
-		<div className="pkitfw-toast-stack" aria-live="polite" aria-atomic="false">
+		<div className="optset-toast-stack" aria-live="polite" aria-atomic="false">
 			{ toasts.map( ( t ) => (
 				<div
 					key={ t.id }
-					className={ `pkitfw-toast pkitfw-toast--${ t.type }` }
+					className={ `optset-toast optset-toast--${ t.type }` }
 					role={ t.type === 'error' ? 'alert' : 'status' }
 				>
-					<span className="pkitfw-toast__msg">{ t.message }</span>
+					<span className="optset-toast__msg">{ t.message }</span>
 					<button
 						type="button"
-						className="pkitfw-toast__close"
+						className="optset-toast__close"
 						onClick={ () => dismiss( t.id ) }
 						aria-label={ __(
 							'Dismiss',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<span

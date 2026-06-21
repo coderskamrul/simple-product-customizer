@@ -21,14 +21,14 @@ export default function EmptyState( {
 	action,
 } ) {
 	return (
-		<div className="pkitfw-empty">
+		<div className="optset-empty">
 			<span
-				className={ `dashicons dashicons-${ icon } pkitfw-empty__icon` }
+				className={ `dashicons dashicons-${ icon } optset-empty__icon` }
 				aria-hidden="true"
 			/>
-			<h3 className="pkitfw-empty__title">{ title }</h3>
-			{ text && <p className="pkitfw-empty__text">{ text }</p> }
-			{ action && <div className="pkitfw-empty__action">{ action }</div> }
+			<h3 className="optset-empty__title">{ title }</h3>
+			{ text && <p className="optset-empty__text">{ text }</p> }
+			{ action && <div className="optset-empty__action">{ action }</div> }
 		</div>
 	);
 }

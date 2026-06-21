@@ -2,12 +2,12 @@
 /**
  * Email input field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,7 +48,7 @@ final class EmailField extends AbstractField {
 		$def     = $this->prop( 'defaults', '' );
 		$def     = is_array( $def ) ? ( isset( $def[0] ) ? $def[0] : '' ) : $def;
 
-		return '<input type="email" class="pkitfw-input" name="' . esc_attr( $this->input_name() ) . '"'
+		return '<input type="email" class="optset-input" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(

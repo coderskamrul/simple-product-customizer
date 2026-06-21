@@ -15,17 +15,17 @@
  * and folds left-associatively, which yields the table above without an
  * explicit precedence-climbing loop.
  *
- * @package ProductKit\Formula\Ast
+ * @package OptionSetBuilder\Formula\Ast
  */
 
-namespace ProductKit\Formula\Ast;
+namespace OptionSetBuilder\Formula\Ast;
 
-use ProductKit\Formula\Ast\Node\BinaryNode;
-use ProductKit\Formula\Ast\Node\FunctionNode;
-use ProductKit\Formula\Ast\Node\NodeInterface;
-use ProductKit\Formula\Ast\Node\NumberNode;
-use ProductKit\Formula\Ast\Node\UnaryNode;
-use ProductKit\Formula\Ast\Node\VariableNode;
+use OptionSetBuilder\Formula\Ast\Node\BinaryNode;
+use OptionSetBuilder\Formula\Ast\Node\FunctionNode;
+use OptionSetBuilder\Formula\Ast\Node\NodeInterface;
+use OptionSetBuilder\Formula\Ast\Node\NumberNode;
+use OptionSetBuilder\Formula\Ast\Node\UnaryNode;
+use OptionSetBuilder\Formula\Ast\Node\VariableNode;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -2,13 +2,13 @@
 /**
  * Telephone input field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
-use ProductKit\Support\Countries;
+use OptionSetBuilder\Fields\AbstractField;
+use OptionSetBuilder\Support\Countries;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -51,7 +51,7 @@ final class TelField extends AbstractField {
 		$def     = $this->prop( 'defaults', '' );
 		$def     = is_array( $def ) ? ( isset( $def[0] ) ? $def[0] : '' ) : $def;
 
-		$number = '<input type="tel" class="pkitfw-input pkitfw-phone__number" name="' . esc_attr( $this->input_name() ) . '"'
+		$number = '<input type="tel" class="optset-input optset-phone__number" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -74,14 +74,14 @@ final class TelField extends AbstractField {
 		$iso       = Countries::resolve_default( (string) $this->cfg( 'defaultCountry', '' ) );
 		$show_dial = ( 'flag_dial' === $flag_style );
 
-		$button = '<button type="button" class="pkitfw-phone__country" aria-haspopup="listbox" aria-expanded="false">'
-			. '<span class="pkitfw-phone__flag">' . esc_html( Countries::flag( $iso ) ) . '</span>'
-			. ( $show_dial ? '<span class="pkitfw-phone__dial">+' . esc_html( Countries::dial( $iso ) ) . '</span>' : '' )
-			. '<span class="pkitfw-phone__caret" aria-hidden="true"></span>'
+		$button = '<button type="button" class="optset-phone__country" aria-haspopup="listbox" aria-expanded="false">'
+			. '<span class="optset-phone__flag">' . esc_html( Countries::flag( $iso ) ) . '</span>'
+			. ( $show_dial ? '<span class="optset-phone__dial">+' . esc_html( Countries::dial( $iso ) ) . '</span>' : '' )
+			. '<span class="optset-phone__caret" aria-hidden="true"></span>'
 			. '</button>';
 
-		return '<div class="pkitfw-phone" data-flag-style="' . esc_attr( $flag_style ) . '" data-default-country="' . esc_attr( $iso ) . '">'
-			. '<input type="hidden" class="pkitfw-phone__iso" value="' . esc_attr( $iso ) . '" />'
+		return '<div class="optset-phone" data-flag-style="' . esc_attr( $flag_style ) . '" data-default-country="' . esc_attr( $iso ) . '">'
+			. '<input type="hidden" class="optset-phone__iso" value="' . esc_attr( $iso ) . '" />'
 			. $button
 			. $number
 			. '</div>';

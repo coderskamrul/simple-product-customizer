@@ -24,23 +24,23 @@ export default function AddFieldButton( { parentId = '', compact = false } ) {
 	return (
 		<motion.button
 			type="button"
-			className={ `pkitfw-add${ compact ? ' pkitfw-add--compact' : '' }` }
+			className={ `optset-add${ compact ? ' optset-add--compact' : '' }` }
 			onClick={ () => openPicker( parentId ) }
 			whileHover={ { scale: 1.01 } }
 			whileTap={ { scale: 0.99 } }
 		>
 			<motion.span
-				className="pkitfw-add__plus"
+				className="optset-add__plus"
 				whileHover={ { rotate: 90 } }
 				transition={ { type: 'spring', stiffness: 300, damping: 20 } }
 			>
 				<Plus size={ compact ? 16 : 20 } />
 			</motion.span>
 			{ ! compact && (
-				<span className="pkitfw-add__label">
+				<span className="optset-add__label">
 					{ __(
 						'Add field',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</span>
 			) }

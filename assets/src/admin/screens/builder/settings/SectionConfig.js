@@ -22,14 +22,14 @@ import { Field } from '../../../components';
  */
 function Segmented( { value, options, onChange } ) {
 	return (
-		<div className="pkitfw-seg" role="radiogroup">
+		<div className="optset-seg" role="radiogroup">
 			{ options.map( ( opt ) => (
 				<button
 					key={ opt.value }
 					type="button"
 					role="radio"
 					aria-checked={ value === opt.value }
-					className={ `pkitfw-seg__btn${
+					className={ `optset-seg__btn${
 						value === opt.value ? ' is-active' : ''
 					}` }
 					onClick={ () => onChange( opt.value ) }
@@ -57,11 +57,11 @@ export default function SectionConfig( { node, patch } ) {
 		patch( { config: { ...cfg, [ key ]: value } } );
 
 	return (
-		<div className="pkitfw-settings__grid2">
+		<div className="optset-settings__grid2">
 			<Field
 				label={ __(
 					'Style',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<Segmented
@@ -72,14 +72,14 @@ export default function SectionConfig( { node, patch } ) {
 							value: 'section',
 							label: __(
 								'Section',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							),
 						},
 						{
 							value: 'accordion',
 							label: __(
 								'Accordion',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							),
 						},
 					] }
@@ -90,7 +90,7 @@ export default function SectionConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'Initial state',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<Segmented
@@ -101,14 +101,14 @@ export default function SectionConfig( { node, patch } ) {
 								value: 'open',
 								label: __(
 									'Open',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								),
 							},
 							{
 								value: 'close',
 								label: __(
 									'Close',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								),
 							},
 						] }

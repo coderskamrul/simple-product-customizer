@@ -34,7 +34,7 @@ export default function LinkPrompt( {
 	const [ href, setHref ] = useState( initialHref );
 	const [ newTab, setNewTab ] = useState( initialNewTab );
 	const inputRef = useRef( null );
-	const newTabId = useId( 'pkitfw-rte-newtab' );
+	const newTabId = useId( 'optset-rte-newtab' );
 
 	useEffect( () => {
 		if ( inputRef.current ) {
@@ -52,14 +52,14 @@ export default function LinkPrompt( {
 	};
 
 	return (
-		<div className="pkitfw-rte__linkbar">
+		<div className="optset-rte__linkbar">
 			<input
 				ref={ inputRef }
 				type="url"
-				className="pkitfw-rte__linkinput"
+				className="optset-rte__linkinput"
 				placeholder={ __(
 					'https://example.com',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				value={ href }
 				onChange={ ( e ) => setHref( e.target.value ) }
@@ -74,21 +74,21 @@ export default function LinkPrompt( {
 					}
 				} }
 			/>
-			<label className="pkitfw-rte__linkcheck" htmlFor={ newTabId }>
+			<label className="optset-rte__linkcheck" htmlFor={ newTabId }>
 				<input
 					id={ newTabId }
 					type="checkbox"
 					checked={ newTab }
 					onChange={ ( e ) => setNewTab( e.target.checked ) }
 				/>
-				{ __( 'New tab', 'productkit-for-woocommerce' ) }
+				{ __( 'New tab', 'option-set-builder' ) }
 			</label>
 			<button
 				type="button"
-				className="pkitfw-rte__btn"
+				className="optset-rte__btn"
 				title={ __(
 					'Apply link',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ apply }
 			>
@@ -97,10 +97,10 @@ export default function LinkPrompt( {
 			{ hasLink && (
 				<button
 					type="button"
-					className="pkitfw-rte__btn is-danger"
+					className="optset-rte__btn is-danger"
 					title={ __(
 						'Remove link',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					onClick={ onRemove }
 				>
@@ -109,10 +109,10 @@ export default function LinkPrompt( {
 			) }
 			<button
 				type="button"
-				className="pkitfw-rte__btn"
+				className="optset-rte__btn"
 				title={ __(
 					'Cancel',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ onCancel }
 			>

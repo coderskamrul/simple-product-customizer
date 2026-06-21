@@ -1,7 +1,7 @@
 /**
  * Storefront date-field enhancement.
  *
- * Turns the readonly `.pkitfw-date-input` rendered by DateField.php into a
+ * Turns the readonly `.optset-date-input` rendered by DateField.php into a
  * flatpickr calendar, honouring every restriction the builder can set:
  * display format, earliest/latest bounds (none | today | a custom date),
  * blocked today, blocked specific dates, blocked weekdays and blocked
@@ -76,11 +76,11 @@ function resolveBound( mode, value, format ) {
  * @return {void}
  */
 export function wireDate( fieldEl, onChange ) {
-	const input = fieldEl.querySelector( '.pkitfw-date-input' );
-	if ( ! input || input.__pkitfwDate ) {
+	const input = fieldEl.querySelector( '.optset-date-input' );
+	if ( ! input || input.__optsetDate ) {
 		return;
 	}
-	input.__pkitfwDate = true;
+	input.__optsetDate = true;
 
 	const format = input.getAttribute( 'data-format' ) || 'd/m/Y';
 

@@ -22,13 +22,13 @@ import FieldPreview from '../preview/FieldPreview';
 /** A neutral product-gallery placeholder. */
 function Gallery() {
 	return (
-		<div className="pkitfw-stage__gallery" aria-hidden="true">
-			<div className="pkitfw-stage__gallery-main">
+		<div className="optset-stage__gallery" aria-hidden="true">
+			<div className="optset-stage__gallery-main">
 				<ImageIcon size={ 64 } />
 			</div>
-			<div className="pkitfw-stage__gallery-thumbs">
+			<div className="optset-stage__gallery-thumbs">
 				{ [ 0, 1, 2 ].map( ( i ) => (
-					<div key={ i } className="pkitfw-stage__thumb">
+					<div key={ i } className="optset-stage__thumb">
 						<ImageIcon size={ 28 } />
 					</div>
 				) ) }
@@ -43,28 +43,28 @@ function EmptyCanvas() {
 	return (
 		<button
 			type="button"
-			className="pkitfw-empty"
+			className="optset-empty"
 			onClick={ () => openPicker( '' ) }
 		>
-			<span className="pkitfw-empty__icon">
+			<span className="optset-empty__icon">
 				<MousePointerClick size={ 28 } />
 			</span>
-			<span className="pkitfw-empty__title">
+			<span className="optset-empty__title">
 				{ __(
 					'Start building your options',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			</span>
-			<span className="pkitfw-empty__text">
+			<span className="optset-empty__text">
 				{ __(
 					'Add your first field — text, choices, swatches and more.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			</span>
-			<span className="pkitfw-empty__cta">
+			<span className="optset-empty__cta">
 				{ __(
 					'Add a field',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			</span>
 		</button>
@@ -85,50 +85,50 @@ export default function Canvas() {
 	const empty = tree.length === 0;
 
 	// Storefront theme tokens drive the in-canvas live preview (consumed by the
-	// `--pkitfw-gs-*` fallbacks in the canvas SCSS).
+	// `--optset-gs-*` fallbacks in the canvas SCSS).
 	const styleVars = cssVars( tokens );
 
 	return (
 		<div
-			className={ `pkitfw-stage${ preview ? ' is-preview' : '' }` }
+			className={ `optset-stage${ preview ? ' is-preview' : '' }` }
 			style={ styleVars }
 		>
-			<div className="pkitfw-stage__product">
+			<div className="optset-stage__product">
 				<Gallery />
 
-				<div className="pkitfw-stage__summary">
-					<h2 className="pkitfw-stage__title">
+				<div className="optset-stage__summary">
+					<h2 className="optset-stage__title">
 						{ __(
 							'Sample Product',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</h2>
-					<div className="pkitfw-stage__price">
+					<div className="optset-stage__price">
 						{ formatPrice( 20 ) }
 					</div>
 
-					<div className="pkitfw-stage__options">
+					<div className="optset-stage__options">
 						{ empty && ! preview && <EmptyCanvas /> }
 
 						{ empty && preview && (
-							<p className="pkitfw-stage__hint">
+							<p className="optset-stage__hint">
 								{ __(
 									'No options to preview yet.',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</p>
 						) }
 
 						{ ! empty && preview && (
-							<div className="pkitfw-canvas__list">
+							<div className="optset-canvas__list">
 								{ tree.map( ( node ) => (
 									<div
 										key={ node.id }
-										className={ `pkitfw-card pkitfw-card--w-${
+										className={ `optset-card optset-card--w-${
 											node.width || 'full'
 										} is-preview` }
 									>
-										<div className="pkitfw-card__body">
+										<div className="optset-card__body">
 											<FieldPreview node={ node } />
 										</div>
 									</div>
@@ -147,12 +147,12 @@ export default function Canvas() {
 					{ ! preview && (
 						<button
 							type="button"
-							className="pkitfw-stage__atc"
+							className="optset-stage__atc"
 							disabled
 						>
 							{ __(
 								'Add to cart',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</button>
 					) }

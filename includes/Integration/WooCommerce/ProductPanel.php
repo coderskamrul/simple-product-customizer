@@ -2,13 +2,13 @@
 /**
  * Read-only "Product Options" tab on the product edit screen.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Integration\WooCommerce;
+namespace OptionSetBuilder\Integration\WooCommerce;
 
-use ProductKit\Data\AssignmentResolver;
-use ProductKit\Data\OptionSetRepository;
+use OptionSetBuilder\Data\AssignmentResolver;
+use OptionSetBuilder\Data\OptionSetRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,9 +63,9 @@ final class ProductPanel {
 	 */
 	public function add_tab( $tabs ) {
 		$tabs = is_array( $tabs ) ? $tabs : array();
-		$tabs['pkitfw_options'] = array(
-			'label'    => __( 'Product Options', 'productkit-for-woocommerce' ),
-			'target'   => 'pkitfw_options_panel',
+		$tabs['optset_options'] = array(
+			'label'    => __( 'Product Options', 'option-set-builder' ),
+			'target'   => 'optset_options_panel',
 			'class'    => array( 'hide_if_grouped' ),
 			'priority' => 80,
 		);
@@ -83,18 +83,18 @@ final class ProductPanel {
 
 		$set_ids = $product_id ? $this->assignment->for_product( $product_id ) : array();
 
-		echo '<div id="pkitfw_options_panel" class="panel woocommerce_options_panel">';
+		echo '<div id="optset_options_panel" class="panel woocommerce_options_panel">';
 		echo '<div class="options_group" style="padding:16px;">';
 
 		if ( array() === $set_ids ) {
-			echo '<p>' . esc_html__( 'No option sets are assigned to this product yet.', 'productkit-for-woocommerce' ) . '</p>';
+			echo '<p>' . esc_html__( 'No option sets are assigned to this product yet.', 'option-set-builder' ) . '</p>';
 			printf(
 				'<p><a class="button" target="_blank" href="%s">%s</a></p>',
-				esc_url( admin_url( 'admin.php?page=pkitfw-options#/set/new' ) ),
-				esc_html__( 'Create an Option Set', 'productkit-for-woocommerce' )
+				esc_url( admin_url( 'admin.php?page=optset-options#/set/new' ) ),
+				esc_html__( 'Create an Option Set', 'option-set-builder' )
 			);
 		} else {
-			echo '<p><strong>' . esc_html__( 'Assigned Option Sets', 'productkit-for-woocommerce' ) . '</strong></p>';
+			echo '<p><strong>' . esc_html__( 'Assigned Option Sets', 'option-set-builder' ) . '</strong></p>';
 			echo '<ul style="margin:0;">';
 			foreach ( $set_ids as $set_id ) {
 				$set_id = (int) $set_id;
@@ -104,13 +104,13 @@ final class ProductPanel {
 				}
 				printf(
 					'<li style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #eee;"><span>%s</span><a target="_blank" href="%s">%s</a></li>',
-					esc_html( '' !== $set['title'] ? $set['title'] : __( '(untitled)', 'productkit-for-woocommerce' ) ),
-					esc_url( admin_url( 'admin.php?page=pkitfw-options#/set/' . $set_id ) ),
-					esc_html__( 'Edit', 'productkit-for-woocommerce' )
+					esc_html( '' !== $set['title'] ? $set['title'] : __( '(untitled)', 'option-set-builder' ) ),
+					esc_url( admin_url( 'admin.php?page=optset-options#/set/' . $set_id ) ),
+					esc_html__( 'Edit', 'option-set-builder' )
 				);
 			}
 			echo '</ul>';
-			echo '<p class="description" style="margin-top:12px;">' . esc_html__( 'Assignment is managed in the ProductKit app.', 'productkit-for-woocommerce' ) . '</p>';
+			echo '<p class="description" style="margin-top:12px;">' . esc_html__( 'Assignment is managed in the Option Set Builder app.', 'option-set-builder' ) . '</p>';
 		}
 
 		echo '</div>';

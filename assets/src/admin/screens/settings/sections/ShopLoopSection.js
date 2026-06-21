@@ -20,34 +20,34 @@ import SwitchRow from '../SwitchRow';
  */
 export default function ShopLoopSection( { values, set } ) {
 	return (
-		<div className="pkitfw-set-grid pkitfw-set-grid--2">
+		<div className="optset-set-grid optset-set-grid--2">
 			<SettingCard
 				icon="screenoptions"
 				tone="violet"
 				title={ __(
 					'Select Options Button',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				subtitle={ __(
 					'Behaviour on the shop loop',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				hint={
 					values.shopForceSelect
 						? __(
 								'Shoppers are sent to the product page to choose options',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: __(
 								'Default WooCommerce add-to-cart behaviour',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 				}
 			>
 				<SwitchRow
 					label={ __(
 						'Force "Select options" on shop loop',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					checked={ values.shopForceSelect }
 					onChange={ ( v ) => set( 'shopForceSelect', v ) }
@@ -59,17 +59,17 @@ export default function ShopLoopSection( { values, set } ) {
 				tone="blue"
 				title={ __(
 					'Button Text',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				subtitle={ __(
 					'Label shown on the shop loop',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<Field
 					label={ __(
 						'Shop loop button text',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl

@@ -2,16 +2,16 @@
 /**
  * Assignment read/write + product-link resolution controller.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Rest\Route;
+namespace OptionSetBuilder\Rest\Route;
 
-use ProductKit\Core\Container;
-use ProductKit\Data\AssignmentResolver;
-use ProductKit\Data\OptionSetRepository;
-use ProductKit\Rest\RestServer;
-use ProductKit\Support\Str;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Data\AssignmentResolver;
+use OptionSetBuilder\Data\OptionSetRepository;
+use OptionSetBuilder\Rest\RestServer;
+use OptionSetBuilder\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class AssignmentController {
 
-	const OPT_IMAGE_MAP = 'pkitfw_product_image_map';
+	const OPT_IMAGE_MAP = 'optset_product_image_map';
 
 	/**
 	 * Container.
@@ -108,13 +108,13 @@ final class AssignmentController {
 	private function get_assignment( WP_REST_Request $r, RestServer $s ) {
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Storage unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Storage unavailable.', 'option-set-builder' ), 500 );
 		}
 
 		$id  = (int) $r->get_param( 'id' );
 		$set = $repo->get( $id );
 		if ( ! $set ) {
-			return $s->fail( 'not_found', __( 'Option set not found.', 'productkit-for-woocommerce' ), 404 );
+			return $s->fail( 'not_found', __( 'Option set not found.', 'option-set-builder' ), 404 );
 		}
 
 		$assignment = isset( $set['assignment'] ) && is_array( $set['assignment'] )
@@ -150,16 +150,16 @@ final class AssignmentController {
 	 */
 	private function save_assignment( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 		$resolver = $this->resolver();
 		if ( ! $resolver ) {
-			return $s->fail( 'unavailable', __( 'Assignment resolver unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Assignment resolver unavailable.', 'option-set-builder' ), 500 );
 		}
 
 		$set_id = (int) $r->get_param( 'set_id' );
 		if ( $set_id <= 0 ) {
-			return $s->fail( 'bad_id', __( 'Missing set id.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_id', __( 'Missing set id.', 'option-set-builder' ), 400 );
 		}
 
 		$scope   = sanitize_key( (string) $r->get_param( 'scope' ) );

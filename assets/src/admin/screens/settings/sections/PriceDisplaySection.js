@@ -20,23 +20,23 @@ import SwitchRow from '../SwitchRow';
  */
 export default function PriceDisplaySection( { values, set } ) {
 	return (
-		<div className="pkitfw-set-grid pkitfw-set-grid--2">
+		<div className="optset-set-grid optset-set-grid--2">
 			<SettingCard
 				icon="money-alt"
 				tone="blue"
 				title={ __(
 					'Options Price Line',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				subtitle={ __(
 					'The combined price of selected options',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<SwitchRow
 					label={ __(
 						'Show options price line',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					checked={ values.showPriceLine }
 					onChange={ ( v ) => set( 'showPriceLine', v ) }
@@ -44,7 +44,7 @@ export default function PriceDisplaySection( { values, set } ) {
 				<Field
 					label={ __(
 						'Label',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl
@@ -59,17 +59,17 @@ export default function PriceDisplaySection( { values, set } ) {
 				tone="green"
 				title={ __(
 					'Total Price Line',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				subtitle={ __(
 					'Base product price plus all options',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<SwitchRow
 					label={ __(
 						'Show total price line',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					checked={ values.showTotalLine }
 					onChange={ ( v ) => set( 'showTotalLine', v ) }
@@ -77,7 +77,7 @@ export default function PriceDisplaySection( { values, set } ) {
 				<Field
 					label={ __(
 						'Label',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl

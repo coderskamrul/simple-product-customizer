@@ -35,7 +35,7 @@ function TBtn( { onClick, title, danger = false, children } ) {
 	return (
 		<button
 			type="button"
-			className={ `pkitfw-rte__tbtn${ danger ? ' is-danger' : '' }` }
+			className={ `optset-rte__tbtn${ danger ? ' is-danger' : '' }` }
 			onClick={ onClick }
 			title={ title }
 			aria-label={ title }
@@ -59,15 +59,15 @@ export default function TableControls( { editor } ) {
 	const chain = () => editor.chain().focus();
 
 	return (
-		<div className="pkitfw-rte__tablebar" role="toolbar">
-			<span className="pkitfw-rte__tablebar-label">
-				{ __( 'Table', 'productkit-for-woocommerce' ) }
+		<div className="optset-rte__tablebar" role="toolbar">
+			<span className="optset-rte__tablebar-label">
+				{ __( 'Table', 'option-set-builder' ) }
 			</span>
 
 			<TBtn
 				title={ __(
 					'Add column before',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().addColumnBefore().run() }
 			>
@@ -76,7 +76,7 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Add column after',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().addColumnAfter().run() }
 			>
@@ -85,19 +85,19 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Delete column',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().deleteColumn().run() }
 			>
 				<Columns3 size={ 15 } />
 			</TBtn>
 
-			<span className="pkitfw-rte__sep" aria-hidden="true" />
+			<span className="optset-rte__sep" aria-hidden="true" />
 
 			<TBtn
 				title={ __(
 					'Add row above',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().addRowBefore().run() }
 			>
@@ -106,7 +106,7 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Add row below',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().addRowAfter().run() }
 			>
@@ -115,19 +115,19 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Delete row',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().deleteRow().run() }
 			>
 				<Rows3 size={ 15 } />
 			</TBtn>
 
-			<span className="pkitfw-rte__sep" aria-hidden="true" />
+			<span className="optset-rte__sep" aria-hidden="true" />
 
 			<TBtn
 				title={ __(
 					'Toggle header row',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().toggleHeaderRow().run() }
 			>
@@ -136,7 +136,7 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Merge cells',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().mergeCells().run() }
 			>
@@ -145,20 +145,20 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Split cell',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().splitCell().run() }
 			>
 				<TableCellsSplit size={ 15 } />
 			</TBtn>
 
-			<span className="pkitfw-rte__sep" aria-hidden="true" />
+			<span className="optset-rte__sep" aria-hidden="true" />
 
 			<TBtn
 				danger
 				title={ __(
 					'Delete table',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onClick={ () => chain().deleteTable().run() }
 			>

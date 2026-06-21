@@ -2,10 +2,10 @@
 /**
  * String helpers.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Support;
+namespace OptionSetBuilder\Support;
 
 defined( 'ABSPATH' ) || exit;
 

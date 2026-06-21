@@ -49,7 +49,7 @@ export default function Modal( {
 
 	return (
 		<div
-			className="pkitfw-modal-overlay"
+			className="optset-modal-overlay"
 			onMouseDown={ ( e ) => {
 				if ( e.target === e.currentTarget ) {
 					onClose();
@@ -57,22 +57,22 @@ export default function Modal( {
 			} }
 		>
 			<div
-				className={ `pkitfw-modal pkitfw-modal--${ size }` }
+				className={ `optset-modal optset-modal--${ size }` }
 				role="dialog"
 				aria-modal="true"
 				aria-label={ title }
 				tabIndex={ -1 }
 				ref={ ref }
 			>
-				<header className="pkitfw-modal__head">
-					<h2 className="pkitfw-modal__title">{ title }</h2>
+				<header className="optset-modal__head">
+					<h2 className="optset-modal__title">{ title }</h2>
 					<button
 						type="button"
-						className="pkitfw-icon-btn"
+						className="optset-icon-btn"
 						onClick={ onClose }
 						aria-label={ __(
 							'Close',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<span
@@ -81,9 +81,9 @@ export default function Modal( {
 						/>
 					</button>
 				</header>
-				<div className="pkitfw-modal__body">{ children }</div>
+				<div className="optset-modal__body">{ children }</div>
 				{ footer && (
-					<footer className="pkitfw-modal__foot">{ footer }</footer>
+					<footer className="optset-modal__foot">{ footer }</footer>
 				) }
 			</div>
 		</div>

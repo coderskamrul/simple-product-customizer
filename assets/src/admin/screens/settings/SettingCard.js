@@ -31,25 +31,25 @@ export default function SettingCard( {
 	children,
 } ) {
 	return (
-		<div className={ classNames( 'pkitfw-set-card', className ) }>
-			<div className="pkitfw-set-card__head">
+		<div className={ classNames( 'optset-set-card', className ) }>
+			<div className="optset-set-card__head">
 				<span
-					className={ `pkitfw-set-tile pkitfw-set-tile--${ tone }` }
+					className={ `optset-set-tile optset-set-tile--${ tone }` }
 					aria-hidden="true"
 				>
 					<span className={ `dashicons dashicons-${ icon }` } />
 				</span>
-				<div className="pkitfw-set-card__heading">
-					<h3 className="pkitfw-set-card__title">{ title }</h3>
+				<div className="optset-set-card__heading">
+					<h3 className="optset-set-card__title">{ title }</h3>
 					{ subtitle && (
-						<p className="pkitfw-set-card__sub">{ subtitle }</p>
+						<p className="optset-set-card__sub">{ subtitle }</p>
 					) }
 				</div>
 			</div>
 
-			<div className="pkitfw-set-card__body">{ children }</div>
+			<div className="optset-set-card__body">{ children }</div>
 
-			{ hint && <p className="pkitfw-set-card__hint">{ hint }</p> }
+			{ hint && <p className="optset-set-card__hint">{ hint }</p> }
 		</div>
 	);
 }

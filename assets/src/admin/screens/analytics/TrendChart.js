@@ -20,17 +20,17 @@ const SERIES = [
 	{
 		key: 'clicks',
 		tone: 'blue',
-		label: __( 'Clicks', 'productkit-for-woocommerce' ),
+		label: __( 'Clicks', 'option-set-builder' ),
 	},
 	{
 		key: 'add_to_cart',
 		tone: 'purple',
-		label: __( 'Carts', 'productkit-for-woocommerce' ),
+		label: __( 'Carts', 'option-set-builder' ),
 	},
 	{
 		key: 'orders',
 		tone: 'green',
-		label: __( 'Sales', 'productkit-for-woocommerce' ),
+		label: __( 'Sales', 'option-set-builder' ),
 	},
 ];
 
@@ -131,11 +131,11 @@ export default function TrendChart( { daily } ) {
 				icon="chart-area"
 				title={ __(
 					'No activity yet',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				text={ __(
 					'The trend appears once shoppers start interacting with your option sets.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			/>
 		);
@@ -160,16 +160,16 @@ export default function TrendChart( { daily } ) {
 			: Number( r[ key ] || 0 ).toLocaleString();
 
 	return (
-		<figure className="pkitfw-an-chart">
+		<figure className="optset-an-chart">
 			<svg
 				ref={ svgRef }
 				viewBox={ `0 0 ${ W } ${ H }` }
-				className="pkitfw-an-chart__svg"
+				className="optset-an-chart__svg"
 				preserveAspectRatio="none"
 				role="img"
 				aria-label={ __(
 					'Daily clicks, cart additions and sales trend',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				onMouseMove={ onMove }
 				onMouseLeave={ clear }
@@ -178,7 +178,7 @@ export default function TrendChart( { daily } ) {
 					{ SERIES.map( ( s ) => (
 						<linearGradient
 							key={ s.tone }
-							id={ `pkitfw-an-grad-${ s.tone }` }
+							id={ `optset-an-grad-${ s.tone }` }
 							x1="0"
 							y1="0"
 							x2="0"
@@ -186,11 +186,11 @@ export default function TrendChart( { daily } ) {
 						>
 							<stop
 								offset="0%"
-								className={ `pkitfw-an-grad__a pkitfw-an-grad__a--${ s.tone }` }
+								className={ `optset-an-grad__a optset-an-grad__a--${ s.tone }` }
 							/>
 							<stop
 								offset="100%"
-								className={ `pkitfw-an-grad__b pkitfw-an-grad__b--${ s.tone }` }
+								className={ `optset-an-grad__b optset-an-grad__b--${ s.tone }` }
 							/>
 						</linearGradient>
 					) ) }
@@ -203,25 +203,25 @@ export default function TrendChart( { daily } ) {
 							y1={ tk.y }
 							x2={ W - PAD.r }
 							y2={ tk.y }
-							className="pkitfw-an-chart__grid"
+							className="optset-an-chart__grid"
 						/>
 						<text
 							x={ PAD.l - 10 }
 							y={ tk.y + 4 }
-							className="pkitfw-an-chart__ylabel"
+							className="optset-an-chart__ylabel"
 						>
 							{ tk.label }
 						</text>
 					</g>
 				) ) }
 
-				<g className="pkitfw-an-chart__plot">
+				<g className="optset-an-chart__plot">
 					{ model.series.map( ( s ) => (
 						<path
 							key={ `area-${ s.tone }` }
 							d={ s.area }
-							fill={ `url(#pkitfw-an-grad-${ s.tone })` }
-							className="pkitfw-an-chart__area"
+							fill={ `url(#optset-an-grad-${ s.tone })` }
+							className="optset-an-chart__area"
 						/>
 					) ) }
 					{ model.series.map( ( s ) => (
@@ -229,19 +229,19 @@ export default function TrendChart( { daily } ) {
 							key={ `line-${ s.tone }` }
 							d={ s.line }
 							fill="none"
-							className={ `pkitfw-an-chart__line pkitfw-an-chart__line--${ s.tone }` }
+							className={ `optset-an-chart__line optset-an-chart__line--${ s.tone }` }
 						/>
 					) ) }
 				</g>
 
 				{ hover !== null && (
-					<g className="pkitfw-an-chart__cursor">
+					<g className="optset-an-chart__cursor">
 						<line
 							x1={ hoverX }
 							y1={ model.top }
 							x2={ hoverX }
 							y2={ model.baseline }
-							className="pkitfw-an-chart__crosshair"
+							className="optset-an-chart__crosshair"
 						/>
 						{ model.series.map( ( s ) => (
 							<circle
@@ -249,7 +249,7 @@ export default function TrendChart( { daily } ) {
 								cx={ s.pts[ hover ].x }
 								cy={ s.pts[ hover ].y }
 								r={ 4 }
-								className={ `pkitfw-an-chart__pt pkitfw-an-chart__pt--${ s.tone }` }
+								className={ `optset-an-chart__pt optset-an-chart__pt--${ s.tone }` }
 							/>
 						) ) }
 					</g>
@@ -261,7 +261,7 @@ export default function TrendChart( { daily } ) {
 							key={ `x-${ i }` }
 							x={ tk.x }
 							y={ H - 10 }
-							className="pkitfw-an-chart__xlabel"
+							className="optset-an-chart__xlabel"
 						>
 							{ tk.label }
 						</text>
@@ -271,22 +271,22 @@ export default function TrendChart( { daily } ) {
 
 			{ row && (
 				<div
-					className={ `pkitfw-an-tip pkitfw-an-tip--${ tipSide }` }
+					className={ `optset-an-tip optset-an-tip--${ tipSide }` }
 					style={ { insetInlineStart: `${ hoverPct }%` } }
 					role="status"
 					aria-live="polite"
 				>
-					<span className="pkitfw-an-tip__title">{ row.day }</span>
+					<span className="optset-an-tip__title">{ row.day }</span>
 					{ SERIES.map( ( s ) => (
-						<span key={ s.key } className="pkitfw-an-tip__row">
+						<span key={ s.key } className="optset-an-tip__row">
 							<span
-								className={ `pkitfw-an-dot pkitfw-an-dot--${ s.tone }` }
+								className={ `optset-an-dot optset-an-dot--${ s.tone }` }
 								aria-hidden="true"
 							/>
-							<span className="pkitfw-an-tip__label">
+							<span className="optset-an-tip__label">
 								{ s.label }
 							</span>
-							<span className="pkitfw-an-tip__val">
+							<span className="optset-an-tip__val">
 								{ fmt( s.key, row ) }
 							</span>
 						</span>
@@ -294,11 +294,11 @@ export default function TrendChart( { daily } ) {
 				</div>
 			) }
 
-			<table className="pkitfw-visually-hidden">
+			<table className="optset-visually-hidden">
 				<caption>
 					{ __(
 						'Daily performance data',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</caption>
 				<thead>
@@ -306,7 +306,7 @@ export default function TrendChart( { daily } ) {
 						<th>
 							{ __(
 								'Day',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</th>
 						{ SERIES.map( ( s ) => (

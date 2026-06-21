@@ -2,12 +2,12 @@
 /**
  * Horizontal divider field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -60,7 +60,7 @@ final class DividerField extends AbstractField {
 		$inline = $height > 0 ? ' style="border-top-width:' . $height . 'px"' : '';
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<hr class="pkitfw-divider pkitfw-divider--' . esc_attr( $style ) . '"' . $inline . ' />';
+		$html .= '<hr class="optset-divider optset-divider--' . esc_attr( $style ) . '"' . $inline . ' />';
 		$html .= '</div>';
 		return $html;
 	}

@@ -16,20 +16,20 @@ import useId from '../app/useId';
  * @return {JSX.Element} The toggle.
  */
 export default function ToggleField( { checked, onChange, label } ) {
-	const id = useId( 'pkitfw-toggle' );
+	const id = useId( 'optset-toggle' );
 	return (
-		<label className="pkitfw-toggle" htmlFor={ id }>
+		<label className="optset-toggle" htmlFor={ id }>
 			<input
 				id={ id }
 				type="checkbox"
-				className="pkitfw-toggle__input"
+				className="optset-toggle__input"
 				checked={ !! checked }
 				onChange={ ( e ) => onChange( e.target.checked ) }
 			/>
-			<span className="pkitfw-toggle__track" aria-hidden="true">
-				<span className="pkitfw-toggle__thumb" />
+			<span className="optset-toggle__track" aria-hidden="true">
+				<span className="optset-toggle__thumb" />
 			</span>
-			{ label && <span className="pkitfw-toggle__label">{ label }</span> }
+			{ label && <span className="optset-toggle__label">{ label }</span> }
 		</label>
 	);
 }

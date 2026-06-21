@@ -18,17 +18,17 @@ import ValuePricing from './ValuePricing';
 const FLAG_STYLES = [
 	{
 		value: 'number',
-		label: __( 'Number Only', 'productkit-for-woocommerce' ),
+		label: __( 'Number Only', 'option-set-builder' ),
 	},
 	{
 		value: 'flag',
-		label: __( 'Number & Flag', 'productkit-for-woocommerce' ),
+		label: __( 'Number & Flag', 'option-set-builder' ),
 	},
 	{
 		value: 'flag_dial',
 		label: __(
 			'Number & Flag & Dial Code',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 ];
@@ -44,14 +44,14 @@ const FLAG_STYLES = [
  */
 function Segmented( { value, options, onChange } ) {
 	return (
-		<div className="pkitfw-seg" role="radiogroup">
+		<div className="optset-seg" role="radiogroup">
 			{ options.map( ( opt ) => (
 				<button
 					key={ String( opt.value ) }
 					type="button"
 					role="radio"
 					aria-checked={ value === opt.value }
-					className={ `pkitfw-seg__btn${
+					className={ `optset-seg__btn${
 						value === opt.value ? ' is-active' : ''
 					}` }
 					onClick={ () => onChange( opt.value ) }
@@ -82,7 +82,7 @@ export default function TelConfig( { node, patch } ) {
 			value: '',
 			label: __(
 				'Auto (store country)',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 		},
 		...COUNTRIES.map( ( c ) => ( {
@@ -98,7 +98,7 @@ export default function TelConfig( { node, patch } ) {
 			<Field
 				label={ __(
 					'Flag style',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<Segmented
@@ -108,12 +108,12 @@ export default function TelConfig( { node, patch } ) {
 				/>
 			</Field>
 
-			<div className="pkitfw-settings__grid2">
+			<div className="optset-settings__grid2">
 				{ flagStyle !== 'number' && (
 					<Field
 						label={ __(
 							'Default country',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<SelectControl
@@ -126,7 +126,7 @@ export default function TelConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'Placeholder',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl

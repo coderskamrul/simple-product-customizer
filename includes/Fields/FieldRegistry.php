@@ -2,22 +2,18 @@
 /**
  * Field type registry.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields;
+namespace OptionSetBuilder\Fields;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Maps a type slug to its renderer class and instantiates field objects.
  *
- * Pro-only types (e.g. fontpicker, advancedformula) are NOT defined here — they
- * are injected by the ProductKit Pro plugin through the `pkitfw_field_types`
- * filter, and only when its license is valid. With Pro absent the slugs are
- * unknown, so {@see self::make()} returns null and the type renders nothing.
- * There is no boolean flag to flip: the renderer code for those types simply
- * does not exist in the free plugin.
+ * Every option type ships in this plugin. Additional types can be registered by
+ * third parties through the `optset_field_types` filter.
  */
 final class FieldRegistry {
 
@@ -34,7 +30,7 @@ final class FieldRegistry {
 	public function __construct() {
 		$base = __NAMESPACE__ . '\\Type\\';
 		$this->map = apply_filters(
-			'pkitfw_field_types',
+			'optset_field_types',
 			array(
 				'text'            => $base . 'TextField',
 				'textarea'        => $base . 'TextareaField',
@@ -64,6 +60,8 @@ final class FieldRegistry {
 				'shortcode'       => $base . 'ShortcodeField',
 				'linkedproducts'  => $base . 'LinkedProductsField',
 				'formula'         => $base . 'FormulaField',
+				'fontpicker'      => $base . 'FontPickerField',
+				'advancedformula' => $base . 'AdvancedFormulaField',
 			)
 		);
 	}

@@ -2,12 +2,12 @@
 /**
  * Field-tree + payload sanitization.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Data;
+namespace OptionSetBuilder\Data;
 
-use ProductKit\Support\Arr;
+use OptionSetBuilder\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -119,6 +119,65 @@ final class Sanitizer {
 	 */
 	public static function params( $params ) {
 		return Arr::deep_clean( $params );
+	}
+
+	/**
+	 * Sanitize a decoded customer selection payload (the JSON posted from the
+	 * storefront as `optset_field_data`) of unknown depth.
+	 *
+	 * Keys are kept (case-preserving, schema-safe) so field ids and nested
+	 * config keys survive; every scalar leaf is run through
+	 * sanitize_textarea_field() so multi-line text inputs keep their newlines.
+	 * Booleans / numbers are preserved as-is.
+	 *
+	 * @param mixed $value Decoded selection (array or scalar).
+	 * @return mixed Sanitized value of the same shape.
+	 */
+	public static function selection( $value ) {
+		if ( is_array( $value ) ) {
+			$out = array();
+			foreach ( $value as $k => $v ) {
+				$key         = is_int( $k ) ? $k : self::clean_key( $k );
+				$out[ $key ] = self::selection( $v );
+			}
+			return $out;
+		}
+		if ( is_bool( $value ) || is_int( $value ) || is_float( $value ) ) {
+			return $value;
+		}
+		return sanitize_textarea_field( (string) $value );
+	}
+
+	/**
+	 * Sanitize the decoded linked-products payload (`optset_linked_products`).
+	 *
+	 * Only the three fields the cart actually consumes are kept, each cast to a
+	 * non-negative integer; everything else is dropped. Entries without a valid
+	 * product id are discarded.
+	 *
+	 * @param mixed $items Decoded linked-products array.
+	 * @return array<int,array{id:int,variation:int,count:int}>
+	 */
+	public static function linked_products( $items ) {
+		if ( ! is_array( $items ) ) {
+			return array();
+		}
+		$clean = array();
+		foreach ( $items as $item ) {
+			if ( ! is_array( $item ) ) {
+				continue;
+			}
+			$id = isset( $item['id'] ) ? absint( $item['id'] ) : 0;
+			if ( $id <= 0 ) {
+				continue;
+			}
+			$clean[] = array(
+				'id'        => $id,
+				'variation' => isset( $item['variation'] ) ? absint( $item['variation'] ) : 0,
+				'count'     => isset( $item['count'] ) ? max( 1, absint( $item['count'] ) ) : 1,
+			);
+		}
+		return $clean;
 	}
 
 	/**

@@ -1,8 +1,8 @@
 {
-  "name": "productkit-for-woocommerce",
+  "name": "option-set-builder",
   "version": "1.0.0",
   "private": true,
-  "description": "ProductKit – Product Options for WooCommerce — admin builder and storefront runtime.",
+  "description": "Option Set Builder — admin builder and storefront runtime.",
   "engines": {
     "node": ">=20"
   },
@@ -13,9 +13,9 @@
     "build": "wp-scripts build",
     "lint:js": "wp-scripts lint-js",
     "lint:css": "wp-scripts lint-style",
-    "pot": "wp i18n make-pot . languages/productkit-for-woocommerce.pot --slug=productkit-for-woocommerce --domain=productkit-for-woocommerce --include=includes,assets/src --exclude=node_modules,vendor,assets/build,tests,dist,build,.git,.github,.claude",
+    "pot": "wp i18n make-pot . languages/option-set-builder.pot --slug=option-set-builder --domain=option-set-builder --include=includes,assets/src --exclude=node_modules,vendor,assets/build,tests,dist,build,.git,.github,.claude",
     "prezip": "npm run build && npm run pot",
-    "zip": "rm -f productkit-for-woocommerce.zip && wp dist-archive . ./productkit-for-woocommerce.zip --plugin-dirname=productkit-for-woocommerce",
+    "zip": "rm -f option-set-builder.zip && wp dist-archive . ./option-set-builder.zip --plugin-dirname=option-set-builder",
     "release": "npm run zip"
   },
   "dependencies": {

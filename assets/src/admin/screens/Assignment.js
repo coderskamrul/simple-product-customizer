@@ -7,58 +7,49 @@
  */
 
 import { useState, useEffect } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import * as api from '../api/endpoints';
 import { errorMessage } from '../api/client';
 import { useToast } from '../store/ToastContext';
-import { useConfig } from '../store/ConfigContext';
 import { navigate } from '../app/router';
-import {
-	Panel,
-	Field,
-	AsyncSelect,
-	ProBadge,
-	SkeletonForm,
-} from '../components';
+import { Panel, Field, AsyncSelect, SkeletonForm } from '../components';
 
 /** Scope radio definitions. */
 const SCOPES = [
 	{
 		value: 'all',
-		label: __( 'All products', 'productkit-for-woocommerce' ),
+		label: __( 'All products', 'option-set-builder' ),
 	},
 	{
 		value: 'products',
 		label: __(
 			'Specific products',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	{
 		value: 'category',
 		label: __(
 			'Product category',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	{
 		value: 'tag',
-		label: __( 'Product tag', 'productkit-for-woocommerce' ),
+		label: __( 'Product tag', 'option-set-builder' ),
 	},
 	{
 		value: 'brand',
-		label: __( 'Product brand', 'productkit-for-woocommerce' ),
+		label: __( 'Product brand', 'option-set-builder' ),
 	},
 	{
 		value: 'none',
 		label: __(
 			'None (disabled)',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 ];
-
-const FREE_PRODUCT_CAP = 2;
 
 /**
  * Assignment.
@@ -69,7 +60,6 @@ const FREE_PRODUCT_CAP = 2;
  */
 export default function Assignment( { setId } ) {
 	const { notify } = useToast();
-	const { proActive } = useConfig();
 	const [ status, setStatus ] = useState( 'loading' );
 	const [ error, setError ] = useState( '' );
 	const [ scope, setScope ] = useState( 'none' );
@@ -155,7 +145,7 @@ export default function Assignment( { setId } ) {
 			notify(
 				__(
 					'Assignment saved.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				'success'
 			);
@@ -171,23 +161,23 @@ export default function Assignment( { setId } ) {
 			<Panel
 				title={ __(
 					'Assignment',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
-				<p className="pkitfw-hint">
+				<p className="optset-hint">
 					{ __(
 						'Save the option set first, then assign it to products.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
 				<button
 					type="button"
-					className="pkitfw-btn pkitfw-btn--ghost"
+					className="optset-btn optset-btn--ghost"
 					onClick={ () => navigate( `/set/${ setId }` ) }
 				>
 					{ __(
 						'Back to builder',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</button>
 			</Panel>
@@ -195,46 +185,46 @@ export default function Assignment( { setId } ) {
 	}
 
 	return (
-		<div className="pkitfw-assignment">
-			<header className="pkitfw-screen-head">
+		<div className="optset-assignment">
+			<header className="optset-screen-head">
 				<div>
-					<h1 className="pkitfw-screen-title">
+					<h1 className="optset-screen-title">
 						{ __(
 							'Assignment',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</h1>
-					<p className="pkitfw-screen-sub">
+					<p className="optset-screen-sub">
 						{ __(
 							'Decide which products show this option set.',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</p>
 				</div>
-				<div className="pkitfw-screen-head__actions">
+				<div className="optset-screen-head__actions">
 					<a
-						className="pkitfw-btn pkitfw-btn--ghost"
+						className="optset-btn optset-btn--ghost"
 						href={ `#/set/${ setId }` }
 					>
 						{ __(
 							'Back to builder',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</a>
 					<button
 						type="button"
-						className="pkitfw-btn pkitfw-btn--primary"
+						className="optset-btn optset-btn--primary"
 						disabled={ saving || status !== 'ready' }
 						onClick={ onSave }
 					>
 						{ saving
 							? __(
 									'Saving…',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  )
 							: __(
 									'Save assignment',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  ) }
 					</button>
 				</div>
@@ -247,7 +237,7 @@ export default function Assignment( { setId } ) {
 			) }
 			{ status === 'error' && (
 				<Panel>
-					<p className="pkitfw-error">{ error }</p>
+					<p className="optset-error">{ error }</p>
 				</Panel>
 			) }
 
@@ -256,20 +246,20 @@ export default function Assignment( { setId } ) {
 					<Panel
 						title={ __(
 							'Scope',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
-						<div className="pkitfw-radio-grid">
+						<div className="optset-radio-grid">
 							{ SCOPES.map( ( s ) => (
 								<label
 									key={ s.value }
-									className={ `pkitfw-radio-card${
+									className={ `optset-radio-card${
 										scope === s.value ? ' is-active' : ''
 									}` }
 								>
 									<input
 										type="radio"
-										name="pkitfw-scope"
+										name="optset-scope"
 										value={ s.value }
 										checked={ scope === s.value }
 										onChange={ () => setScope( s.value ) }
@@ -284,37 +274,25 @@ export default function Assignment( { setId } ) {
 						<Panel
 							title={ __(
 								'Products',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						>
 							<Field
 								label={ __(
 									'Include products',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							>
 								<AsyncSelect
 									value={ include }
 									onChange={ setInclude }
-									max={ proActive ? 0 : FREE_PRODUCT_CAP }
+									max={ 0 }
 									fetcher={ async ( t ) => {
 										const r = await api.searchProducts( t );
 										return r.items;
 									} }
 								/>
 							</Field>
-							{ ! proActive && (
-								<ProBadge
-									hint={ sprintf(
-										/* translators: %d: free product cap */
-										__(
-											'Free version links up to %d products.',
-											'productkit-for-woocommerce'
-										),
-										FREE_PRODUCT_CAP
-									) }
-								/>
-							) }
 						</Panel>
 					) }
 
@@ -327,7 +305,7 @@ export default function Assignment( { setId } ) {
 							<Field
 								label={ __(
 									'Terms',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							>
 								<AsyncSelect
@@ -349,17 +327,17 @@ export default function Assignment( { setId } ) {
 						<Panel
 							title={ __(
 								'Exclusions',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						>
 							<Field
 								label={ __(
 									'Exclude products',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 								help={ __(
 									'These products never show this option set.',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							>
 								<AsyncSelect
@@ -377,14 +355,14 @@ export default function Assignment( { setId } ) {
 					<Panel
 						title={ __(
 							'Preview link',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						{ ! link.published ? (
-							<p className="pkitfw-hint">
+							<p className="optset-hint">
 								{ __(
 									'Publish the option set to preview it on a product.',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</p>
 						) : link.productLink ? (
@@ -392,18 +370,18 @@ export default function Assignment( { setId } ) {
 								href={ link.productLink }
 								target="_blank"
 								rel="noreferrer"
-								className="pkitfw-btn pkitfw-btn--ghost"
+								className="optset-btn optset-btn--ghost"
 							>
 								{ __(
 									'Open a matching product',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</a>
 						) : (
-							<p className="pkitfw-hint">
+							<p className="optset-hint">
 								{ __(
 									'No matching published product found yet.',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</p>
 						) }

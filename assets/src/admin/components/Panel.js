@@ -16,16 +16,16 @@
  */
 export default function Panel( { title, actions, className = '', children } ) {
 	return (
-		<section className={ `pkitfw-panel ${ className }`.trim() }>
+		<section className={ `optset-panel ${ className }`.trim() }>
 			{ ( title || actions ) && (
-				<header className="pkitfw-panel__head">
-					{ title && <h2 className="pkitfw-panel__title">{ title }</h2> }
+				<header className="optset-panel__head">
+					{ title && <h2 className="optset-panel__title">{ title }</h2> }
 					{ actions && (
-						<div className="pkitfw-panel__actions">{ actions }</div>
+						<div className="optset-panel__actions">{ actions }</div>
 					) }
 				</header>
 			) }
-			<div className="pkitfw-panel__body">{ children }</div>
+			<div className="optset-panel__body">{ children }</div>
 		</section>
 	);
 }

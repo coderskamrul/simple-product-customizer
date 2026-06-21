@@ -22,21 +22,21 @@ export default function FilePicker( { inputRef, accept, id } ) {
 	const [ name, setName ] = useState( '' );
 
 	return (
-		<div className="pkitfw-set-file">
+		<div className="optset-set-file">
 			<button
 				type="button"
-				className="pkitfw-set-file__btn"
+				className="optset-set-file__btn"
 				onClick={ () => inputRef.current?.click() }
 			>
 				<span
 					className="dashicons dashicons-upload"
 					aria-hidden="true"
 				/>
-				<span className="pkitfw-set-file__name">
+				<span className="optset-set-file__name">
 					{ name ||
 						__(
 							'Choose file…',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 				</span>
 			</button>
@@ -45,7 +45,7 @@ export default function FilePicker( { inputRef, accept, id } ) {
 				ref={ inputRef }
 				type="file"
 				accept={ accept }
-				className="pkitfw-set-file__input"
+				className="optset-set-file__input"
 				onChange={ ( e ) =>
 					setName(
 						e.target.files && e.target.files[ 0 ]

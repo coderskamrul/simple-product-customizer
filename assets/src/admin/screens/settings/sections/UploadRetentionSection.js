@@ -19,7 +19,7 @@ import SettingCard from '../SettingCard';
 function retentionHint( days ) {
 	const n = parseInt( days, 10 ) || 0;
 	if ( n <= 0 ) {
-		return __( 'Kept forever', 'productkit-for-woocommerce' );
+		return __( 'Kept forever', 'option-set-builder' );
 	}
 	return sprintf(
 		/* translators: %d: number of days. */
@@ -27,7 +27,7 @@ function retentionHint( days ) {
 			'Deleted after %d day',
 			'Deleted after %d days',
 			n,
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		n
 	);
@@ -72,13 +72,13 @@ function RetentionCard( { icon, tone, title, value, onSet } ) {
  */
 export default function UploadRetentionSection( { values, set } ) {
 	return (
-		<div className="pkitfw-set-grid pkitfw-set-grid--3">
+		<div className="optset-set-grid optset-set-grid--3">
 			<RetentionCard
 				icon="clock"
 				tone="blue"
 				title={ __(
 					'Temporary Uploads',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				value={ values.uploadTempDays }
 				onSet={ ( v ) => set( 'uploadTempDays', v ) }
@@ -88,7 +88,7 @@ export default function UploadRetentionSection( { values, set } ) {
 				tone="amber"
 				title={ __(
 					'After Order Placed',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				value={ values.uploadPlacedDays }
 				onSet={ ( v ) => set( 'uploadPlacedDays', v ) }
@@ -98,7 +98,7 @@ export default function UploadRetentionSection( { values, set } ) {
 				tone="green"
 				title={ __(
 					'After Order Completed',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				value={ values.uploadCompletedDays }
 				onSet={ ( v ) => set( 'uploadCompletedDays', v ) }

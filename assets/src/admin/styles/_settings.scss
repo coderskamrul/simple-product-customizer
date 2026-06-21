@@ -1,14 +1,14 @@
 /* ============================================================
    Settings screen — sticky branded header, left section rail,
    tinted content panel with reusable accent cards.
-   Self-contained (pkitfw-set-* scope) so no other screen regresses.
-   Reuses the $pkitfw-os-* surface tokens, restyles the shared
+   Self-contained (optset-set-* scope) so no other screen regresses.
+   Reuses the $optset-os-* surface tokens, restyles the shared
    Field / TextControl / ToggleField in-scope only. Token-driven,
    RTL-safe (logical properties), responsive and accessible.
    ============================================================ */
 
 /* Accent quartet — soft tile bg + icon ink, per tone. */
-$pkitfw-set-tones: (
+$optset-set-tones: (
 	"neutral": #eef0f4 #5b6472,
 	"violet": #ece9fe #6d4ff2,
 	"blue": #e7edff #3358f4,
@@ -19,7 +19,7 @@ $pkitfw-set-tones: (
 );
 
 /* Info-banner tones — bg / text / border. */
-$pkitfw-set-banners: (
+$optset-set-banners: (
 	"blue": #eef2ff #4338ca #e2e6ff,
 	"amber": #fff8e8 #b4690e #fbe3b3,
 	"violet": #f4f1fe #6d28d9 #e7e1fb,
@@ -29,24 +29,24 @@ $pkitfw-set-banners: (
 
 /* Settings palette — rebound to the Global Theme so the screen follows the
    active brand colour instead of its own historical violet. */
-$pkitfw-set-bg:         var(--pkitfw-c-bg, #f7f8fb);
-$pkitfw-set-violet:     var(--pkitfw-c-primary, #{$pkitfw-c-primary-fallback});
-$pkitfw-set-violet-ink: var(--pkitfw-c-primary-hover, #{$pkitfw-c-primary-hover-fallback});
-$pkitfw-set-card-bg:    var(--pkitfw-c-surface-2, #fafbfc);
-$pkitfw-set-card-bd:    var(--pkitfw-c-border, #ecedf2);
-$pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
+$optset-set-bg:         var(--optset-c-bg, #f7f8fb);
+$optset-set-violet:     var(--optset-c-primary, #{$optset-c-primary-fallback});
+$optset-set-violet-ink: var(--optset-c-primary-hover, #{$optset-c-primary-hover-fallback});
+$optset-set-card-bg:    var(--optset-c-surface-2, #fafbfc);
+$optset-set-card-bd:    var(--optset-c-border, #ecedf2);
+$optset-set-ring:       var(--optset-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 /* ---- Canvas ----------------------------------------------- */
 /* Settings now renders inside the unified PageFrame, so the screen no
    longer needs a bleed margin or its own background. */
-.pkitfw-set {
-	color: $pkitfw-os-ink-soft;
+.optset-set {
+	color: $optset-os-ink-soft;
 	font-size: 14px;
-	font-family: $pkitfw-font;
+	font-family: $optset-font;
 }
 
 /* ---- Accent icon tile (shared) ---------------------------- */
-.pkitfw-set-tile {
+.optset-set-tile {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -74,26 +74,26 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	}
 }
 
-@each $name, $pair in $pkitfw-set-tones {
-	.pkitfw-set-tile--#{$name} {
+@each $name, $pair in $optset-set-tones {
+	.optset-set-tile--#{$name} {
 		background: nth($pair, 1);
 		color: nth($pair, 2);
 	}
 }
 
 /* ---- Sticky header ---------------------------------------- */
-.pkitfw-set-header {
+.optset-set-header {
 	position: sticky;
 	inset-block-start: 0;
 	z-index: 20;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: $pkitfw-space-lg;
+	gap: $optset-space-lg;
 	flex-wrap: wrap;
 	padding: 20px 32px;
-	background: $pkitfw-os-surface;
-	border-block-end: 1px solid $pkitfw-os-border;
+	background: $optset-os-surface;
+	border-block-end: 1px solid $optset-os-border;
 
 	&__brand {
 		display: flex;
@@ -106,13 +106,13 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		font-size: 26px;
 		font-weight: 700;
 		line-height: 1.15;
-		color: $pkitfw-os-ink;
+		color: $optset-os-ink;
 	}
 
 	&__sub {
 		margin: 4px 0 0;
 		font-size: 14px;
-		color: $pkitfw-os-muted;
+		color: $optset-os-muted;
 	}
 
 	&__actions {
@@ -127,20 +127,20 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		gap: 7px;
 		font-size: 13px;
 		font-weight: 600;
-		color: $pkitfw-warning;
+		color: $optset-warning;
 
 		&::before {
 			content: "";
 			inline-size: 8px;
 			block-size: 8px;
 			border-radius: 50%;
-			background: $pkitfw-warning;
+			background: $optset-warning;
 		}
 	}
 }
 
 /* ---- Primary save / upload button ------------------------- */
-.pkitfw-set-save {
+.optset-set-save {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -149,13 +149,13 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	padding-inline: 24px;
 	border: 0;
 	border-radius: 12px;
-	background: linear-gradient(135deg, var(--pkitfw-c-primary), var(--pkitfw-c-primary-hover));
-	color: var(--pkitfw-c-primary-ink, #fff);
+	background: linear-gradient(135deg, var(--optset-c-primary), var(--optset-c-primary-hover));
+	color: var(--optset-c-primary-ink, #fff);
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
 	white-space: nowrap;
-	box-shadow: 0 8px 18px rgba(var(--pkitfw-c-primary-rgb), 0.35);
+	box-shadow: 0 8px 18px rgba(var(--optset-c-primary-rgb), 0.35);
 	transition: filter 0.15s, box-shadow 0.15s, opacity 0.15s;
 
 	svg {
@@ -168,7 +168,7 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 
 	&:focus-visible {
 		outline: none;
-		box-shadow: $pkitfw-set-ring, 0 8px 18px rgba(var(--pkitfw-c-primary-rgb), 0.35);
+		box-shadow: $optset-set-ring, 0 8px 18px rgba(var(--optset-c-primary-rgb), 0.35);
 	}
 
 	&:disabled {
@@ -181,14 +181,14 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		height: 42px;
 		padding-inline: 20px;
 		font-size: 13.5px;
-		box-shadow: 0 4px 12px rgba(var(--pkitfw-c-primary-rgb), 0.3);
+		box-shadow: 0 4px 12px rgba(var(--optset-c-primary-rgb), 0.3);
 	}
 }
 
 /* ---- Body grid : rail + panel ----------------------------- */
 /* PageFrame supplies the outer padding now, so this just sets the
    two-column geometry. */
-.pkitfw-set__body {
+.optset-set__body {
 	display: grid;
 	grid-template-columns: 300px minmax(0, 1fr);
 	align-items: start;
@@ -196,7 +196,7 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 }
 
 /* ---- Section rail ----------------------------------------- */
-.pkitfw-set-nav {
+.optset-set-nav {
 	&__list {
 		display: flex;
 		flex-direction: column;
@@ -221,19 +221,19 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 			box-shadow 0.15s;
 
 		&:hover:not(.is-active) {
-			background: $pkitfw-os-surface;
-			border-color: $pkitfw-os-border;
-			box-shadow: $pkitfw-os-shadow;
+			background: $optset-os-surface;
+			border-color: $optset-os-border;
+			box-shadow: $optset-os-shadow;
 		}
 
 		&.is-active {
-			background: var(--pkitfw-c-primary-soft);
-			border-color: rgba(var(--pkitfw-c-primary-rgb), 0.25);
+			background: var(--optset-c-primary-soft);
+			border-color: rgba(var(--optset-c-primary-rgb), 0.25);
 		}
 
 		&:focus-visible {
 			outline: none;
-			box-shadow: $pkitfw-set-ring;
+			box-shadow: $optset-set-ring;
 		}
 	}
 
@@ -247,22 +247,22 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	&__title {
 		font-size: 14px;
 		font-weight: 600;
-		color: $pkitfw-os-ink;
+		color: $optset-os-ink;
 
 		.is-active & {
-			color: $pkitfw-set-violet-ink;
+			color: $optset-set-violet-ink;
 		}
 	}
 
 	&__sub {
 		font-size: 12.5px;
-		color: $pkitfw-os-muted;
+		color: $optset-os-muted;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 
 		.is-active & {
-			color: rgba(var(--pkitfw-c-primary-hover-rgb), 0.75);
+			color: rgba(var(--optset-c-primary-hover-rgb), 0.75);
 		}
 	}
 
@@ -271,21 +271,21 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		font-size: 18px;
 		inline-size: 18px;
 		block-size: 18px;
-		color: $pkitfw-os-faint;
+		color: $optset-os-faint;
 		flex-shrink: 0;
 
 		.is-active & {
-			color: $pkitfw-set-violet-ink;
+			color: $optset-set-violet-ink;
 		}
 	}
 }
 
 /* ---- Content panel ---------------------------------------- */
-.pkitfw-set-panel {
-	background: $pkitfw-os-surface;
-	border: 1px solid $pkitfw-os-border;
+.optset-set-panel {
+	background: $optset-os-surface;
+	border: 1px solid $optset-os-border;
 	border-radius: 18px;
-	box-shadow: $pkitfw-os-shadow;
+	box-shadow: $optset-os-shadow;
 	padding: 28px 32px 32px;
 
 	&__head {
@@ -298,24 +298,24 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		font-size: 20px;
 		font-weight: 700;
 		line-height: 1.2;
-		color: $pkitfw-os-ink;
+		color: $optset-os-ink;
 	}
 
 	&__sub {
 		margin: 3px 0 0;
 		font-size: 14px;
-		color: $pkitfw-os-muted;
+		color: $optset-os-muted;
 	}
 
 	&__divider {
 		block-size: 1px;
-		background: $pkitfw-os-border;
+		background: $optset-os-border;
 		margin: 22px 0;
 	}
 }
 
 /* ---- Info banner ------------------------------------------ */
-.pkitfw-set-banner {
+.optset-set-banner {
 	display: flex;
 	align-items: flex-start;
 	gap: 10px;
@@ -335,8 +335,8 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	}
 }
 
-@each $name, $trio in $pkitfw-set-banners {
-	.pkitfw-set-banner--#{$name} {
+@each $name, $trio in $optset-set-banners {
+	.optset-set-banner--#{$name} {
 		background: nth($trio, 1);
 		color: nth($trio, 2);
 		border: 1px solid nth($trio, 3);
@@ -344,7 +344,7 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 }
 
 /* ---- Layout helpers --------------------------------------- */
-.pkitfw-set-grid {
+.optset-set-grid {
 	display: grid;
 	gap: 20px;
 
@@ -357,13 +357,13 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	}
 }
 
-.pkitfw-set-stack {
+.optset-set-stack {
 	display: flex;
 	flex-direction: column;
 	gap: 22px;
 }
 
-.pkitfw-set-state {
+.optset-set-state {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -371,20 +371,20 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 }
 
 /* ---- Setting sub-card ------------------------------------- */
-.pkitfw-set-card {
+.optset-set-card {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 	padding: 24px;
-	background: $pkitfw-os-surface;
-	border: 1px solid $pkitfw-set-card-bd;
+	background: $optset-os-surface;
+	border: 1px solid $optset-set-card-bd;
 	border-radius: 14px;
-	box-shadow: var(--pkitfw-sh-1);
+	box-shadow: var(--optset-sh-1);
 	transition: all 0.2s ease;
 
 	&:hover {
-		border-color: $pkitfw-set-violet;
-		box-shadow: var(--pkitfw-sh-2);
+		border-color: $optset-set-violet;
+		box-shadow: var(--optset-sh-2);
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.01) 0%, rgba(5, 150, 105, 0.005) 100%);
 	}
 
@@ -404,14 +404,14 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	&__title {
 		font-size: 16px;
 		font-weight: 700;
-		color: $pkitfw-os-ink;
+		color: $optset-os-ink;
 		letter-spacing: -0.3px;
 	}
 
 	&__sub {
 		margin: 0;
 		font-size: 13px;
-		color: $pkitfw-os-muted;
+		color: $optset-os-muted;
 		line-height: 1.4;
 	}
 
@@ -424,16 +424,16 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	&__hint {
 		margin: 0;
 		font-size: 13px;
-		color: $pkitfw-os-muted;
+		color: $optset-os-muted;
 		padding-block-start: 4px;
-		border-block-start: 1px solid var(--pkitfw-c-border-soft);
+		border-block-start: 1px solid var(--optset-c-border-soft);
 		line-height: 1.5;
 	}
 }
 
 /* ---- Switch row (label left / toggle right) --------------- */
-.pkitfw-set-switchrow {
-	.pkitfw-toggle {
+.optset-set-switchrow {
+	.optset-toggle {
 		inline-size: 100%;
 		flex-direction: row-reverse;
 		justify-content: space-between;
@@ -441,89 +441,89 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		font-size: 14px;
 	}
 
-	.pkitfw-toggle__label {
+	.optset-toggle__label {
 		flex: 1;
 		font-size: 14px;
 		font-weight: 500;
-		color: $pkitfw-os-ink-soft;
+		color: $optset-os-ink-soft;
 	}
 }
 
-/* ---- Shared-control restyle (scoped to .pkitfw-set) ---------- */
-.pkitfw-set {
-	.pkitfw-form-field {
+/* ---- Shared-control restyle (scoped to .optset-set) ---------- */
+.optset-set {
+	.optset-form-field {
 		gap: 6px;
 	}
 
-	.pkitfw-form-field__label {
+	.optset-form-field__label {
 		font-size: 13px;
 		font-weight: 600;
-		color: $pkitfw-os-ink-soft;
+		color: $optset-os-ink-soft;
 	}
 
-	.pkitfw-form-field__help {
+	.optset-form-field__help {
 		font-size: 12px;
-		color: $pkitfw-os-muted;
+		color: $optset-os-muted;
 	}
 
-	.pkitfw-input {
+	.optset-input {
 		height: 44px;
 		padding: 0 14px;
 		border: 1px solid #e4e6ee;
 		border-radius: 10px;
 		background: #f7f8fc;
-		color: $pkitfw-os-ink;
+		color: $optset-os-ink;
 		font-size: 14px;
 
 		&::placeholder {
-			color: $pkitfw-os-faint;
+			color: $optset-os-faint;
 		}
 
 		&:focus {
-			border-color: $pkitfw-set-violet;
-			background: $pkitfw-os-surface;
-			box-shadow: $pkitfw-set-ring;
+			border-color: $optset-set-violet;
+			background: $optset-os-surface;
+			box-shadow: $optset-set-ring;
 		}
 	}
 
-	textarea.pkitfw-input {
+	textarea.optset-input {
 		height: auto;
 		padding: 10px 14px;
 	}
 
 	/* Toggle — slightly larger, violet when on. */
-	.pkitfw-toggle__track {
+	.optset-toggle__track {
 		inline-size: 42px;
 		block-size: 24px;
 	}
 
-	.pkitfw-toggle__thumb {
+	.optset-toggle__thumb {
 		inline-size: 20px;
 		block-size: 20px;
 	}
 
-	.pkitfw-toggle__input:checked + .pkitfw-toggle__track {
-		background: $pkitfw-set-violet;
+	.optset-toggle__input:checked + .optset-toggle__track {
+		background: $optset-set-violet;
 
-		.pkitfw-toggle__thumb {
+		.optset-toggle__thumb {
 			inset-inline-start: 20px;
 		}
 	}
 
-	.pkitfw-toggle__input:focus-visible + .pkitfw-toggle__track {
-		box-shadow: $pkitfw-set-ring;
+	.optset-toggle__input:focus-visible + .optset-toggle__track {
+		box-shadow: $optset-set-ring;
 	}
 }
 
 /* ---- Font upload form ------------------------------------- */
-.pkitfw-set-fontform {
+.optset-set-fontform {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr auto;
 	align-items: end;
 	gap: 16px;
 }
 
-.pkitfw-set-file {
+.optset-set-file {
 	position: relative;
 
 	&__input {
@@ -544,15 +544,15 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		inline-size: 100%;
 		height: 46px;
 		padding: 0 16px;
-		border: 1px solid var(--pkitfw-c-border);
+		border: 1px solid var(--optset-c-border);
 		border-radius: 11px;
-		background: $pkitfw-os-surface;
-		color: $pkitfw-os-muted;
+		background: $optset-os-surface;
+		color: $optset-os-muted;
 		font-size: 14px;
 		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.15s ease;
-		box-shadow: var(--pkitfw-sh-1);
+		box-shadow: var(--optset-sh-1);
 
 		.dashicons {
 			font-size: 18px;
@@ -562,16 +562,16 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		}
 
 		&:hover {
-			border-color: $pkitfw-set-violet;
-			color: $pkitfw-set-violet;
-			box-shadow: var(--pkitfw-sh-2);
+			border-color: $optset-set-violet;
+			color: $optset-set-violet;
+			box-shadow: var(--optset-sh-2);
 			background: linear-gradient(135deg, rgba(5, 150, 105, 0.01) 0%, rgba(5, 150, 105, 0) 100%);
 		}
 
 		&:focus-visible {
 			outline: none;
-			border-color: $pkitfw-set-violet;
-			box-shadow: $pkitfw-set-ring, var(--pkitfw-sh-2);
+			border-color: $optset-set-violet;
+			box-shadow: $optset-set-ring, var(--optset-sh-2);
 		}
 	}
 
@@ -583,12 +583,12 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 }
 
 /* ---- Uploaded fonts --------------------------------------- */
-.pkitfw-set-fonts {
+.optset-set-fonts {
 	&__title {
 		margin: 0 0 12px;
 		font-size: 15px;
 		font-weight: 700;
-		color: $pkitfw-os-ink;
+		color: $optset-os-ink;
 	}
 
 	&__empty {
@@ -599,7 +599,7 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		padding: 48px 24px;
 		border: 1px dashed #d8dbe4;
 		border-radius: 14px;
-		background: $pkitfw-set-card-bg;
+		background: $optset-set-card-bg;
 		text-align: center;
 	}
 
@@ -614,17 +614,17 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		margin: 0;
 		font-size: 14px;
 		font-weight: 600;
-		color: $pkitfw-os-muted;
+		color: $optset-os-muted;
 	}
 
 	&__emptysub {
 		margin: 0;
 		font-size: 13px;
-		color: $pkitfw-os-faint;
+		color: $optset-os-faint;
 	}
 }
 
-.pkitfw-set-fontlist {
+.optset-set-fontlist {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -633,21 +633,21 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	list-style: none;
 }
 
-.pkitfw-set-fontrow {
+.optset-set-fontrow {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 12px 16px;
 	padding: 20px 24px;
-	background: $pkitfw-os-surface;
-	border: 1px solid $pkitfw-set-card-bd;
+	background: $optset-os-surface;
+	border: 1px solid $optset-set-card-bd;
 	border-radius: 14px;
-	box-shadow: var(--pkitfw-sh-1);
+	box-shadow: var(--optset-sh-1);
 	transition: all 0.2s ease;
 
 	&:hover {
-		border-color: $pkitfw-set-violet;
-		box-shadow: var(--pkitfw-sh-2);
+		border-color: $optset-set-violet;
+		box-shadow: var(--optset-sh-2);
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.02) 0%, rgba(5, 150, 105, 0.01) 100%);
 	}
 
@@ -656,10 +656,10 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		padding-block-start: 14px;
 		padding-block-end: 0;
 		margin-block-start: 8px;
-		border-block-start: 1px solid var(--pkitfw-c-border-soft);
+		border-block-start: 1px solid var(--optset-c-border-soft);
 		font-size: 22px;
 		line-height: 1.5;
-		color: $pkitfw-os-ink;
+		color: $optset-os-ink;
 		font-weight: 500;
 	}
 
@@ -668,7 +668,7 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		min-width: 0;
 		font-size: 15px;
 		font-weight: 700;
-		color: $pkitfw-os-ink;
+		color: $optset-os-ink;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -679,21 +679,21 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		flex: 0 1 auto;
 		min-width: 0;
 		font-size: 13px;
-		color: $pkitfw-os-muted;
+		color: $optset-os-muted;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		background: var(--pkitfw-c-surface-2);
+		background: var(--optset-c-surface-2);
 		padding: 6px 12px;
 		border-radius: 8px;
-		border: 1px solid var(--pkitfw-c-border-soft);
+		border: 1px solid var(--optset-c-border-soft);
 	}
 
 	&__type {
 		padding: 5px 12px;
 		border-radius: 6px;
-		background: var(--pkitfw-c-primary-soft);
-		color: $pkitfw-set-violet;
+		background: var(--optset-c-primary-soft);
+		color: $optset-set-violet;
 		font-size: 12px;
 		font-weight: 700;
 		letter-spacing: 0.5px;
@@ -705,12 +705,12 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 		align-items: flex-end;
 		flex-wrap: wrap;
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.04) 0%, rgba(5, 150, 105, 0.02) 100%);
-		border: 2px solid $pkitfw-set-violet;
+		border: 2px solid $optset-set-violet;
 	}
 }
 
 /* Inline edit form within a font row. */
-.pkitfw-set-fontedit {
+.optset-set-fontedit {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 16px;
@@ -725,7 +725,7 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	}
 }
 
-.pkitfw-set-iconbtn {
+.optset-set-iconbtn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -733,8 +733,8 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	block-size: 40px;
 	border: 1px solid transparent;
 	border-radius: 10px;
-	background: var(--pkitfw-c-surface-2);
-	color: $pkitfw-os-muted;
+	background: var(--optset-c-surface-2);
+	color: $optset-os-muted;
 	cursor: pointer;
 	transition: all 0.15s ease;
 
@@ -745,19 +745,19 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 	}
 
 	&:hover {
-		background: var(--pkitfw-c-border);
-		color: $pkitfw-os-ink-soft;
+		background: var(--optset-c-border);
+		color: $optset-os-ink-soft;
 		transform: translateY(-1px);
 	}
 
 	&--danger:hover {
-		background: $pkitfw-os-danger-soft;
-		color: $pkitfw-os-danger;
+		background: $optset-os-danger-soft;
+		color: $optset-os-danger;
 	}
 
 	&:focus-visible {
 		outline: none;
-		box-shadow: $pkitfw-set-ring;
+		box-shadow: $optset-set-ring;
 	}
 }
 
@@ -767,77 +767,77 @@ $pkitfw-set-ring:       var(--pkitfw-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22))
 
 /* Laptop — tighten the rail. */
 @media (max-width: 1200px) {
-	.pkitfw-set__body {
+	.optset-set__body {
 		grid-template-columns: 260px minmax(0, 1fr);
 	}
 }
 
 /* Tablet — stack rail above the panel, fold the 3-up grid. */
 @media (max-width: 960px) {
-	.pkitfw-set__body {
+	.optset-set__body {
 		grid-template-columns: 1fr;
 		gap: 20px;
 	}
 
-	.pkitfw-set-nav__list {
+	.optset-set-nav__list {
 		flex-direction: row;
 		flex-wrap: wrap;
 	}
 
-	.pkitfw-set-nav__item {
+	.optset-set-nav__item {
 		flex: 1 1 240px;
 	}
 
-	.pkitfw-set-grid--3 {
+	.optset-set-grid--3 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
-	.pkitfw-set-fontform {
+	.optset-set-fontform {
 		grid-template-columns: 1fr 1fr;
 	}
 }
 
 /* Cancel the outlet padding exactly (outlet → 16px at 600). */
 @media (max-width: 600px) {
-	.pkitfw-set {
-		margin: -$pkitfw-space;
+	.optset-set {
+		margin: -$optset-space;
 	}
 }
 
 /* Phone — single column everywhere. */
 @media (max-width: 782px) {
-	.pkitfw-set-header {
+	.optset-set-header {
 		padding: 16px 18px;
 		gap: 14px;
 	}
 
-	.pkitfw-set-header__title {
+	.optset-set-header__title {
 		font-size: 22px;
 	}
 
-	.pkitfw-set-save {
+	.optset-set-save {
 		margin-inline-start: auto;
 	}
 
-	.pkitfw-set__body {
+	.optset-set__body {
 		padding: 18px;
 	}
 
-	.pkitfw-set-panel {
+	.optset-set-panel {
 		padding: 22px 18px 24px;
 	}
 
-	.pkitfw-set-nav__item {
+	.optset-set-nav__item {
 		flex-basis: 100%;
 	}
 
-	.pkitfw-set-grid--2,
-	.pkitfw-set-grid--3,
-	.pkitfw-set-fontform {
+	.optset-set-grid--2,
+	.optset-set-grid--3,
+	.optset-set-fontform {
 		grid-template-columns: 1fr;
 	}
 
-	.pkitfw-set-panel__title {
+	.optset-set-panel__title {
 		font-size: 18px;
 	}
 }

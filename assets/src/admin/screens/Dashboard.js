@@ -21,7 +21,6 @@ import GettingStarted from './dashboard/GettingStarted';
 import QuickActions from './dashboard/QuickActions';
 import RecentActivity from './dashboard/RecentActivity';
 import TopPerformers from './dashboard/TopPerformers';
-import ProCard from './dashboard/ProCard';
 
 /**
  * Dashboard.
@@ -29,7 +28,7 @@ import ProCard from './dashboard/ProCard';
  * @return {JSX.Element} The dashboard screen.
  */
 export default function Dashboard() {
-	const { proActive, user } = useConfig();
+	const { user } = useConfig();
 	const name = user && user.name ? user.name : '';
 
 	const {
@@ -54,17 +53,17 @@ export default function Dashboard() {
 				/* translators: %s: display name */
 				__(
 					'Welcome back, %s',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				name
 		  )
-		: __( 'Welcome back', 'productkit-for-woocommerce' );
+		: __( 'Welcome back', 'option-set-builder' );
 
 	return (
 		<PageFrame>
 			{ failed ? (
-				<div className="pkitfw-db-card pkitfw-db-state">
-					<p className="pkitfw-error">{ error }</p>
+				<div className="optset-db-card optset-db-state">
+					<p className="optset-error">{ error }</p>
 				</div>
 			) : loading ? (
 				<SkeletonStatGrid count={ 4 } />
@@ -80,7 +79,7 @@ export default function Dashboard() {
 				</FadeIn>
 			) }
 
-			<div className="pkitfw-db-grid pkitfw-db-grid--main">
+			<div className="optset-db-grid optset-db-grid--main">
 				{ loading ? (
 					<SkeletonCard lines={ 4 } action />
 				) : (
@@ -96,7 +95,7 @@ export default function Dashboard() {
 				<QuickActions />
 			</div>
 
-			<div className="pkitfw-db-grid pkitfw-db-grid--bottom">
+			<div className="optset-db-grid optset-db-grid--bottom">
 				{ loading ? (
 					<>
 						<SkeletonCard lines={ 4 } />
@@ -114,8 +113,6 @@ export default function Dashboard() {
 						</>
 					)
 				) }
-
-				{ ! proActive && <ProCard /> }
 			</div>
 		</PageFrame>
 	);

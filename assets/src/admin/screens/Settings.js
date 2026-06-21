@@ -44,24 +44,24 @@ export default function Settings() {
 	const actions = (
 		<>
 			{ dirty && ! saving && (
-				<span className="pkitfw-page__unsaved" role="status">
+				<span className="optset-page__unsaved" role="status">
 					{ __(
 						'Unsaved changes',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</span>
 			) }
 			<button
 				type="button"
-				className="pkitfw-pg-btn pkitfw-pg-btn--primary"
+				className="optset-pg-btn optset-pg-btn--primary"
 				disabled={ saving }
 				onClick={ save }
 			>
 				{ saving
-					? __( 'Saving…', 'productkit-for-woocommerce' )
+					? __( 'Saving…', 'option-set-builder' )
 					: __(
 							'Save Settings',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 					  ) }
 			</button>
 		</>
@@ -72,15 +72,15 @@ export default function Settings() {
 		<PageFrame
 			title={ __(
 				'Settings',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 			subtitle={ __(
 				'Manage your plugin configuration.',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 			actions={ actions }
 		>
-			<div className="pkitfw-set__body">
+			<div className="optset-set__body">
 				{ status === 'loading' ? (
 					<SkeletonNav items={ 5 } />
 				) : (
@@ -88,14 +88,14 @@ export default function Settings() {
 				) }
 
 				{ status === 'loading' ? (
-					<div className="pkitfw-set-state">
+					<div className="optset-set-state">
 						<SkeletonForm fields={ 5 } />
 					</div>
 				) : (
 					<SectionPanel section={ section }>
 						{ status === 'error' && (
-							<div className="pkitfw-set-state">
-								<p className="pkitfw-error">{ error }</p>
+							<div className="optset-set-state">
+								<p className="optset-error">{ error }</p>
 							</div>
 						) }
 						{ status === 'ready' && (

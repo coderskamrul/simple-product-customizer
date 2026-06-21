@@ -55,11 +55,11 @@ export default function RangeTabs( { value, onChange, busy = false } ) {
 
 	return (
 		<div
-			className="pkitfw-an-range"
+			className="optset-an-range"
 			role="radiogroup"
 			aria-label={ __(
 				'Analytics date range',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 		>
 			{ RANGES.map( ( r, i ) => {
@@ -73,7 +73,7 @@ export default function RangeTabs( { value, onChange, busy = false } ) {
 						aria-checked={ active }
 						tabIndex={ active ? 0 : -1 }
 						disabled={ busy }
-						className={ `pkitfw-an-range__btn${
+						className={ `optset-an-range__btn${
 							active ? ' is-active' : ''
 						}` }
 						onClick={ () => onChange( r.id ) }

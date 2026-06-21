@@ -16,7 +16,7 @@ let seq = 0;
  * @param {string} prefix Id prefix.
  * @return {string} A stable id.
  */
-export default function useId( prefix = 'pkitfw' ) {
+export default function useId( prefix = 'optset' ) {
 	const ref = useRef( null );
 	if ( ref.current === null ) {
 		seq += 1;

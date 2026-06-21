@@ -15,41 +15,41 @@ const COPY = {
 	create: {
 		title: __(
 			'Create an option set',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		desc: __(
 			'Add fields like dropdowns, colour swatches or text inputs',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	fields: {
 		title: __(
 			'Add fields to a set',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		desc: __(
 			'Build the form shoppers see on the product page',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	publish: {
 		title: __(
 			'Assign & publish',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		desc: __(
 			'Link a set to products, categories or tags',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	track: {
 		title: __(
 			'Track performance',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		desc: __(
 			'Monitor impressions and conversions in Analytics',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 };
@@ -68,24 +68,24 @@ export default function GettingStarted( { checklist, progress } ) {
 	const nextId = ( checklist.find( ( s ) => ! s.done ) || {} ).id;
 
 	return (
-		<section className="pkitfw-db-card pkitfw-db-panel">
-			<header className="pkitfw-db-panel__head">
-				<h2 className="pkitfw-db-panel__title">
+		<section className="optset-db-card optset-db-panel">
+			<header className="optset-db-panel__head">
+				<h2 className="optset-db-panel__title">
 					<span
-						className="dashicons dashicons-book-alt pkitfw-db-panel__ico"
+						className="dashicons dashicons-book-alt optset-db-panel__ico"
 						aria-hidden="true"
 					/>
 					{ __(
 						'Getting Started',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</h2>
-				<span className="pkitfw-db-panel__meta">
+				<span className="optset-db-panel__meta">
 					{ sprintf(
 						/* translators: 1: completed steps, 2: total steps */
 						__(
 							'%1$d of %2$d completed',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						),
 						progress,
 						total
@@ -93,12 +93,12 @@ export default function GettingStarted( { checklist, progress } ) {
 				</span>
 			</header>
 
-			<ol className="pkitfw-db-steps">
+			<ol className="optset-db-steps">
 				{ checklist.map( ( step, i ) => {
 					const copy = COPY[ step.id ];
 					const isNext = step.id === nextId;
 					const cls = [
-						'pkitfw-db-step',
+						'optset-db-step',
 						step.done && 'is-done',
 						isNext && 'is-next',
 					]
@@ -110,7 +110,7 @@ export default function GettingStarted( { checklist, progress } ) {
 					return (
 						<li key={ step.id } className={ cls }>
 							<span
-								className="pkitfw-db-step__marker"
+								className="optset-db-step__marker"
 								aria-hidden="true"
 							>
 								{ step.done ? (
@@ -120,32 +120,32 @@ export default function GettingStarted( { checklist, progress } ) {
 								) }
 							</span>
 
-							<div className="pkitfw-db-step__text">
-								<span className="pkitfw-db-step__title">
+							<div className="optset-db-step__text">
+								<span className="optset-db-step__title">
 									{ copy.title }
 								</span>
-								<span className="pkitfw-db-step__desc">
+								<span className="optset-db-step__desc">
 									{ copy.desc }
 								</span>
 							</div>
 
 							{ step.done ? (
-								<span className="pkitfw-db-step__state">
+								<span className="optset-db-step__state">
 									{ __(
 										'Done',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</span>
 							) : (
 								<button
 									type="button"
-									className="pkitfw-db-step__go"
+									className="optset-db-step__go"
 									onClick={ go }
 									aria-label={ sprintf(
 										/* translators: %s: step title */
 										__(
 											'Start: %s',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										),
 										copy.title
 									) }

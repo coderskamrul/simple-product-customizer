@@ -2,12 +2,12 @@
 /**
  * On/off toggle switch field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,8 +42,8 @@ final class ToggleField extends AbstractField {
 		$label   = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 		$image   = isset( $choice['image'] ) ? (string) $choice['image'] : '';
 
-		$switch  = '<label class="pkitfw-toggle">';
-		$switch .= '<input type="checkbox" class="pkitfw-toggle__input" name="' . esc_attr( $this->choice_name() ) . '" value="0"'
+		$switch  = '<label class="optset-toggle">';
+		$switch .= '<input type="checkbox" class="optset-toggle__input" name="' . esc_attr( $this->choice_name() ) . '" value="0"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -56,19 +56,19 @@ final class ToggleField extends AbstractField {
 					)
 				)
 			) . ' />';
-		$switch .= '<span class="pkitfw-toggle__track"><span class="pkitfw-toggle__thumb"></span></span>';
+		$switch .= '<span class="optset-toggle__track"><span class="optset-toggle__thumb"></span></span>';
 		if ( '' !== $image ) {
-			$switch .= '<span class="pkitfw-toggle__image"><img src="' . esc_url( $image ) . '" alt="" /></span>';
+			$switch .= '<span class="optset-toggle__image"><img src="' . esc_url( $image ) . '" alt="" /></span>';
 		}
 		if ( '' !== $label ) {
-			$switch .= '<span class="pkitfw-toggle__label">' . esc_html( $label ) . '</span>';
+			$switch .= '<span class="optset-toggle__label">' . esc_html( $label ) . '</span>';
 		}
 		if ( '' !== (string) $this->cfg( 'onText', '' ) || '' !== (string) $this->cfg( 'offText', '' ) ) {
-			$switch .= '<span class="pkitfw-toggle__text" data-on="' . esc_attr( (string) $this->cfg( 'onText', '' ) ) . '" data-off="' . esc_attr( (string) $this->cfg( 'offText', '' ) ) . '"></span>';
+			$switch .= '<span class="optset-toggle__text" data-on="' . esc_attr( (string) $this->cfg( 'onText', '' ) ) . '" data-off="' . esc_attr( (string) $this->cfg( 'offText', '' ) ) . '"></span>';
 		}
 		$switch .= $this->price_badge( $choice );
 		$switch .= '</label>';
 
-		return '<div class="pkitfw-toggle-row">' . $switch . $this->qty_input( 0 ) . '</div>';
+		return '<div class="optset-toggle-row">' . $switch . $this->qty_input( 0 ) . '</div>';
 	}
 }

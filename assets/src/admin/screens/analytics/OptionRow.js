@@ -28,7 +28,7 @@ export default function OptionRow( { row, max } ) {
 		row.title ||
 		sprintf(
 			/* translators: %d: option set id */
-			__( 'Option set #%d', 'productkit-for-woocommerce' ),
+			__( 'Option set #%d', 'option-set-builder' ),
 			row.set_id
 		);
 
@@ -42,37 +42,37 @@ export default function OptionRow( { row, max } ) {
 	const code = `OPT-${ String( row.set_id ).padStart( 3, '0' ) }`;
 
 	return (
-		<tr className="pkitfw-an-row">
+		<tr className="optset-an-row">
 			<td
-				className="pkitfw-an-cell pkitfw-an-cell--option"
+				className="optset-an-cell optset-an-cell--option"
 				data-label={ __(
 					'Option details',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
-				<span className="pkitfw-an-option">
+				<span className="optset-an-option">
 					<Avatar label={ title } seed={ row.set_id } />
-					<span className="pkitfw-an-option__meta">
-						<span className="pkitfw-an-option__name">{ title }</span>
-						<span className="pkitfw-an-option__code">{ code }</span>
+					<span className="optset-an-option__meta">
+						<span className="optset-an-option__name">{ title }</span>
+						<span className="optset-an-option__code">{ code }</span>
 					</span>
 				</span>
 			</td>
 
 			<td
-				className="pkitfw-an-cell pkitfw-an-cell--num"
+				className="optset-an-cell optset-an-cell--num"
 				data-label={ __(
 					'Clicks',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
-				<span className="pkitfw-an-metric">
+				<span className="optset-an-metric">
 					<strong>
 						{ Number( row.clicks || 0 ).toLocaleString() }
 					</strong>
-					<span className="pkitfw-an-bar">
+					<span className="optset-an-bar">
 						<span
-							className="pkitfw-an-bar__fill pkitfw-an-bar__fill--blue"
+							className="optset-an-bar__fill optset-an-bar__fill--blue"
 							style={ { width: `${ clicksW }%` } }
 						/>
 					</span>
@@ -80,39 +80,39 @@ export default function OptionRow( { row, max } ) {
 			</td>
 
 			<td
-				className="pkitfw-an-cell pkitfw-an-cell--ring"
+				className="optset-an-cell optset-an-cell--ring"
 				data-label={ __(
 					'Cart rate',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<Ring value={ cartRate } tone="purple" />
 			</td>
 
 			<td
-				className="pkitfw-an-cell pkitfw-an-cell--ring"
+				className="optset-an-cell optset-an-cell--ring"
 				data-label={ __(
 					'Conversion',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<Ring value={ conversion } tone="green" />
 			</td>
 
 			<td
-				className="pkitfw-an-cell pkitfw-an-cell--num"
+				className="optset-an-cell optset-an-cell--num"
 				data-label={ __(
 					'Revenue',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
-				<span className="pkitfw-an-metric">
-					<strong className="pkitfw-an-revenue">
+				<span className="optset-an-metric">
+					<strong className="optset-an-revenue">
 						{ formatPrice( row.revenue ) }
 					</strong>
-					<span className="pkitfw-an-bar">
+					<span className="optset-an-bar">
 						<span
-							className="pkitfw-an-bar__fill pkitfw-an-bar__fill--green"
+							className="optset-an-bar__fill optset-an-bar__fill--green"
 							style={ { width: `${ revW }%` } }
 						/>
 					</span>
@@ -120,14 +120,14 @@ export default function OptionRow( { row, max } ) {
 			</td>
 
 			<td
-				className="pkitfw-an-cell pkitfw-an-cell--end"
+				className="optset-an-cell optset-an-cell--end"
 				data-label={ __(
 					'CTR',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<span
-					className={ `pkitfw-an-pill pkitfw-an-pill--${
+					className={ `optset-an-pill optset-an-pill--${
 						ctrUp ? 'up' : 'flat'
 					}` }
 				>

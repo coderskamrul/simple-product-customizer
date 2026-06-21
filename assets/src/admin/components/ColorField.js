@@ -17,10 +17,10 @@
 export default function ColorField( { value, onChange, id } ) {
 	const hex = value || '';
 	return (
-		<div className="pkitfw-color-field">
+		<div className="optset-color-field">
 			<input
 				type="color"
-				className="pkitfw-color-field__swatch"
+				className="optset-color-field__swatch"
 				value={ /^#[0-9a-fA-F]{6}$/.test( hex ) ? hex : '#000000' }
 				onChange={ ( e ) => onChange( e.target.value ) }
 				aria-hidden="true"
@@ -29,7 +29,7 @@ export default function ColorField( { value, onChange, id } ) {
 			<input
 				id={ id }
 				type="text"
-				className="pkitfw-input pkitfw-color-field__text"
+				className="optset-input optset-color-field__text"
 				value={ hex }
 				placeholder="#000000"
 				onChange={ ( e ) => onChange( e.target.value ) }

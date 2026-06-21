@@ -1,97 +1,97 @@
 /**
- * ProductKit Admin — Global Theme.
+ * Option Set Builder Admin — Global Theme.
  *
  * Single source of truth for every themed colour, shadow, radius, spacing
  * and typography token in the admin dashboard. Tokens are exposed as CSS
- * custom properties on `#pkitfw-admin-root` so they are strictly scoped to the
+ * custom properties on `#optset-admin-root` so they are strictly scoped to the
  * admin SPA — the storefront / front-end is never touched.
  *
  * To rebrand the dashboard, change the values in this file. Every screen,
  * button, card, modal, input, table and tab updates automatically.
  */
 
-#pkitfw-admin-root {
+#optset-admin-root {
 	/* Brand / primary --------------------------------------------------------*/
-	--pkitfw-c-primary:        #059669;
-	--pkitfw-c-primary-hover:  #047857;
-	--pkitfw-c-primary-soft:   #d1fae5;
-	--pkitfw-c-primary-ink:    #ffffff;
-	--pkitfw-c-primary-rgb:        5, 150, 105;
-	--pkitfw-c-primary-hover-rgb:  4, 120, 87;
+	--optset-c-primary:        #059669;
+	--optset-c-primary-hover:  #047857;
+	--optset-c-primary-soft:   #d1fae5;
+	--optset-c-primary-ink:    #ffffff;
+	--optset-c-primary-rgb:        5, 150, 105;
+	--optset-c-primary-hover-rgb:  4, 120, 87;
 
 	/* Secondary / accent -----------------------------------------------------*/
-	--pkitfw-c-secondary:      #34d399;
-	--pkitfw-c-secondary-soft: #ecfdf5;
+	--optset-c-secondary:      #34d399;
+	--optset-c-secondary-soft: #ecfdf5;
 
 	/* Semantic ---------------------------------------------------------------*/
-	--pkitfw-c-success:        #10b981;
-	--pkitfw-c-success-soft:   #dcfce7;
-	--pkitfw-c-success-rgb:    16, 185, 129;
-	--pkitfw-c-warning:        #f59e0b;
-	--pkitfw-c-warning-soft:   #fef3c7;
-	--pkitfw-c-warning-rgb:    245, 158, 11;
-	--pkitfw-c-danger:         #ef4444;
-	--pkitfw-c-danger-soft:    #fdeaea;
-	--pkitfw-c-danger-rgb:     239, 68, 68;
-	--pkitfw-c-info:           #0ea5e9;
-	--pkitfw-c-info-soft:      #e0f2fe;
-	--pkitfw-c-info-rgb:       14, 165, 233;
+	--optset-c-success:        #10b981;
+	--optset-c-success-soft:   #dcfce7;
+	--optset-c-success-rgb:    16, 185, 129;
+	--optset-c-warning:        #f59e0b;
+	--optset-c-warning-soft:   #fef3c7;
+	--optset-c-warning-rgb:    245, 158, 11;
+	--optset-c-danger:         #ef4444;
+	--optset-c-danger-soft:    #fdeaea;
+	--optset-c-danger-rgb:     239, 68, 68;
+	--optset-c-info:           #0ea5e9;
+	--optset-c-info-soft:      #e0f2fe;
+	--optset-c-info-rgb:       14, 165, 233;
 
 	/* Pro / upsell -----------------------------------------------------------*/
-	--pkitfw-c-pro:            #8b5cf6;
-	--pkitfw-c-pro-soft:       #f3eefe;
+	--optset-c-pro:            #8b5cf6;
+	--optset-c-pro-soft:       #f3eefe;
 
 	/* Surfaces ---------------------------------------------------------------*/
-	--pkitfw-c-bg:             #f7f8fb;
-	--pkitfw-c-surface:        #ffffff;
-	--pkitfw-c-surface-2:      #f6f7f9;
-	--pkitfw-c-surface-3:      #eef1f6;
-	--pkitfw-c-row-hover:      #f8fafc;
+	--optset-c-bg:             #f7f8fb;
+	--optset-c-surface:        #ffffff;
+	--optset-c-surface-2:      #f6f7f9;
+	--optset-c-surface-3:      #eef1f6;
+	--optset-c-row-hover:      #f8fafc;
 
 	/* Borders ----------------------------------------------------------------*/
-	--pkitfw-c-border:         #eceef3;
-	--pkitfw-c-border-strong:  #dfe3ea;
-	--pkitfw-c-border-soft:    #f1f3f7;
+	--optset-c-border:         #eceef3;
+	--optset-c-border-strong:  #dfe3ea;
+	--optset-c-border-soft:    #f1f3f7;
 
 	/* Ink / typography colours ----------------------------------------------*/
-	--pkitfw-c-ink:            #0f172a;
-	--pkitfw-c-ink-soft:       #334155;
-	--pkitfw-c-muted:          #64748b;
-	--pkitfw-c-faint:          #94a3b8;
+	--optset-c-ink:            #0f172a;
+	--optset-c-ink-soft:       #334155;
+	--optset-c-muted:          #64748b;
+	--optset-c-faint:          #94a3b8;
 
 	/* Radius -----------------------------------------------------------------*/
-	--pkitfw-r-sm:   6px;
-	--pkitfw-r-md:   10px;
-	--pkitfw-r-lg:   14px;
-	--pkitfw-r-xl:   20px;
-	--pkitfw-r-full: 999px;
+	--optset-r-sm:   6px;
+	--optset-r-md:   10px;
+	--optset-r-lg:   14px;
+	--optset-r-xl:   20px;
+	--optset-r-full: 999px;
 
 	/* Spacing ----------------------------------------------------------------*/
-	--pkitfw-s-1:  4px;
-	--pkitfw-s-2:  8px;
-	--pkitfw-s-3:  12px;
-	--pkitfw-s-4:  16px;
-	--pkitfw-s-5:  20px;
-	--pkitfw-s-6:  24px;
-	--pkitfw-s-7:  32px;
-	--pkitfw-s-8:  40px;
+	--optset-s-1:  4px;
+	--optset-s-2:  8px;
+	--optset-s-3:  12px;
+	--optset-s-4:  16px;
+	--optset-s-5:  20px;
+	--optset-s-6:  24px;
+	--optset-s-7:  32px;
+	--optset-s-8:  40px;
 
 	/* Elevation / shadows ----------------------------------------------------*/
-	--pkitfw-sh-1: 0 1px 2px rgba(15, 23, 42, 0.04),
+	--optset-sh-1: 0 1px 2px rgba(15, 23, 42, 0.04),
 				0 1px 3px rgba(15, 23, 42, 0.06);
-	--pkitfw-sh-2: 0 4px 14px rgba(15, 23, 42, 0.08);
-	--pkitfw-sh-3: 0 8px 30px rgba(15, 23, 42, 0.12);
-	--pkitfw-sh-card: 0 4px 20px rgba(0, 0, 0, 0.06);
-	--pkitfw-sh-ring: 0 0 0 3px rgba(var(--pkitfw-c-primary-rgb), 0.20);
+	--optset-sh-2: 0 4px 14px rgba(15, 23, 42, 0.08);
+	--optset-sh-3: 0 8px 30px rgba(15, 23, 42, 0.12);
+	--optset-sh-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+	--optset-sh-ring: 0 0 0 3px rgba(var(--optset-c-primary-rgb), 0.20);
 
 	/* Motion -----------------------------------------------------------------*/
-	--pkitfw-ease:        cubic-bezier(0.16, 1, 0.3, 1);
-	--pkitfw-dur-fast:    120ms;
-	--pkitfw-dur:         180ms;
-	--pkitfw-dur-slow:    260ms;
+	--optset-ease:        cubic-bezier(0.16, 1, 0.3, 1);
+	--optset-dur-fast:    120ms;
+	--optset-dur:         180ms;
+	--optset-dur-slow:    260ms;
 
 	/* Typography -------------------------------------------------------------*/
-	--pkitfw-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+	--optset-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 				Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	--pkitfw-font-mono: Menlo, Consolas, "SFMono-Regular", monospace;
+	--optset-font-mono: Menlo, Consolas, "SFMono-Regular", monospace;
 }

@@ -60,7 +60,7 @@ export function relativeTime( gmt ) {
 	const secs = Math.max( 0, Math.floor( ( Date.now() - then ) / 1000 ) );
 
 	if ( secs < 45 ) {
-		return __( 'just now', 'productkit-for-woocommerce' );
+		return __( 'just now', 'option-set-builder' );
 	}
 
 	const units = [
@@ -96,7 +96,7 @@ function relLabel( unit, v ) {
 					'%d year ago',
 					'%d years ago',
 					v,
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				v
 			);
@@ -107,7 +107,7 @@ function relLabel( unit, v ) {
 					'%d month ago',
 					'%d months ago',
 					v,
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				v
 			);
@@ -118,7 +118,7 @@ function relLabel( unit, v ) {
 					'%d day ago',
 					'%d days ago',
 					v,
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				v
 			);
@@ -129,7 +129,7 @@ function relLabel( unit, v ) {
 					'%d hour ago',
 					'%d hours ago',
 					v,
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				v
 			);
@@ -140,7 +140,7 @@ function relLabel( unit, v ) {
 					'%d minute ago',
 					'%d minutes ago',
 					v,
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				v
 			);

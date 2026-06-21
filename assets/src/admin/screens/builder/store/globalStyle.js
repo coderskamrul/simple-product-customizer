@@ -2,7 +2,7 @@
  * Global Style store (zustand). Holds the storefront theme tokens that the
  * Global Style panel edits and the builder canvas previews live.
  *
- * The style is a single global record (option `pkitfw_global_style`), loaded once
+ * The style is a single global record (option `optset_global_style`), loaded once
  * per builder session and saved back via the `style` REST route. Token edits
  * update local state immediately so the canvas re-renders without a round-trip;
  * Save persists the tokens plus their compiled CSS.

@@ -2,12 +2,12 @@
 /**
  * Vertical spacer field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -55,7 +55,7 @@ final class SpacerField extends AbstractField {
 		}
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<div class="pkitfw-spacer" style="height:' . esc_attr( $height ) . 'px"></div>';
+		$html .= '<div class="optset-spacer" style="height:' . esc_attr( $height ) . 'px"></div>';
 		$html .= '</div>';
 		return $html;
 	}

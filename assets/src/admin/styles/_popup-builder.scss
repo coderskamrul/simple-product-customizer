@@ -4,7 +4,7 @@
 /* ================================================================ */
 
 /* Inspector launch button. */
-.pkitfw-popupcfg__launch {
+.optset-popupcfg__launch {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -13,31 +13,31 @@
 }
 
 /* Editor shell. */
-.pkitfw-rte {
+.optset-rte {
 	display: flex;
 	flex-direction: column;
-	border: 1px solid $pkitfw-border;
-	border-radius: $pkitfw-radius;
-	background: $pkitfw-surface;
+	border: 1px solid $optset-border;
+	border-radius: $optset-radius;
+	background: $optset-surface;
 	overflow: hidden;
 	min-height: 360px;
 }
 
 /* --- Toolbar --------------------------------------------------- */
-.pkitfw-rte__toolbar {
+.optset-rte__toolbar {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 2px;
 	padding: 8px;
-	background: $pkitfw-surface-2;
-	border-block-end: 1px solid $pkitfw-border;
+	background: $optset-surface-2;
+	border-block-end: 1px solid $optset-border;
 	position: sticky;
 	inset-block-start: 0;
 	z-index: 2;
 }
 
-.pkitfw-rte__group {
+.optset-rte__group {
 	display: flex;
 	align-items: center;
 	gap: 2px;
@@ -47,14 +47,14 @@
 	}
 }
 
-.pkitfw-rte__sep {
+.optset-rte__sep {
 	width: 1px;
 	align-self: stretch;
 	margin: 2px 6px;
-	background: $pkitfw-border;
+	background: $optset-border;
 }
 
-.pkitfw-rte__btn {
+.optset-rte__btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -62,20 +62,20 @@
 	height: 30px;
 	padding: 0;
 	border: 1px solid transparent;
-	border-radius: $pkitfw-radius;
+	border-radius: $optset-radius;
 	background: transparent;
-	color: $pkitfw-text;
+	color: $optset-text;
 	cursor: pointer;
 	transition: background 0.12s, color 0.12s, border-color 0.12s;
 
 	&:hover:not( :disabled ) {
-		background: rgba(var(--pkitfw-c-primary-rgb), 0.1 );
-		border-color: rgba(var(--pkitfw-c-primary-rgb), 0.25 );
+		background: rgba(var(--optset-c-primary-rgb), 0.1 );
+		border-color: rgba(var(--optset-c-primary-rgb), 0.25 );
 	}
 
 	&.is-active {
-		background: $pkitfw-accent;
-		border-color: $pkitfw-accent;
+		background: $optset-accent;
+		border-color: $optset-accent;
 		color: #fff;
 	}
 
@@ -85,33 +85,33 @@
 	}
 
 	&.is-danger:hover:not( :disabled ) {
-		background: rgba(var(--pkitfw-c-danger-rgb), 0.12 );
-		border-color: rgba(var(--pkitfw-c-danger-rgb), 0.3 );
-		color: $pkitfw-danger;
+		background: rgba(var(--optset-c-danger-rgb), 0.12 );
+		border-color: rgba(var(--optset-c-danger-rgb), 0.3 );
+		color: $optset-danger;
 	}
 }
 
 /* --- Contextual table toolbar ---------------------------------- */
-.pkitfw-rte__tablebar {
+.optset-rte__tablebar {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 2px;
 	padding: 6px 8px;
-	background: rgba(var(--pkitfw-c-primary-rgb), 0.06 );
-	border-block-end: 1px solid $pkitfw-border;
+	background: rgba(var(--optset-c-primary-rgb), 0.06 );
+	border-block-end: 1px solid $optset-border;
 }
 
-.pkitfw-rte__tablebar-label {
+.optset-rte__tablebar-label {
 	font-size: 11px;
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
-	color: $pkitfw-accent;
+	color: $optset-accent;
 	margin-inline-end: 6px;
 }
 
-.pkitfw-rte__tbtn {
+.optset-rte__tbtn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -119,63 +119,63 @@
 	height: 28px;
 	padding: 0;
 	border: 1px solid transparent;
-	border-radius: $pkitfw-radius;
+	border-radius: $optset-radius;
 	background: transparent;
-	color: $pkitfw-text;
+	color: $optset-text;
 	cursor: pointer;
 
 	&:hover {
-		background: rgba(var(--pkitfw-c-primary-rgb), 0.12 );
+		background: rgba(var(--optset-c-primary-rgb), 0.12 );
 	}
 
 	&.is-danger:hover {
-		background: rgba(var(--pkitfw-c-danger-rgb), 0.12 );
-		color: $pkitfw-danger;
+		background: rgba(var(--optset-c-danger-rgb), 0.12 );
+		color: $optset-danger;
 	}
 }
 
 /* --- Link bar -------------------------------------------------- */
-.pkitfw-rte__linkbar {
+.optset-rte__linkbar {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 8px;
 	padding: 8px;
-	background: $pkitfw-surface-2;
-	border-block-end: 1px solid $pkitfw-border;
+	background: $optset-surface-2;
+	border-block-end: 1px solid $optset-border;
 }
 
-.pkitfw-rte__linkinput {
+.optset-rte__linkinput {
 	flex: 1 1 220px;
 	min-width: 0;
 	height: 32px;
 	padding: 0 10px;
-	border: 1px solid $pkitfw-border-strong;
-	border-radius: $pkitfw-radius;
+	border: 1px solid $optset-border-strong;
+	border-radius: $optset-radius;
 	font-size: 13px;
 }
 
-.pkitfw-rte__linkcheck {
+.optset-rte__linkcheck {
 	display: inline-flex;
 	align-items: center;
 	gap: 4px;
 	font-size: 12px;
-	color: $pkitfw-text-muted;
+	color: $optset-text-muted;
 	white-space: nowrap;
 }
 
 /* --- Editable surface ------------------------------------------ */
-.pkitfw-rte__surface {
+.optset-rte__surface {
 	flex: 1;
 	overflow: auto;
 	max-height: 56vh;
 }
 
-.pkitfw-rte__content {
+.optset-rte__content {
 	min-height: 280px;
 	padding: 18px 22px;
 	outline: none;
-	color: $pkitfw-text;
+	color: $optset-text;
 	font-size: 14px;
 	line-height: 1.65;
 
@@ -218,7 +218,7 @@
 	}
 
 	a {
-		color: $pkitfw-accent;
+		color: $optset-accent;
 		text-decoration: underline;
 	}
 
@@ -231,7 +231,7 @@
 	img {
 		max-width: 100%;
 		height: auto;
-		border-radius: $pkitfw-radius;
+		border-radius: $optset-radius;
 	}
 
 	/* Dynamic tables. */
@@ -242,7 +242,7 @@
 
 		td,
 		th {
-			border: 1px solid $pkitfw-border-strong;
+			border: 1px solid $optset-border-strong;
 			padding: 8px 10px;
 			vertical-align: top;
 			position: relative;
@@ -250,7 +250,7 @@
 		}
 
 		th {
-			background: $pkitfw-surface-2;
+			background: $optset-surface-2;
 			font-weight: 600;
 			text-align: start;
 		}
@@ -260,20 +260,20 @@
 			content: '';
 			position: absolute;
 			inset: 0;
-			background: rgba(var(--pkitfw-c-primary-rgb), 0.12 );
+			background: rgba(var(--optset-c-primary-rgb), 0.12 );
 			pointer-events: none;
 		}
 	}
 }
 
 /* ProseMirror placeholder + selection chrome. */
-.pkitfw-rte__surface .ProseMirror-selectednode {
-	outline: 2px solid $pkitfw-accent;
+.optset-rte__surface .ProseMirror-selectednode {
+	outline: 2px solid $optset-accent;
 	outline-offset: 1px;
 }
 
 /* --- HTML source view ------------------------------------------ */
-.pkitfw-rte__source {
+.optset-rte__source {
 	width: 100%;
 	min-height: 320px;
 	max-height: 56vh;
@@ -283,7 +283,7 @@
 	font-size: 12.5px;
 	line-height: 1.6;
 	resize: vertical;
-	color: $pkitfw-text;
+	color: $optset-text;
 	background: #fbfbfc;
 
 	&:focus {
@@ -293,21 +293,21 @@
 
 /* --- Responsive ------------------------------------------------ */
 @media ( max-width: 600px ) {
-	.pkitfw-rte__toolbar {
+	.optset-rte__toolbar {
 		gap: 1px;
 		padding: 6px;
 	}
 
-	.pkitfw-rte__sep {
+	.optset-rte__sep {
 		margin: 2px 3px;
 	}
 
-	.pkitfw-rte__btn {
+	.optset-rte__btn {
 		width: 28px;
 		height: 28px;
 	}
 
-	.pkitfw-rte__content {
+	.optset-rte__content {
 		padding: 14px 16px;
 	}
 }
@@ -317,7 +317,7 @@
 /* builder matches the frontend: corner close button + open anim).    */
 /* ================================================================ */
 
-@keyframes pkitfw-pp-backdrop-in {
+@keyframes optset-pp-backdrop-in {
 	from {
 		opacity: 0;
 	}
@@ -326,7 +326,7 @@
 	}
 }
 
-@keyframes pkitfw-pp-box-in {
+@keyframes optset-pp-box-in {
 	from {
 		opacity: 0;
 		transform: translateY(14px) scale(0.94);
@@ -338,14 +338,14 @@
 }
 
 /* Push the Preview button to the left of the modal footer. */
-.pkitfw-popupcfg__foot-preview {
+.optset-popupcfg__foot-preview {
 	margin-inline-end: auto;
 }
 
-.pkitfw-pp-preview {
+.optset-pp-preview {
 	position: fixed;
 	inset: 0;
-	z-index: 100002; /* above .pkitfw-modal-overlay (100000) */
+	z-index: 100002; /* above .optset-modal-overlay (100000) */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -354,7 +354,7 @@
 		position: absolute;
 		inset: 0;
 		background: rgba(0, 0, 0, 0.55);
-		animation: pkitfw-pp-backdrop-in 0.25s ease both;
+		animation: optset-pp-backdrop-in 0.25s ease both;
 		cursor: pointer;
 	}
 
@@ -367,9 +367,9 @@
 		max-height: 85vh;
 		padding: 24px;
 		background: #fff;
-		border-radius: $pkitfw-radius-lg;
+		border-radius: $optset-radius-lg;
 		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-		animation: pkitfw-pp-box-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+		animation: optset-pp-box-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 	}
 
 	&__close {

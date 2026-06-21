@@ -2,12 +2,12 @@
 /**
  * Button-styled choice group field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,7 +42,7 @@ final class ButtonGroupField extends AbstractField {
 		$input_t  = $multiple ? 'checkbox' : 'radio';
 		$name     = $multiple ? $this->choice_name() . '[]' : $this->choice_name();
 
-		$html = '<div class="pkitfw-buttongroup"'
+		$html = '<div class="optset-buttongroup"'
 			. $this->attrs(
 				array(
 					'data-columns'    => $columns > 0 ? $columns : '',
@@ -54,8 +54,8 @@ final class ButtonGroupField extends AbstractField {
 		foreach ( $choices as $index => $choice ) {
 			$label = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 
-			$html .= '<label class="pkitfw-choice pkitfw-choice--button">';
-			$html .= '<input type="' . esc_attr( $input_t ) . '" class="pkitfw-choice__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
+			$html .= '<label class="optset-choice optset-choice--button">';
+			$html .= '<input type="' . esc_attr( $input_t ) . '" class="optset-choice__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
 				. $this->attrs(
 					array_merge(
 						array(
@@ -68,8 +68,8 @@ final class ButtonGroupField extends AbstractField {
 						)
 					)
 				) . ' />';
-			$html .= '<span class="pkitfw-btn">';
-			$html .= '<span class="pkitfw-choice__label">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="optset-btn">';
+			$html .= '<span class="optset-choice__label">' . esc_html( $label ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= '</span>';
 			$html .= '</label>';

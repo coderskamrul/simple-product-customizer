@@ -2,11 +2,11 @@
 
 /*
  * Strip the default WordPress admin chrome padding on our screen so the
- * SPA can render edge-to-edge (slug: `pkitfw-options`, body class added by
+ * SPA can render edge-to-edge (slug: `optset-options`, body class added by
  * core for the top-level page). Scoped to the body class so it never
  * leaks to other admin pages.
  */
-body.toplevel_page_pkitfw-options {
+body.toplevel_page_optset-options {
 	#wpcontent {
 		padding-inline-start: 0;
 	}
@@ -15,15 +15,15 @@ body.toplevel_page_pkitfw-options {
 		padding-bottom: 0;
 	}
 
-	.pkitfw-admin-wrap {
+	.optset-admin-wrap {
 		margin: 0;
 	}
 }
 
-#pkitfw-admin-root {
+#optset-admin-root {
 	box-sizing: border-box;
-	color: $pkitfw-text;
-	font-family: $pkitfw-font;
+	color: $optset-text;
+	font-family: $optset-font;
 	font-size: 13px;
 	line-height: 1.5;
 
@@ -39,19 +39,19 @@ body.toplevel_page_pkitfw-options {
 	h4 {
 		margin: 0;
 		font-weight: 600;
-		color: $pkitfw-text;
+		color: $optset-text;
 	}
 
 	p {
-		margin: 0 0 $pkitfw-space-sm;
+		margin: 0 0 $optset-space-sm;
 	}
 
 	a {
-		color: $pkitfw-accent;
+		color: $optset-accent;
 		text-decoration: none;
 
 		&:hover {
-			color: $pkitfw-accent-hover;
+			color: $optset-accent-hover;
 		}
 	}
 
@@ -60,12 +60,12 @@ body.toplevel_page_pkitfw-options {
 	}
 
 	:focus-visible {
-		outline: 1px solid $pkitfw-accent !important;
+		outline: 1px solid $optset-accent !important;
 		outline-offset: 1px;
 	}
 }
 
-.pkitfw-visually-hidden,
+.optset-visually-hidden,
 .screen-reader-text {
 	position: absolute !important;
 	width: 1px;
@@ -78,21 +78,21 @@ body.toplevel_page_pkitfw-options {
 	border: 0;
 }
 
-.pkitfw-error {
-	color: $pkitfw-danger;
+.optset-error {
+	color: $optset-danger;
 	font-weight: 500;
 }
 
-.pkitfw-hint {
-	color: $pkitfw-text-muted;
+.optset-hint {
+	color: $optset-text-muted;
 	font-size: 12px;
 }
 
-.pkitfw-codeblock {
-	background: $pkitfw-surface-2;
-	border: 1px solid $pkitfw-border;
-	border-radius: $pkitfw-radius;
-	padding: $pkitfw-space-sm;
+.optset-codeblock {
+	background: $optset-surface-2;
+	border: 1px solid $optset-border;
+	border-radius: $optset-radius;
+	padding: $optset-space-sm;
 	font-family: Menlo, Consolas, monospace;
 	font-size: 12px;
 	white-space: pre-wrap;

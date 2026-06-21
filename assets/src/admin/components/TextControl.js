@@ -32,7 +32,7 @@ export default function TextControl( {
 		return (
 			<textarea
 				id={ id }
-				className="pkitfw-input pkitfw-input--textarea"
+				className="optset-input optset-input--textarea"
 				value={ value ?? '' }
 				rows={ rows }
 				placeholder={ placeholder }
@@ -45,7 +45,7 @@ export default function TextControl( {
 		<input
 			id={ id }
 			type={ type }
-			className="pkitfw-input"
+			className="optset-input"
 			value={ value ?? '' }
 			placeholder={ placeholder }
 			onChange={ ( e ) => onChange( e.target.value ) }

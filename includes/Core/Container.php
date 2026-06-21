@@ -2,10 +2,10 @@
 /**
  * Tiny service container.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Core;
+namespace OptionSetBuilder\Core;
 
 defined( 'ABSPATH' ) || exit;
 

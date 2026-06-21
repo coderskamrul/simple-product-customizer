@@ -2,12 +2,12 @@
 /**
  * Raw HTML content field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -51,7 +51,7 @@ final class HtmlField extends AbstractField {
 	public function render() {
 		$content = (string) $this->cfg( 'content', '' );
 		$html    = '<div ' . $this->wrapper_attrs() . '>';
-		$html   .= '<div class="pkitfw-html">' . wp_kses_post( $content ) . '</div>';
+		$html   .= '<div class="optset-html">' . wp_kses_post( $content ) . '</div>';
 		$html   .= '</div>';
 		return $html;
 	}

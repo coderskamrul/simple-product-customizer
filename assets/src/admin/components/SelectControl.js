@@ -35,7 +35,7 @@ export default function SelectControl( { value, onChange, options = [], id } ) {
 	return (
 		<select
 			id={ id }
-			className="pkitfw-input pkitfw-select-control"
+			className="optset-input optset-select-control"
 			value={ value ?? '' }
 			onChange={ ( e ) => onChange( e.target.value ) }
 		>

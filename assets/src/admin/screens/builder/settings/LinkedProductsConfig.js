@@ -18,18 +18,13 @@ import { __, sprintf } from '@wordpress/i18n';
 import { Search, Plus, Trash2, X, GripVertical } from 'lucide-react';
 import * as api from '../../../api/endpoints';
 import { errorMessage } from '../../../api/client';
-import { useConfig } from '../../../store/ConfigContext';
 import {
 	ToggleField,
 	TextControl,
 	Field,
 	DragList,
-	ProBadge,
 } from '../../../components';
 import { reorder } from '../../../components/DragList';
-
-/** Free tier links at most this many products (ARCHITECTURE §7). */
-const FREE_PRODUCT_CAP = 2;
 
 /**
  * Normalise a search result row into the stored product shape. Caches enough
@@ -115,24 +110,24 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 	const selectedSet = new Set( selected );
 
 	return (
-		<div className="pkitfw-lp-search" ref={ boxRef }>
-			<span className="pkitfw-lp-search__icon" aria-hidden="true">
+		<div className="optset-lp-search" ref={ boxRef }>
+			<span className="optset-lp-search__icon" aria-hidden="true">
 				<Search size={ 15 } />
 			</span>
 			<input
 				type="text"
-				className="pkitfw-input pkitfw-lp-search__input"
+				className="optset-input optset-lp-search__input"
 				value={ term }
 				disabled={ disabled }
 				placeholder={
 					disabled
 						? __(
 								'Product limit reached',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: __(
 								'Search…',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 				}
 				onChange={ ( e ) => {
@@ -142,25 +137,25 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 				onFocus={ () => results.length && setOpen( true ) }
 			/>
 			{ open && ! disabled && (
-				<ul className="pkitfw-lp-search__menu" role="listbox">
+				<ul className="optset-lp-search__menu" role="listbox">
 					{ busy && (
-						<li className="pkitfw-lp-search__msg">
+						<li className="optset-lp-search__msg">
 							{ __(
 								'Searching…',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</li>
 					) }
 					{ ! busy && err && (
-						<li className="pkitfw-lp-search__msg pkitfw-lp-search__msg--err">
+						<li className="optset-lp-search__msg optset-lp-search__msg--err">
 							{ err }
 						</li>
 					) }
 					{ ! busy && ! err && results.length === 0 && (
-						<li className="pkitfw-lp-search__msg">
+						<li className="optset-lp-search__msg">
 							{ __(
 								'No products found.',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</li>
 					) }
@@ -169,7 +164,7 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 							<li key={ r.id }>
 								<button
 									type="button"
-									className="pkitfw-lp-search__opt"
+									className="optset-lp-search__opt"
 									disabled={ selectedSet.has(
 										Number( r.id )
 									) }
@@ -216,19 +211,19 @@ function VariationPopover( { product, onToggle, onClose } ) {
 	}, [ onClose ] );
 
 	return (
-		<div className="pkitfw-lp-vars" ref={ ref }>
-			<p className="pkitfw-lp-vars__title">
+		<div className="optset-lp-vars" ref={ ref }>
+			<p className="optset-lp-vars__title">
 				{ __(
 					'Select Variations',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			</p>
-			<div className="pkitfw-lp-vars__list">
+			<div className="optset-lp-vars__list">
 				{ ( product.variationsMeta || [] ).length === 0 && (
-					<p className="pkitfw-lp-vars__empty">
+					<p className="optset-lp-vars__empty">
 						{ __(
 							'No purchasable variations.',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</p>
 				) }
@@ -238,20 +233,20 @@ function VariationPopover( { product, onToggle, onClose } ) {
 						<button
 							key={ v.id }
 							type="button"
-							className={ `pkitfw-lp-vars__row${
+							className={ `optset-lp-vars__row${
 								on ? ' is-on' : ''
 							}` }
 							onClick={ () => onToggle( v.id ) }
 						>
-							<span className="pkitfw-lp-vars__label">
+							<span className="optset-lp-vars__label">
 								{ v.label }
 							</span>
 							{ on ? (
-								<X size={ 14 } className="pkitfw-lp-vars__x" />
+								<X size={ 14 } className="optset-lp-vars__x" />
 							) : (
 								<Plus
 									size={ 14 }
-									className="pkitfw-lp-vars__add"
+									className="optset-lp-vars__add"
 								/>
 							) }
 						</button>
@@ -271,7 +266,6 @@ function VariationPopover( { product, onToggle, onClose } ) {
  * @return {JSX.Element} The config block.
  */
 export default function LinkedProductsConfig( { node, patch } ) {
-	const { proActive } = useConfig();
 	const cfg = node.config || {};
 	const products = Array.isArray( cfg.products ) ? cfg.products : [];
 	const [ openIdx, setOpenIdx ] = useState( -1 );
@@ -279,8 +273,6 @@ export default function LinkedProductsConfig( { node, patch } ) {
 	const setKey = ( key, value ) =>
 		patch( { config: { ...cfg, [ key ]: value } } );
 	const setProducts = ( next ) => setKey( 'products', next );
-
-	const capped = ! proActive && products.length >= FREE_PRODUCT_CAP;
 
 	const addProduct = ( product ) => {
 		if ( products.some( ( p ) => p.id === product.id ) ) {
@@ -339,32 +331,32 @@ export default function LinkedProductsConfig( { node, patch } ) {
 	};
 
 	return (
-		<div className="pkitfw-lp">
-			<div className="pkitfw-lp__table" role="table">
-				<div className="pkitfw-lp__head" role="row">
+		<div className="optset-lp">
+			<div className="optset-lp__table" role="table">
+				<div className="optset-lp__head" role="row">
 					<span>
 						{ __(
 							'Product',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</span>
 					<span>
 						{ __(
 							'Variation',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</span>
 					<span>
 						{ __(
 							'Active',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</span>
 				</div>
 
 				{ products.length > 0 && (
 					<DragList
-						className="pkitfw-lp__rows"
+						className="optset-lp__rows"
 						items={ products.map( ( p, i ) => ( {
 							...p,
 							key: p.id ?? i,
@@ -377,45 +369,45 @@ export default function LinkedProductsConfig( { node, patch } ) {
 						renderItem={ ( p, idx, handleProps ) => {
 							const varCount = ( p.variations || [] ).length;
 							return (
-								<div className="pkitfw-lp__row" role="row">
+								<div className="optset-lp__row" role="row">
 									<span
-										className="pkitfw-lp__grip"
+										className="optset-lp__grip"
 										{ ...handleProps }
 										aria-label={ __(
 											'Reorder',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									>
 										<GripVertical size={ 15 } />
 									</span>
-									<span className="pkitfw-lp__product">
-										<span className="pkitfw-lp__avatar">
+									<span className="optset-lp__product">
+										<span className="optset-lp__avatar">
 											{ p.img ? (
 												<img src={ p.img } alt="" />
 											) : null }
 										</span>
-										<span className="pkitfw-lp__name">
+										<span className="optset-lp__name">
 											{ p.name }
 										</span>
 									</span>
-									<span className="pkitfw-lp__variation">
+									<span className="optset-lp__variation">
 										{ p.isVariable
 											? sprintf(
 													/* translators: %d: number of selected variations. */
 													__(
 														'%d Variations',
-														'productkit-for-woocommerce'
+														'option-set-builder'
 													),
 													varCount
 											  )
 											: __(
 													'N/A',
-													'productkit-for-woocommerce'
+													'option-set-builder'
 											  ) }
 									</span>
-									<span className="pkitfw-lp__actions">
+									<span className="optset-lp__actions">
 										{ ! p.isVariable && (
-											<span className="pkitfw-lp__active">
+											<span className="optset-lp__active">
 												<ToggleField
 													checked={
 														p.active === true
@@ -428,13 +420,13 @@ export default function LinkedProductsConfig( { node, patch } ) {
 											</span>
 										) }
 										{ p.isVariable && (
-											<span className="pkitfw-lp__var-wrap">
+											<span className="optset-lp__var-wrap">
 												<button
 													type="button"
-													className="pkitfw-lp__icon-btn pkitfw-lp__icon-btn--add"
+													className="optset-lp__icon-btn optset-lp__icon-btn--add"
 													aria-label={ __(
 														'Select variations',
-														'productkit-for-woocommerce'
+														'option-set-builder'
 													) }
 													onClick={ () =>
 														setOpenIdx(
@@ -464,10 +456,10 @@ export default function LinkedProductsConfig( { node, patch } ) {
 										) }
 										<button
 											type="button"
-											className="pkitfw-lp__icon-btn pkitfw-lp__icon-btn--del"
+											className="optset-lp__icon-btn optset-lp__icon-btn--del"
 											aria-label={ __(
 												'Remove product',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 											onClick={ () =>
 												removeProduct( idx )
@@ -482,35 +474,22 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					/>
 				) }
 
-				<div className="pkitfw-lp__search-row">
+				<div className="optset-lp__search-row">
 					<ProductSearch
 						selected={ products.map( ( p ) => p.id ) }
-						disabled={ capped }
+						disabled={ false }
 						onAdd={ addProduct }
 					/>
 				</div>
 			</div>
 
-			{ ! proActive && (
-				<ProBadge
-					hint={ sprintf(
-						/* translators: %d: free product cap. */
-						__(
-							'Free version links up to %d products.',
-							'productkit-for-woocommerce'
-						),
-						FREE_PRODUCT_CAP
-					) }
-				/>
-			) }
-
-			<div className="pkitfw-lp__switches">
+			<div className="optset-lp__switches">
 				<ToggleField
 					checked={ !! cfg.mergeVariations }
 					onChange={ ( v ) => setKey( 'mergeVariations', v ) }
 					label={ __(
 						'Merge Variation Products into one product',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 				<ToggleField
@@ -518,7 +497,7 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					onChange={ ( v ) => setKey( 'enableQty', v ) }
 					label={ __(
 						'Enable Quantity',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 				<ToggleField
@@ -526,17 +505,17 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					onChange={ ( v ) => setMultiple( v ) }
 					label={ __(
 						'Allow Multiple',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 			</div>
 
 			{ cfg.enableQty && (
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					<Field
 						label={ __(
 							'Min quantity',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -548,7 +527,7 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Max quantity',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl

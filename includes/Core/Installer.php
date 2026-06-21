@@ -2,12 +2,12 @@
 /**
  * Activation / deactivation lifecycle.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Core;
+namespace OptionSetBuilder\Core;
 
-use ProductKit\Analytics\StatsRepository;
+use OptionSetBuilder\Analytics\StatsRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,21 +24,21 @@ final class Installer {
 	 * @return void
 	 */
 	public static function activate() {
-		require_once PKITFW_PATH . 'includes/Analytics/StatsRepository.php';
+		require_once OPTSET_PATH . 'includes/Analytics/StatsRepository.php';
 		StatsRepository::install_tables();
 
-		if ( ! wp_next_scheduled( 'pkitfw_cleanup_uploads' ) ) {
-			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'pkitfw_cleanup_uploads' );
+		if ( ! wp_next_scheduled( 'optset_cleanup_uploads' ) ) {
+			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'optset_cleanup_uploads' );
 		}
 
-		update_option( 'pkitfw_db_version', self::DB_VERSION );
+		update_option( 'optset_db_version', self::DB_VERSION );
 
-		if ( ! get_option( 'pkitfw_seeded' ) ) {
+		if ( ! get_option( 'optset_seeded' ) ) {
 			self::seed_demo();
-			update_option( 'pkitfw_seeded', 1 );
+			update_option( 'optset_seeded', 1 );
 		}
 
-		set_transient( 'pkitfw_activation_redirect', 1, 30 );
+		set_transient( 'optset_activation_redirect', 1, 30 );
 	}
 
 	/**
@@ -47,9 +47,9 @@ final class Installer {
 	 * @return void
 	 */
 	public static function deactivate() {
-		$timestamp = wp_next_scheduled( 'pkitfw_cleanup_uploads' );
+		$timestamp = wp_next_scheduled( 'optset_cleanup_uploads' );
 		if ( $timestamp ) {
-			wp_unschedule_event( $timestamp, 'pkitfw_cleanup_uploads' );
+			wp_unschedule_event( $timestamp, 'optset_cleanup_uploads' );
 		}
 	}
 
@@ -64,18 +64,18 @@ final class Installer {
 				'id'        => 'f_demo_size',
 				'type'      => 'radio',
 				'parent'    => '',
-				'label'     => __( 'Size', 'productkit-for-woocommerce' ),
+				'label'     => __( 'Size', 'option-set-builder' ),
 				'required'  => true,
 				'width'     => 'full',
 				'choices'   => array(
 					array(
-						'label'     => __( 'Small', 'productkit-for-woocommerce' ),
+						'label'     => __( 'Small', 'option-set-builder' ),
 						'priceMode' => 'none',
 						'regular'   => '',
 						'selected'  => true,
 					),
 					array(
-						'label'     => __( 'Large', 'productkit-for-woocommerce' ),
+						'label'     => __( 'Large', 'option-set-builder' ),
 						'priceMode' => 'flat',
 						'regular'   => '5',
 					),
@@ -86,7 +86,7 @@ final class Installer {
 				'id'       => 'f_demo_note',
 				'type'     => 'textarea',
 				'parent'   => '',
-				'label'    => __( 'Gift note', 'productkit-for-woocommerce' ),
+				'label'    => __( 'Gift note', 'option-set-builder' ),
 				'width'    => 'full',
 				'choices'  => array(),
 				'children' => array(),
@@ -97,15 +97,15 @@ final class Installer {
 			array(
 				'post_type'    => Plugin::POST_TYPE,
 				'post_status'  => 'draft',
-				'post_title'   => __( 'Sample Option Set', 'productkit-for-woocommerce' ),
+				'post_title'   => __( 'Sample Option Set', 'option-set-builder' ),
 				'post_content' => '',
 			)
 		);
 
 		if ( $post_id && ! is_wp_error( $post_id ) ) {
-			update_post_meta( $post_id, '_pkitfw_fields', wp_slash( wp_json_encode( $fields ) ) );
+			update_post_meta( $post_id, '_optset_fields', wp_slash( wp_json_encode( $fields ) ) );
 			// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- JSON storage key, not a query argument.
-			update_post_meta( $post_id, '_pkitfw_assignment', wp_json_encode( array( 'scope' => 'none', 'include' => array(), 'exclude' => array() ) ) );
+			update_post_meta( $post_id, '_optset_assignment', wp_json_encode( array( 'scope' => 'none', 'include' => array(), 'exclude' => array() ) ) );
 		}
 	}
 }

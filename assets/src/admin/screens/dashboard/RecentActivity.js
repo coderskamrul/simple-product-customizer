@@ -19,82 +19,82 @@ import { relativeTime } from './helpers';
  */
 export default function RecentActivity( { activity } ) {
 	return (
-		<section className="pkitfw-db-card pkitfw-db-panel">
-			<header className="pkitfw-db-panel__head">
-				<h2 className="pkitfw-db-panel__title">
+		<section className="optset-db-card optset-db-panel">
+			<header className="optset-db-panel__head">
+				<h2 className="optset-db-panel__title">
 					<span
-						className="dashicons dashicons-calendar-alt pkitfw-db-panel__ico"
+						className="dashicons dashicons-calendar-alt optset-db-panel__ico"
 						aria-hidden="true"
 					/>
 					{ __(
 						'Recent Activity',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</h2>
 				{ activity.length > 0 && (
 					<button
 						type="button"
-						className="pkitfw-db-link"
+						className="optset-db-link"
 						onClick={ () => navigate( '/sets' ) }
 					>
 						{ __(
 							'View all',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</button>
 				) }
 			</header>
 
 			{ activity.length === 0 ? (
-				<p className="pkitfw-db-empty">
+				<p className="optset-db-empty">
 					{ __(
 						'No activity yet — create your first option set to get started.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
 			) : (
-				<ul className="pkitfw-db-feed">
+				<ul className="optset-db-feed">
 					{ activity.map( ( a ) => {
 						const published = a.kind === 'published';
 						const tone = published ? 'blue' : 'amber';
 						const label = published
 							? __(
 									'Option set published',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  )
 							: __(
 									'Draft saved',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  );
 						return (
-							<li key={ a.id } className="pkitfw-db-feed__item">
+							<li key={ a.id } className="optset-db-feed__item">
 								<span
-									className={ `pkitfw-db-feed__dot pkitfw-db-feed__dot--${ tone }` }
+									className={ `optset-db-feed__dot optset-db-feed__dot--${ tone }` }
 									aria-hidden="true"
 								/>
 								<button
 									type="button"
-									className="pkitfw-db-feed__main"
+									className="optset-db-feed__main"
 									onClick={ () =>
 										navigate( `/set/${ a.id }` )
 									}
 								>
-									<span className="pkitfw-db-feed__label">
+									<span className="optset-db-feed__label">
 										{ label }
 									</span>
-									<span className="pkitfw-db-feed__sub">
+									<span className="optset-db-feed__sub">
 										{ a.title ||
 											sprintf(
 												/* translators: %d: set id */
 												__(
 													'Option set #%d',
-													'productkit-for-woocommerce'
+													'option-set-builder'
 												),
 												a.id
 											) }
 									</span>
 								</button>
-								<time className="pkitfw-db-feed__time">
+								<time className="optset-db-feed__time">
 									{ relativeTime( a.updated ) }
 								</time>
 							</li>

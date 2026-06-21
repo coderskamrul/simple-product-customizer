@@ -12,10 +12,10 @@
  *     whitelisted function nodes; nodes never dispatch to PHP callables
  *     derived from input. All operations are pure arithmetic / logic.
  *
- * @package ProductKit\Formula\Ast
+ * @package OptionSetBuilder\Formula\Ast
  */
 
-namespace ProductKit\Formula\Ast;
+namespace OptionSetBuilder\Formula\Ast;
 
 defined( 'ABSPATH' ) || exit;
 

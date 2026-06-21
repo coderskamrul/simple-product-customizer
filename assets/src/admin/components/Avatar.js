@@ -5,7 +5,7 @@
  * @package
  */
 
-/** Must mirror $pkitfw-os-avatars in _variables.scss (length matters). */
+/** Must mirror $optset-os-avatars in _variables.scss (length matters). */
 const PALETTE_SIZE = 8;
 
 /**
@@ -56,7 +56,7 @@ export default function Avatar( { label, seed, className = '' } ) {
 	const idx = paletteIndex( seed ?? label );
 	return (
 		<span
-			className={ `pkitfw-avatar pkitfw-avatar--${ idx } ${ className }`.trim() }
+			className={ `optset-avatar optset-avatar--${ idx } ${ className }`.trim() }
 			aria-hidden="true"
 		>
 			{ initials( label ) }

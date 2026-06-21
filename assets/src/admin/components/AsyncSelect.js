@@ -98,25 +98,25 @@ export default function AsyncSelect( {
 	const remove = ( id ) => onChange( value.filter( ( v ) => v.id !== id ) );
 
 	return (
-		<div className="pkitfw-async-select" ref={ boxRef }>
-			<div className="pkitfw-async-select__chips">
+		<div className="optset-async-select" ref={ boxRef }>
+			<div className="optset-async-select__chips">
 				{ value.map( ( v ) => (
-					<span key={ v.id } className="pkitfw-chip">
+					<span key={ v.id } className="optset-chip">
 						{ v.img && (
 							<img
-								className="pkitfw-chip__img"
+								className="optset-chip__img"
 								src={ v.img }
 								alt=""
 							/>
 						) }
-						<span className="pkitfw-chip__label">{ v.label }</span>
+						<span className="optset-chip__label">{ v.label }</span>
 						<button
 							type="button"
-							className="pkitfw-chip__x"
+							className="optset-chip__x"
 							onClick={ () => remove( v.id ) }
 							aria-label={ __(
 								'Remove',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						>
 							×
@@ -126,18 +126,18 @@ export default function AsyncSelect( {
 			</div>
 			<input
 				type="text"
-				className="pkitfw-input"
+				className="optset-input"
 				value={ term }
 				placeholder={
 					capped
 						? __(
 								'Selection limit reached',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: placeholder ||
 						  __(
 								'Type to search…',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 				}
 				disabled={ capped }
@@ -148,25 +148,25 @@ export default function AsyncSelect( {
 				onFocus={ () => results.length && setOpen( true ) }
 			/>
 			{ open && (
-				<ul className="pkitfw-async-select__menu" role="listbox">
+				<ul className="optset-async-select__menu" role="listbox">
 					{ busy && (
-						<li className="pkitfw-async-select__msg">
+						<li className="optset-async-select__msg">
 							{ __(
 								'Searching…',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</li>
 					) }
 					{ ! busy && err && (
-						<li className="pkitfw-async-select__msg pkitfw-async-select__msg--err">
+						<li className="optset-async-select__msg optset-async-select__msg--err">
 							{ err }
 						</li>
 					) }
 					{ ! busy && ! err && results.length === 0 && (
-						<li className="pkitfw-async-select__msg">
+						<li className="optset-async-select__msg">
 							{ __(
 								'No results.',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</li>
 					) }
@@ -175,7 +175,7 @@ export default function AsyncSelect( {
 							<li key={ r.id }>
 								<button
 									type="button"
-									className="pkitfw-async-select__opt"
+									className="optset-async-select__opt"
 									disabled={ selectedIds.has( r.id ) }
 									onClick={ () => add( r ) }
 								>

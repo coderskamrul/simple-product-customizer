@@ -2,12 +2,12 @@
 /**
  * Checkbox group field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -39,7 +39,7 @@ final class CheckboxField extends AbstractField {
 
 		$columns = (int) $this->cfg( 'columns', 1 );
 
-		$html = '<div class="pkitfw-choices pkitfw-choices--checkbox"'
+		$html = '<div class="optset-choices optset-choices--checkbox"'
 			. $this->attrs(
 				array(
 					'data-columns'    => $columns > 0 ? $columns : 1,
@@ -52,7 +52,7 @@ final class CheckboxField extends AbstractField {
 			$label    = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 			$selected = ! empty( $choice['selected'] );
 
-			$html .= '<label class="pkitfw-choice">';
+			$html .= '<label class="optset-choice">';
 			$html .= '<input type="checkbox" name="' . esc_attr( $this->choice_name() ) . '[]" value="' . esc_attr( $index ) . '"'
 				. $this->attrs(
 					array_merge(
@@ -66,7 +66,7 @@ final class CheckboxField extends AbstractField {
 						)
 					)
 				) . ' />';
-			$html .= '<span class="pkitfw-choice__label">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="optset-choice__label">' . esc_html( $label ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= $this->qty_input( $index );
 			$html .= '</label>';

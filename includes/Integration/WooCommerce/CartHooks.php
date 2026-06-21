@@ -2,17 +2,18 @@
 /**
  * Cart-side integration: validation, item data, totals, display.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Integration\WooCommerce;
+namespace OptionSetBuilder\Integration\WooCommerce;
 
-use ProductKit\Core\Container;
-use ProductKit\Data\AssignmentResolver;
-use ProductKit\Data\OptionSetRepository;
-use ProductKit\Pricing\Currency\CurrencyBridge;
-use ProductKit\Pricing\PriceCalculator;
-use ProductKit\Support\Str;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Data\AssignmentResolver;
+use OptionSetBuilder\Data\OptionSetRepository;
+use OptionSetBuilder\Data\Sanitizer;
+use OptionSetBuilder\Pricing\Currency\CurrencyBridge;
+use OptionSetBuilder\Pricing\PriceCalculator;
+use OptionSetBuilder\Support\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -78,9 +79,9 @@ final class CartHooks {
 		}
 
 		// JSON payload: unslashed here and sanitized field-by-field after decoding.
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WC core nonce-verifies the add-to-cart request; value is JSON sanitized after json_decode.
-		$raw       = isset( $_POST['pkitfw_field_data'] ) ? Str::unslash( wp_unslash( $_POST['pkitfw_field_data'] ) ) : '';
-		$selection = Str::json( $raw, array() );
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WC core nonce-verifies the add-to-cart request; decoded JSON is sanitized below.
+		$raw       = isset( $_POST['optset_field_data'] ) ? Str::unslash( wp_unslash( $_POST['optset_field_data'] ) ) : '';
+		$selection = Sanitizer::selection( Str::json( $raw, array() ) );
 		$selection = is_array( $selection ) ? $selection : array();
 
 		/** @var OptionSetRepository $sets */
@@ -99,7 +100,7 @@ final class CartHooks {
 			if ( ! in_array( (string) $field_id, array_map( 'strval', $submitted ), true ) ) {
 				if ( function_exists( 'wc_add_notice' ) ) {
 					wc_add_notice(
-						esc_html__( 'Please fill in all required product options.', 'productkit-for-woocommerce' ),
+						esc_html__( 'Please fill in all required product options.', 'option-set-builder' ),
 						'error'
 					);
 				}
@@ -119,20 +120,24 @@ final class CartHooks {
 	 * @return array
 	 */
 	public function add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
-		// JSON payloads: unslashed here and sanitized field-by-field after decoding.
-		// phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WC core nonce-verifies the add-to-cart request; values are JSON sanitized after json_decode.
-		$raw_json   = isset( $_POST['pkitfw_field_data'] ) ? Str::unslash( wp_unslash( $_POST['pkitfw_field_data'] ) ) : '';
-		$set_ids    = isset( $_POST['pkitfw_published_set_ids'] ) ? Str::json( wp_unslash( $_POST['pkitfw_published_set_ids'] ), array() ) : array();
-		$linked     = isset( $_POST['pkitfw_linked_products'] ) ? Str::json( wp_unslash( $_POST['pkitfw_linked_products'] ), array() ) : array();
+		// Decode the raw JSON payloads first, then sanitize every nested value.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WC core nonce-verifies the add-to-cart request; decoded JSON is sanitized below.
+		$raw_post   = isset( $_POST['optset_field_data'] ) ? Str::unslash( wp_unslash( $_POST['optset_field_data'] ) ) : '';
+		$set_ids    = isset( $_POST['optset_published_set_ids'] ) ? Str::json( wp_unslash( $_POST['optset_published_set_ids'] ), array() ) : array();
+		$linked     = isset( $_POST['optset_linked_products'] ) ? Str::json( wp_unslash( $_POST['optset_linked_products'] ), array() ) : array();
 		$quantity   = isset( $_POST['quantity'] ) ? max( 1, absint( wp_unslash( $_POST['quantity'] ) ) ) : 1;
 
-		unset( $_POST['pkitfw_field_data'], $_POST['pkitfw_published_set_ids'], $_POST['pkitfw_linked_products'] );
+		unset( $_POST['optset_field_data'], $_POST['optset_published_set_ids'], $_POST['optset_linked_products'] );
 		// phpcs:enable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		$selection = Str::json( $raw_json, array() );
+		// Sanitize the decoded selection, then re-encode it so the JSON the
+		// PriceCalculator re-decodes and the value stored on the cart item are
+		// both clean. Linked products are reduced to their consumed integer fields.
+		$selection = Sanitizer::selection( Str::json( $raw_post, array() ) );
 		$selection = is_array( $selection ) ? $selection : array();
+		$raw_json  = (string) wp_json_encode( $selection );
 		$set_ids   = is_array( $set_ids ) ? array_values( array_map( 'intval', $set_ids ) ) : array();
-		$linked    = is_array( $linked ) ? array_values( $linked ) : array();
+		$linked    = Sanitizer::linked_products( $linked );
 
 		// Nothing from this plugin on the request → leave the item untouched.
 		if ( array() === $selection && array() === $linked ) {
@@ -141,9 +146,9 @@ final class CartHooks {
 
 		// Always carry the linked products so they become their own cart lines,
 		// even for a set whose only field is Linked Products (which contributes
-		// nothing to pkitfw_field_data).
+		// nothing to optset_field_data).
 		if ( array() !== $linked ) {
-			$cart_item_data['pkitfw_linked_products'] = $linked;
+			$cart_item_data['optset_linked_products'] = $linked;
 		}
 
 		// Priced option selection (linked products are NOT priced here — they
@@ -159,14 +164,14 @@ final class CartHooks {
 					(int) $quantity
 				);
 
-				$cart_item_data['pkitfw_field_data']        = $result;
-				$cart_item_data['pkitfw_field_data_raw']    = (string) $raw_json;
-				$cart_item_data['pkitfw_published_set_ids'] = $set_ids;
-				$cart_item_data['pkitfw_base']              = $pricing->productBasePrice( (int) $product_id, (int) $variation_id );
+				$cart_item_data['optset_field_data']        = $result;
+				$cart_item_data['optset_field_data_raw']    = (string) $raw_json;
+				$cart_item_data['optset_published_set_ids'] = $set_ids;
+				$cart_item_data['optset_base']              = $pricing->productBasePrice( (int) $product_id, (int) $variation_id );
 
 				$record = ! empty( $result['setIds'] ) ? $result['setIds'] : $set_ids;
 				foreach ( $record as $set_id ) {
-					do_action( 'pkitfw_stats_record', (int) $set_id, 'add_to_cart', 1 );
+					do_action( 'optset_stats_record', (int) $set_id, 'add_to_cart', 1 );
 				}
 			}
 		}
@@ -188,7 +193,7 @@ final class CartHooks {
 	public function add_linked_products( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
 		unset( $cart_item_key, $product_id, $quantity, $variation_id, $variation );
 
-		$linked = isset( $cart_item_data['pkitfw_linked_products'] ) ? $cart_item_data['pkitfw_linked_products'] : array();
+		$linked = isset( $cart_item_data['optset_linked_products'] ) ? $cart_item_data['optset_linked_products'] : array();
 		if ( ! is_array( $linked ) || array() === $linked ) {
 			return;
 		}
@@ -242,7 +247,7 @@ final class CartHooks {
 		}
 
 		foreach ( $cart->get_cart() as $cart_item ) {
-			if ( empty( $cart_item['pkitfw_field_data_raw'] ) || empty( $cart_item['data'] ) ) {
+			if ( empty( $cart_item['optset_field_data_raw'] ) || empty( $cart_item['data'] ) ) {
 				continue;
 			}
 
@@ -250,18 +255,18 @@ final class CartHooks {
 			$product_id   = isset( $cart_item['product_id'] ) ? (int) $cart_item['product_id'] : 0;
 			$variation_id = isset( $cart_item['variation_id'] ) ? (int) $cart_item['variation_id'] : 0;
 			$quantity     = isset( $cart_item['quantity'] ) ? max( 1, (int) $cart_item['quantity'] ) : 1;
-			$set_ids      = isset( $cart_item['pkitfw_published_set_ids'] ) ? (array) $cart_item['pkitfw_published_set_ids'] : array();
+			$set_ids      = isset( $cart_item['optset_published_set_ids'] ) ? (array) $cart_item['optset_published_set_ids'] : array();
 
 			$result = $pricing->calculate(
-				(string) $cart_item['pkitfw_field_data_raw'],
+				(string) $cart_item['optset_field_data_raw'],
 				$product_id,
 				array_map( 'intval', $set_ids ),
 				$variation_id,
 				$quantity
 			);
 
-			$base    = isset( $cart_item['pkitfw_base'] )
-				? (float) $cart_item['pkitfw_base']
+			$base    = isset( $cart_item['optset_base'] )
+				? (float) $cart_item['optset_base']
 				: $pricing->productBasePrice( $product_id, $variation_id );
 			$options = isset( $result['price'] ) ? (float) $result['price'] : 0.0;
 
@@ -298,7 +303,7 @@ final class CartHooks {
 			}
 		}
 
-		if ( empty( $cart_item['pkitfw_field_data_raw'] ) ) {
+		if ( empty( $cart_item['optset_field_data_raw'] ) ) {
 			return $item_data;
 		}
 
@@ -308,9 +313,9 @@ final class CartHooks {
 		}
 
 		$result = $pricing->calculate(
-			(string) $cart_item['pkitfw_field_data_raw'],
+			(string) $cart_item['optset_field_data_raw'],
 			isset( $cart_item['product_id'] ) ? (int) $cart_item['product_id'] : 0,
-			isset( $cart_item['pkitfw_published_set_ids'] ) ? array_map( 'intval', (array) $cart_item['pkitfw_published_set_ids'] ) : array(),
+			isset( $cart_item['optset_published_set_ids'] ) ? array_map( 'intval', (array) $cart_item['optset_published_set_ids'] ) : array(),
 			isset( $cart_item['variation_id'] ) ? (int) $cart_item['variation_id'] : 0,
 			isset( $cart_item['quantity'] ) ? max( 1, (int) $cart_item['quantity'] ) : 1
 		);

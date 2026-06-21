@@ -1,6 +1,6 @@
 /**
  * Option-table toolbar: live search, a filter popover and a CSV export.
- * Reuses the shared `pkitfw-os-btn` system so it stays visually consistent
+ * Reuses the shared `optset-os-btn` system so it stays visually consistent
  * with the Option Sets screen.
  *
  * @package
@@ -13,15 +13,15 @@ import { __ } from '@wordpress/i18n';
 export const FILTERS = [
 	{
 		id: 'all',
-		label: __( 'All options', 'productkit-for-woocommerce' ),
+		label: __( 'All options', 'option-set-builder' ),
 	},
 	{
 		id: 'orders',
-		label: __( 'With orders', 'productkit-for-woocommerce' ),
+		label: __( 'With orders', 'option-set-builder' ),
 	},
 	{
 		id: 'revenue',
-		label: __( 'With revenue', 'productkit-for-woocommerce' ),
+		label: __( 'With revenue', 'option-set-builder' ),
 	},
 ];
 
@@ -69,32 +69,32 @@ export default function OptionTableToolbar( {
 	const active = FILTERS.find( ( f ) => f.id === filter ) || FILTERS[ 0 ];
 
 	return (
-		<div className="pkitfw-an-toolbar">
-			<div className="pkitfw-os-search pkitfw-an-search">
+		<div className="optset-an-toolbar">
+			<div className="optset-os-search optset-an-search">
 				<span
-					className="dashicons dashicons-search pkitfw-os-search__icon"
+					className="dashicons dashicons-search optset-os-search__icon"
 					aria-hidden="true"
 				/>
 				<input
 					type="search"
-					className="pkitfw-os-search__input"
+					className="optset-os-search__input"
 					placeholder={ __(
 						'Search options…',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					value={ term }
 					onChange={ ( e ) => onSearch( e.target.value ) }
 					aria-label={ __(
 						'Search options',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 			</div>
 
-			<div className="pkitfw-os-filter" ref={ wrapRef }>
+			<div className="optset-os-filter" ref={ wrapRef }>
 				<button
 					type="button"
-					className={ `pkitfw-os-btn pkitfw-os-btn--ghost${
+					className={ `optset-os-btn optset-os-btn--ghost${
 						filter !== 'all' ? ' is-on' : ''
 					}` }
 					aria-haspopup="menu"
@@ -107,23 +107,23 @@ export default function OptionTableToolbar( {
 					/>
 					{ __(
 						'Filter',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					{ filter !== 'all' && (
-						<span className="pkitfw-os-filter__tag">
+						<span className="optset-os-filter__tag">
 							{ active.label }
 						</span>
 					) }
 				</button>
 				{ open && (
-					<ul className="pkitfw-os-menu" role="menu">
+					<ul className="optset-os-menu" role="menu">
 						{ FILTERS.map( ( f ) => (
 							<li key={ f.id } role="none">
 								<button
 									type="button"
 									role="menuitemradio"
 									aria-checked={ f.id === filter }
-									className={ `pkitfw-os-menu__item${
+									className={ `optset-os-menu__item${
 										f.id === filter ? ' is-active' : ''
 									}` }
 									onClick={ () => {
@@ -132,7 +132,7 @@ export default function OptionTableToolbar( {
 									} }
 								>
 									<span
-										className="dashicons dashicons-yes pkitfw-os-menu__tick"
+										className="dashicons dashicons-yes optset-os-menu__tick"
 										aria-hidden="true"
 									/>
 									{ f.label }
@@ -145,7 +145,7 @@ export default function OptionTableToolbar( {
 
 			<button
 				type="button"
-				className="pkitfw-os-btn pkitfw-os-btn--ghost"
+				className="optset-os-btn optset-os-btn--ghost"
 				onClick={ onExport }
 				disabled={ ! canExport }
 			>
@@ -153,7 +153,7 @@ export default function OptionTableToolbar( {
 					className="dashicons dashicons-download"
 					aria-hidden="true"
 				/>
-				{ __( 'Export', 'productkit-for-woocommerce' ) }
+				{ __( 'Export', 'option-set-builder' ) }
 			</button>
 		</div>
 	);

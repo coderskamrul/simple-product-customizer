@@ -2,14 +2,14 @@
 /**
  * Checkout / order-creation integration.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Integration\WooCommerce;
+namespace OptionSetBuilder\Integration\WooCommerce;
 
-use ProductKit\Core\Assets;
-use ProductKit\Core\Container;
-use ProductKit\Support\Upload;
+use OptionSetBuilder\Core\Assets;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Support\Upload;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -62,18 +62,18 @@ final class CheckoutHooks {
 	public function create_order_line_item( $item, $cart_item_key, $cart_item, $order ) {
 		unset( $cart_item_key, $order );
 
-		if ( empty( $cart_item['pkitfw_field_data'] ) || ! is_array( $cart_item['pkitfw_field_data'] ) ) {
+		if ( empty( $cart_item['optset_field_data'] ) || ! is_array( $cart_item['optset_field_data'] ) ) {
 			return;
 		}
 
-		$result  = $cart_item['pkitfw_field_data'];
-		$set_ids = isset( $cart_item['pkitfw_published_set_ids'] )
-			? array_values( array_map( 'intval', (array) $cart_item['pkitfw_published_set_ids'] ) )
+		$result  = $cart_item['optset_field_data'];
+		$set_ids = isset( $cart_item['optset_published_set_ids'] )
+			? array_values( array_map( 'intval', (array) $cart_item['optset_published_set_ids'] ) )
 			: array();
 
-		$item->add_meta_data( '_pkitfw_set_ids', $set_ids, true );
-		$item->add_meta_data( '_pkitfw_field_data', $result, true );
-		$item->add_meta_data( '_pkitfw_breakdown', isset( $result['breakdown'] ) ? $result['breakdown'] : array(), true );
+		$item->add_meta_data( '_optset_set_ids', $set_ids, true );
+		$item->add_meta_data( '_optset_field_data', $result, true );
+		$item->add_meta_data( '_optset_breakdown', isset( $result['breakdown'] ) ? $result['breakdown'] : array(), true );
 
 		foreach ( (array) ( $result['lines'] ?? array() ) as $line ) {
 			if ( ! is_array( $line ) || ! isset( $line['name'] ) ) {
@@ -98,28 +98,28 @@ final class CheckoutHooks {
 		$all_set_ids = array();
 
 		foreach ( $order->get_items() as $item ) {
-			$set_ids = $item->get_meta( '_pkitfw_set_ids' );
+			$set_ids = $item->get_meta( '_optset_set_ids' );
 			if ( empty( $set_ids ) || ! is_array( $set_ids ) ) {
 				continue;
 			}
 			$all_set_ids = array_merge( $all_set_ids, array_map( 'intval', $set_ids ) );
 
-			$breakdown = $item->get_meta( '_pkitfw_breakdown' );
+			$breakdown = $item->get_meta( '_optset_breakdown' );
 			$breakdown = is_array( $breakdown ) ? $breakdown : array();
 
 			foreach ( $set_ids as $set_id ) {
 				$set_id = (int) $set_id;
-				do_action( 'pkitfw_stats_record', $set_id, 'orders', 1 );
+				do_action( 'optset_stats_record', $set_id, 'orders', 1 );
 				$amount = isset( $breakdown[ $set_id ] ) ? (float) $breakdown[ $set_id ] : 0.0;
 				if ( $amount > 0 ) {
-					do_action( 'pkitfw_stats_record', $set_id, 'revenue', $amount );
+					do_action( 'optset_stats_record', $set_id, 'revenue', $amount );
 				}
 			}
 		}
 
 		$all_set_ids = array_values( array_unique( $all_set_ids ) );
 		if ( array() !== $all_set_ids ) {
-			$order->update_meta_data( '_pkitfw_set_ids', $all_set_ids );
+			$order->update_meta_data( '_optset_set_ids', $all_set_ids );
 			$order->save();
 		}
 	}
@@ -137,7 +137,7 @@ final class CheckoutHooks {
 		}
 
 		foreach ( $order->get_items() as $item ) {
-			$result = $item->get_meta( '_pkitfw_field_data' );
+			$result = $item->get_meta( '_optset_field_data' );
 			if ( empty( $result ) || ! is_array( $result ) || empty( $result['lines'] ) ) {
 				continue;
 			}
@@ -154,7 +154,7 @@ final class CheckoutHooks {
 					continue;
 				}
 
-				$links = '<span class="pkitfw-files">';
+				$links = '<span class="optset-files">';
 				foreach ( $moved as $file ) {
 					$name = isset( $file['name'] ) ? (string) $file['name'] : '';
 					$path = isset( $file['path'] ) ? (string) $file['path'] : '';
@@ -176,7 +176,7 @@ final class CheckoutHooks {
 			}
 
 			if ( $changed ) {
-				$item->update_meta_data( '_pkitfw_field_data', $result );
+				$item->update_meta_data( '_optset_field_data', $result );
 				$item->save();
 			}
 		}
@@ -194,10 +194,10 @@ final class CheckoutHooks {
 			return;
 		}
 
-		$has_options = (bool) $order->get_meta( '_pkitfw_set_ids' );
+		$has_options = (bool) $order->get_meta( '_optset_set_ids' );
 		if ( ! $has_options ) {
 			foreach ( $order->get_items() as $item ) {
-				if ( $item->get_meta( '_pkitfw_set_ids' ) ) {
+				if ( $item->get_meta( '_optset_set_ids' ) ) {
 					$has_options = true;
 					break;
 				}
@@ -205,7 +205,7 @@ final class CheckoutHooks {
 		}
 
 		if ( $has_options ) {
-			Assets::style( 'pkitfw-store-style', 'store' );
+			Assets::style( 'optset-store-style', 'store' );
 		}
 	}
 }

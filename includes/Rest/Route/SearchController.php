@@ -2,13 +2,13 @@
 /**
  * Product / taxonomy search controller (assignment pickers).
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Rest\Route;
+namespace OptionSetBuilder\Rest\Route;
 
-use ProductKit\Core\Container;
-use ProductKit\Rest\RestServer;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Rest\RestServer;
 use WC_Data_Store;
 use WP_REST_Request;
 
@@ -86,7 +86,7 @@ final class SearchController {
 	 */
 	private function search_products( WP_REST_Request $r, RestServer $s ) {
 		if ( ! class_exists( WC_Data_Store::class ) || ! function_exists( 'wc_get_product' ) ) {
-			return $s->fail( 'no_wc', __( 'WooCommerce is not available.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'no_wc', __( 'WooCommerce is not available.', 'option-set-builder' ), 500 );
 		}
 
 		$term     = sanitize_text_field( (string) $r->get_param( 'term' ) );
@@ -158,7 +158,7 @@ final class SearchController {
 			'brand'    => 'product_brand',
 		);
 		if ( ! isset( $map[ $kind ] ) ) {
-			return $s->fail( 'bad_taxonomy', __( 'Unsupported taxonomy.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_taxonomy', __( 'Unsupported taxonomy.', 'option-set-builder' ), 400 );
 		}
 		$taxonomy = $map[ $kind ];
 		if ( ! taxonomy_exists( $taxonomy ) ) {

@@ -24,10 +24,10 @@ export default function Ring( { value, tone, suffix = '%' } ) {
 	const dash = ( pct / 100 ) * C;
 
 	return (
-		<span className="pkitfw-an-ring">
+		<span className="optset-an-ring">
 			<svg
 				viewBox={ `0 0 ${ SIZE } ${ SIZE }` }
-				className="pkitfw-an-ring__svg"
+				className="optset-an-ring__svg"
 				aria-hidden="true"
 			>
 				<circle
@@ -36,7 +36,7 @@ export default function Ring( { value, tone, suffix = '%' } ) {
 					r={ R }
 					fill="none"
 					strokeWidth={ STROKE }
-					className="pkitfw-an-ring__track"
+					className="optset-an-ring__track"
 				/>
 				<circle
 					cx={ SIZE / 2 }
@@ -47,10 +47,10 @@ export default function Ring( { value, tone, suffix = '%' } ) {
 					strokeLinecap="round"
 					strokeDasharray={ `${ dash } ${ C - dash }` }
 					transform={ `rotate(-90 ${ SIZE / 2 } ${ SIZE / 2 })` }
-					className={ `pkitfw-an-ring__bar pkitfw-an-ring__bar--${ tone }` }
+					className={ `optset-an-ring__bar optset-an-ring__bar--${ tone }` }
 				/>
 			</svg>
-			<span className="pkitfw-an-ring__label">
+			<span className="optset-an-ring__label">
 				{ pct }
 				{ suffix }
 			</span>

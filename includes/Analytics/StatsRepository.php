@@ -2,18 +2,18 @@
 /**
  * Statistics storage + aggregation.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Analytics;
+namespace OptionSetBuilder\Analytics;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Owns the two analytics tables ({prefix}pkitfw_stats per option set, and
- * {prefix}pkitfw_stats_daily per calendar day) and the upsert/report logic
+ * Owns the two analytics tables ({prefix}optset_stats per option set, and
+ * {prefix}optset_stats_daily per calendar day) and the upsert/report logic
  * on top of them. Every metric write funnels through self::record(),
- * which is wired to the `pkitfw_stats_record` action by the Plugin bootstrap.
+ * which is wired to the `optset_stats_record` action by the Plugin bootstrap.
  *
  * All SQL is built with $wpdb->prepare(); metric/column names are never
  * interpolated raw — they are validated against METRICS first.
@@ -32,14 +32,14 @@ final class StatsRepository {
 	 *
 	 * @var string
 	 */
-	const TABLE = 'pkitfw_stats';
+	const TABLE = 'optset_stats';
 
 	/**
 	 * Per-day aggregate table (without prefix).
 	 *
 	 * @var string
 	 */
-	const TABLE_DAILY = 'pkitfw_stats_daily';
+	const TABLE_DAILY = 'optset_stats_daily';
 
 	/**
 	 * Fully-qualified set-aggregate table name.
@@ -184,12 +184,16 @@ final class StatsRepository {
 
 		$table = self::table_name();
 
-		// Metric is whitelisted (self::valid_metric) and table/columns are class
-		// constants prefixed with $wpdb->prefix — never user input.
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+		// Table and column names are passed through prepare()'s %i identifier
+		// placeholder (WP 6.2+); $metric is additionally whitelisted by
+		// self::valid_metric(). Direct writes to a custom analytics table —
+		// nothing to cache on write.
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT id, `{$metric}` AS val FROM `{$table}` WHERE set_id = %d",
+				'SELECT id, %i AS val FROM %i WHERE set_id = %d',
+				$metric,
+				$table,
 				$set_id
 			),
 			ARRAY_A
@@ -200,7 +204,9 @@ final class StatsRepository {
 				$new = (float) $row['val'] + (float) $delta;
 				$wpdb->query(
 					$wpdb->prepare(
-						"UPDATE `{$table}` SET `{$metric}` = %f WHERE id = %d",
+						'UPDATE %i SET %i = %f WHERE id = %d',
+						$table,
+						$metric,
 						$new,
 						(int) $row['id']
 					)
@@ -209,30 +215,36 @@ final class StatsRepository {
 				$new = (int) $row['val'] + (int) $delta;
 				$wpdb->query(
 					$wpdb->prepare(
-						"UPDATE `{$table}` SET `{$metric}` = %d WHERE id = %d",
+						'UPDATE %i SET %i = %d WHERE id = %d',
+						$table,
+						$metric,
 						$new,
 						(int) $row['id']
 					)
 				);
 			}
 		} elseif ( $is_revenue ) {
-				$wpdb->query(
-					$wpdb->prepare(
-						"INSERT INTO `{$table}` (set_id, `{$metric}`) VALUES (%d, %f)",
-						$set_id,
-						(float) $delta
-					)
-				);
+			$wpdb->query(
+				$wpdb->prepare(
+					'INSERT INTO %i (set_id, %i) VALUES (%d, %f)',
+					$table,
+					$metric,
+					$set_id,
+					(float) $delta
+				)
+			);
 		} else {
 			$wpdb->query(
 				$wpdb->prepare(
-					"INSERT INTO `{$table}` (set_id, `{$metric}`) VALUES (%d, %d)",
+					'INSERT INTO %i (set_id, %i) VALUES (%d, %d)',
+					$table,
+					$metric,
 					$set_id,
 					(int) $delta
 				)
 			);
 		}
-		// phpcs:enable
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	}
 
 	/**
@@ -249,12 +261,16 @@ final class StatsRepository {
 		$table = self::daily_table_name();
 		$day   = current_time( 'Y-m-d' );
 
-		// Metric is whitelisted (self::valid_metric) and table/columns are class
-		// constants prefixed with $wpdb->prefix — never user input.
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+		// Table and column names are passed through prepare()'s %i identifier
+		// placeholder (WP 6.2+); $metric is additionally whitelisted by
+		// self::valid_metric(). Direct writes to a custom analytics table —
+		// nothing to cache on write.
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT id, `{$metric}` AS val FROM `{$table}` WHERE day = %s",
+				'SELECT id, %i AS val FROM %i WHERE day = %s',
+				$metric,
+				$table,
 				$day
 			),
 			ARRAY_A
@@ -265,7 +281,9 @@ final class StatsRepository {
 				$new = (float) $row['val'] + (float) $delta;
 				$wpdb->query(
 					$wpdb->prepare(
-						"UPDATE `{$table}` SET `{$metric}` = %f WHERE id = %d",
+						'UPDATE %i SET %i = %f WHERE id = %d',
+						$table,
+						$metric,
 						$new,
 						(int) $row['id']
 					)
@@ -274,30 +292,36 @@ final class StatsRepository {
 				$new = (int) $row['val'] + (int) $delta;
 				$wpdb->query(
 					$wpdb->prepare(
-						"UPDATE `{$table}` SET `{$metric}` = %d WHERE id = %d",
+						'UPDATE %i SET %i = %d WHERE id = %d',
+						$table,
+						$metric,
 						$new,
 						(int) $row['id']
 					)
 				);
 			}
 		} elseif ( $is_revenue ) {
-				$wpdb->query(
-					$wpdb->prepare(
-						"INSERT INTO `{$table}` (day, `{$metric}`) VALUES (%s, %f)",
-						$day,
-						(float) $delta
-					)
-				);
+			$wpdb->query(
+				$wpdb->prepare(
+					'INSERT INTO %i (day, %i) VALUES (%s, %f)',
+					$table,
+					$metric,
+					$day,
+					(float) $delta
+				)
+			);
 		} else {
 			$wpdb->query(
 				$wpdb->prepare(
-					"INSERT INTO `{$table}` (day, `{$metric}`) VALUES (%s, %d)",
+					'INSERT INTO %i (day, %i) VALUES (%s, %d)',
+					$table,
+					$metric,
 					$day,
 					(int) $delta
 				)
 			);
 		}
-		// phpcs:enable
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	}
 
 	/**
@@ -315,9 +339,16 @@ final class StatsRepository {
 			return array();
 		}
 
-		// $table is a class constant prefixed with $wpdb->prefix; columns are literal.
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-		$rows = $wpdb->get_results( "SELECT set_id, impressions, clicks, add_to_cart, orders, revenue FROM `{$table}` ORDER BY revenue DESC, orders DESC", ARRAY_A );
+		// Table name via prepare()'s %i identifier placeholder (WP 6.2+); columns
+		// are literal. Direct read from a custom analytics table.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				'SELECT set_id, impressions, clicks, add_to_cart, orders, revenue FROM %i ORDER BY revenue DESC, orders DESC',
+				$table
+			),
+			ARRAY_A
+		);
 
 		if ( empty( $rows ) || ! is_array( $rows ) ) {
 			return array();
@@ -382,24 +413,29 @@ final class StatsRepository {
 			}
 		}
 
-		$columns = 'day, impressions, clicks, add_to_cart, orders, revenue';
-
-		// Metric is whitelisted (self::valid_metric) and table/columns are class
-		// constants prefixed with $wpdb->prefix — never user input.
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+		// Table name via prepare()'s %i identifier placeholder (WP 6.2+); columns
+		// are literal. Direct read from a custom analytics table.
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		if ( '' !== $from && '' !== $to ) {
 			$rows = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT {$columns} FROM `{$table}` WHERE day BETWEEN %s AND %s ORDER BY day ASC",
+					'SELECT day, impressions, clicks, add_to_cart, orders, revenue FROM %i WHERE day BETWEEN %s AND %s ORDER BY day ASC',
+					$table,
 					$from,
 					$to
 				),
 				ARRAY_A
 			);
 		} else {
-			$rows = $wpdb->get_results( "SELECT {$columns} FROM `{$table}` ORDER BY day ASC", ARRAY_A );
+			$rows = $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT day, impressions, clicks, add_to_cart, orders, revenue FROM %i ORDER BY day ASC',
+					$table
+				),
+				ARRAY_A
+			);
 		}
-		// phpcs:enable
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		if ( empty( $rows ) || ! is_array( $rows ) ) {
 			return array();

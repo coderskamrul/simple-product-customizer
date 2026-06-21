@@ -19,11 +19,11 @@ import ValuePricing from './ValuePricing';
 const FORMAT_MODES = [
 	{
 		value: true,
-		label: __( '12 Hours', 'productkit-for-woocommerce' ),
+		label: __( '12 Hours', 'option-set-builder' ),
 	},
 	{
 		value: false,
-		label: __( '24 Hours', 'productkit-for-woocommerce' ),
+		label: __( '24 Hours', 'option-set-builder' ),
 	},
 ];
 
@@ -86,14 +86,14 @@ function to24( h12, mm, ap ) {
  */
 function Segmented( { value, options, onChange } ) {
 	return (
-		<div className="pkitfw-seg" role="radiogroup">
+		<div className="optset-seg" role="radiogroup">
 			{ options.map( ( opt ) => (
 				<button
 					key={ String( opt.value ) }
 					type="button"
 					role="radio"
 					aria-checked={ value === opt.value }
-					className={ `pkitfw-seg__btn${
+					className={ `optset-seg__btn${
 						value === opt.value ? ' is-active' : ''
 					}` }
 					onClick={ () => onChange( opt.value ) }
@@ -136,19 +136,19 @@ function TimeInput( { value, hour12, onChange } ) {
 		onChange( to24( parseInt( parts.h12, 10 ), parts.m, ap ) );
 
 	return (
-		<div className="pkitfw-timeinput">
+		<div className="optset-timeinput">
 			<input
 				type="number"
-				className="pkitfw-input pkitfw-timeinput__num"
+				className="optset-input optset-timeinput__num"
 				min={ hour12 ? 1 : 0 }
 				max={ hour12 ? 12 : 23 }
 				value={ hour12 ? parts.h12 : pad( String( parts.h ), 0, 23 ) }
 				onChange={ ( e ) => setHour( e.target.value ) }
 			/>
-			<span className="pkitfw-timeinput__sep">:</span>
+			<span className="optset-timeinput__sep">:</span>
 			<input
 				type="number"
-				className="pkitfw-input pkitfw-timeinput__num"
+				className="optset-input optset-timeinput__num"
 				min={ 0 }
 				max={ 59 }
 				value={ parts.m }
@@ -189,18 +189,18 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 		<>
 			{ showPricing && <ValuePricing node={ node } patch={ patch } /> }
 
-			<div className="pkitfw-settings__group">
-				<p className="pkitfw-field-group__title">
+			<div className="optset-settings__group">
+				<p className="optset-field-group__title">
 					{ __(
 						'Display',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					<Field
 						label={ __(
 							'Time format',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<Segmented
@@ -212,7 +212,7 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 					<Field
 						label={ __(
 							'Step (minutes)',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -224,22 +224,22 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 				</div>
 			</div>
 
-			<div className="pkitfw-settings__group">
-				<p className="pkitfw-field-group__title">
+			<div className="optset-settings__group">
+				<p className="optset-field-group__title">
 					{ __(
 						'Selectable range',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					<Field
 						label={ __(
 							'Earliest time',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						help={ __(
 							'Leave at 00:00 for no limit.',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TimeInput
@@ -251,11 +251,11 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 					<Field
 						label={ __(
 							'Latest time',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						help={ __(
 							'Leave at 00:00 for no limit.',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TimeInput

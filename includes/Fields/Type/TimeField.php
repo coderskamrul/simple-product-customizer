@@ -2,12 +2,12 @@
 /**
  * Time picker field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,7 +57,7 @@ final class TimeField extends AbstractField {
 			$placeholder = $hour12 ? 'hh:mm AM/PM' : 'HH:mm';
 		}
 
-		$input = '<input type="text" readonly class="pkitfw-input pkitfw-time-input" name="' . esc_attr( $this->input_name() ) . '"'
+		$input = '<input type="text" readonly class="optset-input optset-time-input" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -74,8 +74,8 @@ final class TimeField extends AbstractField {
 				)
 			) . ' />';
 
-		return '<div class="pkitfw-time">'
-			. '<span class="pkitfw-time__icon" aria-hidden="true">'
+		return '<div class="optset-time">'
+			. '<span class="optset-time__icon" aria-hidden="true">'
 			. '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
 			. '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>'
 			. '<path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'

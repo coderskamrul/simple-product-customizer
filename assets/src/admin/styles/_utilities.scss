@@ -1,98 +1,98 @@
 /**
- * ProductKit Admin — Theme-aware utility classes.
+ * Option Set Builder Admin — Theme-aware utility classes.
  *
  * Lightweight composable atoms. Every value below resolves to a CSS custom
  * property declared in `_theme.scss`, so switching the active template
- * automatically updates every utility. Scoped to `#pkitfw-admin-root` so they
+ * automatically updates every utility. Scoped to `#optset-admin-root` so they
  * never leak to the WP front-end.
  */
 
-#pkitfw-admin-root {
+#optset-admin-root {
 	/* — text colours ——————————————————————————————————————————————————— */
-	.pkitfw-u-text-ink     { color: var(--pkitfw-c-ink); }
-	.pkitfw-u-text-muted   { color: var(--pkitfw-c-muted); }
-	.pkitfw-u-text-primary { color: var(--pkitfw-c-primary); }
-	.pkitfw-u-text-success { color: var(--pkitfw-c-success); }
-	.pkitfw-u-text-danger  { color: var(--pkitfw-c-danger); }
-	.pkitfw-u-text-warning { color: var(--pkitfw-c-warning); }
+	.optset-u-text-ink     { color: var(--optset-c-ink); }
+	.optset-u-text-muted   { color: var(--optset-c-muted); }
+	.optset-u-text-primary { color: var(--optset-c-primary); }
+	.optset-u-text-success { color: var(--optset-c-success); }
+	.optset-u-text-danger  { color: var(--optset-c-danger); }
+	.optset-u-text-warning { color: var(--optset-c-warning); }
 
 	/* — backgrounds ———————————————————————————————————————————————————— */
-	.pkitfw-u-bg-surface   { background: var(--pkitfw-c-surface); }
-	.pkitfw-u-bg-surface-2 { background: var(--pkitfw-c-surface-2); }
-	.pkitfw-u-bg-primary   { background: var(--pkitfw-c-primary); color: var(--pkitfw-c-primary-ink); }
-	.pkitfw-u-bg-soft      { background: var(--pkitfw-c-primary-soft); }
+	.optset-u-bg-surface   { background: var(--optset-c-surface); }
+	.optset-u-bg-surface-2 { background: var(--optset-c-surface-2); }
+	.optset-u-bg-primary   { background: var(--optset-c-primary); color: var(--optset-c-primary-ink); }
+	.optset-u-bg-soft      { background: var(--optset-c-primary-soft); }
 
 	/* — borders ——————————————————————————————————————————————————————— */
-	.pkitfw-u-border       { border: 1px solid var(--pkitfw-c-border); }
-	.pkitfw-u-border-strong{ border: 1px solid var(--pkitfw-c-border-strong); }
-	.pkitfw-u-border-primary{ border: 1px solid var(--pkitfw-c-primary); }
+	.optset-u-border       { border: 1px solid var(--optset-c-border); }
+	.optset-u-border-strong{ border: 1px solid var(--optset-c-border-strong); }
+	.optset-u-border-primary{ border: 1px solid var(--optset-c-primary); }
 
 	/* — radii ————————————————————————————————————————————————————————— */
-	.pkitfw-u-r-sm   { border-radius: var(--pkitfw-r-sm); }
-	.pkitfw-u-r-md   { border-radius: var(--pkitfw-r-md); }
-	.pkitfw-u-r-lg   { border-radius: var(--pkitfw-r-lg); }
-	.pkitfw-u-r-full { border-radius: var(--pkitfw-r-full); }
+	.optset-u-r-sm   { border-radius: var(--optset-r-sm); }
+	.optset-u-r-md   { border-radius: var(--optset-r-md); }
+	.optset-u-r-lg   { border-radius: var(--optset-r-lg); }
+	.optset-u-r-full { border-radius: var(--optset-r-full); }
 
 	/* — elevation ————————————————————————————————————————————————————— */
-	.pkitfw-u-elev-1 { box-shadow: var(--pkitfw-sh-1); }
-	.pkitfw-u-elev-2 { box-shadow: var(--pkitfw-sh-2); }
-	.pkitfw-u-elev-3 { box-shadow: var(--pkitfw-sh-3); }
+	.optset-u-elev-1 { box-shadow: var(--optset-sh-1); }
+	.optset-u-elev-2 { box-shadow: var(--optset-sh-2); }
+	.optset-u-elev-3 { box-shadow: var(--optset-sh-3); }
 
 	/* — spacing (margin & padding scale) —————————————————————————————— */
 	@for $i from 0 through 8 {
-		.pkitfw-u-m-#{$i}  { margin: var(--pkitfw-s-#{$i}, 0); }
-		.pkitfw-u-mt-#{$i} { margin-top: var(--pkitfw-s-#{$i}, 0); }
-		.pkitfw-u-mb-#{$i} { margin-bottom: var(--pkitfw-s-#{$i}, 0); }
-		.pkitfw-u-p-#{$i}  { padding: var(--pkitfw-s-#{$i}, 0); }
-		.pkitfw-u-px-#{$i} { padding-inline: var(--pkitfw-s-#{$i}, 0); }
-		.pkitfw-u-py-#{$i} { padding-block: var(--pkitfw-s-#{$i}, 0); }
+		.optset-u-m-#{$i}  { margin: var(--optset-s-#{$i}, 0); }
+		.optset-u-mt-#{$i} { margin-top: var(--optset-s-#{$i}, 0); }
+		.optset-u-mb-#{$i} { margin-bottom: var(--optset-s-#{$i}, 0); }
+		.optset-u-p-#{$i}  { padding: var(--optset-s-#{$i}, 0); }
+		.optset-u-px-#{$i} { padding-inline: var(--optset-s-#{$i}, 0); }
+		.optset-u-py-#{$i} { padding-block: var(--optset-s-#{$i}, 0); }
 	}
 
 	/* — layout —————————————————————————————————————————————————————————— */
-	.pkitfw-u-flex        { display: flex; }
-	.pkitfw-u-inline-flex { display: inline-flex; }
-	.pkitfw-u-grid        { display: grid; }
-	.pkitfw-u-items-center{ align-items: center; }
-	.pkitfw-u-items-start { align-items: flex-start; }
-	.pkitfw-u-justify-between { justify-content: space-between; }
-	.pkitfw-u-justify-center  { justify-content: center; }
+	.optset-u-flex        { display: flex; }
+	.optset-u-inline-flex { display: inline-flex; }
+	.optset-u-grid        { display: grid; }
+	.optset-u-items-center{ align-items: center; }
+	.optset-u-items-start { align-items: flex-start; }
+	.optset-u-justify-between { justify-content: space-between; }
+	.optset-u-justify-center  { justify-content: center; }
 
 	@for $i from 1 through 6 {
-		.pkitfw-u-gap-#{$i} { gap: var(--pkitfw-s-#{$i}); }
+		.optset-u-gap-#{$i} { gap: var(--optset-s-#{$i}); }
 	}
 
-	.pkitfw-u-w-full { width: 100%; }
-	.pkitfw-u-h-full { height: 100%; }
+	.optset-u-w-full { width: 100%; }
+	.optset-u-h-full { height: 100%; }
 
 	/* — type ———————————————————————————————————————————————————————————— */
-	.pkitfw-u-font   { font-family: var(--pkitfw-font); }
-	.pkitfw-u-mono   { font-family: var(--pkitfw-font-mono); }
-	.pkitfw-u-weight-medium { font-weight: 500; }
-	.pkitfw-u-weight-bold   { font-weight: 700; }
-	.pkitfw-u-truncate {
+	.optset-u-font   { font-family: var(--optset-font); }
+	.optset-u-mono   { font-family: var(--optset-font-mono); }
+	.optset-u-weight-medium { font-weight: 500; }
+	.optset-u-weight-bold   { font-weight: 700; }
+	.optset-u-truncate {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
 	/* — interaction ————————————————————————————————————————————————————— */
-	.pkitfw-u-clickable {
+	.optset-u-clickable {
 		cursor: pointer;
 		transition:
-			background var(--pkitfw-dur) var(--pkitfw-ease),
-			border-color var(--pkitfw-dur) var(--pkitfw-ease),
-			box-shadow var(--pkitfw-dur) var(--pkitfw-ease),
-			transform var(--pkitfw-dur) var(--pkitfw-ease);
+			background var(--optset-dur) var(--optset-ease),
+			border-color var(--optset-dur) var(--optset-ease),
+			box-shadow var(--optset-dur) var(--optset-ease),
+			transform var(--optset-dur) var(--optset-ease);
 
 		&:hover { transform: translateY(-1px); }
 		&:active { transform: translateY(0); }
 	}
 
-	.pkitfw-u-focus-ring:focus-visible {
+	.optset-u-focus-ring:focus-visible {
 		outline: none;
-		box-shadow: var(--pkitfw-sh-ring);
+		box-shadow: var(--optset-sh-ring);
 	}
 
 	/* — visibility ——————————————————————————————————————————————————————— */
-	.pkitfw-u-hide { display: none !important; }
+	.optset-u-hide { display: none !important; }
 }

@@ -2,12 +2,12 @@
 /**
  * Free-form color picker field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,8 +47,8 @@ final class ColorPickerField extends AbstractField {
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 		$default = (string) $this->cfg( 'defaultColor', '#000000' );
 
-		$html  = '<div class="pkitfw-colorpicker" data-field-id="' . esc_attr( $this->id() ) . '">';
-		$html .= '<input type="color" class="pkitfw-colorpicker__input" name="' . esc_attr( $this->input_name() ) . '"'
+		$html  = '<div class="optset-colorpicker" data-field-id="' . esc_attr( $this->id() ) . '">';
+		$html .= '<input type="color" class="optset-colorpicker__input" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -58,8 +58,8 @@ final class ColorPickerField extends AbstractField {
 					$this->choice_price_attrs( $choice )
 				)
 			) . ' />';
-		$html .= '<input type="text" class="pkitfw-colorpicker__hex" value="' . esc_attr( $default ) . '" maxlength="7" />';
-		$html .= '<button type="button" class="pkitfw-colorpicker__reset" aria-label="' . esc_attr__( 'Reset color', 'productkit-for-woocommerce' ) . '">&times;</button>';
+		$html .= '<input type="text" class="optset-colorpicker__hex" value="' . esc_attr( $default ) . '" maxlength="7" />';
+		$html .= '<button type="button" class="optset-colorpicker__reset" aria-label="' . esc_attr__( 'Reset color', 'option-set-builder' ) . '">&times;</button>';
 		$html .= '</div>';
 		return $html;
 	}

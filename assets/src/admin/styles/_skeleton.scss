@@ -1,7 +1,7 @@
 /**
  * Premium skeleton loaders.
  *
- * One animated `.pkitfw-skel` block + a small set of composed layouts. Theme
+ * One animated `.optset-skel` block + a small set of composed layouts. Theme
  * tokens drive every colour so the loaders automatically match the active
  * Global Theme palette (and a future dark mode flip).
  *
@@ -9,93 +9,93 @@
  * politely pauses the animation for users who opt out.
  */
 
-#pkitfw-admin-root {
+#optset-admin-root {
 	/* Skeleton-specific tokens — derived from the theme so retinting the
 	   primary palette automatically reshades the loaders. */
-	--pkitfw-skel-base:      var(--pkitfw-c-surface-3);
-	--pkitfw-skel-highlight: var(--pkitfw-c-surface-2);
-	--pkitfw-skel-sheen:     rgba(255, 255, 255, 0.65);
-	--pkitfw-skel-radius:    var(--pkitfw-r-sm);
-	--pkitfw-skel-duration:  1400ms;
+	--optset-skel-base:      var(--optset-c-surface-3);
+	--optset-skel-highlight: var(--optset-c-surface-2);
+	--optset-skel-sheen:     rgba(255, 255, 255, 0.65);
+	--optset-skel-radius:    var(--optset-r-sm);
+	--optset-skel-duration:  1400ms;
 }
 
 /* ── Base shimmer block ────────────────────────────────────────────── */
-.pkitfw-skel {
+.optset-skel {
 	display: block;
 	inline-size: 100%;
 	block-size: 12px;
-	border-radius: var(--pkitfw-skel-radius);
+	border-radius: var(--optset-skel-radius);
 	background:
 		linear-gradient(
 			90deg,
-			var(--pkitfw-skel-base) 0%,
-			var(--pkitfw-skel-highlight) 30%,
-			var(--pkitfw-skel-sheen) 50%,
-			var(--pkitfw-skel-highlight) 70%,
-			var(--pkitfw-skel-base) 100%
+			var(--optset-skel-base) 0%,
+			var(--optset-skel-highlight) 30%,
+			var(--optset-skel-sheen) 50%,
+			var(--optset-skel-highlight) 70%,
+			var(--optset-skel-base) 100%
 		);
 	background-size: 220% 100%;
 	background-position: 100% 0;
-	animation: pkitfw-skel-shimmer var(--pkitfw-skel-duration) linear infinite;
+	animation: optset-skel-shimmer var(--optset-skel-duration) linear infinite;
 	will-change: background-position;
 }
 
-@keyframes pkitfw-skel-shimmer {
+@keyframes optset-skel-shimmer {
 	0%   { background-position: 100% 0; }
 	100% { background-position: -100% 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.pkitfw-skel {
+	.optset-skel {
 		animation: none;
-		background: var(--pkitfw-skel-base);
+		background: var(--optset-skel-base);
 	}
 }
 
 /* ── Composed variants ──────────────────────────────────────────────── */
 
 /* Text cluster ----------------------------------------------------------- */
-.pkitfw-skel-text {
+.optset-skel-text {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 }
 
 /* Card ------------------------------------------------------------------ */
-.pkitfw-skel-card {
+.optset-skel-card {
 	display: flex;
 	flex-direction: column;
-	gap: var(--pkitfw-s-4);
-	padding: var(--pkitfw-s-5);
-	background: var(--pkitfw-c-surface);
-	border: 1px solid var(--pkitfw-c-border);
-	border-radius: var(--pkitfw-r-lg);
-	box-shadow: var(--pkitfw-sh-card);
+	gap: var(--optset-s-4);
+	padding: var(--optset-s-5);
+	background: var(--optset-c-surface);
+	border: 1px solid var(--optset-c-border);
+	border-radius: var(--optset-r-lg);
+	box-shadow: var(--optset-sh-card);
 
 	&__head {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--pkitfw-s-3);
+		gap: var(--optset-s-3);
 	}
 
 	&__foot {
 		display: flex;
 		justify-content: flex-end;
-		padding-block-start: var(--pkitfw-s-2);
+		padding-block-start: var(--optset-s-2);
 	}
 }
 
 /* Stat tile + grid ------------------------------------------------------ */
-.pkitfw-skel-stat {
+.optset-skel-stat {
 	display: flex;
 	align-items: center;
-	gap: var(--pkitfw-s-3);
-	padding: var(--pkitfw-s-4);
-	background: var(--pkitfw-c-surface);
-	border: 1px solid var(--pkitfw-c-border);
-	border-radius: var(--pkitfw-r-lg);
-	box-shadow: var(--pkitfw-sh-1);
+	gap: var(--optset-s-3);
+	padding: var(--optset-s-4);
+	background: var(--optset-c-surface);
+	border: 1px solid var(--optset-c-border);
+	border-radius: var(--optset-r-lg);
+	box-shadow: var(--optset-sh-1);
 
 	&__body {
 		flex: 1;
@@ -106,17 +106,17 @@
 	}
 }
 
-.pkitfw-skel-stat-grid {
+.optset-skel-stat-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: var(--pkitfw-s-3);
+	gap: var(--optset-s-3);
 }
 
 /* Table ----------------------------------------------------------------- */
-.pkitfw-skel-table {
-	background: var(--pkitfw-c-surface);
-	border: 1px solid var(--pkitfw-c-border);
-	border-radius: var(--pkitfw-r-lg);
+.optset-skel-table {
+	background: var(--optset-c-surface);
+	border: 1px solid var(--optset-c-border);
+	border-radius: var(--optset-r-lg);
 	overflow: hidden;
 
 	&__head,
@@ -124,13 +124,13 @@
 		display: grid;
 		grid-template-columns: 44px 1.4fr 1fr 1fr 120px;
 		align-items: center;
-		gap: var(--pkitfw-s-4);
-		padding: 14px var(--pkitfw-s-5);
+		gap: var(--optset-s-4);
+		padding: 14px var(--optset-s-5);
 	}
 
 	&__head {
-		background: var(--pkitfw-c-surface-2);
-		border-block-end: 1px solid var(--pkitfw-c-border);
+		background: var(--optset-c-surface-2);
+		border-block-end: 1px solid var(--optset-c-border);
 	}
 
 	&__body {
@@ -139,20 +139,20 @@
 	}
 
 	&__row {
-		border-block-end: 1px solid var(--pkitfw-c-border-soft);
+		border-block-end: 1px solid var(--optset-c-border-soft);
 		&:last-child { border-block-end: 0; }
 	}
 }
 
 /* Chart ----------------------------------------------------------------- */
-.pkitfw-skel-chart {
+.optset-skel-chart {
 	display: flex;
 	flex-direction: column;
-	gap: var(--pkitfw-s-4);
-	padding: var(--pkitfw-s-5);
-	background: var(--pkitfw-c-surface);
-	border: 1px solid var(--pkitfw-c-border);
-	border-radius: var(--pkitfw-r-lg);
+	gap: var(--optset-s-4);
+	padding: var(--optset-s-5);
+	background: var(--optset-c-surface);
+	border: 1px solid var(--optset-c-border);
+	border-radius: var(--optset-r-lg);
 	min-block-size: 280px;
 
 	&__head {
@@ -164,24 +164,24 @@
 	&__plot {
 		display: flex;
 		align-items: flex-end;
-		gap: var(--pkitfw-s-3);
+		gap: var(--optset-s-3);
 		min-block-size: 180px;
-		padding-block: var(--pkitfw-s-3);
-		border-block-start: 1px dashed var(--pkitfw-c-border);
+		padding-block: var(--optset-s-3);
+		border-block-start: 1px dashed var(--optset-c-border);
 	}
 
 	&__bar {
 		flex: 1;
 		inline-size: auto !important;
-		border-radius: var(--pkitfw-r-sm) var(--pkitfw-r-sm) 0 0;
+		border-radius: var(--optset-r-sm) var(--optset-r-sm) 0 0;
 	}
 }
 
 /* Form ------------------------------------------------------------------ */
-.pkitfw-skel-form {
+.optset-skel-form {
 	display: flex;
 	flex-direction: column;
-	gap: var(--pkitfw-s-5);
+	gap: var(--optset-s-5);
 
 	&__row {
 		display: flex;
@@ -191,92 +191,92 @@
 }
 
 /* Tabs ------------------------------------------------------------------ */
-.pkitfw-skel-tabs {
+.optset-skel-tabs {
 	display: flex;
-	gap: var(--pkitfw-s-2);
-	padding-block-end: var(--pkitfw-s-2);
-	border-block-end: 1px solid var(--pkitfw-c-border);
+	gap: var(--optset-s-2);
+	padding-block-end: var(--optset-s-2);
+	border-block-end: 1px solid var(--optset-c-border);
 }
 
 /* Modal ----------------------------------------------------------------- */
-.pkitfw-skel-modal {
+.optset-skel-modal {
 	display: flex;
 	flex-direction: column;
-	gap: var(--pkitfw-s-4);
-	padding: var(--pkitfw-s-6);
-	background: var(--pkitfw-c-surface);
-	border: 1px solid var(--pkitfw-c-border);
-	border-radius: var(--pkitfw-r-xl);
-	box-shadow: var(--pkitfw-sh-3);
+	gap: var(--optset-s-4);
+	padding: var(--optset-s-6);
+	background: var(--optset-c-surface);
+	border: 1px solid var(--optset-c-border);
+	border-radius: var(--optset-r-xl);
+	box-shadow: var(--optset-sh-3);
 	max-inline-size: 560px;
 
 	&__foot {
 		display: flex;
 		justify-content: flex-end;
-		gap: var(--pkitfw-s-2);
-		padding-block-start: var(--pkitfw-s-2);
+		gap: var(--optset-s-2);
+		padding-block-start: var(--optset-s-2);
 	}
 }
 
 /* Nav ------------------------------------------------------------------- */
-.pkitfw-skel-nav {
+.optset-skel-nav {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
-	padding: var(--pkitfw-s-3);
-	background: var(--pkitfw-c-surface);
-	border: 1px solid var(--pkitfw-c-border);
-	border-radius: var(--pkitfw-r-lg);
+	padding: var(--optset-s-3);
+	background: var(--optset-c-surface);
+	border: 1px solid var(--optset-c-border);
+	border-radius: var(--optset-r-lg);
 
 	&__item {
 		display: flex;
 		align-items: center;
-		gap: var(--pkitfw-s-3);
+		gap: var(--optset-s-3);
 		padding: 10px;
-		border-radius: var(--pkitfw-r-md);
+		border-radius: var(--optset-r-md);
 	}
 }
 
 /* ── Builder skeleton — 1:1 with the real Option Builder stage ──────────
  *
- * Geometry intentionally mirrors `.pkitfw-builder__topbar`, `.pkitfw-builder__stage-
- * wrap` and `.pkitfw-stage*` in `_builder.scss` so the skeleton renders as a
+ * Geometry intentionally mirrors `.optset-builder__topbar`, `.optset-builder__stage-
+ * wrap` and `.optset-stage*` in `_builder.scss` so the skeleton renders as a
  * preloaded version of the page and no layout shift occurs when the real
  * canvas takes over.
  */
-.pkitfw-skel-builder {
+.optset-skel-builder {
 	display: flex;
 	flex-direction: column;
 	min-block-size: 100%;
 	flex: 1;
-	background: var(--pkitfw-c-bg);
+	background: var(--optset-c-bg);
 
-	/* Sticky chrome row — matches `.pkitfw-builder__topbar`. */
+	/* Sticky chrome row — matches `.optset-builder__topbar`. */
 	&__topbar {
 		display: grid;
 		grid-template-columns: 32px 1fr auto;
 		align-items: center;
-		gap: var(--pkitfw-s-3);
+		gap: var(--optset-s-3);
 		padding: 10px 16px;
-		background: var(--pkitfw-c-surface);
-		border-block-end: 1px solid var(--pkitfw-c-border);
-		box-shadow: var(--pkitfw-c-shadow-sm, var(--pkitfw-sh-1));
+		background: var(--optset-c-surface);
+		border-block-end: 1px solid var(--optset-c-border);
+		box-shadow: var(--optset-c-shadow-sm, var(--optset-sh-1));
 	}
 
 	&__topbar-right {
 		display: flex;
 		align-items: center;
-		gap: var(--pkitfw-s-2);
+		gap: var(--optset-s-2);
 	}
 
-	/* Stage scroll area — matches `.pkitfw-builder__stage-wrap`. */
+	/* Stage scroll area — matches `.optset-builder__stage-wrap`. */
 	&__stage-wrap {
 		flex: 1;
 		overflow: auto;
 		padding: 32px;
 	}
 
-	/* Two-column product stage — matches `.pkitfw-stage` + `.pkitfw-stage__product`. */
+	/* Two-column product stage — matches `.optset-stage` + `.optset-stage__product`. */
 	&__stage {
 		max-inline-size: 1100px;
 		margin-inline: auto;
@@ -286,7 +286,7 @@
 		align-items: start;
 	}
 
-	/* Left column — matches `.pkitfw-stage__gallery`. */
+	/* Left column — matches `.optset-stage__gallery`. */
 	&__gallery {
 		display: flex;
 		flex-direction: column;
@@ -313,20 +313,20 @@
 		block-size: auto !important;
 	}
 
-	/* Right column — matches `.pkitfw-stage__summary`. */
+	/* Right column — matches `.optset-stage__summary`. */
 	&__summary {
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-		background: var(--pkitfw-c-surface);
-		border: 1px solid var(--pkitfw-c-border);
-		border-radius: var(--pkitfw-c-radius-lg, var(--pkitfw-r-lg));
-		box-shadow: var(--pkitfw-c-shadow, var(--pkitfw-sh-2));
+		background: var(--optset-c-surface);
+		border: 1px solid var(--optset-c-border);
+		border-radius: var(--optset-c-radius-lg, var(--optset-r-lg));
+		box-shadow: var(--optset-c-shadow, var(--optset-sh-2));
 		padding: 28px;
 	}
 
 	/* Spacing between title-row and the price-row mirrors the real
-	   summary's `margin-block-end: 22px` on `.pkitfw-stage__price`. */
+	   summary's `margin-block-end: 22px` on `.optset-stage__price`. */
 	&__summary > *:nth-child(2) { margin-block-end: 10px; }
 
 	&__options {
@@ -340,9 +340,9 @@
 		flex-direction: column;
 		gap: 8px;
 		padding: 14px 16px;
-		background: var(--pkitfw-c-surface-2);
-		border: 1px solid var(--pkitfw-c-border-soft, var(--pkitfw-c-border));
-		border-radius: var(--pkitfw-c-radius, var(--pkitfw-r-md));
+		background: var(--optset-c-surface-2);
+		border: 1px solid var(--optset-c-border-soft, var(--optset-c-border));
+		border-radius: var(--optset-c-radius, var(--optset-r-md));
 	}
 
 	&__atc {
@@ -352,7 +352,7 @@
 
 /* ── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 980px) {
-	.pkitfw-skel-builder {
+	.optset-skel-builder {
 		&__stage {
 			grid-template-columns: 1fr;
 			gap: 20px;
@@ -378,7 +378,7 @@
 }
 
 @media (max-width: 600px) {
-	.pkitfw-skel-builder {
+	.optset-skel-builder {
 		&__stage-wrap { padding: 16px; }
 		&__summary    { padding: 18px; }
 		&__topbar-right > *:nth-child(n + 2) { display: none; }
@@ -386,22 +386,22 @@
 }
 
 /* ── Fade-in transition for real content ──────────────────────────────── */
-.pkitfw-fadein {
-	animation: pkitfw-fadein 260ms var(--pkitfw-ease) both;
+.optset-fadein {
+	animation: optset-fadein 260ms var(--optset-ease) both;
 }
 
-@keyframes pkitfw-fadein {
+@keyframes optset-fadein {
 	from { opacity: 0; transform: translateY(4px); }
 	to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.pkitfw-fadein { animation: none; }
+	.optset-fadein { animation: none; }
 }
 
 /* ── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-	.pkitfw-skel-table {
+	.optset-skel-table {
 		&__head,
 		&__row {
 			grid-template-columns: 32px 1fr 96px;
@@ -409,13 +409,13 @@
 		}
 	}
 
-	.pkitfw-skel-stat-grid {
+	.optset-skel-stat-grid {
 		grid-template-columns: 1fr 1fr;
 	}
 }
 
 @media (max-width: 480px) {
-	.pkitfw-skel-stat-grid {
+	.optset-skel-stat-grid {
 		grid-template-columns: 1fr;
 	}
 }

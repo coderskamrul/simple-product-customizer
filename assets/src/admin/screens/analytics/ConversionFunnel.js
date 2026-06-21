@@ -34,7 +34,7 @@ export default function ConversionFunnel( { funnel } ) {
 				tone: 'blue',
 				label: __(
 					'Viewed',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				value: funnel.viewed,
 			},
@@ -43,7 +43,7 @@ export default function ConversionFunnel( { funnel } ) {
 				tone: 'purple',
 				label: __(
 					'Clicked',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				value: funnel.clicked,
 			},
@@ -52,7 +52,7 @@ export default function ConversionFunnel( { funnel } ) {
 				tone: 'violet',
 				label: __(
 					'Added to Cart',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				value: funnel.carted,
 			},
@@ -61,7 +61,7 @@ export default function ConversionFunnel( { funnel } ) {
 				tone: 'pink',
 				label: __(
 					'Purchased',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				value: funnel.purchased,
 			},
@@ -95,11 +95,11 @@ export default function ConversionFunnel( { funnel } ) {
 				icon="chart-pie"
 				title={ __(
 					'No journey data yet',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				text={ __(
 					'Stages populate as shoppers move from view to purchase.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			/>
 		);
@@ -111,32 +111,32 @@ export default function ConversionFunnel( { funnel } ) {
 		: stages[ 0 ].value; /* default: Viewed */
 	const centerLabel = focused
 		? focused.label
-		: __( 'Total viewed', 'productkit-for-woocommerce' );
+		: __( 'Total viewed', 'option-set-builder' );
 	const centerPct =
 		focused && total > 0
 			? Math.round( ( focused.value / total ) * 100 )
 			: null;
 
 	return (
-		<div className="pkitfw-an-funnel">
-			<div className="pkitfw-an-funnel__chart">
+		<div className="optset-an-funnel">
+			<div className="optset-an-funnel__chart">
 				<svg
 					viewBox={ `0 0 ${ SIZE } ${ SIZE }` }
 					role="img"
 					aria-label={ __(
 						'Conversion funnel from viewed to purchased',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<circle
 						cx={ SIZE / 2 }
 						cy={ SIZE / 2 }
 						r={ R }
-						className="pkitfw-an-funnel__track"
+						className="optset-an-funnel__track"
 						strokeWidth={ STROKE }
 						fill="none"
 					/>
-					<g className="pkitfw-an-funnel__ring">
+					<g className="optset-an-funnel__ring">
 						{ arcs.map( ( a ) => {
 							const dim = active && active !== a.key;
 							return (
@@ -159,7 +159,7 @@ export default function ConversionFunnel( { funnel } ) {
 									onMouseLeave={ () => setActive( null ) }
 									onFocus={ () => setActive( a.key ) }
 									onBlur={ () => setActive( null ) }
-									className={ `pkitfw-an-funnel__arc pkitfw-an-funnel__arc--${
+									className={ `optset-an-funnel__arc optset-an-funnel__arc--${
 										a.tone
 									}${ active === a.key ? ' is-active' : '' }${
 										dim ? ' is-dim' : ''
@@ -177,26 +177,26 @@ export default function ConversionFunnel( { funnel } ) {
 					</g>
 				</svg>
 
-				<div className="pkitfw-an-funnel__center" aria-hidden="true">
-					<span className="pkitfw-an-funnel__cval">
+				<div className="optset-an-funnel__center" aria-hidden="true">
+					<span className="optset-an-funnel__cval">
 						{ Number( centerValue || 0 ).toLocaleString() }
 					</span>
-					<span className="pkitfw-an-funnel__clabel">
+					<span className="optset-an-funnel__clabel">
 						{ centerLabel }
 					</span>
 					{ centerPct !== null && (
-						<span className="pkitfw-an-funnel__cpct">
+						<span className="optset-an-funnel__cpct">
 							{ centerPct }%
 						</span>
 					) }
 				</div>
 			</div>
 
-			<dl className="pkitfw-an-funnel__legend">
+			<dl className="optset-an-funnel__legend">
 				{ stages.map( ( s ) => (
 					<div
 						key={ s.key }
-						className={ `pkitfw-an-funnel__item${
+						className={ `optset-an-funnel__item${
 							active === s.key ? ' is-active' : ''
 						}` }
 						onMouseEnter={ () => setActive( s.key ) }
@@ -204,7 +204,7 @@ export default function ConversionFunnel( { funnel } ) {
 					>
 						<dt>
 							<span
-								className={ `pkitfw-an-dot pkitfw-an-dot--${ s.tone }` }
+								className={ `optset-an-dot optset-an-dot--${ s.tone }` }
 								aria-hidden="true"
 							/>
 							{ s.label }

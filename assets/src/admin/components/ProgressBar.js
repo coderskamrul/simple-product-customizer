@@ -33,16 +33,16 @@ export default function ProgressBar( {
 					/* translators: %d: value */
 					__(
 						'%d products',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					),
 					value
 			  )
-			: __( 'No data', 'productkit-for-woocommerce' ) );
+			: __( 'No data', 'option-set-builder' ) );
 
 	return (
-		<span className={ `pkitfw-progress ${ className }`.trim() }>
+		<span className={ `optset-progress ${ className }`.trim() }>
 			<span
-				className="pkitfw-progress__track"
+				className="optset-progress__track"
 				role="progressbar"
 				aria-valuenow={ has ? value : undefined }
 				aria-valuemin={ 0 }
@@ -50,11 +50,11 @@ export default function ProgressBar( {
 				aria-label={ a11y }
 			>
 				<span
-					className="pkitfw-progress__fill"
+					className="optset-progress__fill"
 					style={ { width: `${ pct }%` } }
 				/>
 			</span>
-			<span className="pkitfw-progress__value">{ has ? value : '—' }</span>
+			<span className="optset-progress__value">{ has ? value : '—' }</span>
 		</span>
 	);
 }

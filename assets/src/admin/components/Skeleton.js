@@ -1,5 +1,5 @@
 /**
- * ProductKit Admin — Premium Skeleton loaders.
+ * Option Set Builder Admin — Premium Skeleton loaders.
  *
  * Lightweight (no npm dependency), theme-aware via CSS variables, with a
  * smooth shimmer animation. Pre-composed variants mirror the layouts they
@@ -33,7 +33,7 @@ const range = ( n ) => Array.from( { length: n }, ( _, i ) => i );
  * @param {Object}        props             Props.
  * @param {string|number} [props.w]         Width (any CSS length, default 100%).
  * @param {string|number} [props.h]         Height (default 12px).
- * @param {string}        [props.r]         Border-radius (default `--pkitfw-r-sm`).
+ * @param {string}        [props.r]         Border-radius (default `--optset-r-sm`).
  * @param {string}        [props.className] Extra class names.
  * @param {Object}        [props.style]     Inline style overrides.
  * @return {JSX.Element} Block element.
@@ -53,7 +53,7 @@ export function Skeleton( {
 	};
 	return (
 		<span
-			className={ `pkitfw-skel ${ className }`.trim() }
+			className={ `optset-skel ${ className }`.trim() }
 			style={ css }
 			aria-hidden="true"
 		/>
@@ -74,7 +74,7 @@ export function Skeleton( {
  */
 export function SkeletonText( { lines = 3 } ) {
 	return (
-		<div className="pkitfw-skel-text" aria-hidden="true">
+		<div className="optset-skel-text" aria-hidden="true">
 			{ range( lines ).map( ( i ) => (
 				<Skeleton
 					key={ i }
@@ -98,16 +98,16 @@ export function SkeletonText( { lines = 3 } ) {
  */
 export function SkeletonCard( { lines = 3, media = false, action = false } ) {
 	return (
-		<section className="pkitfw-skel-card" aria-hidden="true">
-			<header className="pkitfw-skel-card__head">
+		<section className="optset-skel-card" aria-hidden="true">
+			<header className="optset-skel-card__head">
 				<Skeleton w={ 160 } h={ 16 } />
 				<Skeleton w={ 28 } h={ 28 } r="50%" />
 			</header>
-			{ media && <Skeleton h={ 140 } r="var(--pkitfw-r-md)" /> }
+			{ media && <Skeleton h={ 140 } r="var(--optset-r-md)" /> }
 			<SkeletonText lines={ lines } />
 			{ action && (
-				<div className="pkitfw-skel-card__foot">
-					<Skeleton w={ 96 } h={ 32 } r="var(--pkitfw-r-md)" />
+				<div className="optset-skel-card__foot">
+					<Skeleton w={ 96 } h={ 32 } r="var(--optset-r-md)" />
 				</div>
 			) }
 		</section>
@@ -121,9 +121,9 @@ export function SkeletonCard( { lines = 3, media = false, action = false } ) {
  */
 export function SkeletonStat() {
 	return (
-		<div className="pkitfw-skel-stat" aria-hidden="true">
-			<Skeleton w={ 44 } h={ 44 } r="var(--pkitfw-r-md)" />
-			<div className="pkitfw-skel-stat__body">
+		<div className="optset-skel-stat" aria-hidden="true">
+			<Skeleton w={ 44 } h={ 44 } r="var(--optset-r-md)" />
+			<div className="optset-skel-stat__body">
 				<Skeleton w="55%" h={ 22 } />
 				<Skeleton w="40%" h={ 10 } />
 			</div>
@@ -140,7 +140,7 @@ export function SkeletonStat() {
  */
 export function SkeletonStatGrid( { count = 4 } ) {
 	return (
-		<div className="pkitfw-skel-stat-grid" aria-hidden="true">
+		<div className="optset-skel-stat-grid" aria-hidden="true">
 			{ range( count ).map( ( i ) => (
 				<SkeletonStat key={ i } />
 			) ) }
@@ -162,14 +162,14 @@ export function SkeletonStatGrid( { count = 4 } ) {
 export function SkeletonTable( { rows = 6, cols = 5 } ) {
 	return (
 		<div
-			className="pkitfw-skel-table"
+			className="optset-skel-table"
 			role="status"
 			aria-label={ __(
 				'Loading…',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 		>
-			<div className="pkitfw-skel-table__head">
+			<div className="optset-skel-table__head">
 				{ range( cols ).map( ( i ) => (
 					<Skeleton
 						key={ i }
@@ -178,9 +178,9 @@ export function SkeletonTable( { rows = 6, cols = 5 } ) {
 					/>
 				) ) }
 			</div>
-			<div className="pkitfw-skel-table__body">
+			<div className="optset-skel-table__body">
 				{ range( rows ).map( ( r ) => (
-					<div key={ r } className="pkitfw-skel-table__row">
+					<div key={ r } className="optset-skel-table__row">
 						{ range( cols ).map( ( c ) => (
 							<Skeleton
 								key={ c }
@@ -205,16 +205,16 @@ export function SkeletonTable( { rows = 6, cols = 5 } ) {
 export function SkeletonChart() {
 	const bars = [ 35, 65, 50, 80, 45, 70, 90, 60 ];
 	return (
-		<div className="pkitfw-skel-chart" aria-hidden="true">
-			<header className="pkitfw-skel-chart__head">
+		<div className="optset-skel-chart" aria-hidden="true">
+			<header className="optset-skel-chart__head">
 				<Skeleton w={ 180 } h={ 14 } />
 				<Skeleton w={ 120 } h={ 10 } />
 			</header>
-			<div className="pkitfw-skel-chart__plot">
+			<div className="optset-skel-chart__plot">
 				{ bars.map( ( h, i ) => (
 					<span
 						key={ i }
-						className="pkitfw-skel pkitfw-skel-chart__bar"
+						className="optset-skel optset-skel-chart__bar"
 						style={ { blockSize: `${ h }%` } }
 					/>
 				) ) }
@@ -232,11 +232,11 @@ export function SkeletonChart() {
  */
 export function SkeletonForm( { fields = 4 } ) {
 	return (
-		<div className="pkitfw-skel-form" aria-hidden="true">
+		<div className="optset-skel-form" aria-hidden="true">
 			{ range( fields ).map( ( i ) => (
-				<div key={ i } className="pkitfw-skel-form__row">
+				<div key={ i } className="optset-skel-form__row">
 					<Skeleton w="30%" h={ 10 } />
-					<Skeleton h={ 36 } r="var(--pkitfw-r-md)" />
+					<Skeleton h={ 36 } r="var(--optset-r-md)" />
 				</div>
 			) ) }
 		</div>
@@ -252,13 +252,13 @@ export function SkeletonForm( { fields = 4 } ) {
  */
 export function SkeletonTabs( { count = 4 } ) {
 	return (
-		<div className="pkitfw-skel-tabs" aria-hidden="true">
+		<div className="optset-skel-tabs" aria-hidden="true">
 			{ range( count ).map( ( i ) => (
 				<Skeleton
 					key={ i }
 					w={ 90 + ( i % 3 ) * 14 }
 					h={ 32 }
-					r="var(--pkitfw-r-md)"
+					r="var(--optset-r-md)"
 				/>
 			) ) }
 		</div>
@@ -272,12 +272,12 @@ export function SkeletonTabs( { count = 4 } ) {
  */
 export function SkeletonModal() {
 	return (
-		<div className="pkitfw-skel-modal" aria-hidden="true">
+		<div className="optset-skel-modal" aria-hidden="true">
 			<Skeleton w="50%" h={ 20 } />
 			<SkeletonText lines={ 4 } />
-			<div className="pkitfw-skel-modal__foot">
-				<Skeleton w={ 90 } h={ 36 } r="var(--pkitfw-r-md)" />
-				<Skeleton w={ 110 } h={ 36 } r="var(--pkitfw-r-md)" />
+			<div className="optset-skel-modal__foot">
+				<Skeleton w={ 90 } h={ 36 } r="var(--optset-r-md)" />
+				<Skeleton w={ 110 } h={ 36 } r="var(--optset-r-md)" />
 			</div>
 		</div>
 	);
@@ -292,10 +292,10 @@ export function SkeletonModal() {
  */
 export function SkeletonNav( { items = 6 } ) {
 	return (
-		<nav className="pkitfw-skel-nav" aria-hidden="true">
+		<nav className="optset-skel-nav" aria-hidden="true">
 			{ range( items ).map( ( i ) => (
-				<div key={ i } className="pkitfw-skel-nav__item">
-					<Skeleton w={ 22 } h={ 22 } r="var(--pkitfw-r-sm)" />
+				<div key={ i } className="optset-skel-nav__item">
+					<Skeleton w={ 22 } h={ 22 } r="var(--optset-r-sm)" />
 					<Skeleton w={ 80 + ( i % 3 ) * 24 } h={ 12 } />
 				</div>
 			) ) }
@@ -308,7 +308,7 @@ export function SkeletonNav( { items = 6 } ) {
  *
  * Mirrors `Canvas.js` 1:1: sticky chrome bar + a two-column product layout
  * (gallery on the left, summary card on the right) inside the same
- * `pkitfw-builder__stage-wrap` so the skeleton never causes a layout jump
+ * `optset-builder__stage-wrap` so the skeleton never causes a layout jump
  * when the real content lands.
  *
  *   ┌──────────────────────────────────────────────────────┐
@@ -335,62 +335,62 @@ export function SkeletonNav( { items = 6 } ) {
 export function SkeletonBuilder() {
 	return (
 		<div
-			className="pkitfw-skel-builder"
+			className="optset-skel-builder"
 			role="status"
 			aria-label={ __(
 				'Loading option builder…',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 		>
 			{ /* ── Sticky chrome (back, title, segmented, actions, save) */ }
-			<header className="pkitfw-skel-builder__topbar">
-				<Skeleton w={ 32 } h={ 32 } r="var(--pkitfw-r-md)" />
-				<Skeleton h={ 32 } r="var(--pkitfw-r-md)" />
-				<div className="pkitfw-skel-builder__topbar-right">
-					<Skeleton w={ 160 } h={ 32 } r="var(--pkitfw-r-full)" />
-					<Skeleton w={ 90 } h={ 32 } r="var(--pkitfw-r-md)" />
-					<Skeleton w={ 110 } h={ 32 } r="var(--pkitfw-r-md)" />
-					<Skeleton w={ 78 } h={ 32 } r="var(--pkitfw-r-md)" />
+			<header className="optset-skel-builder__topbar">
+				<Skeleton w={ 32 } h={ 32 } r="var(--optset-r-md)" />
+				<Skeleton h={ 32 } r="var(--optset-r-md)" />
+				<div className="optset-skel-builder__topbar-right">
+					<Skeleton w={ 160 } h={ 32 } r="var(--optset-r-full)" />
+					<Skeleton w={ 90 } h={ 32 } r="var(--optset-r-md)" />
+					<Skeleton w={ 110 } h={ 32 } r="var(--optset-r-md)" />
+					<Skeleton w={ 78 } h={ 32 } r="var(--optset-r-md)" />
 				</div>
 			</header>
 
 			{ /* ── Stage : two-column product layout */ }
-			<div className="pkitfw-skel-builder__stage-wrap">
-				<div className="pkitfw-skel-builder__stage">
+			<div className="optset-skel-builder__stage-wrap">
+				<div className="optset-skel-builder__stage">
 					{ /* Left: gallery */ }
-					<aside className="pkitfw-skel-builder__gallery">
+					<aside className="optset-skel-builder__gallery">
 						<Skeleton
 							h="100%"
-							r="var(--pkitfw-r-lg)"
-							className="pkitfw-skel-builder__hero"
+							r="var(--optset-r-lg)"
+							className="optset-skel-builder__hero"
 						/>
-						<div className="pkitfw-skel-builder__thumbs">
+						<div className="optset-skel-builder__thumbs">
 							{ range( 3 ).map( ( i ) => (
 								<Skeleton
 									key={ i }
 									h="100%"
-									r="var(--pkitfw-r-md)"
-									className="pkitfw-skel-builder__thumb"
+									r="var(--optset-r-md)"
+									className="optset-skel-builder__thumb"
 								/>
 							) ) }
 						</div>
 					</aside>
 
 					{ /* Right: summary card */ }
-					<section className="pkitfw-skel-builder__summary">
+					<section className="optset-skel-builder__summary">
 						<Skeleton w="65%" h={ 22 } />
 						<Skeleton w="28%" h={ 18 } />
 
-						<div className="pkitfw-skel-builder__options">
+						<div className="optset-skel-builder__options">
 							{ range( 4 ).map( ( i ) => (
 								<div
 									key={ i }
-									className="pkitfw-skel-builder__field"
+									className="optset-skel-builder__field"
 								>
 									<Skeleton w="35%" h={ 11 } />
 									<Skeleton
 										h={ i === 2 ? 88 : 40 }
-										r="var(--pkitfw-r-md)"
+										r="var(--optset-r-md)"
 									/>
 								</div>
 							) ) }
@@ -398,8 +398,8 @@ export function SkeletonBuilder() {
 
 						<Skeleton
 							h={ 48 }
-							r="var(--pkitfw-r-md)"
-							className="pkitfw-skel-builder__atc"
+							r="var(--optset-r-md)"
+							className="optset-skel-builder__atc"
 						/>
 					</section>
 				</div>
@@ -425,7 +425,7 @@ export function FadeIn( {
 	...rest
 } ) {
 	return (
-		<Tag className={ `pkitfw-fadein ${ className }`.trim() } { ...rest }>
+		<Tag className={ `optset-fadein ${ className }`.trim() } { ...rest }>
 			{ children }
 		</Tag>
 	);

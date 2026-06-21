@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin settings controller (`pkitfw_settings`).
+ * Plugin settings controller (`optset_settings`).
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Rest\Route;
+namespace OptionSetBuilder\Rest\Route;
 
-use ProductKit\Core\Container;
-use ProductKit\Core\Settings;
-use ProductKit\Rest\RestServer;
-use ProductKit\Support\Str;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Core\Settings;
+use OptionSetBuilder\Rest\RestServer;
+use OptionSetBuilder\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -83,7 +83,7 @@ final class SettingsController {
 	private function get_settings( WP_REST_Request $r, RestServer $s ) {
 		$svc = $this->settings();
 		if ( ! $svc || ! method_exists( $svc, 'all' ) ) {
-			return $s->fail( 'unavailable', __( 'Settings unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Settings unavailable.', 'option-set-builder' ), 500 );
 		}
 		return $s->ok( array( 'settings' => $svc->all() ) );
 	}
@@ -97,16 +97,16 @@ final class SettingsController {
 	 */
 	private function save_settings( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 		$svc = $this->settings();
 		if ( ! $svc || ! method_exists( $svc, 'save' ) ) {
-			return $s->fail( 'unavailable', __( 'Settings unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Settings unavailable.', 'option-set-builder' ), 500 );
 		}
 
 		$values = Str::json( $r->get_param( 'settings' ), array() );
 		if ( ! is_array( $values ) ) {
-			return $s->fail( 'bad_payload', __( 'Invalid settings payload.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_payload', __( 'Invalid settings payload.', 'option-set-builder' ), 400 );
 		}
 
 		/*

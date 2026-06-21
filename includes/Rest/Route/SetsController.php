@@ -2,23 +2,23 @@
 /**
  * Option-set CRUD + bulk operations controller.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Rest\Route;
+namespace OptionSetBuilder\Rest\Route;
 
-use ProductKit\Core\Container;
-use ProductKit\Data\AssignmentResolver;
-use ProductKit\Data\OptionSetRepository;
-use ProductKit\Rest\RestServer;
-use ProductKit\Support\Str;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Data\AssignmentResolver;
+use OptionSetBuilder\Data\OptionSetRepository;
+use OptionSetBuilder\Rest\RestServer;
+use OptionSetBuilder\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Routes for listing, reading, upserting, deleting and bulk-managing option
- * sets (`pkitfw_option_set` posts).
+ * sets (`optset_option_set` posts).
  */
 final class SetsController {
 
@@ -127,7 +127,7 @@ final class SetsController {
 	private function list_sets( WP_REST_Request $r, RestServer $s ) {
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'option-set-builder' ), 500 );
 		}
 
 		$args   = array(
@@ -161,7 +161,7 @@ final class SetsController {
 				array(
 					'set' => array(
 						'id'     => 'new',
-						'title'  => __( 'Untitled', 'productkit-for-woocommerce' ),
+						'title'  => __( 'Untitled', 'option-set-builder' ),
 						'status' => 'draft',
 						'fields' => array(),
 						'css'    => '',
@@ -172,12 +172,12 @@ final class SetsController {
 
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'option-set-builder' ), 500 );
 		}
 
 		$set = $repo->get( (int) $id );
 		if ( ! $set ) {
-			return $s->fail( 'not_found', __( 'Option set not found.', 'productkit-for-woocommerce' ), 404 );
+			return $s->fail( 'not_found', __( 'Option set not found.', 'option-set-builder' ), 404 );
 		}
 
 		return $s->ok(
@@ -202,11 +202,11 @@ final class SetsController {
 	 */
 	private function save_set( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'option-set-builder' ), 500 );
 		}
 
 		$id     = $r->get_param( 'id' );
@@ -238,16 +238,16 @@ final class SetsController {
 	 */
 	private function delete_set( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'option-set-builder' ), 500 );
 		}
 
 		$id = (int) $r->get_param( 'id' );
 		if ( $id <= 0 ) {
-			return $s->fail( 'bad_id', __( 'Invalid option-set id.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_id', __( 'Invalid option-set id.', 'option-set-builder' ), 400 );
 		}
 
 		$assignment = $this->c->get( 'assignment' );
@@ -257,7 +257,7 @@ final class SetsController {
 
 		$ok = $repo->delete( $id );
 		if ( ! $ok ) {
-			return $s->fail( 'delete_failed', __( 'Could not delete option set.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'delete_failed', __( 'Could not delete option set.', 'option-set-builder' ), 400 );
 		}
 
 		/**
@@ -265,7 +265,7 @@ final class SetsController {
 		 *
 		 * @param int $id Deleted set id.
 		 */
-		do_action( 'pkitfw_set_deleted', $id );
+		do_action( 'optset_set_deleted', $id );
 
 		return $s->ok( array( 'id' => $id ) );
 	}
@@ -279,11 +279,11 @@ final class SetsController {
 	 */
 	private function bulk( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'option-set-builder' ), 500 );
 		}
 
 		$op  = sanitize_key( (string) $r->get_param( 'op' ) );
@@ -327,7 +327,7 @@ final class SetsController {
 						$assignment->detach( $id );
 					}
 					if ( $repo->delete( $id ) ) {
-						do_action( 'pkitfw_set_deleted', $id );
+						do_action( 'optset_set_deleted', $id );
 						$done[] = $id;
 					}
 				}
@@ -365,7 +365,7 @@ final class SetsController {
 					$res = $repo->save(
 						array(
 							'id'     => 'new',
-							'title'  => isset( $row['title'] ) ? sanitize_text_field( $row['title'] ) : __( 'Imported', 'productkit-for-woocommerce' ),
+							'title'  => isset( $row['title'] ) ? sanitize_text_field( $row['title'] ) : __( 'Imported', 'option-set-builder' ),
 							'status' => isset( $row['status'] ) && 'publish' === $row['status'] ? 'publish' : 'draft',
 							'fields' => isset( $row['fields'] ) && is_array( $row['fields'] ) ? $row['fields'] : array(),
 							'css'    => isset( $row['css'] ) ? wp_strip_all_tags( (string) $row['css'] ) : '',
@@ -383,7 +383,7 @@ final class SetsController {
 				);
 
 			default:
-				return $s->fail( 'bad_op', __( 'Unknown bulk operation.', 'productkit-for-woocommerce' ), 400 );
+				return $s->fail( 'bad_op', __( 'Unknown bulk operation.', 'option-set-builder' ), 400 );
 		}
 	}
 }

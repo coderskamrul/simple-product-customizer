@@ -2,12 +2,12 @@
 /**
  * Numeric input field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -46,7 +46,7 @@ final class NumberField extends AbstractField {
 		$choices = $this->choices();
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 
-		return '<input type="number" class="pkitfw-input pkitfw-input--number" name="' . esc_attr( $this->input_name() ) . '"'
+		return '<input type="number" class="optset-input optset-input--number" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(

@@ -61,13 +61,13 @@ function TypePicker( { value, onChange } ) {
 	};
 
 	return (
-		<div className="pkitfw-typechips">
-			<div className="pkitfw-typechips__list">
+		<div className="optset-typechips">
+			<div className="optset-typechips__list">
 				{ all.map( ( ext ) => (
 					<button
 						key={ ext }
 						type="button"
-						className={ `pkitfw-typechip${
+						className={ `optset-typechip${
 							selected.includes( ext ) ? ' is-active' : ''
 						}` }
 						onClick={ () => toggle( ext ) }
@@ -77,23 +77,23 @@ function TypePicker( { value, onChange } ) {
 					</button>
 				) ) }
 			</div>
-			<div className="pkitfw-typechips__add">
+			<div className="optset-typechips__add">
 				<TextControl
 					value={ custom }
 					placeholder={ __(
 						'Add type (e.g. tiff)',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					onChange={ setCustom }
 				/>
 				<button
 					type="button"
-					className="pkitfw-btn pkitfw-btn--ghost"
+					className="optset-btn optset-btn--ghost"
 					onClick={ addCustom }
 					disabled={ ! custom.trim() }
 				>
 					<Plus size={ 14 } />
-					{ __( 'Add', 'productkit-for-woocommerce' ) }
+					{ __( 'Add', 'option-set-builder' ) }
 				</button>
 			</div>
 		</div>
@@ -117,18 +117,18 @@ export default function FileUploadConfig( { node, patch } ) {
 		<>
 			<ValuePricing node={ node } patch={ patch } />
 
-			<div className="pkitfw-settings__group">
-				<p className="pkitfw-field-group__title">
+			<div className="optset-settings__group">
+				<p className="optset-field-group__title">
 					{ __(
 						'Labels',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					<Field
 						label={ __(
 							'Upload text',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -139,7 +139,7 @@ export default function FileUploadConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Drag & drop text',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -150,18 +150,18 @@ export default function FileUploadConfig( { node, patch } ) {
 				</div>
 			</div>
 
-			<div className="pkitfw-settings__group">
-				<p className="pkitfw-field-group__title">
+			<div className="optset-settings__group">
+				<p className="optset-field-group__title">
 					{ __(
 						'File size',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					<Field
 						label={ __(
 							'Maximum file size (MB)',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -173,7 +173,7 @@ export default function FileUploadConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Too-large error message',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -185,11 +185,11 @@ export default function FileUploadConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'File size hint text',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					help={ __(
 						'Use [max_size] for the configured size.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl
@@ -199,18 +199,18 @@ export default function FileUploadConfig( { node, patch } ) {
 				</Field>
 			</div>
 
-			<div className="pkitfw-settings__group">
-				<p className="pkitfw-field-group__title">
+			<div className="optset-settings__group">
+				<p className="optset-field-group__title">
 					{ __(
 						'File count',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					<Field
 						label={ __(
 							'Minimum number of files',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -222,7 +222,7 @@ export default function FileUploadConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Maximum number of files',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -235,7 +235,7 @@ export default function FileUploadConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'Too-many error message',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl
@@ -246,11 +246,11 @@ export default function FileUploadConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'File count hint text',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					help={ __(
 						'Use [max_files] for the configured maximum.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl
@@ -260,21 +260,21 @@ export default function FileUploadConfig( { node, patch } ) {
 				</Field>
 			</div>
 
-			<div className="pkitfw-settings__group">
-				<p className="pkitfw-field-group__title">
+			<div className="optset-settings__group">
+				<p className="optset-field-group__title">
 					{ __(
 						'Allowed file types',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
 				<Field
 					label={ __(
 						'Allowed types hint text',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					help={ __(
 						'Use [allowed_types] for the chosen list.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl

@@ -2,10 +2,10 @@
 /**
  * Field rendering contract.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields;
+namespace OptionSetBuilder\Fields;
 
 defined( 'ABSPATH' ) || exit;
 

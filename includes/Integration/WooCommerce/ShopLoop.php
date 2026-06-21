@@ -2,13 +2,13 @@
 /**
  * Shop/archive loop behaviour for option-bearing products.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Integration\WooCommerce;
+namespace OptionSetBuilder\Integration\WooCommerce;
 
-use ProductKit\Core\Settings;
-use ProductKit\Data\AssignmentResolver;
+use OptionSetBuilder\Core\Settings;
+use OptionSetBuilder\Data\AssignmentResolver;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -86,7 +86,7 @@ final class ShopLoop {
 	 */
 	public function button_text( $text, $product ) {
 		if ( $this->should_force_select( $product ) ) {
-			return (string) $this->settings->get( 'shopButtonText', __( 'Select Options', 'productkit-for-woocommerce' ) );
+			return (string) $this->settings->get( 'shopButtonText', __( 'Select Options', 'option-set-builder' ) );
 		}
 		return $text;
 	}

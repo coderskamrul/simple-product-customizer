@@ -2,12 +2,12 @@
 /**
  * Shortcode embed field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -51,9 +51,11 @@ final class ShortcodeField extends AbstractField {
 	public function render() {
 		$shortcode = (string) $this->cfg( 'shortcode', '' );
 		$html      = '<div ' . $this->wrapper_attrs() . '>';
-		$html     .= '<div class="pkitfw-shortcode">';
+		$html     .= '<div class="optset-shortcode">';
 		if ( '' !== $shortcode ) {
-			$html .= do_shortcode( $shortcode );
+			// Shortcode output is third-party HTML — constrain it to the
+			// post-safe tag set before it enters the storefront markup.
+			$html .= wp_kses_post( do_shortcode( $shortcode ) );
 		}
 		$html .= '</div>';
 		$html .= '</div>';

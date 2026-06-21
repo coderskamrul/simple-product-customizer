@@ -2,14 +2,14 @@
 /**
  * Global style (tokens + generated CSS) controller.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Rest\Route;
+namespace OptionSetBuilder\Rest\Route;
 
-use ProductKit\Core\Container;
-use ProductKit\Rest\RestServer;
-use ProductKit\Support\Str;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Rest\RestServer;
+use OptionSetBuilder\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,10 +19,10 @@ defined( 'ABSPATH' ) || exit;
  */
 final class StyleController {
 
-	const OPT_STYLE          = 'pkitfw_global_style';
-	const OPT_STYLE_CSS      = 'pkitfw_global_style_css';
-	const OPT_STYLE_THEMATIC = 'pkitfw_global_style_thematic';
-	const OPT_THEMATIC_CSS   = 'pkitfw_global_style_thematic_css';
+	const OPT_STYLE          = 'optset_global_style';
+	const OPT_STYLE_CSS      = 'optset_global_style_css';
+	const OPT_STYLE_THEMATIC = 'optset_global_style_thematic';
+	const OPT_THEMATIC_CSS   = 'optset_global_style_thematic_css';
 
 	/**
 	 * Container.
@@ -94,7 +94,7 @@ final class StyleController {
 	 */
 	private function save_style( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 
 		$style    = Str::json( $r->get_param( 'style' ), array() );

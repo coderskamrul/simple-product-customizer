@@ -67,16 +67,16 @@ function Editor() {
 
 	if ( builder.loadError ) {
 		return (
-			<div className="pkitfw-builder__loading">
-				<p className="pkitfw-error">{ builder.loadError }</p>
+			<div className="optset-builder__loading">
+				<p className="optset-error">{ builder.loadError }</p>
 				<button
 					type="button"
-					className="pkitfw-btn pkitfw-btn--ghost"
+					className="optset-btn optset-btn--ghost"
 					onClick={ () => navigate( '/sets' ) }
 				>
 					{ __(
 						'Back to option sets',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</button>
 			</div>
@@ -95,7 +95,7 @@ function Editor() {
 			notify(
 				__(
 					'Option set saved.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				'success'
 			);
@@ -137,14 +137,14 @@ function Editor() {
 	const isPublished = builder.status === 'publish';
 
 	return (
-		<div className="pkitfw-builder">
-			<header className="pkitfw-builder__topbar">
+		<div className="optset-builder">
+			<header className="optset-builder__topbar">
 				<button
 					type="button"
-					className="pkitfw-icon-btn"
+					className="optset-icon-btn"
 					aria-label={ __(
 						'Back',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					onClick={ () => navigate( '/sets' ) }
 				>
@@ -153,11 +153,11 @@ function Editor() {
 
 				<input
 					type="text"
-					className="pkitfw-builder__title-input"
+					className="optset-builder__title-input"
 					value={ builder.title }
 					placeholder={ __(
 						'Untitled option set',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					onChange={ ( e ) =>
 						builder.dispatch( {
@@ -167,8 +167,8 @@ function Editor() {
 					}
 				/>
 
-				<div className="pkitfw-builder__topbar-right">
-					<div className="pkitfw-segmented" role="tablist">
+				<div className="optset-builder__topbar-right">
+					<div className="optset-segmented" role="tablist">
 						<button
 							type="button"
 							role="tab"
@@ -179,7 +179,7 @@ function Editor() {
 							<Pencil size={ 14 } />
 							{ __(
 								'Build',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</button>
 						<button
@@ -192,20 +192,20 @@ function Editor() {
 							<Eye size={ 14 } />
 							{ __(
 								'Preview',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</button>
 					</div>
 
 					<label
-						className="pkitfw-status-toggle"
-						htmlFor="pkitfw-status-toggle"
+						className="optset-status-toggle"
+						htmlFor="optset-status-toggle"
 					>
-						<span className="pkitfw-switch">
+						<span className="optset-switch">
 							<input
-								id="pkitfw-status-toggle"
+								id="optset-status-toggle"
 								type="checkbox"
-								className="pkitfw-switch__input"
+								className="optset-switch__input"
 								checked={ isPublished }
 								onChange={ ( e ) =>
 									builder.dispatch( {
@@ -219,7 +219,7 @@ function Editor() {
 								}
 							/>
 							<span
-								className="pkitfw-switch__track"
+								className="optset-switch__track"
 								aria-hidden="true"
 							/>
 						</span>
@@ -227,59 +227,59 @@ function Editor() {
 							{ isPublished
 								? __(
 										'Published',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 								  )
 								: __(
 										'Draft',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 								  ) }
 						</span>
 					</label>
 
 					<button
 						type="button"
-						className="pkitfw-btn pkitfw-btn--ghost"
+						className="optset-btn optset-btn--ghost"
 						onClick={ () => setShowAssign( true ) }
 					>
 						<Target size={ 15 } />
 						{ __(
 							'Assignment',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</button>
 
 					<button
 						type="button"
-						className="pkitfw-btn pkitfw-btn--ghost"
+						className="optset-btn optset-btn--ghost"
 						onClick={ onOpenStyle }
 					>
 						<Palette size={ 15 } />
 						{ __(
 							'Global Style',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</button>
 
 					<button
 						type="button"
-						className="pkitfw-btn pkitfw-btn--primary"
+						className="optset-btn optset-btn--primary"
 						disabled={ builder.saving }
 						onClick={ onSave }
 					>
 						{ builder.saving
 							? __(
 									'Saving…',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  )
 							: __(
 									'Save',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  ) }
 					</button>
 				</div>
 			</header>
 
-			<div className="pkitfw-builder__stage-wrap">
+			<div className="optset-builder__stage-wrap">
 				<Canvas />
 			</div>
 
@@ -296,24 +296,24 @@ function Editor() {
 					size="sm"
 					title={ __(
 						'Assignment required',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					onClose={ () => setShowPublishWarn( false ) }
 					footer={
 						<>
 							<button
 								type="button"
-								className="pkitfw-btn pkitfw-btn--ghost"
+								className="optset-btn optset-btn--ghost"
 								onClick={ onSaveAsDraft }
 							>
 								{ __(
 									'Save as Draft',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</button>
 							<button
 								type="button"
-								className="pkitfw-btn pkitfw-btn--primary"
+								className="optset-btn optset-btn--primary"
 								onClick={ () => {
 									setShowPublishWarn( false );
 									setShowAssign( true );
@@ -322,23 +322,23 @@ function Editor() {
 								<Target size={ 15 } />
 								{ __(
 									'Assign products',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</button>
 						</>
 					}
 				>
-					<div className="pkitfw-publish-warn">
+					<div className="optset-publish-warn">
 						<span
-							className="pkitfw-publish-warn__icon"
+							className="optset-publish-warn__icon"
 							aria-hidden="true"
 						>
 							<AlertTriangle size={ 22 } />
 						</span>
-						<p className="pkitfw-publish-warn__msg">
+						<p className="optset-publish-warn__msg">
 							{ __(
 								"Please select at least one product to continue. To save without selecting any products, choose the 'Draft' status instead.",
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</p>
 					</div>

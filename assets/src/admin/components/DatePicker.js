@@ -71,7 +71,7 @@ export default function DatePicker( {
 			id={ id }
 			ref={ inputRef }
 			type="text"
-			className="pkitfw-input pkitfw-datepicker-input"
+			className="optset-input optset-datepicker-input"
 			placeholder={ placeholder }
 			defaultValue={ value }
 			readOnly

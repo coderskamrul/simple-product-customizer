@@ -2,12 +2,12 @@
 /**
  * Simple formula price field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,8 +38,8 @@ final class FormulaField extends AbstractField {
 			return '';
 		}
 
-		return '<div class="pkitfw-formula" data-expression="' . esc_attr( $expression ) . '">'
-			. '<span class="pkitfw-formula__value"></span>'
+		return '<div class="optset-formula" data-expression="' . esc_attr( $expression ) . '">'
+			. '<span class="optset-formula__value"></span>'
 			. '</div>';
 	}
 

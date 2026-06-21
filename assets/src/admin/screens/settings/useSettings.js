@@ -93,7 +93,7 @@ export default function useSettings() {
 			notify(
 				__(
 					'Settings saved.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				'success'
 			);

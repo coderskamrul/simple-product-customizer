@@ -4,7 +4,6 @@
  * with inline add, drag reordering and per-type extras. The image/colour
  * control lives inline as its own column (matching the field-settings
  * reference designs) so editors set per-choice media without a second row.
- * Enforces the free tier's 3-choice cap with an upgrade hint.
  *
  * @package
  */
@@ -28,10 +27,7 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Trash2, Plus, ImageIcon, X } from 'lucide-react';
 import { priceModeOptionsFor, makeChoice } from '../../../fields/registry';
-import { useConfig } from '../../../store/ConfigContext';
 import useCustomFonts from '../../../hooks/useCustomFonts';
-
-const FREE_CAP = 3;
 
 /** Map each choice type to its extra inline column (image|color|font). */
 const EXTRA_BY_TYPE = {
@@ -64,12 +60,12 @@ function ImageCell( { value, onChange } ) {
 		const frame = media( {
 			title: __(
 				'Select image',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 			button: {
 				text: __(
 					'Use image',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 			},
 			multiple: false,
@@ -84,25 +80,25 @@ function ImageCell( { value, onChange } ) {
 
 	if ( value ) {
 		return (
-			<span className="pkitfw-choices__media pkitfw-choices__media--set">
+			<span className="optset-choices__media optset-choices__media--set">
 				<button
 					type="button"
-					className="pkitfw-choices__media-btn"
+					className="optset-choices__media-btn"
 					onClick={ open }
 					aria-label={ __(
 						'Change image',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<img src={ value } alt="" />
 				</button>
 				<button
 					type="button"
-					className="pkitfw-choices__media-clear"
+					className="optset-choices__media-clear"
 					onClick={ () => onChange( null ) }
 					aria-label={ __(
 						'Remove image',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<X size={ 11 } />
@@ -114,12 +110,12 @@ function ImageCell( { value, onChange } ) {
 	return (
 		<button
 			type="button"
-			className="pkitfw-choices__media pkitfw-choices__media-btn"
+			className="optset-choices__media optset-choices__media-btn"
 			onClick={ open }
 			disabled={ ! available }
 			aria-label={ __(
 				'Select image',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 		>
 			<ImageIcon size={ 16 } />
@@ -152,7 +148,7 @@ function FontCell( { choice, onPatch } ) {
 
 	return (
 		<select
-			className="pkitfw-input pkitfw-select-control pkitfw-choices__font"
+			className="optset-input optset-select-control optset-choices__font"
 			style={ current ? { fontFamily: current } : undefined }
 			value={ current }
 			onChange={ ( e ) => onPick( e.target.value ) }
@@ -160,7 +156,7 @@ function FontCell( { choice, onPatch } ) {
 			<option value="">
 				{ __(
 					'Select font',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			</option>
 			{ fonts.map( ( f ) => (
@@ -186,7 +182,6 @@ function FontCell( { choice, onPatch } ) {
  * @param {Object}   props.choice       Choice row data.
  * @param {number}   props.index        Row index.
  * @param {Array}    props.priceOptions Price-mode options.
- * @param {boolean}  props.proActive    Whether Pro is active.
  * @param {?string}  props.extra        Extra column kind (color|image|font).
  * @param {boolean}  props.labelless    Hide the Title input (Font Picker).
  * @param {Function} props.onPatch      (delta) => void.
@@ -199,7 +194,6 @@ function ChoiceRow( {
 	choice,
 	index,
 	priceOptions,
-	proActive,
 	extra,
 	labelless,
 	hideRemove,
@@ -223,16 +217,16 @@ function ChoiceRow( {
 				transform: CSS.Transform.toString( transform ),
 				transition,
 			} }
-			className={ `pkitfw-choices__row${
+			className={ `optset-choices__row${
 				isDragging ? ' is-dragging' : ''
 			}` }
 		>
 			<button
 				type="button"
-				className="pkitfw-choices__grip"
+				className="optset-choices__grip"
 				aria-label={ __(
 					'Reorder',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				{ ...attributes }
 				{ ...listeners }
@@ -246,13 +240,13 @@ function ChoiceRow( {
 				<FontCell choice={ choice } onPatch={ onPatch } />
 			) : (
 				<input
-					className="pkitfw-input"
+					className="optset-input"
 					value={ choice.label }
 					placeholder={ sprintf(
 						/* translators: %d: row number */
 						__(
 							'Option %d',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						),
 						index + 1
 					) }
@@ -274,7 +268,7 @@ function ChoiceRow( {
 			{ extra === 'color' && (
 				<input
 					type="color"
-					className="pkitfw-choices__color"
+					className="optset-choices__color"
 					value={
 						/^#[0-9a-fA-F]{6}$/.test( choice.color || '' )
 							? choice.color
@@ -283,13 +277,13 @@ function ChoiceRow( {
 					onChange={ ( e ) => onPatch( { color: e.target.value } ) }
 					aria-label={ __(
 						'Choose colour',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 			) }
 
 			<select
-				className="pkitfw-input pkitfw-select-control"
+				className="optset-input optset-select-control"
 				value={ choice.priceMode }
 				onChange={ ( e ) => onPatch( { priceMode: e.target.value } ) }
 			>
@@ -305,7 +299,7 @@ function ChoiceRow( {
 			</select>
 
 			<input
-				className="pkitfw-input"
+				className="optset-input"
 				type="number"
 				value={ choice.regular }
 				placeholder="0"
@@ -313,45 +307,40 @@ function ChoiceRow( {
 			/>
 
 			<input
-				className="pkitfw-input"
+				className="optset-input"
 				type="number"
 				value={ choice.sale }
-				placeholder={
-					proActive
-						? ''
-						: __( 'Pro', 'productkit-for-woocommerce' )
-				}
-				disabled={ ! proActive }
+				placeholder=""
 				onChange={ ( e ) => onPatch( { sale: e.target.value } ) }
 			/>
 
 			<span
-				className="pkitfw-switch pkitfw-choices__active"
+				className="optset-switch optset-choices__active"
 				title={ __(
 					'Selected by default',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<input
 					type="checkbox"
-					className="pkitfw-switch__input"
+					className="optset-switch__input"
 					aria-label={ __(
 						'Selected by default',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					checked={ !! choice.selected }
 					onChange={ ( e ) => onActive( e.target.checked ) }
 				/>
-				<span className="pkitfw-switch__track" aria-hidden="true" />
+				<span className="optset-switch__track" aria-hidden="true" />
 			</span>
 
 			{ ! hideRemove && (
 				<button
 					type="button"
-					className="pkitfw-choices__del"
+					className="optset-choices__del"
 					aria-label={ __(
 						'Delete option',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					onClick={ onRemove }
 				>
@@ -371,7 +360,6 @@ function ChoiceRow( {
  * @return {JSX.Element} The choices editor.
  */
 export default function ChoiceTable( { node, patch } ) {
-	const { proActive } = useConfig();
 	const choices = node.choices || [];
 	const extra = EXTRA_BY_TYPE[ node.type ] || null;
 	// Font Picker drives the option label from the chosen font, so its font
@@ -388,17 +376,14 @@ export default function ChoiceTable( { node, patch } ) {
 	);
 
 	// Per-row price options: filtered by field type / Enable Quantity (see
-	// allowedPriceModes in fields/registry) and gated for Pro. The saved
-	// value is always preserved so toggling Enable Quantity off (etc.)
-	// never silently drops a stored mode from a choice.
+	// allowedPriceModes in fields/registry). The saved value is always
+	// preserved so toggling Enable Quantity off (etc.) never silently drops a
+	// stored mode from a choice.
 	const priceOptionsForChoice = ( choice ) =>
-		priceModeOptionsFor( node, choice && choice.priceMode ).map(
-			( m ) => ( {
-				value: m.value,
-				label: m.pro && ! proActive ? `${ m.label } (Pro)` : m.label,
-				disabled: m.pro && ! proActive,
-			} )
-		);
+		priceModeOptionsFor( node, choice && choice.priceMode ).map( ( m ) => ( {
+			value: m.value,
+			label: m.label,
+		} ) );
 
 	const setChoice = ( idx, delta ) =>
 		patch( {
@@ -439,57 +424,55 @@ export default function ChoiceTable( { node, patch } ) {
 		patch( { choices: arrayMove( choices, from, to ) } );
 	};
 
-	const canAdd = proActive || choices.length < FREE_CAP;
 	const mediaLabels = {
-		color: __( 'Color', 'productkit-for-woocommerce' ),
-		font: __( 'Font', 'productkit-for-woocommerce' ),
-		image: __( 'Image', 'productkit-for-woocommerce' ),
+		color: __( 'Color', 'option-set-builder' ),
+		font: __( 'Font', 'option-set-builder' ),
+		image: __( 'Image', 'option-set-builder' ),
 	};
 	const mediaLabel = mediaLabels[ extra ] || mediaLabels.image;
 
 	let containerMod = '';
 	if ( labelless ) {
-		containerMod = ' pkitfw-choices--fontpicker';
+		containerMod = ' optset-choices--fontpicker';
 	} else if ( extra ) {
-		containerMod = ' pkitfw-choices--media';
+		containerMod = ' optset-choices--media';
 	}
 
 	return (
-		<div className={ `pkitfw-choices${ containerMod }` }>
-			<div className="pkitfw-choices__head">
+		<div className={ `optset-choices${ containerMod }` }>
+			<div className="optset-choices__head">
 				<span />
 				<span>
 					{ labelless
 						? __(
 								'Font',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: __(
 								'Title',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  ) }
 				</span>
 				{ extra && ! labelless && <span>{ mediaLabel }</span> }
 				<span>
 					{ __(
 						'Price Type',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</span>
 				<span>
 					{ __(
 						'Regular',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</span>
-				<span className="pkitfw-choices__pro-col">
-					{ __( 'Sales', 'productkit-for-woocommerce' ) }
-					{ ! proActive && <em className="pkitfw-pro-tag">Pro</em> }
+				<span className="optset-choices__pro-col">
+					{ __( 'Sales', 'option-set-builder' ) }
 				</span>
 				<span>
 					{ __(
 						'Active',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</span>
 				<span />
@@ -510,7 +493,6 @@ export default function ChoiceTable( { node, patch } ) {
 							choice={ choice }
 							index={ idx }
 							priceOptions={ priceOptionsForChoice( choice ) }
-							proActive={ proActive }
 							extra={ extra }
 							labelless={ labelless }
 							hideRemove={ single }
@@ -524,31 +506,18 @@ export default function ChoiceTable( { node, patch } ) {
 				</SortableContext>
 			</DndContext>
 
-			<div className="pkitfw-choices__foot" hidden={ single }>
+			<div className="optset-choices__foot" hidden={ single }>
 				<button
 					type="button"
-					className="pkitfw-btn pkitfw-btn--primary pkitfw-choices__add"
+					className="optset-btn optset-btn--primary optset-choices__add"
 					onClick={ addChoice }
-					disabled={ ! canAdd }
 				>
 					<Plus size={ 15 } />
 					{ __(
 						'Add New Option',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</button>
-				{ ! canAdd && (
-					<p className="pkitfw-choices__cap">
-						{ sprintf(
-							/* translators: %d: free choice cap */
-							__(
-								'The free version allows up to %d options. Upgrade for unlimited.',
-								'productkit-for-woocommerce'
-							),
-							FREE_CAP
-						) }
-					</p>
-				) }
 			</div>
 		</div>
 	);

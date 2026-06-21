@@ -46,11 +46,11 @@ export default function Analytics() {
 		<PageFrame
 			title={ __(
 				'Analytics Overview',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 			subtitle={ __(
 				'Track your option performance.',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 			toolbar={
 				<RangeTabs
@@ -61,13 +61,13 @@ export default function Analytics() {
 			}
 		>
 			{ status === 'error' ? (
-				<div className="pkitfw-an-card pkitfw-an-state">
-					<p className="pkitfw-error">{ error }</p>
+				<div className="optset-an-card optset-an-state">
+					<p className="optset-error">{ error }</p>
 				</div>
 			) : loading ? (
 				<>
 					<SkeletonStatGrid count={ 4 } />
-					<div className="pkitfw-an-split">
+					<div className="optset-an-split">
 						<SkeletonChart />
 						<SkeletonChart />
 					</div>
@@ -76,28 +76,28 @@ export default function Analytics() {
 				<FadeIn>
 					<KpiGrid totals={ totals } deltas={ deltas } />
 
-					<div className="pkitfw-an-split">
-						<section className="pkitfw-an-card pkitfw-an-panel pkitfw-an-panel--chart">
-							<header className="pkitfw-an-panel__head">
+					<div className="optset-an-split">
+						<section className="optset-an-card optset-an-panel optset-an-panel--chart">
+							<header className="optset-an-panel__head">
 								<div>
-									<h2 className="pkitfw-an-panel__title">
+									<h2 className="optset-an-panel__title">
 										{ __(
 											'Performance Trend',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									</h2>
-									<p className="pkitfw-an-panel__sub">
+									<p className="optset-an-panel__sub">
 										{ __(
 											'Daily activity breakdown',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									</p>
 								</div>
-								<ul className="pkitfw-an-legend">
+								<ul className="optset-an-legend">
 									{ TREND_SERIES.map( ( s ) => (
 										<li key={ s.key }>
 											<span
-												className={ `pkitfw-an-dot pkitfw-an-dot--${ s.tone }` }
+												className={ `optset-an-dot optset-an-dot--${ s.tone }` }
 												aria-hidden="true"
 											/>
 											{ s.label }
@@ -108,19 +108,19 @@ export default function Analytics() {
 							<TrendChart daily={ daily } />
 						</section>
 
-						<section className="pkitfw-an-card pkitfw-an-panel pkitfw-an-panel--funnel">
-							<header className="pkitfw-an-panel__head">
+						<section className="optset-an-card optset-an-panel optset-an-panel--funnel">
+							<header className="optset-an-panel__head">
 								<div>
-									<h2 className="pkitfw-an-panel__title">
+									<h2 className="optset-an-panel__title">
 										{ __(
 											'Conversion Funnel',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									</h2>
-									<p className="pkitfw-an-panel__sub">
+									<p className="optset-an-panel__sub">
 										{ __(
 											'User journey breakdown',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									</p>
 								</div>

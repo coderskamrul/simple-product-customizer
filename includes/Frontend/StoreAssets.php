@@ -2,22 +2,21 @@
 /**
  * Storefront asset enqueue + JS localisation.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Frontend;
+namespace OptionSetBuilder\Frontend;
 
-use ProductKit\Core\Assets;
-use ProductKit\Core\Capabilities;
-use ProductKit\Pricing\Currency\CurrencyBridge;
+use OptionSetBuilder\Core\Assets;
+use OptionSetBuilder\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Owns everything asset-related for the storefront: the built `store` JS/CSS
  * bundle, per-set inline CSS, the global thematic/standard CSS option, and the
- * `window.pkitfwStore` localisation object. StoreRenderer fires
- * `pkitfw_enqueue_store_assets`; this class listens and attaches once.
+ * `window.optsetStore` localisation object. StoreRenderer fires
+ * `optset_enqueue_store_assets`; this class listens and attaches once.
  */
 final class StoreAssets {
 
@@ -41,7 +40,7 @@ final class StoreAssets {
 	 * @return void
 	 */
 	public function register() {
-		add_action( 'pkitfw_enqueue_store_assets', array( $this, 'enqueue' ), 10, 2 );
+		add_action( 'optset_enqueue_store_assets', array( $this, 'enqueue' ), 10, 2 );
 	}
 
 	/**
@@ -60,12 +59,12 @@ final class StoreAssets {
 		$this->done = true;
 
 		$attached = Assets::script(
-			'pkitfw-store',
+			'optset-store',
 			'store',
 			array( 'jquery', 'wp-i18n', 'wp-api-fetch' )
 		);
 
-		Assets::style( 'pkitfw-store-style', 'store' );
+		Assets::style( 'optset-store-style', 'store' );
 
 		$this->collect_set_css( (array) $published_ids );
 		$this->print_inline_css();
@@ -73,13 +72,13 @@ final class StoreAssets {
 		$data = $this->localized();
 
 		if ( $attached ) {
-			wp_localize_script( 'pkitfw-store', 'pkitfwStore', $data );
+			wp_localize_script( 'optset-store', 'optsetStore', $data );
 		}
 
 		// AJAX-loaded product templates: the wp_enqueue_scripts pipeline never
 		// runs, so best-effort inline-print the global + bundle reference.
 		if ( ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() )
-			|| ( function_exists( 'wp_is_serving_rest_request' ) && wp_is_serving_rest_request() ) ) {
+			|| ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
 			$this->print_ajax_fallback( $data, $attached );
 		}
 	}
@@ -91,7 +90,7 @@ final class StoreAssets {
 	 * @return void
 	 */
 	private function collect_set_css( array $published_ids ) {
-		$plugin = function_exists( 'pkitfw' ) ? pkitfw() : null;
+		$plugin = function_exists( 'optset' ) ? optset() : null;
 		$repo   = $plugin ? $plugin->service( 'sets' ) : null;
 		if ( ! $repo ) {
 			return;
@@ -113,32 +112,37 @@ final class StoreAssets {
 	private function print_inline_css() {
 		$css = '';
 		foreach ( $this->set_css as $set_id => $rules ) {
-			$css .= "\n/* pkitfw-set-" . (int) $set_id . " */\n" . $rules;
+			$css .= "\n/* optset-set-" . (int) $set_id . " */\n" . $rules;
 		}
 
-		$thematic = (string) get_option( 'pkitfw_global_style_thematic_css', '' );
-		$global   = '' !== $thematic ? $thematic : (string) get_option( 'pkitfw_global_style_css', '' );
+		$thematic = (string) get_option( 'optset_global_style_thematic_css', '' );
+		$global   = '' !== $thematic ? $thematic : (string) get_option( 'optset_global_style_css', '' );
 		if ( '' !== $global ) {
-			$css .= "\n/* pkitfw-global */\n" . $global;
+			$css .= "\n/* optset-global */\n" . $global;
 		}
 
 		if ( '' === trim( $css ) ) {
 			return;
 		}
 
-		if ( wp_style_is( 'pkitfw-store-style', 'enqueued' ) || wp_style_is( 'pkitfw-store-style', 'registered' ) ) {
-			wp_add_inline_style( 'pkitfw-store-style', $css );
+		if ( wp_style_is( 'optset-store-style', 'enqueued' ) || wp_style_is( 'optset-store-style', 'registered' ) ) {
+			wp_add_inline_style( 'optset-store-style', $css );
 			return;
 		}
 
-		printf(
-			'<style id="pkitfw-inline-css">%s</style>',
-			wp_strip_all_tags( $css ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS context, tags stripped.
-		);
+		// Late/AJAX render: the normal wp_enqueue_scripts pipeline never ran, so
+		// attach the CSS to a src-less registered handle and emit it through the
+		// styles API rather than printing a raw <style> tag.
+		if ( ! wp_style_is( 'optset-inline', 'registered' ) ) {
+			wp_register_style( 'optset-inline', false, array(), OPTSET_VERSION );
+		}
+		wp_add_inline_style( 'optset-inline', $css );
+		wp_enqueue_style( 'optset-inline' );
+		wp_print_styles( 'optset-inline' );
 	}
 
 	/**
-	 * Build the window.pkitfwStore localisation payload.
+	 * Build the window.optsetStore localisation payload.
 	 *
 	 * @return array
 	 */
@@ -153,15 +157,14 @@ final class StoreAssets {
 
 		return array(
 			'url'         => admin_url( 'admin-ajax.php' ),
-			'restUrl'     => esc_url_raw( rest_url( 'pkitfw/v1/' ) ),
+			'restUrl'     => esc_url_raw( rest_url( 'optset/v1/' ) ),
 			// X-WP-Nonce header — must be `wp_rest` so WP core's REST
 			// cookie auth (rest_cookie_check_errors) passes for logged-in
-			// visitors. Our routes additionally verify a body `pkitfw_nonce`
-			// against the `pkitfw_rest` action below.
+			// visitors. Our routes additionally verify a body `optset_nonce`
+			// against the `optset_rest` action below.
 			'nonce'       => wp_create_nonce( 'wp_rest' ),
-			'uploadNonce' => wp_create_nonce( 'pkitfw_rest' ),
+			'uploadNonce' => wp_create_nonce( 'optset_rest' ),
 			'currency'    => $currency,
-			'proActive'   => class_exists( Capabilities::class ) ? Capabilities::pro() : false,
 			'conversion'  => class_exists( CurrencyBridge::class ) ? CurrencyBridge::data() : array(
 				'active' => false,
 				'rate'   => 1.0,
@@ -180,13 +183,13 @@ final class StoreAssets {
 	private function print_ajax_fallback( array $data, $attached ) {
 		wp_print_inline_script_tag(
 			sprintf(
-				'window.pkitfwStore = window.pkitfwStore || %s;',
+				'window.optsetStore = window.optsetStore || %s;',
 				wp_json_encode( $data )
 			)
 		);
 
-		if ( ! $attached && is_readable( PKITFW_PATH . 'assets/build/store.js' ) ) {
-			wp_print_script_tag( array( 'src' => esc_url( PKITFW_ASSETS . 'store.js' ) ) );
+		if ( ! $attached && is_readable( OPTSET_PATH . 'assets/build/store.js' ) ) {
+			wp_print_script_tag( array( 'src' => esc_url( OPTSET_ASSETS . 'store.js' ) ) );
 		}
 	}
 }

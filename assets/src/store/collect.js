@@ -48,7 +48,7 @@ const CHOICE_TYPES = [
 /**
  * Read the field-level metadata from the wrapper element.
  *
- * @param {HTMLElement} fieldEl `.pkitfw-field` wrapper.
+ * @param {HTMLElement} fieldEl `.optset-field` wrapper.
  * @return {Object} { id, type, setId, label }.
  */
 export function fieldMeta( fieldEl ) {
@@ -56,7 +56,7 @@ export function fieldMeta( fieldEl ) {
 	const type = fieldEl.getAttribute( 'data-type' ) || '';
 	const setId = parseInt( fieldEl.getAttribute( 'data-set-id' ) || '0', 10 );
 	let label = '';
-	const labelEl = fieldEl.querySelector( '.pkitfw-field__label-text' );
+	const labelEl = fieldEl.querySelector( '.optset-field__label-text' );
 	if ( labelEl ) {
 		label = labelEl.textContent.replace( /\*\s*$/, '' ).trim();
 	}
@@ -73,7 +73,7 @@ export function fieldMeta( fieldEl ) {
  */
 function choiceQty( fieldEl, fieldId, index ) {
 	const qty = fieldEl.querySelector(
-		'[name="pkitfw_qty_' + fieldId + '_' + index + '"]'
+		'[name="optset_qty_' + fieldId + '_' + index + '"]'
 	);
 	if ( ! qty ) {
 		return 0;
@@ -132,7 +132,7 @@ function collectChoice( fieldEl, meta ) {
  * @return {Object} Selection entry.
  */
 function collectToggle( fieldEl, meta ) {
-	const input = fieldEl.querySelector( '.pkitfw-toggle__input' );
+	const input = fieldEl.querySelector( '.optset-toggle__input' );
 	const on = !! ( input && input.checked );
 
 	// Off → no choice selected, so an empty value. This keeps the field out of
@@ -171,7 +171,7 @@ function collectToggle( fieldEl, meta ) {
  * @return {Object} Selection entry.
  */
 function collectSelect( fieldEl, meta ) {
-	const hidden = fieldEl.querySelector( '.pkitfw-select__value' );
+	const hidden = fieldEl.querySelector( '.optset-select__value' );
 	const raw = hidden ? hidden.value : '';
 	const indexes = [];
 	let label = '';
@@ -179,7 +179,7 @@ function collectSelect( fieldEl, meta ) {
 		const idx = parseInt( raw, 10 );
 		indexes.push( idx );
 		const opt = fieldEl.querySelector(
-			'.pkitfw-select__opt[data-index="' + idx + '"]'
+			'.optset-select__opt[data-index="' + idx + '"]'
 		);
 		if ( opt ) {
 			label = opt.getAttribute( 'data-label' ) || '';
@@ -204,9 +204,9 @@ function collectSelect( fieldEl, meta ) {
  */
 function collectScalar( fieldEl, meta ) {
 	const input = fieldEl.querySelector(
-		'input[name="pkitfw_input_' +
+		'input[name="optset_input_' +
 			meta.id +
-			'"], textarea[name="pkitfw_input_' +
+			'"], textarea[name="optset_input_' +
 			meta.id +
 			'"]'
 	);
@@ -232,14 +232,14 @@ function collectScalar( fieldEl, meta ) {
  */
 function collectPhone( fieldEl, meta ) {
 	const input = fieldEl.querySelector(
-		'input[name="pkitfw_input_' + meta.id + '"]'
+		'input[name="optset_input_' + meta.id + '"]'
 	);
 	let value = input ? input.value : '';
-	const box = fieldEl.querySelector( '.pkitfw-phone' );
+	const box = fieldEl.querySelector( '.optset-phone' );
 	if ( box && value.trim() !== '' ) {
 		const style = box.getAttribute( 'data-flag-style' );
 		if ( style === 'flag_dial' ) {
-			const isoEl = box.querySelector( '.pkitfw-phone__iso' );
+			const isoEl = box.querySelector( '.optset-phone__iso' );
 			const country = isoEl ? findCountry( isoEl.value ) : null;
 			if ( country ) {
 				value = '+' + country.dial + ' ' + value;
@@ -264,7 +264,7 @@ function collectPhone( fieldEl, meta ) {
  * @return {Object} Selection entry.
  */
 function collectColor( fieldEl, meta ) {
-	const input = fieldEl.querySelector( '.pkitfw-colorpicker__input' );
+	const input = fieldEl.querySelector( '.optset-colorpicker__input' );
 	return {
 		type: meta.type,
 		setId: meta.setId,
@@ -284,10 +284,10 @@ function collectColor( fieldEl, meta ) {
  */
 function collectDatetime( fieldEl, meta ) {
 	const dateEl = fieldEl.querySelector(
-		'[name="pkitfw_input_' + meta.id + '_date"]'
+		'[name="optset_input_' + meta.id + '_date"]'
 	);
 	const timeEl = fieldEl.querySelector(
-		'[name="pkitfw_input_' + meta.id + '_time"]'
+		'[name="optset_input_' + meta.id + '_time"]'
 	);
 	return {
 		type: meta.type,
@@ -310,7 +310,7 @@ function collectDatetime( fieldEl, meta ) {
  * @return {Object} Selection entry.
  */
 function collectUpload( fieldEl, meta ) {
-	const hidden = fieldEl.querySelector( '.pkitfw-upload__data' );
+	const hidden = fieldEl.querySelector( '.optset-upload__data' );
 	let files = [];
 	if ( hidden && hidden.value ) {
 		try {
@@ -339,7 +339,7 @@ function collectUpload( fieldEl, meta ) {
  * @return {Array<object>} [{ id, count, variation }].
  */
 export function collectLinkedProducts( fieldEl ) {
-	const selected = fieldEl.querySelectorAll( '.pkitfw-linked__native:checked' );
+	const selected = fieldEl.querySelectorAll( '.optset-linked__native:checked' );
 	const list = [];
 	selected.forEach( ( input ) => {
 		const pid = parseInt(
@@ -348,8 +348,8 @@ export function collectLinkedProducts( fieldEl ) {
 		);
 		// A merged variable product carries its chosen variation in a sibling
 		// <select>; otherwise the variation id is baked onto the input.
-		const card = input.closest( '.pkitfw-linked__card' );
-		const varSel = card && card.querySelector( '.pkitfw-linked__varsel' );
+		const card = input.closest( '.optset-linked__card' );
+		const varSel = card && card.querySelector( '.optset-linked__varsel' );
 		let variation = parseInt(
 			input.getAttribute( 'data-variation' ) || '0',
 			10
@@ -358,7 +358,7 @@ export function collectLinkedProducts( fieldEl ) {
 			variation = parseInt( varSel.value, 10 ) || variation;
 		}
 		// Per-card quantity stepper, when the field enables quantity.
-		const qtyEl = card && card.querySelector( '.pkitfw-linked__qty' );
+		const qtyEl = card && card.querySelector( '.optset-linked__qty' );
 		const count = qtyEl
 			? Math.max( 1, parseInt( qtyEl.value, 10 ) || 1 )
 			: 1;
@@ -396,10 +396,10 @@ export function collectLinkedProducts( fieldEl ) {
  *
  * Layout-only / non-value types (heading, html, divider, spacer, section,
  * popup, shortcode, formula, advancedformula, linkedproducts) return null —
- * they carry no `pkitfw_field_data` value (formula prices are computed in
+ * they carry no `optset_field_data` value (formula prices are computed in
  * pricing.js, linked products tracked separately).
  *
- * @param {HTMLElement} fieldEl `.pkitfw-field` wrapper.
+ * @param {HTMLElement} fieldEl `.optset-field` wrapper.
  * @return {object|null} Selection entry or null.
  */
 export function collectField( fieldEl ) {

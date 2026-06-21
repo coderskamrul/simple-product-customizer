@@ -18,22 +18,22 @@ import RangeTabs from './RangeTabs';
  */
 export default function AnalyticsHeader( { range, onRange, busy } ) {
 	return (
-		<header className="pkitfw-an-head">
-			<div className="pkitfw-an-head__title">
-				<span className="pkitfw-an-head__icon" aria-hidden="true">
+		<header className="optset-an-head">
+			<div className="optset-an-head__title">
+				<span className="optset-an-head__icon" aria-hidden="true">
 					<span className="dashicons dashicons-chart-bar" />
 				</span>
 				<div>
-					<h1 className="pkitfw-an-head__h1">
+					<h1 className="optset-an-head__h1">
 						{ __(
 							'Analytics Overview',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</h1>
-					<p className="pkitfw-an-head__sub">
+					<p className="optset-an-head__sub">
 						{ __(
 							'Track your option performance',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</p>
 				</div>

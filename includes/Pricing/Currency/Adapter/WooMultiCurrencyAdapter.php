@@ -2,12 +2,12 @@
 /**
  * WOOMULTI_CURRENCY (Woo Multi Currency by VillaTheme) adapter.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Pricing\Currency\Adapter;
+namespace OptionSetBuilder\Pricing\Currency\Adapter;
 
-use ProductKit\Pricing\Currency\CurrencyAdapter;
+use OptionSetBuilder\Pricing\Currency\CurrencyAdapter;
 
 defined( 'ABSPATH' ) || exit;
 

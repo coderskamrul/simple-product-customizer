@@ -77,7 +77,7 @@ export default function SortableContainer( { nodes, parentId } ) {
 				items={ nodes.map( ( n ) => n.id ) }
 				strategy={ verticalListSortingStrategy }
 			>
-				<div className="pkitfw-canvas__list">
+				<div className="optset-canvas__list">
 					{ nodes.map( ( node ) => (
 						<FieldCard
 							key={ node.id }

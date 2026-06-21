@@ -10,13 +10,7 @@
 
 import { __ } from '@wordpress/i18n';
 import { getType } from '../../../../fields/registry';
-import { useConfig } from '../../../../store/ConfigContext';
-import {
-	Field,
-	TextControl,
-	ToggleField,
-	ProBadge,
-} from '../../../../components';
+import { Field, TextControl, ToggleField } from '../../../../components';
 import ChoiceTable from '../ChoiceTable';
 import ChoiceFieldExtras from '../ChoiceFieldExtras';
 import ValueFieldConfig from '../ValueFieldConfig';
@@ -42,7 +36,6 @@ const VALUE_PRICE_TYPES = [ 'number', 'range', 'email', 'colorpicker' ];
  * @return {JSX.Element} The tab body.
  */
 export default function GeneralTab( { node, patch } ) {
-	const { proActive } = useConfig();
 	const def = getType( node.type );
 	const cfg = node.config || {};
 	const isLayout = [ 'heading', 'divider', 'spacer', 'section' ].includes(
@@ -53,14 +46,14 @@ export default function GeneralTab( { node, patch } ) {
 		patch( { config: { ...cfg, [ key ]: value } } );
 
 	return (
-		<div className="pkitfw-settings__pane">
-			<div className="pkitfw-settings__switches">
+		<div className="optset-settings__pane">
+			<div className="optset-settings__switches">
 				<ToggleField
 					checked={ node.hideLabel }
 					onChange={ ( v ) => patch( { hideLabel: v } ) }
 					label={ __(
 						'Hide title',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 				{ ! isLayout && (
@@ -69,36 +62,27 @@ export default function GeneralTab( { node, patch } ) {
 						onChange={ ( v ) => patch( { required: v } ) }
 						label={ __(
 							'Required',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					/>
 				) }
 				{ def.priceable && def.hasChoices && (
-					<span
-						className={ `pkitfw-settings__switch-pro${
-							proActive ? '' : ' is-locked'
-						}` }
-					>
-						<ToggleField
-							checked={ proActive && !! cfg.formulaValue }
-							onChange={ ( v ) =>
-								proActive && setKey( 'formulaValue', v )
-							}
-							label={ __(
-								'Enable Formula Value',
-								'productkit-for-woocommerce'
-							) }
-						/>
-						{ ! proActive && <ProBadge text="" /> }
-					</span>
+					<ToggleField
+						checked={ !! cfg.formulaValue }
+						onChange={ ( v ) => setKey( 'formulaValue', v ) }
+						label={ __(
+							'Enable Formula Value',
+							'option-set-builder'
+						) }
+					/>
 				) }
 			</div>
 
-			<div className="pkitfw-settings__grid2">
+			<div className="optset-settings__grid2">
 				<Field
 					label={ __(
 						'Title',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl
@@ -110,7 +94,7 @@ export default function GeneralTab( { node, patch } ) {
 				<Field
 					label={ __(
 						'Help text',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl

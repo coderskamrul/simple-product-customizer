@@ -2,22 +2,20 @@
 /**
  * Display-side price badge helpers.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Concerns;
+namespace OptionSetBuilder\Fields\Concerns;
 
-use ProductKit\Core\Capabilities;
-use ProductKit\Support\Money;
+use OptionSetBuilder\Support\Money;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Produces the small "+$5" badge shown next to choices / labels. This is
- * presentation only — authoritative pricing lives in PriceCalculator. Pro-
- * gated modes degrade exactly like the calculator. For `percent` mode the
- * badge shows the *calculated* currency amount (product price × percent),
- * not the raw "+50%", so the customer sees the same number the cart will
+ * presentation only — authoritative pricing lives in PriceCalculator. For
+ * `percent` mode the badge shows the *calculated* currency amount (product
+ * price × percent), not the raw "+50%", so the customer sees the same number the cart will
  * charge.
  */
 trait HandlesPricing {
@@ -108,13 +106,6 @@ trait HandlesPricing {
 			return '';
 		}
 
-		// Pro-only modes collapse to flat for non-licensed sites (mirrors
-		// the PriceCalculator gate so badge and cart line agree).
-		$pro_modes = array( 'percent', 'per_unit', 'per_word', 'per_char_nospace' );
-		if ( in_array( $mode, $pro_modes, true ) && ! Capabilities::pro() ) {
-			$mode = 'flat';
-		}
-
 		$regular = $this->choice_regular( $choice );
 		$sale    = $this->choice_sale( $choice );
 
@@ -131,23 +122,23 @@ trait HandlesPricing {
 		// Per-mode per-unit suffix (percent/flat are one-off, so no suffix).
 		$suffix = '';
 		if ( 'per_char' === $mode || 'per_char_nospace' === $mode ) {
-			$suffix = '/' . esc_html__( 'char', 'productkit-for-woocommerce' );
+			$suffix = '/' . esc_html__( 'char', 'option-set-builder' );
 		} elseif ( 'per_word' === $mode ) {
-			$suffix = '/' . esc_html__( 'word', 'productkit-for-woocommerce' );
+			$suffix = '/' . esc_html__( 'word', 'option-set-builder' );
 		} elseif ( 'per_unit' === $mode ) {
-			$suffix = '/' . esc_html__( 'unit', 'productkit-for-woocommerce' );
+			$suffix = '/' . esc_html__( 'unit', 'option-set-builder' );
 		}
 
 		$show_pair = ( null !== $sale && $sale < $regular );
 
 		if ( $show_pair ) {
-			return '<span class="pkitfw-price-badge pkitfw-price-badge--has-sale">'
-				. '<del class="pkitfw-price-badge__regular" aria-hidden="true">' . wp_kses_post( Money::html( $regular ) ) . '</del>'
-				. ' <ins class="pkitfw-price-badge__sale">+' . wp_kses_post( Money::html( $sale ) ) . $suffix . '</ins>'
+			return '<span class="optset-price-badge optset-price-badge--has-sale">'
+				. '<del class="optset-price-badge__regular" aria-hidden="true">' . wp_kses_post( Money::html( $regular ) ) . '</del>'
+				. ' <ins class="optset-price-badge__sale">+' . wp_kses_post( Money::html( $sale ) ) . $suffix . '</ins>'
 				. '</span>';
 		}
 
 		$amount = ( null !== $sale ) ? $sale : $regular;
-		return '<span class="pkitfw-price-badge">+' . wp_kses_post( Money::html( $amount ) ) . $suffix . '</span>';
+		return '<span class="optset-price-badge">+' . wp_kses_post( Money::html( $amount ) ) . $suffix . '</span>';
 	}
 }

@@ -31,32 +31,32 @@ import {
 const COLOR_FIELDS = [
 	{
 		key: 'text',
-		label: __( 'Text Color', 'productkit-for-woocommerce' ),
+		label: __( 'Text Color', 'option-set-builder' ),
 	},
 	{
 		key: 'primary',
-		label: __( 'Primary', 'productkit-for-woocommerce' ),
+		label: __( 'Primary', 'option-set-builder' ),
 	},
 	{
 		key: 'border',
-		label: __( 'Field Border', 'productkit-for-woocommerce' ),
+		label: __( 'Field Border', 'option-set-builder' ),
 	},
 	{
 		key: 'fill',
-		label: __( 'Field Fill', 'productkit-for-woocommerce' ),
+		label: __( 'Field Fill', 'option-set-builder' ),
 	},
 	{
 		key: 'onPrimary',
 		label: __(
 			'Over Primary Color',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	{
 		key: 'error',
 		label: __(
 			'Required / Error Color',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 ];
@@ -73,19 +73,19 @@ const COLOR_FIELDS = [
  */
 function Card( { icon: Icon, title, desc, children } ) {
 	return (
-		<section className="pkitfw-gs__card">
-			<header className="pkitfw-gs__card-head">
-				<span className="pkitfw-gs__card-icon">
+		<section className="optset-gs__card">
+			<header className="optset-gs__card-head">
+				<span className="optset-gs__card-icon">
 					<Icon size={ 15 } aria-hidden="true" />
 				</span>
-				<span className="pkitfw-gs__card-titles">
-					<span className="pkitfw-gs__card-title">{ title }</span>
+				<span className="optset-gs__card-titles">
+					<span className="optset-gs__card-title">{ title }</span>
 					{ desc && (
-						<span className="pkitfw-gs__card-desc">{ desc }</span>
+						<span className="optset-gs__card-desc">{ desc }</span>
 					) }
 				</span>
 			</header>
-			<div className="pkitfw-gs__card-body">{ children }</div>
+			<div className="optset-gs__card-body">{ children }</div>
 		</section>
 	);
 }
@@ -103,29 +103,29 @@ function Card( { icon: Icon, title, desc, children } ) {
  */
 function PxField( { label, value, min, max, onChange } ) {
 	return (
-		<div className="pkitfw-gs__dim">
-			<div className="pkitfw-gs__dim-head">
-				<span className="pkitfw-gs__dim-label">{ label }</span>
-				<span className="pkitfw-gs__px">
+		<div className="optset-gs__dim">
+			<div className="optset-gs__dim-head">
+				<span className="optset-gs__dim-label">{ label }</span>
+				<span className="optset-gs__px">
 					<input
 						type="number"
-						className="pkitfw-gs__px-input"
+						className="optset-gs__px-input"
 						value={ value }
 						min={ min }
 						max={ max }
 						onChange={ ( e ) => onChange( e.target.value ) }
 					/>
-					<span className="pkitfw-gs__px-unit">
+					<span className="optset-gs__px-unit">
 						{ __(
 							'px',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</span>
 				</span>
 			</div>
 			<input
 				type="range"
-				className="pkitfw-gs__slider"
+				className="optset-gs__slider"
 				min={ min }
 				max={ max }
 				value={ Number( value ) || min }
@@ -162,7 +162,7 @@ export default function GlobalStylePanel() {
 				kind === 'success'
 					? __(
 							'Global style saved.',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 					  )
 					: errorMessage( err ),
 				kind
@@ -186,7 +186,7 @@ export default function GlobalStylePanel() {
 						onOpenAutoFocus={ ( e ) => e.preventDefault() }
 					>
 						<motion.aside
-							className="pkitfw-drawer pkitfw-drawer--style"
+							className="optset-drawer optset-drawer--style"
 							initial={ { x: '-100%', opacity: 0.4 } }
 							animate={ { x: 0, opacity: 1 } }
 							exit={ { x: '-100%', opacity: 0.4 } }
@@ -195,28 +195,28 @@ export default function GlobalStylePanel() {
 								ease: [ 0.16, 1, 0.3, 1 ],
 							} }
 						>
-							<header className="pkitfw-drawer__head">
-								<span className="pkitfw-drawer__icon">
+							<header className="optset-drawer__head">
+								<span className="optset-drawer__icon">
 									<Palette size={ 18 } aria-hidden="true" />
 								</span>
-								<Dialog.Title className="pkitfw-drawer__title">
+								<Dialog.Title className="optset-drawer__title">
 									{ __(
 										'Global Style',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
-									<span className="pkitfw-drawer__subtitle">
+									<span className="optset-drawer__subtitle">
 										{ __(
 											'Live preview · applies to all option sets',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									</span>
 								</Dialog.Title>
 								<button
 									type="button"
-									className="pkitfw-drawer__close"
+									className="optset-drawer__close"
 									aria-label={ __(
 										'Close',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 									onClick={ closePanel }
 								>
@@ -224,9 +224,9 @@ export default function GlobalStylePanel() {
 								</button>
 							</header>
 
-							<div className="pkitfw-drawer__body pkitfw-gs">
+							<div className="optset-drawer__body optset-gs">
 								{ ! loaded ? (
-									<div className="pkitfw-gs__loading">
+									<div className="optset-gs__loading">
 										<SkeletonForm fields={ 6 } />
 									</div>
 								) : (
@@ -235,17 +235,17 @@ export default function GlobalStylePanel() {
 											icon={ SlidersHorizontal }
 											title={ __(
 												'Dimensions',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 											desc={ __(
 												'Set exact pixel values.',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 										>
 											<PxField
 												label={ __(
 													'Option Fields Size',
-													'productkit-for-woocommerce'
+													'option-set-builder'
 												) }
 												value={ tokens.sizePx }
 												min={ SIZE_MIN }
@@ -255,7 +255,7 @@ export default function GlobalStylePanel() {
 											<PxField
 												label={ __(
 													'Option Fields Shape',
-													'productkit-for-woocommerce'
+													'option-set-builder'
 												) }
 												value={ tokens.radiusPx }
 												min={ RADIUS_MIN }
@@ -268,14 +268,14 @@ export default function GlobalStylePanel() {
 											icon={ Palette }
 											title={ __(
 												'Color Palette',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 											desc={ __(
 												'Pick a preset, then fine-tune below.',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 										>
-											<div className="pkitfw-gs__dots">
+											<div className="optset-gs__dots">
 												{ PALETTES.map( ( p ) => {
 													const active =
 														tokens.palette ===
@@ -285,7 +285,7 @@ export default function GlobalStylePanel() {
 														<button
 															key={ p.key }
 															type="button"
-															className={ `pkitfw-gs__dot${
+															className={ `optset-gs__dot${
 																active
 																	? ' is-active'
 																	: ''
@@ -301,14 +301,14 @@ export default function GlobalStylePanel() {
 															}
 														>
 															<span
-																className="pkitfw-gs__dot-fill"
+																className="optset-gs__dot-fill"
 																style={ {
 																	background:
 																		quarters,
 																} }
 															/>
 															{ active && (
-																<span className="pkitfw-gs__dot-check">
+																<span className="optset-gs__dot-check">
 																	<Check
 																		size={
 																			13
@@ -327,16 +327,16 @@ export default function GlobalStylePanel() {
 											icon={ Droplets }
 											title={ __(
 												'Colors',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 										>
-											<div className="pkitfw-gs__colors">
+											<div className="optset-gs__colors">
 												{ COLOR_FIELDS.map( ( f ) => (
 													<div
 														key={ f.key }
-														className="pkitfw-gs__crow"
+														className="optset-gs__crow"
 													>
-														<span className="pkitfw-gs__crow-label">
+														<span className="optset-gs__crow-label">
 															{ f.label }
 														</span>
 														<ColorField
@@ -360,31 +360,31 @@ export default function GlobalStylePanel() {
 								) }
 							</div>
 
-							<footer className="pkitfw-gs__foot">
+							<footer className="optset-gs__foot">
 								<button
 									type="button"
-									className="pkitfw-btn pkitfw-btn--ghost"
+									className="optset-btn optset-btn--ghost"
 									onClick={ closePanel }
 								>
 									{ __(
 										'Close',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</button>
 								<button
 									type="button"
-									className="pkitfw-btn pkitfw-btn--primary"
+									className="optset-btn optset-btn--primary"
 									disabled={ saving || ! loaded }
 									onClick={ onSave }
 								>
 									{ saving
 										? __(
 												'Saving…',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 										  )
 										: __(
 												'Save style',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 										  ) }
 								</button>
 							</footer>

@@ -34,18 +34,18 @@ export default function PopupConfig( { node, patch } ) {
 
 	return (
 		<>
-			<div className="pkitfw-settings__grid2">
+			<div className="optset-settings__grid2">
 				<Field
 					label={ __(
 						'Trigger button text',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl
 						value={ cfg.triggerText ?? '' }
 						placeholder={ __(
 							'Open',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						onChange={ ( v ) => setKey( 'triggerText', v ) }
 					/>
@@ -55,27 +55,27 @@ export default function PopupConfig( { node, patch } ) {
 			<Field
 				label={ __(
 					'Popup content',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				help={ __(
 					'Design the content shown inside the popup — text, images, links and tables.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<button
 					type="button"
-					className="pkitfw-btn pkitfw-btn--ghost pkitfw-popupcfg__launch"
+					className="optset-btn optset-btn--ghost optset-popupcfg__launch"
 					onClick={ () => setOpen( true ) }
 				>
 					<Pencil size={ 15 } />
 					{ hasContent
 						? __(
 								'Edit popup content',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: __(
 								'Design popup content',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  ) }
 				</button>
 			</Field>
@@ -85,31 +85,31 @@ export default function PopupConfig( { node, patch } ) {
 					size="lg"
 					title={ __(
 						'Popup Builder',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					onClose={ () => setOpen( false ) }
 					footer={
 						<>
 							<button
 								type="button"
-								className="pkitfw-btn pkitfw-btn--ghost pkitfw-popupcfg__foot-preview"
+								className="optset-btn optset-btn--ghost optset-popupcfg__foot-preview"
 								onClick={ () => setPreview( true ) }
 							>
 								<Eye size={ 15 } />
 								{ __(
 									'Preview',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</button>
 							<button
 								type="button"
-								className="pkitfw-btn pkitfw-btn--primary"
+								className="optset-btn optset-btn--primary"
 								onClick={ () => setOpen( false ) }
 							>
 								<Check size={ 15 } />
 								{ __(
 									'Done',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</button>
 						</>

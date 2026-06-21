@@ -2,25 +2,25 @@
 /**
  * Custom font management controller.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Rest\Route;
+namespace OptionSetBuilder\Rest\Route;
 
-use ProductKit\Core\Container;
-use ProductKit\Rest\RestServer;
-use ProductKit\Support\Upload;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Rest\RestServer;
+use OptionSetBuilder\Support\Upload;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * List, upload, delete and rename custom web fonts stored in
- * `pkitfw_custom_fonts` with files under uploads/pkitfw_fonts.
+ * `optset_custom_fonts` with files under uploads/optset_fonts.
  */
 final class FontsController {
 
-	const OPTION       = 'pkitfw_custom_fonts';
+	const OPTION       = 'optset_custom_fonts';
 	const MAX_SIZE     = 10485760; // 10MB.
 	const ALLOWED_EXTS = array( 'woff', 'woff2', 'ttf' );
 
@@ -119,29 +119,29 @@ final class FontsController {
 	 */
 	private function upload_font( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 
 		$files = $r->get_file_params();
 		if ( empty( $files['font_file'] ) || empty( $files['font_file']['name'] ) ) {
-			return $s->fail( 'no_file', __( 'No font file provided.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'no_file', __( 'No font file provided.', 'option-set-builder' ), 400 );
 		}
 		$file = $files['font_file'];
 
 		$title = sanitize_text_field( (string) $r->get_param( 'title' ) );
 		if ( '' === $title ) {
-			return $s->fail( 'no_title', __( 'Font title is required.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'no_title', __( 'Font title is required.', 'option-set-builder' ), 400 );
 		}
 		$family = sanitize_text_field( (string) $r->get_param( 'family' ) );
 		$family = '' === $family ? $title : $family;
 
 		if ( (int) $file['size'] > self::MAX_SIZE ) {
-			return $s->fail( 'too_large', __( 'Font exceeds the 10MB limit.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'too_large', __( 'Font exceeds the 10MB limit.', 'option-set-builder' ), 400 );
 		}
 
 		$ext = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
 		if ( ! in_array( $ext, self::ALLOWED_EXTS, true ) ) {
-			return $s->fail( 'bad_type', __( 'Allowed font types: woff, woff2, ttf.', 'productkit-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_type', __( 'Allowed font types: woff, woff2, ttf.', 'option-set-builder' ), 400 );
 		}
 
 		// Ensure the fonts bucket exists, then route wp_handle_upload() into it.
@@ -149,7 +149,7 @@ final class FontsController {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 
 		$into_fonts = static function ( $dirs ) {
-			$dirs['subdir'] = '/pkitfw_fonts';
+			$dirs['subdir'] = '/optset_fonts';
 			$dirs['path']   = $dirs['basedir'] . $dirs['subdir'];
 			$dirs['url']    = $dirs['baseurl'] . $dirs['subdir'];
 			return $dirs;
@@ -170,7 +170,7 @@ final class FontsController {
 		remove_filter( 'upload_dir', $into_fonts );
 
 		if ( ! is_array( $moved ) || isset( $moved['error'] ) || empty( $moved['url'] ) ) {
-			return $s->fail( 'move_failed', __( 'Could not store the font file.', 'productkit-for-woocommerce' ), 500 );
+			return $s->fail( 'move_failed', __( 'Could not store the font file.', 'option-set-builder' ), 500 );
 		}
 
 		$entry = array(
@@ -197,7 +197,7 @@ final class FontsController {
 	 */
 	private function delete_font( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 
 		$id    = sanitize_text_field( (string) $r->get_param( 'id' ) );
@@ -219,7 +219,7 @@ final class FontsController {
 		}
 
 		if ( ! $found ) {
-			return $s->fail( 'not_found', __( 'Font not found.', 'productkit-for-woocommerce' ), 404 );
+			return $s->fail( 'not_found', __( 'Font not found.', 'option-set-builder' ), 404 );
 		}
 
 		update_option( self::OPTION, array_values( $fonts ) );
@@ -235,7 +235,7 @@ final class FontsController {
 	 */
 	private function update_font( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'productkit-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'option-set-builder' ), 403 );
 		}
 
 		$id    = sanitize_text_field( (string) $r->get_param( 'id' ) );
@@ -259,7 +259,7 @@ final class FontsController {
 		}
 
 		if ( ! $found ) {
-			return $s->fail( 'not_found', __( 'Font not found.', 'productkit-for-woocommerce' ), 404 );
+			return $s->fail( 'not_found', __( 'Font not found.', 'option-set-builder' ), 404 );
 		}
 
 		update_option( self::OPTION, array_values( $fonts ) );

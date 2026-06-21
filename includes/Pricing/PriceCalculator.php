@@ -2,17 +2,17 @@
 /**
  * Central price calculator for product options.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Pricing;
+namespace OptionSetBuilder\Pricing;
 
-use ProductKit\Data\AssignmentResolver;
-use ProductKit\Data\OptionSetRepository;
-use ProductKit\Fields\FieldRegistry;
-use ProductKit\Pricing\Currency\CurrencyBridge;
-use ProductKit\Support\Money;
-use ProductKit\Support\Str;
+use OptionSetBuilder\Data\AssignmentResolver;
+use OptionSetBuilder\Data\OptionSetRepository;
+use OptionSetBuilder\Fields\FieldRegistry;
+use OptionSetBuilder\Pricing\Currency\CurrencyBridge;
+use OptionSetBuilder\Support\Money;
+use OptionSetBuilder\Support\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -67,7 +67,7 @@ final class PriceCalculator {
 	/**
 	 * Compute the options price + breakdown for a selection.
 	 *
-	 * @param string $rawSelectionJson Raw `pkitfw_field_data` JSON string.
+	 * @param string $rawSelectionJson Raw `optset_field_data` JSON string.
 	 * @param int    $productId        Product id.
 	 * @param int[]  $publishedSetIds  Resolved published set ids (may be empty).
 	 * @param int    $variationId      Variation id (0 = none).
@@ -197,7 +197,7 @@ final class PriceCalculator {
 		 * @param int   $productId   Product id.
 		 * @param int   $variationId Variation id.
 		 */
-		return (float) apply_filters( 'pkitfw_price_base', $base, $productId, $variationId );
+		return (float) apply_filters( 'optset_price_base', $base, $productId, $variationId );
 	}
 
 	/**
@@ -217,7 +217,7 @@ final class PriceCalculator {
 		 * @param int   $productId   Product id.
 		 * @param int   $variationId Variation id.
 		 */
-		return (float) apply_filters( 'pkitfw_price_percent_base', $base, $productId, $variationId );
+		return (float) apply_filters( 'optset_price_percent_base', $base, $productId, $variationId );
 	}
 
 	/* ----------------------------------------------------------------- */
@@ -317,7 +317,7 @@ final class PriceCalculator {
 		 * @param array $node  Field node.
 		 * @param array $field Selection entry.
 		 */
-		return (float) apply_filters( 'pkitfw_price_choice', $total, $node, $field );
+		return (float) apply_filters( 'optset_price_choice', $total, $node, $field );
 	}
 
 	/**
@@ -334,7 +334,6 @@ final class PriceCalculator {
 		$cost = $this->choiceCost( $choice );
 		$mode = isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'none';
 
-		// Modes the free plugin computes natively.
 		switch ( $mode ) {
 			case 'none':
 				return 0.0;
@@ -344,23 +343,30 @@ final class PriceCalculator {
 
 			case 'per_char':
 				return mb_strlen( $this->scalar( $value ) ) * $cost;
+
+			case 'percent':
+				return $percentBase * $cost / 100;
+
+			case 'per_unit':
+				return $this->unitCount( $value, $slot ) * $cost;
+
+			case 'per_word':
+				return (float) str_word_count( $this->scalar( $value ) ) * $cost;
+
+			case 'per_char_nospace':
+				return mb_strlen( str_replace( ' ', '', $this->scalar( $value ) ) ) * $cost;
 		}
 
 		/**
-		 * Every other mode (percent, per_unit, per_word, per_char_nospace, …) is
-		 * a Pro pricing mode. The free plugin ships NO math for these — the Pro
-		 * plugin supplies it by returning a numeric amount from this filter, and
-		 * only when its license is valid. When nothing handles the mode (Pro
-		 * inactive/unlicensed) the value stays null and the surcharge degrades to
-		 * flat, exactly as before. There is no boolean to flip: the computation
-		 * does not exist in this codebase.
+		 * Allow third parties to compute a custom price mode. Returning null
+		 * leaves the flat fallback in control.
 		 *
 		 * @param float|null $amount  Computed amount, or null if unhandled.
 		 * @param string     $mode    Raw price mode.
 		 * @param array      $context cost, value, percentBase, slot, choice, field.
 		 */
 		$amount = apply_filters(
-			'pkitfw_price_mode_amount',
+			'optset_price_mode_amount',
 			null,
 			$mode,
 			array(
@@ -374,6 +380,27 @@ final class PriceCalculator {
 		);
 
 		return is_numeric( $amount ) ? (float) $amount : $cost;
+	}
+
+	/**
+	 * per_unit multiplier: a choice's `count` when present, else the numeric
+	 * value of the field.
+	 *
+	 * @param mixed $value Selection value.
+	 * @param int   $slot  Slot index.
+	 * @return float
+	 */
+	private function unitCount( $value, int $slot ): float {
+		if ( is_array( $value ) ) {
+			if ( isset( $value[ $slot ] ) && is_array( $value[ $slot ] ) && isset( $value[ $slot ]['count'] ) && '' !== $value[ $slot ]['count'] ) {
+				return \OptionSetBuilder\Support\Money::f( $value[ $slot ]['count'] );
+			}
+			if ( isset( $value['count'] ) && '' !== $value['count'] ) {
+				return \OptionSetBuilder\Support\Money::f( $value['count'] );
+			}
+			return 1.0;
+		}
+		return \OptionSetBuilder\Support\Money::f( $value );
 	}
 
 	/**
@@ -431,7 +458,7 @@ final class PriceCalculator {
 	 * @return float
 	 */
 	private function priceFormula( array $node, float $base, array $numeric ): float {
-		if ( ! class_exists( '\\ProductKit\\Formula\\ArithmeticEvaluator' ) ) {
+		if ( ! class_exists( '\\OptionSetBuilder\\Formula\\ArithmeticEvaluator' ) ) {
 			return 0.0;
 		}
 
@@ -443,7 +470,7 @@ final class PriceCalculator {
 		$vars = array_merge( array( 'product_price' => $base ), $numeric );
 
 		try {
-			return (float) \ProductKit\Formula\ArithmeticEvaluator::evaluate( $expression, $vars );
+			return (float) \OptionSetBuilder\Formula\ArithmeticEvaluator::evaluate( $expression, $vars );
 		} catch ( \Throwable $e ) {
 			return 0.0;
 		}
@@ -462,20 +489,30 @@ final class PriceCalculator {
 			return 0.0;
 		}
 
+		// Evaluate the expression with the bundled AST engine (functions,
+		// comparisons, dynamic product variables). Soft-fails to 0.
+		$evaluated = null;
+		if ( class_exists( '\\OptionSetBuilder\\Formula\\Ast\\ExpressionEngine' ) ) {
+			try {
+				$value     = ( new \OptionSetBuilder\Formula\Ast\ExpressionEngine() )->evaluateSafe(
+					$expression,
+					is_array( $dynamics ) ? $dynamics : array()
+				);
+				$evaluated = is_numeric( $value ) ? (float) $value : null;
+			} catch ( \Throwable $e ) {
+				$evaluated = null;
+			}
+		}
+
 		/**
-		 * Advanced-formula evaluation (functions, comparisons, dynamic product
-		 * variables) is a Pro feature. The free plugin delegates it entirely: the
-		 * Pro plugin returns a numeric result from this filter, and only when its
-		 * license is valid. Unhandled (Pro inactive/unlicensed) => 0. The generic
-		 * expression engine in ProductKit\Formula\Ast remains available as shared
-		 * infrastructure, but the feature wiring lives in the Pro plugin.
+		 * Allow third parties to override the computed advanced-formula result.
 		 *
 		 * @param float|null $result     Computed result, or null if unhandled.
 		 * @param string     $expression The formula expression.
 		 * @param array      $dynamics   Variable bag (product + dynamic vars).
 		 * @param array      $node       Field node.
 		 */
-		$result = apply_filters( 'pkitfw_price_advanced_formula', null, $expression, $dynamics, $node );
+		$result = apply_filters( 'optset_price_advanced_formula', $evaluated, $expression, $dynamics, $node );
 
 		return is_numeric( $result ) ? (float) $result : 0.0;
 	}
@@ -599,7 +636,7 @@ final class PriceCalculator {
 			: ( isset( $field['label'] ) ? (string) $field['label'] : '' );
 
 		if ( '' === $label ) {
-			$label = __( 'Option', 'productkit-for-woocommerce' );
+			$label = __( 'Option', 'option-set-builder' );
 		}
 		return esc_html( $label );
 	}
@@ -618,7 +655,7 @@ final class PriceCalculator {
 		}
 
 		$shown  = TaxBridge::taxAndCurrency( $optPrice, $product, 'cart' );
-		$suffix = ' <strong class="pkitfw-line-price">+' . Money::html( $shown ) . '</strong>';
+		$suffix = ' <strong class="optset-line-price">+' . Money::html( $shown ) . '</strong>';
 
 		return $display . $suffix;
 	}

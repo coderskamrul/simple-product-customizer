@@ -2,20 +2,19 @@
 /**
  * Admin app asset enqueue + bootstrap payload.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Admin;
+namespace OptionSetBuilder\Admin;
 
-use ProductKit\Core\Assets;
-use ProductKit\Core\Capabilities;
-use ProductKit\Core\Container;
+use OptionSetBuilder\Core\Assets;
+use OptionSetBuilder\Core\Container;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Enqueues the built admin bundle only on the plugin app screen and
- * hands the React app its bootstrap configuration via the `pkitfwAdmin`
+ * hands the React app its bootstrap configuration via the `optsetAdmin`
  * JS global.
  */
 final class AdminAssets {
@@ -60,32 +59,30 @@ final class AdminAssets {
 		wp_enqueue_media();
 
 		Assets::script(
-			'pkitfw-admin',
+			'optset-admin',
 			'admin',
 			array( 'wp-element', 'wp-components', 'wp-api-fetch', 'wp-i18n' )
 		);
-		Assets::style( 'pkitfw-admin-style', 'admin' );
+		Assets::style( 'optset-admin-style', 'admin' );
 
 		wp_set_script_translations(
-			'pkitfw-admin',
-			'productkit-for-woocommerce',
-			PKITFW_PATH . 'languages'
+			'optset-admin',
+			'option-set-builder',
+			OPTSET_PATH . 'languages'
 		);
 
 		$fields = $c->get( 'fields' );
 
 		wp_localize_script(
-			'pkitfw-admin',
-			'pkitfwAdmin',
+			'optset-admin',
+			'optsetAdmin',
 			array(
-				'restUrl'     => esc_url_raw( rest_url( 'pkitfw/v1/' ) ),
+				'restUrl'     => esc_url_raw( rest_url( 'optset/v1/' ) ),
 				'nonce'       => wp_create_nonce( 'wp_rest' ),
-				'uploadNonce' => wp_create_nonce( 'pkitfw_rest' ),
-				'adminUrl'    => admin_url( 'admin.php?page=pkitfw-options#/' ),
-				'pluginUrl'   => PKITFW_URL,
-				'version'     => PKITFW_VERSION,
-				'proActive'   => Capabilities::pro(),
-				'license'     => get_option( 'pkitfw_license_key', '' ),
+				'uploadNonce' => wp_create_nonce( 'optset_rest' ),
+				'adminUrl'    => admin_url( 'admin.php?page=optset-options#/' ),
+				'pluginUrl'   => OPTSET_URL,
+				'version'     => OPTSET_VERSION,
 				'currency'    => array(
 					'symbol'      => html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ),
 					'pos'         => get_option( 'woocommerce_currency_pos', 'left' ),

@@ -19,7 +19,7 @@ import { ToggleField } from '../../components';
  */
 export default function SwitchRow( { label, checked, onChange } ) {
 	return (
-		<div className="pkitfw-set-switchrow">
+		<div className="optset-set-switchrow">
 			<ToggleField
 				label={ label }
 				checked={ checked }

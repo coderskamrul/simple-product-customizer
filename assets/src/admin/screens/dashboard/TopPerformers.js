@@ -21,90 +21,90 @@ export default function TopPerformers( { performers } ) {
 	const { formatPrice } = useConfig();
 
 	return (
-		<section className="pkitfw-db-card pkitfw-db-panel">
-			<header className="pkitfw-db-panel__head">
-				<h2 className="pkitfw-db-panel__title">
+		<section className="optset-db-card optset-db-panel">
+			<header className="optset-db-panel__head">
+				<h2 className="optset-db-panel__title">
 					<span
-						className="dashicons dashicons-chart-line pkitfw-db-panel__ico"
+						className="dashicons dashicons-chart-line optset-db-panel__ico"
 						aria-hidden="true"
 					/>
 					{ __(
 						'Top Performers',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</h2>
 				{ performers.length > 0 && (
 					<button
 						type="button"
-						className="pkitfw-db-link"
+						className="optset-db-link"
 						onClick={ () => navigate( '/analytics' ) }
 					>
 						{ __(
 							'Analytics',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</button>
 				) }
 			</header>
 
 			{ performers.length === 0 ? (
-				<p className="pkitfw-db-empty">
+				<p className="optset-db-empty">
 					{ __(
 						'No revenue recorded yet. Publish a set and conversions will appear here.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</p>
 			) : (
-				<ol className="pkitfw-db-rank">
+				<ol className="optset-db-rank">
 					{ performers.map( ( p, i ) => {
 						const up = p.ctr >= 0;
 						return (
-							<li key={ p.id } className="pkitfw-db-rank__item">
+							<li key={ p.id } className="optset-db-rank__item">
 								<button
 									type="button"
-									className="pkitfw-db-rank__btn"
+									className="optset-db-rank__btn"
 									onClick={ () =>
 										navigate( `/set/${ p.id }` )
 									}
 								>
 									<span
-										className={ `pkitfw-db-rank__no pkitfw-db-rank__no--${
+										className={ `optset-db-rank__no optset-db-rank__no--${
 											i + 1
 										}` }
 									>
 										{ i + 1 }
 									</span>
-									<span className="pkitfw-db-rank__meta">
-										<span className="pkitfw-db-rank__name">
+									<span className="optset-db-rank__meta">
+										<span className="optset-db-rank__name">
 											{ p.title ||
 												sprintf(
 													/* translators: %d: set id */
 													__(
 														'Option set #%d',
-														'productkit-for-woocommerce'
+														'option-set-builder'
 													),
 													p.id
 												) }
 										</span>
-										<span className="pkitfw-db-rank__sub">
+										<span className="optset-db-rank__sub">
 											{ sprintf(
 												/* translators: %d: conversions */
 												_n(
 													'%d conversion',
 													'%d conversions',
 													p.orders,
-													'productkit-for-woocommerce'
+													'option-set-builder'
 												),
 												p.orders
 											) }
 										</span>
 									</span>
-									<span className="pkitfw-db-rank__fig">
-										<span className="pkitfw-db-rank__rev">
+									<span className="optset-db-rank__fig">
+										<span className="optset-db-rank__rev">
 											{ formatPrice( p.revenue ) }
 										</span>
 										<span
-											className={ `pkitfw-db-rank__ctr pkitfw-db-rank__ctr--${
+											className={ `optset-db-rank__ctr optset-db-rank__ctr--${
 												up ? 'up' : 'down'
 											}` }
 										>

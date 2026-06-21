@@ -25,7 +25,7 @@ export const DEFAULTS = {
 };
 
 /**
- * Ordered section registry. `tone` maps to a `.pkitfw-set-*--{tone}` accent
+ * Ordered section registry. `tone` maps to a `.optset-set-*--{tone}` accent
  * (icon tile + info banner). `dashicon` is the bare dashicons suffix.
  *
  * @return {Array<Object>} Section descriptors.
@@ -35,14 +35,14 @@ export const SECTIONS = [
 		id: 'price',
 		dashicon: 'money-alt',
 		tone: 'blue',
-		title: __( 'Price Display', 'productkit-for-woocommerce' ),
+		title: __( 'Price Display', 'option-set-builder' ),
 		nav: __(
 			'Configure how prices appear',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		banner: __(
 			'Control the optional price and running total lines shown beneath the product options.',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	{
@@ -51,29 +51,29 @@ export const SECTIONS = [
 		tone: 'amber',
 		title: __(
 			'Cart & Checkout',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		nav: __(
 			'Control visibility in cart',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		banner: __(
 			'Choose whether to show or hide selected options in the cart and checkout pages.',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	{
 		id: 'shop',
 		dashicon: 'screenoptions',
 		tone: 'violet',
-		title: __( 'Shop Loop', 'productkit-for-woocommerce' ),
+		title: __( 'Shop Loop', 'option-set-builder' ),
 		nav: __(
 			'Shop page button settings',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		banner: __(
 			'Decide how the shop and archive pages behave for products that have options.',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	{
@@ -82,29 +82,29 @@ export const SECTIONS = [
 		tone: 'teal',
 		title: __(
 			'Upload Retention',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		nav: __(
 			'File storage duration',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		banner: __(
 			'Set how long uploaded files are kept. Use 0 to keep files forever.',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	{
 		id: 'fonts',
 		dashicon: 'editor-textcolor',
 		tone: 'pink',
-		title: __( 'Custom Fonts', 'productkit-for-woocommerce' ),
+		title: __( 'Custom Fonts', 'option-set-builder' ),
 		nav: __(
 			'Manage typography',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 		banner: __(
 			'Upload custom fonts to use in your product options. Supported formats: TTF, OTF, WOFF, WOFF2.',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 ];

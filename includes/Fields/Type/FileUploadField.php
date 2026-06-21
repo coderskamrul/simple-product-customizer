@@ -2,12 +2,12 @@
 /**
  * File upload field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -95,7 +95,7 @@ final class FileUploadField extends AbstractField {
 			return '';
 		}
 		$text = str_replace( $token, $value, $text );
-		return '<span class="pkitfw-upload__hint">' . esc_html( $text ) . '</span>';
+		return '<span class="optset-upload__hint">' . esc_html( $text ) . '</span>';
 	}
 
 	/**
@@ -106,23 +106,23 @@ final class FileUploadField extends AbstractField {
 	protected function inner() {
 		$choices = $this->choices();
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
-		$uid     = 'pkitfw-upload-' . $this->id();
+		$uid     = 'optset-upload-' . $this->id();
 
 		$upload_text = (string) $this->cfg( 'uploadText', '' );
-		$upload_text = '' !== $upload_text ? $upload_text : __( 'Upload', 'productkit-for-woocommerce' );
+		$upload_text = '' !== $upload_text ? $upload_text : __( 'Upload', 'option-set-builder' );
 		$drag_text   = (string) $this->cfg( 'dragText', '' );
-		$drag_text   = '' !== $drag_text ? $drag_text : __( 'Click or drag and drop', 'productkit-for-woocommerce' );
+		$drag_text   = '' !== $drag_text ? $drag_text : __( 'Click or drag and drop', 'option-set-builder' );
 
 		$max_size = '' !== (string) $this->cfg( 'maxSize', '' ) ? (int) $this->cfg( 'maxSize' ) : '';
 		$max_num  = '' !== (string) $this->cfg( 'maxNumber', '' ) ? (int) $this->cfg( 'maxNumber' ) : '';
 
-		$html  = '<div class="pkitfw-upload" data-field-id="' . esc_attr( $this->id() ) . '"'
+		$html  = '<div class="optset-upload" data-field-id="' . esc_attr( $this->id() ) . '"'
 			. $this->attrs( $this->choice_price_attrs( $choice ) ) . '>';
-		$html .= '<input type="hidden" class="pkitfw-upload__data" name="' . esc_attr( $this->input_name() ) . '" value="" />';
-		$html .= '<label class="pkitfw-dropzone" for="' . esc_attr( $uid ) . '">';
-		$html .= '<span class="pkitfw-dropzone__btn"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M6 10l6-6 6 6M4 18v2h16v-2"/></svg>' . esc_html( $upload_text ) . '</span>';
-		$html .= '<span class="pkitfw-dropzone__text">' . esc_html( $drag_text ) . '</span>';
-		$html .= '<input type="file" id="' . esc_attr( $uid ) . '" class="pkitfw-upload__input" multiple'
+		$html .= '<input type="hidden" class="optset-upload__data" name="' . esc_attr( $this->input_name() ) . '" value="" />';
+		$html .= '<label class="optset-dropzone" for="' . esc_attr( $uid ) . '">';
+		$html .= '<span class="optset-dropzone__btn"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M6 10l6-6 6 6M4 18v2h16v-2"/></svg>' . esc_html( $upload_text ) . '</span>';
+		$html .= '<span class="optset-dropzone__text">' . esc_html( $drag_text ) . '</span>';
+		$html .= '<input type="file" id="' . esc_attr( $uid ) . '" class="optset-upload__input" multiple'
 			. $this->attrs(
 				array(
 					'accept'          => $this->accept(),
@@ -134,14 +134,14 @@ final class FileUploadField extends AbstractField {
 				)
 			) . ' />';
 		$html .= '</label>';
-		$html .= '<div class="pkitfw-upload__progress" hidden><span class="pkitfw-upload__bar"></span></div>';
-		$html .= '<div class="pkitfw-upload__result"></div>';
+		$html .= '<div class="optset-upload__progress" hidden><span class="optset-upload__bar"></span></div>';
+		$html .= '<div class="optset-upload__result"></div>';
 
 		$hints  = $this->hint( 'sizePrefix', '[max_size]', '' !== (string) $max_size ? $max_size . 'MB' : '' );
 		$hints .= $this->hint( 'countPrefix', '[max_files]', '' !== (string) $max_num ? (string) $max_num : '' );
 		$hints .= $this->hint( 'typePrefix', '[allowed_types]', $this->type_list() );
 		if ( '' !== $hints ) {
-			$html .= '<div class="pkitfw-upload__hints">' . $hints . '</div>';
+			$html .= '<div class="optset-upload__hints">' . $hints . '</div>';
 		}
 
 		$html .= '</div>';

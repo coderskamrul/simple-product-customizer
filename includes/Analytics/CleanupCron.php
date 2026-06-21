@@ -2,13 +2,13 @@
 /**
  * Scheduled upload-bucket cleanup.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Analytics;
+namespace OptionSetBuilder\Analytics;
 
-use ProductKit\Core\Settings;
-use ProductKit\Support\Upload;
+use OptionSetBuilder\Core\Settings;
+use OptionSetBuilder\Support\Upload;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -53,7 +53,7 @@ final class CleanupCron {
 	 * @return void
 	 */
 	public function register() {
-		add_action( 'pkitfw_cleanup_uploads', array( $this, 'run' ) );
+		add_action( 'optset_cleanup_uploads', array( $this, 'run' ) );
 	}
 
 	/**

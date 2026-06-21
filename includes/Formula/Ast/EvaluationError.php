@@ -2,10 +2,10 @@
 /**
  * Exception raised for any lexing, parsing or evaluation failure.
  *
- * @package ProductKit\Formula\Ast
+ * @package OptionSetBuilder\Formula\Ast
  */
 
-namespace ProductKit\Formula\Ast;
+namespace OptionSetBuilder\Formula\Ast;
 
 defined( 'ABSPATH' ) || exit;
 

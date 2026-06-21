@@ -20,52 +20,52 @@ export default function OptionSetStats( { stats } ) {
 		{
 			key: 'total',
 			tone: 'blue',
-			label: __( 'Total', 'productkit-for-woocommerce' ),
+			label: __( 'Total', 'option-set-builder' ),
 			value: stats.total,
 		},
 		{
 			key: 'active',
 			tone: 'green',
-			label: __( 'Active', 'productkit-for-woocommerce' ),
+			label: __( 'Active', 'option-set-builder' ),
 			value: stats.active,
 		},
 		{
 			key: 'inactive',
 			tone: 'muted',
-			label: __( 'Inactive', 'productkit-for-woocommerce' ),
+			label: __( 'Inactive', 'option-set-builder' ),
 			value: stats.inactive,
 		},
 		{
 			key: 'fields',
 			tone: 'icon',
-			label: __( 'Fields', 'productkit-for-woocommerce' ),
+			label: __( 'Fields', 'option-set-builder' ),
 			value: stats.fields,
 		},
 	];
 
 	return (
 		<dl
-			className="pkitfw-os-stats"
+			className="optset-os-stats"
 			aria-label={ __(
 				'Option set summary',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			) }
 		>
 			{ items.map( ( s ) => (
 				<div
 					key={ s.key }
-					className={ `pkitfw-os-stat pkitfw-os-stat--${ s.tone }` }
+					className={ `optset-os-stat optset-os-stat--${ s.tone }` }
 				>
 					{ s.tone === 'icon' ? (
 						<span
-							className="dashicons dashicons-screenoptions pkitfw-os-stat__icon"
+							className="dashicons dashicons-screenoptions optset-os-stat__icon"
 							aria-hidden="true"
 						/>
 					) : (
-						<span className="pkitfw-os-stat__dot" aria-hidden="true" />
+						<span className="optset-os-stat__dot" aria-hidden="true" />
 					) }
-					<dt className="pkitfw-os-stat__label">{ s.label }:</dt>
-					<dd className="pkitfw-os-stat__value">{ s.value }</dd>
+					<dt className="optset-os-stat__label">{ s.label }:</dt>
+					<dd className="optset-os-stat__value">{ s.value }</dd>
 				</div>
 			) ) }
 		</dl>

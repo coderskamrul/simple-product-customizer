@@ -36,14 +36,14 @@ export default function KpiGrid( { totals, deltas } ) {
 			icon: 'buddicons-activity',
 			label: __(
 				'Total Clicks',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 			value: int( t.clicks ),
 			delta: deltas.clicks,
 			meter: ratio( t.clicks, t.impressions ),
 			meterLabel: __(
 				'Click-through rate',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 		},
 		{
@@ -51,14 +51,14 @@ export default function KpiGrid( { totals, deltas } ) {
 			icon: 'cart',
 			label: __(
 				'Cart Additions',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 			value: int( t.add_to_cart ),
 			delta: deltas.add_to_cart,
 			meter: ratio( t.add_to_cart, t.clicks ),
 			meterLabel: __(
 				'Add-to-cart rate',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 		},
 		{
@@ -66,32 +66,32 @@ export default function KpiGrid( { totals, deltas } ) {
 			icon: 'products',
 			label: __(
 				'Completed Sales',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 			value: int( t.orders ),
 			delta: deltas.orders,
 			meter: ratio( t.orders, t.add_to_cart ),
 			meterLabel: __(
 				'Checkout rate',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 		},
 		{
 			tone: 'green',
 			icon: 'money-alt',
-			label: __( 'Revenue', 'productkit-for-woocommerce' ),
+			label: __( 'Revenue', 'option-set-builder' ),
 			value: formatPrice( t.revenue ),
 			delta: deltas.revenue,
 			meter: ratio( t.orders, t.impressions ),
 			meterLabel: __(
 				'Overall conversion rate',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			),
 		},
 	];
 
 	return (
-		<div className="pkitfw-an-kpis">
+		<div className="optset-an-kpis">
 			{ cards.map( ( c ) => (
 				<KpiCard key={ c.tone } { ...c } />
 			) ) }

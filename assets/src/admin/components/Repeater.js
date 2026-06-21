@@ -26,7 +26,7 @@ export default function Repeater( {
 	onChange,
 	renderRow,
 	makeRow,
-	addLabel = __( 'Add row', 'productkit-for-woocommerce' ),
+	addLabel = __( 'Add row', 'option-set-builder' ),
 	canAdd = true,
 	addHint = null,
 } ) {
@@ -40,7 +40,7 @@ export default function Repeater( {
 		onChange( rows.filter( ( _, i ) => i !== idx ) );
 
 	return (
-		<div className="pkitfw-repeater">
+		<div className="optset-repeater">
 			<DragList
 				items={ rows.map( ( r, i ) => ( {
 					...r,
@@ -50,25 +50,25 @@ export default function Repeater( {
 					onChange( reorder( rows, from, to ) )
 				}
 				renderItem={ ( row, idx, handleProps ) => (
-					<div className="pkitfw-repeater__row">
+					<div className="optset-repeater__row">
 						<span
-							className="pkitfw-repeater__handle dashicons dashicons-move"
+							className="optset-repeater__handle dashicons dashicons-move"
 							{ ...handleProps }
 							aria-label={ __(
 								'Drag to reorder',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						/>
-						<div className="pkitfw-repeater__body">
+						<div className="optset-repeater__body">
 							{ renderRow( rows[ idx ], idx ) }
 						</div>
 						<button
 							type="button"
-							className="pkitfw-icon-btn pkitfw-repeater__remove"
+							className="optset-icon-btn optset-repeater__remove"
 							onClick={ () => removeAt( idx ) }
 							aria-label={ __(
 								'Remove row',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						>
 							<span
@@ -79,10 +79,10 @@ export default function Repeater( {
 					</div>
 				) }
 			/>
-			<div className="pkitfw-repeater__foot">
+			<div className="optset-repeater__foot">
 				<button
 					type="button"
-					className="pkitfw-btn pkitfw-btn--ghost"
+					className="optset-btn optset-btn--ghost"
 					disabled={ ! canAdd }
 					onClick={ () => onChange( [ ...rows, makeRow() ] ) }
 				>

@@ -44,8 +44,8 @@ export default function SettingsNav( { active, onSelect } ) {
 	};
 
 	return (
-		<nav className="pkitfw-set-nav" aria-label="Settings sections">
-			<ul className="pkitfw-set-nav__list">
+		<nav className="optset-set-nav" aria-label="Settings sections">
+			<ul className="optset-set-nav__list">
 				{ SECTIONS.map( ( s, i ) => {
 					const isActive = s.id === active;
 					return (
@@ -53,7 +53,7 @@ export default function SettingsNav( { active, onSelect } ) {
 							<button
 								type="button"
 								ref={ ( el ) => ( refs.current[ i ] = el ) }
-								className={ classNames( 'pkitfw-set-nav__item', {
+								className={ classNames( 'optset-set-nav__item', {
 									'is-active': isActive,
 								} ) }
 								aria-current={ isActive ? 'true' : undefined }
@@ -62,8 +62,8 @@ export default function SettingsNav( { active, onSelect } ) {
 							>
 								<span
 									className={ classNames(
-										'pkitfw-set-tile',
-										`pkitfw-set-tile--${
+										'optset-set-tile',
+										`optset-set-tile--${
 											isActive ? 'violet' : 'neutral'
 										}`
 									) }
@@ -73,18 +73,18 @@ export default function SettingsNav( { active, onSelect } ) {
 										className={ `dashicons dashicons-${ s.dashicon }` }
 									/>
 								</span>
-								<span className="pkitfw-set-nav__text">
-									<span className="pkitfw-set-nav__title">
+								<span className="optset-set-nav__text">
+									<span className="optset-set-nav__title">
 										{ s.title }
 									</span>
-									<span className="pkitfw-set-nav__sub">
+									<span className="optset-set-nav__sub">
 										{ s.nav }
 									</span>
 								</span>
 								<span
 									className={ classNames(
 										'dashicons',
-										'pkitfw-set-nav__chev',
+										'optset-set-nav__chev',
 										isActive
 											? 'dashicons-arrow-down-alt2'
 											: 'dashicons-arrow-right-alt2'

@@ -48,7 +48,7 @@ function Btn( { onClick, active = false, disabled = false, title, children } ) {
 	return (
 		<button
 			type="button"
-			className={ `pkitfw-rte__btn${ active ? ' is-active' : '' }` }
+			className={ `optset-rte__btn${ active ? ' is-active' : '' }` }
 			onClick={ onClick }
 			disabled={ disabled }
 			title={ title }
@@ -62,7 +62,7 @@ function Btn( { onClick, active = false, disabled = false, title, children } ) {
 
 /** Visual separator between toolbar groups. */
 function Sep() {
-	return <span className="pkitfw-rte__sep" aria-hidden="true" />;
+	return <span className="optset-rte__sep" aria-hidden="true" />;
 }
 
 /**
@@ -108,12 +108,12 @@ export default function Toolbar( {
 	const locked = sourceMode;
 
 	return (
-		<div className="pkitfw-rte__toolbar" role="toolbar">
-			<div className="pkitfw-rte__group">
+		<div className="optset-rte__toolbar" role="toolbar">
+			<div className="optset-rte__group">
 				<Btn
 					title={ __(
 						'Undo (Ctrl/Cmd+Z)',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked || ! editor.can().undo() }
 					onClick={ () => editor.chain().focus().undo().run() }
@@ -123,7 +123,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Redo (Shift+Ctrl/Cmd+Z)',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked || ! editor.can().redo() }
 					onClick={ () => editor.chain().focus().redo().run() }
@@ -134,11 +134,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="pkitfw-rte__group">
+			<div className="optset-rte__group">
 				<Btn
 					title={ __(
 						'Bold',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'bold' ) }
@@ -149,7 +149,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Italic',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'italic' ) }
@@ -162,7 +162,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Underline',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'underline' ) }
@@ -175,7 +175,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Highlight',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'highlight' ) }
@@ -189,11 +189,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="pkitfw-rte__group">
+			<div className="optset-rte__group">
 				<Btn
 					title={ __(
 						'Paragraph',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'paragraph' ) }
@@ -206,7 +206,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Heading 1',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'heading', { level: 1 } ) }
@@ -217,7 +217,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Heading 2',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'heading', { level: 2 } ) }
@@ -228,7 +228,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Heading 3',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'heading', { level: 3 } ) }
@@ -240,11 +240,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="pkitfw-rte__group">
+			<div className="optset-rte__group">
 				<Btn
 					title={ __(
 						'Bullet list',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'bulletList' ) }
@@ -257,7 +257,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Numbered list',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'orderedList' ) }
@@ -271,11 +271,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="pkitfw-rte__group">
+			<div className="optset-rte__group">
 				<Btn
 					title={ __(
 						'Align left',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( { textAlign: 'left' } ) }
@@ -288,7 +288,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Align center',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( { textAlign: 'center' } ) }
@@ -301,7 +301,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Align right',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( { textAlign: 'right' } ) }
@@ -315,11 +315,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="pkitfw-rte__group">
+			<div className="optset-rte__group">
 				<Btn
 					title={ __(
 						'Insert / edit link',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'link' ) }
@@ -330,7 +330,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Remove link',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked || ! editor.isActive( 'link' ) }
 					onClick={ () => editor.chain().focus().unsetLink().run() }
@@ -342,11 +342,11 @@ export default function Toolbar( {
 						mediaAvailable()
 							? __(
 									'Insert image',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  )
 							: __(
 									'Media library unavailable',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  )
 					}
 					disabled={ locked || ! mediaAvailable() }
@@ -357,7 +357,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Insert table',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'table' ) }
@@ -369,11 +369,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="pkitfw-rte__group">
+			<div className="optset-rte__group">
 				<Btn
 					title={ __(
 						'Clear formatting',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					disabled={ locked }
 					onClick={ () =>
@@ -389,11 +389,11 @@ export default function Toolbar( {
 				</Btn>
 			</div>
 
-			<div className="pkitfw-rte__group pkitfw-rte__group--end">
+			<div className="optset-rte__group optset-rte__group--end">
 				<Btn
 					title={ __(
 						'Edit HTML source',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					active={ sourceMode }
 					onClick={ onToggleSource }

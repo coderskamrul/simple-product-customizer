@@ -1,11 +1,11 @@
 <?php
 /**
- * Settings store (option `pkitfw_settings`).
+ * Settings store (option `optset_settings`).
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Core;
+namespace OptionSetBuilder\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Settings {
 
-	const OPTION = 'pkitfw_settings';
+	const OPTION = 'optset_settings';
 
 	/**
 	 * Default values for every known setting.
@@ -24,13 +24,13 @@ final class Settings {
 	public static function defaults() {
 		return array(
 			'showPriceLine'       => true,
-			'priceLineLabel'      => __( 'Options Price', 'productkit-for-woocommerce' ),
+			'priceLineLabel'      => __( 'Options Price', 'option-set-builder' ),
 			'showTotalLine'       => true,
-			'totalLineLabel'      => __( 'Total Price', 'productkit-for-woocommerce' ),
+			'totalLineLabel'      => __( 'Total Price', 'option-set-builder' ),
 			'hideInCart'          => false,
 			'hideInCheckout'      => false,
 			'shopForceSelect'     => true,
-			'shopButtonText'      => __( 'Select Options', 'productkit-for-woocommerce' ),
+			'shopButtonText'      => __( 'Select Options', 'option-set-builder' ),
 			'uploadTempDays'      => 7,
 			'uploadPlacedDays'    => 0,
 			'uploadCompletedDays' => 0,

@@ -95,7 +95,7 @@ function PriceTag( { choice, formatPrice } ) {
 		return null;
 	}
 	return (
-		<span className="pkitfw-pf__price">
+		<span className="optset-pf__price">
 			{ sale ? (
 				<>
 					<s>{ reg }</s> <b>{ sale }</b>
@@ -123,15 +123,15 @@ function FontPickerPreview( { choices, formatPrice } ) {
 	const [ open, setOpen ] = useState( false );
 	const current = choices.find( ( c ) => c.selected );
 	return (
-		<div className={ `pkitfw-pf__fontpicker${ open ? ' is-open' : '' }` }>
+		<div className={ `optset-pf__fontpicker${ open ? ' is-open' : '' }` }>
 			<button
 				type="button"
-				className="pkitfw-pf__select-box"
+				className="optset-pf__select-box"
 				onClick={ () => setOpen( ( v ) => ! v ) }
 			>
 				{ current ? (
 					<span
-						className="pkitfw-pf__select-placeholder"
+						className="optset-pf__select-placeholder"
 						style={
 							current.fontFamily
 								? { fontFamily: current.fontFamily }
@@ -141,25 +141,25 @@ function FontPickerPreview( { choices, formatPrice } ) {
 						{ current.label ||
 							__(
 								'Untitled',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 					</span>
 				) : (
-					<span className="pkitfw-pf__select-placeholder">
+					<span className="optset-pf__select-placeholder">
 						{ __(
 							'Select Font',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</span>
 				) }
 				<ChevronDown size={ 16 } />
 			</button>
 			{ open && (
-				<div className="pkitfw-pf__fontlist">
+				<div className="optset-pf__fontlist">
 					{ choices.map( ( c, i ) => (
-						<span key={ c.uid || i } className="pkitfw-pf__fontopt">
+						<span key={ c.uid || i } className="optset-pf__fontopt">
 							<span
-								className="pkitfw-pf__fontopt-label"
+								className="optset-pf__fontopt-label"
 								style={
 									c.fontFamily
 										? { fontFamily: c.fontFamily }
@@ -199,7 +199,7 @@ function ProductPrice( { meta, formatPrice } ) {
 		return null;
 	}
 	return (
-		<span className="pkitfw-pf__price">
+		<span className="optset-pf__price">
 			{ hasSale ? (
 				<>
 					{ hasReg && <s>{ formatPrice( reg ) }</s> }{ ' ' }
@@ -276,7 +276,7 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 				key: `mock${ n }`,
 				title: __(
 					'Product',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				img: '',
 				meta: {},
@@ -299,11 +299,11 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 		: undefined;
 
 	return (
-		<div className={ `pkitfw-pf__linked${ isMockup ? ' is-mockup' : '' }` }>
+		<div className={ `optset-pf__linked${ isMockup ? ' is-mockup' : '' }` }>
 			{ rows.map( ( card ) => (
 				<span
 					key={ card.key }
-					className="pkitfw-pf__linked-card"
+					className="optset-pf__linked-card"
 					style={ cardStyle }
 				>
 					<input
@@ -311,22 +311,22 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 						checked={ !! card.selected }
 						readOnly
 					/>
-					<span className="pkitfw-pf__linked-check" aria-hidden="true">
+					<span className="optset-pf__linked-check" aria-hidden="true">
 						<Check size={ 13 } />
 					</span>
-					<span className="pkitfw-pf__linked-thumb" style={ thumbStyle }>
+					<span className="optset-pf__linked-thumb" style={ thumbStyle }>
 						{ card.img ? (
 							<img src={ card.img } alt="" />
 						) : (
 							<span
-								className="pkitfw-pf__linked-ph"
+								className="optset-pf__linked-ph"
 								aria-hidden="true"
 							/>
 						) }
 					</span>
-					<span className="pkitfw-pf__linked-title">{ card.title }</span>
+					<span className="optset-pf__linked-title">{ card.title }</span>
 					{ card.variations && card.variations.length > 0 && (
-						<select className="pkitfw-pf__linked-varsel" disabled>
+						<select className="optset-pf__linked-varsel" disabled>
 							{ card.variations.map( ( v ) => (
 								<option key={ v.id }>{ v.label }</option>
 							) ) }
@@ -339,7 +339,7 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 						/>
 					) }
 					{ cfg.enableQty && (
-						<span className="pkitfw-pf__linked-qty">
+						<span className="optset-pf__linked-qty">
 							<QtyBox cfg={ cfg } />
 						</span>
 					) }
@@ -365,9 +365,9 @@ function SelectPreview( { node, choices, formatPrice } ) {
 	const current = choices.find( ( c ) => c.selected ) || choices[ 0 ];
 
 	const Option = ( { c, i } ) => (
-		<span className="pkitfw-pf__select-opt">
+		<span className="optset-pf__select-opt">
 			{ c.image && (
-				<span className="pkitfw-pf__choice-img">
+				<span className="optset-pf__choice-img">
 					<img src={ c.image } alt="" />
 				</span>
 			) }
@@ -377,10 +377,10 @@ function SelectPreview( { node, choices, formatPrice } ) {
 	);
 
 	return (
-		<div className={ `pkitfw-pf__select${ open ? ' is-open' : '' }` }>
+		<div className={ `optset-pf__select${ open ? ' is-open' : '' }` }>
 			{ /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */ }
 			<div
-				className="pkitfw-pf__select-box"
+				className="optset-pf__select-box"
 				role="button"
 				tabIndex={ 0 }
 				onClick={ ( e ) => {
@@ -397,20 +397,20 @@ function SelectPreview( { node, choices, formatPrice } ) {
 				{ current ? (
 					<Option c={ current } i={ 0 } />
 				) : (
-					<span className="pkitfw-pf__select-placeholder">
+					<span className="optset-pf__select-placeholder">
 						{ node.placeholder ||
 							__(
 								'Choose…',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 					</span>
 				) }
 				<ChevronDown size={ 16 } aria-hidden="true" />
 			</div>
 			{ open && choices.length > 0 && (
-				<div className="pkitfw-pf__select-list">
+				<div className="optset-pf__select-list">
 					{ choices.map( ( c, i ) => (
-						<div key={ c.uid || i } className="pkitfw-pf__select-row">
+						<div key={ c.uid || i } className="optset-pf__select-row">
 							<Option c={ c } i={ i } />
 						</div>
 					) ) }
@@ -433,7 +433,7 @@ function QtyBox( { cfg } ) {
 	return (
 		<input
 			type="number"
-			className="pkitfw-pf__qty"
+			className="optset-pf__qty"
 			min={ min }
 			max={
 				cfg.maxQty === '' || cfg.maxQty === undefined
@@ -458,7 +458,7 @@ function Help( { node, at } ) {
 	if ( ! node.description || node.descriptionPlacement !== at ) {
 		return null;
 	}
-	return <p className="pkitfw-pf__help">{ node.description }</p>;
+	return <p className="optset-pf__help">{ node.description }</p>;
 }
 
 /**
@@ -484,42 +484,42 @@ function SectionPreview( { node } ) {
 	const children = node.children || [];
 	const title =
 		node.label ||
-		__( 'Section', 'productkit-for-woocommerce' );
+		__( 'Section', 'option-set-builder' );
 	const showBody = ! isAccordion || open;
 
 	return (
 		<div
-			className={ `pkitfw-pf__section${
+			className={ `optset-pf__section${
 				isAccordion ? ' is-accordion' : ''
 			}${ isAccordion && ! open ? ' is-collapsed' : '' }` }
 		>
 			{ isAccordion ? (
 				<button
 					type="button"
-					className="pkitfw-pf__section-header"
+					className="optset-pf__section-header"
 					aria-expanded={ open }
 					onClick={ () => setOpen( ( o ) => ! o ) }
 				>
-					<span className="pkitfw-pf__section-title">{ title }</span>
+					<span className="optset-pf__section-title">{ title }</span>
 					<span
-						className="pkitfw-pf__section-chevron"
+						className="optset-pf__section-chevron"
 						aria-hidden="true"
 					/>
 				</button>
 			) : (
 				node.label && (
-					<div className="pkitfw-pf__section-header pkitfw-pf__section-header--static">
-						<span className="pkitfw-pf__section-title">{ title }</span>
+					<div className="optset-pf__section-header optset-pf__section-header--static">
+						<span className="optset-pf__section-title">{ title }</span>
 					</div>
 				)
 			) }
 			{ showBody && (
-				<div className="pkitfw-pf__section-body">
+				<div className="optset-pf__section-body">
 					{ children.length === 0 ? (
-						<p className="pkitfw-pf__placeholder">
+						<p className="optset-pf__placeholder">
 							{ __(
 								'Empty section',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</p>
 					) : (
@@ -560,7 +560,7 @@ function PhonePreview( { node } ) {
 	if ( flagStyle === 'number' ) {
 		return (
 			<input
-				className="pkitfw-pf__input"
+				className="optset-pf__input"
 				type="tel"
 				placeholder={ node.placeholder }
 				readOnly
@@ -579,47 +579,47 @@ function PhonePreview( { node } ) {
 	);
 
 	return (
-		<div className={ `pkitfw-pf__phone${ open ? ' is-open' : '' }` }>
-			<div className="pkitfw-pf__phone-control">
+		<div className={ `optset-pf__phone${ open ? ' is-open' : '' }` }>
+			<div className="optset-pf__phone-control">
 				<button
 					type="button"
-					className="pkitfw-pf__phone-country"
+					className="optset-pf__phone-country"
 					onClick={ () => setOpen( ( o ) => ! o ) }
 				>
-					<span className="pkitfw-pf__phone-flag">
+					<span className="optset-pf__phone-flag">
 						{ flagEmoji( country.iso2 ) }
 					</span>
 					<ChevronDown size={ 14 } aria-hidden="true" />
 					{ flagStyle === 'flag_dial' && (
-						<span className="pkitfw-pf__phone-dial">
+						<span className="optset-pf__phone-dial">
 							+{ country.dial }
 						</span>
 					) }
 				</button>
 				<input
-					className="pkitfw-pf__input pkitfw-pf__phone-input"
+					className="optset-pf__input optset-pf__phone-input"
 					type="tel"
 					placeholder={ node.placeholder }
 					readOnly
 				/>
 			</div>
 			{ open && (
-				<div className="pkitfw-pf__phone-drop">
+				<div className="optset-pf__phone-drop">
 					<input
-						className="pkitfw-pf__phone-search"
+						className="optset-pf__phone-search"
 						placeholder={ __(
 							'Search',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						value={ query }
 						onChange={ ( e ) => setQuery( e.target.value ) }
 					/>
-					<div className="pkitfw-pf__phone-list">
+					<div className="optset-pf__phone-list">
 						{ list.map( ( c ) => (
 							<button
 								key={ c.iso2 }
 								type="button"
-								className={ `pkitfw-pf__phone-opt${
+								className={ `optset-pf__phone-opt${
 									c.iso2 === iso ? ' is-active' : ''
 								}` }
 								onClick={ () => {
@@ -628,13 +628,13 @@ function PhonePreview( { node } ) {
 									setQuery( '' );
 								} }
 							>
-								<span className="pkitfw-pf__phone-flag">
+								<span className="optset-pf__phone-flag">
 									{ flagEmoji( c.iso2 ) }
 								</span>
-								<span className="pkitfw-pf__phone-name">
+								<span className="optset-pf__phone-name">
 									{ c.name }
 								</span>
-								<span className="pkitfw-pf__phone-dial">
+								<span className="optset-pf__phone-dial">
 									+{ c.dial }
 								</span>
 							</button>
@@ -662,9 +662,9 @@ export default function FieldPreview( { node } ) {
 	if ( node.type === 'heading' ) {
 		const Tag = cfg.level || 'h3';
 		return (
-			<Tag className="pkitfw-pf__heading">
+			<Tag className="optset-pf__heading">
 				{ node.label ||
-					__( 'Heading', 'productkit-for-woocommerce' ) }
+					__( 'Heading', 'option-set-builder' ) }
 			</Tag>
 		);
 	}
@@ -672,7 +672,7 @@ export default function FieldPreview( { node } ) {
 		const h = Number( cfg.height );
 		return (
 			<hr
-				className="pkitfw-pf__divider"
+				className="optset-pf__divider"
 				style={ h > 0 ? { borderTopWidth: `${ h }px` } : undefined }
 			/>
 		);
@@ -680,19 +680,19 @@ export default function FieldPreview( { node } ) {
 	if ( node.type === 'spacer' ) {
 		return (
 			<div
-				className="pkitfw-pf__spacer"
+				className="optset-pf__spacer"
 				style={ { height: `${ cfg.height || 24 }px` } }
 			/>
 		);
 	}
 	if ( node.type === 'html' ) {
 		return (
-			<div className="pkitfw-pf__html">
+			<div className="optset-pf__html">
 				{ cfg.html || (
-					<span className="pkitfw-pf__placeholder">
+					<span className="optset-pf__placeholder">
 						{ __(
 							'Custom HTML',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</span>
 				) }
@@ -701,7 +701,7 @@ export default function FieldPreview( { node } ) {
 	}
 	if ( node.type === 'shortcode' ) {
 		return (
-			<code className="pkitfw-pf__shortcode">
+			<code className="optset-pf__shortcode">
 				{ cfg.shortcode || '[shortcode]' }
 			</code>
 		);
@@ -722,11 +722,11 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'buttongroup':
 			control = (
-				<div className="pkitfw-pf__buttons">
+				<div className="optset-pf__buttons">
 					{ choices.map( ( c, i ) => (
 						<span
 							key={ c.uid || i }
-							className={ `pkitfw-pf__button${
+							className={ `optset-pf__button${
 								c.selected ? ' is-active' : ''
 							}` }
 							style={
@@ -748,9 +748,9 @@ export default function FieldPreview( { node } ) {
 		case 'checkbox':
 		case 'radio':
 			control = (
-				<div className="pkitfw-pf__choices">
+				<div className="optset-pf__choices">
 					{ choices.map( ( c, i ) => (
-						<span key={ c.uid || i } className="pkitfw-pf__choice">
+						<span key={ c.uid || i } className="optset-pf__choice">
 							<input
 								type={
 									node.type === 'checkbox'
@@ -761,7 +761,7 @@ export default function FieldPreview( { node } ) {
 								readOnly
 							/>
 							{ c.image && (
-								<span className="pkitfw-pf__choice-img">
+								<span className="optset-pf__choice-img">
 									<img src={ c.image } alt="" />
 								</span>
 							) }
@@ -788,22 +788,22 @@ export default function FieldPreview( { node } ) {
 		case 'toggle': {
 			const tc = choices[ 0 ] || {};
 			control = (
-				<span className="pkitfw-pf__toggle-row">
+				<span className="optset-pf__toggle-row">
 					<span
-						className={ `pkitfw-pf__toggle${
+						className={ `optset-pf__toggle${
 							tc.selected ? ' is-on' : ''
 						}` }
 						aria-hidden="true"
 					>
-						<span className="pkitfw-pf__toggle-knob" />
+						<span className="optset-pf__toggle-knob" />
 					</span>
 					{ tc.image && (
-						<span className="pkitfw-pf__toggle-img">
+						<span className="optset-pf__toggle-img">
 							<img src={ tc.image } alt="" />
 						</span>
 					) }
 					{ tc.label && (
-						<span className="pkitfw-pf__toggle-label">
+						<span className="optset-pf__toggle-label">
 							{ tc.label }
 						</span>
 					) }
@@ -815,14 +815,14 @@ export default function FieldPreview( { node } ) {
 		}
 		case 'colorswatch':
 			control = (
-				<div className="pkitfw-pf__swatches">
+				<div className="optset-pf__swatches">
 					{ choices.map( ( c, i ) => (
 						<span
 							key={ c.uid || i }
-							className="pkitfw-pf__swatch-tile"
+							className="optset-pf__swatch-tile"
 						>
 							<span
-								className={ `pkitfw-pf__swatch${
+								className={ `optset-pf__swatch${
 									c.selected ? ' is-active' : ''
 								}` }
 								style={ {
@@ -832,12 +832,12 @@ export default function FieldPreview( { node } ) {
 								title={ c.label }
 							>
 								{ c.selected && (
-									<span className="pkitfw-pf__swatch-check">
+									<span className="optset-pf__swatch-check">
 										<Check size={ 12 } />
 									</span>
 								) }
 							</span>
-							<span className="pkitfw-pf__swatch-label">
+							<span className="optset-pf__swatch-label">
 								{ c.label || `Color ${ i + 1 }` }
 							</span>
 							<PriceTag
@@ -852,14 +852,14 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'imageswatch':
 			control = (
-				<div className="pkitfw-pf__swatches">
+				<div className="optset-pf__swatches">
 					{ choices.map( ( c, i ) => (
 						<span
 							key={ c.uid || i }
-							className="pkitfw-pf__swatch-tile"
+							className="optset-pf__swatch-tile"
 						>
 							<span
-								className={ `pkitfw-pf__img-swatch${
+								className={ `optset-pf__img-swatch${
 									c.selected ? ' is-active' : ''
 								}` }
 								style={ swatchStyle( cfg ) }
@@ -869,12 +869,12 @@ export default function FieldPreview( { node } ) {
 									<img src={ c.image } alt={ c.label } />
 								) : null }
 								{ c.selected && (
-									<span className="pkitfw-pf__swatch-check">
+									<span className="optset-pf__swatch-check">
 										<Check size={ 12 } />
 									</span>
 								) }
 							</span>
-							<span className="pkitfw-pf__swatch-label">
+							<span className="optset-pf__swatch-label">
 								{ c.label || `Image ${ i + 1 }` }
 							</span>
 							<PriceTag
@@ -891,7 +891,7 @@ export default function FieldPreview( { node } ) {
 			control = (
 				<input
 					type="range"
-					className="pkitfw-pf__range"
+					className="optset-pf__range"
 					min={ cfg.min ?? 0 }
 					max={ cfg.max ?? 100 }
 					step={ cfg.step ?? 1 }
@@ -902,7 +902,7 @@ export default function FieldPreview( { node } ) {
 		case 'textarea':
 			control = (
 				<textarea
-					className="pkitfw-pf__input"
+					className="optset-pf__input"
 					rows={ cfg.rows || 3 }
 					placeholder={ node.placeholder }
 					readOnly
@@ -911,9 +911,9 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'colorpicker':
 			control = (
-				<span className="pkitfw-pf__colorpicker">
+				<span className="optset-pf__colorpicker">
 					<span
-						className="pkitfw-pf__colorpicker-dot"
+						className="optset-pf__colorpicker-dot"
 						style={
 							cfg.defaultColor
 								? { background: cfg.defaultColor }
@@ -923,27 +923,27 @@ export default function FieldPreview( { node } ) {
 					{ cfg.defaultColor ||
 						__(
 							'Pick a colour',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 				</span>
 			);
 			break;
 		case 'fileupload':
 			control = (
-				<div className="pkitfw-pf__dropzone">
-					<span className="pkitfw-pf__dropzone-btn">
+				<div className="optset-pf__dropzone">
+					<span className="optset-pf__dropzone-btn">
 						<Upload size={ 14 } aria-hidden="true" />
 						{ cfg.uploadText ||
 							__(
 								'Upload',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 					</span>
-					<span className="pkitfw-pf__dropzone-text">
+					<span className="optset-pf__dropzone-text">
 						{ cfg.dragText ||
 							__(
 								'Click or drag and drop',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 					</span>
 				</div>
@@ -959,11 +959,11 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'popup':
 			control = (
-				<span className="pkitfw-pf__button is-active">
+				<span className="optset-pf__button is-active">
 					{ cfg.triggerText ||
 						__(
 							'Open',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 				</span>
 			);
@@ -971,19 +971,19 @@ export default function FieldPreview( { node } ) {
 		case 'formula':
 		case 'advancedformula':
 			control = (
-				<code className="pkitfw-pf__shortcode">
+				<code className="optset-pf__shortcode">
 					{ cfg.formula ||
 						__(
 							'Formula result',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 				</code>
 			);
 			break;
 		case 'datetime':
 			control = (
-				<div className="pkitfw-pf__datetime">
-					<span className="pkitfw-pf__dt-part">
+				<div className="optset-pf__datetime">
+					<span className="optset-pf__dt-part">
 						<svg
 							viewBox="0 0 24 24"
 							fill="none"
@@ -1007,12 +1007,12 @@ export default function FieldPreview( { node } ) {
 							/>
 						</svg>
 						<input
-							className="pkitfw-pf__input"
+							className="optset-pf__input"
 							placeholder={ cfg.format || 'DD/MM/YYYY' }
 							readOnly
 						/>
 					</span>
-					<span className="pkitfw-pf__dt-part">
+					<span className="optset-pf__dt-part">
 						<svg
 							viewBox="0 0 24 24"
 							fill="none"
@@ -1035,7 +1035,7 @@ export default function FieldPreview( { node } ) {
 							/>
 						</svg>
 						<input
-							className="pkitfw-pf__input"
+							className="optset-pf__input"
 							placeholder={
 								cfg.hour12 === false ? 'HH:mm' : 'hh:mm AM/PM'
 							}
@@ -1051,7 +1051,7 @@ export default function FieldPreview( { node } ) {
 		default:
 			control = (
 				<input
-					className="pkitfw-pf__input"
+					className="optset-pf__input"
 					type={
 						[ 'email', 'url', 'number', 'date', 'time' ].includes(
 							node.type
@@ -1066,15 +1066,15 @@ export default function FieldPreview( { node } ) {
 	}
 
 	return (
-		<div className={ `pkitfw-pf pkitfw-pf--${ node.type }` }>
+		<div className={ `optset-pf optset-pf--${ node.type }` }>
 			{ ! node.hideLabel && (
-				<span className="pkitfw-pf__label">
+				<span className="optset-pf__label">
 					{ node.label ||
 						__(
 							'Untitled field',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
-					{ node.required && <span className="pkitfw-pf__req">*</span> }
+					{ node.required && <span className="optset-pf__req">*</span> }
 					{ [
 						'date',
 						'time',

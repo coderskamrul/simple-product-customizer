@@ -14,15 +14,15 @@ import { Field, SelectControl, TextControl } from '../../../../components';
 const SWATCH_SHAPES = [
 	{
 		value: 'circle',
-		label: __( 'Circle', 'productkit-for-woocommerce' ),
+		label: __( 'Circle', 'option-set-builder' ),
 	},
 	{
 		value: 'square',
-		label: __( 'Square', 'productkit-for-woocommerce' ),
+		label: __( 'Square', 'option-set-builder' ),
 	},
 	{
 		value: 'rounded',
-		label: __( 'Rounded', 'productkit-for-woocommerce' ),
+		label: __( 'Rounded', 'option-set-builder' ),
 	},
 ];
 
@@ -39,7 +39,7 @@ const SWATCH_SHAPES = [
 function PxField( { label, value, onChange, placeholder } ) {
 	return (
 		<Field label={ label }>
-			<span className="pkitfw-input-suffix">
+			<span className="optset-input-suffix">
 				<TextControl
 					type="number"
 					value={ value ?? '' }
@@ -47,7 +47,7 @@ function PxField( { label, value, onChange, placeholder } ) {
 					onChange={ onChange }
 				/>
 				<em>
-					{ __( 'PX', 'productkit-for-woocommerce' ) }
+					{ __( 'PX', 'option-set-builder' ) }
 				</em>
 			</span>
 		</Field>
@@ -72,25 +72,25 @@ function SwatchStyles( { node, patch } ) {
 	const isImage = [ 'imageswatch', 'linkedproducts' ].includes( node.type );
 
 	return (
-		<div className="pkitfw-swatch-styles">
-			<p className="pkitfw-field-group__title">
+		<div className="optset-swatch-styles">
+			<p className="optset-field-group__title">
 				{ isImage
 					? __(
 							'Image styles',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 					  )
 					: __(
 							'Color styles',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 					  ) }
 			</p>
 
 			<div
-				className="pkitfw-style-picker"
+				className="optset-style-picker"
 				role="radiogroup"
 				aria-label={ __(
 					'Swatch style',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				{ SWATCH_SHAPES.map( ( s ) => (
@@ -99,26 +99,26 @@ function SwatchStyles( { node, patch } ) {
 						type="button"
 						role="radio"
 						aria-checked={ shape === s.value }
-						className={ `pkitfw-style-picker__item${
+						className={ `optset-style-picker__item${
 							shape === s.value ? ' is-active' : ''
 						}` }
 						onClick={ () => setCfg( 'shape', s.value ) }
 					>
 						<span
-							className={ `pkitfw-style-picker__shape is-${ s.value }` }
+							className={ `optset-style-picker__shape is-${ s.value }` }
 						/>
-						<span className="pkitfw-style-picker__name">
+						<span className="optset-style-picker__name">
 							{ s.label }
 						</span>
 					</button>
 				) ) }
 			</div>
 
-			<div className="pkitfw-settings__grid3">
+			<div className="optset-settings__grid3">
 				<PxField
 					label={ __(
 						'Width',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					value={ cfg.swatchWidth }
 					placeholder={ isImage ? '72' : '44' }
@@ -127,7 +127,7 @@ function SwatchStyles( { node, patch } ) {
 				<PxField
 					label={ __(
 						'Height',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					value={ cfg.swatchHeight }
 					placeholder={ isImage ? '72' : '44' }
@@ -136,7 +136,7 @@ function SwatchStyles( { node, patch } ) {
 				<PxField
 					label={ __(
 						'Border radius',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					value={ cfg.swatchRadius }
 					onChange={ ( v ) => setCfg( 'swatchRadius', v ) }
@@ -164,12 +164,12 @@ export default function StylesTab( { node, patch } ) {
 	].includes( node.type );
 
 	return (
-		<div className="pkitfw-settings__pane">
-			<div className="pkitfw-settings__grid2">
+		<div className="optset-settings__pane">
+			<div className="optset-settings__grid2">
 				<Field
 					label={ __(
 						'Field width',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<SelectControl
@@ -181,7 +181,7 @@ export default function StylesTab( { node, patch } ) {
 				<Field
 					label={ __(
 						'Description placement',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<SelectControl
@@ -194,21 +194,21 @@ export default function StylesTab( { node, patch } ) {
 								value: 'below_label',
 								label: __(
 									'Below label',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								),
 							},
 							{
 								value: 'below_field',
 								label: __(
 									'Below field',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								),
 							},
 							{
 								value: 'tooltip',
 								label: __(
 									'Tooltip',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								),
 							},
 						] }
@@ -220,11 +220,11 @@ export default function StylesTab( { node, patch } ) {
 				<Field
 					label={ __(
 						'Price placement',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					help={ __(
 						'Where the per-choice price appears on the storefront.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<SelectControl
@@ -235,14 +235,14 @@ export default function StylesTab( { node, patch } ) {
 								value: 'with_label',
 								label: __(
 									'Next to the field label',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								),
 							},
 							{
 								value: 'with_choice',
 								label: __(
 									'Next to each choice',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								),
 							},
 						] }
@@ -255,7 +255,7 @@ export default function StylesTab( { node, patch } ) {
 			<Field
 				label={ __(
 					'CSS class',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				<TextControl

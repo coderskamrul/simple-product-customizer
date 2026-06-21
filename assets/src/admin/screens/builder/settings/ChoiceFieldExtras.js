@@ -23,22 +23,22 @@ import { Field, TextControl, ToggleField } from '../../../components';
 function QuantityBlock( { cfg, setKey } ) {
 	return (
 		<>
-			<div className="pkitfw-settings__toggle-row">
+			<div className="optset-settings__toggle-row">
 				<ToggleField
 					checked={ !! cfg.enableQty }
 					onChange={ ( v ) => setKey( 'enableQty', v ) }
 					label={ __(
 						'Enable Quantity',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 			</div>
 			{ cfg.enableQty && (
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					<Field
 						label={ __(
 							'Minimum quantity',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -50,7 +50,7 @@ function QuantityBlock( { cfg, setKey } ) {
 					<Field
 						label={ __(
 							'Maximum quantity',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
@@ -77,25 +77,25 @@ function QuantityBlock( { cfg, setKey } ) {
 function RestrictionBlock( { cfg, setKey } ) {
 	return (
 		<>
-			<div className="pkitfw-settings__toggle-row">
+			<div className="optset-settings__toggle-row">
 				<ToggleField
 					checked={ !! cfg.minMaxRestriction }
 					onChange={ ( v ) => setKey( 'minMaxRestriction', v ) }
 					label={ __(
 						'Min Max Restriction',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 			</div>
 			{ cfg.minMaxRestriction && (
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					<Field
 						label={ __(
 							'Min restriction',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
-						<span className="pkitfw-input-suffix">
+						<span className="optset-input-suffix">
 							<TextControl
 								type="number"
 								value={ cfg.minSelect ?? '' }
@@ -104,7 +104,7 @@ function RestrictionBlock( { cfg, setKey } ) {
 							<em>
 								{ __(
 									'Item',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</em>
 						</span>
@@ -112,10 +112,10 @@ function RestrictionBlock( { cfg, setKey } ) {
 					<Field
 						label={ __(
 							'Max restriction',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
-						<span className="pkitfw-input-suffix">
+						<span className="optset-input-suffix">
 							<TextControl
 								type="number"
 								value={ cfg.maxSelect ?? '' }
@@ -124,7 +124,7 @@ function RestrictionBlock( { cfg, setKey } ) {
 							<em>
 								{ __(
 									'Item',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</em>
 						</span>
@@ -143,13 +143,13 @@ function RestrictionBlock( { cfg, setKey } ) {
  */
 function MultipleToggle( { cfg, setKey } ) {
 	return (
-		<div className="pkitfw-settings__toggle-row">
+		<div className="optset-settings__toggle-row">
 			<ToggleField
 				checked={ !! cfg.multiple }
 				onChange={ ( v ) => setKey( 'multiple', v ) }
 				label={ __(
 					'Allow Multiple',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			/>
 		</div>
@@ -201,7 +201,7 @@ export default function ChoiceFieldExtras( { node, patch } ) {
 		case 'imageswatch':
 			return (
 				<>
-					<div className="pkitfw-settings__toggle-row">
+					<div className="optset-settings__toggle-row">
 						<ToggleField
 							checked={ !! cfg.updateProductImage }
 							onChange={ ( v ) =>
@@ -209,7 +209,7 @@ export default function ChoiceFieldExtras( { node, patch } ) {
 							}
 							label={ __(
 								'Update product image on selection',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						/>
 					</div>
@@ -224,7 +224,7 @@ export default function ChoiceFieldExtras( { node, patch } ) {
 				<Field
 					label={ __(
 						'Placeholder',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				>
 					<TextControl

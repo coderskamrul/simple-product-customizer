@@ -2,12 +2,12 @@
 /**
  * Shared manual-revert helper for switchers without a native revert API.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Pricing\Currency\Adapter;
+namespace OptionSetBuilder\Pricing\Currency\Adapter;
 
-use ProductKit\Pricing\Currency\CurrencyBridge;
+use OptionSetBuilder\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -2,12 +2,12 @@
 /**
  * Single-line text field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -59,7 +59,7 @@ final class TextField extends AbstractField {
 		$choices = $this->choices();
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 
-		return '<input type="text" class="pkitfw-input" name="' . esc_attr( $this->input_name() ) . '"'
+		return '<input type="text" class="optset-input" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(

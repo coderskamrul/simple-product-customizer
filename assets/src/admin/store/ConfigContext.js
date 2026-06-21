@@ -1,7 +1,7 @@
 /**
- * Read-only access to the localized `window.pkitfwAdmin` bootstrap config plus
- * a few derived helpers (price formatting, Pro gate). Provided once at the
- * app root so screens never touch the global directly.
+ * Read-only access to the localized `window.optsetAdmin` bootstrap config plus
+ * a few derived helpers (price formatting). Provided once at the app root so
+ * screens never touch the global directly.
  *
  * @package
  */
@@ -28,7 +28,7 @@ const DEFAULT_CURRENCY = {
  */
 export function ConfigProvider( { children } ) {
 	const value = useMemo( () => {
-		const cfg = ( typeof window !== 'undefined' && window.pkitfwAdmin ) || {};
+		const cfg = ( typeof window !== 'undefined' && window.optsetAdmin ) || {};
 		const currency = { ...DEFAULT_CURRENCY, ...( cfg.currency || {} ) };
 
 		/**
@@ -57,7 +57,6 @@ export function ConfigProvider( { children } ) {
 		return {
 			...cfg,
 			currency,
-			proActive: !! cfg.proActive,
 			fieldTypes: cfg.fieldTypes || [],
 			attributes: cfg.attributes || {},
 			user: cfg.user || {},

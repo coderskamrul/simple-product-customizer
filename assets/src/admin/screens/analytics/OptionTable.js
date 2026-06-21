@@ -24,33 +24,33 @@ const COLUMNS = [
 		sort: 'option',
 		label: __(
 			'Option details',
-			'productkit-for-woocommerce'
+			'option-set-builder'
 		),
 	},
 	{
 		key: 'clicks',
 		sort: 'clicks',
-		label: __( 'Clicks', 'productkit-for-woocommerce' ),
+		label: __( 'Clicks', 'option-set-builder' ),
 	},
 	{
 		key: 'cart',
 		sort: 'cart',
-		label: __( 'Cart rate', 'productkit-for-woocommerce' ),
+		label: __( 'Cart rate', 'option-set-builder' ),
 	},
 	{
 		key: 'conversion',
 		sort: 'conversion',
-		label: __( 'Conversion', 'productkit-for-woocommerce' ),
+		label: __( 'Conversion', 'option-set-builder' ),
 	},
 	{
 		key: 'revenue',
 		sort: 'revenue',
-		label: __( 'Revenue', 'productkit-for-woocommerce' ),
+		label: __( 'Revenue', 'option-set-builder' ),
 	},
 	{
 		key: 'ctr',
 		sort: 'ctr',
-		label: __( 'CTR', 'productkit-for-woocommerce' ),
+		label: __( 'CTR', 'option-set-builder' ),
 		end: true,
 	},
 ];
@@ -177,29 +177,29 @@ export default function OptionTable( { status, error, rows } ) {
 	};
 
 	return (
-		<section className="pkitfw-an-card pkitfw-an-table">
-			<header className="pkitfw-an-table__head">
+		<section className="optset-an-card optset-an-table">
+			<header className="optset-an-table__head">
 				<div>
-					<h2 className="pkitfw-an-table__title">
+					<h2 className="optset-an-table__title">
 						{ __(
 							'Option Performance',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</h2>
-					<p className="pkitfw-an-table__sub">
+					<p className="optset-an-table__sub">
 						{ status === 'ready'
 							? sprintf(
 									/* translators: 1: shown count 2: total */
 									__(
 										'Showing %1$d of %2$d options',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									),
 									pageRows.length,
 									rows.length
 							  )
 							: __(
 									'Per-option lifetime totals',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  ) }
 					</p>
 				</div>
@@ -216,28 +216,28 @@ export default function OptionTable( { status, error, rows } ) {
 			{ status === 'loading' && <SkeletonTable rows={ 6 } cols={ 5 } /> }
 
 			{ status === 'error' && (
-				<div className="pkitfw-an-state">
-					<p className="pkitfw-error">{ error }</p>
+				<div className="optset-an-state">
+					<p className="optset-error">{ error }</p>
 				</div>
 			) }
 
 			{ status === 'ready' && filtered.length === 0 && (
-				<div className="pkitfw-an-state">
+				<div className="optset-an-state">
 					<EmptyState
 						icon="chart-bar"
 						title={ __(
 							'No options to show',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						text={
 							rows.length === 0
 								? __(
 										'Stats appear once shoppers view products with option sets.',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 								  )
 								: __(
 										'No options match the current search or filter.',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 								  )
 						}
 					/>
@@ -246,22 +246,22 @@ export default function OptionTable( { status, error, rows } ) {
 
 			{ status === 'ready' && filtered.length > 0 && (
 				<>
-					<div className="pkitfw-an-tablewrap">
-						<table className="pkitfw-an-grid">
+					<div className="optset-an-tablewrap">
+						<table className="optset-an-grid">
 							<thead>
 								<tr>
 									{ COLUMNS.map( ( col ) => (
 										<th
 											key={ col.key }
 											scope="col"
-											className={ `pkitfw-an-th${
-												col.end ? ' pkitfw-an-th--end' : ''
+											className={ `optset-an-th${
+												col.end ? ' optset-an-th--end' : ''
 											}` }
 											aria-sort={ ariaSort( col.sort ) }
 										>
 											<button
 												type="button"
-												className={ `pkitfw-an-sort${
+												className={ `optset-an-sort${
 													sort.key === col.sort
 														? ' is-active'
 														: ''
@@ -274,7 +274,7 @@ export default function OptionTable( { status, error, rows } ) {
 												<span
 													className={ `dashicons dashicons-${ sortIcon(
 														col.sort
-													) } pkitfw-an-sort__icon` }
+													) } optset-an-sort__icon` }
 													aria-hidden="true"
 												/>
 											</button>
@@ -294,13 +294,13 @@ export default function OptionTable( { status, error, rows } ) {
 						</table>
 					</div>
 
-					<footer className="pkitfw-an-foot">
-						<span className="pkitfw-an-foot__info">
+					<footer className="optset-an-foot">
+						<span className="optset-an-foot__info">
 							{ sprintf(
 								/* translators: 1: current page 2: total pages */
 								__(
 									'Page %1$d of %2$d',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								),
 								safePage,
 								totalPages

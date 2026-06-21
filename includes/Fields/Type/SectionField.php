@@ -2,13 +2,13 @@
 /**
  * Section container field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Core\Plugin;
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Core\Plugin;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -72,8 +72,8 @@ final class SectionField extends AbstractField {
 		}
 
 		$collapsed = $accordion && ! $open;
-		$sec_class = 'pkitfw-section'
-			. ( $accordion ? ' pkitfw-section--accordion' : '' )
+		$sec_class = 'optset-section'
+			. ( $accordion ? ' optset-section--accordion' : '' )
 			. ( $collapsed ? ' is-collapsed' : '' );
 
 		$html  = '<div ' . $this->wrapper_attrs()
@@ -81,14 +81,14 @@ final class SectionField extends AbstractField {
 			. ' data-open="' . ( $open ? 'yes' : 'no' ) . '">';
 		$html .= '<div class="' . esc_attr( $sec_class ) . '">';
 		if ( $accordion ) {
-			$html .= '<button type="button" class="pkitfw-section__header" aria-expanded="' . ( $open ? 'true' : 'false' ) . '">';
-			$html .= '<span class="pkitfw-section__title">' . esc_html( $label ) . '</span>';
-			$html .= '<span class="pkitfw-section__chevron" aria-hidden="true"></span>';
+			$html .= '<button type="button" class="optset-section__header" aria-expanded="' . ( $open ? 'true' : 'false' ) . '">';
+			$html .= '<span class="optset-section__title">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="optset-section__chevron" aria-hidden="true"></span>';
 			$html .= '</button>';
 		} elseif ( '' !== $label ) {
-			$html .= '<div class="pkitfw-section__header pkitfw-section__header--static"><span class="pkitfw-section__title">' . esc_html( $label ) . '</span></div>';
+			$html .= '<div class="optset-section__header optset-section__header--static"><span class="optset-section__title">' . esc_html( $label ) . '</span></div>';
 		}
-		$html .= '<div class="pkitfw-section__body">' . $body . '</div>';
+		$html .= '<div class="optset-section__body">' . $body . '</div>';
 		$html .= '</div>';
 		$html .= '</div>';
 		return $html;

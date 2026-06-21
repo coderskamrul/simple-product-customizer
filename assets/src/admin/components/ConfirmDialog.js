@@ -24,7 +24,7 @@ export default function ConfirmDialog( {
 	message,
 	onConfirm,
 	onCancel,
-	confirmText = __( 'Confirm', 'productkit-for-woocommerce' ),
+	confirmText = __( 'Confirm', 'option-set-builder' ),
 	danger = true,
 } ) {
 	return (
@@ -36,18 +36,18 @@ export default function ConfirmDialog( {
 				<>
 					<button
 						type="button"
-						className="pkitfw-btn pkitfw-btn--ghost"
+						className="optset-btn optset-btn--ghost"
 						onClick={ onCancel }
 					>
 						{ __(
 							'Cancel',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</button>
 					<button
 						type="button"
-						className={ `pkitfw-btn ${
-							danger ? 'pkitfw-btn--danger' : 'pkitfw-btn--primary'
+						className={ `optset-btn ${
+							danger ? 'optset-btn--danger' : 'optset-btn--primary'
 						}` }
 						onClick={ onConfirm }
 					>

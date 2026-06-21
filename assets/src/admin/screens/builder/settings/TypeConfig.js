@@ -9,7 +9,6 @@
 
 import { __ } from '@wordpress/i18n';
 import { getType, priceModeOptionsFor } from '../../../fields/registry';
-import { useConfig } from '../../../store/ConfigContext';
 import { useBuilder } from '../../../store/BuilderContext';
 import { flatten } from '../../../store/treeOps';
 import {
@@ -26,7 +25,7 @@ import ValuePricing from './ValuePricing';
  * @param {Object}   props          Component props.
  * @param {Object}   props.node     Selected node.
  * @param {Function} props.patch    (partialNode) => void.
- * @param {boolean}  props.advanced Whether this is the Pro advancedformula.
+ * @param {boolean}  props.advanced Whether this is the advanced formula.
  * @return {JSX.Element} The editor.
  */
 function FormulaEditor( { node, patch, advanced } ) {
@@ -42,22 +41,22 @@ function FormulaEditor( { node, patch, advanced } ) {
 					advanced
 						? __(
 								'Expression',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: __(
 								'Formula',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 				}
 				help={
 					advanced
 						? __(
 								'Variables in [brackets]; functions and comparisons supported.',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: __(
 								'Variables in {{double braces}}; arithmetic and % only.',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 				}
 			>
@@ -70,19 +69,19 @@ function FormulaEditor( { node, patch, advanced } ) {
 					}
 				/>
 			</Field>
-			<div className="pkitfw-formula-vars">
-				<span className="pkitfw-formula-vars__title">
+			<div className="optset-formula-vars">
+				<span className="optset-formula-vars__title">
 					{ __(
 						'Available variables',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</span>
-				<div className="pkitfw-formula-vars__list">
+				<div className="optset-formula-vars__list">
 					{ vars.length === 0 && (
-						<span className="pkitfw-hint">
+						<span className="optset-hint">
 							{ __(
 								'No other fields yet.',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</span>
 					) }
@@ -90,7 +89,7 @@ function FormulaEditor( { node, patch, advanced } ) {
 						<button
 							key={ v.id }
 							type="button"
-							className="pkitfw-token"
+							className="optset-token"
 							onClick={ () =>
 								patch( {
 									config: {
@@ -120,7 +119,6 @@ function FormulaEditor( { node, patch, advanced } ) {
  * @return {JSX.Element|null} The config block.
  */
 export default function TypeConfig( { node, patch } ) {
-	const { proActive } = useConfig();
 	const def = getType( node.type );
 	const cfg = node.config || {};
 
@@ -147,7 +145,6 @@ export default function TypeConfig( { node, patch } ) {
 		( m ) => ( {
 			value: m.value,
 			label: m.label,
-			disabled: m.pro && ! proActive,
 		} )
 	);
 
@@ -211,7 +208,7 @@ export default function TypeConfig( { node, patch } ) {
 			{ def.priceable && <ValuePricing node={ node } patch={ patch } /> }
 
 			{ toggleItems.map( ( item ) => (
-				<div key={ item.key } className="pkitfw-settings__toggle-row">
+				<div key={ item.key } className="optset-settings__toggle-row">
 					<ToggleField
 						checked={ !! cfg[ item.key ] }
 						onChange={ ( v ) => setKey( item.key, v ) }
@@ -221,12 +218,12 @@ export default function TypeConfig( { node, patch } ) {
 			) ) }
 
 			{ ( showPlaceholder || compactItems.length > 0 ) && (
-				<div className="pkitfw-settings__grid2">
+				<div className="optset-settings__grid2">
 					{ showPlaceholder && (
 						<Field
 							label={ __(
 								'Placeholder',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						>
 							<TextControl

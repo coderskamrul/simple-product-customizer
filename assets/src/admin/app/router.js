@@ -18,7 +18,6 @@ const ROUTES = [
 	{ name: 'assignment', pattern: '/set/:id/assignment' },
 	{ name: 'settings', pattern: '/settings' },
 	{ name: 'analytics', pattern: '/analytics' },
-	{ name: 'license', pattern: '/license' },
 ];
 
 /**

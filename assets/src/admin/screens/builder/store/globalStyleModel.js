@@ -8,9 +8,9 @@
  * single number scales the whole control consistently.
  *
  * Two compilers turn the model into CSS:
- *   - `compileCss()` → the scoped `.pkitfw-options{…}` rule saved to the DB and
+ *   - `compileCss()` → the scoped `.optset-options{…}` rule saved to the DB and
  *                       printed on the storefront (variables from store.scss).
- *   - `cssVars()`    → a `--pkitfw-gs-*` style object applied to the builder
+ *   - `cssVars()`    → a `--optset-gs-*` style object applied to the builder
  *                       canvas so edits preview live without a save.
  *
  * `normalize()` upgrades both the previous preset model (size/shape enums) and
@@ -49,7 +49,7 @@ export const DEFAULTS = {
 export const PALETTES = [
 	{
 		key: 'classic',
-		label: __( 'Classic', 'productkit-for-woocommerce' ),
+		label: __( 'Classic', 'option-set-builder' ),
 		ramp: [ '#1e1e1e', '#3a3a3a', '#9a9a9a', '#ffffff' ],
 		colors: {
 			text: '#1e1e1e',
@@ -62,7 +62,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'blue',
-		label: __( 'Blue', 'productkit-for-woocommerce' ),
+		label: __( 'Blue', 'option-set-builder' ),
 		ramp: [ '#0b1f4d', '#2563eb', '#7d9bd6', '#ffffff' ],
 		colors: {
 			text: '#0b1f4d',
@@ -75,7 +75,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'purple',
-		label: __( 'Purple', 'productkit-for-woocommerce' ),
+		label: __( 'Purple', 'option-set-builder' ),
 		ramp: [ '#1c004f', '#7126ff', '#a99bd6', '#ffffff' ],
 		colors: {
 			text: '#1c004f',
@@ -88,7 +88,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'pink',
-		label: __( 'Pink', 'productkit-for-woocommerce' ),
+		label: __( 'Pink', 'option-set-builder' ),
 		ramp: [ '#4a0d2e', '#db2777', '#c79bb0', '#ffffff' ],
 		colors: {
 			text: '#4a0d2e',
@@ -101,7 +101,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'orange',
-		label: __( 'Orange', 'productkit-for-woocommerce' ),
+		label: __( 'Orange', 'option-set-builder' ),
 		ramp: [ '#2b1700', '#ea8a1e', '#b3a08a', '#ffffff' ],
 		colors: {
 			text: '#2b1700',
@@ -114,7 +114,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'green',
-		label: __( 'Green', 'productkit-for-woocommerce' ),
+		label: __( 'Green', 'option-set-builder' ),
 		ramp: [ '#0d2b1a', '#16a34a', '#8aa897', '#ffffff' ],
 		colors: {
 			text: '#0d2b1a',
@@ -127,7 +127,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'teal',
-		label: __( 'Teal', 'productkit-for-woocommerce' ),
+		label: __( 'Teal', 'option-set-builder' ),
 		ramp: [ '#0a2b2b', '#0d9488', '#8aa8a5', '#ffffff' ],
 		colors: {
 			text: '#0a2b2b',
@@ -140,7 +140,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'lime',
-		label: __( 'Lime', 'productkit-for-woocommerce' ),
+		label: __( 'Lime', 'option-set-builder' ),
 		ramp: [ '#1a2b00', '#84cc16', '#a3b08a', '#ffffff' ],
 		colors: {
 			text: '#1a2b00',
@@ -194,7 +194,7 @@ export function hexAlpha( hex, alpha ) {
  * Coerce any stored value (current, preset, or legacy granular model) into the
  * current token shape, so old installs keep their look.
  *
- * @param {Object} raw Stored `pkitfw_global_style` value.
+ * @param {Object} raw Stored `optset_global_style` value.
  * @return {Object} A complete, current-shape token object.
  */
 export function normalize( raw ) {
@@ -308,29 +308,29 @@ export function compileCss( tokens ) {
 	const r = resolve( tokens );
 	const c = r.colors;
 	return [
-		'.pkitfw-options{',
-		`--pkitfw-label:${ c.text };`,
-		`--pkitfw-text:${ c.text };`,
-		`--pkitfw-accent:${ c.primary };`,
-		`--pkitfw-accent-contrast:${ c.onPrimary };`,
-		`--pkitfw-accent-soft:${ hexAlpha( c.primary, 0.1 ) };`,
-		`--pkitfw-border:${ c.border };`,
-		`--pkitfw-border-strong:${ c.border };`,
-		`--pkitfw-surface:${ c.fill };`,
-		`--pkitfw-required:${ c.error };`,
-		`--pkitfw-radius:${ r.radius };`,
-		`--pkitfw-radius-pill:${ r.pill };`,
-		`--pkitfw-swatch-radius:${ r.swatchRadius };`,
-		`--pkitfw-font-size:${ r.fontSize }px;`,
-		`--pkitfw-space:${ r.gap }px;`,
-		`--pkitfw-control-h:${ r.controlH }px;`,
-		`--pkitfw-swatch:${ r.swatch }px;`,
+		'.optset-options{',
+		`--optset-label:${ c.text };`,
+		`--optset-text:${ c.text };`,
+		`--optset-accent:${ c.primary };`,
+		`--optset-accent-contrast:${ c.onPrimary };`,
+		`--optset-accent-soft:${ hexAlpha( c.primary, 0.1 ) };`,
+		`--optset-border:${ c.border };`,
+		`--optset-border-strong:${ c.border };`,
+		`--optset-surface:${ c.fill };`,
+		`--optset-required:${ c.error };`,
+		`--optset-radius:${ r.radius };`,
+		`--optset-radius-pill:${ r.pill };`,
+		`--optset-swatch-radius:${ r.swatchRadius };`,
+		`--optset-font-size:${ r.fontSize }px;`,
+		`--optset-space:${ r.gap }px;`,
+		`--optset-control-h:${ r.controlH }px;`,
+		`--optset-swatch:${ r.swatch }px;`,
 		'}',
 	].join( '' );
 }
 
 /**
- * Build the `--pkitfw-gs-*` custom-property bag applied to the builder canvas for
+ * Build the `--optset-gs-*` custom-property bag applied to the builder canvas for
  * live preview. The canvas SCSS reads each with a fallback to its admin token,
  * so these only take effect inside the stage.
  *
@@ -341,18 +341,18 @@ export function cssVars( tokens ) {
 	const r = resolve( tokens );
 	const c = r.colors;
 	return {
-		'--pkitfw-gs-text': c.text,
-		'--pkitfw-gs-primary': c.primary,
-		'--pkitfw-gs-on-primary': c.onPrimary,
-		'--pkitfw-gs-soft': hexAlpha( c.primary, 0.1 ),
-		'--pkitfw-gs-border': c.border,
-		'--pkitfw-gs-fill': c.fill,
-		'--pkitfw-gs-error': c.error,
-		'--pkitfw-gs-radius': r.radius,
-		'--pkitfw-gs-swatch-radius': r.swatchRadius,
-		'--pkitfw-gs-control-h': `${ r.controlH }px`,
-		'--pkitfw-gs-font-size': `${ r.fontSize }px`,
-		'--pkitfw-gs-gap': `${ r.gap }px`,
-		'--pkitfw-gs-swatch': `${ r.swatch }px`,
+		'--optset-gs-text': c.text,
+		'--optset-gs-primary': c.primary,
+		'--optset-gs-on-primary': c.onPrimary,
+		'--optset-gs-soft': hexAlpha( c.primary, 0.1 ),
+		'--optset-gs-border': c.border,
+		'--optset-gs-fill': c.fill,
+		'--optset-gs-error': c.error,
+		'--optset-gs-radius': r.radius,
+		'--optset-gs-swatch-radius': r.swatchRadius,
+		'--optset-gs-control-h': `${ r.controlH }px`,
+		'--optset-gs-font-size': `${ r.fontSize }px`,
+		'--optset-gs-gap': `${ r.gap }px`,
+		'--optset-gs-swatch': `${ r.swatch }px`,
 	};
 }

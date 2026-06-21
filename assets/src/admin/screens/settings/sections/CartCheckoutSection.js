@@ -20,32 +20,32 @@ import SwitchRow from '../SwitchRow';
 export default function CartCheckoutSection( { values, set } ) {
 	const visible = __(
 		'Options will be visible',
-		'productkit-for-woocommerce'
+		'option-set-builder'
 	);
 	const hidden = __(
 		'Options will be hidden',
-		'productkit-for-woocommerce'
+		'option-set-builder'
 	);
 
 	return (
-		<div className="pkitfw-set-grid pkitfw-set-grid--2">
+		<div className="optset-set-grid optset-set-grid--2">
 			<SettingCard
 				icon="cart"
 				tone="amber"
 				title={ __(
 					'Cart Page',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				subtitle={ __(
 					'Visibility in cart',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				hint={ values.hideInCart ? hidden : visible }
 			>
 				<SwitchRow
 					label={ __(
 						'Hide options in cart',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					checked={ values.hideInCart }
 					onChange={ ( v ) => set( 'hideInCart', v ) }
@@ -57,18 +57,18 @@ export default function CartCheckoutSection( { values, set } ) {
 				tone="green"
 				title={ __(
 					'Checkout Page',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				subtitle={ __(
 					'Visibility at checkout',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				hint={ values.hideInCheckout ? hidden : visible }
 			>
 				<SwitchRow
 					label={ __(
 						'Hide options in checkout',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					checked={ values.hideInCheckout }
 					onChange={ ( v ) => set( 'hideInCheckout', v ) }

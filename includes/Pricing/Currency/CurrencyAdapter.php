@@ -2,10 +2,10 @@
 /**
  * Currency switcher adapter contract.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Pricing\Currency;
+namespace OptionSetBuilder\Pricing\Currency;
 
 defined( 'ABSPATH' ) || exit;
 

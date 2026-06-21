@@ -2,10 +2,10 @@
 /**
  * Shared markup helpers for field renderers.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Concerns;
+namespace OptionSetBuilder\Fields\Concerns;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,13 +23,13 @@ trait RendersMarkup {
 	 */
 	protected function width_class( $width ) {
 		$map = array(
-			'full'      => 'pkitfw-cw-full',
-			'half'      => 'pkitfw-cw-half',
-			'third'     => 'pkitfw-cw-third',
-			'two-third' => 'pkitfw-cw-two-third',
-			'quarter'   => 'pkitfw-cw-quarter',
+			'full'      => 'optset-cw-full',
+			'half'      => 'optset-cw-half',
+			'third'     => 'optset-cw-third',
+			'two-third' => 'optset-cw-two-third',
+			'quarter'   => 'optset-cw-quarter',
 		);
-		return isset( $map[ $width ] ) ? $map[ $width ] : 'pkitfw-cw-full';
+		return isset( $map[ $width ] ) ? $map[ $width ] : 'optset-cw-full';
 	}
 
 	/**

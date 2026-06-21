@@ -11,15 +11,15 @@ import { __ } from '@wordpress/i18n';
 const FILTERS = [
 	{
 		id: 'all',
-		label: __( 'All', 'productkit-for-woocommerce' ),
+		label: __( 'All', 'option-set-builder' ),
 	},
 	{
 		id: 'active',
-		label: __( 'Active', 'productkit-for-woocommerce' ),
+		label: __( 'Active', 'option-set-builder' ),
 	},
 	{
 		id: 'inactive',
-		label: __( 'Inactive', 'productkit-for-woocommerce' ),
+		label: __( 'Inactive', 'option-set-builder' ),
 	},
 ];
 
@@ -71,32 +71,32 @@ export default function OptionSetToolbar( {
 		FILTERS.find( ( f ) => f.id === filter ) || FILTERS[ 0 ];
 
 	return (
-		<div className="pkitfw-os-toolbar">
-			<div className="pkitfw-os-search">
+		<div className="optset-os-toolbar">
+			<div className="optset-os-search">
 				<span
-					className="dashicons dashicons-search pkitfw-os-search__icon"
+					className="dashicons dashicons-search optset-os-search__icon"
 					aria-hidden="true"
 				/>
 				<input
 					type="search"
-					className="pkitfw-os-search__input"
+					className="optset-os-search__input"
 					placeholder={ __(
 						'Search options…',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					value={ term }
 					onChange={ ( e ) => onSearch( e.target.value ) }
 					aria-label={ __(
 						'Search option sets',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 			</div>
 
-			<div className="pkitfw-os-filter" ref={ filterRef }>
+			<div className="optset-os-filter" ref={ filterRef }>
 				<button
 					type="button"
-					className={ `pkitfw-os-btn pkitfw-os-btn--ghost${
+					className={ `optset-os-btn optset-os-btn--ghost${
 						filter !== 'all' ? ' is-on' : ''
 					}` }
 					aria-haspopup="menu"
@@ -109,23 +109,23 @@ export default function OptionSetToolbar( {
 					/>
 					{ __(
 						'Filter',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					{ filter !== 'all' && (
-						<span className="pkitfw-os-filter__tag">
+						<span className="optset-os-filter__tag">
 							{ activeFilter.label }
 						</span>
 					) }
 				</button>
 				{ open && (
-					<ul className="pkitfw-os-menu" role="menu">
+					<ul className="optset-os-menu" role="menu">
 						{ FILTERS.map( ( f ) => (
 							<li key={ f.id } role="none">
 								<button
 									type="button"
 									role="menuitemradio"
 									aria-checked={ f.id === filter }
-									className={ `pkitfw-os-menu__item${
+									className={ `optset-os-menu__item${
 										f.id === filter ? ' is-active' : ''
 									}` }
 									onClick={ () => {
@@ -134,7 +134,7 @@ export default function OptionSetToolbar( {
 									} }
 								>
 									<span
-										className="dashicons dashicons-yes pkitfw-os-menu__tick"
+										className="dashicons dashicons-yes optset-os-menu__tick"
 										aria-hidden="true"
 									/>
 									{ f.label }
@@ -145,29 +145,29 @@ export default function OptionSetToolbar( {
 				) }
 			</div>
 
-			<div className="pkitfw-os-toolbar__spacer" />
+			<div className="optset-os-toolbar__spacer" />
 
 			<button
 				type="button"
-				className="pkitfw-os-btn pkitfw-os-btn--ghost"
+				className="optset-os-btn optset-os-btn--ghost"
 				onClick={ onExport }
 			>
 				<span
 					className="dashicons dashicons-download"
 					aria-hidden="true"
 				/>
-				{ __( 'Export', 'productkit-for-woocommerce' ) }
+				{ __( 'Export', 'option-set-builder' ) }
 			</button>
 			<button
 				type="button"
-				className="pkitfw-os-btn pkitfw-os-btn--ghost"
+				className="optset-os-btn optset-os-btn--ghost"
 				onClick={ onImport }
 			>
 				<span
 					className="dashicons dashicons-upload"
 					aria-hidden="true"
 				/>
-				{ __( 'Import', 'productkit-for-woocommerce' ) }
+				{ __( 'Import', 'option-set-builder' ) }
 			</button>
 		</div>
 	);

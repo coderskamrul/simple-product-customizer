@@ -2,22 +2,21 @@
 /**
  * Base class for every option type.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields;
+namespace OptionSetBuilder\Fields;
 
-use ProductKit\Core\Capabilities;
-use ProductKit\Fields\Concerns\HandlesPricing;
-use ProductKit\Fields\Concerns\RendersMarkup;
-use ProductKit\Support\Arr;
+use OptionSetBuilder\Fields\Concerns\HandlesPricing;
+use OptionSetBuilder\Fields\Concerns\RendersMarkup;
+use OptionSetBuilder\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Provides node accessors, the standard field wrapper (DOM contract §8),
- * label/description markup, choice handling and Pro gating. Concrete types
- * implement type() and the inner control markup via inner().
+ * label/description markup and choice handling. Concrete types implement
+ * type() and the inner control markup via inner().
  */
 abstract class AbstractField implements FieldContract {
 
@@ -95,17 +94,13 @@ abstract class AbstractField implements FieldContract {
 	}
 
 	/**
-	 * Choices, Pro-capped (free tier: first 3).
+	 * Choices for this field.
 	 *
 	 * @return array
 	 */
 	protected function choices() {
 		$choices = Arr::get( $this->node, 'choices', array() );
-		$choices = is_array( $choices ) ? array_values( $choices ) : array();
-		if ( ! Capabilities::pro() && count( $choices ) > 3 ) {
-			$choices = array_slice( $choices, 0, 3 );
-		}
-		return $choices;
+		return is_array( $choices ) ? array_values( $choices ) : array();
 	}
 
 	/**
@@ -114,7 +109,7 @@ abstract class AbstractField implements FieldContract {
 	 * @return string
 	 */
 	protected function input_name() {
-		return 'pkitfw_input_' . $this->id();
+		return 'optset_input_' . $this->id();
 	}
 
 	/**
@@ -123,7 +118,7 @@ abstract class AbstractField implements FieldContract {
 	 * @return string
 	 */
 	protected function choice_name() {
-		return 'pkitfw_choice_' . $this->id();
+		return 'optset_choice_' . $this->id();
 	}
 
 	/**
@@ -141,7 +136,7 @@ abstract class AbstractField implements FieldContract {
 		$min = '' !== (string) $this->cfg( 'minQty', '' ) ? (int) $this->cfg( 'minQty' ) : 0;
 		$max = '' !== (string) $this->cfg( 'maxQty', '' ) ? (int) $this->cfg( 'maxQty' ) : '';
 
-		return '<input type="number" class="pkitfw-choice__qty" name="pkitfw_qty_' . esc_attr( $this->id() ) . '_' . esc_attr( (string) $index ) . '"'
+		return '<input type="number" class="optset-choice__qty" name="optset_qty_' . esc_attr( $this->id() ) . '_' . esc_attr( (string) $index ) . '"'
 			. $this->attrs(
 				array(
 					'min'   => $min,
@@ -213,15 +208,15 @@ abstract class AbstractField implements FieldContract {
 		$start_hidden = $has_rules && 'hide' !== $action;
 		$classes      = $this->classes(
 			array(
-				'pkitfw-field',
-				'pkitfw-field--' . $this->type(),
+				'optset-field',
+				'optset-field--' . $this->type(),
 				$this->width_class( (string) $this->prop( 'width', 'full' ) ),
-				$start_hidden ? 'pkitfw-hidden' : '',
+				$start_hidden ? 'optset-hidden' : '',
 				(string) $this->prop( 'cssClass', '' ),
 			)
 		);
 
-		return 'class="' . esc_attr( $classes ) . '" id="pkitfw-field-' . esc_attr( $this->id() ) . '"' . $this->attrs(
+		return 'class="' . esc_attr( $classes ) . '" id="optset-field-' . esc_attr( $this->id() ) . '"' . $this->attrs(
 			array(
 				'data-field-id'    => $this->id(),
 				'data-type'        => $this->type(),
@@ -247,18 +242,18 @@ abstract class AbstractField implements FieldContract {
 		if ( '' === $label ) {
 			return '';
 		}
-		$req = ! empty( $this->prop( 'required' ) ) ? ' <span class="pkitfw-required" aria-hidden="true">*</span>' : '';
+		$req = ! empty( $this->prop( 'required' ) ) ? ' <span class="optset-required" aria-hidden="true">*</span>' : '';
 
-		$html  = '<div class="pkitfw-field__label">';
-		$html .= '<span class="pkitfw-field__label-text">' . esc_html( $label ) . $req . '</span>';
+		$html  = '<div class="optset-field__label">';
+		$html .= '<span class="optset-field__label-text">' . esc_html( $label ) . $req . '</span>';
 		$html .= $this->label_suffix();
 		if ( 'tooltip' === $this->prop( 'descriptionPlacement' ) && '' !== (string) $this->prop( 'description', '' ) ) {
-			$html .= '<span class="pkitfw-tooltip" tabindex="0" data-tip="' . esc_attr( wp_strip_all_tags( (string) $this->prop( 'description' ) ) ) . '">?</span>';
+			$html .= '<span class="optset-tooltip" tabindex="0" data-tip="' . esc_attr( wp_strip_all_tags( (string) $this->prop( 'description' ) ) ) . '">?</span>';
 		}
 		$html .= '</div>';
 
 		if ( 'below_label' === $this->prop( 'descriptionPlacement', 'below_label' ) && '' !== (string) $this->prop( 'description', '' ) ) {
-			$html .= '<div class="pkitfw-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
+			$html .= '<div class="optset-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
 		}
 		return $html;
 	}
@@ -281,7 +276,7 @@ abstract class AbstractField implements FieldContract {
 	 */
 	protected function below_field_desc() {
 		if ( 'below_field' === $this->prop( 'descriptionPlacement' ) && '' !== (string) $this->prop( 'description', '' ) ) {
-			return '<div class="pkitfw-field__desc pkitfw-field__desc--below">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
+			return '<div class="optset-field__desc optset-field__desc--below">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
 		}
 		return '';
 	}
@@ -298,9 +293,9 @@ abstract class AbstractField implements FieldContract {
 	public function render() {
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
 		$html .= $this->label_html();
-		$html .= '<div class="pkitfw-field__control">' . $this->inner() . '</div>';
+		$html .= '<div class="optset-field__control">' . $this->inner() . '</div>';
 		$html .= $this->below_field_desc();
-		$html .= '<div class="pkitfw-field__error" role="alert"></div>';
+		$html .= '<div class="optset-field__error" role="alert"></div>';
 		$html .= '</div>';
 		return $html;
 	}

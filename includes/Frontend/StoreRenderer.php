@@ -2,24 +2,24 @@
 /**
  * Storefront option-set renderer.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Frontend;
+namespace OptionSetBuilder\Frontend;
 
-use ProductKit\Core\Container;
-use ProductKit\Data\AssignmentResolver;
-use ProductKit\Data\OptionSetRepository;
-use ProductKit\Fields\FieldRegistry;
-use ProductKit\Pricing\PriceCalculator;
-use ProductKit\Support\Money;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Data\AssignmentResolver;
+use OptionSetBuilder\Data\OptionSetRepository;
+use OptionSetBuilder\Fields\FieldRegistry;
+use OptionSetBuilder\Pricing\PriceCalculator;
+use OptionSetBuilder\Support\Money;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Emits the full storefront DOM for a product's resolved option sets,
  * faithfully following ARCHITECTURE §8 (exact ids / classes / data-*). The
- * store JS bundle (window.pkitfwStore) consumes everything written here, so the
+ * store JS bundle (window.optsetStore) consumes everything written here, so the
  * markup contract is load-bearing.
  */
 final class StoreRenderer {
@@ -124,14 +124,14 @@ final class StoreRenderer {
 			}
 
 			$rendered_sets[] = sprintf(
-				'<div class="pkitfw-set" data-set-id="%d">%s</div>',
+				'<div class="optset-set" data-set-id="%d">%s</div>',
 				$set_id,
 				$inner
 			);
 			$published_ids[] = $set_id;
 
 			// Impression counter — recorded once per rendered set.
-			do_action( 'pkitfw_stats_record', $set_id, 'impressions', 0 );
+			do_action( 'optset_stats_record', $set_id, 'impressions', 0 );
 		}
 
 		if ( array() === $rendered_sets ) {
@@ -139,19 +139,98 @@ final class StoreRenderer {
 		}
 
 		// Tell StoreAssets to attach (handles the AJAX-loaded page case too).
-		do_action( 'pkitfw_enqueue_store_assets', $product_id, $published_ids );
+		do_action( 'optset_enqueue_store_assets', $product_id, $published_ids );
 
 		$html  = sprintf(
-			'<div class="pkitfw-options pkitfw-loading" data-product-id="%d">',
+			'<div class="optset-options optset-loading" data-product-id="%d">',
 			$product_id
 		);
-		$html .= '<div class="pkitfw-loader" aria-hidden="true"></div>';
+		$html .= '<div class="optset-loader" aria-hidden="true"></div>';
 		$html .= $this->hidden_inputs( $product, $published_ids );
 		$html .= implode( '', $rendered_sets );
 		$html .= $this->price_summary( $product );
 		$html .= '</div>';
 
-		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- All dynamic parts escaped at source (field render, esc_attr below).
+		// Escape on output. Every dynamic value is already escaped at source;
+		// this final wp_kses() with the storefront allow-list is the output-time
+		// guarantee, preserving the form controls and data-* contract the store
+		// JS relies on. The safe_style_css filter whitelists the inline-style
+		// properties the field renderers emit.
+		$style_props = static function ( $props ) {
+			return array_merge(
+				(array) $props,
+				array( 'background', 'background-color', 'border-radius', 'border-top-width', 'height', 'width', 'font-family' )
+			);
+		};
+		add_filter( 'safe_style_css', $style_props );
+		echo wp_kses( $html, self::allowed_html() );
+		remove_filter( 'safe_style_css', $style_props );
+	}
+
+	/**
+	 * Allow-list of tags/attributes for the storefront markup passed to
+	 * wp_kses(). Extends the standard post set with the form controls, inline
+	 * SVG and <style> the field renderers emit, and applies a shared attribute
+	 * set (class/id/style, ARIA, SVG geometry and the data-* contract the store
+	 * JS reads) to every permitted tag.
+	 *
+	 * @return array<string,array<string,bool>>
+	 */
+	private static function allowed_html() {
+		// Shared attributes permitted on every tag below. All values are
+		// escaped at source; allowing them here just stops wp_kses() stripping
+		// the load-bearing data-*/form attributes.
+		$attr = array_fill_keys(
+			array(
+				// Common / form.
+				'class', 'id', 'style', 'title', 'role', 'hidden', 'tabindex', 'for',
+				'name', 'value', 'type', 'placeholder', 'checked', 'selected', 'disabled',
+				'readonly', 'required', 'multiple', 'min', 'max', 'step', 'maxlength',
+				'minlength', 'pattern', 'size', 'rows', 'cols', 'accept', 'autocomplete',
+				'src', 'alt', 'width', 'height', 'srcset', 'sizes', 'loading',
+				// ARIA.
+				'aria-hidden', 'aria-label', 'aria-labelledby', 'aria-describedby',
+				'aria-expanded', 'aria-controls', 'aria-selected', 'aria-checked',
+				'aria-disabled', 'aria-live',
+				// Inline SVG geometry (attribute case is preserved on output).
+				'viewbox', 'xmlns', 'fill', 'stroke', 'stroke-width', 'stroke-linecap',
+				'stroke-linejoin', 'd', 'cx', 'cy', 'r', 'x', 'y', 'rx', 'ry', 'points', 'transform',
+				// Storefront data-* contract consumed by window.optsetStore.
+				'data-accordion', 'data-bidmap', 'data-columns', 'data-cost', 'data-cost-sale',
+				'data-default', 'data-default-country', 'data-defaults', 'data-disable-dates',
+				'data-disable-monthdays', 'data-disable-today', 'data-disable-weekdays',
+				'data-error-max', 'data-error-size', 'data-expression', 'data-field-id',
+				'data-flag-style', 'data-font', 'data-format', 'data-hour12', 'data-image-id',
+				'data-index', 'data-label', 'data-layout', 'data-logic', 'data-logic-rules',
+				'data-lp-price', 'data-max', 'data-max-date', 'data-max-mode', 'data-max-select',
+				'data-max-size', 'data-max-time', 'data-merge', 'data-min', 'data-min-date',
+				'data-min-mode', 'data-min-select', 'data-min-time', 'data-multiple', 'data-off',
+				'data-on', 'data-open', 'data-popup-close', 'data-popup-for', 'data-price',
+				'data-price-mode', 'data-product-id', 'data-product-type', 'data-qty',
+				'data-required', 'data-set-id', 'data-step', 'data-tip', 'data-type', 'data-uid',
+				'data-update-image', 'data-value', 'data-variant', 'data-variation',
+			),
+			true
+		);
+
+		// Tags the renderers emit on top of the standard post set.
+		$extra_tags = array(
+			'div', 'span', 'label', 'strong', 'em', 'small', 'p', 'br', 'hr', 'del', 'ins',
+			'button', 'input', 'select', 'option', 'optgroup', 'textarea', 'img', 'a',
+			'style', 'svg', 'path', 'circle', 'rect', 'g', 'line', 'polyline', 'polygon',
+		);
+
+		$allowed = wp_kses_allowed_html( 'post' );
+		foreach ( $extra_tags as $tag ) {
+			if ( ! isset( $allowed[ $tag ] ) || ! is_array( $allowed[ $tag ] ) ) {
+				$allowed[ $tag ] = array();
+			}
+		}
+		foreach ( $allowed as $tag => $tag_attr ) {
+			$allowed[ $tag ] = array_merge( is_array( $tag_attr ) ? $tag_attr : array(), $attr );
+		}
+
+		return $allowed;
 	}
 
 	/**
@@ -205,35 +284,35 @@ final class StoreRenderer {
 			'height' => method_exists( $product, 'get_height' ) ? Money::f( $product->get_height() ) : 0,
 		);
 
-		$html  = '<input type="hidden" name="pkitfw_field_data" class="pkitfw-field-data" value="" />';
-		$html .= '<input type="hidden" name="pkitfw_linked_products" class="pkitfw-linked-products" value="" />';
+		$html  = '<input type="hidden" name="optset_field_data" class="optset-field-data" value="" />';
+		$html .= '<input type="hidden" name="optset_linked_products" class="optset-linked-products" value="" />';
 		$html .= sprintf(
-			'<input type="hidden" name="pkitfw_published_set_ids" value="%s" />',
+			'<input type="hidden" name="optset_published_set_ids" value="%s" />',
 			esc_attr( (string) wp_json_encode( array_values( array_map( 'intval', $published_ids ) ) ) )
 		);
 		$html .= sprintf(
-			'<input type="hidden" name="pkitfw_shipping_dynamics" value="%s" />',
+			'<input type="hidden" name="optset_shipping_dynamics" value="%s" />',
 			esc_attr( (string) wp_json_encode( $shipping ) )
 		);
 
 		$html .= sprintf(
-			'<span class="pkitfw-holder" id="pkitfw-base-price" data-value="%s"></span>',
+			'<span class="optset-holder" id="optset-base-price" data-value="%s"></span>',
 			esc_attr( (string) $base )
 		);
 		$html .= sprintf(
-			'<span class="pkitfw-holder" id="pkitfw-base-price-pct" data-value="%s"></span>',
+			'<span class="optset-holder" id="optset-base-price-pct" data-value="%s"></span>',
 			esc_attr( (string) $base_pct )
 		);
 		$html .= sprintf(
-			'<span class="pkitfw-holder" id="pkitfw-variation-prices" data-value="%s"></span>',
+			'<span class="optset-holder" id="optset-variation-prices" data-value="%s"></span>',
 			esc_attr( (string) wp_json_encode( $variation_prices ) )
 		);
 		$html .= sprintf(
-			'<span class="pkitfw-holder" id="pkitfw-variation-prices-pct" data-value="%s"></span>',
+			'<span class="optset-holder" id="optset-variation-prices-pct" data-value="%s"></span>',
 			esc_attr( (string) wp_json_encode( $variation_prices_pct ) )
 		);
 		$html .= sprintf(
-			'<span class="pkitfw-holder" id="pkitfw-product-attributes" data-product-type="%s" data-value="%s"></span>',
+			'<span class="optset-holder" id="optset-product-attributes" data-product-type="%s" data-value="%s"></span>',
 			esc_attr( method_exists( $product, 'get_type' ) ? (string) $product->get_type() : '' ),
 			esc_attr( (string) wp_json_encode( $attribute_map ) )
 		);
@@ -263,20 +342,20 @@ final class StoreRenderer {
 		$pricing = $this->container->get( 'pricing' );
 		$base    = $pricing ? $pricing->productBasePrice( (int) $product->get_id(), 0 ) : 0.0;
 
-		$out = '<div class="pkitfw-price-summary">';
+		$out = '<div class="optset-price-summary">';
 
 		if ( $show_price ) {
 			$out .= sprintf(
-				'<div class="pkitfw-price-row"><strong class="pkitfw-price-label">%s</strong> <span id="pkitfw-options-price" class="pkitfw-price-value">%s</span></div>',
-				esc_html( (string) $settings->get( 'priceLineLabel', __( 'Options Price', 'productkit-for-woocommerce' ) ) ),
+				'<div class="optset-price-row"><strong class="optset-price-label">%s</strong> <span id="optset-options-price" class="optset-price-value">%s</span></div>',
+				esc_html( (string) $settings->get( 'priceLineLabel', __( 'Options Price', 'option-set-builder' ) ) ),
 				wp_kses_post( Money::html( 0 ) )
 			);
 		}
 
 		if ( $show_total ) {
 			$out .= sprintf(
-				'<div class="pkitfw-price-row"><strong class="pkitfw-price-label">%s</strong> <span id="pkitfw-options-total" class="pkitfw-price-value">%s</span></div>',
-				esc_html( (string) $settings->get( 'totalLineLabel', __( 'Total Price', 'productkit-for-woocommerce' ) ) ),
+				'<div class="optset-price-row"><strong class="optset-price-label">%s</strong> <span id="optset-options-total" class="optset-price-value">%s</span></div>',
+				esc_html( (string) $settings->get( 'totalLineLabel', __( 'Total Price', 'option-set-builder' ) ) ),
 				wp_kses_post( Money::html( $base ) )
 			);
 		}

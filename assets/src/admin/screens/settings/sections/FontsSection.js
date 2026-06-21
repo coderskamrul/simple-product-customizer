@@ -51,7 +51,7 @@ export default function FontsSection() {
 			notify(
 				__(
 					'Font title is required.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				'error'
 			);
@@ -80,7 +80,7 @@ export default function FontsSection() {
 			notify(
 				__(
 					'Font title is required.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				'error'
 			);
@@ -90,7 +90,7 @@ export default function FontsSection() {
 			notify(
 				__(
 					'Choose a font file first.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				'error'
 			);
@@ -107,31 +107,31 @@ export default function FontsSection() {
 	};
 
 	return (
-		<div className="pkitfw-set-stack">
+		<div className="optset-set-stack">
 			<SettingCard
 				icon="plus-alt2"
 				tone="pink"
 				title={ __(
 					'Add New Font',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 				subtitle={ __(
 					'Upload a font file and give it a name',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
-				<div className="pkitfw-set-fontform">
+				<div className="optset-set-fontform">
 					<Field
 						label={ __(
 							'Font Title *',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
 							value={ title }
 							placeholder={ __(
 								'My Custom Font',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 							onChange={ setTitle }
 						/>
@@ -139,14 +139,14 @@ export default function FontsSection() {
 					<Field
 						label={ __(
 							'CSS Family (optional)',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<TextControl
 							value={ family }
 							placeholder={ __(
 								"'My Custom Font', sans-serif",
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 							onChange={ setFamily }
 						/>
@@ -154,78 +154,78 @@ export default function FontsSection() {
 					<Field
 						label={ __(
 							'Font File *',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<FilePicker inputRef={ fileRef } accept={ ACCEPT } />
 					</Field>
 					<button
 						type="button"
-						className="pkitfw-set-save pkitfw-set-save--sm"
+						className="optset-set-save optset-set-save--sm"
 						disabled={ busy }
 						onClick={ onUpload }
 					>
 						{ busy
 							? __(
 									'Uploading…',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  )
 							: __(
 									'Upload',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  ) }
 					</button>
 				</div>
 			</SettingCard>
 
-			<div className="pkitfw-set-fonts">
-				<h3 className="pkitfw-set-fonts__title">
+			<div className="optset-set-fonts">
+				<h3 className="optset-set-fonts__title">
 					{ __(
 						'Uploaded Fonts',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</h3>
 
 				{ loading && (
-					<div className="pkitfw-set-fonts__empty">
+					<div className="optset-set-fonts__empty">
 						<Skeleton w="60%" h={ 14 } />
 						<Skeleton w="80%" h={ 12 } />
 						<Skeleton w="40%" h={ 12 } />
 					</div>
 				) }
 				{ ! loading && fonts.length === 0 && (
-					<div className="pkitfw-set-fonts__empty">
+					<div className="optset-set-fonts__empty">
 						<span
-							className="dashicons dashicons-editor-textcolor pkitfw-set-fonts__emptyicon"
+							className="dashicons dashicons-editor-textcolor optset-set-fonts__emptyicon"
 							aria-hidden="true"
 						/>
-						<p className="pkitfw-set-fonts__emptytitle">
+						<p className="optset-set-fonts__emptytitle">
 							{ __(
 								'No custom fonts uploaded yet',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</p>
-						<p className="pkitfw-set-fonts__emptysub">
+						<p className="optset-set-fonts__emptysub">
 							{ __(
 								'Add your first font above',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</p>
 					</div>
 				) }
 				{ ! loading && fonts.length > 0 && (
-					<ul className="pkitfw-set-fontlist">
+					<ul className="optset-set-fontlist">
 						{ fonts.map( ( f ) =>
 							editingId === f.id ? (
 								<li
 									key={ f.id }
-									className="pkitfw-set-fontrow pkitfw-set-fontrow--editing"
+									className="optset-set-fontrow optset-set-fontrow--editing"
 								>
-									<div className="pkitfw-set-fontedit">
+									<div className="optset-set-fontedit">
 										<Field
 											label={ __(
 												'Font Title',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 										>
 											<TextControl
@@ -236,7 +236,7 @@ export default function FontsSection() {
 										<Field
 											label={ __(
 												'CSS Family',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 										>
 											<TextControl
@@ -245,53 +245,53 @@ export default function FontsSection() {
 											/>
 										</Field>
 									</div>
-									<div className="pkitfw-set-fontedit__actions">
+									<div className="optset-set-fontedit__actions">
 										<button
 											type="button"
-											className="pkitfw-set-save pkitfw-set-save--sm"
+											className="optset-set-save optset-set-save--sm"
 											disabled={ busy }
 											onClick={ () => saveEdit( f.id ) }
 										>
 											{ __(
 												'Save',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 										</button>
 										<button
 											type="button"
-											className="pkitfw-btn pkitfw-btn--ghost"
+											className="optset-btn optset-btn--ghost"
 											onClick={ cancelEdit }
 										>
 											{ __(
 												'Cancel',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 										</button>
 									</div>
 								</li>
 							) : (
-								<li key={ f.id } className="pkitfw-set-fontrow">
+								<li key={ f.id } className="optset-set-fontrow">
 									<span
-										className="pkitfw-set-fontrow__name"
+										className="optset-set-fontrow__name"
 										style={ {
 											fontFamily: f.family || 'inherit',
 										} }
 									>
 										{ f.title }
 									</span>
-									<span className="pkitfw-set-fontrow__meta">
+									<span className="optset-set-fontrow__meta">
 										{ f.family || '—' }
 									</span>
-									<span className="pkitfw-set-fontrow__type">
+									<span className="optset-set-fontrow__type">
 										{ ( f.file_type || '' ).toUpperCase() }
 									</span>
 									<button
 										type="button"
-										className="pkitfw-set-iconbtn"
+										className="optset-set-iconbtn"
 										onClick={ () => startEdit( f ) }
 										aria-label={ __(
 											'Edit font',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									>
 										<span
@@ -301,11 +301,11 @@ export default function FontsSection() {
 									</button>
 									<button
 										type="button"
-										className="pkitfw-set-iconbtn pkitfw-set-iconbtn--danger"
+										className="optset-set-iconbtn optset-set-iconbtn--danger"
 										onClick={ () => remove( f.id ) }
 										aria-label={ __(
 											'Delete font',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									>
 										<span
@@ -314,14 +314,14 @@ export default function FontsSection() {
 										/>
 									</button>
 									<span
-										className="pkitfw-set-fontrow__sample"
+										className="optset-set-fontrow__sample"
 										style={ {
 											fontFamily: f.family || 'inherit',
 										} }
 									>
 										{ __(
 											'The quick brown fox jumps over the lazy dog',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									</span>
 								</li>

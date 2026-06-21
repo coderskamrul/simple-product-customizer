@@ -2,12 +2,12 @@
 /**
  * Resolves which option sets apply to a product.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Data;
+namespace OptionSetBuilder\Data;
 
-use ProductKit\Support\Str;
+use OptionSetBuilder\Support\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,10 +20,10 @@ defined( 'ABSPATH' ) || exit;
  */
 final class AssignmentResolver {
 
-	const OPT_ALL          = 'pkitfw_assign_all';
-	const META_PROD_INC    = '_pkitfw_assigned_include';
-	const META_PROD_EXC    = '_pkitfw_assigned_exclude';
-	const META_TERM        = '_pkitfw_term_assigned';
+	const OPT_ALL          = 'optset_assign_all';
+	const META_PROD_INC    = '_optset_assigned_include';
+	const META_PROD_EXC    = '_optset_assigned_exclude';
+	const META_TERM        = '_optset_term_assigned';
 	const TAXONOMIES       = array( 'product_cat', 'product_tag', 'product_brand' );
 
 	/**
@@ -95,7 +95,7 @@ final class AssignmentResolver {
 		 * @param int[] $ids        Resolved ids.
 		 * @param int   $product_id Product id.
 		 */
-		$ids = (array) apply_filters( 'pkitfw_resolved_set_ids', $ids, $product_id );
+		$ids = (array) apply_filters( 'optset_resolved_set_ids', $ids, $product_id );
 
 		$this->cache[ $product_id ] = $ids;
 		return $ids;

@@ -15,7 +15,6 @@ import Builder from '../screens/Builder';
 import Assignment from '../screens/Assignment';
 import Settings from '../screens/Settings';
 import Analytics from '../screens/Analytics';
-import License from '../screens/License';
 
 /**
  * Resolve the active route to a screen element.
@@ -36,8 +35,6 @@ function Screen( { route } ) {
 			return <Settings />;
 		case 'analytics':
 			return <Analytics />;
-		case 'license':
-			return <License />;
 		case 'dashboard':
 		default:
 			return <Dashboard />;
@@ -60,11 +57,11 @@ function Shell() {
 	const hideTopBar = isBuilder;
 
 	return (
-		<div className="pkitfw-app">
+		<div className="optset-app">
 			{ ! hideTopBar && <TopBar /> }
 			<main
-				className={ `pkitfw-app__outlet${
-					isBuilder ? ' pkitfw-app__outlet--bleed' : ''
+				className={ `optset-app__outlet${
+					isBuilder ? ' optset-app__outlet--bleed' : ''
 				}` }
 			>
 				<Screen route={ route } />

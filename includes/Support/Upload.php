@@ -2,16 +2,16 @@
 /**
  * Upload directory + file relocation helpers.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Support;
+namespace OptionSetBuilder\Support;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Manages the plugin's private upload buckets:
- * uploads/pkitfw_uploads/{temp,order_placed,order_completed} and uploads/pkitfw_fonts.
+ * uploads/optset_uploads/{temp,order_placed,order_completed} and uploads/optset_fonts.
  */
 final class Upload {
 
@@ -25,7 +25,7 @@ final class Upload {
 	 */
 	public static function dir( $bucket = 'temp' ) {
 		$base = wp_upload_dir();
-		$sub  = 'fonts' === $bucket ? 'pkitfw_fonts' : 'pkitfw_uploads/' . sanitize_file_name( $bucket );
+		$sub  = 'fonts' === $bucket ? 'optset_fonts' : 'optset_uploads/' . sanitize_file_name( $bucket );
 		$path = trailingslashit( $base['basedir'] ) . $sub . '/';
 		if ( ! is_dir( $path ) ) {
 			wp_mkdir_p( $path );
@@ -41,7 +41,7 @@ final class Upload {
 	 */
 	public static function url( $bucket = 'temp' ) {
 		$base = wp_upload_dir();
-		$sub  = 'fonts' === $bucket ? 'pkitfw_fonts' : 'pkitfw_uploads/' . sanitize_file_name( $bucket );
+		$sub  = 'fonts' === $bucket ? 'optset_fonts' : 'optset_uploads/' . sanitize_file_name( $bucket );
 		return trailingslashit( $base['baseurl'] ) . $sub . '/';
 	}
 

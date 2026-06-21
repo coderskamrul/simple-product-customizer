@@ -21,13 +21,13 @@ const times = ( n ) => Array.from( { length: n }, ( _, i ) => i );
  */
 export function StripSkeleton() {
 	return (
-		<section className="pkitfw-db-strip" aria-hidden="true">
+		<section className="optset-db-strip" aria-hidden="true">
 			{ times( 4 ).map( ( i ) => (
-				<div key={ i } className="pkitfw-db-stat">
-					<span className="pkitfw-db-skel pkitfw-db-skel--icon" />
-					<div className="pkitfw-db-stat__body">
-						<span className="pkitfw-db-skel pkitfw-db-skel--lg" />
-						<span className="pkitfw-db-skel pkitfw-db-skel--sm" />
+				<div key={ i } className="optset-db-stat">
+					<span className="optset-db-skel optset-db-skel--icon" />
+					<div className="optset-db-stat__body">
+						<span className="optset-db-skel optset-db-skel--lg" />
+						<span className="optset-db-skel optset-db-skel--sm" />
 					</div>
 				</div>
 			) ) }
@@ -44,13 +44,13 @@ export function StripSkeleton() {
  */
 export function PanelSkeleton( { rows = 4 } ) {
 	return (
-		<section className="pkitfw-db-card pkitfw-db-panel" aria-hidden="true">
-			<header className="pkitfw-db-panel__head">
-				<span className="pkitfw-db-skel pkitfw-db-skel--title" />
+		<section className="optset-db-card optset-db-panel" aria-hidden="true">
+			<header className="optset-db-panel__head">
+				<span className="optset-db-skel optset-db-skel--title" />
 			</header>
-			<div className="pkitfw-db-skel-rows">
+			<div className="optset-db-skel-rows">
 				{ times( rows ).map( ( i ) => (
-					<span key={ i } className="pkitfw-db-skel pkitfw-db-skel--row" />
+					<span key={ i } className="optset-db-skel optset-db-skel--row" />
 				) ) }
 			</div>
 		</section>

@@ -194,7 +194,7 @@ export default function OptionSet() {
 			() => sets.duplicate( id ),
 			__(
 				'Option set duplicated.',
-				'productkit-for-woocommerce'
+				'option-set-builder'
 			)
 		);
 
@@ -220,7 +220,7 @@ export default function OptionSet() {
 					/* translators: %d: number of sets exported */
 					__(
 						'Exported %d option set(s).',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					),
 					ids.length
 				),
@@ -249,7 +249,7 @@ export default function OptionSet() {
 				notify(
 					__(
 						'Import complete.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					),
 					'success'
 				);
@@ -258,7 +258,7 @@ export default function OptionSet() {
 					err instanceof SyntaxError
 						? __(
 								'Invalid JSON file.',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: errorMessage( err ),
 					'error'
@@ -296,7 +296,7 @@ export default function OptionSet() {
 			notify(
 				__(
 					'Bulk action applied.',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				'success'
 			);
@@ -314,11 +314,11 @@ export default function OptionSet() {
 			<PageFrame
 				// title={ __(
 				// 	'Product Options',
-				// 	'productkit-for-woocommerce'
+				// 	'option-set-builder'
 				// ) }
 				// subtitle={ __(
 				// 	'Manage your product customization options.',
-				// 	'productkit-for-woocommerce'
+				// 	'option-set-builder'
 				// ) }
 				toolbar={
 					<OptionSetToolbar
@@ -339,77 +339,77 @@ export default function OptionSet() {
 					type="file"
 					accept="application/json,.json"
 					ref={ fileRef }
-					className="pkitfw-visually-hidden"
+					className="optset-visually-hidden"
 					onChange={ onImportFile }
 					tabIndex={ -1 }
 				/>
 
-				<section className="pkitfw-os-card">
+				<section className="optset-os-card">
 					{ selected.length > 0 && (
-						<div className="pkitfw-os-bulkbar">
-							<span className="pkitfw-os-bulkbar__count">
+						<div className="optset-os-bulkbar">
+							<span className="optset-os-bulkbar__count">
 								{ sprintf(
 									/* translators: %d: number selected */
 									__(
 										'%d selected',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									),
 									selected.length
 								) }
 							</span>
-							<div className="pkitfw-os-bulkbar__actions">
+							<div className="optset-os-bulkbar__actions">
 								<button
 									type="button"
-									className="pkitfw-os-btn pkitfw-os-btn--ghost"
+									className="optset-os-btn optset-os-btn--ghost"
 									onClick={ () =>
 										runBulk( 'status-publish' )
 									}
 								>
 									{ __(
 										'Activate',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</button>
 								<button
 									type="button"
-									className="pkitfw-os-btn pkitfw-os-btn--ghost"
+									className="optset-os-btn optset-os-btn--ghost"
 									onClick={ () => runBulk( 'status-draft' ) }
 								>
 									{ __(
 										'Deactivate',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</button>
 								<button
 									type="button"
-									className="pkitfw-os-btn pkitfw-os-btn--ghost"
+									className="optset-os-btn optset-os-btn--ghost"
 									onClick={ () => runBulk( 'duplicate' ) }
 								>
 									{ __(
 										'Duplicate',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</button>
 								<button
 									type="button"
-									className="pkitfw-os-btn pkitfw-os-btn--danger"
+									className="optset-os-btn optset-os-btn--danger"
 									onClick={ () =>
 										setConfirm( { bulk: true } )
 									}
 								>
 									{ __(
 										'Delete',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</button>
 								<button
 									type="button"
-									className="pkitfw-os-btn pkitfw-os-btn--link"
+									className="optset-os-btn optset-os-btn--link"
 									onClick={ () => setSelected( [] ) }
 								>
 									{ __(
 										'Clear',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</button>
 							</div>
@@ -434,13 +434,13 @@ export default function OptionSet() {
 					/>
 
 					{ sets.status === 'ready' && visible.length > 0 && (
-						<footer className="pkitfw-os-foot">
-							<span className="pkitfw-os-foot__info">
+						<footer className="optset-os-foot">
+							<span className="optset-os-foot__info">
 								{ sprintf(
 									/* translators: 1: from 2: to 3: page 4: total pages */
 									__(
 										'Showing %1$d to %2$d (page %3$d of %4$d)',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									),
 									rangeStart,
 									rangeEnd,
@@ -464,20 +464,20 @@ export default function OptionSet() {
 						confirm.bulk
 							? __(
 									'Delete selected option sets',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  )
 							: __(
 									'Delete option set',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 							  )
 					}
 					message={ __(
 						'This permanently removes the option set(s) and detaches them from all products. Continue?',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					confirmText={ __(
 						'Delete',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					onCancel={ () => setConfirm( null ) }
 					onConfirm={ async () => {
@@ -489,7 +489,7 @@ export default function OptionSet() {
 								notify(
 									__(
 										'Option set deleted.',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									),
 									'success'
 								);

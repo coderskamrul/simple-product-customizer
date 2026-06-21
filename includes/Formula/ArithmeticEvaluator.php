@@ -9,12 +9,12 @@
  * recursively, then * and / (left to right), then + and - (left to
  * right). The final result is clamped to be non-negative.
  *
- * @package ProductKit\Formula
+ * @package OptionSetBuilder\Formula
  */
 
-namespace ProductKit\Formula;
+namespace OptionSetBuilder\Formula;
 
-use ProductKit\Formula\Ast\EvaluationError;
+use OptionSetBuilder\Formula\Ast\EvaluationError;
 
 defined( 'ABSPATH' ) || exit;
 

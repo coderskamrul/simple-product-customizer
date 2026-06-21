@@ -14,35 +14,35 @@ import OptionSetRow from './OptionSetRow';
 const COLUMNS = [
 	{
 		key: 'id',
-		label: __( 'ID', 'productkit-for-woocommerce' ),
+		label: __( 'ID', 'option-set-builder' ),
 		sort: 'id',
 	},
 	{
 		key: 'name',
-		label: __( 'Option Name', 'productkit-for-woocommerce' ),
+		label: __( 'Option Name', 'option-set-builder' ),
 		sort: 'title',
 	},
 	{
 		key: 'status',
-		label: __( 'Status', 'productkit-for-woocommerce' ),
+		label: __( 'Status', 'option-set-builder' ),
 		sort: 'published',
 	},
 	{
 		key: 'category',
-		label: __( 'Category', 'productkit-for-woocommerce' ),
+		label: __( 'Category', 'option-set-builder' ),
 	},
 	{
 		key: 'products',
-		label: __( 'Products', 'productkit-for-woocommerce' ),
+		label: __( 'Products', 'option-set-builder' ),
 	},
 	{
 		key: 'options',
-		label: __( 'Options', 'productkit-for-woocommerce' ),
+		label: __( 'Options', 'option-set-builder' ),
 		sort: 'fields',
 	},
 	{
 		key: 'actions',
-		label: __( 'Actions', 'productkit-for-woocommerce' ),
+		label: __( 'Actions', 'option-set-builder' ),
 		end: true,
 	},
 ];
@@ -82,28 +82,28 @@ export default function OptionSetTable( props ) {
 
 	if ( status === 'error' ) {
 		return (
-			<div className="pkitfw-os-state">
-				<p className="pkitfw-error">{ error }</p>
+			<div className="optset-os-state">
+				<p className="optset-error">{ error }</p>
 			</div>
 		);
 	}
 
 	if ( status === 'ready' && items.length === 0 ) {
 		return (
-			<div className="pkitfw-os-state">
+			<div className="optset-os-state">
 				<EmptyState
 					title={ __(
 						'No option sets found',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					text={ __(
 						'Create your first option set to start selling configurable products.',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 					action={
 						<button
 							type="button"
-							className="pkitfw-os-btn pkitfw-os-btn--primary"
+							className="optset-os-btn optset-os-btn--primary"
 							onClick={ onCreate }
 						>
 							<span
@@ -112,7 +112,7 @@ export default function OptionSetTable( props ) {
 							/>
 							{ __(
 								'New Option',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</button>
 					}
@@ -148,20 +148,20 @@ export default function OptionSetTable( props ) {
 	};
 
 	return (
-		<div className="pkitfw-os-tablewrap">
-			<table className="pkitfw-os-table">
+		<div className="optset-os-tablewrap">
+			<table className="optset-os-table">
 				<thead>
 					<tr>
-						<th scope="col" className="pkitfw-os-th pkitfw-os-th--check">
+						<th scope="col" className="optset-os-th optset-os-th--check">
 							<input
 								ref={ allRef }
 								type="checkbox"
-								className="pkitfw-os-check"
+								className="optset-os-check"
 								checked={ allChecked }
 								onChange={ onSelectAll }
 								aria-label={ __(
 									'Select all option sets',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							/>
 						</th>
@@ -169,8 +169,8 @@ export default function OptionSetTable( props ) {
 							<th
 								key={ col.key }
 								scope="col"
-								className={ `pkitfw-os-th pkitfw-os-th--${ col.key }${
-									col.end ? ' pkitfw-os-th--end' : ''
+								className={ `optset-os-th optset-os-th--${ col.key }${
+									col.end ? ' optset-os-th--end' : ''
 								}` }
 								aria-sort={
 									col.sort ? ariaSort( col.sort ) : undefined
@@ -179,7 +179,7 @@ export default function OptionSetTable( props ) {
 								{ col.sort ? (
 									<button
 										type="button"
-										className={ `pkitfw-os-sort${
+										className={ `optset-os-sort${
 											sort.key === col.sort
 												? ' is-active'
 												: ''
@@ -190,7 +190,7 @@ export default function OptionSetTable( props ) {
 										<span
 											className={ `dashicons dashicons-${ sortIcon(
 												col.sort
-											) } pkitfw-os-sort__icon` }
+											) } optset-os-sort__icon` }
 											aria-hidden="true"
 										/>
 									</button>

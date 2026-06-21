@@ -2,28 +2,28 @@
 /**
  * Plugin orchestrator.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Core;
+namespace OptionSetBuilder\Core;
 
-use ProductKit\Admin\AdminAssets;
-use ProductKit\Admin\AdminMenu;
-use ProductKit\Admin\AdminNotices;
-use ProductKit\Analytics\CleanupCron;
-use ProductKit\Analytics\StatsRepository;
-use ProductKit\Data\AssignmentResolver;
-use ProductKit\Data\OptionSetRepository;
-use ProductKit\Fields\FieldRegistry;
-use ProductKit\Frontend\StoreRenderer;
-use ProductKit\Integration\WooCommerce\CartHooks;
-use ProductKit\Integration\WooCommerce\CheckoutHooks;
-use ProductKit\Integration\WooCommerce\Compatibility;
-use ProductKit\Integration\WooCommerce\OrderHooks;
-use ProductKit\Integration\WooCommerce\ProductPanel;
-use ProductKit\Integration\WooCommerce\ShopLoop;
-use ProductKit\Pricing\PriceCalculator;
-use ProductKit\Rest\RestServer;
+use OptionSetBuilder\Admin\AdminAssets;
+use OptionSetBuilder\Admin\AdminMenu;
+use OptionSetBuilder\Admin\AdminNotices;
+use OptionSetBuilder\Analytics\CleanupCron;
+use OptionSetBuilder\Analytics\StatsRepository;
+use OptionSetBuilder\Data\AssignmentResolver;
+use OptionSetBuilder\Data\OptionSetRepository;
+use OptionSetBuilder\Fields\FieldRegistry;
+use OptionSetBuilder\Frontend\StoreRenderer;
+use OptionSetBuilder\Integration\WooCommerce\CartHooks;
+use OptionSetBuilder\Integration\WooCommerce\CheckoutHooks;
+use OptionSetBuilder\Integration\WooCommerce\Compatibility;
+use OptionSetBuilder\Integration\WooCommerce\OrderHooks;
+use OptionSetBuilder\Integration\WooCommerce\ProductPanel;
+use OptionSetBuilder\Integration\WooCommerce\ShopLoop;
+use OptionSetBuilder\Pricing\PriceCalculator;
+use OptionSetBuilder\Rest\RestServer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Plugin {
 
-	const POST_TYPE = 'pkitfw_option_set';
+	const POST_TYPE = 'optset_option_set';
 
 	/**
 	 * Singleton.
@@ -75,7 +75,7 @@ final class Plugin {
 		$this->register_post_type();
 		$this->boot();
 
-		do_action( 'pkitfw_booted', $this );
+		do_action( 'optset_booted', $this );
 	}
 
 	/**
@@ -106,7 +106,7 @@ final class Plugin {
 		if ( ! class_exists( \WooCommerce::class ) ) {
 			return false;
 		}
-		return defined( 'WC_VERSION' ) ? version_compare( WC_VERSION, PKITFW_MIN_WC, '>=' ) : true;
+		return defined( 'WC_VERSION' ) ? version_compare( WC_VERSION, OPTSET_MIN_WC, '>=' ) : true;
 	}
 
 	/**
@@ -145,8 +145,8 @@ final class Plugin {
 					self::POST_TYPE,
 					array(
 						'labels'              => array(
-							'name'          => __( 'Option Sets', 'productkit-for-woocommerce' ),
-							'singular_name' => __( 'Option Set', 'productkit-for-woocommerce' ),
+							'name'          => __( 'Option Sets', 'option-set-builder' ),
+							'singular_name' => __( 'Option Set', 'option-set-builder' ),
 						),
 						'public'              => false,
 						'show_ui'             => false,
@@ -175,7 +175,7 @@ final class Plugin {
 
 		// Stats recorder — single action used everywhere counters change.
 		add_action(
-			'pkitfw_stats_record',
+			'optset_stats_record',
 			array( $c->get( 'stats' ), 'record' ),
 			10,
 			3
@@ -205,7 +205,7 @@ final class Plugin {
 	 */
 	public function render_missing_wc_notice() {
 		echo '<div class="notice notice-error"><p>';
-		echo esc_html__( 'ProductKit – Product Options for WooCommerce requires an active, up-to-date WooCommerce installation.', 'productkit-for-woocommerce' );
+		echo esc_html__( 'Option Set Builder requires an active, up-to-date WooCommerce installation.', 'option-set-builder' );
 		echo '</p></div>';
 	}
 }

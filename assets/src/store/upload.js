@@ -2,11 +2,11 @@
  * File-upload field behaviour.
  *
  * On file select/drop: validate count + size against the data-* limits the
- * renderer put on `.pkitfw-upload__input`, POST each file as FormData (field
- * `pkitfw_file`, plus `pkitfw_nonce` = pkitfwStore.uploadNonce) to
- * `pkitfwStore.restUrl + 'upload'` with an XMLHttpRequest progress bar, then
+ * renderer put on `.optset-upload__input`, POST each file as FormData (field
+ * `optset_file`, plus `optset_nonce` = optsetStore.uploadNonce) to
+ * `optsetStore.restUrl + 'upload'` with an XMLHttpRequest progress bar, then
  * store the accumulated `[{ name, path }]` JSON in the hidden input
- * (`.pkitfw-upload__data`, name `pkitfw_input_{id}`) and render the item list.
+ * (`.optset-upload__data`, name `optset_input_{id}`) and render the item list.
  *
  * The upload REST route returns `{ ok:true, file:{ url, name } }`; we map
  * `path = file.url` for the §9 [{name,path}] contract.
@@ -16,35 +16,35 @@
 
 import { __ } from '@wordpress/i18n';
 
-const TD = 'productkit-for-woocommerce';
+const TD = 'option-set-builder';
 
 /**
  * Read the localised store config defensively.
  *
- * @return {Object} pkitfwStore global or {}.
+ * @return {Object} optsetStore global or {}.
  */
 function store() {
-	return ( typeof window !== 'undefined' && window.pkitfwStore ) || {};
+	return ( typeof window !== 'undefined' && window.optsetStore ) || {};
 }
 
 /**
  * Wire one fileupload field. Returns a cleanup function.
  *
- * @param {HTMLElement} fieldEl  `.pkitfw-field` wrapper (type=fileupload).
+ * @param {HTMLElement} fieldEl  `.optset-field` wrapper (type=fileupload).
  * @param {Function}    onChange Called after the file list changes.
  * @return {Function} Detach handler.
  */
 export function initUpload( fieldEl, onChange ) {
-	const root = fieldEl.querySelector( '.pkitfw-upload' );
+	const root = fieldEl.querySelector( '.optset-upload' );
 	if ( ! root ) {
 		return () => {};
 	}
-	const input = root.querySelector( '.pkitfw-upload__input' );
-	const hidden = root.querySelector( '.pkitfw-upload__data' );
-	const progress = root.querySelector( '.pkitfw-upload__progress' );
-	const bar = root.querySelector( '.pkitfw-upload__bar' );
-	const result = root.querySelector( '.pkitfw-upload__result' );
-	const dropzone = root.querySelector( '.pkitfw-dropzone' );
+	const input = root.querySelector( '.optset-upload__input' );
+	const hidden = root.querySelector( '.optset-upload__data' );
+	const progress = root.querySelector( '.optset-upload__progress' );
+	const bar = root.querySelector( '.optset-upload__bar' );
+	const result = root.querySelector( '.optset-upload__result' );
+	const dropzone = root.querySelector( '.optset-dropzone' );
 	if ( ! input || ! hidden ) {
 		return () => {};
 	}
@@ -90,10 +90,10 @@ export function initUpload( fieldEl, onChange ) {
 	 * @return {void}
 	 */
 	const showError = ( msg ) => {
-		const errEl = fieldEl.querySelector( '.pkitfw-field__error' );
+		const errEl = fieldEl.querySelector( '.optset-field__error' );
 		if ( errEl ) {
 			errEl.textContent = msg;
-			errEl.classList.add( 'pkitfw-field__error--visible' );
+			errEl.classList.add( 'optset-field__error--visible' );
 		}
 	};
 
@@ -137,11 +137,11 @@ export function initUpload( fieldEl, onChange ) {
 		result.innerHTML = '';
 		files.forEach( ( file, i ) => {
 			const item = document.createElement( 'div' );
-			item.className = 'pkitfw-upload-item';
+			item.className = 'optset-upload-item';
 
 			const rm = document.createElement( 'button' );
 			rm.type = 'button';
-			rm.className = 'pkitfw-upload-item__remove';
+			rm.className = 'optset-upload-item__remove';
 			rm.setAttribute( 'aria-label', __( 'Remove file', TD ) );
 			rm.textContent = '×';
 			rm.addEventListener( 'click', () => {
@@ -150,7 +150,7 @@ export function initUpload( fieldEl, onChange ) {
 			} );
 
 			const thumb = document.createElement( 'span' );
-			thumb.className = 'pkitfw-upload-item__thumb';
+			thumb.className = 'optset-upload-item__thumb';
 			if ( isImage( file.path || file.name ) && file.path ) {
 				const img = document.createElement( 'img' );
 				img.src = file.path;
@@ -161,23 +161,23 @@ export function initUpload( fieldEl, onChange ) {
 			}
 
 			const body = document.createElement( 'span' );
-			body.className = 'pkitfw-upload-item__body';
+			body.className = 'optset-upload-item__body';
 
 			const top = document.createElement( 'span' );
-			top.className = 'pkitfw-upload-item__top';
+			top.className = 'optset-upload-item__top';
 			const name = document.createElement( 'span' );
-			name.className = 'pkitfw-upload-item__name';
+			name.className = 'optset-upload-item__name';
 			name.textContent = file.name || '';
 			const size = document.createElement( 'span' );
-			size.className = 'pkitfw-upload-item__size';
+			size.className = 'optset-upload-item__size';
 			size.textContent = formatSize( file.size );
 			top.appendChild( name );
 			top.appendChild( size );
 
 			const track = document.createElement( 'span' );
-			track.className = 'pkitfw-upload-item__bar';
+			track.className = 'optset-upload-item__bar';
 			const fill = document.createElement( 'span' );
-			fill.className = 'pkitfw-upload-item__bar-fill';
+			fill.className = 'optset-upload-item__bar-fill';
 			fill.style.width = '100%';
 			track.appendChild( fill );
 
@@ -202,8 +202,8 @@ export function initUpload( fieldEl, onChange ) {
 			const cfg = store();
 			const url = ( cfg.restUrl || '' ) + 'upload';
 			const fd = new FormData();
-			fd.append( 'pkitfw_file', file );
-			fd.append( 'pkitfw_nonce', cfg.uploadNonce || '' );
+			fd.append( 'optset_file', file );
+			fd.append( 'optset_nonce', cfg.uploadNonce || '' );
 
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', url, true );
@@ -309,18 +309,18 @@ export function initUpload( fieldEl, onChange ) {
 	const onDragOver = ( e ) => {
 		e.preventDefault();
 		if ( dropzone ) {
-			dropzone.classList.add( 'pkitfw-dropzone--over' );
+			dropzone.classList.add( 'optset-dropzone--over' );
 		}
 	};
 	const onDragLeave = () => {
 		if ( dropzone ) {
-			dropzone.classList.remove( 'pkitfw-dropzone--over' );
+			dropzone.classList.remove( 'optset-dropzone--over' );
 		}
 	};
 	const onDrop = ( e ) => {
 		e.preventDefault();
 		if ( dropzone ) {
-			dropzone.classList.remove( 'pkitfw-dropzone--over' );
+			dropzone.classList.remove( 'optset-dropzone--over' );
 		}
 		if ( e.dataTransfer && e.dataTransfer.files ) {
 			handleFiles( e.dataTransfer.files );

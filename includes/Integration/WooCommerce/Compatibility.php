@@ -2,14 +2,14 @@
 /**
  * WooCommerce environment compatibility shims.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Integration\WooCommerce;
+namespace OptionSetBuilder\Integration\WooCommerce;
 
-use ProductKit\Data\AssignmentResolver;
-use ProductKit\Pricing\Currency\CurrencyBridge;
-use ProductKit\Support\Money;
+use OptionSetBuilder\Data\AssignmentResolver;
+use OptionSetBuilder\Pricing\Currency\CurrencyBridge;
+use OptionSetBuilder\Support\Money;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,8 +37,8 @@ final class Compatibility {
 
 		// Canonical resolvers for the pricing base filters (sale-or-regular,
 		// currency-reverted). PriceCalculator applies these on the raw amount.
-		add_filter( 'pkitfw_price_base', array( $this, 'resolve_price_base' ), 10, 3 );
-		add_filter( 'pkitfw_price_percent_base', array( $this, 'resolve_price_base' ), 10, 3 );
+		add_filter( 'optset_price_base', array( $this, 'resolve_price_base' ), 10, 3 );
+		add_filter( 'optset_price_percent_base', array( $this, 'resolve_price_base' ), 10, 3 );
 	}
 
 	/**

@@ -20,7 +20,7 @@ import useId from '../app/useId';
  * @return {JSX.Element} The labelled row.
  */
 export default function Field( { label, help, inline = false, children } ) {
-	const id = useId( 'pkitfw-field' );
+	const id = useId( 'optset-field' );
 	const control =
 		isValidElement( children ) && ! children.props.id
 			? cloneElement( children, { id } )
@@ -28,17 +28,17 @@ export default function Field( { label, help, inline = false, children } ) {
 
 	return (
 		<div
-			className={ `pkitfw-form-field${
-				inline ? ' pkitfw-form-field--inline' : ''
+			className={ `optset-form-field${
+				inline ? ' optset-form-field--inline' : ''
 			}` }
 		>
 			{ label && (
-				<label className="pkitfw-form-field__label" htmlFor={ id }>
+				<label className="optset-form-field__label" htmlFor={ id }>
 					{ label }
 				</label>
 			) }
-			<div className="pkitfw-form-field__control">{ control }</div>
-			{ help && <p className="pkitfw-form-field__help">{ help }</p> }
+			<div className="optset-form-field__control">{ control }</div>
+			{ help && <p className="optset-form-field__help">{ help }</p> }
 		</div>
 	);
 }

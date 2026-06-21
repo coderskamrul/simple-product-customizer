@@ -48,10 +48,10 @@ export function injectFontFaces( fonts ) {
 		} )
 		.join( '' );
 
-	let el = document.getElementById( 'pkitfw-admin-fontfaces' );
+	let el = document.getElementById( 'optset-admin-fontfaces' );
 	if ( ! el ) {
 		el = document.createElement( 'style' );
-		el.id = 'pkitfw-admin-fontfaces';
+		el.id = 'optset-admin-fontfaces';
 		document.head.appendChild( el );
 	}
 	el.textContent = css;

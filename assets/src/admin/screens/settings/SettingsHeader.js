@@ -44,42 +44,42 @@ const SaveIcon = () => (
  */
 export default function SettingsHeader( { saving, dirty, onSave } ) {
 	return (
-		<header className="pkitfw-set-header">
-			<div className="pkitfw-set-header__brand">
+		<header className="optset-set-header">
+			<div className="optset-set-header__brand">
 				<span
-					className="pkitfw-set-tile pkitfw-set-tile--lg pkitfw-set-tile--violet"
+					className="optset-set-tile optset-set-tile--lg optset-set-tile--violet"
 					aria-hidden="true"
 				>
 					<span className="dashicons dashicons-admin-settings" />
 				</span>
 				<div>
-					<h1 className="pkitfw-set-header__title">
+					<h1 className="optset-set-header__title">
 						{ __(
 							'Settings',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</h1>
-					<p className="pkitfw-set-header__sub">
+					<p className="optset-set-header__sub">
 						{ __(
 							'Manage your plugin configuration',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</p>
 				</div>
 			</div>
 
-			<div className="pkitfw-set-header__actions">
+			<div className="optset-set-header__actions">
 				{ dirty && ! saving && (
-					<span className="pkitfw-set-header__unsaved" role="status">
+					<span className="optset-set-header__unsaved" role="status">
 						{ __(
 							'Unsaved changes',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					</span>
 				) }
 				<button
 					type="button"
-					className="pkitfw-set-save"
+					className="optset-set-save"
 					disabled={ saving }
 					onClick={ onSave }
 				>
@@ -87,11 +87,11 @@ export default function SettingsHeader( { saving, dirty, onSave } ) {
 					{ saving
 						? __(
 								'Saving…',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: __(
 								'Save Settings',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  ) }
 				</button>
 			</div>

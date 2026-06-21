@@ -11,32 +11,26 @@ const NAV = [
 	{
 		route: 'dashboard',
 		hash: '#/',
-		label: __( 'Dashboard', 'productkit-for-woocommerce' ),
+		label: __( 'Dashboard', 'option-set-builder' ),
 		icon: 'dashboard',
 	},
 	{
 		route: 'sets',
 		hash: '#/sets',
-		label: __( 'Option Sets', 'productkit-for-woocommerce' ),
+		label: __( 'Option Sets', 'option-set-builder' ),
 		icon: 'screenoptions',
 	},
 	{
 		route: 'settings',
 		hash: '#/settings',
-		label: __( 'Settings', 'productkit-for-woocommerce' ),
+		label: __( 'Settings', 'option-set-builder' ),
 		icon: 'admin-generic',
 	},
 	{
 		route: 'analytics',
 		hash: '#/analytics',
-		label: __( 'Analytics', 'productkit-for-woocommerce' ),
+		label: __( 'Analytics', 'option-set-builder' ),
 		icon: 'chart-bar',
-	},
-	{
-		route: 'license',
-		hash: '#/license',
-		label: __( 'License', 'productkit-for-woocommerce' ),
-		icon: 'admin-network',
 	},
 ];
 
@@ -54,30 +48,30 @@ export default function Sidebar( { active } ) {
 
 	return (
 		<nav
-			className="pkitfw-sidebar"
+			className="optset-sidebar"
 			aria-label={ __(
-				'ProductKit navigation',
-				'productkit-for-woocommerce'
+				'Option Set Builder navigation',
+				'option-set-builder'
 			) }
 		>
-			<div className="pkitfw-sidebar__brand">
+			<div className="optset-sidebar__brand">
 				<span
-					className="dashicons dashicons-cart pkitfw-sidebar__logo"
+					className="dashicons dashicons-cart optset-sidebar__logo"
 					aria-hidden="true"
 				/>
-				<span className="pkitfw-sidebar__name">
+				<span className="optset-sidebar__name">
 					{ __(
 						'Dynamic Options',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				</span>
 			</div>
-			<ul className="pkitfw-sidebar__nav">
+			<ul className="optset-sidebar__nav">
 				{ NAV.map( ( item ) => (
 					<li key={ item.route }>
 						<a
 							href={ item.hash }
-							className={ `pkitfw-sidebar__link${
+							className={ `optset-sidebar__link${
 								current === item.route ? ' is-active' : ''
 							}` }
 							aria-current={

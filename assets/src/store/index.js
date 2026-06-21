@@ -1,12 +1,12 @@
 /**
  * Storefront runtime bootstrap.
  *
- * Discovers every `.pkitfw-options` wrapper and instantiates one Controller per
+ * Discovers every `.optset-options` wrapper and instantiates one Controller per
  * product form. Re-scans when WooCommerce replaces the cart/product markup
  * (`updated_wc_div`) or after generic AJAX page swaps, so AJAX-rendered
  * product templates are handled too.
  *
- * Also publishes `window.pkitfwEvaluateFormula(expr, vars, mode)` for theme /
+ * Also publishes `window.optsetEvaluateFormula(expr, vars, mode)` for theme /
  * integration use, mirroring the two PHP formula engines.
  *
  * @package
@@ -27,9 +27,9 @@ const controllers = [];
  */
 function scan() {
 	try {
-		const roots = document.querySelectorAll( '.pkitfw-options' );
+		const roots = document.querySelectorAll( '.optset-options' );
 		roots.forEach( ( root ) => {
-			if ( root.__pkitfwBound ) {
+			if ( root.__optsetBound ) {
 				return;
 			}
 			const c = new Controller( root );
@@ -48,7 +48,7 @@ function scan() {
  */
 function exposeGlobals() {
 	try {
-		window.pkitfwEvaluateFormula = ( expr, vars, mode ) =>
+		window.optsetEvaluateFormula = ( expr, vars, mode ) =>
 			evaluateFormula( expr, vars || {}, mode || 'simple' );
 	} catch ( e ) {
 		/* read-only window — ignore. */

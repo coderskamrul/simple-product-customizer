@@ -2,12 +2,12 @@
 /**
  * Popup / modal trigger field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,17 +57,17 @@ final class PopupField extends AbstractField {
 			$trigger = (string) $this->prop( 'label', '' );
 		}
 		if ( '' === $trigger ) {
-			$trigger = esc_html__( 'Open', 'productkit-for-woocommerce' );
+			$trigger = esc_html__( 'Open', 'option-set-builder' );
 		}
 		$content = do_shortcode( (string) $this->cfg( 'content', '' ) );
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<button type="button" class="pkitfw-popup__trigger" data-popup-for="' . esc_attr( $this->id() ) . '">' . esc_html( $trigger ) . '</button>';
-		$html .= '<div class="pkitfw-popup__modal" id="pkitfw-popup-' . esc_attr( $this->id() ) . '" hidden role="dialog" aria-modal="true">';
-		$html .= '<div class="pkitfw-popup__backdrop" data-popup-close="1"></div>';
-		$html .= '<div class="pkitfw-popup__box">';
-		$html .= '<button type="button" class="pkitfw-popup__close" data-popup-close="1" aria-label="' . esc_attr__( 'Close', 'productkit-for-woocommerce' ) . '">&times;</button>';
-		$html .= '<div class="pkitfw-popup__content">' . wp_kses_post( $content ) . '</div>';
+		$html .= '<button type="button" class="optset-popup__trigger" data-popup-for="' . esc_attr( $this->id() ) . '">' . esc_html( $trigger ) . '</button>';
+		$html .= '<div class="optset-popup__modal" id="optset-popup-' . esc_attr( $this->id() ) . '" hidden role="dialog" aria-modal="true">';
+		$html .= '<div class="optset-popup__backdrop" data-popup-close="1"></div>';
+		$html .= '<div class="optset-popup__box">';
+		$html .= '<button type="button" class="optset-popup__close" data-popup-close="1" aria-label="' . esc_attr__( 'Close', 'option-set-builder' ) . '">&times;</button>';
+		$html .= '<div class="optset-popup__content">' . wp_kses_post( $content ) . '</div>';
 		$html .= '</div>';
 		$html .= '</div>';
 		$html .= '</div>';

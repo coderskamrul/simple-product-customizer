@@ -1,7 +1,7 @@
 /**
  * Per-form orchestrator.
  *
- * One Controller owns a single `.pkitfw-options` wrapper (its product
+ * One Controller owns a single `.optset-options` wrapper (its product
  * `form.cart`). It: discovers fields, wires change/widget/upload events,
  * recomputes conditions + pricing on every change, writes the hidden inputs
  * the server reads, syncs variation prices, fires analytics, and validates
@@ -30,7 +30,7 @@ import { validateAll } from './validate';
 /**
  * Find the owning WooCommerce form for an options wrapper.
  *
- * @param {HTMLElement} root `.pkitfw-options` element.
+ * @param {HTMLElement} root `.optset-options` element.
  * @return {HTMLElement|null} The `form.cart`, or null.
  */
 function ownerForm( root ) {
@@ -46,7 +46,7 @@ function ownerForm( root ) {
  */
 export default class Controller {
 	/**
-	 * @param {HTMLElement} root `.pkitfw-options` wrapper.
+	 * @param {HTMLElement} root `.optset-options` wrapper.
 	 */
 	constructor( root ) {
 		this.root = root;
@@ -64,10 +64,10 @@ export default class Controller {
 	 * @return {void}
 	 */
 	init() {
-		if ( this.root.__pkitfwBound ) {
+		if ( this.root.__optsetBound ) {
 			return;
 		}
-		this.root.__pkitfwBound = true;
+		this.root.__optsetBound = true;
 
 		try {
 			this.discoverFields();
@@ -85,20 +85,20 @@ export default class Controller {
 			this.cleanups.push( initAnalytics( this.root ) );
 
 			this.recompute();
-			this.root.classList.remove( 'pkitfw-loading' );
+			this.root.classList.remove( 'optset-loading' );
 		} catch ( e ) {
 			// Never leave the form unusable.
-			this.root.classList.remove( 'pkitfw-loading' );
+			this.root.classList.remove( 'optset-loading' );
 		}
 	}
 
 	/**
-	 * Index every `.pkitfw-field` wrapper and prepare its logic + widgets.
+	 * Index every `.optset-field` wrapper and prepare its logic + widgets.
 	 *
 	 * @return {void}
 	 */
 	discoverFields() {
-		const els = this.root.querySelectorAll( '.pkitfw-field[data-field-id]' );
+		const els = this.root.querySelectorAll( '.optset-field[data-field-id]' );
 		els.forEach( ( el ) => {
 			const id = el.getAttribute( 'data-field-id' );
 			if ( ! id ) {
@@ -288,7 +288,7 @@ export default class Controller {
 
 	/**
 	 * Build the advancedformula shipping/dynamics variable bag from the
-	 * `pkitfw_shipping_dynamics` hidden input + current product price.
+	 * `optset_shipping_dynamics` hidden input + current product price.
 	 *
 	 * @return {Object} Dynamic variable map.
 	 */
@@ -299,7 +299,7 @@ export default class Controller {
 		};
 		try {
 			const el = this.form
-				? this.form.querySelector( '[name="pkitfw_shipping_dynamics"]' )
+				? this.form.querySelector( '[name="optset_shipping_dynamics"]' )
 				: null;
 			if ( el && el.value ) {
 				const s = JSON.parse( el.value );
@@ -352,8 +352,8 @@ export default class Controller {
 				el.value = value;
 			}
 		};
-		set( 'pkitfw_field_data', JSON.stringify( payload ) );
-		set( 'pkitfw_linked_products', JSON.stringify( linked ) );
+		set( 'optset_field_data', JSON.stringify( payload ) );
+		set( 'optset_linked_products', JSON.stringify( linked ) );
 	}
 
 	/**
@@ -394,6 +394,6 @@ export default class Controller {
 			}
 		} );
 		this.cleanups = [];
-		this.root.__pkitfwBound = false;
+		this.root.__optsetBound = false;
 	}
 }

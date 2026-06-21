@@ -3,7 +3,7 @@
  *
  * Layout (matches the reference SaaS dashboard):
  *
- *   [ Logo + version pill ]  [ + context CTA ]   [ tabs… ]   [ Upgrade Pro ]
+ *   [ Logo + version pill ]  [ + context CTA ]   [ tabs… ]
  *
  * The TopBar is the ONLY top-level navigation in the admin SPA. All previous
  * per-screen headers (DashboardHeader, AnalyticsHeader, SettingsHeader, the
@@ -21,34 +21,29 @@ const TABS = [
 	{
 		route: 'dashboard',
 		hash: '#/',
-		label: __( 'Dashboard', 'productkit-for-woocommerce' ),
+		label: __( 'Dashboard', 'option-set-builder' ),
 	},
 	{
 		route: 'sets',
 		hash: '#/sets',
-		label: __( 'Option Sets', 'productkit-for-woocommerce' ),
+		label: __( 'Option Sets', 'option-set-builder' ),
 	},
 	{
 		route: 'analytics',
 		hash: '#/analytics',
-		label: __( 'Analytics', 'productkit-for-woocommerce' ),
+		label: __( 'Analytics', 'option-set-builder' ),
 	},
 	{
 		route: 'settings',
 		hash: '#/settings',
-		label: __( 'Settings', 'productkit-for-woocommerce' ),
-	},
-	{
-		route: 'license',
-		hash: '#/license',
-		label: __( 'License', 'productkit-for-woocommerce' ),
+		label: __( 'Settings', 'option-set-builder' ),
 	},
 ];
 
 /**
  * Resolve the context-aware primary CTA for the active route. Returns null
  * on screens that have no obvious "create" action (Dashboard's create lives
- * on the screen itself; Analytics/License are read-only).
+ * on the screen itself; Analytics is read-only).
  *
  * @param {string} routeName Active route descriptor name.
  * @return {?{label:string, onClick:Function}} CTA or null.
@@ -59,7 +54,7 @@ function resolveCTA( routeName ) {
 			return {
 				label: __(
 					'Create Option Set',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				onClick: () => navigate( '/set/new' ),
 			};
@@ -67,7 +62,7 @@ function resolveCTA( routeName ) {
 			return {
 				label: __(
 					'New Option Set',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 				onClick: () => navigate( '/set/new' ),
 			};
@@ -96,24 +91,24 @@ function activeTab( routeName ) {
  * @return {JSX.Element} The unified top bar.
  */
 export default function TopBar() {
-	const { proActive, version } = useConfig();
+	const { version } = useConfig();
 	const route = useRouter();
 	const cta = resolveCTA( route.name );
 	const current = activeTab( route.name );
 
 	return (
-		<header className="pkitfw-topbar" role="banner">
+		<header className="optset-topbar" role="banner">
 			{ /* Left — brand + version pill + (context CTA) ------------- */ }
-			<div className="pkitfw-topbar__lead">
+			<div className="optset-topbar__lead">
 				<a
 					href="#/"
-					className="pkitfw-topbar__brand"
+					className="optset-topbar__brand"
 					aria-label={ __(
-						'ProductKit home',
-						'productkit-for-woocommerce'
+						'Option Set Builder home',
+						'option-set-builder'
 					) }
 				>
-					<span className="pkitfw-topbar__logo" aria-hidden="true">
+					<span className="optset-topbar__logo" aria-hidden="true">
 						<svg
 							width="22"
 							height="22"
@@ -135,14 +130,14 @@ export default function TopBar() {
 						</svg>
 					</span>
 					{ version && (
-						<span className="pkitfw-topbar__version">{ version }</span>
+						<span className="optset-topbar__version">{ version }</span>
 					) }
 				</a>
 
 				{ cta && (
 					<button
 						type="button"
-						className="pkitfw-topbar__cta"
+						className="optset-topbar__cta"
 						onClick={ cta.onClick }
 					>
 						<span aria-hidden="true">+</span>
@@ -153,10 +148,10 @@ export default function TopBar() {
 
 			{ /* Center — tabs ------------------------------------------- */ }
 			<nav
-				className="pkitfw-topbar__tabs"
+				className="optset-topbar__tabs"
 				aria-label={ __(
 					'Primary',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				) }
 			>
 				{ TABS.map( ( t ) => {
@@ -165,7 +160,7 @@ export default function TopBar() {
 						<a
 							key={ t.route }
 							href={ t.hash }
-							className={ `pkitfw-topbar__tab${
+							className={ `optset-topbar__tab${
 								isActive ? ' is-active' : ''
 							}` }
 							aria-current={ isActive ? 'page' : undefined }
@@ -175,41 +170,6 @@ export default function TopBar() {
 					);
 				} ) }
 			</nav>
-
-			{ /* Right — upgrade pill ------------------------------------ */ }
-			<div className="pkitfw-topbar__trail">
-				{ proActive ? (
-					<span className="pkitfw-topbar__plan">
-						{ __(
-							'Pro',
-							'productkit-for-woocommerce'
-						) }
-					</span>
-				) : (
-					<a
-						className="pkitfw-topbar__upgrade"
-						href="https://pluginshift.com/in/upgrade-dynamic-product-options"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<span>
-							{ __(
-								'Upgrade Pro',
-								'productkit-for-woocommerce'
-							) }
-						</span>
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							aria-hidden="true"
-						>
-							<path d="M5 4h11l-1.5 4H18l-7 12 1.5-8H7l-2-8Z" />
-						</svg>
-					</a>
-				) }
-			</div>
 		</header>
 	);
 }

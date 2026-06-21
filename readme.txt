@@ -1,4 +1,4 @@
-=== ProductKit – Product Options for WooCommerce ===
+=== Option Set Builder ===
 Contributors: pluginshift
 Tags: woocommerce, product options, product addons, custom fields, conditional logic
 Requires at least: 6.2
@@ -12,7 +12,7 @@ WooCommerce product options builder — swatches, uploads, conditional logic and
 
 == Description ==
 
-ProductKit – Product Options for WooCommerce adds a flexible option-set builder to
+Option Set Builder adds a flexible option-set builder to
 any WooCommerce product. Create reusable option sets, assign them to products,
 categories, tags, brands, or the whole catalog, and let customers personalise
 products with live price updates carried all the way through cart, checkout and
@@ -60,7 +60,7 @@ WooCommerce as a required plugin and will not run without it.
 
 = Is it compatible with HPOS (High-Performance Order Storage)? =
 
-Yes. ProductKit declares compatibility with both HPOS (custom order tables) and
+Yes. Option Set Builder declares compatibility with both HPOS (custom order tables) and
 the Cart & Checkout Blocks.
 
 = Where are uploaded files and custom fonts stored? =

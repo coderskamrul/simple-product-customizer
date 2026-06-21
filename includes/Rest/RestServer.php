@@ -1,23 +1,23 @@
 <?php
 /**
- * REST server: registers the `pkitfw/v1` namespace and delegates to controllers.
+ * REST server: registers the `optset/v1` namespace and delegates to controllers.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Rest;
+namespace OptionSetBuilder\Rest;
 
-use ProductKit\Core\Capabilities;
-use ProductKit\Core\Container;
-use ProductKit\Rest\Route\AnalyticsController;
-use ProductKit\Rest\Route\AssignmentController;
-use ProductKit\Rest\Route\FontsController;
-use ProductKit\Rest\Route\PluginController;
-use ProductKit\Rest\Route\SearchController;
-use ProductKit\Rest\Route\SetsController;
-use ProductKit\Rest\Route\SettingsController;
-use ProductKit\Rest\Route\StyleController;
-use ProductKit\Rest\Route\UploadController;
+use OptionSetBuilder\Core\Capabilities;
+use OptionSetBuilder\Core\Container;
+use OptionSetBuilder\Rest\Route\AnalyticsController;
+use OptionSetBuilder\Rest\Route\AssignmentController;
+use OptionSetBuilder\Rest\Route\FontsController;
+use OptionSetBuilder\Rest\Route\PluginController;
+use OptionSetBuilder\Rest\Route\SearchController;
+use OptionSetBuilder\Rest\Route\SetsController;
+use OptionSetBuilder\Rest\Route\SettingsController;
+use OptionSetBuilder\Rest\Route\StyleController;
+use OptionSetBuilder\Rest\Route\UploadController;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Central REST bootstrap.
  *
- * Controller contract: every controller in {@see \ProductKit\Rest\Route} is `final`,
+ * Controller contract: every controller in {@see \OptionSetBuilder\Rest\Route} is `final`,
  * is constructed with the {@see Container}, and exposes a single
  * `routes(): array` method. Each element of that array is a route descriptor:
  *
@@ -45,8 +45,8 @@ defined( 'ABSPATH' ) || exit;
  */
 final class RestServer {
 
-	const NAMESPACE_V1 = 'pkitfw/v1';
-	const NONCE_ACTION = 'pkitfw_rest';
+	const NAMESPACE_V1 = 'optset/v1';
+	const NONCE_ACTION = 'optset_rest';
 
 	/**
 	 * Service container.
@@ -155,13 +155,13 @@ final class RestServer {
 	/**
 	 * Error envelope as a WP_Error (REST serializes it to `{code,message}`).
 	 *
-	 * @param string $code   Machine error code (will be `pkitfw_`-prefixed).
+	 * @param string $code   Machine error code (will be `optset_`-prefixed).
 	 * @param string $msg    Human readable message.
 	 * @param int    $status HTTP status.
 	 * @return WP_Error
 	 */
 	public function fail( $code, $msg, $status = 400 ) {
-		$code = 0 === strpos( (string) $code, 'pkitfw_' ) ? (string) $code : 'pkitfw_' . (string) $code;
+		$code = 0 === strpos( (string) $code, 'optset_' ) ? (string) $code : 'optset_' . (string) $code;
 		return new WP_Error( $code, (string) $msg, array( 'status' => (int) $status ) );
 	}
 
@@ -174,8 +174,8 @@ final class RestServer {
 	 *
 	 * The standard `X-WP-Nonce` header is already validated by WP cookie
 	 * auth for logged-in users. For multipart/public requests we additionally
-	 * accept a body field (`pkitfw_nonce` or `wpnonce`) checked against the
-	 * `pkitfw_rest` action.
+	 * accept a body field (`optset_nonce` or `wpnonce`) checked against the
+	 * `optset_rest` action.
 	 *
 	 * @param WP_REST_Request $r Request.
 	 * @return bool
@@ -187,13 +187,13 @@ final class RestServer {
 		}
 
 		$candidates = array(
-			$r->get_param( 'pkitfw_nonce' ),
+			$r->get_param( 'optset_nonce' ),
 			$r->get_param( 'wpnonce' ),
 		);
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
-		if ( isset( $_POST['pkitfw_nonce'] ) ) {
-			$candidates[] = sanitize_text_field( wp_unslash( $_POST['pkitfw_nonce'] ) );
+		if ( isset( $_POST['optset_nonce'] ) ) {
+			$candidates[] = sanitize_text_field( wp_unslash( $_POST['optset_nonce'] ) );
 		}
 		if ( isset( $_POST['wpnonce'] ) ) {
 			$candidates[] = sanitize_text_field( wp_unslash( $_POST['wpnonce'] ) );

@@ -19,9 +19,9 @@ function openFrame( onPick ) {
 		return;
 	}
 	const frame = media( {
-		title: __( 'Select image', 'productkit-for-woocommerce' ),
+		title: __( 'Select image', 'option-set-builder' ),
 		button: {
-			text: __( 'Use image', 'productkit-for-woocommerce' ),
+			text: __( 'Use image', 'option-set-builder' ),
 		},
 		multiple: false,
 		library: { type: 'image' },
@@ -44,17 +44,17 @@ function openFrame( onPick ) {
 export default function MediaPicker( { value, onChange } ) {
 	const available = !! ( window.wp && window.wp.media );
 	return (
-		<div className="pkitfw-media-picker">
+		<div className="optset-media-picker">
 			{ value ? (
-				<div className="pkitfw-media-picker__preview">
+				<div className="optset-media-picker__preview">
 					<img src={ value } alt="" />
 					<button
 						type="button"
-						className="pkitfw-icon-btn pkitfw-media-picker__remove"
+						className="optset-icon-btn optset-media-picker__remove"
 						onClick={ () => onChange( null ) }
 						aria-label={ __(
 							'Remove image',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 					>
 						<span
@@ -66,18 +66,18 @@ export default function MediaPicker( { value, onChange } ) {
 			) : (
 				<button
 					type="button"
-					className="pkitfw-btn pkitfw-btn--ghost"
+					className="optset-btn optset-btn--ghost"
 					disabled={ ! available }
 					onClick={ () => openFrame( onChange ) }
 				>
 					{ available
 						? __(
 								'Select image',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  )
 						: __(
 								'Media library unavailable',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 						  ) }
 				</button>
 			) }

@@ -2,7 +2,7 @@
  * Centered, searchable field-type picker. Opens from any "+ Add field"
  * affordance, groups every type by category with icons, supports fuzzy
  * search (cmdk), keyboard navigation, ESC-to-close (Radix), and animated
- * open/close (framer-motion). Pro-only types render locked.
+ * open/close (framer-motion).
  *
  * @package
  */
@@ -12,10 +12,9 @@ import { __ } from '@wordpress/i18n';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Command } from 'cmdk';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Search, X, Lock } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { typesByCategory } from '../../../fields/registry';
 import { fieldIcon, CATEGORY_ICONS } from '../../../fields/icons';
-import { useConfig } from '../../../store/ConfigContext';
 import { useBuilder } from '../../../store/BuilderContext';
 import { useBuilderUI } from '../store/builderUi';
 
@@ -34,7 +33,6 @@ const panel = {
  * @return {JSX.Element} The picker dialog.
  */
 export default function FieldPicker() {
-	const { proActive } = useConfig();
 	const { dispatch } = useBuilder();
 	const { pickerOpen, pickerParent, pickerIndex, closePicker } =
 		useBuilderUI();
@@ -58,9 +56,6 @@ export default function FieldPicker() {
 	 * @return {void}
 	 */
 	const add = ( type ) => {
-		if ( type.proOnly && ! proActive ) {
-			return;
-		}
 		dispatch( {
 			type: 'ADD',
 			fieldType: type.slug,
@@ -80,7 +75,7 @@ export default function FieldPicker() {
 					<Dialog.Portal forceMount>
 						<Dialog.Overlay asChild forceMount>
 							<motion.div
-								className="pkitfw-picker__overlay"
+								className="optset-picker__overlay"
 								variants={ overlay }
 								initial="hidden"
 								animate="visible"
@@ -88,19 +83,19 @@ export default function FieldPicker() {
 								transition={ { duration: 0.16 } }
 							/>
 						</Dialog.Overlay>
-						<div className="pkitfw-picker__wrap">
+						<div className="optset-picker__wrap">
 							<Dialog.Content
 								asChild
 								forceMount
 								aria-label={ __(
 									'Add a field',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 								aria-describedby={ undefined }
 								onOpenAutoFocus={ ( e ) => e.preventDefault() }
 							>
 								<motion.div
-									className="pkitfw-picker"
+									className="optset-picker"
 									variants={ panel }
 									initial="hidden"
 									animate="visible"
@@ -112,12 +107,12 @@ export default function FieldPicker() {
 										mass: 0.7,
 									} }
 								>
-									<Command className="pkitfw-picker__cmd" loop>
-										<header className="pkitfw-picker__head">
-											<div className="pkitfw-picker__search">
+									<Command className="optset-picker__cmd" loop>
+										<header className="optset-picker__head">
+											<div className="optset-picker__search">
 												<Search
 													size={ 18 }
-													className="pkitfw-picker__search-icon"
+													className="optset-picker__search-icon"
 													aria-hidden="true"
 												/>
 												<Command.Input
@@ -126,18 +121,18 @@ export default function FieldPicker() {
 													onValueChange={ setQuery }
 													placeholder={ __(
 														'Search fields…',
-														'productkit-for-woocommerce'
+														'option-set-builder'
 													) }
-													className="pkitfw-picker__input"
+													className="optset-picker__input"
 												/>
 											</div>
 											<Dialog.Close asChild>
 												<button
 													type="button"
-													className="pkitfw-picker__close"
+													className="optset-picker__close"
 													aria-label={ __(
 														'Close',
-														'productkit-for-woocommerce'
+														'option-set-builder'
 													) }
 												>
 													<X size={ 18 } />
@@ -145,11 +140,11 @@ export default function FieldPicker() {
 											</Dialog.Close>
 										</header>
 
-										<Command.List className="pkitfw-picker__list">
-											<Command.Empty className="pkitfw-picker__empty">
+										<Command.List className="optset-picker__list">
+											<Command.Empty className="optset-picker__empty">
 												{ __(
 													'No fields match your search.',
-													'productkit-for-woocommerce'
+													'option-set-builder'
 												) }
 											</Command.Empty>
 
@@ -160,7 +155,7 @@ export default function FieldPicker() {
 													<Command.Group
 														key={ group.key }
 														heading={
-															<span className="pkitfw-picker__cat">
+															<span className="optset-picker__cat">
 																{ Cat && (
 																	<Cat
 																		size={
@@ -172,7 +167,7 @@ export default function FieldPicker() {
 																{ group.label }
 															</span>
 														}
-														className="pkitfw-picker__group"
+														className="optset-picker__group"
 													>
 														{ group.items.map(
 															( type ) => {
@@ -180,9 +175,6 @@ export default function FieldPicker() {
 																	fieldIcon(
 																		type.slug
 																	);
-																const locked =
-																	type.proOnly &&
-																	! proActive;
 																return (
 																	<Command.Item
 																		key={
@@ -194,13 +186,9 @@ export default function FieldPicker() {
 																				type
 																			)
 																		}
-																		className={ `pkitfw-picker__item${
-																			locked
-																				? ' is-locked'
-																				: ''
-																		}` }
+																		className="optset-picker__item"
 																	>
-																		<span className="pkitfw-picker__item-icon">
+																		<span className="optset-picker__item-icon">
 																			<Icon
 																				size={
 																					18
@@ -208,21 +196,11 @@ export default function FieldPicker() {
 																				aria-hidden="true"
 																			/>
 																		</span>
-																		<span className="pkitfw-picker__item-label">
+																		<span className="optset-picker__item-label">
 																			{
 																				type.label
 																			}
 																		</span>
-																		{ locked && (
-																			<span className="pkitfw-picker__pro">
-																				<Lock
-																					size={
-																						11
-																					}
-																				/>
-																				Pro
-																			</span>
-																		) }
 																	</Command.Item>
 																);
 															}

@@ -198,30 +198,3 @@ export const getAnalytics = ( search = '' ) => get( 'analytics', { search } );
  * @return {Promise<{ok:boolean,message:string,slug:string}>} Envelope.
  */
 export const installPlugin = ( slug ) => write( 'plugin/install', { slug } );
-
-/* ---------------------------------------------------------------------- *
- * License (served by the ProductKit Pro plugin under the same namespace)
- * ---------------------------------------------------------------------- */
-
-/**
- * Fetch the current license snapshot. Rejects (404 / rest_no_route) when the
- * Pro plugin is not installed — callers treat that as "Free".
- *
- * @return {Promise<{ok:boolean,license:Object}>} Envelope.
- */
-export const getLicense = () => get( 'license' );
-
-/**
- * Activate a license key.
- *
- * @param {string} key The license key.
- * @return {Promise<{ok:boolean,message:string,license:Object}>} Envelope.
- */
-export const activateLicense = ( key ) => write( 'license/activate', { key } );
-
-/**
- * Deactivate / release the stored license.
- *
- * @return {Promise<{ok:boolean,message:string,license:Object}>} Envelope.
- */
-export const deactivateLicense = () => write( 'license/deactivate', {} );

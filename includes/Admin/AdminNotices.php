@@ -2,20 +2,19 @@
 /**
  * Minimal, dismissible admin notice.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Admin;
+namespace OptionSetBuilder\Admin;
 
-use ProductKit\Core\Capabilities;
+use OptionSetBuilder\Core\Capabilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shows a single, dismissible getting-started / review prompt to
- * non-licensed admins on the plugin screens. Dismissal is persisted
- * for ~90 days via a transient. Everything here is capability-gated
- * and fully escaped.
+ * Shows a single, dismissible getting-started prompt to admins on the plugin
+ * screens. Dismissal is persisted for ~90 days via a transient. Everything
+ * here is capability-gated and fully escaped.
  */
 final class AdminNotices {
 
@@ -50,11 +49,11 @@ final class AdminNotices {
 	 * @return string
 	 */
 	private function transient_key( $key ) {
-		return 'pkitfw_notice_' . $key;
+		return 'optset_notice_' . $key;
 	}
 
 	/**
-	 * Handle a dismissal request (`?pkitfw_dismiss=<key>` + nonce).
+	 * Handle a dismissal request (`?optset_dismiss=<key>` + nonce).
 	 *
 	 * @return void
 	 */
@@ -63,13 +62,13 @@ final class AdminNotices {
 			return;
 		}
 
-		$key = isset( $_GET['pkitfw_dismiss'] ) ? sanitize_key( wp_unslash( $_GET['pkitfw_dismiss'] ) ) : '';
+		$key = isset( $_GET['optset_dismiss'] ) ? sanitize_key( wp_unslash( $_GET['optset_dismiss'] ) ) : '';
 		if ( '' === $key ) {
 			return;
 		}
 
-		$nonce = isset( $_GET['_pkitfw_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_pkitfw_nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'pkitfw_notice' ) ) {
+		$nonce = isset( $_GET['_optset_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_optset_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'optset_notice' ) ) {
 			return;
 		}
 
@@ -105,34 +104,29 @@ final class AdminNotices {
 			return;
 		}
 
-		// Only nudge users without an active Pro license.
-		if ( Capabilities::pro() ) {
-			return;
-		}
-
 		if ( 'off' === get_transient( $this->transient_key( self::KEY ) ) ) {
 			return;
 		}
 
 		$dismiss_url = wp_nonce_url(
-			add_query_arg( 'pkitfw_dismiss', self::KEY ),
-			'pkitfw_notice',
-			'_pkitfw_nonce'
+			add_query_arg( 'optset_dismiss', self::KEY ),
+			'optset_notice',
+			'_optset_nonce'
 		);
 
 		?>
-		<div class="notice notice-info is-dismissible pkitfw-notice">
+		<div class="notice notice-info is-dismissible optset-notice">
 			<p>
-				<strong><?php esc_html_e( 'ProductKit – Product Options for WooCommerce', 'productkit-for-woocommerce' ); ?></strong>
+				<strong><?php esc_html_e( 'Option Set Builder', 'option-set-builder' ); ?></strong>
 				&mdash;
-				<?php esc_html_e( 'Thanks for installing! Build your first option set to start adding custom fields to products.', 'productkit-for-woocommerce' ); ?>
+				<?php esc_html_e( 'Thanks for installing! Build your first option set to start adding custom fields to products.', 'option-set-builder' ); ?>
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=' . AdminMenu::SLUG . '#/sets' ) ); ?>">
-					<?php esc_html_e( 'Create an Option Set', 'productkit-for-woocommerce' ); ?>
+					<?php esc_html_e( 'Create an Option Set', 'option-set-builder' ); ?>
 				</a>
 			</p>
 			<p>
 				<a href="<?php echo esc_url( $dismiss_url ); ?>" class="button-link">
-					<?php esc_html_e( 'Dismiss', 'productkit-for-woocommerce' ); ?>
+					<?php esc_html_e( 'Dismiss', 'option-set-builder' ); ?>
 				</a>
 			</p>
 		</div>

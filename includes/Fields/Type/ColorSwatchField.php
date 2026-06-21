@@ -2,12 +2,12 @@
 /**
  * Color swatch choice field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -41,7 +41,7 @@ final class ColorSwatchField extends AbstractField {
 		$input_t  = $multiple ? 'checkbox' : 'radio';
 		$name     = $multiple ? $this->choice_name() . '[]' : $this->choice_name();
 
-		$html = '<div class="pkitfw-swatches pkitfw-swatches--color"'
+		$html = '<div class="optset-swatches optset-swatches--color"'
 			. $this->attrs(
 				array(
 					'data-min-select' => $multiple && '' !== (string) $this->cfg( 'minSelect', '' ) ? (int) $this->cfg( 'minSelect' ) : '',
@@ -53,8 +53,8 @@ final class ColorSwatchField extends AbstractField {
 			$label = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 			$color = isset( $choice['color'] ) ? (string) $choice['color'] : '#ffffff';
 
-			$html .= '<label class="pkitfw-swatch-item" title="' . esc_attr( $label ) . '">';
-			$html .= '<input type="' . esc_attr( $input_t ) . '" class="pkitfw-swatch-item__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
+			$html .= '<label class="optset-swatch-item" title="' . esc_attr( $label ) . '">';
+			$html .= '<input type="' . esc_attr( $input_t ) . '" class="optset-swatch-item__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
 				. $this->attrs(
 					array_merge(
 						array(
@@ -68,9 +68,9 @@ final class ColorSwatchField extends AbstractField {
 					)
 				) . ' />';
 			$swatch_style = trim( 'background:' . $color . ';' . $this->swatch_style(), ';' );
-			$html .= '<span class="pkitfw-swatch" style="' . esc_attr( $swatch_style ) . '"></span>';
+			$html .= '<span class="optset-swatch" style="' . esc_attr( $swatch_style ) . '"></span>';
 			if ( '' !== $label ) {
-				$html .= '<span class="pkitfw-swatch-item__label">' . esc_html( $label ) . '</span>';
+				$html .= '<span class="optset-swatch-item__label">' . esc_html( $label ) . '</span>';
 			}
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= $this->qty_input( $index );

@@ -1,14 +1,14 @@
 /* App shell scaffolding only. The top navigation lives in `_topbar.scss`
    and per-screen layout in `_page-frame.scss`. */
 
-.pkitfw-app {
+.optset-app {
 	display: flex;
 	flex-direction: column;
 	min-height: calc(100vh - 32px);
-	background: $pkitfw-bg;
+	background: $optset-bg;
 }
 
-.pkitfw-app__outlet {
+.optset-app__outlet {
 	flex: 1;
 	min-height: 0;
 
@@ -19,41 +19,41 @@
 }
 
 /* Legacy screen-head primitives kept around for screens that still reference
-   them. New screens should use `.pkitfw-page__*` from PageFrame. */
-.pkitfw-screen-head {
+   them. New screens should use `.optset-page__*` from PageFrame. */
+.optset-screen-head {
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
-	gap: $pkitfw-space;
-	margin-block-end: $pkitfw-space-lg;
+	gap: $optset-space;
+	margin-block-end: $optset-space-lg;
 	flex-wrap: wrap;
 }
 
-.pkitfw-screen-head__actions {
+.optset-screen-head__actions {
 	display: flex;
-	gap: $pkitfw-space-sm;
+	gap: $optset-space-sm;
 	align-items: center;
 }
 
-.pkitfw-screen-title { font-size: 22px; }
+.optset-screen-title { font-size: 22px; }
 
-.pkitfw-screen-sub {
-	color: $pkitfw-text-muted;
+.optset-screen-sub {
+	color: $optset-text-muted;
 	margin: 4px 0 0;
 }
 
-.pkitfw-style__grid {
+.optset-style__grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: $pkitfw-space;
+	gap: $optset-space;
 }
 
-.pkitfw-promo {
-	border-color: rgba($pkitfw-pro, 0.4);
-	background: linear-gradient(180deg, rgba($pkitfw-pro, 0.05), transparent);
+.optset-promo {
+	border-color: rgba($optset-pro, 0.4);
+	background: linear-gradient(180deg, rgba($optset-pro, 0.05), transparent);
 }
 
-.pkitfw-feature-list {
-	margin: 0 0 $pkitfw-space;
+.optset-feature-list {
+	margin: 0 0 $optset-space;
 	padding-inline-start: 18px;
 }

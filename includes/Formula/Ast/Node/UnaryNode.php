@@ -2,13 +2,13 @@
 /**
  * Prefix unary operator node (+x / -x).
  *
- * @package ProductKit\Formula\Ast\Node
+ * @package OptionSetBuilder\Formula\Ast\Node
  */
 
-namespace ProductKit\Formula\Ast\Node;
+namespace OptionSetBuilder\Formula\Ast\Node;
 
-use ProductKit\Formula\Ast\EvaluationError;
-use ProductKit\Formula\Ast\ExpressionEngine;
+use OptionSetBuilder\Formula\Ast\EvaluationError;
+use OptionSetBuilder\Formula\Ast\ExpressionEngine;
 
 defined( 'ABSPATH' ) || exit;
 

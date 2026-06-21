@@ -2,12 +2,12 @@
 /**
  * Tax + currency display bridge.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Pricing;
+namespace OptionSetBuilder\Pricing;
 
-use ProductKit\Pricing\Currency\CurrencyBridge;
+use OptionSetBuilder\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
 

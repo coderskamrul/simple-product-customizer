@@ -102,21 +102,21 @@ function ValueControl( { source, operator, value, onChange } ) {
 						value: '',
 						label: __(
 							'Select state',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						),
 					},
 					{
 						value: '__checked__',
 						label: __(
 							'Checked / On',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						),
 					},
 					{
 						value: '__unchecked__',
 						label: __(
 							'Unchecked / Off',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						),
 					},
 				] }
@@ -135,7 +135,7 @@ function ValueControl( { source, operator, value, onChange } ) {
 				value: '',
 				label: __(
 					'Select option',
-					'productkit-for-woocommerce'
+					'option-set-builder'
 				),
 			},
 			...source.choices.map( ( c, i ) => {
@@ -143,7 +143,7 @@ function ValueControl( { source, operator, value, onChange } ) {
 					( c.label || '' ).trim() ||
 					`${ __(
 						'Option',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) } ${ i + 1 }`;
 				return { value: c.label || label, label };
 			} ),
@@ -165,9 +165,9 @@ function ValueControl( { source, operator, value, onChange } ) {
 				operator === 'between'
 					? __(
 							'e.g. 10,20',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 					  )
-					: __( 'Value', 'productkit-for-woocommerce' )
+					: __( 'Value', 'option-set-builder' )
 			}
 			onChange={ onChange }
 		/>
@@ -225,14 +225,14 @@ export default function LogicTab( { node, patch } ) {
 		setLogic( { rules: rules.filter( ( _, i ) => i !== idx ) } );
 
 	return (
-		<div className="pkitfw-settings__pane pkitfw-logic">
-			<div className="pkitfw-logic__enable">
+		<div className="optset-settings__pane optset-logic">
+			<div className="optset-logic__enable">
 				<ToggleField
 					checked={ node.logicEnabled }
 					onChange={ ( v ) => patch( { logicEnabled: v } ) }
 					label={ __(
 						'Enable conditional logic for this element',
-						'productkit-for-woocommerce'
+						'option-set-builder'
 					) }
 				/>
 			</div>
@@ -240,7 +240,7 @@ export default function LogicTab( { node, patch } ) {
 			{ node.logicEnabled && (
 				<>
 					{ /* Sentence: [Show|Hide] this field if [Any|All] match */ }
-					<div className="pkitfw-logic__sentence">
+					<div className="optset-logic__sentence">
 						<SelectControl
 							value={ action }
 							onChange={ ( v ) => setLogic( { action: v } ) }
@@ -249,22 +249,22 @@ export default function LogicTab( { node, patch } ) {
 									value: 'show',
 									label: __(
 										'Show',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									),
 								},
 								{
 									value: 'hide',
 									label: __(
 										'Hide',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									),
 								},
 							] }
 						/>
-						<span className="pkitfw-logic__text">
+						<span className="optset-logic__text">
 							{ __(
 								'this field if',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</span>
 						<SelectControl
@@ -275,68 +275,68 @@ export default function LogicTab( { node, patch } ) {
 									value: 'any',
 									label: __(
 										'Any',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									),
 								},
 								{
 									value: 'all',
 									label: __(
 										'All',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									),
 								},
 							] }
 						/>
-						<span className="pkitfw-logic__text">
+						<span className="optset-logic__text">
 							{ __(
 								'of these rules match:',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</span>
 					</div>
 
 					{ sourceOptions.length === 0 ? (
-						<p className="pkitfw-hint">
+						<p className="optset-hint">
 							{ __(
 								'Add another field first to reference it in a rule.',
-								'productkit-for-woocommerce'
+								'option-set-builder'
 							) }
 						</p>
 					) : (
-						<div className="pkitfw-logic__table">
-							<div className="pkitfw-logic__head">
+						<div className="optset-logic__table">
+							<div className="optset-logic__head">
 								<span>
 									{ __(
 										'Field',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</span>
 								<span>
 									{ __(
 										'Comparison',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</span>
 								<span>
 									{ __(
 										'Value',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</span>
-								<span className="pkitfw-logic__head-act" />
+								<span className="optset-logic__head-act" />
 							</div>
 
 							{ rules.length === 0 && (
-								<p className="pkitfw-logic__empty">
+								<p className="optset-logic__empty">
 									{ __(
 										'No rules yet — add your first condition below.',
-										'productkit-for-woocommerce'
+										'option-set-builder'
 									) }
 								</p>
 							) }
 
 							{ rules.map( ( rule, idx ) => (
-								<div className="pkitfw-logic__row" key={ idx }>
+								<div className="optset-logic__row" key={ idx }>
 									<SelectControl
 										value={ rule.source }
 										onChange={ ( v ) =>
@@ -354,7 +354,7 @@ export default function LogicTab( { node, patch } ) {
 										}
 										options={ OPERATORS }
 									/>
-									<div className="pkitfw-logic__value">
+									<div className="optset-logic__value">
 										<ValueControl
 											source={ byId[ rule.source ] }
 											operator={ rule.operator }
@@ -366,11 +366,11 @@ export default function LogicTab( { node, patch } ) {
 									</div>
 									<button
 										type="button"
-										className="pkitfw-logic__del"
+										className="optset-logic__del"
 										onClick={ () => removeRule( idx ) }
 										aria-label={ __(
 											'Remove rule',
-											'productkit-for-woocommerce'
+											'option-set-builder'
 										) }
 									>
 										<span
@@ -383,7 +383,7 @@ export default function LogicTab( { node, patch } ) {
 
 							<button
 								type="button"
-								className="pkitfw-logic__add"
+								className="optset-logic__add"
 								onClick={ addRule }
 							>
 								<span
@@ -392,7 +392,7 @@ export default function LogicTab( { node, patch } ) {
 								/>
 								{ __(
 									'Add condition',
-									'productkit-for-woocommerce'
+									'option-set-builder'
 								) }
 							</button>
 						</div>

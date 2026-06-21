@@ -78,13 +78,13 @@ export default function FieldCard( { node } ) {
 		<div
 			ref={ setNodeRef }
 			style={ style }
-			className={ `pkitfw-card pkitfw-card--w-${ node.width || 'full' }${
+			className={ `optset-card optset-card--w-${ node.width || 'full' }${
 				selected ? ' is-selected' : ''
 			}${ isDragging ? ' is-dragging' : '' }` }
 		>
 			<motion.div
 				layout
-				className="pkitfw-card__inner"
+				className="optset-card__inner"
 				role="button"
 				tabIndex={ 0 }
 				onClick={ select }
@@ -99,32 +99,32 @@ export default function FieldCard( { node } ) {
 				   the card; the buttons within are the real controls. */ }
 				{ /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */ }
 				<div
-					className="pkitfw-card__toolbar"
+					className="optset-card__toolbar"
 					onClick={ ( e ) => e.stopPropagation() }
 				>
 					<button
 						type="button"
-						className="pkitfw-card__tool pkitfw-card__handle"
+						className="optset-card__tool optset-card__handle"
 						aria-label={ __(
 							'Drag to reorder',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						{ ...attributes }
 						{ ...listeners }
 					>
 						<GripVertical size={ 15 } />
 					</button>
-					<span className="pkitfw-card__chip">
+					<span className="optset-card__chip">
 						<Icon size={ 13 } aria-hidden="true" />
 						{ def.label }
 					</span>
-					<span className="pkitfw-card__toolbar-spacer" />
+					<span className="optset-card__toolbar-spacer" />
 					<button
 						type="button"
-						className="pkitfw-card__tool"
+						className="optset-card__tool"
 						aria-label={ __(
 							'Edit settings',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						onClick={ action( select ) }
 					>
@@ -132,10 +132,10 @@ export default function FieldCard( { node } ) {
 					</button>
 					<button
 						type="button"
-						className="pkitfw-card__tool"
+						className="optset-card__tool"
 						aria-label={ __(
 							'Duplicate',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						onClick={ action( () =>
 							dispatch( { type: 'DUPLICATE', id: node.id } )
@@ -145,10 +145,10 @@ export default function FieldCard( { node } ) {
 					</button>
 					<button
 						type="button"
-						className="pkitfw-card__tool pkitfw-card__tool--danger"
+						className="optset-card__tool optset-card__tool--danger"
 						aria-label={ __(
 							'Delete',
-							'productkit-for-woocommerce'
+							'option-set-builder'
 						) }
 						onClick={ action( () =>
 							dispatch( { type: 'REMOVE', id: node.id } )
@@ -158,12 +158,12 @@ export default function FieldCard( { node } ) {
 					</button>
 				</div>
 
-				<div className="pkitfw-card__body">
+				<div className="optset-card__body">
 					{ /* Sections render their own chrome + editable children
 					   (no FieldPreview, which would duplicate the children). */ }
 					{ isSection ? (
 						<div
-							className={ `pkitfw-section-edit${
+							className={ `optset-section-edit${
 								isAccordion ? ' is-accordion' : ''
 							}${
 								isAccordion && ! open ? ' is-collapsed' : ''
@@ -172,31 +172,31 @@ export default function FieldCard( { node } ) {
 							{ isAccordion ? (
 								// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
 								<div
-									className="pkitfw-section-edit__header"
+									className="optset-section-edit__header"
 									onClick={ ( e ) => {
 										e.stopPropagation();
 										setOpen( ( o ) => ! o );
 									} }
 								>
-									<span className="pkitfw-section-edit__title">
+									<span className="optset-section-edit__title">
 										{ node.label ||
 											__(
 												'Section',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 									</span>
 									<span
-										className="pkitfw-section-edit__chevron"
+										className="optset-section-edit__chevron"
 										aria-hidden="true"
 									/>
 								</div>
 							) : (
-								<div className="pkitfw-section-edit__header pkitfw-section-edit__header--static">
-									<span className="pkitfw-section-edit__title">
+								<div className="optset-section-edit__header optset-section-edit__header--static">
+									<span className="optset-section-edit__title">
 										{ node.label ||
 											__(
 												'Section',
-												'productkit-for-woocommerce'
+												'option-set-builder'
 											) }
 									</span>
 								</div>
@@ -205,7 +205,7 @@ export default function FieldCard( { node } ) {
 							{ ( ! isAccordion || open ) && (
 								// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
 								<div
-									className="pkitfw-card__children"
+									className="optset-card__children"
 									onClick={ ( e ) => e.stopPropagation() }
 								>
 									<SortableContainer

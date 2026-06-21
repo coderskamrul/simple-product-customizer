@@ -2,12 +2,12 @@
 /**
  * Heading layout field.
  *
- * @package ProductKit
+ * @package OptionSetBuilder
  */
 
-namespace ProductKit\Fields\Type;
+namespace OptionSetBuilder\Fields\Type;
 
-use ProductKit\Fields\AbstractField;
+use OptionSetBuilder\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,9 +57,9 @@ final class HeadingField extends AbstractField {
 		$text = (string) $this->prop( 'label', '' );
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<' . $tag . ' class="pkitfw-heading">' . esc_html( $text ) . '</' . $tag . '>';
+		$html .= '<' . $tag . ' class="optset-heading">' . esc_html( $text ) . '</' . $tag . '>';
 		if ( '' !== (string) $this->prop( 'description', '' ) ) {
-			$html .= '<div class="pkitfw-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
+			$html .= '<div class="optset-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
 		}
 		$html .= '</div>';
 		return $html;
