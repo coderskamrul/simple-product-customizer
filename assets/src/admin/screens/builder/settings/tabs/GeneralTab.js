@@ -10,12 +10,10 @@
 
 import { __ } from '@wordpress/i18n';
 import { getType } from '../../../../fields/registry';
-import { useConfig } from '../../../../store/ConfigContext';
 import {
 	Field,
 	TextControl,
 	ToggleField,
-	ProBadge,
 } from '../../../../components';
 import ChoiceTable from '../ChoiceTable';
 import ChoiceFieldExtras from '../ChoiceFieldExtras';
@@ -42,7 +40,6 @@ const VALUE_PRICE_TYPES = [ 'number', 'range', 'email', 'colorpicker' ];
  * @return {JSX.Element} The tab body.
  */
 export default function GeneralTab( { node, patch } ) {
-	const { proActive } = useConfig();
 	const def = getType( node.type );
 	const cfg = node.config || {};
 	const isLayout = [ 'heading', 'divider', 'spacer', 'section' ].includes(
@@ -74,23 +71,14 @@ export default function GeneralTab( { node, patch } ) {
 					/>
 				) }
 				{ def.priceable && def.hasChoices && (
-					<span
-						className={ `spcus-settings__switch-pro${
-							proActive ? '' : ' is-locked'
-						}` }
-					>
-						<ToggleField
-							checked={ proActive && !! cfg.formulaValue }
-							onChange={ ( v ) =>
-								proActive && setKey( 'formulaValue', v )
-							}
-							label={ __(
-								'Enable Formula Value',
-								'simple-product-customizer'
-							) }
-						/>
-						{ ! proActive && <ProBadge text="" /> }
-					</span>
+					<ToggleField
+						checked={ !! cfg.formulaValue }
+						onChange={ ( v ) => setKey( 'formulaValue', v ) }
+						label={ __(
+							'Enable Formula Value',
+							'simple-product-customizer'
+						) }
+					/>
 				) }
 			</div>
 

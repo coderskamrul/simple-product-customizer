@@ -182,45 +182,6 @@
 		justify-self: end;
 	}
 
-	&__upgrade {
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		padding: 8px 16px;
-		border: 1.5px solid var(--spcus-c-primary);
-		border-radius: var(--spcus-r-md);
-		background: transparent;
-		color: var(--spcus-c-primary);
-		font-size: 13px;
-		font-weight: 700;
-		text-decoration: none;
-		white-space: nowrap;
-		transition:
-			background var(--spcus-dur) var(--spcus-ease),
-			color var(--spcus-dur) var(--spcus-ease),
-			box-shadow var(--spcus-dur) var(--spcus-ease),
-			transform var(--spcus-dur) var(--spcus-ease);
-
-		&:hover {
-			background: var(--spcus-c-primary);
-			color: var(--spcus-c-primary-ink);
-			box-shadow: 0 4px 14px rgba(var(--spcus-c-primary-rgb), 0.25);
-			transform: translateY(-1px);
-		}
-
-		svg { flex-shrink: 0; }
-	}
-
-	&__plan {
-		font-size: 11px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		padding: 5px 12px;
-		border-radius: var(--spcus-r-full);
-		background: var(--spcus-c-primary-soft);
-		color: var(--spcus-c-primary-hover);
-	}
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────── */
@@ -248,16 +209,11 @@
 
 @media (max-width: 600px) {
 	.spcus-topbar {
-		&__cta span:last-child,
-		&__upgrade span { display: none; }
+		&__cta span:last-child { display: none; }
 
 		&__cta {
 			padding: 0 var(--spcus-s-3);
 			min-height: 36px;
-		}
-
-		&__upgrade {
-			padding: 8px 10px;
 		}
 
 		&__tab {

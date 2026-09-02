@@ -10,7 +10,6 @@
  *   icon            dashicon slug (rendered as <span class="dashicons">)
  *   priceable       whether choices/value can carry a price
  *   hasChoices      whether the Choices inspector tab applies
- *   proOnly         Pro-gated type (renders disabled when !proActive)
  *   defaultNode()   factory returning a §6 node skeleton (sans id/parent)
  *   inspectorSchema array of Advanced-tab config field descriptors
  *
@@ -519,7 +518,6 @@ export const FIELD_TYPES = {
 		category: 'Advanced',
 		icon: 'editor-textcolor',
 		priceable: true,
-		proOnly: true,
 		hasChoices: true,
 		defaultNode: () => ( {
 			...baseNode( 'fontpicker' ),
@@ -562,7 +560,6 @@ export const FIELD_TYPES = {
 		category: 'Advanced',
 		icon: 'superhero',
 		priceable: true,
-		proOnly: true,
 		defaultNode: () => ( {
 			...baseNode( 'advancedformula' ),
 			config: { formula: '' },
@@ -816,12 +813,10 @@ export const PRICE_MODES = [
 	{
 		value: 'percent',
 		label: __( 'Percentage', 'simple-product-customizer' ),
-		pro: true,
 	},
 	{
 		value: 'per_unit',
 		label: __( 'Per Unit', 'simple-product-customizer' ),
-		pro: true,
 	},
 	{
 		value: 'per_char',
@@ -833,12 +828,10 @@ export const PRICE_MODES = [
 			'Per Character (no spaces)',
 			'simple-product-customizer'
 		),
-		pro: true,
 	},
 	{
 		value: 'per_word',
 		label: __( 'Per Word', 'simple-product-customizer' ),
-		pro: true,
 	},
 ];
 

@@ -63,6 +63,12 @@ final class UploadController {
 	 * @return array<string,string>
 	 */
 	private function allowed_mimes() {
+		/*
+		 * NOTE: SVG is deliberately absent. This endpoint is reachable by
+		 * unauthenticated storefront visitors, and an SVG is an executable
+		 * document — an uploaded one would be stored XSS on this origin.
+		 * Sites that accept that risk can re-add it via `spcus_upload_mimes`.
+		 */
 		$default = array(
 			'png'  => 'image/png',
 			'jpg'  => 'image/jpeg',
@@ -71,7 +77,6 @@ final class UploadController {
 			'csv'  => 'text/csv',
 			'doc'  => 'application/msword',
 			'txt'  => 'text/plain',
-			'svg'  => 'image/svg+xml',
 			'heic' => 'image/heic',
 		);
 

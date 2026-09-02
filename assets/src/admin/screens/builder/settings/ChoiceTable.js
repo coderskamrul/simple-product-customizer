@@ -4,7 +4,6 @@
  * with inline add, drag reordering and per-type extras. The image/colour
  * control lives inline as its own column (matching the field-settings
  * reference designs) so editors set per-choice media without a second row.
- * Enforces the free tier's 3-choice cap with an upgrade hint.
  *
  * @package
  */
@@ -28,10 +27,8 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Trash2, Plus, ImageIcon, X } from 'lucide-react';
 import { priceModeOptionsFor, makeChoice } from '../../../fields/registry';
-import { useConfig } from '../../../store/ConfigContext';
 import useCustomFonts from '../../../hooks/useCustomFonts';
 
-const FREE_CAP = 3;
 
 /** Map each choice type to its extra inline column (image|color|font). */
 const EXTRA_BY_TYPE = {
@@ -186,7 +183,6 @@ function FontCell( { choice, onPatch } ) {
  * @param {Object}   props.choice       Choice row data.
  * @param {number}   props.index        Row index.
  * @param {Array}    props.priceOptions Price-mode options.
- * @param {boolean}  props.proActive    Whether Pro is active.
  * @param {?string}  props.extra        Extra column kind (color|image|font).
  * @param {boolean}  props.labelless    Hide the Title input (Font Picker).
  * @param {Function} props.onPatch      (delta) => void.
@@ -199,7 +195,6 @@ function ChoiceRow( {
 	choice,
 	index,
 	priceOptions,
-	proActive,
 	extra,
 	labelless,
 	hideRemove,
@@ -316,12 +311,6 @@ function ChoiceRow( {
 				className="spcus-input"
 				type="number"
 				value={ choice.sale }
-				placeholder={
-					proActive
-						? ''
-						: __( 'Pro', 'simple-product-customizer' )
-				}
-				disabled={ ! proActive }
 				onChange={ ( e ) => onPatch( { sale: e.target.value } ) }
 			/>
 
@@ -371,7 +360,6 @@ function ChoiceRow( {
  * @return {JSX.Element} The choices editor.
  */
 export default function ChoiceTable( { node, patch } ) {
-	const { proActive } = useConfig();
 	const choices = node.choices || [];
 	const extra = EXTRA_BY_TYPE[ node.type ] || null;
 	// Font Picker drives the option label from the chosen font, so its font
@@ -388,15 +376,14 @@ export default function ChoiceTable( { node, patch } ) {
 	);
 
 	// Per-row price options: filtered by field type / Enable Quantity (see
-	// allowedPriceModes in fields/registry) and gated for Pro. The saved
-	// value is always preserved so toggling Enable Quantity off (etc.)
-	// never silently drops a stored mode from a choice.
+	// allowedPriceModes in fields/registry). The saved value is always
+	// preserved so toggling Enable Quantity off (etc.) never silently
+	// drops a stored mode from a choice.
 	const priceOptionsForChoice = ( choice ) =>
 		priceModeOptionsFor( node, choice && choice.priceMode ).map(
 			( m ) => ( {
 				value: m.value,
-				label: m.pro && ! proActive ? `${ m.label } (Pro)` : m.label,
-				disabled: m.pro && ! proActive,
+				label: m.label,
 			} )
 		);
 
@@ -439,7 +426,6 @@ export default function ChoiceTable( { node, patch } ) {
 		patch( { choices: arrayMove( choices, from, to ) } );
 	};
 
-	const canAdd = proActive || choices.length < FREE_CAP;
 	const mediaLabels = {
 		color: __( 'Color', 'simple-product-customizer' ),
 		font: __( 'Font', 'simple-product-customizer' ),
@@ -482,9 +468,8 @@ export default function ChoiceTable( { node, patch } ) {
 						'simple-product-customizer'
 					) }
 				</span>
-				<span className="spcus-choices__pro-col">
+				<span>
 					{ __( 'Sales', 'simple-product-customizer' ) }
-					{ ! proActive && <em className="spcus-pro-tag">Pro</em> }
 				</span>
 				<span>
 					{ __(
@@ -510,7 +495,6 @@ export default function ChoiceTable( { node, patch } ) {
 							choice={ choice }
 							index={ idx }
 							priceOptions={ priceOptionsForChoice( choice ) }
-							proActive={ proActive }
 							extra={ extra }
 							labelless={ labelless }
 							hideRemove={ single }
@@ -529,7 +513,6 @@ export default function ChoiceTable( { node, patch } ) {
 					type="button"
 					className="spcus-btn spcus-btn--primary spcus-choices__add"
 					onClick={ addChoice }
-					disabled={ ! canAdd }
 				>
 					<Plus size={ 15 } />
 					{ __(
@@ -537,18 +520,6 @@ export default function ChoiceTable( { node, patch } ) {
 						'simple-product-customizer'
 					) }
 				</button>
-				{ ! canAdd && (
-					<p className="spcus-choices__cap">
-						{ sprintf(
-							/* translators: %d: free choice cap */
-							__(
-								'The free version allows up to %d options. Upgrade for unlimited.',
-								'simple-product-customizer'
-							),
-							FREE_CAP
-						) }
-					</p>
-				) }
 			</div>
 		</div>
 	);

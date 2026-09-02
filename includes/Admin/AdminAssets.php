@@ -8,7 +8,6 @@
 namespace SPCUS\Admin;
 
 use SPCUS\Core\Assets;
-use SPCUS\Core\Capabilities;
 use SPCUS\Core\Container;
 
 defined( 'ABSPATH' ) || exit;
@@ -84,8 +83,6 @@ final class AdminAssets {
 				'adminUrl'    => admin_url( 'admin.php?page=spcus-options#/' ),
 				'pluginUrl'   => SPCUS_URL,
 				'version'     => SPCUS_VERSION,
-				'proActive'   => Capabilities::pro(),
-				'license'     => get_option( 'spcus_license_key', '' ),
 				'currency'    => array(
 					'symbol'      => html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ),
 					'pos'         => get_option( 'woocommerce_currency_pos', 'left' ),

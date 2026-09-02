@@ -7,7 +7,6 @@
 
 namespace SPCUS\Fields\Concerns;
 
-use SPCUS\Core\Capabilities;
 use SPCUS\Support\Money;
 
 defined( 'ABSPATH' ) || exit;
@@ -106,13 +105,6 @@ trait HandlesPricing {
 		$mode = isset( $choice['priceMode'] ) ? $choice['priceMode'] : 'none';
 		if ( 'none' === $mode || '' === $mode ) {
 			return '';
-		}
-
-		// Pro-only modes collapse to flat for non-licensed sites (mirrors
-		// the PriceCalculator gate so badge and cart line agree).
-		$pro_modes = array( 'percent', 'per_unit', 'per_word', 'per_char_nospace' );
-		if ( in_array( $mode, $pro_modes, true ) && ! Capabilities::pro() ) {
-			$mode = 'flat';
 		}
 
 		$regular = $this->choice_regular( $choice );

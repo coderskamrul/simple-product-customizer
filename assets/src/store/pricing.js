@@ -5,7 +5,7 @@
  * never currency-converted) is what gets serialised to the hidden inputs so
  * the server recomputes the authoritative price.
  *
- * Per choice, cost = (proActive && sale !== '') ? sale : regular:
+ * Per choice, cost = sale !== '' ? sale : regular:
  *   none             → 0
  *   flat             → cost
  *   percent          → percentBase * cost / 100
@@ -13,8 +13,6 @@
  *   per_char         → mb-len(value) * cost
  *   per_char_nospace → mb-len(value w/o spaces) * cost
  *   per_word         → wordCount(value) * cost
- * Pro-gated modes (percent/per_unit/per_word/per_char_nospace) degrade to
- * `flat` when proActive is false; sale ignored unless proActive.
  *
  * Choice price data is read from data-* attributes the PHP renderers put on
  * each choice input/option: `data-price-mode`, plus `data-cost` (regular) and
@@ -36,25 +34,12 @@ function store() {
 }
 
 /**
- * Whether the Pro license is active.
- *
- * @return {boolean} Pro flag.
- */
-function isPro() {
-	return !! store().proActive;
-}
-
-/**
- * Apply the Pro gate: gated modes degrade to flat for free sites.
+ * Normalise a raw price mode.
  *
  * @param {string} mode Raw price mode.
  * @return {string} Effective mode.
  */
-function gatedMode( mode ) {
-	const gated = [ 'percent', 'per_unit', 'per_word', 'per_char_nospace' ];
-	if ( ! isPro() && gated.indexOf( mode ) !== -1 ) {
-		return 'flat';
-	}
+function priceMode( mode ) {
 	return mode || 'none';
 }
 
@@ -260,7 +245,7 @@ export function priceField( fieldEl, entry, percentBase ) {
 			if ( ! el ) {
 				return;
 			}
-			const mode = gatedMode(
+			const mode = priceMode(
 				el.getAttribute( 'data-price-mode' ) || 'none'
 			);
 			total += modePrice(
@@ -279,7 +264,7 @@ export function priceField( fieldEl, entry, percentBase ) {
 	if ( ! ctrl ) {
 		return 0;
 	}
-	const mode = gatedMode( ctrl.getAttribute( 'data-price-mode' ) || 'none' );
+	const mode = priceMode( ctrl.getAttribute( 'data-price-mode' ) || 'none' );
 	if ( mode === 'none' ) {
 		return 0;
 	}
@@ -329,7 +314,7 @@ export function collectFormulaVars( selections, fieldElements ) {
 			if ( ! opt ) {
 				return;
 			}
-			const mode = gatedMode(
+			const mode = priceMode(
 				opt.getAttribute( 'data-price-mode' ) || 'flat'
 			);
 			vars[ fieldId ] = mode === 'none' ? 0 : choiceCost( opt );
@@ -364,9 +349,6 @@ export function priceFormula(
 		return 0;
 	}
 	if ( type === 'advancedformula' ) {
-		if ( ! isPro() ) {
-			return 0;
-		}
 		let bidMap = {};
 		const raw = node.getAttribute( 'data-bidmap' );
 		if ( raw ) {

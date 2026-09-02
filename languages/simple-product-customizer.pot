@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-02T06:06:10+00:00\n"
+"POT-Creation-Date: 2026-09-02T07:06:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: simple-product-customizer\n"
 
 #. Plugin Name of the plugin
 #: simple-product-customizer.php
-#: includes/Admin/AdminNotices.php:124
+#: includes/Admin/AdminNotices.php:120
 msgid "Simple Product Customizer"
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 
 #: includes/Admin/AdminMenu.php:49
 #: includes/Admin/AdminMenu.php:50
-#: includes/Admin/AdminMenu.php:85
+#: includes/Admin/AdminMenu.php:84
 #: includes/Integration/WooCommerce/ProductPanel.php:67
 msgid "Product Options"
 msgstr ""
@@ -49,7 +49,7 @@ msgid "Dashboard"
 msgstr ""
 
 #: includes/Admin/AdminMenu.php:60
-#: includes/Admin/AdminMenu.php:111
+#: includes/Admin/AdminMenu.php:110
 #: includes/Core/Plugin.php:148
 #: assets/src/admin/app/Sidebar.js:20
 #: assets/src/admin/components/TopBar.js:29
@@ -60,7 +60,7 @@ msgstr ""
 #: includes/Admin/AdminMenu.php:61
 #: assets/src/admin/app/Sidebar.js:32
 #: assets/src/admin/components/TopBar.js:34
-#: assets/src/admin/screens/dashboard/QuickActions.js:45
+#: assets/src/admin/screens/dashboard/QuickActions.js:42
 #: assets/src/admin/screens/dashboard/TopPerformers.js:42
 msgid "Analytics"
 msgstr ""
@@ -68,30 +68,22 @@ msgstr ""
 #: includes/Admin/AdminMenu.php:62
 #: assets/src/admin/app/Sidebar.js:26
 #: assets/src/admin/components/TopBar.js:39
-#: assets/src/admin/screens/dashboard/QuickActions.js:36
+#: assets/src/admin/screens/dashboard/QuickActions.js:33
 #: assets/src/admin/screens/Settings.js:72
 #: assets/src/admin/screens/settings/SettingsHeader.js:57
 msgid "Settings"
 msgstr ""
 
-#: includes/Admin/AdminMenu.php:63
-#: assets/src/admin/app/Sidebar.js:38
-#: assets/src/admin/components/TopBar.js:44
-#: assets/src/admin/screens/dashboard/QuickActions.js:54
-#: assets/src/admin/screens/License.js:39
-msgid "License"
-msgstr ""
-
-#: includes/Admin/AdminNotices.php:126
+#: includes/Admin/AdminNotices.php:122
 msgid "Thanks for installing! Build your first option set to start adding custom fields to products."
 msgstr ""
 
-#: includes/Admin/AdminNotices.php:128
+#: includes/Admin/AdminNotices.php:124
 #: includes/Integration/WooCommerce/ProductPanel.php:94
 msgid "Create an Option Set"
 msgstr ""
 
-#: includes/Admin/AdminNotices.php:133
+#: includes/Admin/AdminNotices.php:129
 #: assets/src/admin/components/ToastStack.js:34
 msgid "Dismiss"
 msgstr ""
@@ -139,31 +131,31 @@ msgstr ""
 msgid "Select Options"
 msgstr ""
 
-#: includes/Data/OptionSetRepository.php:86
+#: includes/Data/OptionSetRepository.php:87
 #: includes/Rest/Route/SetsController.php:164
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:142
 msgid "Untitled"
 msgstr ""
 
-#: includes/Data/OptionSetRepository.php:144
+#: includes/Data/OptionSetRepository.php:145
 #: includes/Rest/Route/AssignmentController.php:117
 #: includes/Rest/Route/SetsController.php:180
 msgid "Option set not found."
 msgstr ""
 
-#: includes/Data/OptionSetRepository.php:149
+#: includes/Data/OptionSetRepository.php:150
 msgid "Copy"
 msgstr ""
 
-#: includes/Fields/Concerns/HandlesPricing.php:134
+#: includes/Fields/Concerns/HandlesPricing.php:126
 msgid "char"
 msgstr ""
 
-#: includes/Fields/Concerns/HandlesPricing.php:136
+#: includes/Fields/Concerns/HandlesPricing.php:128
 msgid "word"
 msgstr ""
 
-#: includes/Fields/Concerns/HandlesPricing.php:138
+#: includes/Fields/Concerns/HandlesPricing.php:130
 msgid "unit"
 msgstr ""
 
@@ -172,25 +164,25 @@ msgid "Reset color"
 msgstr ""
 
 #: includes/Fields/Type/FileUploadField.php:112
-#: assets/src/admin/fields/registry.js:321
+#: assets/src/admin/fields/registry.js:320
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:937
 #: assets/src/admin/screens/settings/sections/FontsSection.js:173
 msgid "Upload"
 msgstr ""
 
 #: includes/Fields/Type/FileUploadField.php:114
-#: assets/src/admin/fields/registry.js:325
+#: assets/src/admin/fields/registry.js:324
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:944
 msgid "Click or drag and drop"
 msgstr ""
 
-#: includes/Fields/Type/FontPickerField.php:93
+#: includes/Fields/Type/FontPickerField.php:88
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:149
 msgid "Select Font"
 msgstr ""
 
 #: includes/Fields/Type/PopupField.php:60
-#: assets/src/admin/fields/registry.js:722
+#: assets/src/admin/fields/registry.js:719
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:964
 #: assets/src/admin/screens/builder/settings/PopupConfig.js:46
 #: assets/src/admin/screens/builder/settings/SectionConfig.js:102
@@ -199,7 +191,7 @@ msgstr ""
 
 #: includes/Fields/Type/PopupField.php:69
 #: assets/src/admin/components/Modal.js:73
-#: assets/src/admin/screens/builder/picker/FieldPicker.js:138
+#: assets/src/admin/screens/builder/picker/FieldPicker.js:133
 #: assets/src/admin/screens/builder/settings/GlobalStylePanel.js:217
 #: assets/src/admin/screens/builder/settings/GlobalStylePanel.js:369
 #: assets/src/admin/screens/builder/settings/popup/PopupPreview.js:61
@@ -237,24 +229,24 @@ msgstr ""
 msgid "Assignment is managed in the Simple Product Customizer app."
 msgstr ""
 
-#: includes/Pricing/PriceCalculator.php:618
-#: assets/src/admin/fields/registry.js:112
+#: includes/Pricing/PriceCalculator.php:602
+#: assets/src/admin/fields/registry.js:111
 #: assets/src/admin/screens/builder/settings/tabs/LogicTab.js:144
 msgid "Option"
 msgstr ""
 
 #: includes/Rest/Route/AnalyticsController.php:118
-#: includes/Rest/Route/AssignmentController.php:151
+#: includes/Rest/Route/AssignmentController.php:153
 #: includes/Rest/Route/FontsController.php:122
-#: includes/Rest/Route/FontsController.php:183
-#: includes/Rest/Route/FontsController.php:221
+#: includes/Rest/Route/FontsController.php:198
+#: includes/Rest/Route/FontsController.php:236
 #: includes/Rest/Route/PluginController.php:69
 #: includes/Rest/Route/SetsController.php:205
 #: includes/Rest/Route/SetsController.php:241
 #: includes/Rest/Route/SetsController.php:282
 #: includes/Rest/Route/SettingsController.php:100
 #: includes/Rest/Route/StyleController.php:97
-#: includes/Rest/Route/UploadController.php:96
+#: includes/Rest/Route/UploadController.php:101
 msgid "Invalid or missing nonce."
 msgstr ""
 
@@ -266,11 +258,11 @@ msgstr ""
 msgid "Storage unavailable."
 msgstr ""
 
-#: includes/Rest/Route/AssignmentController.php:155
+#: includes/Rest/Route/AssignmentController.php:157
 msgid "Assignment resolver unavailable."
 msgstr ""
 
-#: includes/Rest/Route/AssignmentController.php:160
+#: includes/Rest/Route/AssignmentController.php:162
 msgid "Missing set id."
 msgstr ""
 
@@ -292,12 +284,12 @@ msgstr ""
 msgid "Allowed font types: woff, woff2, ttf."
 msgstr ""
 
-#: includes/Rest/Route/FontsController.php:156
+#: includes/Rest/Route/FontsController.php:171
 msgid "Could not store the font file."
 msgstr ""
 
-#: includes/Rest/Route/FontsController.php:205
-#: includes/Rest/Route/FontsController.php:245
+#: includes/Rest/Route/FontsController.php:220
+#: includes/Rest/Route/FontsController.php:260
 msgid "Font not found."
 msgstr ""
 
@@ -370,19 +362,19 @@ msgstr ""
 msgid "Invalid settings payload."
 msgstr ""
 
-#: includes/Rest/Route/UploadController.php:101
+#: includes/Rest/Route/UploadController.php:106
 msgid "No file provided."
 msgstr ""
 
-#: includes/Rest/Route/UploadController.php:106
+#: includes/Rest/Route/UploadController.php:111
 msgid "File exceeds the 25MB limit."
 msgstr ""
 
-#: includes/Rest/Route/UploadController.php:112
+#: includes/Rest/Route/UploadController.php:117
 msgid "Unsupported file type."
 msgstr ""
 
-#: includes/Rest/Route/UploadController.php:136
+#: includes/Rest/Route/UploadController.php:141
 msgid "Upload failed."
 msgstr ""
 
@@ -394,11 +386,11 @@ msgstr ""
 msgid "Request failed."
 msgstr ""
 
-#: assets/src/admin/app/Sidebar.js:58
+#: assets/src/admin/app/Sidebar.js:52
 msgid "Simple Product Customizer navigation"
 msgstr ""
 
-#: assets/src/admin/app/Sidebar.js:69
+#: assets/src/admin/app/Sidebar.js:63
 msgid "Dynamic Options"
 msgstr ""
 
@@ -416,7 +408,7 @@ msgid "Type to search…"
 msgstr ""
 
 #: assets/src/admin/components/AsyncSelect.js:154
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:148
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:144
 msgid "Searching…"
 msgstr ""
 
@@ -436,18 +428,18 @@ msgstr ""
 
 #: assets/src/admin/components/MediaPicker.js:22
 #: assets/src/admin/components/MediaPicker.js:74
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:65
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:120
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:62
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:117
 msgid "Select image"
 msgstr ""
 
 #: assets/src/admin/components/MediaPicker.js:24
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:70
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:67
 msgid "Use image"
 msgstr ""
 
 #: assets/src/admin/components/MediaPicker.js:55
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:103
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:100
 msgid "Remove image"
 msgstr ""
 
@@ -482,17 +474,6 @@ msgstr ""
 msgid "Last page"
 msgstr ""
 
-#: assets/src/admin/components/ProBadge.js:19
-#: assets/src/admin/components/TopBar.js:183
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:322
-#: assets/src/admin/screens/builder/settings/ValuePricing.js:85
-msgid "Pro"
-msgstr ""
-
-#: assets/src/admin/components/ProBadge.js:27
-msgid "Available in the Pro version."
-msgstr ""
-
 #. translators: %d: value
 #: assets/src/admin/components/ProgressBar.js:34
 #, js-format
@@ -525,209 +506,205 @@ msgstr ""
 msgid "Loading option builder…"
 msgstr ""
 
-#: assets/src/admin/components/TopBar.js:60
+#: assets/src/admin/components/TopBar.js:55
 msgid "Create Option Set"
 msgstr ""
 
-#: assets/src/admin/components/TopBar.js:68
+#: assets/src/admin/components/TopBar.js:63
 #: assets/src/admin/screens/dashboard/DashboardHeader.js:56
 msgid "New Option Set"
 msgstr ""
 
-#: assets/src/admin/components/TopBar.js:111
+#: assets/src/admin/components/TopBar.js:106
 msgid "Simple Product Customizer home"
 msgstr ""
 
-#: assets/src/admin/components/TopBar.js:157
+#: assets/src/admin/components/TopBar.js:152
 #: assets/src/admin/screens/builder/settings/GlobalStylePanel.js:38
 msgid "Primary"
 msgstr ""
 
-#: assets/src/admin/components/TopBar.js:196
-msgid "Upgrade Pro"
-msgstr ""
-
-#: assets/src/admin/fields/registry.js:130
+#: assets/src/admin/fields/registry.js:129
 msgid "Text"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:142
+#: assets/src/admin/fields/registry.js:141
 msgid "Min length"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:150
-#: assets/src/admin/fields/registry.js:177
+#: assets/src/admin/fields/registry.js:149
+#: assets/src/admin/fields/registry.js:176
 msgid "Max length"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:160
+#: assets/src/admin/fields/registry.js:159
 msgid "Textarea"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:172
+#: assets/src/admin/fields/registry.js:171
 msgid "Rows"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:187
+#: assets/src/admin/fields/registry.js:186
 msgid "Email"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:199
+#: assets/src/admin/fields/registry.js:198
 msgid "URL"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:211
+#: assets/src/admin/fields/registry.js:210
 msgid "Phone"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:227
+#: assets/src/admin/fields/registry.js:226
 msgid "Number"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:240
+#: assets/src/admin/fields/registry.js:239
 msgid "Date"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:264
+#: assets/src/admin/fields/registry.js:263
 msgid "Time"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:283
+#: assets/src/admin/fields/registry.js:282
 msgid "Date & Time"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:313
+#: assets/src/admin/fields/registry.js:312
 msgid "File Upload"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:330
+#: assets/src/admin/fields/registry.js:329
 msgid "File is too large"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:334
+#: assets/src/admin/fields/registry.js:333
 msgid "Max File Size: [max_size]"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:340
+#: assets/src/admin/fields/registry.js:339
 msgid "Too many files"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:344
+#: assets/src/admin/fields/registry.js:343
 msgid "Maximum Number of Files: [max_files]"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:348
+#: assets/src/admin/fields/registry.js:347
 msgid "Allowed Types are: [allowed_types]"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:361
+#: assets/src/admin/fields/registry.js:360
 msgid "Checkboxes"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:371
+#: assets/src/admin/fields/registry.js:370
 msgid "Radio Buttons"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:381
+#: assets/src/admin/fields/registry.js:380
 msgid "Dropdown"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:390
-#: assets/src/admin/fields/registry.js:419
+#: assets/src/admin/fields/registry.js:389
+#: assets/src/admin/fields/registry.js:418
 msgid "Allow multiple"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:400
+#: assets/src/admin/fields/registry.js:399
 msgid "Toggle"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:410
+#: assets/src/admin/fields/registry.js:409
 msgid "Button Group"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:429
+#: assets/src/admin/fields/registry.js:428
 msgid "Color Swatch"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:438
+#: assets/src/admin/fields/registry.js:437
 msgid "Black"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:445
+#: assets/src/admin/fields/registry.js:444
 msgid "White"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:456
-#: assets/src/admin/fields/registry.js:479
+#: assets/src/admin/fields/registry.js:455
+#: assets/src/admin/fields/registry.js:478
 msgid "Swatch shape"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:467
+#: assets/src/admin/fields/registry.js:466
 msgid "Image Swatch"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:492
+#: assets/src/admin/fields/registry.js:491
 msgid "Range Slider"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:505
+#: assets/src/admin/fields/registry.js:504
 msgid "Color Picker"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:518
+#: assets/src/admin/fields/registry.js:517
 msgid "Font Picker"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:537
-#: assets/src/admin/fields/registry.js:548
-#: assets/src/admin/screens/builder/settings/TypeConfig.js:47
+#: assets/src/admin/fields/registry.js:535
+#: assets/src/admin/fields/registry.js:546
+#: assets/src/admin/screens/builder/settings/TypeConfig.js:46
 msgid "Formula"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:558
+#: assets/src/admin/fields/registry.js:556
 msgid "Advanced Formula"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:573
-#: assets/src/admin/screens/builder/settings/TypeConfig.js:43
+#: assets/src/admin/fields/registry.js:570
+#: assets/src/admin/screens/builder/settings/TypeConfig.js:42
 msgid "Expression"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:583
+#: assets/src/admin/fields/registry.js:580
 msgid "Linked Products"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:614
+#: assets/src/admin/fields/registry.js:611
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:667
 msgid "Heading"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:625
+#: assets/src/admin/fields/registry.js:622
 msgid "Heading level"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:636
+#: assets/src/admin/fields/registry.js:633
 msgid "HTML"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:644
+#: assets/src/admin/fields/registry.js:641
 msgid "HTML content"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:654
+#: assets/src/admin/fields/registry.js:651
 msgid "Divider"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:665
-#: assets/src/admin/fields/registry.js:686
+#: assets/src/admin/fields/registry.js:662
+#: assets/src/admin/fields/registry.js:683
 msgid "Height (px)"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:675
+#: assets/src/admin/fields/registry.js:672
 msgid "Spacer"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:696
+#: assets/src/admin/fields/registry.js:693
 #: assets/src/admin/screens/builder/canvas/FieldCard.js:183
 #: assets/src/admin/screens/builder/canvas/FieldCard.js:197
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:487
@@ -735,132 +712,132 @@ msgstr ""
 msgid "Section"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:715
+#: assets/src/admin/fields/registry.js:712
 msgid "Popup"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:735
-#: assets/src/admin/fields/registry.js:746
+#: assets/src/admin/fields/registry.js:732
+#: assets/src/admin/fields/registry.js:743
 msgid "Shortcode"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:760
+#: assets/src/admin/fields/registry.js:757
 msgid "Input"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:764
+#: assets/src/admin/fields/registry.js:761
 msgid "Choice"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:768
+#: assets/src/admin/fields/registry.js:765
 msgid "Advanced"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:772
+#: assets/src/admin/fields/registry.js:769
 msgid "Layout"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:776
+#: assets/src/admin/fields/registry.js:773
 msgid "Special"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:810
+#: assets/src/admin/fields/registry.js:807
 msgid "No price"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:814
+#: assets/src/admin/fields/registry.js:811
 msgid "Fixed"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:818
+#: assets/src/admin/fields/registry.js:815
 msgid "Percentage"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:823
+#: assets/src/admin/fields/registry.js:819
 msgid "Per Unit"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:828
+#: assets/src/admin/fields/registry.js:823
 msgid "Per Character"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:832
+#: assets/src/admin/fields/registry.js:827
 msgid "Per Character (no spaces)"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:840
+#: assets/src/admin/fields/registry.js:834
 msgid "Per Word"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:900
+#: assets/src/admin/fields/registry.js:893
 msgid "is"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:904
+#: assets/src/admin/fields/registry.js:897
 msgid "is not"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:908
+#: assets/src/admin/fields/registry.js:901
 msgid "is empty"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:912
+#: assets/src/admin/fields/registry.js:905
 msgid "is not empty"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:916
+#: assets/src/admin/fields/registry.js:909
 msgid "contains"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:920
+#: assets/src/admin/fields/registry.js:913
 msgid "does not contain"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:927
+#: assets/src/admin/fields/registry.js:920
 msgid "greater than"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:931
+#: assets/src/admin/fields/registry.js:924
 msgid "less than"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:935
+#: assets/src/admin/fields/registry.js:928
 msgid "greater or equal"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:942
+#: assets/src/admin/fields/registry.js:935
 msgid "less or equal"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:946
+#: assets/src/admin/fields/registry.js:939
 msgid "starts with"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:950
+#: assets/src/admin/fields/registry.js:943
 msgid "between"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:954
+#: assets/src/admin/fields/registry.js:947
 msgid "is checked"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:962
+#: assets/src/admin/fields/registry.js:955
 msgid "Full"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:966
+#: assets/src/admin/fields/registry.js:959
 msgid "1/2"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:970
+#: assets/src/admin/fields/registry.js:963
 msgid "1/3"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:974
+#: assets/src/admin/fields/registry.js:967
 msgid "2/3"
 msgstr ""
 
-#: assets/src/admin/fields/registry.js:978
+#: assets/src/admin/fields/registry.js:971
 msgid "1/4"
 msgstr ""
 
@@ -1083,8 +1060,8 @@ msgid "Carts"
 msgstr ""
 
 #: assets/src/admin/screens/analytics/TrendChart.js:33
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:486
-#: assets/src/admin/screens/builder/settings/ValuePricing.js:63
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:472
+#: assets/src/admin/screens/builder/settings/ValuePricing.js:59
 msgid "Sales"
 msgstr ""
 
@@ -1108,60 +1085,60 @@ msgstr ""
 msgid "Day"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:28
-#: assets/src/admin/screens/builder/AssignmentModal.js:22
+#: assets/src/admin/screens/Assignment.js:26
+#: assets/src/admin/screens/builder/AssignmentModal.js:21
 msgid "All products"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:32
-#: assets/src/admin/screens/builder/AssignmentModal.js:30
+#: assets/src/admin/screens/Assignment.js:30
+#: assets/src/admin/screens/builder/AssignmentModal.js:29
 msgid "Specific products"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:39
-#: assets/src/admin/screens/builder/AssignmentModal.js:41
+#: assets/src/admin/screens/Assignment.js:37
+#: assets/src/admin/screens/builder/AssignmentModal.js:40
 msgid "Product category"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:46
-#: assets/src/admin/screens/builder/AssignmentModal.js:52
+#: assets/src/admin/screens/Assignment.js:44
+#: assets/src/admin/screens/builder/AssignmentModal.js:51
 msgid "Product tag"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:50
-#: assets/src/admin/screens/builder/AssignmentModal.js:60
+#: assets/src/admin/screens/Assignment.js:48
+#: assets/src/admin/screens/builder/AssignmentModal.js:59
 msgid "Product brand"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:54
-#: assets/src/admin/screens/builder/AssignmentModal.js:68
+#: assets/src/admin/screens/Assignment.js:52
+#: assets/src/admin/screens/builder/AssignmentModal.js:67
 msgid "None (disabled)"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:156
+#: assets/src/admin/screens/Assignment.js:152
 msgid "Assignment saved."
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:172
-#: assets/src/admin/screens/Assignment.js:202
+#: assets/src/admin/screens/Assignment.js:168
+#: assets/src/admin/screens/Assignment.js:198
 #: assets/src/admin/screens/Builder.js:245
 msgid "Assignment"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:178
+#: assets/src/admin/screens/Assignment.js:174
 msgid "Save the option set first, then assign it to products."
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:188
-#: assets/src/admin/screens/Assignment.js:219
+#: assets/src/admin/screens/Assignment.js:184
+#: assets/src/admin/screens/Assignment.js:215
 msgid "Back to builder"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:208
+#: assets/src/admin/screens/Assignment.js:204
 msgid "Decide which products show this option set."
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:231
+#: assets/src/admin/screens/Assignment.js:227
 #: assets/src/admin/screens/Builder.js:270
 #: assets/src/admin/screens/builder/settings/GlobalStylePanel.js:381
 #: assets/src/admin/screens/Settings.js:61
@@ -1169,65 +1146,56 @@ msgstr ""
 msgid "Saving…"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:235
+#: assets/src/admin/screens/Assignment.js:231
 msgid "Save assignment"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:257
+#: assets/src/admin/screens/Assignment.js:253
 msgid "Scope"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:285
+#: assets/src/admin/screens/Assignment.js:281
 #: assets/src/admin/screens/option-set/OptionSetRow.js:180
 #: assets/src/admin/screens/option-set/OptionSetTable.js:36
 msgid "Products"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:291
-#: assets/src/admin/screens/builder/AssignmentModal.js:168
+#: assets/src/admin/screens/Assignment.js:287
+#: assets/src/admin/screens/builder/AssignmentModal.js:165
 msgid "Include products"
 msgstr ""
 
-#. translators: %d: free product cap
-#. translators: %d: free product cap.
-#: assets/src/admin/screens/Assignment.js:310
-#: assets/src/admin/screens/builder/AssignmentModal.js:190
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:498
-#, js-format
-msgid "Free version links up to %d products."
-msgstr ""
-
-#: assets/src/admin/screens/Assignment.js:328
+#: assets/src/admin/screens/Assignment.js:312
 msgid "Terms"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:350
+#: assets/src/admin/screens/Assignment.js:334
 msgid "Exclusions"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:356
-#: assets/src/admin/screens/builder/AssignmentModal.js:224
+#: assets/src/admin/screens/Assignment.js:340
+#: assets/src/admin/screens/builder/AssignmentModal.js:209
 msgid "Exclude products"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:360
-#: assets/src/admin/screens/builder/AssignmentModal.js:228
+#: assets/src/admin/screens/Assignment.js:344
+#: assets/src/admin/screens/builder/AssignmentModal.js:213
 msgid "These products never show this option set."
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:378
+#: assets/src/admin/screens/Assignment.js:362
 msgid "Preview link"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:385
+#: assets/src/admin/screens/Assignment.js:369
 msgid "Publish the option set to preview it on a product."
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:397
+#: assets/src/admin/screens/Assignment.js:381
 msgid "Open a matching product"
 msgstr ""
 
-#: assets/src/admin/screens/Assignment.js:404
+#: assets/src/admin/screens/Assignment.js:388
 msgid "No matching published product found yet."
 msgstr ""
 
@@ -1290,51 +1258,51 @@ msgstr ""
 msgid "Please select at least one product to continue. To save without selecting any products, choose the 'Draft' status instead."
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:23
+#: assets/src/admin/screens/builder/AssignmentModal.js:22
 msgid "Show on every product in the store."
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:34
+#: assets/src/admin/screens/builder/AssignmentModal.js:33
 msgid "Pick individual products."
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:45
+#: assets/src/admin/screens/builder/AssignmentModal.js:44
 msgid "Apply to one or more categories."
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:53
+#: assets/src/admin/screens/builder/AssignmentModal.js:52
 msgid "Apply to tagged products."
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:61
+#: assets/src/admin/screens/builder/AssignmentModal.js:60
 msgid "Apply to a product brand."
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:72
+#: assets/src/admin/screens/builder/AssignmentModal.js:71
 msgid "Not shown anywhere yet."
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:115
+#: assets/src/admin/screens/builder/AssignmentModal.js:112
 msgid "Assign to products"
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:126
+#: assets/src/admin/screens/builder/AssignmentModal.js:123
 #: assets/src/admin/screens/builder/settings/PopupConfig.js:110
 #: assets/src/admin/screens/dashboard/GettingStarted.js:134
 msgid "Done"
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:133
+#: assets/src/admin/screens/builder/AssignmentModal.js:130
 msgid "Choose where this option set appears. Changes are saved with the option set."
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:177
-#: assets/src/admin/screens/builder/AssignmentModal.js:236
+#: assets/src/admin/screens/builder/AssignmentModal.js:174
+#: assets/src/admin/screens/builder/AssignmentModal.js:221
 msgid "Search products…"
 msgstr ""
 
-#: assets/src/admin/screens/builder/AssignmentModal.js:210
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:133
+#: assets/src/admin/screens/builder/AssignmentModal.js:195
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:129
 msgid "Search…"
 msgstr ""
 
@@ -1351,7 +1319,7 @@ msgid "Add your first field — text, choices, swatches and more."
 msgstr ""
 
 #: assets/src/admin/screens/builder/canvas/Canvas.js:65
-#: assets/src/admin/screens/builder/picker/FieldPicker.js:95
+#: assets/src/admin/screens/builder/picker/FieldPicker.js:90
 msgid "Add a field"
 msgstr ""
 
@@ -1382,16 +1350,16 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: assets/src/admin/screens/builder/picker/FieldPicker.js:127
+#: assets/src/admin/screens/builder/picker/FieldPicker.js:122
 msgid "Search fields…"
 msgstr ""
 
-#: assets/src/admin/screens/builder/picker/FieldPicker.js:150
+#: assets/src/admin/screens/builder/picker/FieldPicker.js:145
 msgid "No fields match your search."
 msgstr ""
 
 #: assets/src/admin/screens/builder/preview/FieldPreview.js:277
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:346
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:339
 msgid "Product"
 msgstr ""
 
@@ -1424,7 +1392,7 @@ msgid "Untitled field"
 msgstr ""
 
 #: assets/src/admin/screens/builder/settings/ChoiceFieldExtras.js:30
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:519
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:500
 msgid "Enable Quantity"
 msgstr ""
 
@@ -1454,7 +1422,7 @@ msgid "Max restriction"
 msgstr ""
 
 #: assets/src/admin/screens/builder/settings/ChoiceFieldExtras.js:150
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:527
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:508
 msgid "Allow Multiple"
 msgstr ""
 
@@ -1464,87 +1432,81 @@ msgstr ""
 
 #: assets/src/admin/screens/builder/settings/ChoiceFieldExtras.js:225
 #: assets/src/admin/screens/builder/settings/TelConfig.js:127
-#: assets/src/admin/screens/builder/settings/TypeConfig.js:227
+#: assets/src/admin/screens/builder/settings/TypeConfig.js:224
 #: assets/src/admin/screens/builder/settings/ValueFieldConfig.js:207
 msgid "Placeholder"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:92
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:89
 msgid "Change image"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:161
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:158
 msgid "Select font"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:233
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:384
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:228
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:377
 msgid "Reorder"
 msgstr ""
 
 #. translators: %d: row number
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:253
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:248
 #, js-format
 msgid "Option %d"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:284
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:279
 msgid "Choose colour"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:330
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:338
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:319
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:327
 msgid "Selected by default"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:352
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:341
 msgid "Delete option"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:444
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:430
 msgid "Color"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:445
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:463
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:431
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:449
 msgid "Font"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:446
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:432
 msgid "Image"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:467
-#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:99
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:453
+#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:87
 msgid "Title"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:474
-#: assets/src/admin/screens/builder/settings/ValuePricing.js:51
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:460
+#: assets/src/admin/screens/builder/settings/ValuePricing.js:47
 msgid "Price Type"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:480
-#: assets/src/admin/screens/builder/settings/ValuePricing.js:57
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:466
+#: assets/src/admin/screens/builder/settings/ValuePricing.js:53
 msgid "Regular"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:490
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:358
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:475
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:351
 #: assets/src/admin/screens/option-set/OptionSetRow.js:156
 #: assets/src/admin/screens/option-set/OptionSetStats.js:29
 #: assets/src/admin/screens/option-set/OptionSetToolbar.js:18
 msgid "Active"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:535
+#: assets/src/admin/screens/builder/settings/ChoiceTable.js:518
 msgid "Add New Option"
-msgstr ""
-
-#. translators: %d: free choice cap
-#: assets/src/admin/screens/builder/settings/ChoiceTable.js:544
-#, js-format
-msgid "The free version allows up to %d options. Upgrade for unlimited."
 msgstr ""
 
 #: assets/src/admin/screens/builder/settings/DateConfig.js:28
@@ -1793,53 +1755,53 @@ msgstr ""
 msgid "Save style"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:129
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:125
 msgid "Product limit reached"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:161
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:157
 msgid "No products found."
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:221
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:217
 msgid "Select Variations"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:229
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:225
 msgid "No purchasable variations."
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:352
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:345
 msgid "Variation"
 msgstr ""
 
 #. translators: %d: number of selected variations.
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:405
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:398
 #, js-format
 msgid "%d Variations"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:411
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:404
 msgid "N/A"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:435
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:428
 msgid "Select variations"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:468
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:461
 msgid "Remove product"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:511
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:492
 msgid "Merge Variation Products into one product"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:537
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:518
 msgid "Min quantity"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:549
+#: assets/src/admin/screens/builder/settings/LinkedProductsConfig.js:530
 msgid "Max quantity"
 msgstr ""
 
@@ -2053,19 +2015,19 @@ msgstr ""
 msgid "Conditional logic"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:61
+#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:58
 msgid "Hide title"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:70
+#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:67
 msgid "Required"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:87
+#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:77
 msgid "Enable Formula Value"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:111
+#: assets/src/admin/screens/builder/settings/tabs/GeneralTab.js:99
 msgid "Help text"
 msgstr ""
 
@@ -2280,19 +2242,19 @@ msgstr ""
 msgid "Latest time"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/TypeConfig.js:54
+#: assets/src/admin/screens/builder/settings/TypeConfig.js:53
 msgid "Variables in [brackets]; functions and comparisons supported."
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/TypeConfig.js:58
+#: assets/src/admin/screens/builder/settings/TypeConfig.js:57
 msgid "Variables in {{double braces}}; arithmetic and % only."
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/TypeConfig.js:75
+#: assets/src/admin/screens/builder/settings/TypeConfig.js:74
 msgid "Available variables"
 msgstr ""
 
-#: assets/src/admin/screens/builder/settings/TypeConfig.js:83
+#: assets/src/admin/screens/builder/settings/TypeConfig.js:82
 msgid "No other fields yet."
 msgstr ""
 
@@ -2365,13 +2327,13 @@ msgid "Lime"
 msgstr ""
 
 #. translators: %s: display name
-#: assets/src/admin/screens/Dashboard.js:55
+#: assets/src/admin/screens/Dashboard.js:54
 #: assets/src/admin/screens/dashboard/DashboardHeader.js:28
 #, js-format
 msgid "Welcome back, %s"
 msgstr ""
 
-#: assets/src/admin/screens/Dashboard.js:61
+#: assets/src/admin/screens/Dashboard.js:60
 #: assets/src/admin/screens/dashboard/DashboardHeader.js:34
 msgid "Welcome back"
 msgstr ""
@@ -2472,59 +2434,23 @@ msgid_plural "%d minutes ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/src/admin/screens/dashboard/ProCard.js:13
-msgid "Unlimited option sets & fields"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/ProCard.js:17
-msgid "Advanced formula pricing"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/ProCard.js:18
-msgid "Percentage & per-unit pricing"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/ProCard.js:22
-msgid "Custom font picker"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/ProCard.js:23
-msgid "Priority support"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/ProCard.js:40
-msgid "Unlock Pro Features"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/ProCard.js:65
-msgid "Upgrade Now"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/QuickActions.js:24
+#: assets/src/admin/screens/dashboard/QuickActions.js:21
 msgid "Global Styles"
 msgstr ""
 
-#: assets/src/admin/screens/dashboard/QuickActions.js:28
+#: assets/src/admin/screens/dashboard/QuickActions.js:25
 msgid "Customise appearance"
 msgstr ""
 
-#: assets/src/admin/screens/dashboard/QuickActions.js:37
+#: assets/src/admin/screens/dashboard/QuickActions.js:34
 msgid "Configure the plugin"
 msgstr ""
 
-#: assets/src/admin/screens/dashboard/QuickActions.js:46
+#: assets/src/admin/screens/dashboard/QuickActions.js:43
 msgid "View performance reports"
 msgstr ""
 
-#: assets/src/admin/screens/dashboard/QuickActions.js:56
-msgid "Manage activation"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/QuickActions.js:60
-msgid "Activate Pro"
-msgstr ""
-
-#: assets/src/admin/screens/dashboard/QuickActions.js:75
+#: assets/src/admin/screens/dashboard/QuickActions.js:58
 msgid "Quick Actions"
 msgstr ""
 
@@ -2583,76 +2509,6 @@ msgid "%d conversion"
 msgid_plural "%d conversions"
 msgstr[0] ""
 msgstr[1] ""
-
-#: assets/src/admin/screens/License.js:32
-msgid "Pro active"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:33
-msgid "Free"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:40
-msgid "Activate Pro to unlock advanced fields and pricing."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:47
-msgid "License key"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:53
-msgid "Key"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:57
-msgid "Pro capabilities are enforced server-side via the plugin license; this screen reflects that status."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:76
-msgid "Enter a license key."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:86
-msgid "License stored. Pro features activate once the server validates the key."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:94
-#: assets/src/admin/screens/option-set/OptionSetScreen.js:368
-msgid "Activate"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:106
-msgid "License marked inactive."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:114
-#: assets/src/admin/screens/option-set/OptionSetScreen.js:378
-msgid "Deactivate"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:124
-msgid "What Pro unlocks"
-msgstr ""
-
-#: assets/src/admin/screens/License.js:132
-msgid "Unlimited choices per field (free caps at 3)."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:138
-msgid "Font picker & advanced formula fields."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:144
-msgid "Percentage, per-unit, per-word & per-char pricing."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:150
-msgid "Sale prices on choices & unlimited linked products."
-msgstr ""
-
-#: assets/src/admin/screens/License.js:162
-msgid "Get Pro"
-msgstr ""
 
 #. translators: %s: option set title
 #: assets/src/admin/screens/option-set/OptionSetRow.js:86
@@ -2745,6 +2601,14 @@ msgstr ""
 #: assets/src/admin/screens/option-set/OptionSetScreen.js:353
 #, js-format
 msgid "%d selected"
+msgstr ""
+
+#: assets/src/admin/screens/option-set/OptionSetScreen.js:368
+msgid "Activate"
+msgstr ""
+
+#: assets/src/admin/screens/option-set/OptionSetScreen.js:378
+msgid "Deactivate"
 msgstr ""
 
 #: assets/src/admin/screens/option-set/OptionSetScreen.js:410

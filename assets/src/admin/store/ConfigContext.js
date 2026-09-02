@@ -1,6 +1,6 @@
 /**
  * Read-only access to the localized `window.spcusAdmin` bootstrap config plus
- * a few derived helpers (price formatting, Pro gate). Provided once at the
+ * a few derived helpers (price formatting). Provided once at the
  * app root so screens never touch the global directly.
  *
  * @package
@@ -57,7 +57,6 @@ export function ConfigProvider( { children } ) {
 		return {
 			...cfg,
 			currency,
-			proActive: !! cfg.proActive,
 			fieldTypes: cfg.fieldTypes || [],
 			attributes: cfg.attributes || {},
 			user: cfg.user || {},

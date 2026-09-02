@@ -3,7 +3,7 @@
  *
  * Layout (matches the reference SaaS dashboard):
  *
- *   [ Logo + version pill ]  [ + context CTA ]   [ tabs… ]   [ Upgrade Pro ]
+ *   [ Logo + version pill ]  [ + context CTA ]   [ tabs… ]
  *
  * The TopBar is the ONLY top-level navigation in the admin SPA. All previous
  * per-screen headers (DashboardHeader, AnalyticsHeader, SettingsHeader, the
@@ -38,17 +38,12 @@ const TABS = [
 		hash: '#/settings',
 		label: __( 'Settings', 'simple-product-customizer' ),
 	},
-	{
-		route: 'license',
-		hash: '#/license',
-		label: __( 'License', 'simple-product-customizer' ),
-	},
 ];
 
 /**
  * Resolve the context-aware primary CTA for the active route. Returns null
  * on screens that have no obvious "create" action (Dashboard's create lives
- * on the screen itself; Analytics/License are read-only).
+ * on the screen itself; Analytics is read-only).
  *
  * @param {string} routeName Active route descriptor name.
  * @return {?{label:string, onClick:Function}} CTA or null.
@@ -96,7 +91,7 @@ function activeTab( routeName ) {
  * @return {JSX.Element} The unified top bar.
  */
 export default function TopBar() {
-	const { proActive, version } = useConfig();
+	const { version } = useConfig();
 	const route = useRouter();
 	const cta = resolveCTA( route.name );
 	const current = activeTab( route.name );
@@ -176,40 +171,6 @@ export default function TopBar() {
 				} ) }
 			</nav>
 
-			{ /* Right — upgrade pill ------------------------------------ */ }
-			<div className="spcus-topbar__trail">
-				{ proActive ? (
-					<span className="spcus-topbar__plan">
-						{ __(
-							'Pro',
-							'simple-product-customizer'
-						) }
-					</span>
-				) : (
-					<a
-						className="spcus-topbar__upgrade"
-						href="https://wpdeveloper.com/in/upgrade-simple-product-customizer"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<span>
-							{ __(
-								'Upgrade Pro',
-								'simple-product-customizer'
-							) }
-						</span>
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							aria-hidden="true"
-						>
-							<path d="M5 4h11l-1.5 4H18l-7 12 1.5-8H7l-2-8Z" />
-						</svg>
-					</a>
-				) }
-			</div>
 		</header>
 	);
 }

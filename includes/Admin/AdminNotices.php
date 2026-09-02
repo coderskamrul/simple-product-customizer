@@ -12,8 +12,8 @@ use SPCUS\Core\Capabilities;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shows a single, dismissible getting-started / review prompt to
- * non-licensed admins on the plugin screens. Dismissal is persisted
+ * Shows a single, dismissible getting-started prompt on the plugin
+ * screens. Dismissal is persisted
  * for ~90 days via a transient. Everything here is capability-gated
  * and fully escaped.
  */
@@ -101,11 +101,6 @@ final class AdminNotices {
 		}
 
 		if ( ! $this->on_plugin_screen() ) {
-			return;
-		}
-
-		// Only nudge users without an active Pro license.
-		if ( Capabilities::pro() ) {
 			return;
 		}
 

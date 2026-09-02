@@ -7,7 +7,6 @@
 
 namespace SPCUS\Fields\Type;
 
-use SPCUS\Core\Capabilities;
 use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
@@ -60,9 +59,6 @@ final class LinkedProductsField extends AbstractField {
 				}
 			)
 		);
-		if ( ! Capabilities::pro() && count( $items ) > 2 ) {
-			$items = array_slice( $items, 0, 2 );
-		}
 		if ( empty( $items ) ) {
 			return '';
 		}

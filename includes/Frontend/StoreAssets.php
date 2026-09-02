@@ -8,7 +8,6 @@
 namespace SPCUS\Frontend;
 
 use SPCUS\Core\Assets;
-use SPCUS\Core\Capabilities;
 use SPCUS\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
@@ -161,7 +160,6 @@ final class StoreAssets {
 			'nonce'       => wp_create_nonce( 'wp_rest' ),
 			'uploadNonce' => wp_create_nonce( 'spcus_rest' ),
 			'currency'    => $currency,
-			'proActive'   => class_exists( Capabilities::class ) ? Capabilities::pro() : false,
 			'conversion'  => class_exists( CurrencyBridge::class ) ? CurrencyBridge::data() : array(
 				'active' => false,
 				'rate'   => 1.0,

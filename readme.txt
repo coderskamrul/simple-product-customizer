@@ -38,6 +38,41 @@ Features:
 2. Activate it through the *Plugins* screen.
 3. Open *Product Options* in the admin menu to build your first option set.
 
+== Frequently Asked Questions ==
+
+= Does this require WooCommerce? =
+
+Yes. WooCommerce must be installed and active; the plugin adds its option-set
+builder to WooCommerce products.
+
+= Is every feature free? =
+
+Yes. There is no paid tier, no license key and no locked features — all 30
+field types, both formula engines, conditional logic, analytics and the
+multi-currency compatibility layer are included.
+
+= Which files can customers upload? =
+
+Images (PNG, JPG, HEIC), PDF, CSV, DOC and plain text. SVG is intentionally
+not allowed, because an SVG can carry script and the upload endpoint is open
+to storefront visitors. Sites that accept that risk can add it with the
+`spcus_upload_mimes` filter.
+
+= Where are uploaded files stored? =
+
+In `wp-content/uploads/spcus_uploads/`, moved between buckets as the order
+progresses. Retention per bucket is configurable in Settings.
+
+= Does the plugin work with my multi-currency switcher? =
+
+It ships adapters for 14 popular switchers, including Aelia, WOOCS, YITH,
+Curcy, YayCurrency, WPML and WooPayments multi-currency.
+
+== Upgrade Notice ==
+
+= 1.0.0 =
+Initial release.
+
 == Changelog ==
 
 = 1.0.0 =

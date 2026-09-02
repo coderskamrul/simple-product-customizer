@@ -7,7 +7,6 @@
 
 namespace SPCUS\Fields\Type;
 
-use SPCUS\Core\Capabilities;
 use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
@@ -15,7 +14,6 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Pro-only price node evaluated by the AST expression engine. Supports
  * functions, comparisons and a bid map for shipping/weight dynamics.
- * Renders nothing when the license is inactive.
  */
 final class AdvancedFormulaField extends AbstractField {
 
@@ -34,10 +32,6 @@ final class AdvancedFormulaField extends AbstractField {
 	 * @return string
 	 */
 	protected function inner() {
-		if ( ! Capabilities::pro() ) {
-			return '';
-		}
-
 		$expression = (string) $this->cfg( 'expression', '' );
 		if ( '' === trim( $expression ) ) {
 			return '';

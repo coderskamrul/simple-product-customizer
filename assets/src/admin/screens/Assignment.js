@@ -7,17 +7,15 @@
  */
 
 import { useState, useEffect } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import * as api from '../api/endpoints';
 import { errorMessage } from '../api/client';
 import { useToast } from '../store/ToastContext';
-import { useConfig } from '../store/ConfigContext';
 import { navigate } from '../app/router';
 import {
 	Panel,
 	Field,
 	AsyncSelect,
-	ProBadge,
 	SkeletonForm,
 } from '../components';
 
@@ -58,7 +56,6 @@ const SCOPES = [
 	},
 ];
 
-const FREE_PRODUCT_CAP = 2;
 
 /**
  * Assignment.
@@ -69,7 +66,6 @@ const FREE_PRODUCT_CAP = 2;
  */
 export default function Assignment( { setId } ) {
 	const { notify } = useToast();
-	const { proActive } = useConfig();
 	const [ status, setStatus ] = useState( 'loading' );
 	const [ error, setError ] = useState( '' );
 	const [ scope, setScope ] = useState( 'none' );
@@ -296,25 +292,13 @@ export default function Assignment( { setId } ) {
 								<AsyncSelect
 									value={ include }
 									onChange={ setInclude }
-									max={ proActive ? 0 : FREE_PRODUCT_CAP }
+									max={ 0 }
 									fetcher={ async ( t ) => {
 										const r = await api.searchProducts( t );
 										return r.items;
 									} }
 								/>
 							</Field>
-							{ ! proActive && (
-								<ProBadge
-									hint={ sprintf(
-										/* translators: %d: free product cap */
-										__(
-											'Free version links up to %d products.',
-											'simple-product-customizer'
-										),
-										FREE_PRODUCT_CAP
-									) }
-								/>
-							) }
 						</Panel>
 					) }
 

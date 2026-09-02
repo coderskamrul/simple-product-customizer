@@ -21,7 +21,6 @@ import GettingStarted from './dashboard/GettingStarted';
 import QuickActions from './dashboard/QuickActions';
 import RecentActivity from './dashboard/RecentActivity';
 import TopPerformers from './dashboard/TopPerformers';
-import ProCard from './dashboard/ProCard';
 
 /**
  * Dashboard.
@@ -29,7 +28,7 @@ import ProCard from './dashboard/ProCard';
  * @return {JSX.Element} The dashboard screen.
  */
 export default function Dashboard() {
-	const { proActive, user } = useConfig();
+	const { user } = useConfig();
 	const name = user && user.name ? user.name : '';
 
 	const {
@@ -115,7 +114,6 @@ export default function Dashboard() {
 					)
 				) }
 
-				{ ! proActive && <ProCard /> }
 			</div>
 		</PageFrame>
 	);

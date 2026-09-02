@@ -18,7 +18,6 @@ export { default as Modal } from './Modal';
 export { default as ConfirmDialog } from './ConfirmDialog';
 export { default as ToastStack } from './ToastStack';
 export { default as EmptyState } from './EmptyState';
-export { default as ProBadge } from './ProBadge';
 export { default as DragList } from './DragList';
 export { default as Spinner } from './Spinner';
 export { default as Avatar } from './Avatar';

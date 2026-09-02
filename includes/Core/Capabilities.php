@@ -1,6 +1,6 @@
 <?php
 /**
- * Capability resolution + license gate.
+ * Capability resolution.
  *
  * @package SPCUS
  */
@@ -10,7 +10,7 @@ namespace SPCUS\Core;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Central place for permission + Pro-feature gating decisions.
+ * Central place for permission decisions.
  */
 final class Capabilities {
 
@@ -50,39 +50,4 @@ final class Capabilities {
 		return current_user_can( self::manage() );
 	}
 
-	/**
-	 * Is a valid Pro license active?
-	 *
-	 * @return bool
-	 */
-	public static function license_active() {
-		$data = get_option( 'spcus_license_data', array() );
-		$ok   = is_array( $data ) && isset( $data['status'] ) && 'valid' === $data['status'];
-		return (bool) apply_filters( 'spcus_license_active', $ok );
-	}
-
-	/**
-	 * Is a (possibly expired) license present? Used for soft Pro fallbacks.
-	 *
-	 * @return bool
-	 */
-	public static function license_expired() {
-		$data = get_option( 'spcus_license_data', array() );
-		return is_array( $data ) && isset( $data['status'] ) && 'expired' === $data['status'];
-	}
-
-	/**
-	 * Should Pro-only features render/compute?
-	 *
-	 * TEMPORARY (development): all Pro features are unlocked for everyone while
-	 * the feature set is being finalised. To restore licence-based gating later,
-	 * revert the default below from `true` back to `self::license_active()`.
-	 * The `spcus_pro_features` filter still wins, so gating can also be toggled
-	 * externally without touching this method.
-	 *
-	 * @return bool
-	 */
-	public static function pro() {
-		return (bool) apply_filters( 'spcus_pro_features', true );
-	}
 }

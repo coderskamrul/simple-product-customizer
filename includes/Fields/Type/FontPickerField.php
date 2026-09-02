@@ -7,14 +7,13 @@
 
 namespace SPCUS\Fields\Type;
 
-use SPCUS\Core\Capabilities;
 use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Lets the customer pick a font for personalised products. Pro-only:
- * renders nothing when the license is inactive. Emits @font-face for
+ * Emits @font-face for
  * any custom uploaded font referenced by a choice.
  */
 final class FontPickerField extends AbstractField {
@@ -51,10 +50,6 @@ final class FontPickerField extends AbstractField {
 	 * @return string
 	 */
 	protected function inner() {
-		if ( ! Capabilities::pro() ) {
-			return '';
-		}
-
 		$choices = $this->choices();
 		if ( empty( $choices ) ) {
 			return '';

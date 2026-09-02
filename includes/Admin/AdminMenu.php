@@ -60,7 +60,6 @@ final class AdminMenu {
 			array( self::SLUG . '#/sets', esc_html__( 'Option Sets', 'simple-product-customizer' ) ),
 			array( self::SLUG . '#/analytics', esc_html__( 'Analytics', 'simple-product-customizer' ) ),
 			array( self::SLUG . '#/settings', esc_html__( 'Settings', 'simple-product-customizer' ) ),
-			array( self::SLUG . '#/license', esc_html__( 'License', 'simple-product-customizer' ) ),
 		);
 
 		foreach ( $submenus as $submenu ) {

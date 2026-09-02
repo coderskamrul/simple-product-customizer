@@ -11,8 +11,6 @@ $spcus-db-ink-hover: #1e293b;
 $spcus-db-green-ink: #15803d;
 $spcus-db-amber: #d97706;
 $spcus-db-amber-soft: #fef3e2;
-$spcus-db-pro-a: #6d4bff;
-$spcus-db-pro-b: #8b5cf6;
 
 /* Fill the outlet, cancelling the 24px outlet padding (matched in the
    responsive block, mirrors .spcus-an). */
@@ -716,102 +714,6 @@ $spcus-db-pro-b: #8b5cf6;
 }
 
 /* ---- Pro upsell ------------------------------------------- */
-.spcus-db-pro {
-	display: flex;
-	flex-direction: column;
-	padding: 24px;
-	border: 0;
-	color: #fff;
-	background: linear-gradient(140deg, $spcus-db-pro-a 0%, $spcus-db-pro-b 100%);
-	box-shadow: 0 12px 28px rgba($spcus-db-pro-a, 0.32);
-
-	&__head {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		margin-block-end: 18px;
-	}
-
-	&__ico {
-		font-size: 22px;
-		width: 22px;
-		height: 22px;
-		color: #fff;
-	}
-
-	&__title {
-		margin: 0;
-		font-size: 17px;
-		font-weight: 800;
-		color: #fff;
-	}
-
-	&__list {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-		margin: 0 0 22px;
-		padding: 0;
-		list-style: none;
-	}
-
-	&__feat {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		font-size: 14px;
-		font-weight: 500;
-		color: rgba(#fff, 0.95);
-
-		.dashicons {
-			font-size: 18px;
-			width: 18px;
-			height: 18px;
-			color: rgba(#fff, 0.9);
-			flex-shrink: 0;
-		}
-	}
-
-	&__cta {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		margin-block-start: auto;
-		block-size: 46px;
-		border-radius: $spcus-radius-lg;
-		background: #fff;
-		color: $spcus-db-pro-a;
-		font-size: 14px;
-		font-weight: 700;
-		text-decoration: none;
-		transition: transform 0.12s, box-shadow 0.15s, background 0.15s;
-
-		.dashicons {
-			font-size: 18px;
-			width: 18px;
-			height: 18px;
-			transition: transform 0.15s;
-		}
-
-		&:hover {
-			background: rgba(#fff, 0.92);
-			transform: translateY(-1px);
-			box-shadow: 0 8px 18px rgba(#000, 0.18);
-			color: $spcus-db-pro-a;
-
-			.dashicons {
-				transform: translateX(3px);
-			}
-		}
-
-		&:focus-visible {
-			outline: 2px solid #fff;
-			outline-offset: 2px;
-		}
-	}
-}
-
 /* ---- Loading skeletons ------------------------------------ */
 .spcus-db-skel {
 	display: block;
@@ -876,9 +778,7 @@ $spcus-db-pro-b: #8b5cf6;
 	}
 
 	.spcus-db-cta,
-	.spcus-db-action__chev,
-	.spcus-db-pro__cta,
-	.spcus-db-pro__cta .dashicons {
+	.spcus-db-action__chev {
 		transition: none;
 	}
 }
@@ -887,15 +787,12 @@ $spcus-db-pro-b: #8b5cf6;
    Responsive
    ============================================================ */
 
-/* Wide tablet — bottom row 2-up (Pro spans), main row keeps split. */
+/* Wide tablet — bottom row 2-up, main row keeps split. */
 @media (max-width: 1200px) {
 	.spcus-db-grid--bottom {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	.spcus-db-pro {
-		grid-column: 1 / -1;
-	}
 }
 
 /* Tablet — stack the main split, stat strip 2×2. */
@@ -949,10 +846,6 @@ $spcus-db-pro-b: #8b5cf6;
 
 	.spcus-db-grid--bottom {
 		grid-template-columns: 1fr;
-	}
-
-	.spcus-db-pro {
-		grid-column: auto;
 	}
 
 	.spcus-db-strip {

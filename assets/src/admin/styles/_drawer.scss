@@ -122,16 +122,6 @@
 	padding-block-end: 4px;
 }
 
-.spcus-settings__switch-pro {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-
-	&.is-locked {
-		opacity: 0.7;
-	}
-}
-
 .spcus-settings__toggle-row {
 	display: flex;
 	align-items: center;
@@ -536,22 +526,6 @@ button.spcus-choices__media-btn {
 	color: var(--spcus-c-ink-soft);
 }
 
-.spcus-choices__pro-col {
-	display: inline-flex;
-	align-items: center;
-	gap: 4px;
-}
-
-.spcus-pro-tag {
-	font-style: normal;
-	font-size: 9px;
-	font-weight: 800;
-	color: #8b5cf6;
-	background: #f3eefe;
-	padding: 1px 5px;
-	border-radius: 999px;
-}
-
 .spcus-choices__row {
 	padding: 8px 12px;
 	border-block-end: 1px solid var(--spcus-c-border);
@@ -650,12 +624,6 @@ button.spcus-choices__media-btn {
 	font-size: 11px;
 	font-weight: 700;
 	color: var(--spcus-c-ink-soft);
-}
-
-.spcus-vprice__pro {
-	display: inline-flex;
-	align-items: center;
-	gap: 4px;
 }
 
 .spcus-vprice__row {

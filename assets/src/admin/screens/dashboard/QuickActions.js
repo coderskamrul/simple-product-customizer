@@ -6,7 +6,6 @@
  */
 
 import { __ } from '@wordpress/i18n';
-import { useConfig } from '../../store/ConfigContext';
 import { navigate } from '../../app/router';
 
 /**
@@ -15,8 +14,6 @@ import { navigate } from '../../app/router';
  * @return {JSX.Element} The panel.
  */
 export default function QuickActions() {
-	const { proActive } = useConfig();
-
 	const actions = [
 		{
 			icon: 'art',
@@ -47,20 +44,6 @@ export default function QuickActions() {
 				'View performance reports',
 				'simple-product-customizer'
 			),
-		},
-		{
-			icon: 'admin-network',
-			to: '/license',
-			title: __( 'License', 'simple-product-customizer' ),
-			desc: proActive
-				? __(
-						'Manage activation',
-						'simple-product-customizer'
-				  )
-				: __(
-						'Activate Pro',
-						'simple-product-customizer'
-				  ),
 		},
 	];
 

@@ -2,7 +2,7 @@
  * Centered, searchable field-type picker. Opens from any "+ Add field"
  * affordance, groups every type by category with icons, supports fuzzy
  * search (cmdk), keyboard navigation, ESC-to-close (Radix), and animated
- * open/close (framer-motion). Pro-only types render locked.
+ * open/close (framer-motion).
  *
  * @package
  */
@@ -12,10 +12,9 @@ import { __ } from '@wordpress/i18n';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Command } from 'cmdk';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Search, X, Lock } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { typesByCategory } from '../../../fields/registry';
 import { fieldIcon, CATEGORY_ICONS } from '../../../fields/icons';
-import { useConfig } from '../../../store/ConfigContext';
 import { useBuilder } from '../../../store/BuilderContext';
 import { useBuilderUI } from '../store/builderUi';
 
@@ -34,7 +33,6 @@ const panel = {
  * @return {JSX.Element} The picker dialog.
  */
 export default function FieldPicker() {
-	const { proActive } = useConfig();
 	const { dispatch } = useBuilder();
 	const { pickerOpen, pickerParent, pickerIndex, closePicker } =
 		useBuilderUI();
@@ -58,9 +56,6 @@ export default function FieldPicker() {
 	 * @return {void}
 	 */
 	const add = ( type ) => {
-		if ( type.proOnly && ! proActive ) {
-			return;
-		}
 		dispatch( {
 			type: 'ADD',
 			fieldType: type.slug,
@@ -180,9 +175,6 @@ export default function FieldPicker() {
 																	fieldIcon(
 																		type.slug
 																	);
-																const locked =
-																	type.proOnly &&
-																	! proActive;
 																return (
 																	<Command.Item
 																		key={
@@ -194,11 +186,7 @@ export default function FieldPicker() {
 																				type
 																			)
 																		}
-																		className={ `spcus-picker__item${
-																			locked
-																				? ' is-locked'
-																				: ''
-																		}` }
+																		className="spcus-picker__item"
 																	>
 																		<span className="spcus-picker__item-icon">
 																			<Icon
@@ -213,16 +201,7 @@ export default function FieldPicker() {
 																				type.label
 																			}
 																		</span>
-																		{ locked && (
-																			<span className="spcus-picker__pro">
-																				<Lock
-																					size={
-																						11
-																					}
-																				/>
-																				Pro
-																			</span>
-																		) }
+
 																	</Command.Item>
 																);
 															}

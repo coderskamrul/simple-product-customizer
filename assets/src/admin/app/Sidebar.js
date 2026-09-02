@@ -32,12 +32,6 @@ const NAV = [
 		label: __( 'Analytics', 'simple-product-customizer' ),
 		icon: 'chart-bar',
 	},
-	{
-		route: 'license',
-		hash: '#/license',
-		label: __( 'License', 'simple-product-customizer' ),
-		icon: 'admin-network',
-	},
 ];
 
 /**

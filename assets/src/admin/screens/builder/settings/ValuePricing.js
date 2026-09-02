@@ -9,7 +9,6 @@
 
 import { __ } from '@wordpress/i18n';
 import { priceModeOptionsFor, makeChoice } from '../../../fields/registry';
-import { useConfig } from '../../../store/ConfigContext';
 import { TextControl, SelectControl } from '../../../components';
 
 /**
@@ -21,17 +20,14 @@ import { TextControl, SelectControl } from '../../../components';
  * @return {JSX.Element} The pricing panel.
  */
 export default function ValuePricing( { node, patch } ) {
-	const { proActive } = useConfig();
 	const choice = ( node.choices && node.choices[ 0 ] ) || {};
 
 	// Filter by field type / Enable Quantity (allowedPriceModes in
-	// fields/registry), keep any saved value visible, then layer the Pro
-	// gate on top.
+	// fields/registry), keeping any saved value visible.
 	const priceOptions = priceModeOptionsFor( node, choice.priceMode ).map(
 		( m ) => ( {
 			value: m.value,
-			label: m.pro && ! proActive ? `${ m.label } (Pro)` : m.label,
-			disabled: m.pro && ! proActive,
+			label: m.label,
 		} )
 	);
 
@@ -59,9 +55,8 @@ export default function ValuePricing( { node, patch } ) {
 						'simple-product-customizer'
 					) }
 				</span>
-				<span className="spcus-vprice__pro">
+				<span>
 					{ __( 'Sales', 'simple-product-customizer' ) }
-					{ ! proActive && <em className="spcus-pro-tag">Pro</em> }
 				</span>
 			</div>
 			<div className="spcus-vprice__row">
@@ -78,15 +73,6 @@ export default function ValuePricing( { node, patch } ) {
 				<TextControl
 					type="number"
 					value={ choice.sale }
-					disabled={ ! proActive }
-					placeholder={
-						proActive
-							? ''
-							: __(
-									'Pro',
-									'simple-product-customizer'
-							  )
-					}
 					onChange={ ( v ) => setPrice( { sale: v } ) }
 				/>
 			</div>

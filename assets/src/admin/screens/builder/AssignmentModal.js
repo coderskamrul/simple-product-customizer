@@ -8,12 +8,11 @@
  * @package
  */
 
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { Target } from 'lucide-react';
 import * as api from '../../api/endpoints';
 import { useBuilder } from '../../store/BuilderContext';
-import { useConfig } from '../../store/ConfigContext';
-import { Modal, Field, AsyncSelect, ProBadge } from '../../components';
+import { Modal, Field, AsyncSelect } from '../../components';
 
 /** Scope options shown as selectable cards. */
 const SCOPES = [
@@ -76,7 +75,6 @@ const SCOPES = [
 	},
 ];
 
-const FREE_PRODUCT_CAP = 2;
 
 /**
  * AssignmentModal.
@@ -87,7 +85,6 @@ const FREE_PRODUCT_CAP = 2;
  */
 export default function AssignmentModal( { onClose } ) {
 	const builder = useBuilder();
-	const { proActive } = useConfig();
 	const a = builder.assignment || {
 		scope: 'none',
 		include: [],
@@ -173,7 +170,7 @@ export default function AssignmentModal( { onClose } ) {
 						<AsyncSelect
 							value={ a.include }
 							onChange={ ( v ) => update( { include: v } ) }
-							max={ proActive ? 0 : FREE_PRODUCT_CAP }
+							max={ 0 }
 							placeholder={ __(
 								'Search products…',
 								'simple-product-customizer'
@@ -183,18 +180,6 @@ export default function AssignmentModal( { onClose } ) {
 								return r.items;
 							} }
 						/>
-						{ ! proActive && (
-							<ProBadge
-								hint={ sprintf(
-									/* translators: %d: free product cap */
-									__(
-										'Free version links up to %d products.',
-										'simple-product-customizer'
-									),
-									FREE_PRODUCT_CAP
-								) }
-							/>
-						) }
 					</Field>
 				) }
 

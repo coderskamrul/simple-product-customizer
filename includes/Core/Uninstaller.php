@@ -51,8 +51,6 @@ final class Uninstaller {
 			'spcus_custom_fonts',
 			'spcus_product_image_map',
 			'spcus_seeded',
-			'spcus_license_key',
-			'spcus_license_data',
 			'spcus_db_version',
 		);
 		foreach ( $options as $option ) {

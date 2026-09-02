@@ -7,7 +7,6 @@
 
 namespace SPCUS\Fields;
 
-use SPCUS\Core\Capabilities;
 use SPCUS\Fields\Concerns\HandlesPricing;
 use SPCUS\Fields\Concerns\RendersMarkup;
 use SPCUS\Support\Arr;
@@ -95,17 +94,13 @@ abstract class AbstractField implements FieldContract {
 	}
 
 	/**
-	 * Choices, Pro-capped (free tier: first 3).
+	 * Choices for this field.
 	 *
 	 * @return array
 	 */
 	protected function choices() {
 		$choices = Arr::get( $this->node, 'choices', array() );
-		$choices = is_array( $choices ) ? array_values( $choices ) : array();
-		if ( ! Capabilities::pro() && count( $choices ) > 3 ) {
-			$choices = array_slice( $choices, 0, 3 );
-		}
-		return $choices;
+		return is_array( $choices ) ? array_values( $choices ) : array();
 	}
 
 	/**

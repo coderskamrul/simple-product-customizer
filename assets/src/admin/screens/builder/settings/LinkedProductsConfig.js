@@ -18,18 +18,14 @@ import { __, sprintf } from '@wordpress/i18n';
 import { Search, Plus, Trash2, X, GripVertical } from 'lucide-react';
 import * as api from '../../../api/endpoints';
 import { errorMessage } from '../../../api/client';
-import { useConfig } from '../../../store/ConfigContext';
 import {
 	ToggleField,
 	TextControl,
 	Field,
 	DragList,
-	ProBadge,
 } from '../../../components';
 import { reorder } from '../../../components/DragList';
 
-/** Free tier links at most this many products (ARCHITECTURE §7). */
-const FREE_PRODUCT_CAP = 2;
 
 /**
  * Normalise a search result row into the stored product shape. Caches enough
@@ -67,7 +63,7 @@ function toProduct( item ) {
  *
  * @param {Object}   props          Component props.
  * @param {Array}    props.selected Already-linked product ids.
- * @param {boolean}  props.disabled Whether the picker is capped/locked.
+ * @param {boolean}  props.disabled Whether the picker is disabled.
  * @param {Function} props.onAdd    (product) => void.
  * @return {JSX.Element} The search control.
  */
@@ -271,7 +267,6 @@ function VariationPopover( { product, onToggle, onClose } ) {
  * @return {JSX.Element} The config block.
  */
 export default function LinkedProductsConfig( { node, patch } ) {
-	const { proActive } = useConfig();
 	const cfg = node.config || {};
 	const products = Array.isArray( cfg.products ) ? cfg.products : [];
 	const [ openIdx, setOpenIdx ] = useState( -1 );
@@ -279,8 +274,6 @@ export default function LinkedProductsConfig( { node, patch } ) {
 	const setKey = ( key, value ) =>
 		patch( { config: { ...cfg, [ key ]: value } } );
 	const setProducts = ( next ) => setKey( 'products', next );
-
-	const capped = ! proActive && products.length >= FREE_PRODUCT_CAP;
 
 	const addProduct = ( product ) => {
 		if ( products.some( ( p ) => p.id === product.id ) ) {
@@ -485,24 +478,12 @@ export default function LinkedProductsConfig( { node, patch } ) {
 				<div className="spcus-lp__search-row">
 					<ProductSearch
 						selected={ products.map( ( p ) => p.id ) }
-						disabled={ capped }
+						disabled={ false }
 						onAdd={ addProduct }
 					/>
 				</div>
 			</div>
 
-			{ ! proActive && (
-				<ProBadge
-					hint={ sprintf(
-						/* translators: %d: free product cap. */
-						__(
-							'Free version links up to %d products.',
-							'simple-product-customizer'
-						),
-						FREE_PRODUCT_CAP
-					) }
-				/>
-			) }
 
 			<div className="spcus-lp__switches">
 				<ToggleField

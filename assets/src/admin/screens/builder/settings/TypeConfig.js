@@ -9,7 +9,6 @@
 
 import { __ } from '@wordpress/i18n';
 import { getType, priceModeOptionsFor } from '../../../fields/registry';
-import { useConfig } from '../../../store/ConfigContext';
 import { useBuilder } from '../../../store/BuilderContext';
 import { flatten } from '../../../store/treeOps';
 import {
@@ -120,7 +119,6 @@ function FormulaEditor( { node, patch, advanced } ) {
  * @return {JSX.Element|null} The config block.
  */
 export default function TypeConfig( { node, patch } ) {
-	const { proActive } = useConfig();
 	const def = getType( node.type );
 	const cfg = node.config || {};
 
@@ -147,7 +145,6 @@ export default function TypeConfig( { node, patch } ) {
 		( m ) => ( {
 			value: m.value,
 			label: m.label,
-			disabled: m.pro && ! proActive,
 		} )
 	);
 

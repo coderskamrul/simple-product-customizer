@@ -7,7 +7,6 @@
 
 namespace SPCUS\Pricing;
 
-use SPCUS\Core\Capabilities;
 use SPCUS\Data\AssignmentResolver;
 use SPCUS\Data\OptionSetRepository;
 use SPCUS\Fields\FieldRegistry;
@@ -277,21 +276,6 @@ final class PriceCalculator {
 	}
 
 	/**
-	 * Effective price mode for a choice, applying the Pro gate (the gated
-	 * modes degrade to flat when the license is inactive).
-	 *
-	 * @param string $mode Raw mode.
-	 * @return string
-	 */
-	private function gatedMode( string $mode ): string {
-		$gated = array( 'percent', 'per_unit', 'per_word', 'per_char_nospace' );
-		if ( ! Capabilities::pro() && in_array( $mode, $gated, true ) ) {
-			return 'flat';
-		}
-		return $mode;
-	}
-
-	/**
 	 * Price a non-formula field (choice / value driven).
 	 *
 	 * @param array $field       Selection entry.
@@ -348,7 +332,7 @@ final class PriceCalculator {
 	 */
 	private function modePrice( array $choice, $value, float $percentBase, int $slot, array $field ): float {
 		$cost = $this->choiceCost( $choice );
-		$mode = $this->gatedMode( isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'none' );
+		$mode = isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'none';
 
 		switch ( $mode ) {
 			case 'none':
@@ -551,7 +535,7 @@ final class PriceCalculator {
 				}
 				$choice = $choices[ $idx ];
 				$cost   = $this->choiceCost( $choice );
-				$mode   = $this->gatedMode( isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'flat' );
+				$mode   = isset( $choice['priceMode'] ) ? (string) $choice['priceMode'] : 'flat';
 				if ( 'none' === $mode ) {
 					$cost = 0.0;
 				}
@@ -657,7 +641,7 @@ final class PriceCalculator {
 		$idx     = ( array() !== $indexes && isset( $indexes[0] ) ) ? $indexes[0] : 0;
 
 		if ( isset( $choices[ $idx ]['priceMode'] ) ) {
-			return $this->gatedMode( (string) $choices[ $idx ]['priceMode'] );
+			return (string) $choices[ $idx ]['priceMode'];
 		}
 		return 'none';
 	}
