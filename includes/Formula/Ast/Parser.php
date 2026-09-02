@@ -130,7 +130,7 @@ final class Parser {
 		if ( null === $token ) {
 			$got = $this->current();
 			throw new EvaluationError(
-				'Unexpected token at position ' . $got->getPosition() . '.'
+				'Unexpected token at position ' . esc_html( $got->getPosition() ) . '.'
 			);
 		}
 		return $token;
@@ -268,7 +268,7 @@ final class Parser {
 			$name = strtolower( (string) $token->getValue() );
 
 			if ( ! in_array( $name, self::FUNCTIONS, true ) ) {
-				throw new EvaluationError( 'Unknown function "' . $token->getValue() . '".' );
+				throw new EvaluationError( 'Unknown function "' . esc_html( $token->getValue() ) . '".' );
 			}
 
 			$this->expect( Token::T_LPAREN );
@@ -293,7 +293,7 @@ final class Parser {
 		}
 
 		throw new EvaluationError(
-			'Unexpected token at position ' . $token->getPosition() . '.'
+			'Unexpected token at position ' . esc_html( $token->getPosition() ) . '.'
 		);
 	}
 }

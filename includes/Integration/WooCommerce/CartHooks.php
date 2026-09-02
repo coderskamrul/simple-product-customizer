@@ -77,7 +77,7 @@ final class CartHooks {
 			return $passed;
 		}
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WC core nonce-verifies the add-to-cart request.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- WC core nonce-verifies add-to-cart; this is a JSON blob that sanitize_text_field() would destroy, it is json_decode()d below and every decoded value is sanitized in AbstractField::summarize().
 		$raw       = isset( $_POST['spcus_field_data'] ) ? Str::unslash( wp_unslash( $_POST['spcus_field_data'] ) ) : '';
 		$selection = Str::json( $raw, array() );
 		$selection = is_array( $selection ) ? $selection : array();
@@ -118,14 +118,20 @@ final class CartHooks {
 	 * @return array
 	 */
 	public function add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WC core nonce-verifies the add-to-cart request.
+		/*
+		 * WC core nonce-verifies the add-to-cart request before this filter runs.
+		 * These three params are JSON blobs: sanitize_text_field() would corrupt
+		 * them, so they are json_decode()d instead and each decoded value is
+		 * sanitized downstream (AbstractField::summarize() / lineName()).
+		 */
+		// phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$raw_json   = isset( $_POST['spcus_field_data'] ) ? Str::unslash( wp_unslash( $_POST['spcus_field_data'] ) ) : '';
 		$set_ids    = isset( $_POST['spcus_published_set_ids'] ) ? Str::json( wp_unslash( $_POST['spcus_published_set_ids'] ), array() ) : array();
 		$linked     = isset( $_POST['spcus_linked_products'] ) ? Str::json( wp_unslash( $_POST['spcus_linked_products'] ), array() ) : array();
 		$quantity   = isset( $_POST['quantity'] ) ? max( 1, absint( wp_unslash( $_POST['quantity'] ) ) ) : 1;
 
 		unset( $_POST['spcus_field_data'], $_POST['spcus_published_set_ids'], $_POST['spcus_linked_products'] );
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
+		// phpcs:enable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$selection = Str::json( $raw_json, array() );
 		$selection = is_array( $selection ) ? $selection : array();

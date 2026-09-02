@@ -184,7 +184,7 @@ final class StatsRepository {
 
 		$table = self::table_name();
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT id, `{$metric}` AS val FROM `{$table}` WHERE set_id = %d",
@@ -247,7 +247,7 @@ final class StatsRepository {
 		$table = self::daily_table_name();
 		$day   = current_time( 'Y-m-d' );
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT id, `{$metric}` AS val FROM `{$table}` WHERE day = %s",
@@ -379,7 +379,7 @@ final class StatsRepository {
 
 		$columns = 'day, impressions, clicks, add_to_cart, orders, revenue';
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		if ( '' !== $from && '' !== $to ) {
 			$rows = $wpdb->get_results(
 				$wpdb->prepare(

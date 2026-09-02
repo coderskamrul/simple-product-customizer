@@ -122,6 +122,7 @@ final class AssignmentController {
 			: array(
 				'scope'   => 'none',
 				'include' => array(),
+				// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- not a query arg: 'exclude' is a key in this plugin's own assignment payload.
 				'exclude' => array(),
 			);
 
@@ -133,6 +134,7 @@ final class AssignmentController {
 			array(
 				'assignment' => $assignment,
 				'include'    => $this->expand_objects( $scope, (array) ( $assignment['include'] ?? array() ) ),
+				// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- not a query arg: 'exclude' is a key in this plugin's own assignment payload.
 				'exclude'    => $this->expand_objects( 'products', (array) ( $assignment['exclude'] ?? array() ) ),
 				'imageMap'   => isset( $image_map[ $id ] ) ? $image_map[ $id ] : array(),
 			)
@@ -169,6 +171,7 @@ final class AssignmentController {
 			array(
 				'scope'   => '' === $scope ? 'none' : $scope,
 				'include' => array_values( array_filter( $include ) ),
+				// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- not a query arg: 'exclude' is a key in this plugin's own assignment payload.
 				'exclude' => array_values( array_filter( $exclude ) ),
 			)
 		);
@@ -294,6 +297,7 @@ final class AssignmentController {
 			'post_status'    => 'publish',
 			'posts_per_page' => 1,
 			'fields'         => 'ids',
+			// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- bounded existence probe (posts_per_page => 1, fields => ids) over an admin-authored exclusion list.
 			'post__not_in'   => $exclude,
 		);
 
@@ -303,6 +307,7 @@ final class AssignmentController {
 		}
 
 		if ( isset( $tax_map[ $scope ] ) && ! empty( $include ) ) {
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- single bounded admin-only assignment lookup, not a front-end query.
 			$query_args['tax_query'] = array(
 				array(
 					'taxonomy' => $tax_map[ $scope ],

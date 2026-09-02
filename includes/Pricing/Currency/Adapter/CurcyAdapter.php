@@ -30,6 +30,7 @@ final class CurcyAdapter implements CurrencyAdapter {
 		if ( ! $this->active() ) {
 			return $price;
 		}
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- third-party currency-switcher filter; calling its own hook name is the whole point of this adapter.
 		return (float) apply_filters( 'woocommerce_product_addons_option_price_raw', $price, '' );
 	}
 

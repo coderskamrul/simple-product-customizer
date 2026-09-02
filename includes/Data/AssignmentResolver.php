@@ -150,6 +150,7 @@ final class AssignmentResolver {
 				array(
 					'scope'   => $scope,
 					'include' => $include,
+					// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- not a query arg: 'exclude' is a key in this plugin's own assignment payload.
 					'exclude' => $exclude,
 				)
 			)
@@ -172,6 +173,7 @@ final class AssignmentResolver {
 		update_option( self::OPT_ALL, wp_json_encode( $all ) );
 
 		foreach ( array( self::META_PROD_INC, self::META_PROD_EXC ) as $meta ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- prepared meta_key sweep with no core API equivalent; runs only when an option set is deleted, so caching would only serve stale rows.
 			$rows = $wpdb->get_results(
 				$wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", $meta )
 			);
@@ -181,6 +183,7 @@ final class AssignmentResolver {
 			}
 		}
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- prepared meta_key sweep with no core API equivalent; runs only when an option set is deleted, so caching would only serve stale rows.
 		$rows = $wpdb->get_results(
 			$wpdb->prepare( "SELECT term_id, meta_value FROM {$wpdb->termmeta} WHERE meta_key = %s", self::META_TERM )
 		);

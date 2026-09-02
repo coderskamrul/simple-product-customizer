@@ -191,12 +191,12 @@ final class RestServer {
 			$r->get_param( 'wpnonce' ),
 		);
 
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- this IS the nonce check.
 		if ( isset( $_POST['spcus_nonce'] ) ) {
-			$candidates[] = wp_unslash( $_POST['spcus_nonce'] );
+			$candidates[] = sanitize_text_field( wp_unslash( $_POST['spcus_nonce'] ) );
 		}
 		if ( isset( $_POST['wpnonce'] ) ) {
-			$candidates[] = wp_unslash( $_POST['wpnonce'] );
+			$candidates[] = sanitize_text_field( wp_unslash( $_POST['wpnonce'] ) );
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 

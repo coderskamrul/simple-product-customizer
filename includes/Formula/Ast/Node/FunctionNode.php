@@ -127,6 +127,6 @@ final class FunctionNode implements NodeInterface {
 				return max( $values );
 		}
 
-		throw new EvaluationError( 'Unknown function "' . $this->name . '".' );
+		throw new EvaluationError( 'Unknown function "' . esc_html( $this->name ) . '".' );
 	}
 }

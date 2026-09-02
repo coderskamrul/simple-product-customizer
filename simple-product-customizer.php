@@ -39,10 +39,11 @@ define( 'SPCUS_MIN_PHP', '7.4' );
  */
 spl_autoload_register(
 	static function ( $fqcn ) {
-		if ( 0 !== strpos( $fqcn, 'SPCUS\\' ) ) {
+		$prefix = 'SPCUS\\';
+		if ( 0 !== strpos( $fqcn, $prefix ) ) {
 			return;
 		}
-		$relative = substr( $fqcn, 4 );
+		$relative = substr( $fqcn, strlen( $prefix ) );
 		$path     = SPCUS_PATH . 'includes/' . str_replace( '\\', '/', $relative ) . '.php';
 		if ( is_readable( $path ) ) {
 			require_once $path;

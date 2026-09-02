@@ -178,15 +178,19 @@ final class StoreAssets {
 	 * @return void
 	 */
 	private function print_ajax_fallback( array $data, $attached ) {
-		printf(
-			'<script>window.spcusStore = window.spcusStore || %s;</script>',
-			wp_json_encode( $data ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded scalar map.
+		wp_print_inline_script_tag(
+			sprintf(
+				'window.spcusStore = window.spcusStore || %s;',
+				wp_json_encode( $data )
+			)
 		);
 
 		if ( ! $attached && is_readable( SPCUS_PATH . 'assets/build/store.js' ) ) {
-			printf(
-				'<script src="%s"></script>',
-				esc_url( SPCUS_ASSETS . 'store.js' )
+			wp_print_script_tag(
+				array(
+					'src' => esc_url( SPCUS_ASSETS . 'store.js' ),
+					'id'  => 'spcus-store-fallback-js',
+				)
 			);
 		}
 	}

@@ -104,6 +104,7 @@ final class Installer {
 
 		if ( $post_id && ! is_wp_error( $post_id ) ) {
 			update_post_meta( $post_id, '_spcus_fields', wp_slash( wp_json_encode( $fields ) ) );
+			// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- not a query arg: 'exclude' is a key in this plugin's own assignment payload.
 			update_post_meta( $post_id, '_spcus_assignment', wp_json_encode( array( 'scope' => 'none', 'include' => array(), 'exclude' => array() ) ) );
 		}
 	}

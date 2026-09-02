@@ -85,6 +85,7 @@ final class AdminNotices {
 		if ( AdminMenu::is_app_screen() ) {
 			return true;
 		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only screen detection, changes no state.
 		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
 		return ( AdminMenu::SLUG === $page );
 	}

@@ -56,6 +56,7 @@ final class OptionSetRepository {
 				array(
 					'scope'   => 'none',
 					'include' => array(),
+					// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- not a query arg: 'exclude' is a key in this plugin's own assignment payload.
 					'exclude' => array(),
 				)
 			),

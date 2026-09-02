@@ -33,8 +33,7 @@ final class Uninstaller {
 				'post_type'      => 'spcus_option_set',
 				'post_status'    => 'any',
 				'numberposts'    => -1,
-				'fields'         => 'ids',
-				'suppress_filters' => true,
+				'fields'      => 'ids',
 			)
 		);
 		foreach ( $ids as $id ) {
@@ -60,6 +59,14 @@ final class Uninstaller {
 			delete_option( $option );
 		}
 
+		/*
+		 * Uninstall teardown. These are one-shot bulk deletes over the plugin's
+		 * own meta keys, tables and transients: there is no core API for them,
+		 * every value is a literal (no user input is interpolated), and caching
+		 * is meaningless because the plugin is being removed.
+		 */
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+
 		// Product / term meta.
 		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('_spcus_assigned_include','_spcus_assigned_exclude')" );
 		$wpdb->query( "DELETE FROM {$wpdb->termmeta} WHERE meta_key = '_spcus_term_assigned'" );
@@ -70,5 +77,7 @@ final class Uninstaller {
 
 		// Transients.
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_spcus\_%' OR option_name LIKE '\_transient\_timeout\_spcus\_%'" );
+
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 	}
 }

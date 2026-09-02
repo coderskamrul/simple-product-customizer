@@ -144,22 +144,37 @@ final class FontsController {
 			return $s->fail( 'bad_type', __( 'Allowed font types: woff, woff2, ttf.', 'simple-product-customizer' ), 400 );
 		}
 
-		$dir       = Upload::dir( 'fonts' );
-		$safe_name = wp_unique_filename( $dir, sanitize_file_name( $file['name'] ) );
-		$target    = $dir . $safe_name;
+		// Make sure the bucket exists before wp_handle_upload() targets it.
+		Upload::dir( 'fonts' );
 
-		$moved = is_uploaded_file( $file['tmp_name'] )
-			? @move_uploaded_file( $file['tmp_name'], $target ) // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-			: @copy( $file['tmp_name'], $target ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		if ( ! function_exists( 'wp_handle_upload' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
 
-		if ( ! $moved || ! is_file( $target ) ) {
+		add_filter( 'upload_dir', array( $this, 'force_fonts_dir' ) );
+		add_filter( 'upload_mimes', array( $this, 'inject_font_mimes' ) );
+		add_filter( 'wp_check_filetype_and_ext', array( $this, 'allow_font_filetype' ), 10, 4 );
+
+		$uploaded = wp_handle_upload(
+			$file,
+			array(
+				'test_form' => false,
+				'mimes'     => self::font_mimes(),
+			)
+		);
+
+		remove_filter( 'wp_check_filetype_and_ext', array( $this, 'allow_font_filetype' ), 10 );
+		remove_filter( 'upload_mimes', array( $this, 'inject_font_mimes' ) );
+		remove_filter( 'upload_dir', array( $this, 'force_fonts_dir' ) );
+
+		if ( ! is_array( $uploaded ) || isset( $uploaded['error'] ) || empty( $uploaded['file'] ) ) {
 			return $s->fail( 'move_failed', __( 'Could not store the font file.', 'simple-product-customizer' ), 500 );
 		}
 
 		$entry = array(
 			'id'        => uniqid( 'font_' ),
 			'title'     => $title,
-			'src'       => Upload::url( 'fonts' ) . $safe_name,
+			'src'       => $uploaded['url'],
 			'family'    => $family,
 			'file_type' => $ext,
 		);
@@ -247,5 +262,70 @@ final class FontsController {
 
 		update_option( self::OPTION, array_values( $fonts ) );
 		return $s->ok( array( 'id' => $id ) );
+	}
+
+	/**
+	 * Extension => MIME map for the font types this controller accepts.
+	 *
+	 * @return array<string,string>
+	 */
+	private static function font_mimes() {
+		return array(
+			'woff'  => 'font/woff',
+			'woff2' => 'font/woff2',
+			'ttf'   => 'font/ttf',
+		);
+	}
+
+	/**
+	 * Route wp_handle_upload() into uploads/spcus_fonts for this request.
+	 *
+	 * @param array $upload Upload dir descriptor.
+	 * @return array
+	 */
+	public function force_fonts_dir( $upload ) {
+		$subdir           = '/spcus_fonts';
+		$upload['subdir'] = $subdir;
+		$upload['path']   = $upload['basedir'] . $subdir;
+		$upload['url']    = $upload['baseurl'] . $subdir;
+		if ( ! is_dir( $upload['path'] ) ) {
+			wp_mkdir_p( $upload['path'] );
+		}
+		return $upload;
+	}
+
+	/**
+	 * Whitelist the font MIME types during the request.
+	 *
+	 * @param array $mimes Existing mimes.
+	 * @return array
+	 */
+	public function inject_font_mimes( $mimes ) {
+		return array_merge( (array) $mimes, self::font_mimes() );
+	}
+
+	/**
+	 * Trust our extension allow-list for fonts.
+	 *
+	 * libmagic reports web fonts inconsistently (font/sfnt,
+	 * application/x-font-ttf, application/octet-stream, ...), so core's
+	 * real-MIME comparison would reject otherwise valid files. The extension
+	 * has already been checked against self::ALLOWED_EXTS above.
+	 *
+	 * @param array  $data     ext/type/proper_filename triple.
+	 * @param string $file     Temp file path.
+	 * @param string $filename Original filename.
+	 * @param array  $mimes    Allowed mimes.
+	 * @return array
+	 */
+	public function allow_font_filetype( $data, $file, $filename, $mimes ) {
+		unset( $file, $mimes );
+		$ext = strtolower( pathinfo( (string) $filename, PATHINFO_EXTENSION ) );
+		$map = self::font_mimes();
+		if ( isset( $map[ $ext ] ) ) {
+			$data['ext']  = $ext;
+			$data['type'] = $map[ $ext ];
+		}
+		return $data;
 	}
 }

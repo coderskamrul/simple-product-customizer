@@ -59,6 +59,6 @@ final class UnaryNode implements NodeInterface {
 			return -$value;
 		}
 
-		throw new EvaluationError( 'Unsupported unary operator: ' . $this->op );
+		throw new EvaluationError( 'Unsupported unary operator: ' . esc_html( $this->op ) );
 	}
 }
