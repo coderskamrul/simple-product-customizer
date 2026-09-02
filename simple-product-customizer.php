@@ -5,8 +5,8 @@
  * Version:           1.0.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
- * Author:            WPDeveloper
- * Author URI:        https://wpdeveloper.com
+ * Author:            hasandev
+ * Author URI:        https://profiles.wordpress.org/hasandev/
  * Text Domain:       simple-product-customizer
  * Domain Path:       /languages
  * Requires Plugins:  woocommerce

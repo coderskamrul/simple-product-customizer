@@ -1,4 +1,4 @@
-# Copyright (C) 2026 WPDeveloper
+# Copyright (C) 2026 hasandev
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
@@ -27,12 +27,12 @@ msgstr ""
 
 #. Author of the plugin
 #: simple-product-customizer.php
-msgid "WPDeveloper"
+msgid "hasandev"
 msgstr ""
 
 #. Author URI of the plugin
 #: simple-product-customizer.php
-msgid "https://wpdeveloper.com"
+msgid "https://profiles.wordpress.org/hasandev"
 msgstr ""
 
 #: includes/Admin/AdminMenu.php:49

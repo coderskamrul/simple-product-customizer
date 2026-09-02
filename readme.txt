@@ -1,6 +1,6 @@
 === Simple Product Customizer ===
-Contributors: wpdeveloper
-Tags: woocommerce, product options, product addons, custom fields, conditional logic
+Contributors: hasandev
+Tags: product options, product addons, custom fields, conditional logic
 Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
