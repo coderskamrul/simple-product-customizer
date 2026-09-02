@@ -2,12 +2,12 @@
 /**
  * Minimal, dismissible admin notice.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Admin;
+namespace SPCUS\Admin;
 
-use DPO\Core\Capabilities;
+use SPCUS\Core\Capabilities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -50,11 +50,11 @@ final class AdminNotices {
 	 * @return string
 	 */
 	private function transient_key( $key ) {
-		return 'dpo_notice_' . $key;
+		return 'spcus_notice_' . $key;
 	}
 
 	/**
-	 * Handle a dismissal request (`?dpo_dismiss=<key>` + nonce).
+	 * Handle a dismissal request (`?spcus_dismiss=<key>` + nonce).
 	 *
 	 * @return void
 	 */
@@ -63,13 +63,13 @@ final class AdminNotices {
 			return;
 		}
 
-		$key = isset( $_GET['dpo_dismiss'] ) ? sanitize_key( wp_unslash( $_GET['dpo_dismiss'] ) ) : '';
+		$key = isset( $_GET['spcus_dismiss'] ) ? sanitize_key( wp_unslash( $_GET['spcus_dismiss'] ) ) : '';
 		if ( '' === $key ) {
 			return;
 		}
 
-		$nonce = isset( $_GET['_dpo_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_dpo_nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'dpo_notice' ) ) {
+		$nonce = isset( $_GET['_spcus_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_spcus_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'spcus_notice' ) ) {
 			return;
 		}
 
@@ -113,24 +113,24 @@ final class AdminNotices {
 		}
 
 		$dismiss_url = wp_nonce_url(
-			add_query_arg( 'dpo_dismiss', self::KEY ),
-			'dpo_notice',
-			'_dpo_nonce'
+			add_query_arg( 'spcus_dismiss', self::KEY ),
+			'spcus_notice',
+			'_spcus_nonce'
 		);
 
 		?>
-		<div class="notice notice-info is-dismissible dpo-notice">
+		<div class="notice notice-info is-dismissible spcus-notice">
 			<p>
-				<strong><?php esc_html_e( 'Dynamic Product Options for WooCommerce', 'dynamic-product-options-for-woocommerce' ); ?></strong>
+				<strong><?php esc_html_e( 'Simple Product Customizer', 'simple-product-customizer' ); ?></strong>
 				&mdash;
-				<?php esc_html_e( 'Thanks for installing! Build your first option set to start adding custom fields to products.', 'dynamic-product-options-for-woocommerce' ); ?>
+				<?php esc_html_e( 'Thanks for installing! Build your first option set to start adding custom fields to products.', 'simple-product-customizer' ); ?>
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=' . AdminMenu::SLUG . '#/sets' ) ); ?>">
-					<?php esc_html_e( 'Create an Option Set', 'dynamic-product-options-for-woocommerce' ); ?>
+					<?php esc_html_e( 'Create an Option Set', 'simple-product-customizer' ); ?>
 				</a>
 			</p>
 			<p>
 				<a href="<?php echo esc_url( $dismiss_url ); ?>" class="button-link">
-					<?php esc_html_e( 'Dismiss', 'dynamic-product-options-for-woocommerce' ); ?>
+					<?php esc_html_e( 'Dismiss', 'simple-product-customizer' ); ?>
 				</a>
 			</p>
 		</div>

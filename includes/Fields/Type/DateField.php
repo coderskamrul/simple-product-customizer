@@ -2,12 +2,12 @@
 /**
  * Date picker field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -51,7 +51,7 @@ final class DateField extends AbstractField {
 		$choices = $this->choices();
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 
-		$input = '<input type="text" readonly class="dpo-input dpo-date-input" name="' . esc_attr( $this->input_name() ) . '"'
+		$input = '<input type="text" readonly class="spcus-input spcus-date-input" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -73,8 +73,8 @@ final class DateField extends AbstractField {
 				)
 			) . ' />';
 
-		return '<div class="dpo-date">'
-			. '<span class="dpo-date__icon" aria-hidden="true">'
+		return '<div class="spcus-date">'
+			. '<span class="spcus-date__icon" aria-hidden="true">'
 			. '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
 			. '<rect x="3" y="4.5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.6"/>'
 			. '<path d="M3 9h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'

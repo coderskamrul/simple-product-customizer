@@ -2,16 +2,16 @@
 /**
  * Field type registry.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields;
+namespace SPCUS\Fields;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Maps a type slug to its renderer class and instantiates field objects.
- * Third parties can register additional types via dpo_field_types.
+ * Third parties can register additional types via spcus_field_types.
  */
 final class FieldRegistry {
 
@@ -28,7 +28,7 @@ final class FieldRegistry {
 	public function __construct() {
 		$base = __NAMESPACE__ . '\\Type\\';
 		$this->map = apply_filters(
-			'dpo_field_types',
+			'spcus_field_types',
 			array(
 				'text'            => $base . 'TextField',
 				'textarea'        => $base . 'TextareaField',

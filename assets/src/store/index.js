@@ -1,12 +1,12 @@
 /**
  * Storefront runtime bootstrap.
  *
- * Discovers every `.dpo-options` wrapper and instantiates one Controller per
+ * Discovers every `.spcus-options` wrapper and instantiates one Controller per
  * product form. Re-scans when WooCommerce replaces the cart/product markup
  * (`updated_wc_div`) or after generic AJAX page swaps, so AJAX-rendered
  * product templates are handled too.
  *
- * Also publishes `window.dpoEvaluateFormula(expr, vars, mode)` for theme /
+ * Also publishes `window.spcusEvaluateFormula(expr, vars, mode)` for theme /
  * integration use, mirroring the two PHP formula engines.
  *
  * @package
@@ -27,9 +27,9 @@ const controllers = [];
  */
 function scan() {
 	try {
-		const roots = document.querySelectorAll( '.dpo-options' );
+		const roots = document.querySelectorAll( '.spcus-options' );
 		roots.forEach( ( root ) => {
-			if ( root.__dpoBound ) {
+			if ( root.__spcusBound ) {
 				return;
 			}
 			const c = new Controller( root );
@@ -48,7 +48,7 @@ function scan() {
  */
 function exposeGlobals() {
 	try {
-		window.dpoEvaluateFormula = ( expr, vars, mode ) =>
+		window.spcusEvaluateFormula = ( expr, vars, mode ) =>
 			evaluateFormula( expr, vars || {}, mode || 'simple' );
 	} catch ( e ) {
 		/* read-only window — ignore. */

@@ -21,27 +21,27 @@ const TABS = [
 	{
 		route: 'dashboard',
 		hash: '#/',
-		label: __( 'Dashboard', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Dashboard', 'simple-product-customizer' ),
 	},
 	{
 		route: 'sets',
 		hash: '#/sets',
-		label: __( 'Option Sets', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Option Sets', 'simple-product-customizer' ),
 	},
 	{
 		route: 'analytics',
 		hash: '#/analytics',
-		label: __( 'Analytics', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Analytics', 'simple-product-customizer' ),
 	},
 	{
 		route: 'settings',
 		hash: '#/settings',
-		label: __( 'Settings', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Settings', 'simple-product-customizer' ),
 	},
 	{
 		route: 'license',
 		hash: '#/license',
-		label: __( 'License', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'License', 'simple-product-customizer' ),
 	},
 ];
 
@@ -59,7 +59,7 @@ function resolveCTA( routeName ) {
 			return {
 				label: __(
 					'Create Option Set',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 				onClick: () => navigate( '/set/new' ),
 			};
@@ -67,7 +67,7 @@ function resolveCTA( routeName ) {
 			return {
 				label: __(
 					'New Option Set',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 				onClick: () => navigate( '/set/new' ),
 			};
@@ -102,18 +102,18 @@ export default function TopBar() {
 	const current = activeTab( route.name );
 
 	return (
-		<header className="dpo-topbar" role="banner">
+		<header className="spcus-topbar" role="banner">
 			{ /* Left — brand + version pill + (context CTA) ------------- */ }
-			<div className="dpo-topbar__lead">
+			<div className="spcus-topbar__lead">
 				<a
 					href="#/"
-					className="dpo-topbar__brand"
+					className="spcus-topbar__brand"
 					aria-label={ __(
-						'Dynamic Product Options home',
-						'dynamic-product-options-for-woocommerce'
+						'Simple Product Customizer home',
+						'simple-product-customizer'
 					) }
 				>
-					<span className="dpo-topbar__logo" aria-hidden="true">
+					<span className="spcus-topbar__logo" aria-hidden="true">
 						<svg
 							width="22"
 							height="22"
@@ -135,14 +135,14 @@ export default function TopBar() {
 						</svg>
 					</span>
 					{ version && (
-						<span className="dpo-topbar__version">{ version }</span>
+						<span className="spcus-topbar__version">{ version }</span>
 					) }
 				</a>
 
 				{ cta && (
 					<button
 						type="button"
-						className="dpo-topbar__cta"
+						className="spcus-topbar__cta"
 						onClick={ cta.onClick }
 					>
 						<span aria-hidden="true">+</span>
@@ -153,10 +153,10 @@ export default function TopBar() {
 
 			{ /* Center — tabs ------------------------------------------- */ }
 			<nav
-				className="dpo-topbar__tabs"
+				className="spcus-topbar__tabs"
 				aria-label={ __(
 					'Primary',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				{ TABS.map( ( t ) => {
@@ -165,7 +165,7 @@ export default function TopBar() {
 						<a
 							key={ t.route }
 							href={ t.hash }
-							className={ `dpo-topbar__tab${
+							className={ `spcus-topbar__tab${
 								isActive ? ' is-active' : ''
 							}` }
 							aria-current={ isActive ? 'page' : undefined }
@@ -177,25 +177,25 @@ export default function TopBar() {
 			</nav>
 
 			{ /* Right — upgrade pill ------------------------------------ */ }
-			<div className="dpo-topbar__trail">
+			<div className="spcus-topbar__trail">
 				{ proActive ? (
-					<span className="dpo-topbar__plan">
+					<span className="spcus-topbar__plan">
 						{ __(
 							'Pro',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</span>
 				) : (
 					<a
-						className="dpo-topbar__upgrade"
-						href="https://wpdeveloper.com/in/upgrade-dynamic-product-options"
+						className="spcus-topbar__upgrade"
+						href="https://wpdeveloper.com/in/upgrade-simple-product-customizer"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<span>
 							{ __(
 								'Upgrade Pro',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</span>
 						<svg

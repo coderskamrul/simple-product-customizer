@@ -80,7 +80,7 @@ export default function FieldPicker() {
 					<Dialog.Portal forceMount>
 						<Dialog.Overlay asChild forceMount>
 							<motion.div
-								className="dpo-picker__overlay"
+								className="spcus-picker__overlay"
 								variants={ overlay }
 								initial="hidden"
 								animate="visible"
@@ -88,19 +88,19 @@ export default function FieldPicker() {
 								transition={ { duration: 0.16 } }
 							/>
 						</Dialog.Overlay>
-						<div className="dpo-picker__wrap">
+						<div className="spcus-picker__wrap">
 							<Dialog.Content
 								asChild
 								forceMount
 								aria-label={ __(
 									'Add a field',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 								aria-describedby={ undefined }
 								onOpenAutoFocus={ ( e ) => e.preventDefault() }
 							>
 								<motion.div
-									className="dpo-picker"
+									className="spcus-picker"
 									variants={ panel }
 									initial="hidden"
 									animate="visible"
@@ -112,12 +112,12 @@ export default function FieldPicker() {
 										mass: 0.7,
 									} }
 								>
-									<Command className="dpo-picker__cmd" loop>
-										<header className="dpo-picker__head">
-											<div className="dpo-picker__search">
+									<Command className="spcus-picker__cmd" loop>
+										<header className="spcus-picker__head">
+											<div className="spcus-picker__search">
 												<Search
 													size={ 18 }
-													className="dpo-picker__search-icon"
+													className="spcus-picker__search-icon"
 													aria-hidden="true"
 												/>
 												<Command.Input
@@ -126,18 +126,18 @@ export default function FieldPicker() {
 													onValueChange={ setQuery }
 													placeholder={ __(
 														'Search fields…',
-														'dynamic-product-options-for-woocommerce'
+														'simple-product-customizer'
 													) }
-													className="dpo-picker__input"
+													className="spcus-picker__input"
 												/>
 											</div>
 											<Dialog.Close asChild>
 												<button
 													type="button"
-													className="dpo-picker__close"
+													className="spcus-picker__close"
 													aria-label={ __(
 														'Close',
-														'dynamic-product-options-for-woocommerce'
+														'simple-product-customizer'
 													) }
 												>
 													<X size={ 18 } />
@@ -145,11 +145,11 @@ export default function FieldPicker() {
 											</Dialog.Close>
 										</header>
 
-										<Command.List className="dpo-picker__list">
-											<Command.Empty className="dpo-picker__empty">
+										<Command.List className="spcus-picker__list">
+											<Command.Empty className="spcus-picker__empty">
 												{ __(
 													'No fields match your search.',
-													'dynamic-product-options-for-woocommerce'
+													'simple-product-customizer'
 												) }
 											</Command.Empty>
 
@@ -160,7 +160,7 @@ export default function FieldPicker() {
 													<Command.Group
 														key={ group.key }
 														heading={
-															<span className="dpo-picker__cat">
+															<span className="spcus-picker__cat">
 																{ Cat && (
 																	<Cat
 																		size={
@@ -172,7 +172,7 @@ export default function FieldPicker() {
 																{ group.label }
 															</span>
 														}
-														className="dpo-picker__group"
+														className="spcus-picker__group"
 													>
 														{ group.items.map(
 															( type ) => {
@@ -194,13 +194,13 @@ export default function FieldPicker() {
 																				type
 																			)
 																		}
-																		className={ `dpo-picker__item${
+																		className={ `spcus-picker__item${
 																			locked
 																				? ' is-locked'
 																				: ''
 																		}` }
 																	>
-																		<span className="dpo-picker__item-icon">
+																		<span className="spcus-picker__item-icon">
 																			<Icon
 																				size={
 																					18
@@ -208,13 +208,13 @@ export default function FieldPicker() {
 																				aria-hidden="true"
 																			/>
 																		</span>
-																		<span className="dpo-picker__item-label">
+																		<span className="spcus-picker__item-label">
 																			{
 																				type.label
 																			}
 																		</span>
 																		{ locked && (
-																			<span className="dpo-picker__pro">
+																			<span className="spcus-picker__pro">
 																				<Lock
 																					size={
 																						11

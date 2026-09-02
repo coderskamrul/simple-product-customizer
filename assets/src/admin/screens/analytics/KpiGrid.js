@@ -36,14 +36,14 @@ export default function KpiGrid( { totals, deltas } ) {
 			icon: 'buddicons-activity',
 			label: __(
 				'Total Clicks',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 			value: int( t.clicks ),
 			delta: deltas.clicks,
 			meter: ratio( t.clicks, t.impressions ),
 			meterLabel: __(
 				'Click-through rate',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 		},
 		{
@@ -51,14 +51,14 @@ export default function KpiGrid( { totals, deltas } ) {
 			icon: 'cart',
 			label: __(
 				'Cart Additions',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 			value: int( t.add_to_cart ),
 			delta: deltas.add_to_cart,
 			meter: ratio( t.add_to_cart, t.clicks ),
 			meterLabel: __(
 				'Add-to-cart rate',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 		},
 		{
@@ -66,32 +66,32 @@ export default function KpiGrid( { totals, deltas } ) {
 			icon: 'products',
 			label: __(
 				'Completed Sales',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 			value: int( t.orders ),
 			delta: deltas.orders,
 			meter: ratio( t.orders, t.add_to_cart ),
 			meterLabel: __(
 				'Checkout rate',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 		},
 		{
 			tone: 'green',
 			icon: 'money-alt',
-			label: __( 'Revenue', 'dynamic-product-options-for-woocommerce' ),
+			label: __( 'Revenue', 'simple-product-customizer' ),
 			value: formatPrice( t.revenue ),
 			delta: deltas.revenue,
 			meter: ratio( t.orders, t.impressions ),
 			meterLabel: __(
 				'Overall conversion rate',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 		},
 	];
 
 	return (
-		<div className="dpo-an-kpis">
+		<div className="spcus-an-kpis">
 			{ cards.map( ( c ) => (
 				<KpiCard key={ c.tone } { ...c } />
 			) ) }

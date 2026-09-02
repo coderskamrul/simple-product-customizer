@@ -2,7 +2,7 @@
  * Live popup preview shown from the Popup Builder. Renders the authored content
  * with the same modal chrome, corner close button and open animation as the
  * storefront (`includes/Fields/Type/PopupField.php` + blocks.scss) so the
- * builder preview matches the frontend 1:1. Reuses `.dpo-rte__content` for
+ * builder preview matches the frontend 1:1. Reuses `.spcus-rte__content` for
  * identical rich-text typography.
  *
  * @package
@@ -35,38 +35,38 @@ export default function PopupPreview( { content, onClose } ) {
 			? content
 			: `<p><em>${ __(
 					'Nothing to preview yet — add some content.',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 			  ) }</em></p>`;
 
 	return (
 		<div
-			className="dpo-pp-preview"
+			className="spcus-pp-preview"
 			role="dialog"
 			aria-modal="true"
 			aria-label={ __(
 				'Popup preview',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 		>
 			<div
-				className="dpo-pp-preview__backdrop"
+				className="spcus-pp-preview__backdrop"
 				onClick={ onClose }
 				role="presentation"
 			/>
-			<div className="dpo-pp-preview__box">
+			<div className="spcus-pp-preview__box">
 				<button
 					type="button"
-					className="dpo-pp-preview__close"
+					className="spcus-pp-preview__close"
 					onClick={ onClose }
 					aria-label={ __(
 						'Close',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					&times;
 				</button>
 				<div
-					className="dpo-rte__content dpo-pp-preview__content"
+					className="spcus-rte__content spcus-pp-preview__content"
 					// eslint-disable-next-line react/no-danger
 					dangerouslySetInnerHTML={ { __html: html } }
 				/>

@@ -2,17 +2,17 @@
 /**
  * Cart-side integration: validation, item data, totals, display.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Integration\WooCommerce;
+namespace SPCUS\Integration\WooCommerce;
 
-use DPO\Core\Container;
-use DPO\Data\AssignmentResolver;
-use DPO\Data\OptionSetRepository;
-use DPO\Pricing\Currency\CurrencyBridge;
-use DPO\Pricing\PriceCalculator;
-use DPO\Support\Str;
+use SPCUS\Core\Container;
+use SPCUS\Data\AssignmentResolver;
+use SPCUS\Data\OptionSetRepository;
+use SPCUS\Pricing\Currency\CurrencyBridge;
+use SPCUS\Pricing\PriceCalculator;
+use SPCUS\Support\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -78,7 +78,7 @@ final class CartHooks {
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WC core nonce-verifies the add-to-cart request.
-		$raw       = isset( $_POST['dpo_field_data'] ) ? Str::unslash( wp_unslash( $_POST['dpo_field_data'] ) ) : '';
+		$raw       = isset( $_POST['spcus_field_data'] ) ? Str::unslash( wp_unslash( $_POST['spcus_field_data'] ) ) : '';
 		$selection = Str::json( $raw, array() );
 		$selection = is_array( $selection ) ? $selection : array();
 
@@ -98,7 +98,7 @@ final class CartHooks {
 			if ( ! in_array( (string) $field_id, array_map( 'strval', $submitted ), true ) ) {
 				if ( function_exists( 'wc_add_notice' ) ) {
 					wc_add_notice(
-						esc_html__( 'Please fill in all required product options.', 'dynamic-product-options-for-woocommerce' ),
+						esc_html__( 'Please fill in all required product options.', 'simple-product-customizer' ),
 						'error'
 					);
 				}
@@ -119,12 +119,12 @@ final class CartHooks {
 	 */
 	public function add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WC core nonce-verifies the add-to-cart request.
-		$raw_json   = isset( $_POST['dpo_field_data'] ) ? Str::unslash( wp_unslash( $_POST['dpo_field_data'] ) ) : '';
-		$set_ids    = isset( $_POST['dpo_published_set_ids'] ) ? Str::json( wp_unslash( $_POST['dpo_published_set_ids'] ), array() ) : array();
-		$linked     = isset( $_POST['dpo_linked_products'] ) ? Str::json( wp_unslash( $_POST['dpo_linked_products'] ), array() ) : array();
+		$raw_json   = isset( $_POST['spcus_field_data'] ) ? Str::unslash( wp_unslash( $_POST['spcus_field_data'] ) ) : '';
+		$set_ids    = isset( $_POST['spcus_published_set_ids'] ) ? Str::json( wp_unslash( $_POST['spcus_published_set_ids'] ), array() ) : array();
+		$linked     = isset( $_POST['spcus_linked_products'] ) ? Str::json( wp_unslash( $_POST['spcus_linked_products'] ), array() ) : array();
 		$quantity   = isset( $_POST['quantity'] ) ? max( 1, absint( wp_unslash( $_POST['quantity'] ) ) ) : 1;
 
-		unset( $_POST['dpo_field_data'], $_POST['dpo_published_set_ids'], $_POST['dpo_linked_products'] );
+		unset( $_POST['spcus_field_data'], $_POST['spcus_published_set_ids'], $_POST['spcus_linked_products'] );
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		$selection = Str::json( $raw_json, array() );
@@ -139,9 +139,9 @@ final class CartHooks {
 
 		// Always carry the linked products so they become their own cart lines,
 		// even for a set whose only field is Linked Products (which contributes
-		// nothing to dpo_field_data).
+		// nothing to spcus_field_data).
 		if ( array() !== $linked ) {
-			$cart_item_data['dpo_linked_products'] = $linked;
+			$cart_item_data['spcus_linked_products'] = $linked;
 		}
 
 		// Priced option selection (linked products are NOT priced here — they
@@ -157,14 +157,14 @@ final class CartHooks {
 					(int) $quantity
 				);
 
-				$cart_item_data['dpo_field_data']        = $result;
-				$cart_item_data['dpo_field_data_raw']    = (string) $raw_json;
-				$cart_item_data['dpo_published_set_ids'] = $set_ids;
-				$cart_item_data['dpo_base']              = $pricing->productBasePrice( (int) $product_id, (int) $variation_id );
+				$cart_item_data['spcus_field_data']        = $result;
+				$cart_item_data['spcus_field_data_raw']    = (string) $raw_json;
+				$cart_item_data['spcus_published_set_ids'] = $set_ids;
+				$cart_item_data['spcus_base']              = $pricing->productBasePrice( (int) $product_id, (int) $variation_id );
 
 				$record = ! empty( $result['setIds'] ) ? $result['setIds'] : $set_ids;
 				foreach ( $record as $set_id ) {
-					do_action( 'dpo_stats_record', (int) $set_id, 'add_to_cart', 1 );
+					do_action( 'spcus_stats_record', (int) $set_id, 'add_to_cart', 1 );
 				}
 			}
 		}
@@ -186,7 +186,7 @@ final class CartHooks {
 	public function add_linked_products( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
 		unset( $cart_item_key, $product_id, $quantity, $variation_id, $variation );
 
-		$linked = isset( $cart_item_data['dpo_linked_products'] ) ? $cart_item_data['dpo_linked_products'] : array();
+		$linked = isset( $cart_item_data['spcus_linked_products'] ) ? $cart_item_data['spcus_linked_products'] : array();
 		if ( ! is_array( $linked ) || array() === $linked ) {
 			return;
 		}
@@ -240,7 +240,7 @@ final class CartHooks {
 		}
 
 		foreach ( $cart->get_cart() as $cart_item ) {
-			if ( empty( $cart_item['dpo_field_data_raw'] ) || empty( $cart_item['data'] ) ) {
+			if ( empty( $cart_item['spcus_field_data_raw'] ) || empty( $cart_item['data'] ) ) {
 				continue;
 			}
 
@@ -248,18 +248,18 @@ final class CartHooks {
 			$product_id   = isset( $cart_item['product_id'] ) ? (int) $cart_item['product_id'] : 0;
 			$variation_id = isset( $cart_item['variation_id'] ) ? (int) $cart_item['variation_id'] : 0;
 			$quantity     = isset( $cart_item['quantity'] ) ? max( 1, (int) $cart_item['quantity'] ) : 1;
-			$set_ids      = isset( $cart_item['dpo_published_set_ids'] ) ? (array) $cart_item['dpo_published_set_ids'] : array();
+			$set_ids      = isset( $cart_item['spcus_published_set_ids'] ) ? (array) $cart_item['spcus_published_set_ids'] : array();
 
 			$result = $pricing->calculate(
-				(string) $cart_item['dpo_field_data_raw'],
+				(string) $cart_item['spcus_field_data_raw'],
 				$product_id,
 				array_map( 'intval', $set_ids ),
 				$variation_id,
 				$quantity
 			);
 
-			$base    = isset( $cart_item['dpo_base'] )
-				? (float) $cart_item['dpo_base']
+			$base    = isset( $cart_item['spcus_base'] )
+				? (float) $cart_item['spcus_base']
 				: $pricing->productBasePrice( $product_id, $variation_id );
 			$options = isset( $result['price'] ) ? (float) $result['price'] : 0.0;
 
@@ -296,7 +296,7 @@ final class CartHooks {
 			}
 		}
 
-		if ( empty( $cart_item['dpo_field_data_raw'] ) ) {
+		if ( empty( $cart_item['spcus_field_data_raw'] ) ) {
 			return $item_data;
 		}
 
@@ -306,9 +306,9 @@ final class CartHooks {
 		}
 
 		$result = $pricing->calculate(
-			(string) $cart_item['dpo_field_data_raw'],
+			(string) $cart_item['spcus_field_data_raw'],
 			isset( $cart_item['product_id'] ) ? (int) $cart_item['product_id'] : 0,
-			isset( $cart_item['dpo_published_set_ids'] ) ? array_map( 'intval', (array) $cart_item['dpo_published_set_ids'] ) : array(),
+			isset( $cart_item['spcus_published_set_ids'] ) ? array_map( 'intval', (array) $cart_item['spcus_published_set_ids'] ) : array(),
 			isset( $cart_item['variation_id'] ) ? (int) $cart_item['variation_id'] : 0,
 			isset( $cart_item['quantity'] ) ? max( 1, (int) $cart_item['quantity'] ) : 1
 		);

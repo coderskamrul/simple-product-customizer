@@ -20,34 +20,34 @@ import SwitchRow from '../SwitchRow';
  */
 export default function ShopLoopSection( { values, set } ) {
 	return (
-		<div className="dpo-set-grid dpo-set-grid--2">
+		<div className="spcus-set-grid spcus-set-grid--2">
 			<SettingCard
 				icon="screenoptions"
 				tone="violet"
 				title={ __(
 					'Select Options Button',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				subtitle={ __(
 					'Behaviour on the shop loop',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				hint={
 					values.shopForceSelect
 						? __(
 								'Shoppers are sent to the product page to choose options',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  )
 						: __(
 								'Default WooCommerce add-to-cart behaviour',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  )
 				}
 			>
 				<SwitchRow
 					label={ __(
 						'Force "Select options" on shop loop',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					checked={ values.shopForceSelect }
 					onChange={ ( v ) => set( 'shopForceSelect', v ) }
@@ -59,17 +59,17 @@ export default function ShopLoopSection( { values, set } ) {
 				tone="blue"
 				title={ __(
 					'Button Text',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				subtitle={ __(
 					'Label shown on the shop loop',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<Field
 					label={ __(
 						'Shop loop button text',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<TextControl

@@ -42,7 +42,7 @@ export default function DragList( {
 	const [ overIdx, setOverIdx ] = useState( null );
 
 	return (
-		<ul className={ `dpo-draglist ${ className }`.trim() }>
+		<ul className={ `spcus-draglist ${ className }`.trim() }>
 			{ items.map( ( item, idx ) => {
 				const handleProps = {
 					draggable: true,
@@ -58,7 +58,7 @@ export default function DragList( {
 				return (
 					<li
 						key={ item.key ?? idx }
-						className={ `dpo-draglist__row${
+						className={ `spcus-draglist__row${
 							overIdx === idx ? ' is-dragover' : ''
 						}${ dragIdx === idx ? ' is-dragging' : '' }` }
 						onDragOver={ ( e ) => {

@@ -67,16 +67,16 @@ function Editor() {
 
 	if ( builder.loadError ) {
 		return (
-			<div className="dpo-builder__loading">
-				<p className="dpo-error">{ builder.loadError }</p>
+			<div className="spcus-builder__loading">
+				<p className="spcus-error">{ builder.loadError }</p>
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost"
+					className="spcus-btn spcus-btn--ghost"
 					onClick={ () => navigate( '/sets' ) }
 				>
 					{ __(
 						'Back to option sets',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</button>
 			</div>
@@ -95,7 +95,7 @@ function Editor() {
 			notify(
 				__(
 					'Option set saved.',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 				'success'
 			);
@@ -137,14 +137,14 @@ function Editor() {
 	const isPublished = builder.status === 'publish';
 
 	return (
-		<div className="dpo-builder">
-			<header className="dpo-builder__topbar">
+		<div className="spcus-builder">
+			<header className="spcus-builder__topbar">
 				<button
 					type="button"
-					className="dpo-icon-btn"
+					className="spcus-icon-btn"
 					aria-label={ __(
 						'Back',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					onClick={ () => navigate( '/sets' ) }
 				>
@@ -153,11 +153,11 @@ function Editor() {
 
 				<input
 					type="text"
-					className="dpo-builder__title-input"
+					className="spcus-builder__title-input"
 					value={ builder.title }
 					placeholder={ __(
 						'Untitled option set',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					onChange={ ( e ) =>
 						builder.dispatch( {
@@ -167,8 +167,8 @@ function Editor() {
 					}
 				/>
 
-				<div className="dpo-builder__topbar-right">
-					<div className="dpo-segmented" role="tablist">
+				<div className="spcus-builder__topbar-right">
+					<div className="spcus-segmented" role="tablist">
 						<button
 							type="button"
 							role="tab"
@@ -179,7 +179,7 @@ function Editor() {
 							<Pencil size={ 14 } />
 							{ __(
 								'Build',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</button>
 						<button
@@ -192,20 +192,20 @@ function Editor() {
 							<Eye size={ 14 } />
 							{ __(
 								'Preview',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</button>
 					</div>
 
 					<label
-						className="dpo-status-toggle"
-						htmlFor="dpo-status-toggle"
+						className="spcus-status-toggle"
+						htmlFor="spcus-status-toggle"
 					>
-						<span className="dpo-switch">
+						<span className="spcus-switch">
 							<input
-								id="dpo-status-toggle"
+								id="spcus-status-toggle"
 								type="checkbox"
-								className="dpo-switch__input"
+								className="spcus-switch__input"
 								checked={ isPublished }
 								onChange={ ( e ) =>
 									builder.dispatch( {
@@ -219,7 +219,7 @@ function Editor() {
 								}
 							/>
 							<span
-								className="dpo-switch__track"
+								className="spcus-switch__track"
 								aria-hidden="true"
 							/>
 						</span>
@@ -227,59 +227,59 @@ function Editor() {
 							{ isPublished
 								? __(
 										'Published',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 								  )
 								: __(
 										'Draft',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 								  ) }
 						</span>
 					</label>
 
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--ghost"
+						className="spcus-btn spcus-btn--ghost"
 						onClick={ () => setShowAssign( true ) }
 					>
 						<Target size={ 15 } />
 						{ __(
 							'Assignment',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</button>
 
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--ghost"
+						className="spcus-btn spcus-btn--ghost"
 						onClick={ onOpenStyle }
 					>
 						<Palette size={ 15 } />
 						{ __(
 							'Global Style',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</button>
 
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--primary"
+						className="spcus-btn spcus-btn--primary"
 						disabled={ builder.saving }
 						onClick={ onSave }
 					>
 						{ builder.saving
 							? __(
 									'Saving…',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  )
 							: __(
 									'Save',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  ) }
 					</button>
 				</div>
 			</header>
 
-			<div className="dpo-builder__stage-wrap">
+			<div className="spcus-builder__stage-wrap">
 				<Canvas />
 			</div>
 
@@ -296,24 +296,24 @@ function Editor() {
 					size="sm"
 					title={ __(
 						'Assignment required',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					onClose={ () => setShowPublishWarn( false ) }
 					footer={
 						<>
 							<button
 								type="button"
-								className="dpo-btn dpo-btn--ghost"
+								className="spcus-btn spcus-btn--ghost"
 								onClick={ onSaveAsDraft }
 							>
 								{ __(
 									'Save as Draft',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							</button>
 							<button
 								type="button"
-								className="dpo-btn dpo-btn--primary"
+								className="spcus-btn spcus-btn--primary"
 								onClick={ () => {
 									setShowPublishWarn( false );
 									setShowAssign( true );
@@ -322,23 +322,23 @@ function Editor() {
 								<Target size={ 15 } />
 								{ __(
 									'Assign products',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							</button>
 						</>
 					}
 				>
-					<div className="dpo-publish-warn">
+					<div className="spcus-publish-warn">
 						<span
-							className="dpo-publish-warn__icon"
+							className="spcus-publish-warn__icon"
 							aria-hidden="true"
 						>
 							<AlertTriangle size={ 22 } />
 						</span>
-						<p className="dpo-publish-warn__msg">
+						<p className="spcus-publish-warn__msg">
 							{ __(
 								"Please select at least one product to continue. To save without selecting any products, choose the 'Draft' status instead.",
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</p>
 					</div>

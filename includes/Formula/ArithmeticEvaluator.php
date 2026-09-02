@@ -9,12 +9,12 @@
  * recursively, then * and / (left to right), then + and - (left to
  * right). The final result is clamped to be non-negative.
  *
- * @package DPO\Formula
+ * @package SPCUS\Formula
  */
 
-namespace DPO\Formula;
+namespace SPCUS\Formula;
 
-use DPO\Formula\Ast\EvaluationError;
+use SPCUS\Formula\Ast\EvaluationError;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -1,14 +1,14 @@
 /* ============================================================
    Settings screen — sticky branded header, left section rail,
    tinted content panel with reusable accent cards.
-   Self-contained (dpo-set-* scope) so no other screen regresses.
-   Reuses the $dpo-os-* surface tokens, restyles the shared
+   Self-contained (spcus-set-* scope) so no other screen regresses.
+   Reuses the $spcus-os-* surface tokens, restyles the shared
    Field / TextControl / ToggleField in-scope only. Token-driven,
    RTL-safe (logical properties), responsive and accessible.
    ============================================================ */
 
 /* Accent quartet — soft tile bg + icon ink, per tone. */
-$dpo-set-tones: (
+$spcus-set-tones: (
 	"neutral": #eef0f4 #5b6472,
 	"violet": #ece9fe #6d4ff2,
 	"blue": #e7edff #3358f4,
@@ -19,7 +19,7 @@ $dpo-set-tones: (
 );
 
 /* Info-banner tones — bg / text / border. */
-$dpo-set-banners: (
+$spcus-set-banners: (
 	"blue": #eef2ff #4338ca #e2e6ff,
 	"amber": #fff8e8 #b4690e #fbe3b3,
 	"violet": #f4f1fe #6d28d9 #e7e1fb,
@@ -29,24 +29,24 @@ $dpo-set-banners: (
 
 /* Settings palette — rebound to the Global Theme so the screen follows the
    active brand colour instead of its own historical violet. */
-$dpo-set-bg:         var(--dpo-c-bg, #f7f8fb);
-$dpo-set-violet:     var(--dpo-c-primary, #{$dpo-c-primary-fallback});
-$dpo-set-violet-ink: var(--dpo-c-primary-hover, #{$dpo-c-primary-hover-fallback});
-$dpo-set-card-bg:    var(--dpo-c-surface-2, #fafbfc);
-$dpo-set-card-bd:    var(--dpo-c-border, #ecedf2);
-$dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
+$spcus-set-bg:         var(--spcus-c-bg, #f7f8fb);
+$spcus-set-violet:     var(--spcus-c-primary, #{$spcus-c-primary-fallback});
+$spcus-set-violet-ink: var(--spcus-c-primary-hover, #{$spcus-c-primary-hover-fallback});
+$spcus-set-card-bg:    var(--spcus-c-surface-2, #fafbfc);
+$spcus-set-card-bd:    var(--spcus-c-border, #ecedf2);
+$spcus-set-ring:       var(--spcus-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 /* ---- Canvas ----------------------------------------------- */
 /* Settings now renders inside the unified PageFrame, so the screen no
    longer needs a bleed margin or its own background. */
-.dpo-set {
-	color: $dpo-os-ink-soft;
+.spcus-set {
+	color: $spcus-os-ink-soft;
 	font-size: 14px;
-	font-family: $dpo-font;
+	font-family: $spcus-font;
 }
 
 /* ---- Accent icon tile (shared) ---------------------------- */
-.dpo-set-tile {
+.spcus-set-tile {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -74,26 +74,26 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 }
 
-@each $name, $pair in $dpo-set-tones {
-	.dpo-set-tile--#{$name} {
+@each $name, $pair in $spcus-set-tones {
+	.spcus-set-tile--#{$name} {
 		background: nth($pair, 1);
 		color: nth($pair, 2);
 	}
 }
 
 /* ---- Sticky header ---------------------------------------- */
-.dpo-set-header {
+.spcus-set-header {
 	position: sticky;
 	inset-block-start: 0;
 	z-index: 20;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: $dpo-space-lg;
+	gap: $spcus-space-lg;
 	flex-wrap: wrap;
 	padding: 20px 32px;
-	background: $dpo-os-surface;
-	border-block-end: 1px solid $dpo-os-border;
+	background: $spcus-os-surface;
+	border-block-end: 1px solid $spcus-os-border;
 
 	&__brand {
 		display: flex;
@@ -106,13 +106,13 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		font-size: 26px;
 		font-weight: 700;
 		line-height: 1.15;
-		color: $dpo-os-ink;
+		color: $spcus-os-ink;
 	}
 
 	&__sub {
 		margin: 4px 0 0;
 		font-size: 14px;
-		color: $dpo-os-muted;
+		color: $spcus-os-muted;
 	}
 
 	&__actions {
@@ -127,20 +127,20 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		gap: 7px;
 		font-size: 13px;
 		font-weight: 600;
-		color: $dpo-warning;
+		color: $spcus-warning;
 
 		&::before {
 			content: "";
 			inline-size: 8px;
 			block-size: 8px;
 			border-radius: 50%;
-			background: $dpo-warning;
+			background: $spcus-warning;
 		}
 	}
 }
 
 /* ---- Primary save / upload button ------------------------- */
-.dpo-set-save {
+.spcus-set-save {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -149,13 +149,13 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	padding-inline: 24px;
 	border: 0;
 	border-radius: 12px;
-	background: linear-gradient(135deg, var(--dpo-c-primary), var(--dpo-c-primary-hover));
-	color: var(--dpo-c-primary-ink, #fff);
+	background: linear-gradient(135deg, var(--spcus-c-primary), var(--spcus-c-primary-hover));
+	color: var(--spcus-c-primary-ink, #fff);
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
 	white-space: nowrap;
-	box-shadow: 0 8px 18px rgba(var(--dpo-c-primary-rgb), 0.35);
+	box-shadow: 0 8px 18px rgba(var(--spcus-c-primary-rgb), 0.35);
 	transition: filter 0.15s, box-shadow 0.15s, opacity 0.15s;
 
 	svg {
@@ -168,7 +168,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 	&:focus-visible {
 		outline: none;
-		box-shadow: $dpo-set-ring, 0 8px 18px rgba(var(--dpo-c-primary-rgb), 0.35);
+		box-shadow: $spcus-set-ring, 0 8px 18px rgba(var(--spcus-c-primary-rgb), 0.35);
 	}
 
 	&:disabled {
@@ -181,14 +181,14 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		height: 42px;
 		padding-inline: 20px;
 		font-size: 13.5px;
-		box-shadow: 0 4px 12px rgba(var(--dpo-c-primary-rgb), 0.3);
+		box-shadow: 0 4px 12px rgba(var(--spcus-c-primary-rgb), 0.3);
 	}
 }
 
 /* ---- Body grid : rail + panel ----------------------------- */
 /* PageFrame supplies the outer padding now, so this just sets the
    two-column geometry. */
-.dpo-set__body {
+.spcus-set__body {
 	display: grid;
 	grid-template-columns: 300px minmax(0, 1fr);
 	align-items: start;
@@ -196,7 +196,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Section rail ----------------------------------------- */
-.dpo-set-nav {
+.spcus-set-nav {
 	&__list {
 		display: flex;
 		flex-direction: column;
@@ -221,19 +221,19 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 			box-shadow 0.15s;
 
 		&:hover:not(.is-active) {
-			background: $dpo-os-surface;
-			border-color: $dpo-os-border;
-			box-shadow: $dpo-os-shadow;
+			background: $spcus-os-surface;
+			border-color: $spcus-os-border;
+			box-shadow: $spcus-os-shadow;
 		}
 
 		&.is-active {
-			background: var(--dpo-c-primary-soft);
-			border-color: rgba(var(--dpo-c-primary-rgb), 0.25);
+			background: var(--spcus-c-primary-soft);
+			border-color: rgba(var(--spcus-c-primary-rgb), 0.25);
 		}
 
 		&:focus-visible {
 			outline: none;
-			box-shadow: $dpo-set-ring;
+			box-shadow: $spcus-set-ring;
 		}
 	}
 
@@ -247,22 +247,22 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	&__title {
 		font-size: 14px;
 		font-weight: 600;
-		color: $dpo-os-ink;
+		color: $spcus-os-ink;
 
 		.is-active & {
-			color: $dpo-set-violet-ink;
+			color: $spcus-set-violet-ink;
 		}
 	}
 
 	&__sub {
 		font-size: 12.5px;
-		color: $dpo-os-muted;
+		color: $spcus-os-muted;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 
 		.is-active & {
-			color: rgba(var(--dpo-c-primary-hover-rgb), 0.75);
+			color: rgba(var(--spcus-c-primary-hover-rgb), 0.75);
 		}
 	}
 
@@ -271,21 +271,21 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		font-size: 18px;
 		inline-size: 18px;
 		block-size: 18px;
-		color: $dpo-os-faint;
+		color: $spcus-os-faint;
 		flex-shrink: 0;
 
 		.is-active & {
-			color: $dpo-set-violet-ink;
+			color: $spcus-set-violet-ink;
 		}
 	}
 }
 
 /* ---- Content panel ---------------------------------------- */
-.dpo-set-panel {
-	background: $dpo-os-surface;
-	border: 1px solid $dpo-os-border;
+.spcus-set-panel {
+	background: $spcus-os-surface;
+	border: 1px solid $spcus-os-border;
 	border-radius: 18px;
-	box-shadow: $dpo-os-shadow;
+	box-shadow: $spcus-os-shadow;
 	padding: 28px 32px 32px;
 
 	&__head {
@@ -298,24 +298,24 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		font-size: 20px;
 		font-weight: 700;
 		line-height: 1.2;
-		color: $dpo-os-ink;
+		color: $spcus-os-ink;
 	}
 
 	&__sub {
 		margin: 3px 0 0;
 		font-size: 14px;
-		color: $dpo-os-muted;
+		color: $spcus-os-muted;
 	}
 
 	&__divider {
 		block-size: 1px;
-		background: $dpo-os-border;
+		background: $spcus-os-border;
 		margin: 22px 0;
 	}
 }
 
 /* ---- Info banner ------------------------------------------ */
-.dpo-set-banner {
+.spcus-set-banner {
 	display: flex;
 	align-items: flex-start;
 	gap: 10px;
@@ -335,8 +335,8 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 }
 
-@each $name, $trio in $dpo-set-banners {
-	.dpo-set-banner--#{$name} {
+@each $name, $trio in $spcus-set-banners {
+	.spcus-set-banner--#{$name} {
 		background: nth($trio, 1);
 		color: nth($trio, 2);
 		border: 1px solid nth($trio, 3);
@@ -344,7 +344,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Layout helpers --------------------------------------- */
-.dpo-set-grid {
+.spcus-set-grid {
 	display: grid;
 	gap: 20px;
 
@@ -357,13 +357,13 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 }
 
-.dpo-set-stack {
+.spcus-set-stack {
 	display: flex;
 	flex-direction: column;
 	gap: 22px;
 }
 
-.dpo-set-state {
+.spcus-set-state {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -371,20 +371,20 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Setting sub-card ------------------------------------- */
-.dpo-set-card {
+.spcus-set-card {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 	padding: 24px;
-	background: $dpo-os-surface;
-	border: 1px solid $dpo-set-card-bd;
+	background: $spcus-os-surface;
+	border: 1px solid $spcus-set-card-bd;
 	border-radius: 14px;
-	box-shadow: var(--dpo-sh-1);
+	box-shadow: var(--spcus-sh-1);
 	transition: all 0.2s ease;
 
 	&:hover {
-		border-color: $dpo-set-violet;
-		box-shadow: var(--dpo-sh-2);
+		border-color: $spcus-set-violet;
+		box-shadow: var(--spcus-sh-2);
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.01) 0%, rgba(5, 150, 105, 0.005) 100%);
 	}
 
@@ -404,14 +404,14 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	&__title {
 		font-size: 16px;
 		font-weight: 700;
-		color: $dpo-os-ink;
+		color: $spcus-os-ink;
 		letter-spacing: -0.3px;
 	}
 
 	&__sub {
 		margin: 0;
 		font-size: 13px;
-		color: $dpo-os-muted;
+		color: $spcus-os-muted;
 		line-height: 1.4;
 	}
 
@@ -424,16 +424,16 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	&__hint {
 		margin: 0;
 		font-size: 13px;
-		color: $dpo-os-muted;
+		color: $spcus-os-muted;
 		padding-block-start: 4px;
-		border-block-start: 1px solid var(--dpo-c-border-soft);
+		border-block-start: 1px solid var(--spcus-c-border-soft);
 		line-height: 1.5;
 	}
 }
 
 /* ---- Switch row (label left / toggle right) --------------- */
-.dpo-set-switchrow {
-	.dpo-toggle {
+.spcus-set-switchrow {
+	.spcus-toggle {
 		inline-size: 100%;
 		flex-direction: row-reverse;
 		justify-content: space-between;
@@ -441,89 +441,89 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		font-size: 14px;
 	}
 
-	.dpo-toggle__label {
+	.spcus-toggle__label {
 		flex: 1;
 		font-size: 14px;
 		font-weight: 500;
-		color: $dpo-os-ink-soft;
+		color: $spcus-os-ink-soft;
 	}
 }
 
-/* ---- Shared-control restyle (scoped to .dpo-set) ---------- */
-.dpo-set {
-	.dpo-form-field {
+/* ---- Shared-control restyle (scoped to .spcus-set) ---------- */
+.spcus-set {
+	.spcus-form-field {
 		gap: 6px;
 	}
 
-	.dpo-form-field__label {
+	.spcus-form-field__label {
 		font-size: 13px;
 		font-weight: 600;
-		color: $dpo-os-ink-soft;
+		color: $spcus-os-ink-soft;
 	}
 
-	.dpo-form-field__help {
+	.spcus-form-field__help {
 		font-size: 12px;
-		color: $dpo-os-muted;
+		color: $spcus-os-muted;
 	}
 
-	.dpo-input {
+	.spcus-input {
 		height: 44px;
 		padding: 0 14px;
 		border: 1px solid #e4e6ee;
 		border-radius: 10px;
 		background: #f7f8fc;
-		color: $dpo-os-ink;
+		color: $spcus-os-ink;
 		font-size: 14px;
 
 		&::placeholder {
-			color: $dpo-os-faint;
+			color: $spcus-os-faint;
 		}
 
 		&:focus {
-			border-color: $dpo-set-violet;
-			background: $dpo-os-surface;
-			box-shadow: $dpo-set-ring;
+			border-color: $spcus-set-violet;
+			background: $spcus-os-surface;
+			box-shadow: $spcus-set-ring;
 		}
 	}
 
-	textarea.dpo-input {
+	textarea.spcus-input {
 		height: auto;
 		padding: 10px 14px;
 	}
 
 	/* Toggle — slightly larger, violet when on. */
-	.dpo-toggle__track {
+	.spcus-toggle__track {
 		inline-size: 42px;
 		block-size: 24px;
 	}
 
-	.dpo-toggle__thumb {
+	.spcus-toggle__thumb {
 		inline-size: 20px;
 		block-size: 20px;
 	}
 
-	.dpo-toggle__input:checked + .dpo-toggle__track {
-		background: $dpo-set-violet;
+	.spcus-toggle__input:checked + .spcus-toggle__track {
+		background: $spcus-set-violet;
 
-		.dpo-toggle__thumb {
+		.spcus-toggle__thumb {
 			inset-inline-start: 20px;
 		}
 	}
 
-	.dpo-toggle__input:focus-visible + .dpo-toggle__track {
-		box-shadow: $dpo-set-ring;
+	.spcus-toggle__input:focus-visible + .spcus-toggle__track {
+		box-shadow: $spcus-set-ring;
 	}
 }
 
 /* ---- Font upload form ------------------------------------- */
-.dpo-set-fontform {
+.spcus-set-fontform {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr auto;
 	align-items: end;
 	gap: 16px;
 }
 
-.dpo-set-file {
+.spcus-set-file {
 	position: relative;
 
 	&__input {
@@ -544,15 +544,15 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		inline-size: 100%;
 		height: 46px;
 		padding: 0 16px;
-		border: 1px solid var(--dpo-c-border);
+		border: 1px solid var(--spcus-c-border);
 		border-radius: 11px;
-		background: $dpo-os-surface;
-		color: $dpo-os-muted;
+		background: $spcus-os-surface;
+		color: $spcus-os-muted;
 		font-size: 14px;
 		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.15s ease;
-		box-shadow: var(--dpo-sh-1);
+		box-shadow: var(--spcus-sh-1);
 
 		.dashicons {
 			font-size: 18px;
@@ -562,16 +562,16 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		}
 
 		&:hover {
-			border-color: $dpo-set-violet;
-			color: $dpo-set-violet;
-			box-shadow: var(--dpo-sh-2);
+			border-color: $spcus-set-violet;
+			color: $spcus-set-violet;
+			box-shadow: var(--spcus-sh-2);
 			background: linear-gradient(135deg, rgba(5, 150, 105, 0.01) 0%, rgba(5, 150, 105, 0) 100%);
 		}
 
 		&:focus-visible {
 			outline: none;
-			border-color: $dpo-set-violet;
-			box-shadow: $dpo-set-ring, var(--dpo-sh-2);
+			border-color: $spcus-set-violet;
+			box-shadow: $spcus-set-ring, var(--spcus-sh-2);
 		}
 	}
 
@@ -583,12 +583,12 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 }
 
 /* ---- Uploaded fonts --------------------------------------- */
-.dpo-set-fonts {
+.spcus-set-fonts {
 	&__title {
 		margin: 0 0 12px;
 		font-size: 15px;
 		font-weight: 700;
-		color: $dpo-os-ink;
+		color: $spcus-os-ink;
 	}
 
 	&__empty {
@@ -599,7 +599,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		padding: 48px 24px;
 		border: 1px dashed #d8dbe4;
 		border-radius: 14px;
-		background: $dpo-set-card-bg;
+		background: $spcus-set-card-bg;
 		text-align: center;
 	}
 
@@ -614,17 +614,17 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		margin: 0;
 		font-size: 14px;
 		font-weight: 600;
-		color: $dpo-os-muted;
+		color: $spcus-os-muted;
 	}
 
 	&__emptysub {
 		margin: 0;
 		font-size: 13px;
-		color: $dpo-os-faint;
+		color: $spcus-os-faint;
 	}
 }
 
-.dpo-set-fontlist {
+.spcus-set-fontlist {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -633,21 +633,21 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	list-style: none;
 }
 
-.dpo-set-fontrow {
+.spcus-set-fontrow {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 12px 16px;
 	padding: 20px 24px;
-	background: $dpo-os-surface;
-	border: 1px solid $dpo-set-card-bd;
+	background: $spcus-os-surface;
+	border: 1px solid $spcus-set-card-bd;
 	border-radius: 14px;
-	box-shadow: var(--dpo-sh-1);
+	box-shadow: var(--spcus-sh-1);
 	transition: all 0.2s ease;
 
 	&:hover {
-		border-color: $dpo-set-violet;
-		box-shadow: var(--dpo-sh-2);
+		border-color: $spcus-set-violet;
+		box-shadow: var(--spcus-sh-2);
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.02) 0%, rgba(5, 150, 105, 0.01) 100%);
 	}
 
@@ -656,10 +656,10 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		padding-block-start: 14px;
 		padding-block-end: 0;
 		margin-block-start: 8px;
-		border-block-start: 1px solid var(--dpo-c-border-soft);
+		border-block-start: 1px solid var(--spcus-c-border-soft);
 		font-size: 22px;
 		line-height: 1.5;
-		color: $dpo-os-ink;
+		color: $spcus-os-ink;
 		font-weight: 500;
 	}
 
@@ -668,7 +668,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		min-width: 0;
 		font-size: 15px;
 		font-weight: 700;
-		color: $dpo-os-ink;
+		color: $spcus-os-ink;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -679,21 +679,21 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		flex: 0 1 auto;
 		min-width: 0;
 		font-size: 13px;
-		color: $dpo-os-muted;
+		color: $spcus-os-muted;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		background: var(--dpo-c-surface-2);
+		background: var(--spcus-c-surface-2);
 		padding: 6px 12px;
 		border-radius: 8px;
-		border: 1px solid var(--dpo-c-border-soft);
+		border: 1px solid var(--spcus-c-border-soft);
 	}
 
 	&__type {
 		padding: 5px 12px;
 		border-radius: 6px;
-		background: var(--dpo-c-primary-soft);
-		color: $dpo-set-violet;
+		background: var(--spcus-c-primary-soft);
+		color: $spcus-set-violet;
 		font-size: 12px;
 		font-weight: 700;
 		letter-spacing: 0.5px;
@@ -705,12 +705,12 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 		align-items: flex-end;
 		flex-wrap: wrap;
 		background: linear-gradient(135deg, rgba(5, 150, 105, 0.04) 0%, rgba(5, 150, 105, 0.02) 100%);
-		border: 2px solid $dpo-set-violet;
+		border: 2px solid $spcus-set-violet;
 	}
 }
 
 /* Inline edit form within a font row. */
-.dpo-set-fontedit {
+.spcus-set-fontedit {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 16px;
@@ -725,7 +725,7 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 }
 
-.dpo-set-iconbtn {
+.spcus-set-iconbtn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -733,8 +733,8 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	block-size: 40px;
 	border: 1px solid transparent;
 	border-radius: 10px;
-	background: var(--dpo-c-surface-2);
-	color: $dpo-os-muted;
+	background: var(--spcus-c-surface-2);
+	color: $spcus-os-muted;
 	cursor: pointer;
 	transition: all 0.15s ease;
 
@@ -745,19 +745,19 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 	}
 
 	&:hover {
-		background: var(--dpo-c-border);
-		color: $dpo-os-ink-soft;
+		background: var(--spcus-c-border);
+		color: $spcus-os-ink-soft;
 		transform: translateY(-1px);
 	}
 
 	&--danger:hover {
-		background: $dpo-os-danger-soft;
-		color: $dpo-os-danger;
+		background: $spcus-os-danger-soft;
+		color: $spcus-os-danger;
 	}
 
 	&:focus-visible {
 		outline: none;
-		box-shadow: $dpo-set-ring;
+		box-shadow: $spcus-set-ring;
 	}
 }
 
@@ -767,77 +767,77 @@ $dpo-set-ring:       var(--dpo-sh-ring, 0 0 0 3px rgba(5, 150, 105, 0.22));
 
 /* Laptop — tighten the rail. */
 @media (max-width: 1200px) {
-	.dpo-set__body {
+	.spcus-set__body {
 		grid-template-columns: 260px minmax(0, 1fr);
 	}
 }
 
 /* Tablet — stack rail above the panel, fold the 3-up grid. */
 @media (max-width: 960px) {
-	.dpo-set__body {
+	.spcus-set__body {
 		grid-template-columns: 1fr;
 		gap: 20px;
 	}
 
-	.dpo-set-nav__list {
+	.spcus-set-nav__list {
 		flex-direction: row;
 		flex-wrap: wrap;
 	}
 
-	.dpo-set-nav__item {
+	.spcus-set-nav__item {
 		flex: 1 1 240px;
 	}
 
-	.dpo-set-grid--3 {
+	.spcus-set-grid--3 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
-	.dpo-set-fontform {
+	.spcus-set-fontform {
 		grid-template-columns: 1fr 1fr;
 	}
 }
 
 /* Cancel the outlet padding exactly (outlet → 16px at 600). */
 @media (max-width: 600px) {
-	.dpo-set {
-		margin: -$dpo-space;
+	.spcus-set {
+		margin: -$spcus-space;
 	}
 }
 
 /* Phone — single column everywhere. */
 @media (max-width: 782px) {
-	.dpo-set-header {
+	.spcus-set-header {
 		padding: 16px 18px;
 		gap: 14px;
 	}
 
-	.dpo-set-header__title {
+	.spcus-set-header__title {
 		font-size: 22px;
 	}
 
-	.dpo-set-save {
+	.spcus-set-save {
 		margin-inline-start: auto;
 	}
 
-	.dpo-set__body {
+	.spcus-set__body {
 		padding: 18px;
 	}
 
-	.dpo-set-panel {
+	.spcus-set-panel {
 		padding: 22px 18px 24px;
 	}
 
-	.dpo-set-nav__item {
+	.spcus-set-nav__item {
 		flex-basis: 100%;
 	}
 
-	.dpo-set-grid--2,
-	.dpo-set-grid--3,
-	.dpo-set-fontform {
+	.spcus-set-grid--2,
+	.spcus-set-grid--3,
+	.spcus-set-fontform {
 		grid-template-columns: 1fr;
 	}
 
-	.dpo-set-panel__title {
+	.spcus-set-panel__title {
 		font-size: 18px;
 	}
 }

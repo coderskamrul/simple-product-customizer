@@ -48,7 +48,7 @@ function Btn( { onClick, active = false, disabled = false, title, children } ) {
 	return (
 		<button
 			type="button"
-			className={ `dpo-rte__btn${ active ? ' is-active' : '' }` }
+			className={ `spcus-rte__btn${ active ? ' is-active' : '' }` }
 			onClick={ onClick }
 			disabled={ disabled }
 			title={ title }
@@ -62,7 +62,7 @@ function Btn( { onClick, active = false, disabled = false, title, children } ) {
 
 /** Visual separator between toolbar groups. */
 function Sep() {
-	return <span className="dpo-rte__sep" aria-hidden="true" />;
+	return <span className="spcus-rte__sep" aria-hidden="true" />;
 }
 
 /**
@@ -108,12 +108,12 @@ export default function Toolbar( {
 	const locked = sourceMode;
 
 	return (
-		<div className="dpo-rte__toolbar" role="toolbar">
-			<div className="dpo-rte__group">
+		<div className="spcus-rte__toolbar" role="toolbar">
+			<div className="spcus-rte__group">
 				<Btn
 					title={ __(
 						'Undo (Ctrl/Cmd+Z)',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked || ! editor.can().undo() }
 					onClick={ () => editor.chain().focus().undo().run() }
@@ -123,7 +123,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Redo (Shift+Ctrl/Cmd+Z)',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked || ! editor.can().redo() }
 					onClick={ () => editor.chain().focus().redo().run() }
@@ -134,11 +134,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="dpo-rte__group">
+			<div className="spcus-rte__group">
 				<Btn
 					title={ __(
 						'Bold',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'bold' ) }
@@ -149,7 +149,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Italic',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'italic' ) }
@@ -162,7 +162,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Underline',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'underline' ) }
@@ -175,7 +175,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Highlight',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'highlight' ) }
@@ -189,11 +189,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="dpo-rte__group">
+			<div className="spcus-rte__group">
 				<Btn
 					title={ __(
 						'Paragraph',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'paragraph' ) }
@@ -206,7 +206,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Heading 1',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'heading', { level: 1 } ) }
@@ -217,7 +217,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Heading 2',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'heading', { level: 2 } ) }
@@ -228,7 +228,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Heading 3',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'heading', { level: 3 } ) }
@@ -240,11 +240,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="dpo-rte__group">
+			<div className="spcus-rte__group">
 				<Btn
 					title={ __(
 						'Bullet list',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'bulletList' ) }
@@ -257,7 +257,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Numbered list',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'orderedList' ) }
@@ -271,11 +271,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="dpo-rte__group">
+			<div className="spcus-rte__group">
 				<Btn
 					title={ __(
 						'Align left',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( { textAlign: 'left' } ) }
@@ -288,7 +288,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Align center',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( { textAlign: 'center' } ) }
@@ -301,7 +301,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Align right',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( { textAlign: 'right' } ) }
@@ -315,11 +315,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="dpo-rte__group">
+			<div className="spcus-rte__group">
 				<Btn
 					title={ __(
 						'Insert / edit link',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'link' ) }
@@ -330,7 +330,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Remove link',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked || ! editor.isActive( 'link' ) }
 					onClick={ () => editor.chain().focus().unsetLink().run() }
@@ -342,11 +342,11 @@ export default function Toolbar( {
 						mediaAvailable()
 							? __(
 									'Insert image',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  )
 							: __(
 									'Media library unavailable',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  )
 					}
 					disabled={ locked || ! mediaAvailable() }
@@ -357,7 +357,7 @@ export default function Toolbar( {
 				<Btn
 					title={ __(
 						'Insert table',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					active={ editor.isActive( 'table' ) }
@@ -369,11 +369,11 @@ export default function Toolbar( {
 
 			<Sep />
 
-			<div className="dpo-rte__group">
+			<div className="spcus-rte__group">
 				<Btn
 					title={ __(
 						'Clear formatting',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					disabled={ locked }
 					onClick={ () =>
@@ -389,11 +389,11 @@ export default function Toolbar( {
 				</Btn>
 			</div>
 
-			<div className="dpo-rte__group dpo-rte__group--end">
+			<div className="spcus-rte__group spcus-rte__group--end">
 				<Btn
 					title={ __(
 						'Edit HTML source',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					active={ sourceMode }
 					onClick={ onToggleSource }

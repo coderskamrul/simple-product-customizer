@@ -2,13 +2,13 @@
 /**
  * Font picker field (Pro only).
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Core\Capabilities;
-use DPO\Fields\AbstractField;
+use SPCUS\Core\Capabilities;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -60,7 +60,7 @@ final class FontPickerField extends AbstractField {
 			return '';
 		}
 
-		$custom = get_option( 'dpo_custom_fonts', array() );
+		$custom = get_option( 'spcus_custom_fonts', array() );
 		$custom = is_array( $custom ) ? $custom : array();
 		$src_by = array();
 		foreach ( $custom as $font ) {
@@ -87,17 +87,17 @@ final class FontPickerField extends AbstractField {
 		$has_default = $selected_index >= 0;
 
 		$placeholder = $has_default
-			? '<span class="dpo-select__placeholder" style="font-family:' . esc_attr( $selected_family ) . '">'
+			? '<span class="spcus-select__placeholder" style="font-family:' . esc_attr( $selected_family ) . '">'
 				. esc_html( '' !== $selected_label ? $selected_label : $selected_family ) . '</span>'
-			: '<span class="dpo-select__placeholder">'
-				. esc_html__( 'Select Font', 'dynamic-product-options-for-woocommerce' ) . '</span>';
+			: '<span class="spcus-select__placeholder">'
+				. esc_html__( 'Select Font', 'simple-product-customizer' ) . '</span>';
 
 		$face = '';
-		$html = '<div class="dpo-fontpicker dpo-select" data-field-id="' . esc_attr( $this->id() ) . '">';
-		$html .= '<input type="hidden" class="dpo-select__value" name="' . esc_attr( $this->input_name() ) . '" value="'
+		$html = '<div class="spcus-fontpicker spcus-select" data-field-id="' . esc_attr( $this->id() ) . '">';
+		$html .= '<input type="hidden" class="spcus-select__value" name="' . esc_attr( $this->input_name() ) . '" value="'
 			. esc_attr( $has_default ? (string) $selected_index : '' ) . '" />';
-		$html .= '<button type="button" class="dpo-select__toggle">' . $placeholder . '</button>';
-		$html .= '<div class="dpo-select__list" role="listbox">';
+		$html .= '<button type="button" class="spcus-select__toggle">' . $placeholder . '</button>';
+		$html .= '<div class="spcus-select__list" role="listbox">';
 
 		foreach ( $choices as $index => $choice ) {
 			$label  = isset( $choice['label'] ) ? (string) $choice['label'] : '';
@@ -112,7 +112,7 @@ final class FontPickerField extends AbstractField {
 				);
 			}
 
-			$opt_class = 'dpo-select__opt' . ( (int) $index === $selected_index ? ' dpo-select__opt--active' : '' );
+			$opt_class = 'spcus-select__opt' . ( (int) $index === $selected_index ? ' spcus-select__opt--active' : '' );
 			$html     .= '<div class="' . esc_attr( $opt_class ) . '" role="option"'
 				. $this->attrs(
 					array_merge(
@@ -126,7 +126,7 @@ final class FontPickerField extends AbstractField {
 					)
 				) . '>';
 			// Font style applies to the label only — never to the price badge.
-			$html .= '<span class="dpo-select__opt-label" style="font-family:' . esc_attr( $family ) . '">'
+			$html .= '<span class="spcus-select__opt-label" style="font-family:' . esc_attr( $family ) . '">'
 				. esc_html( '' !== $label ? $label : $family ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= '</div>';

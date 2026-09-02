@@ -77,7 +77,7 @@ export default function SortableContainer( { nodes, parentId } ) {
 				items={ nodes.map( ( n ) => n.id ) }
 				strategy={ verticalListSortingStrategy }
 			>
-				<div className="dpo-canvas__list">
+				<div className="spcus-canvas__list">
 					{ nodes.map( ( node ) => (
 						<FieldCard
 							key={ node.id }

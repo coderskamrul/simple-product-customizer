@@ -18,17 +18,17 @@ import ValuePricing from './ValuePricing';
 const FLAG_STYLES = [
 	{
 		value: 'number',
-		label: __( 'Number Only', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Number Only', 'simple-product-customizer' ),
 	},
 	{
 		value: 'flag',
-		label: __( 'Number & Flag', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Number & Flag', 'simple-product-customizer' ),
 	},
 	{
 		value: 'flag_dial',
 		label: __(
 			'Number & Flag & Dial Code',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 ];
@@ -44,14 +44,14 @@ const FLAG_STYLES = [
  */
 function Segmented( { value, options, onChange } ) {
 	return (
-		<div className="dpo-seg" role="radiogroup">
+		<div className="spcus-seg" role="radiogroup">
 			{ options.map( ( opt ) => (
 				<button
 					key={ String( opt.value ) }
 					type="button"
 					role="radio"
 					aria-checked={ value === opt.value }
-					className={ `dpo-seg__btn${
+					className={ `spcus-seg__btn${
 						value === opt.value ? ' is-active' : ''
 					}` }
 					onClick={ () => onChange( opt.value ) }
@@ -82,7 +82,7 @@ export default function TelConfig( { node, patch } ) {
 			value: '',
 			label: __(
 				'Auto (store country)',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 		},
 		...COUNTRIES.map( ( c ) => ( {
@@ -98,7 +98,7 @@ export default function TelConfig( { node, patch } ) {
 			<Field
 				label={ __(
 					'Flag style',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<Segmented
@@ -108,12 +108,12 @@ export default function TelConfig( { node, patch } ) {
 				/>
 			</Field>
 
-			<div className="dpo-settings__grid2">
+			<div className="spcus-settings__grid2">
 				{ flagStyle !== 'number' && (
 					<Field
 						label={ __(
 							'Default country',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<SelectControl
@@ -126,7 +126,7 @@ export default function TelConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'Placeholder',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<TextControl

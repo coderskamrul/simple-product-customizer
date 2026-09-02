@@ -95,7 +95,7 @@ function PriceTag( { choice, formatPrice } ) {
 		return null;
 	}
 	return (
-		<span className="dpo-pf__price">
+		<span className="spcus-pf__price">
 			{ sale ? (
 				<>
 					<s>{ reg }</s> <b>{ sale }</b>
@@ -123,15 +123,15 @@ function FontPickerPreview( { choices, formatPrice } ) {
 	const [ open, setOpen ] = useState( false );
 	const current = choices.find( ( c ) => c.selected );
 	return (
-		<div className={ `dpo-pf__fontpicker${ open ? ' is-open' : '' }` }>
+		<div className={ `spcus-pf__fontpicker${ open ? ' is-open' : '' }` }>
 			<button
 				type="button"
-				className="dpo-pf__select-box"
+				className="spcus-pf__select-box"
 				onClick={ () => setOpen( ( v ) => ! v ) }
 			>
 				{ current ? (
 					<span
-						className="dpo-pf__select-placeholder"
+						className="spcus-pf__select-placeholder"
 						style={
 							current.fontFamily
 								? { fontFamily: current.fontFamily }
@@ -141,25 +141,25 @@ function FontPickerPreview( { choices, formatPrice } ) {
 						{ current.label ||
 							__(
 								'Untitled',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 					</span>
 				) : (
-					<span className="dpo-pf__select-placeholder">
+					<span className="spcus-pf__select-placeholder">
 						{ __(
 							'Select Font',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</span>
 				) }
 				<ChevronDown size={ 16 } />
 			</button>
 			{ open && (
-				<div className="dpo-pf__fontlist">
+				<div className="spcus-pf__fontlist">
 					{ choices.map( ( c, i ) => (
-						<span key={ c.uid || i } className="dpo-pf__fontopt">
+						<span key={ c.uid || i } className="spcus-pf__fontopt">
 							<span
-								className="dpo-pf__fontopt-label"
+								className="spcus-pf__fontopt-label"
 								style={
 									c.fontFamily
 										? { fontFamily: c.fontFamily }
@@ -199,7 +199,7 @@ function ProductPrice( { meta, formatPrice } ) {
 		return null;
 	}
 	return (
-		<span className="dpo-pf__price">
+		<span className="spcus-pf__price">
 			{ hasSale ? (
 				<>
 					{ hasReg && <s>{ formatPrice( reg ) }</s> }{ ' ' }
@@ -276,7 +276,7 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 				key: `mock${ n }`,
 				title: __(
 					'Product',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 				img: '',
 				meta: {},
@@ -299,11 +299,11 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 		: undefined;
 
 	return (
-		<div className={ `dpo-pf__linked${ isMockup ? ' is-mockup' : '' }` }>
+		<div className={ `spcus-pf__linked${ isMockup ? ' is-mockup' : '' }` }>
 			{ rows.map( ( card ) => (
 				<span
 					key={ card.key }
-					className="dpo-pf__linked-card"
+					className="spcus-pf__linked-card"
 					style={ cardStyle }
 				>
 					<input
@@ -311,22 +311,22 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 						checked={ !! card.selected }
 						readOnly
 					/>
-					<span className="dpo-pf__linked-check" aria-hidden="true">
+					<span className="spcus-pf__linked-check" aria-hidden="true">
 						<Check size={ 13 } />
 					</span>
-					<span className="dpo-pf__linked-thumb" style={ thumbStyle }>
+					<span className="spcus-pf__linked-thumb" style={ thumbStyle }>
 						{ card.img ? (
 							<img src={ card.img } alt="" />
 						) : (
 							<span
-								className="dpo-pf__linked-ph"
+								className="spcus-pf__linked-ph"
 								aria-hidden="true"
 							/>
 						) }
 					</span>
-					<span className="dpo-pf__linked-title">{ card.title }</span>
+					<span className="spcus-pf__linked-title">{ card.title }</span>
 					{ card.variations && card.variations.length > 0 && (
-						<select className="dpo-pf__linked-varsel" disabled>
+						<select className="spcus-pf__linked-varsel" disabled>
 							{ card.variations.map( ( v ) => (
 								<option key={ v.id }>{ v.label }</option>
 							) ) }
@@ -339,7 +339,7 @@ function LinkedProductsPreview( { node, formatPrice } ) {
 						/>
 					) }
 					{ cfg.enableQty && (
-						<span className="dpo-pf__linked-qty">
+						<span className="spcus-pf__linked-qty">
 							<QtyBox cfg={ cfg } />
 						</span>
 					) }
@@ -365,9 +365,9 @@ function SelectPreview( { node, choices, formatPrice } ) {
 	const current = choices.find( ( c ) => c.selected ) || choices[ 0 ];
 
 	const Option = ( { c, i } ) => (
-		<span className="dpo-pf__select-opt">
+		<span className="spcus-pf__select-opt">
 			{ c.image && (
-				<span className="dpo-pf__choice-img">
+				<span className="spcus-pf__choice-img">
 					<img src={ c.image } alt="" />
 				</span>
 			) }
@@ -377,10 +377,10 @@ function SelectPreview( { node, choices, formatPrice } ) {
 	);
 
 	return (
-		<div className={ `dpo-pf__select${ open ? ' is-open' : '' }` }>
+		<div className={ `spcus-pf__select${ open ? ' is-open' : '' }` }>
 			{ /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */ }
 			<div
-				className="dpo-pf__select-box"
+				className="spcus-pf__select-box"
 				role="button"
 				tabIndex={ 0 }
 				onClick={ ( e ) => {
@@ -397,20 +397,20 @@ function SelectPreview( { node, choices, formatPrice } ) {
 				{ current ? (
 					<Option c={ current } i={ 0 } />
 				) : (
-					<span className="dpo-pf__select-placeholder">
+					<span className="spcus-pf__select-placeholder">
 						{ node.placeholder ||
 							__(
 								'Choose…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 					</span>
 				) }
 				<ChevronDown size={ 16 } aria-hidden="true" />
 			</div>
 			{ open && choices.length > 0 && (
-				<div className="dpo-pf__select-list">
+				<div className="spcus-pf__select-list">
 					{ choices.map( ( c, i ) => (
-						<div key={ c.uid || i } className="dpo-pf__select-row">
+						<div key={ c.uid || i } className="spcus-pf__select-row">
 							<Option c={ c } i={ i } />
 						</div>
 					) ) }
@@ -433,7 +433,7 @@ function QtyBox( { cfg } ) {
 	return (
 		<input
 			type="number"
-			className="dpo-pf__qty"
+			className="spcus-pf__qty"
 			min={ min }
 			max={
 				cfg.maxQty === '' || cfg.maxQty === undefined
@@ -458,7 +458,7 @@ function Help( { node, at } ) {
 	if ( ! node.description || node.descriptionPlacement !== at ) {
 		return null;
 	}
-	return <p className="dpo-pf__help">{ node.description }</p>;
+	return <p className="spcus-pf__help">{ node.description }</p>;
 }
 
 /**
@@ -484,42 +484,42 @@ function SectionPreview( { node } ) {
 	const children = node.children || [];
 	const title =
 		node.label ||
-		__( 'Section', 'dynamic-product-options-for-woocommerce' );
+		__( 'Section', 'simple-product-customizer' );
 	const showBody = ! isAccordion || open;
 
 	return (
 		<div
-			className={ `dpo-pf__section${
+			className={ `spcus-pf__section${
 				isAccordion ? ' is-accordion' : ''
 			}${ isAccordion && ! open ? ' is-collapsed' : '' }` }
 		>
 			{ isAccordion ? (
 				<button
 					type="button"
-					className="dpo-pf__section-header"
+					className="spcus-pf__section-header"
 					aria-expanded={ open }
 					onClick={ () => setOpen( ( o ) => ! o ) }
 				>
-					<span className="dpo-pf__section-title">{ title }</span>
+					<span className="spcus-pf__section-title">{ title }</span>
 					<span
-						className="dpo-pf__section-chevron"
+						className="spcus-pf__section-chevron"
 						aria-hidden="true"
 					/>
 				</button>
 			) : (
 				node.label && (
-					<div className="dpo-pf__section-header dpo-pf__section-header--static">
-						<span className="dpo-pf__section-title">{ title }</span>
+					<div className="spcus-pf__section-header spcus-pf__section-header--static">
+						<span className="spcus-pf__section-title">{ title }</span>
 					</div>
 				)
 			) }
 			{ showBody && (
-				<div className="dpo-pf__section-body">
+				<div className="spcus-pf__section-body">
 					{ children.length === 0 ? (
-						<p className="dpo-pf__placeholder">
+						<p className="spcus-pf__placeholder">
 							{ __(
 								'Empty section',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</p>
 					) : (
@@ -560,7 +560,7 @@ function PhonePreview( { node } ) {
 	if ( flagStyle === 'number' ) {
 		return (
 			<input
-				className="dpo-pf__input"
+				className="spcus-pf__input"
 				type="tel"
 				placeholder={ node.placeholder }
 				readOnly
@@ -579,47 +579,47 @@ function PhonePreview( { node } ) {
 	);
 
 	return (
-		<div className={ `dpo-pf__phone${ open ? ' is-open' : '' }` }>
-			<div className="dpo-pf__phone-control">
+		<div className={ `spcus-pf__phone${ open ? ' is-open' : '' }` }>
+			<div className="spcus-pf__phone-control">
 				<button
 					type="button"
-					className="dpo-pf__phone-country"
+					className="spcus-pf__phone-country"
 					onClick={ () => setOpen( ( o ) => ! o ) }
 				>
-					<span className="dpo-pf__phone-flag">
+					<span className="spcus-pf__phone-flag">
 						{ flagEmoji( country.iso2 ) }
 					</span>
 					<ChevronDown size={ 14 } aria-hidden="true" />
 					{ flagStyle === 'flag_dial' && (
-						<span className="dpo-pf__phone-dial">
+						<span className="spcus-pf__phone-dial">
 							+{ country.dial }
 						</span>
 					) }
 				</button>
 				<input
-					className="dpo-pf__input dpo-pf__phone-input"
+					className="spcus-pf__input spcus-pf__phone-input"
 					type="tel"
 					placeholder={ node.placeholder }
 					readOnly
 				/>
 			</div>
 			{ open && (
-				<div className="dpo-pf__phone-drop">
+				<div className="spcus-pf__phone-drop">
 					<input
-						className="dpo-pf__phone-search"
+						className="spcus-pf__phone-search"
 						placeholder={ __(
 							'Search',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						value={ query }
 						onChange={ ( e ) => setQuery( e.target.value ) }
 					/>
-					<div className="dpo-pf__phone-list">
+					<div className="spcus-pf__phone-list">
 						{ list.map( ( c ) => (
 							<button
 								key={ c.iso2 }
 								type="button"
-								className={ `dpo-pf__phone-opt${
+								className={ `spcus-pf__phone-opt${
 									c.iso2 === iso ? ' is-active' : ''
 								}` }
 								onClick={ () => {
@@ -628,13 +628,13 @@ function PhonePreview( { node } ) {
 									setQuery( '' );
 								} }
 							>
-								<span className="dpo-pf__phone-flag">
+								<span className="spcus-pf__phone-flag">
 									{ flagEmoji( c.iso2 ) }
 								</span>
-								<span className="dpo-pf__phone-name">
+								<span className="spcus-pf__phone-name">
 									{ c.name }
 								</span>
-								<span className="dpo-pf__phone-dial">
+								<span className="spcus-pf__phone-dial">
 									+{ c.dial }
 								</span>
 							</button>
@@ -662,9 +662,9 @@ export default function FieldPreview( { node } ) {
 	if ( node.type === 'heading' ) {
 		const Tag = cfg.level || 'h3';
 		return (
-			<Tag className="dpo-pf__heading">
+			<Tag className="spcus-pf__heading">
 				{ node.label ||
-					__( 'Heading', 'dynamic-product-options-for-woocommerce' ) }
+					__( 'Heading', 'simple-product-customizer' ) }
 			</Tag>
 		);
 	}
@@ -672,7 +672,7 @@ export default function FieldPreview( { node } ) {
 		const h = Number( cfg.height );
 		return (
 			<hr
-				className="dpo-pf__divider"
+				className="spcus-pf__divider"
 				style={ h > 0 ? { borderTopWidth: `${ h }px` } : undefined }
 			/>
 		);
@@ -680,19 +680,19 @@ export default function FieldPreview( { node } ) {
 	if ( node.type === 'spacer' ) {
 		return (
 			<div
-				className="dpo-pf__spacer"
+				className="spcus-pf__spacer"
 				style={ { height: `${ cfg.height || 24 }px` } }
 			/>
 		);
 	}
 	if ( node.type === 'html' ) {
 		return (
-			<div className="dpo-pf__html">
+			<div className="spcus-pf__html">
 				{ cfg.html || (
-					<span className="dpo-pf__placeholder">
+					<span className="spcus-pf__placeholder">
 						{ __(
 							'Custom HTML',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</span>
 				) }
@@ -701,7 +701,7 @@ export default function FieldPreview( { node } ) {
 	}
 	if ( node.type === 'shortcode' ) {
 		return (
-			<code className="dpo-pf__shortcode">
+			<code className="spcus-pf__shortcode">
 				{ cfg.shortcode || '[shortcode]' }
 			</code>
 		);
@@ -722,11 +722,11 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'buttongroup':
 			control = (
-				<div className="dpo-pf__buttons">
+				<div className="spcus-pf__buttons">
 					{ choices.map( ( c, i ) => (
 						<span
 							key={ c.uid || i }
-							className={ `dpo-pf__button${
+							className={ `spcus-pf__button${
 								c.selected ? ' is-active' : ''
 							}` }
 							style={
@@ -748,9 +748,9 @@ export default function FieldPreview( { node } ) {
 		case 'checkbox':
 		case 'radio':
 			control = (
-				<div className="dpo-pf__choices">
+				<div className="spcus-pf__choices">
 					{ choices.map( ( c, i ) => (
-						<span key={ c.uid || i } className="dpo-pf__choice">
+						<span key={ c.uid || i } className="spcus-pf__choice">
 							<input
 								type={
 									node.type === 'checkbox'
@@ -761,7 +761,7 @@ export default function FieldPreview( { node } ) {
 								readOnly
 							/>
 							{ c.image && (
-								<span className="dpo-pf__choice-img">
+								<span className="spcus-pf__choice-img">
 									<img src={ c.image } alt="" />
 								</span>
 							) }
@@ -788,22 +788,22 @@ export default function FieldPreview( { node } ) {
 		case 'toggle': {
 			const tc = choices[ 0 ] || {};
 			control = (
-				<span className="dpo-pf__toggle-row">
+				<span className="spcus-pf__toggle-row">
 					<span
-						className={ `dpo-pf__toggle${
+						className={ `spcus-pf__toggle${
 							tc.selected ? ' is-on' : ''
 						}` }
 						aria-hidden="true"
 					>
-						<span className="dpo-pf__toggle-knob" />
+						<span className="spcus-pf__toggle-knob" />
 					</span>
 					{ tc.image && (
-						<span className="dpo-pf__toggle-img">
+						<span className="spcus-pf__toggle-img">
 							<img src={ tc.image } alt="" />
 						</span>
 					) }
 					{ tc.label && (
-						<span className="dpo-pf__toggle-label">
+						<span className="spcus-pf__toggle-label">
 							{ tc.label }
 						</span>
 					) }
@@ -815,14 +815,14 @@ export default function FieldPreview( { node } ) {
 		}
 		case 'colorswatch':
 			control = (
-				<div className="dpo-pf__swatches">
+				<div className="spcus-pf__swatches">
 					{ choices.map( ( c, i ) => (
 						<span
 							key={ c.uid || i }
-							className="dpo-pf__swatch-tile"
+							className="spcus-pf__swatch-tile"
 						>
 							<span
-								className={ `dpo-pf__swatch${
+								className={ `spcus-pf__swatch${
 									c.selected ? ' is-active' : ''
 								}` }
 								style={ {
@@ -832,12 +832,12 @@ export default function FieldPreview( { node } ) {
 								title={ c.label }
 							>
 								{ c.selected && (
-									<span className="dpo-pf__swatch-check">
+									<span className="spcus-pf__swatch-check">
 										<Check size={ 12 } />
 									</span>
 								) }
 							</span>
-							<span className="dpo-pf__swatch-label">
+							<span className="spcus-pf__swatch-label">
 								{ c.label || `Color ${ i + 1 }` }
 							</span>
 							<PriceTag
@@ -852,14 +852,14 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'imageswatch':
 			control = (
-				<div className="dpo-pf__swatches">
+				<div className="spcus-pf__swatches">
 					{ choices.map( ( c, i ) => (
 						<span
 							key={ c.uid || i }
-							className="dpo-pf__swatch-tile"
+							className="spcus-pf__swatch-tile"
 						>
 							<span
-								className={ `dpo-pf__img-swatch${
+								className={ `spcus-pf__img-swatch${
 									c.selected ? ' is-active' : ''
 								}` }
 								style={ swatchStyle( cfg ) }
@@ -869,12 +869,12 @@ export default function FieldPreview( { node } ) {
 									<img src={ c.image } alt={ c.label } />
 								) : null }
 								{ c.selected && (
-									<span className="dpo-pf__swatch-check">
+									<span className="spcus-pf__swatch-check">
 										<Check size={ 12 } />
 									</span>
 								) }
 							</span>
-							<span className="dpo-pf__swatch-label">
+							<span className="spcus-pf__swatch-label">
 								{ c.label || `Image ${ i + 1 }` }
 							</span>
 							<PriceTag
@@ -891,7 +891,7 @@ export default function FieldPreview( { node } ) {
 			control = (
 				<input
 					type="range"
-					className="dpo-pf__range"
+					className="spcus-pf__range"
 					min={ cfg.min ?? 0 }
 					max={ cfg.max ?? 100 }
 					step={ cfg.step ?? 1 }
@@ -902,7 +902,7 @@ export default function FieldPreview( { node } ) {
 		case 'textarea':
 			control = (
 				<textarea
-					className="dpo-pf__input"
+					className="spcus-pf__input"
 					rows={ cfg.rows || 3 }
 					placeholder={ node.placeholder }
 					readOnly
@@ -911,9 +911,9 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'colorpicker':
 			control = (
-				<span className="dpo-pf__colorpicker">
+				<span className="spcus-pf__colorpicker">
 					<span
-						className="dpo-pf__colorpicker-dot"
+						className="spcus-pf__colorpicker-dot"
 						style={
 							cfg.defaultColor
 								? { background: cfg.defaultColor }
@@ -923,27 +923,27 @@ export default function FieldPreview( { node } ) {
 					{ cfg.defaultColor ||
 						__(
 							'Pick a colour',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 				</span>
 			);
 			break;
 		case 'fileupload':
 			control = (
-				<div className="dpo-pf__dropzone">
-					<span className="dpo-pf__dropzone-btn">
+				<div className="spcus-pf__dropzone">
+					<span className="spcus-pf__dropzone-btn">
 						<Upload size={ 14 } aria-hidden="true" />
 						{ cfg.uploadText ||
 							__(
 								'Upload',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 					</span>
-					<span className="dpo-pf__dropzone-text">
+					<span className="spcus-pf__dropzone-text">
 						{ cfg.dragText ||
 							__(
 								'Click or drag and drop',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 					</span>
 				</div>
@@ -959,11 +959,11 @@ export default function FieldPreview( { node } ) {
 			break;
 		case 'popup':
 			control = (
-				<span className="dpo-pf__button is-active">
+				<span className="spcus-pf__button is-active">
 					{ cfg.triggerText ||
 						__(
 							'Open',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 				</span>
 			);
@@ -971,19 +971,19 @@ export default function FieldPreview( { node } ) {
 		case 'formula':
 		case 'advancedformula':
 			control = (
-				<code className="dpo-pf__shortcode">
+				<code className="spcus-pf__shortcode">
 					{ cfg.formula ||
 						__(
 							'Formula result',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 				</code>
 			);
 			break;
 		case 'datetime':
 			control = (
-				<div className="dpo-pf__datetime">
-					<span className="dpo-pf__dt-part">
+				<div className="spcus-pf__datetime">
+					<span className="spcus-pf__dt-part">
 						<svg
 							viewBox="0 0 24 24"
 							fill="none"
@@ -1007,12 +1007,12 @@ export default function FieldPreview( { node } ) {
 							/>
 						</svg>
 						<input
-							className="dpo-pf__input"
+							className="spcus-pf__input"
 							placeholder={ cfg.format || 'DD/MM/YYYY' }
 							readOnly
 						/>
 					</span>
-					<span className="dpo-pf__dt-part">
+					<span className="spcus-pf__dt-part">
 						<svg
 							viewBox="0 0 24 24"
 							fill="none"
@@ -1035,7 +1035,7 @@ export default function FieldPreview( { node } ) {
 							/>
 						</svg>
 						<input
-							className="dpo-pf__input"
+							className="spcus-pf__input"
 							placeholder={
 								cfg.hour12 === false ? 'HH:mm' : 'hh:mm AM/PM'
 							}
@@ -1051,7 +1051,7 @@ export default function FieldPreview( { node } ) {
 		default:
 			control = (
 				<input
-					className="dpo-pf__input"
+					className="spcus-pf__input"
 					type={
 						[ 'email', 'url', 'number', 'date', 'time' ].includes(
 							node.type
@@ -1066,15 +1066,15 @@ export default function FieldPreview( { node } ) {
 	}
 
 	return (
-		<div className={ `dpo-pf dpo-pf--${ node.type }` }>
+		<div className={ `spcus-pf spcus-pf--${ node.type }` }>
 			{ ! node.hideLabel && (
-				<span className="dpo-pf__label">
+				<span className="spcus-pf__label">
 					{ node.label ||
 						__(
 							'Untitled field',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
-					{ node.required && <span className="dpo-pf__req">*</span> }
+					{ node.required && <span className="spcus-pf__req">*</span> }
 					{ [
 						'date',
 						'time',

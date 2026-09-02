@@ -2,12 +2,12 @@
 /**
  * Custom dropdown select field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,19 +35,19 @@ final class SelectField extends AbstractField {
 		$choices     = $this->choices();
 		$placeholder = (string) $this->prop( 'placeholder', '' );
 		if ( '' === $placeholder ) {
-			$placeholder = esc_html__( 'Select an option', 'dynamic-product-options-for-woocommerce' );
+			$placeholder = esc_html__( 'Select an option', 'simple-product-customizer' );
 		}
 
-		$html  = '<div class="dpo-select" data-field-id="' . esc_attr( $this->id() ) . '">';
-		$html .= '<input type="hidden" class="dpo-select__value" name="' . esc_attr( $this->input_name() ) . '" value="" />';
-		$html .= '<button type="button" class="dpo-select__toggle"><span class="dpo-select__placeholder">' . esc_html( $placeholder ) . '</span></button>';
-		$html .= '<div class="dpo-select__list" role="listbox">';
+		$html  = '<div class="spcus-select" data-field-id="' . esc_attr( $this->id() ) . '">';
+		$html .= '<input type="hidden" class="spcus-select__value" name="' . esc_attr( $this->input_name() ) . '" value="" />';
+		$html .= '<button type="button" class="spcus-select__toggle"><span class="spcus-select__placeholder">' . esc_html( $placeholder ) . '</span></button>';
+		$html .= '<div class="spcus-select__list" role="listbox">';
 
 		foreach ( $choices as $index => $choice ) {
 			$label = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 			$image = isset( $choice['image'] ) ? (string) $choice['image'] : '';
 
-			$html .= '<div class="dpo-select__opt" role="option"'
+			$html .= '<div class="spcus-select__opt" role="option"'
 				. $this->attrs(
 					array_merge(
 						array(
@@ -59,9 +59,9 @@ final class SelectField extends AbstractField {
 					)
 				) . '>';
 			if ( '' !== $image ) {
-				$html .= '<span class="dpo-select__opt-img"><img src="' . esc_url( $image ) . '" alt="' . esc_attr( $label ) . '" loading="lazy" /></span>';
+				$html .= '<span class="spcus-select__opt-img"><img src="' . esc_url( $image ) . '" alt="' . esc_attr( $label ) . '" loading="lazy" /></span>';
 			}
-			$html .= '<span class="dpo-select__opt-label">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="spcus-select__opt-label">' . esc_html( $label ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= '</div>';
 		}

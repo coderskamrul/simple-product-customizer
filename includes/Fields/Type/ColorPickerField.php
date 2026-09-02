@@ -2,12 +2,12 @@
 /**
  * Free-form color picker field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,8 +47,8 @@ final class ColorPickerField extends AbstractField {
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 		$default = (string) $this->cfg( 'defaultColor', '#000000' );
 
-		$html  = '<div class="dpo-colorpicker" data-field-id="' . esc_attr( $this->id() ) . '">';
-		$html .= '<input type="color" class="dpo-colorpicker__input" name="' . esc_attr( $this->input_name() ) . '"'
+		$html  = '<div class="spcus-colorpicker" data-field-id="' . esc_attr( $this->id() ) . '">';
+		$html .= '<input type="color" class="spcus-colorpicker__input" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -58,8 +58,8 @@ final class ColorPickerField extends AbstractField {
 					$this->choice_price_attrs( $choice )
 				)
 			) . ' />';
-		$html .= '<input type="text" class="dpo-colorpicker__hex" value="' . esc_attr( $default ) . '" maxlength="7" />';
-		$html .= '<button type="button" class="dpo-colorpicker__reset" aria-label="' . esc_attr__( 'Reset color', 'dynamic-product-options-for-woocommerce' ) . '">&times;</button>';
+		$html .= '<input type="text" class="spcus-colorpicker__hex" value="' . esc_attr( $default ) . '" maxlength="7" />';
+		$html .= '<button type="button" class="spcus-colorpicker__reset" aria-label="' . esc_attr__( 'Reset color', 'simple-product-customizer' ) . '">&times;</button>';
 		$html .= '</div>';
 		return $html;
 	}

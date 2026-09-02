@@ -1,36 +1,36 @@
 <?php
 /**
- * Plugin Name:       Dynamic Product Options for WooCommerce
+ * Plugin Name:       Simple Product Customizer
  * Description:       Build dynamic single-product option sets — swatches, uploads, conditional logic, formula pricing and more — with deep WooCommerce cart & checkout integration.
  * Version:           1.0.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.com
- * Text Domain:       dynamic-product-options-for-woocommerce
+ * Text Domain:       simple-product-customizer
  * Domain Path:       /languages
  * Requires Plugins:  woocommerce
  * License:           GPLv3
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  *
- * @package DPO
+ * @package SPCUS
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DPO_VERSION', '1.0.0' );
-define( 'DPO_FILE', __FILE__ );
-define( 'DPO_PATH', plugin_dir_path( __FILE__ ) );
-define( 'DPO_URL', plugin_dir_url( __FILE__ ) );
-define( 'DPO_BASENAME', plugin_basename( __FILE__ ) );
-define( 'DPO_ASSETS', DPO_URL . 'assets/build/' );
-define( 'DPO_MIN_WC', '7.0' );
-define( 'DPO_MIN_PHP', '7.4' );
+define( 'SPCUS_VERSION', '1.0.0' );
+define( 'SPCUS_FILE', __FILE__ );
+define( 'SPCUS_PATH', plugin_dir_path( __FILE__ ) );
+define( 'SPCUS_URL', plugin_dir_url( __FILE__ ) );
+define( 'SPCUS_BASENAME', plugin_basename( __FILE__ ) );
+define( 'SPCUS_ASSETS', SPCUS_URL . 'assets/build/' );
+define( 'SPCUS_MIN_WC', '7.0' );
+define( 'SPCUS_MIN_PHP', '7.4' );
 
 /**
- * PSR-4 autoloader for the DPO\ namespace.
+ * PSR-4 autoloader for the SPCUS\ namespace.
  *
- * Maps DPO\Sub\Space\ClassName to includes/Sub/Space/ClassName.php.
+ * Maps SPCUS\Sub\Space\ClassName to includes/Sub/Space/ClassName.php.
  * Deliberately uses StudlyCase filenames (PSR-4 canonical form), not a
  * hyphenated/`class-` convention, so the layout is self-describing.
  *
@@ -39,11 +39,11 @@ define( 'DPO_MIN_PHP', '7.4' );
  */
 spl_autoload_register(
 	static function ( $fqcn ) {
-		if ( 0 !== strpos( $fqcn, 'DPO\\' ) ) {
+		if ( 0 !== strpos( $fqcn, 'SPCUS\\' ) ) {
 			return;
 		}
 		$relative = substr( $fqcn, 4 );
-		$path     = DPO_PATH . 'includes/' . str_replace( '\\', '/', $relative ) . '.php';
+		$path     = SPCUS_PATH . 'includes/' . str_replace( '\\', '/', $relative ) . '.php';
 		if ( is_readable( $path ) ) {
 			require_once $path;
 		}
@@ -51,23 +51,23 @@ spl_autoload_register(
 );
 
 // Composer autoload, when present, takes precedence for third-party libs.
-if ( is_readable( DPO_PATH . 'vendor/autoload.php' ) ) {
-	require_once DPO_PATH . 'vendor/autoload.php';
+if ( is_readable( SPCUS_PATH . 'vendor/autoload.php' ) ) {
+	require_once SPCUS_PATH . 'vendor/autoload.php';
 }
 
-register_activation_hook( __FILE__, array( \DPO\Core\Installer::class, 'activate' ) );
-register_deactivation_hook( __FILE__, array( \DPO\Core\Installer::class, 'deactivate' ) );
+register_activation_hook( __FILE__, array( \SPCUS\Core\Installer::class, 'activate' ) );
+register_deactivation_hook( __FILE__, array( \SPCUS\Core\Installer::class, 'deactivate' ) );
 
 /**
  * Boot the plugin once all plugins are loaded (so WooCommerce is available).
  *
  * @return void
  */
-function dpo() { // phpcs:ignore WordPress.NamingConventions
-	return \DPO\Core\Plugin::instance();
+function spcus() { // phpcs:ignore WordPress.NamingConventions
+	return \SPCUS\Core\Plugin::instance();
 }
 
-add_action( 'plugins_loaded', 'dpo', 9 );
+add_action( 'plugins_loaded', 'spcus', 9 );
 
 // Declare WooCommerce feature compatibility (HPOS + Cart/Checkout blocks).
 add_action(

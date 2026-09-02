@@ -15,13 +15,13 @@
  *   min(...)      1+ args
  *   max(...)      1+ args
  *
- * @package DPO\Formula\Ast\Node
+ * @package SPCUS\Formula\Ast\Node
  */
 
-namespace DPO\Formula\Ast\Node;
+namespace SPCUS\Formula\Ast\Node;
 
-use DPO\Formula\Ast\EvaluationError;
-use DPO\Formula\Ast\ExpressionEngine;
+use SPCUS\Formula\Ast\EvaluationError;
+use SPCUS\Formula\Ast\ExpressionEngine;
 
 defined( 'ABSPATH' ) || exit;
 

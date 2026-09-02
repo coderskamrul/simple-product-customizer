@@ -31,32 +31,32 @@ import {
 const COLOR_FIELDS = [
 	{
 		key: 'text',
-		label: __( 'Text Color', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Text Color', 'simple-product-customizer' ),
 	},
 	{
 		key: 'primary',
-		label: __( 'Primary', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Primary', 'simple-product-customizer' ),
 	},
 	{
 		key: 'border',
-		label: __( 'Field Border', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Field Border', 'simple-product-customizer' ),
 	},
 	{
 		key: 'fill',
-		label: __( 'Field Fill', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Field Fill', 'simple-product-customizer' ),
 	},
 	{
 		key: 'onPrimary',
 		label: __(
 			'Over Primary Color',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		key: 'error',
 		label: __(
 			'Required / Error Color',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 ];
@@ -73,19 +73,19 @@ const COLOR_FIELDS = [
  */
 function Card( { icon: Icon, title, desc, children } ) {
 	return (
-		<section className="dpo-gs__card">
-			<header className="dpo-gs__card-head">
-				<span className="dpo-gs__card-icon">
+		<section className="spcus-gs__card">
+			<header className="spcus-gs__card-head">
+				<span className="spcus-gs__card-icon">
 					<Icon size={ 15 } aria-hidden="true" />
 				</span>
-				<span className="dpo-gs__card-titles">
-					<span className="dpo-gs__card-title">{ title }</span>
+				<span className="spcus-gs__card-titles">
+					<span className="spcus-gs__card-title">{ title }</span>
 					{ desc && (
-						<span className="dpo-gs__card-desc">{ desc }</span>
+						<span className="spcus-gs__card-desc">{ desc }</span>
 					) }
 				</span>
 			</header>
-			<div className="dpo-gs__card-body">{ children }</div>
+			<div className="spcus-gs__card-body">{ children }</div>
 		</section>
 	);
 }
@@ -103,29 +103,29 @@ function Card( { icon: Icon, title, desc, children } ) {
  */
 function PxField( { label, value, min, max, onChange } ) {
 	return (
-		<div className="dpo-gs__dim">
-			<div className="dpo-gs__dim-head">
-				<span className="dpo-gs__dim-label">{ label }</span>
-				<span className="dpo-gs__px">
+		<div className="spcus-gs__dim">
+			<div className="spcus-gs__dim-head">
+				<span className="spcus-gs__dim-label">{ label }</span>
+				<span className="spcus-gs__px">
 					<input
 						type="number"
-						className="dpo-gs__px-input"
+						className="spcus-gs__px-input"
 						value={ value }
 						min={ min }
 						max={ max }
 						onChange={ ( e ) => onChange( e.target.value ) }
 					/>
-					<span className="dpo-gs__px-unit">
+					<span className="spcus-gs__px-unit">
 						{ __(
 							'px',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</span>
 				</span>
 			</div>
 			<input
 				type="range"
-				className="dpo-gs__slider"
+				className="spcus-gs__slider"
 				min={ min }
 				max={ max }
 				value={ Number( value ) || min }
@@ -162,7 +162,7 @@ export default function GlobalStylePanel() {
 				kind === 'success'
 					? __(
 							'Global style saved.',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 					  )
 					: errorMessage( err ),
 				kind
@@ -186,7 +186,7 @@ export default function GlobalStylePanel() {
 						onOpenAutoFocus={ ( e ) => e.preventDefault() }
 					>
 						<motion.aside
-							className="dpo-drawer dpo-drawer--style"
+							className="spcus-drawer spcus-drawer--style"
 							initial={ { x: '-100%', opacity: 0.4 } }
 							animate={ { x: 0, opacity: 1 } }
 							exit={ { x: '-100%', opacity: 0.4 } }
@@ -195,28 +195,28 @@ export default function GlobalStylePanel() {
 								ease: [ 0.16, 1, 0.3, 1 ],
 							} }
 						>
-							<header className="dpo-drawer__head">
-								<span className="dpo-drawer__icon">
+							<header className="spcus-drawer__head">
+								<span className="spcus-drawer__icon">
 									<Palette size={ 18 } aria-hidden="true" />
 								</span>
-								<Dialog.Title className="dpo-drawer__title">
+								<Dialog.Title className="spcus-drawer__title">
 									{ __(
 										'Global Style',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									) }
-									<span className="dpo-drawer__subtitle">
+									<span className="spcus-drawer__subtitle">
 										{ __(
 											'Live preview · applies to all option sets',
-											'dynamic-product-options-for-woocommerce'
+											'simple-product-customizer'
 										) }
 									</span>
 								</Dialog.Title>
 								<button
 									type="button"
-									className="dpo-drawer__close"
+									className="spcus-drawer__close"
 									aria-label={ __(
 										'Close',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									) }
 									onClick={ closePanel }
 								>
@@ -224,9 +224,9 @@ export default function GlobalStylePanel() {
 								</button>
 							</header>
 
-							<div className="dpo-drawer__body dpo-gs">
+							<div className="spcus-drawer__body spcus-gs">
 								{ ! loaded ? (
-									<div className="dpo-gs__loading">
+									<div className="spcus-gs__loading">
 										<SkeletonForm fields={ 6 } />
 									</div>
 								) : (
@@ -235,17 +235,17 @@ export default function GlobalStylePanel() {
 											icon={ SlidersHorizontal }
 											title={ __(
 												'Dimensions',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 											) }
 											desc={ __(
 												'Set exact pixel values.',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 											) }
 										>
 											<PxField
 												label={ __(
 													'Option Fields Size',
-													'dynamic-product-options-for-woocommerce'
+													'simple-product-customizer'
 												) }
 												value={ tokens.sizePx }
 												min={ SIZE_MIN }
@@ -255,7 +255,7 @@ export default function GlobalStylePanel() {
 											<PxField
 												label={ __(
 													'Option Fields Shape',
-													'dynamic-product-options-for-woocommerce'
+													'simple-product-customizer'
 												) }
 												value={ tokens.radiusPx }
 												min={ RADIUS_MIN }
@@ -268,14 +268,14 @@ export default function GlobalStylePanel() {
 											icon={ Palette }
 											title={ __(
 												'Color Palette',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 											) }
 											desc={ __(
 												'Pick a preset, then fine-tune below.',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 											) }
 										>
-											<div className="dpo-gs__dots">
+											<div className="spcus-gs__dots">
 												{ PALETTES.map( ( p ) => {
 													const active =
 														tokens.palette ===
@@ -285,7 +285,7 @@ export default function GlobalStylePanel() {
 														<button
 															key={ p.key }
 															type="button"
-															className={ `dpo-gs__dot${
+															className={ `spcus-gs__dot${
 																active
 																	? ' is-active'
 																	: ''
@@ -301,14 +301,14 @@ export default function GlobalStylePanel() {
 															}
 														>
 															<span
-																className="dpo-gs__dot-fill"
+																className="spcus-gs__dot-fill"
 																style={ {
 																	background:
 																		quarters,
 																} }
 															/>
 															{ active && (
-																<span className="dpo-gs__dot-check">
+																<span className="spcus-gs__dot-check">
 																	<Check
 																		size={
 																			13
@@ -327,16 +327,16 @@ export default function GlobalStylePanel() {
 											icon={ Droplets }
 											title={ __(
 												'Colors',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 											) }
 										>
-											<div className="dpo-gs__colors">
+											<div className="spcus-gs__colors">
 												{ COLOR_FIELDS.map( ( f ) => (
 													<div
 														key={ f.key }
-														className="dpo-gs__crow"
+														className="spcus-gs__crow"
 													>
-														<span className="dpo-gs__crow-label">
+														<span className="spcus-gs__crow-label">
 															{ f.label }
 														</span>
 														<ColorField
@@ -360,31 +360,31 @@ export default function GlobalStylePanel() {
 								) }
 							</div>
 
-							<footer className="dpo-gs__foot">
+							<footer className="spcus-gs__foot">
 								<button
 									type="button"
-									className="dpo-btn dpo-btn--ghost"
+									className="spcus-btn spcus-btn--ghost"
 									onClick={ closePanel }
 								>
 									{ __(
 										'Close',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									) }
 								</button>
 								<button
 									type="button"
-									className="dpo-btn dpo-btn--primary"
+									className="spcus-btn spcus-btn--primary"
 									disabled={ saving || ! loaded }
 									onClick={ onSave }
 								>
 									{ saving
 										? __(
 												'Saving…',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 										  )
 										: __(
 												'Save style',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 										  ) }
 								</button>
 							</footer>

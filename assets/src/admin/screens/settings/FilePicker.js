@@ -22,21 +22,21 @@ export default function FilePicker( { inputRef, accept, id } ) {
 	const [ name, setName ] = useState( '' );
 
 	return (
-		<div className="dpo-set-file">
+		<div className="spcus-set-file">
 			<button
 				type="button"
-				className="dpo-set-file__btn"
+				className="spcus-set-file__btn"
 				onClick={ () => inputRef.current?.click() }
 			>
 				<span
 					className="dashicons dashicons-upload"
 					aria-hidden="true"
 				/>
-				<span className="dpo-set-file__name">
+				<span className="spcus-set-file__name">
 					{ name ||
 						__(
 							'Choose file…',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 				</span>
 			</button>
@@ -45,7 +45,7 @@ export default function FilePicker( { inputRef, accept, id } ) {
 				ref={ inputRef }
 				type="file"
 				accept={ accept }
-				className="dpo-set-file__input"
+				className="spcus-set-file__input"
 				onChange={ ( e ) =>
 					setName(
 						e.target.files && e.target.files[ 0 ]

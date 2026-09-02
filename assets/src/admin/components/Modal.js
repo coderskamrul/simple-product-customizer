@@ -49,7 +49,7 @@ export default function Modal( {
 
 	return (
 		<div
-			className="dpo-modal-overlay"
+			className="spcus-modal-overlay"
 			onMouseDown={ ( e ) => {
 				if ( e.target === e.currentTarget ) {
 					onClose();
@@ -57,22 +57,22 @@ export default function Modal( {
 			} }
 		>
 			<div
-				className={ `dpo-modal dpo-modal--${ size }` }
+				className={ `spcus-modal spcus-modal--${ size }` }
 				role="dialog"
 				aria-modal="true"
 				aria-label={ title }
 				tabIndex={ -1 }
 				ref={ ref }
 			>
-				<header className="dpo-modal__head">
-					<h2 className="dpo-modal__title">{ title }</h2>
+				<header className="spcus-modal__head">
+					<h2 className="spcus-modal__title">{ title }</h2>
 					<button
 						type="button"
-						className="dpo-icon-btn"
+						className="spcus-icon-btn"
 						onClick={ onClose }
 						aria-label={ __(
 							'Close',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<span
@@ -81,9 +81,9 @@ export default function Modal( {
 						/>
 					</button>
 				</header>
-				<div className="dpo-modal__body">{ children }</div>
+				<div className="spcus-modal__body">{ children }</div>
 				{ footer && (
-					<footer className="dpo-modal__foot">{ footer }</footer>
+					<footer className="spcus-modal__foot">{ footer }</footer>
 				) }
 			</div>
 		</div>

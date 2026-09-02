@@ -28,7 +28,7 @@ export default function OptionRow( { row, max } ) {
 		row.title ||
 		sprintf(
 			/* translators: %d: option set id */
-			__( 'Option set #%d', 'dynamic-product-options-for-woocommerce' ),
+			__( 'Option set #%d', 'simple-product-customizer' ),
 			row.set_id
 		);
 
@@ -42,37 +42,37 @@ export default function OptionRow( { row, max } ) {
 	const code = `OPT-${ String( row.set_id ).padStart( 3, '0' ) }`;
 
 	return (
-		<tr className="dpo-an-row">
+		<tr className="spcus-an-row">
 			<td
-				className="dpo-an-cell dpo-an-cell--option"
+				className="spcus-an-cell spcus-an-cell--option"
 				data-label={ __(
 					'Option details',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
-				<span className="dpo-an-option">
+				<span className="spcus-an-option">
 					<Avatar label={ title } seed={ row.set_id } />
-					<span className="dpo-an-option__meta">
-						<span className="dpo-an-option__name">{ title }</span>
-						<span className="dpo-an-option__code">{ code }</span>
+					<span className="spcus-an-option__meta">
+						<span className="spcus-an-option__name">{ title }</span>
+						<span className="spcus-an-option__code">{ code }</span>
 					</span>
 				</span>
 			</td>
 
 			<td
-				className="dpo-an-cell dpo-an-cell--num"
+				className="spcus-an-cell spcus-an-cell--num"
 				data-label={ __(
 					'Clicks',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
-				<span className="dpo-an-metric">
+				<span className="spcus-an-metric">
 					<strong>
 						{ Number( row.clicks || 0 ).toLocaleString() }
 					</strong>
-					<span className="dpo-an-bar">
+					<span className="spcus-an-bar">
 						<span
-							className="dpo-an-bar__fill dpo-an-bar__fill--blue"
+							className="spcus-an-bar__fill spcus-an-bar__fill--blue"
 							style={ { width: `${ clicksW }%` } }
 						/>
 					</span>
@@ -80,39 +80,39 @@ export default function OptionRow( { row, max } ) {
 			</td>
 
 			<td
-				className="dpo-an-cell dpo-an-cell--ring"
+				className="spcus-an-cell spcus-an-cell--ring"
 				data-label={ __(
 					'Cart rate',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<Ring value={ cartRate } tone="purple" />
 			</td>
 
 			<td
-				className="dpo-an-cell dpo-an-cell--ring"
+				className="spcus-an-cell spcus-an-cell--ring"
 				data-label={ __(
 					'Conversion',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<Ring value={ conversion } tone="green" />
 			</td>
 
 			<td
-				className="dpo-an-cell dpo-an-cell--num"
+				className="spcus-an-cell spcus-an-cell--num"
 				data-label={ __(
 					'Revenue',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
-				<span className="dpo-an-metric">
-					<strong className="dpo-an-revenue">
+				<span className="spcus-an-metric">
+					<strong className="spcus-an-revenue">
 						{ formatPrice( row.revenue ) }
 					</strong>
-					<span className="dpo-an-bar">
+					<span className="spcus-an-bar">
 						<span
-							className="dpo-an-bar__fill dpo-an-bar__fill--green"
+							className="spcus-an-bar__fill spcus-an-bar__fill--green"
 							style={ { width: `${ revW }%` } }
 						/>
 					</span>
@@ -120,14 +120,14 @@ export default function OptionRow( { row, max } ) {
 			</td>
 
 			<td
-				className="dpo-an-cell dpo-an-cell--end"
+				className="spcus-an-cell spcus-an-cell--end"
 				data-label={ __(
 					'CTR',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<span
-					className={ `dpo-an-pill dpo-an-pill--${
+					className={ `spcus-an-pill spcus-an-pill--${
 						ctrUp ? 'up' : 'flat'
 					}` }
 				>

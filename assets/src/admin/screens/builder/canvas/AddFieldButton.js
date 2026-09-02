@@ -24,23 +24,23 @@ export default function AddFieldButton( { parentId = '', compact = false } ) {
 	return (
 		<motion.button
 			type="button"
-			className={ `dpo-add${ compact ? ' dpo-add--compact' : '' }` }
+			className={ `spcus-add${ compact ? ' spcus-add--compact' : '' }` }
 			onClick={ () => openPicker( parentId ) }
 			whileHover={ { scale: 1.01 } }
 			whileTap={ { scale: 0.99 } }
 		>
 			<motion.span
-				className="dpo-add__plus"
+				className="spcus-add__plus"
 				whileHover={ { rotate: 90 } }
 				transition={ { type: 'spring', stiffness: 300, damping: 20 } }
 			>
 				<Plus size={ compact ? 16 : 20 } />
 			</motion.span>
 			{ ! compact && (
-				<span className="dpo-add__label">
+				<span className="spcus-add__label">
 					{ __(
 						'Add field',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</span>
 			) }

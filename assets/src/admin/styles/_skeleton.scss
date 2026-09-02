@@ -1,7 +1,7 @@
 /**
  * Premium skeleton loaders.
  *
- * One animated `.dpo-skel` block + a small set of composed layouts. Theme
+ * One animated `.spcus-skel` block + a small set of composed layouts. Theme
  * tokens drive every colour so the loaders automatically match the active
  * Global Theme palette (and a future dark mode flip).
  *
@@ -9,93 +9,93 @@
  * politely pauses the animation for users who opt out.
  */
 
-#dpo-admin-root {
+#spcus-admin-root {
 	/* Skeleton-specific tokens — derived from the theme so retinting the
 	   primary palette automatically reshades the loaders. */
-	--dpo-skel-base:      var(--dpo-c-surface-3);
-	--dpo-skel-highlight: var(--dpo-c-surface-2);
-	--dpo-skel-sheen:     rgba(255, 255, 255, 0.65);
-	--dpo-skel-radius:    var(--dpo-r-sm);
-	--dpo-skel-duration:  1400ms;
+	--spcus-skel-base:      var(--spcus-c-surface-3);
+	--spcus-skel-highlight: var(--spcus-c-surface-2);
+	--spcus-skel-sheen:     rgba(255, 255, 255, 0.65);
+	--spcus-skel-radius:    var(--spcus-r-sm);
+	--spcus-skel-duration:  1400ms;
 }
 
 /* ── Base shimmer block ────────────────────────────────────────────── */
-.dpo-skel {
+.spcus-skel {
 	display: block;
 	inline-size: 100%;
 	block-size: 12px;
-	border-radius: var(--dpo-skel-radius);
+	border-radius: var(--spcus-skel-radius);
 	background:
 		linear-gradient(
 			90deg,
-			var(--dpo-skel-base) 0%,
-			var(--dpo-skel-highlight) 30%,
-			var(--dpo-skel-sheen) 50%,
-			var(--dpo-skel-highlight) 70%,
-			var(--dpo-skel-base) 100%
+			var(--spcus-skel-base) 0%,
+			var(--spcus-skel-highlight) 30%,
+			var(--spcus-skel-sheen) 50%,
+			var(--spcus-skel-highlight) 70%,
+			var(--spcus-skel-base) 100%
 		);
 	background-size: 220% 100%;
 	background-position: 100% 0;
-	animation: dpo-skel-shimmer var(--dpo-skel-duration) linear infinite;
+	animation: spcus-skel-shimmer var(--spcus-skel-duration) linear infinite;
 	will-change: background-position;
 }
 
-@keyframes dpo-skel-shimmer {
+@keyframes spcus-skel-shimmer {
 	0%   { background-position: 100% 0; }
 	100% { background-position: -100% 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.dpo-skel {
+	.spcus-skel {
 		animation: none;
-		background: var(--dpo-skel-base);
+		background: var(--spcus-skel-base);
 	}
 }
 
 /* ── Composed variants ──────────────────────────────────────────────── */
 
 /* Text cluster ----------------------------------------------------------- */
-.dpo-skel-text {
+.spcus-skel-text {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 }
 
 /* Card ------------------------------------------------------------------ */
-.dpo-skel-card {
+.spcus-skel-card {
 	display: flex;
 	flex-direction: column;
-	gap: var(--dpo-s-4);
-	padding: var(--dpo-s-5);
-	background: var(--dpo-c-surface);
-	border: 1px solid var(--dpo-c-border);
-	border-radius: var(--dpo-r-lg);
-	box-shadow: var(--dpo-sh-card);
+	gap: var(--spcus-s-4);
+	padding: var(--spcus-s-5);
+	background: var(--spcus-c-surface);
+	border: 1px solid var(--spcus-c-border);
+	border-radius: var(--spcus-r-lg);
+	box-shadow: var(--spcus-sh-card);
 
 	&__head {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: var(--dpo-s-3);
+		gap: var(--spcus-s-3);
 	}
 
 	&__foot {
 		display: flex;
 		justify-content: flex-end;
-		padding-block-start: var(--dpo-s-2);
+		padding-block-start: var(--spcus-s-2);
 	}
 }
 
 /* Stat tile + grid ------------------------------------------------------ */
-.dpo-skel-stat {
+.spcus-skel-stat {
 	display: flex;
 	align-items: center;
-	gap: var(--dpo-s-3);
-	padding: var(--dpo-s-4);
-	background: var(--dpo-c-surface);
-	border: 1px solid var(--dpo-c-border);
-	border-radius: var(--dpo-r-lg);
-	box-shadow: var(--dpo-sh-1);
+	gap: var(--spcus-s-3);
+	padding: var(--spcus-s-4);
+	background: var(--spcus-c-surface);
+	border: 1px solid var(--spcus-c-border);
+	border-radius: var(--spcus-r-lg);
+	box-shadow: var(--spcus-sh-1);
 
 	&__body {
 		flex: 1;
@@ -106,17 +106,17 @@
 	}
 }
 
-.dpo-skel-stat-grid {
+.spcus-skel-stat-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: var(--dpo-s-3);
+	gap: var(--spcus-s-3);
 }
 
 /* Table ----------------------------------------------------------------- */
-.dpo-skel-table {
-	background: var(--dpo-c-surface);
-	border: 1px solid var(--dpo-c-border);
-	border-radius: var(--dpo-r-lg);
+.spcus-skel-table {
+	background: var(--spcus-c-surface);
+	border: 1px solid var(--spcus-c-border);
+	border-radius: var(--spcus-r-lg);
 	overflow: hidden;
 
 	&__head,
@@ -124,13 +124,13 @@
 		display: grid;
 		grid-template-columns: 44px 1.4fr 1fr 1fr 120px;
 		align-items: center;
-		gap: var(--dpo-s-4);
-		padding: 14px var(--dpo-s-5);
+		gap: var(--spcus-s-4);
+		padding: 14px var(--spcus-s-5);
 	}
 
 	&__head {
-		background: var(--dpo-c-surface-2);
-		border-block-end: 1px solid var(--dpo-c-border);
+		background: var(--spcus-c-surface-2);
+		border-block-end: 1px solid var(--spcus-c-border);
 	}
 
 	&__body {
@@ -139,20 +139,20 @@
 	}
 
 	&__row {
-		border-block-end: 1px solid var(--dpo-c-border-soft);
+		border-block-end: 1px solid var(--spcus-c-border-soft);
 		&:last-child { border-block-end: 0; }
 	}
 }
 
 /* Chart ----------------------------------------------------------------- */
-.dpo-skel-chart {
+.spcus-skel-chart {
 	display: flex;
 	flex-direction: column;
-	gap: var(--dpo-s-4);
-	padding: var(--dpo-s-5);
-	background: var(--dpo-c-surface);
-	border: 1px solid var(--dpo-c-border);
-	border-radius: var(--dpo-r-lg);
+	gap: var(--spcus-s-4);
+	padding: var(--spcus-s-5);
+	background: var(--spcus-c-surface);
+	border: 1px solid var(--spcus-c-border);
+	border-radius: var(--spcus-r-lg);
 	min-block-size: 280px;
 
 	&__head {
@@ -164,24 +164,24 @@
 	&__plot {
 		display: flex;
 		align-items: flex-end;
-		gap: var(--dpo-s-3);
+		gap: var(--spcus-s-3);
 		min-block-size: 180px;
-		padding-block: var(--dpo-s-3);
-		border-block-start: 1px dashed var(--dpo-c-border);
+		padding-block: var(--spcus-s-3);
+		border-block-start: 1px dashed var(--spcus-c-border);
 	}
 
 	&__bar {
 		flex: 1;
 		inline-size: auto !important;
-		border-radius: var(--dpo-r-sm) var(--dpo-r-sm) 0 0;
+		border-radius: var(--spcus-r-sm) var(--spcus-r-sm) 0 0;
 	}
 }
 
 /* Form ------------------------------------------------------------------ */
-.dpo-skel-form {
+.spcus-skel-form {
 	display: flex;
 	flex-direction: column;
-	gap: var(--dpo-s-5);
+	gap: var(--spcus-s-5);
 
 	&__row {
 		display: flex;
@@ -191,92 +191,92 @@
 }
 
 /* Tabs ------------------------------------------------------------------ */
-.dpo-skel-tabs {
+.spcus-skel-tabs {
 	display: flex;
-	gap: var(--dpo-s-2);
-	padding-block-end: var(--dpo-s-2);
-	border-block-end: 1px solid var(--dpo-c-border);
+	gap: var(--spcus-s-2);
+	padding-block-end: var(--spcus-s-2);
+	border-block-end: 1px solid var(--spcus-c-border);
 }
 
 /* Modal ----------------------------------------------------------------- */
-.dpo-skel-modal {
+.spcus-skel-modal {
 	display: flex;
 	flex-direction: column;
-	gap: var(--dpo-s-4);
-	padding: var(--dpo-s-6);
-	background: var(--dpo-c-surface);
-	border: 1px solid var(--dpo-c-border);
-	border-radius: var(--dpo-r-xl);
-	box-shadow: var(--dpo-sh-3);
+	gap: var(--spcus-s-4);
+	padding: var(--spcus-s-6);
+	background: var(--spcus-c-surface);
+	border: 1px solid var(--spcus-c-border);
+	border-radius: var(--spcus-r-xl);
+	box-shadow: var(--spcus-sh-3);
 	max-inline-size: 560px;
 
 	&__foot {
 		display: flex;
 		justify-content: flex-end;
-		gap: var(--dpo-s-2);
-		padding-block-start: var(--dpo-s-2);
+		gap: var(--spcus-s-2);
+		padding-block-start: var(--spcus-s-2);
 	}
 }
 
 /* Nav ------------------------------------------------------------------- */
-.dpo-skel-nav {
+.spcus-skel-nav {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
-	padding: var(--dpo-s-3);
-	background: var(--dpo-c-surface);
-	border: 1px solid var(--dpo-c-border);
-	border-radius: var(--dpo-r-lg);
+	padding: var(--spcus-s-3);
+	background: var(--spcus-c-surface);
+	border: 1px solid var(--spcus-c-border);
+	border-radius: var(--spcus-r-lg);
 
 	&__item {
 		display: flex;
 		align-items: center;
-		gap: var(--dpo-s-3);
+		gap: var(--spcus-s-3);
 		padding: 10px;
-		border-radius: var(--dpo-r-md);
+		border-radius: var(--spcus-r-md);
 	}
 }
 
 /* ── Builder skeleton — 1:1 with the real Option Builder stage ──────────
  *
- * Geometry intentionally mirrors `.dpo-builder__topbar`, `.dpo-builder__stage-
- * wrap` and `.dpo-stage*` in `_builder.scss` so the skeleton renders as a
+ * Geometry intentionally mirrors `.spcus-builder__topbar`, `.spcus-builder__stage-
+ * wrap` and `.spcus-stage*` in `_builder.scss` so the skeleton renders as a
  * preloaded version of the page and no layout shift occurs when the real
  * canvas takes over.
  */
-.dpo-skel-builder {
+.spcus-skel-builder {
 	display: flex;
 	flex-direction: column;
 	min-block-size: 100%;
 	flex: 1;
-	background: var(--dpo-c-bg);
+	background: var(--spcus-c-bg);
 
-	/* Sticky chrome row — matches `.dpo-builder__topbar`. */
+	/* Sticky chrome row — matches `.spcus-builder__topbar`. */
 	&__topbar {
 		display: grid;
 		grid-template-columns: 32px 1fr auto;
 		align-items: center;
-		gap: var(--dpo-s-3);
+		gap: var(--spcus-s-3);
 		padding: 10px 16px;
-		background: var(--dpo-c-surface);
-		border-block-end: 1px solid var(--dpo-c-border);
-		box-shadow: var(--dpo-c-shadow-sm, var(--dpo-sh-1));
+		background: var(--spcus-c-surface);
+		border-block-end: 1px solid var(--spcus-c-border);
+		box-shadow: var(--spcus-c-shadow-sm, var(--spcus-sh-1));
 	}
 
 	&__topbar-right {
 		display: flex;
 		align-items: center;
-		gap: var(--dpo-s-2);
+		gap: var(--spcus-s-2);
 	}
 
-	/* Stage scroll area — matches `.dpo-builder__stage-wrap`. */
+	/* Stage scroll area — matches `.spcus-builder__stage-wrap`. */
 	&__stage-wrap {
 		flex: 1;
 		overflow: auto;
 		padding: 32px;
 	}
 
-	/* Two-column product stage — matches `.dpo-stage` + `.dpo-stage__product`. */
+	/* Two-column product stage — matches `.spcus-stage` + `.spcus-stage__product`. */
 	&__stage {
 		max-inline-size: 1100px;
 		margin-inline: auto;
@@ -286,7 +286,7 @@
 		align-items: start;
 	}
 
-	/* Left column — matches `.dpo-stage__gallery`. */
+	/* Left column — matches `.spcus-stage__gallery`. */
 	&__gallery {
 		display: flex;
 		flex-direction: column;
@@ -313,20 +313,20 @@
 		block-size: auto !important;
 	}
 
-	/* Right column — matches `.dpo-stage__summary`. */
+	/* Right column — matches `.spcus-stage__summary`. */
 	&__summary {
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-		background: var(--dpo-c-surface);
-		border: 1px solid var(--dpo-c-border);
-		border-radius: var(--dpo-c-radius-lg, var(--dpo-r-lg));
-		box-shadow: var(--dpo-c-shadow, var(--dpo-sh-2));
+		background: var(--spcus-c-surface);
+		border: 1px solid var(--spcus-c-border);
+		border-radius: var(--spcus-c-radius-lg, var(--spcus-r-lg));
+		box-shadow: var(--spcus-c-shadow, var(--spcus-sh-2));
 		padding: 28px;
 	}
 
 	/* Spacing between title-row and the price-row mirrors the real
-	   summary's `margin-block-end: 22px` on `.dpo-stage__price`. */
+	   summary's `margin-block-end: 22px` on `.spcus-stage__price`. */
 	&__summary > *:nth-child(2) { margin-block-end: 10px; }
 
 	&__options {
@@ -340,9 +340,9 @@
 		flex-direction: column;
 		gap: 8px;
 		padding: 14px 16px;
-		background: var(--dpo-c-surface-2);
-		border: 1px solid var(--dpo-c-border-soft, var(--dpo-c-border));
-		border-radius: var(--dpo-c-radius, var(--dpo-r-md));
+		background: var(--spcus-c-surface-2);
+		border: 1px solid var(--spcus-c-border-soft, var(--spcus-c-border));
+		border-radius: var(--spcus-c-radius, var(--spcus-r-md));
 	}
 
 	&__atc {
@@ -352,7 +352,7 @@
 
 /* ── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 980px) {
-	.dpo-skel-builder {
+	.spcus-skel-builder {
 		&__stage {
 			grid-template-columns: 1fr;
 			gap: 20px;
@@ -378,7 +378,7 @@
 }
 
 @media (max-width: 600px) {
-	.dpo-skel-builder {
+	.spcus-skel-builder {
 		&__stage-wrap { padding: 16px; }
 		&__summary    { padding: 18px; }
 		&__topbar-right > *:nth-child(n + 2) { display: none; }
@@ -386,22 +386,22 @@
 }
 
 /* ── Fade-in transition for real content ──────────────────────────────── */
-.dpo-fadein {
-	animation: dpo-fadein 260ms var(--dpo-ease) both;
+.spcus-fadein {
+	animation: spcus-fadein 260ms var(--spcus-ease) both;
 }
 
-@keyframes dpo-fadein {
+@keyframes spcus-fadein {
 	from { opacity: 0; transform: translateY(4px); }
 	to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.dpo-fadein { animation: none; }
+	.spcus-fadein { animation: none; }
 }
 
 /* ── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-	.dpo-skel-table {
+	.spcus-skel-table {
 		&__head,
 		&__row {
 			grid-template-columns: 32px 1fr 96px;
@@ -409,13 +409,13 @@
 		}
 	}
 
-	.dpo-skel-stat-grid {
+	.spcus-skel-stat-grid {
 		grid-template-columns: 1fr 1fr;
 	}
 }
 
 @media (max-width: 480px) {
-	.dpo-skel-stat-grid {
+	.spcus-skel-stat-grid {
 		grid-template-columns: 1fr;
 	}
 }

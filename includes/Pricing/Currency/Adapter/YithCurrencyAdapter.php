@@ -2,12 +2,12 @@
 /**
  * YITH WooCommerce Multi Currency adapter.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Pricing\Currency\Adapter;
+namespace SPCUS\Pricing\Currency\Adapter;
 
-use DPO\Pricing\Currency\CurrencyAdapter;
+use SPCUS\Pricing\Currency\CurrencyAdapter;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -20,52 +20,52 @@ export default function OptionSetStats( { stats } ) {
 		{
 			key: 'total',
 			tone: 'blue',
-			label: __( 'Total', 'dynamic-product-options-for-woocommerce' ),
+			label: __( 'Total', 'simple-product-customizer' ),
 			value: stats.total,
 		},
 		{
 			key: 'active',
 			tone: 'green',
-			label: __( 'Active', 'dynamic-product-options-for-woocommerce' ),
+			label: __( 'Active', 'simple-product-customizer' ),
 			value: stats.active,
 		},
 		{
 			key: 'inactive',
 			tone: 'muted',
-			label: __( 'Inactive', 'dynamic-product-options-for-woocommerce' ),
+			label: __( 'Inactive', 'simple-product-customizer' ),
 			value: stats.inactive,
 		},
 		{
 			key: 'fields',
 			tone: 'icon',
-			label: __( 'Fields', 'dynamic-product-options-for-woocommerce' ),
+			label: __( 'Fields', 'simple-product-customizer' ),
 			value: stats.fields,
 		},
 	];
 
 	return (
 		<dl
-			className="dpo-os-stats"
+			className="spcus-os-stats"
 			aria-label={ __(
 				'Option set summary',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 		>
 			{ items.map( ( s ) => (
 				<div
 					key={ s.key }
-					className={ `dpo-os-stat dpo-os-stat--${ s.tone }` }
+					className={ `spcus-os-stat spcus-os-stat--${ s.tone }` }
 				>
 					{ s.tone === 'icon' ? (
 						<span
-							className="dashicons dashicons-screenoptions dpo-os-stat__icon"
+							className="dashicons dashicons-screenoptions spcus-os-stat__icon"
 							aria-hidden="true"
 						/>
 					) : (
-						<span className="dpo-os-stat__dot" aria-hidden="true" />
+						<span className="spcus-os-stat__dot" aria-hidden="true" />
 					) }
-					<dt className="dpo-os-stat__label">{ s.label }:</dt>
-					<dd className="dpo-os-stat__value">{ s.value }</dd>
+					<dt className="spcus-os-stat__label">{ s.label }:</dt>
+					<dd className="spcus-os-stat__value">{ s.value }</dd>
 				</div>
 			) ) }
 		</dl>

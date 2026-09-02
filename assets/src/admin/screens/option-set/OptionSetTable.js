@@ -14,35 +14,35 @@ import OptionSetRow from './OptionSetRow';
 const COLUMNS = [
 	{
 		key: 'id',
-		label: __( 'ID', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'ID', 'simple-product-customizer' ),
 		sort: 'id',
 	},
 	{
 		key: 'name',
-		label: __( 'Option Name', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Option Name', 'simple-product-customizer' ),
 		sort: 'title',
 	},
 	{
 		key: 'status',
-		label: __( 'Status', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Status', 'simple-product-customizer' ),
 		sort: 'published',
 	},
 	{
 		key: 'category',
-		label: __( 'Category', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Category', 'simple-product-customizer' ),
 	},
 	{
 		key: 'products',
-		label: __( 'Products', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Products', 'simple-product-customizer' ),
 	},
 	{
 		key: 'options',
-		label: __( 'Options', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Options', 'simple-product-customizer' ),
 		sort: 'fields',
 	},
 	{
 		key: 'actions',
-		label: __( 'Actions', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Actions', 'simple-product-customizer' ),
 		end: true,
 	},
 ];
@@ -82,28 +82,28 @@ export default function OptionSetTable( props ) {
 
 	if ( status === 'error' ) {
 		return (
-			<div className="dpo-os-state">
-				<p className="dpo-error">{ error }</p>
+			<div className="spcus-os-state">
+				<p className="spcus-error">{ error }</p>
 			</div>
 		);
 	}
 
 	if ( status === 'ready' && items.length === 0 ) {
 		return (
-			<div className="dpo-os-state">
+			<div className="spcus-os-state">
 				<EmptyState
 					title={ __(
 						'No option sets found',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					text={ __(
 						'Create your first option set to start selling configurable products.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					action={
 						<button
 							type="button"
-							className="dpo-os-btn dpo-os-btn--primary"
+							className="spcus-os-btn spcus-os-btn--primary"
 							onClick={ onCreate }
 						>
 							<span
@@ -112,7 +112,7 @@ export default function OptionSetTable( props ) {
 							/>
 							{ __(
 								'New Option',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</button>
 					}
@@ -148,20 +148,20 @@ export default function OptionSetTable( props ) {
 	};
 
 	return (
-		<div className="dpo-os-tablewrap">
-			<table className="dpo-os-table">
+		<div className="spcus-os-tablewrap">
+			<table className="spcus-os-table">
 				<thead>
 					<tr>
-						<th scope="col" className="dpo-os-th dpo-os-th--check">
+						<th scope="col" className="spcus-os-th spcus-os-th--check">
 							<input
 								ref={ allRef }
 								type="checkbox"
-								className="dpo-os-check"
+								className="spcus-os-check"
 								checked={ allChecked }
 								onChange={ onSelectAll }
 								aria-label={ __(
 									'Select all option sets',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							/>
 						</th>
@@ -169,8 +169,8 @@ export default function OptionSetTable( props ) {
 							<th
 								key={ col.key }
 								scope="col"
-								className={ `dpo-os-th dpo-os-th--${ col.key }${
-									col.end ? ' dpo-os-th--end' : ''
+								className={ `spcus-os-th spcus-os-th--${ col.key }${
+									col.end ? ' spcus-os-th--end' : ''
 								}` }
 								aria-sort={
 									col.sort ? ariaSort( col.sort ) : undefined
@@ -179,7 +179,7 @@ export default function OptionSetTable( props ) {
 								{ col.sort ? (
 									<button
 										type="button"
-										className={ `dpo-os-sort${
+										className={ `spcus-os-sort${
 											sort.key === col.sort
 												? ' is-active'
 												: ''
@@ -190,7 +190,7 @@ export default function OptionSetTable( props ) {
 										<span
 											className={ `dashicons dashicons-${ sortIcon(
 												col.sort
-											) } dpo-os-sort__icon` }
+											) } spcus-os-sort__icon` }
 											aria-hidden="true"
 										/>
 									</button>

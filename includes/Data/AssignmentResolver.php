@@ -2,12 +2,12 @@
 /**
  * Resolves which option sets apply to a product.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Data;
+namespace SPCUS\Data;
 
-use DPO\Support\Str;
+use SPCUS\Support\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,10 +20,10 @@ defined( 'ABSPATH' ) || exit;
  */
 final class AssignmentResolver {
 
-	const OPT_ALL          = 'dpo_assign_all';
-	const META_PROD_INC    = '_dpo_assigned_include';
-	const META_PROD_EXC    = '_dpo_assigned_exclude';
-	const META_TERM        = '_dpo_term_assigned';
+	const OPT_ALL          = 'spcus_assign_all';
+	const META_PROD_INC    = '_spcus_assigned_include';
+	const META_PROD_EXC    = '_spcus_assigned_exclude';
+	const META_TERM        = '_spcus_term_assigned';
 	const TAXONOMIES       = array( 'product_cat', 'product_tag', 'product_brand' );
 
 	/**
@@ -95,7 +95,7 @@ final class AssignmentResolver {
 		 * @param int[] $ids        Resolved ids.
 		 * @param int   $product_id Product id.
 		 */
-		$ids = (array) apply_filters( 'dpo_resolved_set_ids', $ids, $product_id );
+		$ids = (array) apply_filters( 'spcus_resolved_set_ids', $ids, $product_id );
 
 		$this->cache[ $product_id ] = $ids;
 		return $ids;

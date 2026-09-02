@@ -2,12 +2,12 @@
 /**
  * Activation / deactivation lifecycle.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Core;
+namespace SPCUS\Core;
 
-use DPO\Analytics\StatsRepository;
+use SPCUS\Analytics\StatsRepository;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,21 +24,21 @@ final class Installer {
 	 * @return void
 	 */
 	public static function activate() {
-		require_once DPO_PATH . 'includes/Analytics/StatsRepository.php';
+		require_once SPCUS_PATH . 'includes/Analytics/StatsRepository.php';
 		StatsRepository::install_tables();
 
-		if ( ! wp_next_scheduled( 'dpo_cleanup_uploads' ) ) {
-			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'dpo_cleanup_uploads' );
+		if ( ! wp_next_scheduled( 'spcus_cleanup_uploads' ) ) {
+			wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'spcus_cleanup_uploads' );
 		}
 
-		update_option( 'dpo_db_version', self::DB_VERSION );
+		update_option( 'spcus_db_version', self::DB_VERSION );
 
-		if ( ! get_option( 'dpo_seeded' ) ) {
+		if ( ! get_option( 'spcus_seeded' ) ) {
 			self::seed_demo();
-			update_option( 'dpo_seeded', 1 );
+			update_option( 'spcus_seeded', 1 );
 		}
 
-		set_transient( 'dpo_activation_redirect', 1, 30 );
+		set_transient( 'spcus_activation_redirect', 1, 30 );
 	}
 
 	/**
@@ -47,9 +47,9 @@ final class Installer {
 	 * @return void
 	 */
 	public static function deactivate() {
-		$timestamp = wp_next_scheduled( 'dpo_cleanup_uploads' );
+		$timestamp = wp_next_scheduled( 'spcus_cleanup_uploads' );
 		if ( $timestamp ) {
-			wp_unschedule_event( $timestamp, 'dpo_cleanup_uploads' );
+			wp_unschedule_event( $timestamp, 'spcus_cleanup_uploads' );
 		}
 	}
 
@@ -64,18 +64,18 @@ final class Installer {
 				'id'        => 'f_demo_size',
 				'type'      => 'radio',
 				'parent'    => '',
-				'label'     => __( 'Size', 'dynamic-product-options-for-woocommerce' ),
+				'label'     => __( 'Size', 'simple-product-customizer' ),
 				'required'  => true,
 				'width'     => 'full',
 				'choices'   => array(
 					array(
-						'label'     => __( 'Small', 'dynamic-product-options-for-woocommerce' ),
+						'label'     => __( 'Small', 'simple-product-customizer' ),
 						'priceMode' => 'none',
 						'regular'   => '',
 						'selected'  => true,
 					),
 					array(
-						'label'     => __( 'Large', 'dynamic-product-options-for-woocommerce' ),
+						'label'     => __( 'Large', 'simple-product-customizer' ),
 						'priceMode' => 'flat',
 						'regular'   => '5',
 					),
@@ -86,7 +86,7 @@ final class Installer {
 				'id'       => 'f_demo_note',
 				'type'     => 'textarea',
 				'parent'   => '',
-				'label'    => __( 'Gift note', 'dynamic-product-options-for-woocommerce' ),
+				'label'    => __( 'Gift note', 'simple-product-customizer' ),
 				'width'    => 'full',
 				'choices'  => array(),
 				'children' => array(),
@@ -97,14 +97,14 @@ final class Installer {
 			array(
 				'post_type'    => Plugin::POST_TYPE,
 				'post_status'  => 'draft',
-				'post_title'   => __( 'Sample Option Set', 'dynamic-product-options-for-woocommerce' ),
+				'post_title'   => __( 'Sample Option Set', 'simple-product-customizer' ),
 				'post_content' => '',
 			)
 		);
 
 		if ( $post_id && ! is_wp_error( $post_id ) ) {
-			update_post_meta( $post_id, '_dpo_fields', wp_slash( wp_json_encode( $fields ) ) );
-			update_post_meta( $post_id, '_dpo_assignment', wp_json_encode( array( 'scope' => 'none', 'include' => array(), 'exclude' => array() ) ) );
+			update_post_meta( $post_id, '_spcus_fields', wp_slash( wp_json_encode( $fields ) ) );
+			update_post_meta( $post_id, '_spcus_assignment', wp_json_encode( array( 'scope' => 'none', 'include' => array(), 'exclude' => array() ) ) );
 		}
 	}
 }

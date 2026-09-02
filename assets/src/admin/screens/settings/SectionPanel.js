@@ -19,12 +19,12 @@ import InfoBanner from './InfoBanner';
 export default function SectionPanel( { section, children } ) {
 	return (
 		<section
-			className="dpo-set-panel"
-			aria-labelledby={ `dpo-set-h-${ section.id }` }
+			className="spcus-set-panel"
+			aria-labelledby={ `spcus-set-h-${ section.id }` }
 		>
-			<header className="dpo-set-panel__head">
+			<header className="spcus-set-panel__head">
 				<span
-					className={ `dpo-set-tile dpo-set-tile--lg dpo-set-tile--${ section.tone }` }
+					className={ `spcus-set-tile spcus-set-tile--lg spcus-set-tile--${ section.tone }` }
 					aria-hidden="true"
 				>
 					<span
@@ -33,20 +33,20 @@ export default function SectionPanel( { section, children } ) {
 				</span>
 				<div>
 					<h2
-						id={ `dpo-set-h-${ section.id }` }
-						className="dpo-set-panel__title"
+						id={ `spcus-set-h-${ section.id }` }
+						className="spcus-set-panel__title"
 					>
 						{ section.title }
 					</h2>
-					<p className="dpo-set-panel__sub">{ section.nav }</p>
+					<p className="spcus-set-panel__sub">{ section.nav }</p>
 				</div>
 			</header>
 
-			<div className="dpo-set-panel__divider" />
+			<div className="spcus-set-panel__divider" />
 
 			<InfoBanner tone={ section.tone } text={ section.banner } />
 
-			<div className="dpo-set-panel__body">{ children }</div>
+			<div className="spcus-set-panel__body">{ children }</div>
 		</section>
 	);
 }

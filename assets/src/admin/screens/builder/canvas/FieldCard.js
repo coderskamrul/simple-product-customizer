@@ -78,13 +78,13 @@ export default function FieldCard( { node } ) {
 		<div
 			ref={ setNodeRef }
 			style={ style }
-			className={ `dpo-card dpo-card--w-${ node.width || 'full' }${
+			className={ `spcus-card spcus-card--w-${ node.width || 'full' }${
 				selected ? ' is-selected' : ''
 			}${ isDragging ? ' is-dragging' : '' }` }
 		>
 			<motion.div
 				layout
-				className="dpo-card__inner"
+				className="spcus-card__inner"
 				role="button"
 				tabIndex={ 0 }
 				onClick={ select }
@@ -99,32 +99,32 @@ export default function FieldCard( { node } ) {
 				   the card; the buttons within are the real controls. */ }
 				{ /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */ }
 				<div
-					className="dpo-card__toolbar"
+					className="spcus-card__toolbar"
 					onClick={ ( e ) => e.stopPropagation() }
 				>
 					<button
 						type="button"
-						className="dpo-card__tool dpo-card__handle"
+						className="spcus-card__tool spcus-card__handle"
 						aria-label={ __(
 							'Drag to reorder',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						{ ...attributes }
 						{ ...listeners }
 					>
 						<GripVertical size={ 15 } />
 					</button>
-					<span className="dpo-card__chip">
+					<span className="spcus-card__chip">
 						<Icon size={ 13 } aria-hidden="true" />
 						{ def.label }
 					</span>
-					<span className="dpo-card__toolbar-spacer" />
+					<span className="spcus-card__toolbar-spacer" />
 					<button
 						type="button"
-						className="dpo-card__tool"
+						className="spcus-card__tool"
 						aria-label={ __(
 							'Edit settings',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						onClick={ action( select ) }
 					>
@@ -132,10 +132,10 @@ export default function FieldCard( { node } ) {
 					</button>
 					<button
 						type="button"
-						className="dpo-card__tool"
+						className="spcus-card__tool"
 						aria-label={ __(
 							'Duplicate',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						onClick={ action( () =>
 							dispatch( { type: 'DUPLICATE', id: node.id } )
@@ -145,10 +145,10 @@ export default function FieldCard( { node } ) {
 					</button>
 					<button
 						type="button"
-						className="dpo-card__tool dpo-card__tool--danger"
+						className="spcus-card__tool spcus-card__tool--danger"
 						aria-label={ __(
 							'Delete',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						onClick={ action( () =>
 							dispatch( { type: 'REMOVE', id: node.id } )
@@ -158,12 +158,12 @@ export default function FieldCard( { node } ) {
 					</button>
 				</div>
 
-				<div className="dpo-card__body">
+				<div className="spcus-card__body">
 					{ /* Sections render their own chrome + editable children
 					   (no FieldPreview, which would duplicate the children). */ }
 					{ isSection ? (
 						<div
-							className={ `dpo-section-edit${
+							className={ `spcus-section-edit${
 								isAccordion ? ' is-accordion' : ''
 							}${
 								isAccordion && ! open ? ' is-collapsed' : ''
@@ -172,31 +172,31 @@ export default function FieldCard( { node } ) {
 							{ isAccordion ? (
 								// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
 								<div
-									className="dpo-section-edit__header"
+									className="spcus-section-edit__header"
 									onClick={ ( e ) => {
 										e.stopPropagation();
 										setOpen( ( o ) => ! o );
 									} }
 								>
-									<span className="dpo-section-edit__title">
+									<span className="spcus-section-edit__title">
 										{ node.label ||
 											__(
 												'Section',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 											) }
 									</span>
 									<span
-										className="dpo-section-edit__chevron"
+										className="spcus-section-edit__chevron"
 										aria-hidden="true"
 									/>
 								</div>
 							) : (
-								<div className="dpo-section-edit__header dpo-section-edit__header--static">
-									<span className="dpo-section-edit__title">
+								<div className="spcus-section-edit__header spcus-section-edit__header--static">
+									<span className="spcus-section-edit__title">
 										{ node.label ||
 											__(
 												'Section',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 											) }
 									</span>
 								</div>
@@ -205,7 +205,7 @@ export default function FieldCard( { node } ) {
 							{ ( ! isAccordion || open ) && (
 								// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
 								<div
-									className="dpo-card__children"
+									className="spcus-card__children"
 									onClick={ ( e ) => e.stopPropagation() }
 								>
 									<SortableContainer

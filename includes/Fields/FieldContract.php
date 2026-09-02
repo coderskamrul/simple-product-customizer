@@ -2,10 +2,10 @@
 /**
  * Field rendering contract.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields;
+namespace SPCUS\Fields;
 
 defined( 'ABSPATH' ) || exit;
 

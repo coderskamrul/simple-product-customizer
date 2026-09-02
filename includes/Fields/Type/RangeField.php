@@ -2,12 +2,12 @@
 /**
  * Range slider field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,12 +63,12 @@ final class RangeField extends AbstractField {
 			$this->choice_price_attrs( $choice )
 		);
 
-		$html  = '<div class="dpo-range">';
-		$html .= '<input type="range" class="dpo-range__slider" name="' . esc_attr( $this->input_name() ) . '"' . $this->attrs( $attrs ) . ' />';
-		$html .= '<span class="dpo-range__readout">';
-		$html .= '<input type="number" class="dpo-range__mirror" min="' . esc_attr( (string) $min ) . '" max="' . esc_attr( (string) $max ) . '" step="' . esc_attr( $step ) . '" value="' . esc_attr( $value ) . '" />';
+		$html  = '<div class="spcus-range">';
+		$html .= '<input type="range" class="spcus-range__slider" name="' . esc_attr( $this->input_name() ) . '"' . $this->attrs( $attrs ) . ' />';
+		$html .= '<span class="spcus-range__readout">';
+		$html .= '<input type="number" class="spcus-range__mirror" min="' . esc_attr( (string) $min ) . '" max="' . esc_attr( (string) $max ) . '" step="' . esc_attr( $step ) . '" value="' . esc_attr( $value ) . '" />';
 		if ( '' !== $postfix ) {
-			$html .= '<span class="dpo-range__postfix">' . esc_html( $postfix ) . '</span>';
+			$html .= '<span class="spcus-range__postfix">' . esc_html( $postfix ) . '</span>';
 		}
 		$html .= '</span>';
 		$html .= '</div>';

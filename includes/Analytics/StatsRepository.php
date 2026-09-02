@@ -2,18 +2,18 @@
 /**
  * Statistics storage + aggregation.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Analytics;
+namespace SPCUS\Analytics;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Owns the two analytics tables ({prefix}dpo_stats per option set, and
- * {prefix}dpo_stats_daily per calendar day) and the upsert/report logic
+ * Owns the two analytics tables ({prefix}spcus_stats per option set, and
+ * {prefix}spcus_stats_daily per calendar day) and the upsert/report logic
  * on top of them. Every metric write funnels through self::record(),
- * which is wired to the `dpo_stats_record` action by the Plugin bootstrap.
+ * which is wired to the `spcus_stats_record` action by the Plugin bootstrap.
  *
  * All SQL is built with $wpdb->prepare(); metric/column names are never
  * interpolated raw — they are validated against METRICS first.
@@ -32,14 +32,14 @@ final class StatsRepository {
 	 *
 	 * @var string
 	 */
-	const TABLE = 'dpo_stats';
+	const TABLE = 'spcus_stats';
 
 	/**
 	 * Per-day aggregate table (without prefix).
 	 *
 	 * @var string
 	 */
-	const TABLE_DAILY = 'dpo_stats_daily';
+	const TABLE_DAILY = 'spcus_stats_daily';
 
 	/**
 	 * Fully-qualified set-aggregate table name.

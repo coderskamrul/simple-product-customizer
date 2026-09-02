@@ -2,13 +2,13 @@
 /**
  * Product / taxonomy search controller (assignment pickers).
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Rest\Route;
+namespace SPCUS\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Rest\RestServer;
+use SPCUS\Core\Container;
+use SPCUS\Rest\RestServer;
 use WC_Data_Store;
 use WP_REST_Request;
 
@@ -86,7 +86,7 @@ final class SearchController {
 	 */
 	private function search_products( WP_REST_Request $r, RestServer $s ) {
 		if ( ! class_exists( WC_Data_Store::class ) || ! function_exists( 'wc_get_product' ) ) {
-			return $s->fail( 'no_wc', __( 'WooCommerce is not available.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'no_wc', __( 'WooCommerce is not available.', 'simple-product-customizer' ), 500 );
 		}
 
 		$term     = sanitize_text_field( (string) $r->get_param( 'term' ) );
@@ -158,7 +158,7 @@ final class SearchController {
 			'brand'    => 'product_brand',
 		);
 		if ( ! isset( $map[ $kind ] ) ) {
-			return $s->fail( 'bad_taxonomy', __( 'Unsupported taxonomy.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_taxonomy', __( 'Unsupported taxonomy.', 'simple-product-customizer' ), 400 );
 		}
 		$taxonomy = $map[ $kind ];
 		if ( ! taxonomy_exists( $taxonomy ) ) {

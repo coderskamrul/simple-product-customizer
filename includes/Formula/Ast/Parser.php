@@ -15,17 +15,17 @@
  * and folds left-associatively, which yields the table above without an
  * explicit precedence-climbing loop.
  *
- * @package DPO\Formula\Ast
+ * @package SPCUS\Formula\Ast
  */
 
-namespace DPO\Formula\Ast;
+namespace SPCUS\Formula\Ast;
 
-use DPO\Formula\Ast\Node\BinaryNode;
-use DPO\Formula\Ast\Node\FunctionNode;
-use DPO\Formula\Ast\Node\NodeInterface;
-use DPO\Formula\Ast\Node\NumberNode;
-use DPO\Formula\Ast\Node\UnaryNode;
-use DPO\Formula\Ast\Node\VariableNode;
+use SPCUS\Formula\Ast\Node\BinaryNode;
+use SPCUS\Formula\Ast\Node\FunctionNode;
+use SPCUS\Formula\Ast\Node\NodeInterface;
+use SPCUS\Formula\Ast\Node\NumberNode;
+use SPCUS\Formula\Ast\Node\UnaryNode;
+use SPCUS\Formula\Ast\Node\VariableNode;
 
 defined( 'ABSPATH' ) || exit;
 

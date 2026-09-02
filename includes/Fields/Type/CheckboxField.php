@@ -2,12 +2,12 @@
 /**
  * Checkbox group field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -39,7 +39,7 @@ final class CheckboxField extends AbstractField {
 
 		$columns = (int) $this->cfg( 'columns', 1 );
 
-		$html = '<div class="dpo-choices dpo-choices--checkbox"'
+		$html = '<div class="spcus-choices spcus-choices--checkbox"'
 			. $this->attrs(
 				array(
 					'data-columns'    => $columns > 0 ? $columns : 1,
@@ -52,7 +52,7 @@ final class CheckboxField extends AbstractField {
 			$label    = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 			$selected = ! empty( $choice['selected'] );
 
-			$html .= '<label class="dpo-choice">';
+			$html .= '<label class="spcus-choice">';
 			$html .= '<input type="checkbox" name="' . esc_attr( $this->choice_name() ) . '[]" value="' . esc_attr( $index ) . '"'
 				. $this->attrs(
 					array_merge(
@@ -66,7 +66,7 @@ final class CheckboxField extends AbstractField {
 						)
 					)
 				) . ' />';
-			$html .= '<span class="dpo-choice__label">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="spcus-choice__label">' . esc_html( $label ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= $this->qty_input( $index );
 			$html .= '</label>';

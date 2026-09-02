@@ -14,15 +14,15 @@ import { Field, SelectControl, TextControl } from '../../../../components';
 const SWATCH_SHAPES = [
 	{
 		value: 'circle',
-		label: __( 'Circle', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Circle', 'simple-product-customizer' ),
 	},
 	{
 		value: 'square',
-		label: __( 'Square', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Square', 'simple-product-customizer' ),
 	},
 	{
 		value: 'rounded',
-		label: __( 'Rounded', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Rounded', 'simple-product-customizer' ),
 	},
 ];
 
@@ -39,7 +39,7 @@ const SWATCH_SHAPES = [
 function PxField( { label, value, onChange, placeholder } ) {
 	return (
 		<Field label={ label }>
-			<span className="dpo-input-suffix">
+			<span className="spcus-input-suffix">
 				<TextControl
 					type="number"
 					value={ value ?? '' }
@@ -47,7 +47,7 @@ function PxField( { label, value, onChange, placeholder } ) {
 					onChange={ onChange }
 				/>
 				<em>
-					{ __( 'PX', 'dynamic-product-options-for-woocommerce' ) }
+					{ __( 'PX', 'simple-product-customizer' ) }
 				</em>
 			</span>
 		</Field>
@@ -72,25 +72,25 @@ function SwatchStyles( { node, patch } ) {
 	const isImage = [ 'imageswatch', 'linkedproducts' ].includes( node.type );
 
 	return (
-		<div className="dpo-swatch-styles">
-			<p className="dpo-field-group__title">
+		<div className="spcus-swatch-styles">
+			<p className="spcus-field-group__title">
 				{ isImage
 					? __(
 							'Image styles',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 					  )
 					: __(
 							'Color styles',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 					  ) }
 			</p>
 
 			<div
-				className="dpo-style-picker"
+				className="spcus-style-picker"
 				role="radiogroup"
 				aria-label={ __(
 					'Swatch style',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				{ SWATCH_SHAPES.map( ( s ) => (
@@ -99,26 +99,26 @@ function SwatchStyles( { node, patch } ) {
 						type="button"
 						role="radio"
 						aria-checked={ shape === s.value }
-						className={ `dpo-style-picker__item${
+						className={ `spcus-style-picker__item${
 							shape === s.value ? ' is-active' : ''
 						}` }
 						onClick={ () => setCfg( 'shape', s.value ) }
 					>
 						<span
-							className={ `dpo-style-picker__shape is-${ s.value }` }
+							className={ `spcus-style-picker__shape is-${ s.value }` }
 						/>
-						<span className="dpo-style-picker__name">
+						<span className="spcus-style-picker__name">
 							{ s.label }
 						</span>
 					</button>
 				) ) }
 			</div>
 
-			<div className="dpo-settings__grid3">
+			<div className="spcus-settings__grid3">
 				<PxField
 					label={ __(
 						'Width',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					value={ cfg.swatchWidth }
 					placeholder={ isImage ? '72' : '44' }
@@ -127,7 +127,7 @@ function SwatchStyles( { node, patch } ) {
 				<PxField
 					label={ __(
 						'Height',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					value={ cfg.swatchHeight }
 					placeholder={ isImage ? '72' : '44' }
@@ -136,7 +136,7 @@ function SwatchStyles( { node, patch } ) {
 				<PxField
 					label={ __(
 						'Border radius',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					value={ cfg.swatchRadius }
 					onChange={ ( v ) => setCfg( 'swatchRadius', v ) }
@@ -164,12 +164,12 @@ export default function StylesTab( { node, patch } ) {
 	].includes( node.type );
 
 	return (
-		<div className="dpo-settings__pane">
-			<div className="dpo-settings__grid2">
+		<div className="spcus-settings__pane">
+			<div className="spcus-settings__grid2">
 				<Field
 					label={ __(
 						'Field width',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<SelectControl
@@ -181,7 +181,7 @@ export default function StylesTab( { node, patch } ) {
 				<Field
 					label={ __(
 						'Description placement',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<SelectControl
@@ -194,21 +194,21 @@ export default function StylesTab( { node, patch } ) {
 								value: 'below_label',
 								label: __(
 									'Below label',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								),
 							},
 							{
 								value: 'below_field',
 								label: __(
 									'Below field',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								),
 							},
 							{
 								value: 'tooltip',
 								label: __(
 									'Tooltip',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								),
 							},
 						] }
@@ -220,11 +220,11 @@ export default function StylesTab( { node, patch } ) {
 				<Field
 					label={ __(
 						'Price placement',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					help={ __(
 						'Where the per-choice price appears on the storefront.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<SelectControl
@@ -235,14 +235,14 @@ export default function StylesTab( { node, patch } ) {
 								value: 'with_label',
 								label: __(
 									'Next to the field label',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								),
 							},
 							{
 								value: 'with_choice',
 								label: __(
 									'Next to each choice',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								),
 							},
 						] }
@@ -255,7 +255,7 @@ export default function StylesTab( { node, patch } ) {
 			<Field
 				label={ __(
 					'CSS class',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<TextControl

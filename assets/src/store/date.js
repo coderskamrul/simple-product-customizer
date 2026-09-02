@@ -1,7 +1,7 @@
 /**
  * Storefront date-field enhancement.
  *
- * Turns the readonly `.dpo-date-input` rendered by DateField.php into a
+ * Turns the readonly `.spcus-date-input` rendered by DateField.php into a
  * flatpickr calendar, honouring every restriction the builder can set:
  * display format, earliest/latest bounds (none | today | a custom date),
  * blocked today, blocked specific dates, blocked weekdays and blocked
@@ -76,11 +76,11 @@ function resolveBound( mode, value, format ) {
  * @return {void}
  */
 export function wireDate( fieldEl, onChange ) {
-	const input = fieldEl.querySelector( '.dpo-date-input' );
-	if ( ! input || input.__dpoDate ) {
+	const input = fieldEl.querySelector( '.spcus-date-input' );
+	if ( ! input || input.__spcusDate ) {
 		return;
 	}
-	input.__dpoDate = true;
+	input.__spcusDate = true;
 
 	const format = input.getAttribute( 'data-format' ) || 'd/m/Y';
 

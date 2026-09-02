@@ -2,10 +2,10 @@
 /**
  * Tiny service container.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Core;
+namespace SPCUS\Core;
 
 defined( 'ABSPATH' ) || exit;
 

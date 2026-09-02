@@ -98,25 +98,25 @@ export default function AsyncSelect( {
 	const remove = ( id ) => onChange( value.filter( ( v ) => v.id !== id ) );
 
 	return (
-		<div className="dpo-async-select" ref={ boxRef }>
-			<div className="dpo-async-select__chips">
+		<div className="spcus-async-select" ref={ boxRef }>
+			<div className="spcus-async-select__chips">
 				{ value.map( ( v ) => (
-					<span key={ v.id } className="dpo-chip">
+					<span key={ v.id } className="spcus-chip">
 						{ v.img && (
 							<img
-								className="dpo-chip__img"
+								className="spcus-chip__img"
 								src={ v.img }
 								alt=""
 							/>
 						) }
-						<span className="dpo-chip__label">{ v.label }</span>
+						<span className="spcus-chip__label">{ v.label }</span>
 						<button
 							type="button"
-							className="dpo-chip__x"
+							className="spcus-chip__x"
 							onClick={ () => remove( v.id ) }
 							aria-label={ __(
 								'Remove',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						>
 							×
@@ -126,18 +126,18 @@ export default function AsyncSelect( {
 			</div>
 			<input
 				type="text"
-				className="dpo-input"
+				className="spcus-input"
 				value={ term }
 				placeholder={
 					capped
 						? __(
 								'Selection limit reached',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  )
 						: placeholder ||
 						  __(
 								'Type to search…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  )
 				}
 				disabled={ capped }
@@ -148,25 +148,25 @@ export default function AsyncSelect( {
 				onFocus={ () => results.length && setOpen( true ) }
 			/>
 			{ open && (
-				<ul className="dpo-async-select__menu" role="listbox">
+				<ul className="spcus-async-select__menu" role="listbox">
 					{ busy && (
-						<li className="dpo-async-select__msg">
+						<li className="spcus-async-select__msg">
 							{ __(
 								'Searching…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</li>
 					) }
 					{ ! busy && err && (
-						<li className="dpo-async-select__msg dpo-async-select__msg--err">
+						<li className="spcus-async-select__msg spcus-async-select__msg--err">
 							{ err }
 						</li>
 					) }
 					{ ! busy && ! err && results.length === 0 && (
-						<li className="dpo-async-select__msg">
+						<li className="spcus-async-select__msg">
 							{ __(
 								'No results.',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</li>
 					) }
@@ -175,7 +175,7 @@ export default function AsyncSelect( {
 							<li key={ r.id }>
 								<button
 									type="button"
-									className="dpo-async-select__opt"
+									className="spcus-async-select__opt"
 									disabled={ selectedIds.has( r.id ) }
 									onClick={ () => add( r ) }
 								>

@@ -35,7 +35,7 @@ function TBtn( { onClick, title, danger = false, children } ) {
 	return (
 		<button
 			type="button"
-			className={ `dpo-rte__tbtn${ danger ? ' is-danger' : '' }` }
+			className={ `spcus-rte__tbtn${ danger ? ' is-danger' : '' }` }
 			onClick={ onClick }
 			title={ title }
 			aria-label={ title }
@@ -59,15 +59,15 @@ export default function TableControls( { editor } ) {
 	const chain = () => editor.chain().focus();
 
 	return (
-		<div className="dpo-rte__tablebar" role="toolbar">
-			<span className="dpo-rte__tablebar-label">
-				{ __( 'Table', 'dynamic-product-options-for-woocommerce' ) }
+		<div className="spcus-rte__tablebar" role="toolbar">
+			<span className="spcus-rte__tablebar-label">
+				{ __( 'Table', 'simple-product-customizer' ) }
 			</span>
 
 			<TBtn
 				title={ __(
 					'Add column before',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().addColumnBefore().run() }
 			>
@@ -76,7 +76,7 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Add column after',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().addColumnAfter().run() }
 			>
@@ -85,19 +85,19 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Delete column',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().deleteColumn().run() }
 			>
 				<Columns3 size={ 15 } />
 			</TBtn>
 
-			<span className="dpo-rte__sep" aria-hidden="true" />
+			<span className="spcus-rte__sep" aria-hidden="true" />
 
 			<TBtn
 				title={ __(
 					'Add row above',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().addRowBefore().run() }
 			>
@@ -106,7 +106,7 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Add row below',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().addRowAfter().run() }
 			>
@@ -115,19 +115,19 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Delete row',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().deleteRow().run() }
 			>
 				<Rows3 size={ 15 } />
 			</TBtn>
 
-			<span className="dpo-rte__sep" aria-hidden="true" />
+			<span className="spcus-rte__sep" aria-hidden="true" />
 
 			<TBtn
 				title={ __(
 					'Toggle header row',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().toggleHeaderRow().run() }
 			>
@@ -136,7 +136,7 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Merge cells',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().mergeCells().run() }
 			>
@@ -145,20 +145,20 @@ export default function TableControls( { editor } ) {
 			<TBtn
 				title={ __(
 					'Split cell',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().splitCell().run() }
 			>
 				<TableCellsSplit size={ 15 } />
 			</TBtn>
 
-			<span className="dpo-rte__sep" aria-hidden="true" />
+			<span className="spcus-rte__sep" aria-hidden="true" />
 
 			<TBtn
 				danger
 				title={ __(
 					'Delete table',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				onClick={ () => chain().deleteTable().run() }
 			>

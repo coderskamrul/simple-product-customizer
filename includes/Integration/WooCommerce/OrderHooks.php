@@ -2,17 +2,17 @@
 /**
  * Admin order-item meta display polish.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Integration\WooCommerce;
+namespace SPCUS\Integration\WooCommerce;
 
-use DPO\Core\Container;
+use SPCUS\Core\Container;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Cleans up how the internal `_dpo_*` line-item meta is presented on the admin
+ * Cleans up how the internal `_spcus_*` line-item meta is presented on the admin
  * order screen: hides the machine-readable blobs and leaves the human option
  * lines visible.
  */
@@ -23,7 +23,7 @@ final class OrderHooks {
 	 *
 	 * @var string[]
 	 */
-	private const HIDDEN_KEYS = array( '_dpo_set_ids', '_dpo_field_data', '_dpo_breakdown' );
+	private const HIDDEN_KEYS = array( '_spcus_set_ids', '_spcus_field_data', '_spcus_breakdown' );
 
 	/**
 	 * Service container.
@@ -74,7 +74,7 @@ final class OrderHooks {
 	public function display_meta_key( $display_key, $meta, $item ) {
 		unset( $item );
 		$key = is_object( $meta ) && isset( $meta->key ) ? (string) $meta->key : (string) $display_key;
-		if ( in_array( $key, self::HIDDEN_KEYS, true ) || 0 === strpos( $key, '_dpo_' ) ) {
+		if ( in_array( $key, self::HIDDEN_KEYS, true ) || 0 === strpos( $key, '_spcus_' ) ) {
 			return '';
 		}
 		return $display_key;
@@ -91,7 +91,7 @@ final class OrderHooks {
 	public function display_meta_value( $display_value, $meta, $item ) {
 		unset( $item );
 		$key = is_object( $meta ) && isset( $meta->key ) ? (string) $meta->key : '';
-		if ( in_array( $key, self::HIDDEN_KEYS, true ) || 0 === strpos( $key, '_dpo_' ) ) {
+		if ( in_array( $key, self::HIDDEN_KEYS, true ) || 0 === strpos( $key, '_spcus_' ) ) {
 			return '';
 		}
 		return $display_value;

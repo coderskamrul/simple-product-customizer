@@ -19,9 +19,9 @@ function openFrame( onPick ) {
 		return;
 	}
 	const frame = media( {
-		title: __( 'Select image', 'dynamic-product-options-for-woocommerce' ),
+		title: __( 'Select image', 'simple-product-customizer' ),
 		button: {
-			text: __( 'Use image', 'dynamic-product-options-for-woocommerce' ),
+			text: __( 'Use image', 'simple-product-customizer' ),
 		},
 		multiple: false,
 		library: { type: 'image' },
@@ -44,17 +44,17 @@ function openFrame( onPick ) {
 export default function MediaPicker( { value, onChange } ) {
 	const available = !! ( window.wp && window.wp.media );
 	return (
-		<div className="dpo-media-picker">
+		<div className="spcus-media-picker">
 			{ value ? (
-				<div className="dpo-media-picker__preview">
+				<div className="spcus-media-picker__preview">
 					<img src={ value } alt="" />
 					<button
 						type="button"
-						className="dpo-icon-btn dpo-media-picker__remove"
+						className="spcus-icon-btn spcus-media-picker__remove"
 						onClick={ () => onChange( null ) }
 						aria-label={ __(
 							'Remove image',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<span
@@ -66,18 +66,18 @@ export default function MediaPicker( { value, onChange } ) {
 			) : (
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost"
+					className="spcus-btn spcus-btn--ghost"
 					disabled={ ! available }
 					onClick={ () => openFrame( onChange ) }
 				>
 					{ available
 						? __(
 								'Select image',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  )
 						: __(
 								'Media library unavailable',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  ) }
 				</button>
 			) }

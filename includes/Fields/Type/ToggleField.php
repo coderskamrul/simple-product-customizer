@@ -2,12 +2,12 @@
 /**
  * On/off toggle switch field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,8 +42,8 @@ final class ToggleField extends AbstractField {
 		$label   = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 		$image   = isset( $choice['image'] ) ? (string) $choice['image'] : '';
 
-		$switch  = '<label class="dpo-toggle">';
-		$switch .= '<input type="checkbox" class="dpo-toggle__input" name="' . esc_attr( $this->choice_name() ) . '" value="0"'
+		$switch  = '<label class="spcus-toggle">';
+		$switch .= '<input type="checkbox" class="spcus-toggle__input" name="' . esc_attr( $this->choice_name() ) . '" value="0"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -56,19 +56,19 @@ final class ToggleField extends AbstractField {
 					)
 				)
 			) . ' />';
-		$switch .= '<span class="dpo-toggle__track"><span class="dpo-toggle__thumb"></span></span>';
+		$switch .= '<span class="spcus-toggle__track"><span class="spcus-toggle__thumb"></span></span>';
 		if ( '' !== $image ) {
-			$switch .= '<span class="dpo-toggle__image"><img src="' . esc_url( $image ) . '" alt="" /></span>';
+			$switch .= '<span class="spcus-toggle__image"><img src="' . esc_url( $image ) . '" alt="" /></span>';
 		}
 		if ( '' !== $label ) {
-			$switch .= '<span class="dpo-toggle__label">' . esc_html( $label ) . '</span>';
+			$switch .= '<span class="spcus-toggle__label">' . esc_html( $label ) . '</span>';
 		}
 		if ( '' !== (string) $this->cfg( 'onText', '' ) || '' !== (string) $this->cfg( 'offText', '' ) ) {
-			$switch .= '<span class="dpo-toggle__text" data-on="' . esc_attr( (string) $this->cfg( 'onText', '' ) ) . '" data-off="' . esc_attr( (string) $this->cfg( 'offText', '' ) ) . '"></span>';
+			$switch .= '<span class="spcus-toggle__text" data-on="' . esc_attr( (string) $this->cfg( 'onText', '' ) ) . '" data-off="' . esc_attr( (string) $this->cfg( 'offText', '' ) ) . '"></span>';
 		}
 		$switch .= $this->price_badge( $choice );
 		$switch .= '</label>';
 
-		return '<div class="dpo-toggle-row">' . $switch . $this->qty_input( 0 ) . '</div>';
+		return '<div class="spcus-toggle-row">' . $switch . $this->qty_input( 0 ) . '</div>';
 	}
 }

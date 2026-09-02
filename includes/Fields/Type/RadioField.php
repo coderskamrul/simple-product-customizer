@@ -2,12 +2,12 @@
 /**
  * Radio group field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,7 +42,7 @@ final class RadioField extends AbstractField {
 		$input_t  = $multiple ? 'checkbox' : 'radio';
 		$name     = $multiple ? $this->choice_name() . '[]' : $this->choice_name();
 
-		$html = '<div class="dpo-choices dpo-choices--radio"'
+		$html = '<div class="spcus-choices spcus-choices--radio"'
 			. $this->attrs(
 				array(
 					'data-columns'    => $columns > 0 ? $columns : 1,
@@ -54,7 +54,7 @@ final class RadioField extends AbstractField {
 		foreach ( $choices as $index => $choice ) {
 			$label = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 
-			$html .= '<label class="dpo-choice">';
+			$html .= '<label class="spcus-choice">';
 			$html .= '<input type="' . esc_attr( $input_t ) . '" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
 				. $this->attrs(
 					array_merge(
@@ -68,7 +68,7 @@ final class RadioField extends AbstractField {
 						)
 					)
 				) . ' />';
-			$html .= '<span class="dpo-choice__label">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="spcus-choice__label">' . esc_html( $label ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= $this->qty_input( $index );
 			$html .= '</label>';

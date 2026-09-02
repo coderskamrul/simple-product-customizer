@@ -32,7 +32,7 @@ export default function TextControl( {
 		return (
 			<textarea
 				id={ id }
-				className="dpo-input dpo-input--textarea"
+				className="spcus-input spcus-input--textarea"
 				value={ value ?? '' }
 				rows={ rows }
 				placeholder={ placeholder }
@@ -45,7 +45,7 @@ export default function TextControl( {
 		<input
 			id={ id }
 			type={ type }
-			className="dpo-input"
+			className="spcus-input"
 			value={ value ?? '' }
 			placeholder={ placeholder }
 			onChange={ ( e ) => onChange( e.target.value ) }

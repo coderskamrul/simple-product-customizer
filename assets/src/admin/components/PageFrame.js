@@ -37,26 +37,26 @@ export default function PageFrame( {
 	children,
 } ) {
 	return (
-		<div className="dpo-page">
-			{ /* <header className="dpo-page__head">
-				<div className="dpo-page__titles">
+		<div className="spcus-page">
+			{ /* <header className="spcus-page__head">
+				<div className="spcus-page__titles">
 					{ title && (
-						<h1 className="dpo-page__title">{ title }</h1>
+						<h1 className="spcus-page__title">{ title }</h1>
 					) }
 					{ subtitle && (
-						<p className="dpo-page__sub">{ subtitle }</p>
+						<p className="spcus-page__sub">{ subtitle }</p>
 					) }
 				</div>
 				{ actions && (
-					<div className="dpo-page__actions">{ actions }</div>
+					<div className="spcus-page__actions">{ actions }</div>
 				) }
 			</header> */ }
 
-			{ toolbar && <div className="dpo-page__toolbar">{ toolbar }</div> }
+			{ toolbar && <div className="spcus-page__toolbar">{ toolbar }</div> }
 
 			<div
-				className={ `dpo-page__body${
-					bleed ? ' dpo-page__body--bleed' : ''
+				className={ `spcus-page__body${
+					bleed ? ' spcus-page__body--bleed' : ''
 				}` }
 			>
 				{ children }

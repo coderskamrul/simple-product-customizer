@@ -102,21 +102,21 @@ function ValueControl( { source, operator, value, onChange } ) {
 						value: '',
 						label: __(
 							'Select state',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 					},
 					{
 						value: '__checked__',
 						label: __(
 							'Checked / On',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 					},
 					{
 						value: '__unchecked__',
 						label: __(
 							'Unchecked / Off',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 					},
 				] }
@@ -135,7 +135,7 @@ function ValueControl( { source, operator, value, onChange } ) {
 				value: '',
 				label: __(
 					'Select option',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 			},
 			...source.choices.map( ( c, i ) => {
@@ -143,7 +143,7 @@ function ValueControl( { source, operator, value, onChange } ) {
 					( c.label || '' ).trim() ||
 					`${ __(
 						'Option',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) } ${ i + 1 }`;
 				return { value: c.label || label, label };
 			} ),
@@ -165,9 +165,9 @@ function ValueControl( { source, operator, value, onChange } ) {
 				operator === 'between'
 					? __(
 							'e.g. 10,20',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 					  )
-					: __( 'Value', 'dynamic-product-options-for-woocommerce' )
+					: __( 'Value', 'simple-product-customizer' )
 			}
 			onChange={ onChange }
 		/>
@@ -225,14 +225,14 @@ export default function LogicTab( { node, patch } ) {
 		setLogic( { rules: rules.filter( ( _, i ) => i !== idx ) } );
 
 	return (
-		<div className="dpo-settings__pane dpo-logic">
-			<div className="dpo-logic__enable">
+		<div className="spcus-settings__pane spcus-logic">
+			<div className="spcus-logic__enable">
 				<ToggleField
 					checked={ node.logicEnabled }
 					onChange={ ( v ) => patch( { logicEnabled: v } ) }
 					label={ __(
 						'Enable conditional logic for this element',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				/>
 			</div>
@@ -240,7 +240,7 @@ export default function LogicTab( { node, patch } ) {
 			{ node.logicEnabled && (
 				<>
 					{ /* Sentence: [Show|Hide] this field if [Any|All] match */ }
-					<div className="dpo-logic__sentence">
+					<div className="spcus-logic__sentence">
 						<SelectControl
 							value={ action }
 							onChange={ ( v ) => setLogic( { action: v } ) }
@@ -249,22 +249,22 @@ export default function LogicTab( { node, patch } ) {
 									value: 'show',
 									label: __(
 										'Show',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									),
 								},
 								{
 									value: 'hide',
 									label: __(
 										'Hide',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									),
 								},
 							] }
 						/>
-						<span className="dpo-logic__text">
+						<span className="spcus-logic__text">
 							{ __(
 								'this field if',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</span>
 						<SelectControl
@@ -275,68 +275,68 @@ export default function LogicTab( { node, patch } ) {
 									value: 'any',
 									label: __(
 										'Any',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									),
 								},
 								{
 									value: 'all',
 									label: __(
 										'All',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									),
 								},
 							] }
 						/>
-						<span className="dpo-logic__text">
+						<span className="spcus-logic__text">
 							{ __(
 								'of these rules match:',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</span>
 					</div>
 
 					{ sourceOptions.length === 0 ? (
-						<p className="dpo-hint">
+						<p className="spcus-hint">
 							{ __(
 								'Add another field first to reference it in a rule.',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</p>
 					) : (
-						<div className="dpo-logic__table">
-							<div className="dpo-logic__head">
+						<div className="spcus-logic__table">
+							<div className="spcus-logic__head">
 								<span>
 									{ __(
 										'Field',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									) }
 								</span>
 								<span>
 									{ __(
 										'Comparison',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									) }
 								</span>
 								<span>
 									{ __(
 										'Value',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									) }
 								</span>
-								<span className="dpo-logic__head-act" />
+								<span className="spcus-logic__head-act" />
 							</div>
 
 							{ rules.length === 0 && (
-								<p className="dpo-logic__empty">
+								<p className="spcus-logic__empty">
 									{ __(
 										'No rules yet — add your first condition below.',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									) }
 								</p>
 							) }
 
 							{ rules.map( ( rule, idx ) => (
-								<div className="dpo-logic__row" key={ idx }>
+								<div className="spcus-logic__row" key={ idx }>
 									<SelectControl
 										value={ rule.source }
 										onChange={ ( v ) =>
@@ -354,7 +354,7 @@ export default function LogicTab( { node, patch } ) {
 										}
 										options={ OPERATORS }
 									/>
-									<div className="dpo-logic__value">
+									<div className="spcus-logic__value">
 										<ValueControl
 											source={ byId[ rule.source ] }
 											operator={ rule.operator }
@@ -366,11 +366,11 @@ export default function LogicTab( { node, patch } ) {
 									</div>
 									<button
 										type="button"
-										className="dpo-logic__del"
+										className="spcus-logic__del"
 										onClick={ () => removeRule( idx ) }
 										aria-label={ __(
 											'Remove rule',
-											'dynamic-product-options-for-woocommerce'
+											'simple-product-customizer'
 										) }
 									>
 										<span
@@ -383,7 +383,7 @@ export default function LogicTab( { node, patch } ) {
 
 							<button
 								type="button"
-								className="dpo-logic__add"
+								className="spcus-logic__add"
 								onClick={ addRule }
 							>
 								<span
@@ -392,7 +392,7 @@ export default function LogicTab( { node, patch } ) {
 								/>
 								{ __(
 									'Add condition',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							</button>
 						</div>

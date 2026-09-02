@@ -93,7 +93,7 @@ export default function useSettings() {
 			notify(
 				__(
 					'Settings saved.',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 				'success'
 			);

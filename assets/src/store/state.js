@@ -2,10 +2,10 @@
  * Per-form reactive pricing state.
  *
  * Each product `form.cart` gets its own State instance. The most recently
- * touched instance is mirrored onto `window.dpoPricingState` so theme code
+ * touched instance is mirrored onto `window.spcusPricingState` so theme code
  * and integrations can introspect it (read ARCHITECTURE §1 public surface).
  *
- * Shape (window.dpoPricingState):
+ * Shape (window.spcusPricingState):
  * {
  *   basePrice:        number,                 // product/variation base (base ccy)
  *   basePricePct:     number,                 // base used for percent math
@@ -65,7 +65,7 @@ export default class State {
 	 */
 	_publish() {
 		try {
-			window.dpoPricingState = this.data;
+			window.spcusPricingState = this.data;
 		} catch ( e ) {
 			/* read-only window — ignore. */
 		}

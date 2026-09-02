@@ -2,13 +2,13 @@
 /**
  * Companion-plugin installer controller.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Rest\Route;
+namespace SPCUS\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Rest\RestServer;
+use SPCUS\Core\Container;
+use SPCUS\Rest\RestServer;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Installs + activates a plugin from the WordPress.org repository on request
  * (used by the admin "recommended plugins" panel). Hard-gated to
- * `manage_options` plus the `dpo_rest` nonce.
+ * `manage_options` plus the `spcus_rest` nonce.
  */
 final class PluginController {
 
@@ -66,15 +66,15 @@ final class PluginController {
 	 */
 	private function install( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return $s->fail( 'forbidden', __( 'You are not allowed to install plugins.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'forbidden', __( 'You are not allowed to install plugins.', 'simple-product-customizer' ), 403 );
 		}
 
 		$slug = sanitize_key( (string) $r->get_param( 'slug' ) );
 		if ( '' === $slug ) {
-			return $s->fail( 'bad_slug', __( 'Missing plugin slug.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_slug', __( 'Missing plugin slug.', 'simple-product-customizer' ), 400 );
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -94,14 +94,14 @@ final class PluginController {
 			}
 			return $s->ok(
 				array(
-					'message' => __( 'Plugin activated.', 'dynamic-product-options-for-woocommerce' ),
+					'message' => __( 'Plugin activated.', 'simple-product-customizer' ),
 					'slug'    => $slug,
 				)
 			);
 		}
 
 		if ( ! class_exists( 'Plugin_Upgrader' ) || ! class_exists( 'WP_Ajax_Upgrader_Skin' ) ) {
-			return $s->fail( 'no_upgrader', __( 'Plugin installer unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'no_upgrader', __( 'Plugin installer unavailable.', 'simple-product-customizer' ), 500 );
 		}
 
 		$api = plugins_api(
@@ -115,7 +115,7 @@ final class PluginController {
 		);
 
 		if ( is_wp_error( $api ) || empty( $api->download_link ) ) {
-			return $s->fail( 'api_failed', __( 'Could not fetch plugin information.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'api_failed', __( 'Could not fetch plugin information.', 'simple-product-customizer' ), 500 );
 		}
 
 		$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
@@ -125,7 +125,7 @@ final class PluginController {
 			return $s->fail( 'install_failed', $result->get_error_message(), 500 );
 		}
 		if ( true !== $result ) {
-			return $s->fail( 'install_failed', __( 'Plugin installation failed.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'install_failed', __( 'Plugin installation failed.', 'simple-product-customizer' ), 500 );
 		}
 
 		$installed = $this->find_installed_plugin( $slug );
@@ -138,7 +138,7 @@ final class PluginController {
 
 		return $s->ok(
 			array(
-				'message' => __( 'Plugin installed and activated.', 'dynamic-product-options-for-woocommerce' ),
+				'message' => __( 'Plugin installed and activated.', 'simple-product-customizer' ),
 				'slug'    => $slug,
 			)
 		);

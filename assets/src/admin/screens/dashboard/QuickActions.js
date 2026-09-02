@@ -23,88 +23,88 @@ export default function QuickActions() {
 			to: '/style',
 			title: __(
 				'Global Styles',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 			desc: __(
 				'Customise appearance',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 		},
 		{
 			icon: 'admin-generic',
 			to: '/settings',
-			title: __( 'Settings', 'dynamic-product-options-for-woocommerce' ),
+			title: __( 'Settings', 'simple-product-customizer' ),
 			desc: __(
 				'Configure the plugin',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 		},
 		{
 			icon: 'chart-bar',
 			to: '/analytics',
-			title: __( 'Analytics', 'dynamic-product-options-for-woocommerce' ),
+			title: __( 'Analytics', 'simple-product-customizer' ),
 			desc: __(
 				'View performance reports',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			),
 		},
 		{
 			icon: 'admin-network',
 			to: '/license',
-			title: __( 'License', 'dynamic-product-options-for-woocommerce' ),
+			title: __( 'License', 'simple-product-customizer' ),
 			desc: proActive
 				? __(
 						'Manage activation',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 				  )
 				: __(
 						'Activate Pro',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 				  ),
 		},
 	];
 
 	return (
-		<section className="dpo-db-card dpo-db-panel">
-			<header className="dpo-db-panel__head">
-				<h2 className="dpo-db-panel__title">
+		<section className="spcus-db-card spcus-db-panel">
+			<header className="spcus-db-panel__head">
+				<h2 className="spcus-db-panel__title">
 					<span
-						className="dashicons dashicons-superhero-alt dpo-db-panel__ico"
+						className="dashicons dashicons-superhero-alt spcus-db-panel__ico"
 						aria-hidden="true"
 					/>
 					{ __(
 						'Quick Actions',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</h2>
 			</header>
 
-			<nav className="dpo-db-actions">
+			<nav className="spcus-db-actions">
 				{ actions.map( ( a ) => (
 					<button
 						key={ a.to }
 						type="button"
-						className="dpo-db-action"
+						className="spcus-db-action"
 						onClick={ () => navigate( a.to ) }
 					>
 						<span
-							className="dpo-db-action__icon"
+							className="spcus-db-action__icon"
 							aria-hidden="true"
 						>
 							<span
 								className={ `dashicons dashicons-${ a.icon }` }
 							/>
 						</span>
-						<span className="dpo-db-action__text">
-							<span className="dpo-db-action__title">
+						<span className="spcus-db-action__text">
+							<span className="spcus-db-action__title">
 								{ a.title }
 							</span>
-							<span className="dpo-db-action__desc">
+							<span className="spcus-db-action__desc">
 								{ a.desc }
 							</span>
 						</span>
 						<span
-							className="dashicons dashicons-arrow-right-alt2 dpo-db-action__chev"
+							className="dashicons dashicons-arrow-right-alt2 spcus-db-action__chev"
 							aria-hidden="true"
 						/>
 					</button>

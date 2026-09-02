@@ -6,10 +6,10 @@
  * assets/data/countries.json file feeds both this provider and the builder /
  * storefront scripts, so the country list and dial codes never drift.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Support;
+namespace SPCUS\Support;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,7 +37,7 @@ final class Countries {
 		}
 
 		self::$map = array();
-		$file      = DPO_PATH . 'assets/data/countries.json';
+		$file      = SPCUS_PATH . 'assets/data/countries.json';
 		if ( is_readable( $file ) ) {
 			$raw  = (string) file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 			$list = json_decode( $raw, true );

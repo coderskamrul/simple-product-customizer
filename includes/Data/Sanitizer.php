@@ -2,12 +2,12 @@
 /**
  * Field-tree + payload sanitization.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Data;
+namespace SPCUS\Data;
 
-use DPO\Support\Arr;
+use SPCUS\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 

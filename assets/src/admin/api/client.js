@@ -16,10 +16,10 @@ import { __ } from '@wordpress/i18n';
 /**
  * Read the localized bootstrap config, tolerating its absence (tests / SSR).
  *
- * @return {Object} The dpoAdmin global or a minimal stub.
+ * @return {Object} The spcusAdmin global or a minimal stub.
  */
 function config() {
-	return ( typeof window !== 'undefined' && window.dpoAdmin ) || {};
+	return ( typeof window !== 'undefined' && window.spcusAdmin ) || {};
 }
 
 let bootstrapped = false;
@@ -30,21 +30,21 @@ let bootstrapped = false;
  * We resolve full URLs ourselves instead of registering a second
  * `createRootURLMiddleware`. WordPress core already registers its own root
  * middleware (pointing at `/wp-json/`); two root middlewares race
- * order-dependently and the core one can win, stripping our `dpo/v1`
+ * order-dependently and the core one can win, stripping our `spcus/v1`
  * namespace so requests hit `/wp-json/sets` and the server replies
  * `rest_no_route` ("No route was found…"). Passing an explicit `url`
  * makes every root middleware a no-op and is fully deterministic.
  *
- * @return {string} e.g. https://site/wp-json/dpo/v1/
+ * @return {string} e.g. https://site/wp-json/spcus/v1/
  */
 export function restRoot() {
 	const cfg = config();
 	let root = cfg.restUrl || '';
 	if ( ! root && typeof window !== 'undefined' && window.wpApiSettings ) {
-		root = `${ window.wpApiSettings.root || '/wp-json/' }dpo/v1/`;
+		root = `${ window.wpApiSettings.root || '/wp-json/' }spcus/v1/`;
 	}
 	if ( ! root ) {
-		root = '/wp-json/dpo/v1/';
+		root = '/wp-json/spcus/v1/';
 	}
 	return root.endsWith( '/' ) ? root : `${ root }/`;
 }
@@ -88,7 +88,7 @@ export function errorMessage( error ) {
 	if ( ! error ) {
 		return __(
 			'Unknown error.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		);
 	}
 	if ( typeof error === 'string' ) {
@@ -100,7 +100,7 @@ export function errorMessage( error ) {
 	if ( error.code ) {
 		return String( error.code );
 	}
-	return __( 'Request failed.', 'dynamic-product-options-for-woocommerce' );
+	return __( 'Request failed.', 'simple-product-customizer' );
 }
 
 /**
@@ -136,7 +136,7 @@ export function qs( params = {} ) {
 /**
  * Resolve a namespace-relative path to an absolute REST URL.
  *
- * @param {string} path Path relative to the dpo/v1 root (no leading slash).
+ * @param {string} path Path relative to the spcus/v1 root (no leading slash).
  * @return {string} Absolute URL.
  */
 function url( path ) {
@@ -146,7 +146,7 @@ function url( path ) {
 /**
  * GET helper.
  *
- * @param {string} path  REST path relative to the dpo/v1 root.
+ * @param {string} path  REST path relative to the spcus/v1 root.
  * @param {Object} query Optional query params.
  * @return {Promise<Object>} Parsed JSON envelope.
  */
@@ -159,11 +159,11 @@ export function get( path, query = {} ) {
 }
 
 /**
- * Write helper (POST/DELETE/PATCH). Injects the dpo_nonce body field so the
+ * Write helper (POST/DELETE/PATCH). Injects the spcus_nonce body field so the
  * server's secondary nonce check passes on every mutating route.
  *
  * @param {string} path   REST path.
- * @param {Object} body   JSON body (dpo_nonce is merged in automatically).
+ * @param {Object} body   JSON body (spcus_nonce is merged in automatically).
  * @param {string} method HTTP verb (default POST).
  * @return {Promise<Object>} Parsed JSON envelope.
  */
@@ -172,11 +172,11 @@ export function write( path, body = {}, method = 'POST' ) {
 	const data =
 		method === 'DELETE'
 			? undefined
-			: { ...body, dpo_nonce: cfg.uploadNonce };
+			: { ...body, spcus_nonce: cfg.uploadNonce };
 	return apiFetch( {
 		url:
 			method === 'DELETE'
-				? `${ url( path ) }${ qs( { dpo_nonce: cfg.uploadNonce } ) }`
+				? `${ url( path ) }${ qs( { spcus_nonce: cfg.uploadNonce } ) }`
 				: url( path ),
 		method,
 		data,
@@ -194,8 +194,8 @@ export function write( path, body = {}, method = 'POST' ) {
  */
 export function upload( path, form ) {
 	const cfg = config();
-	if ( cfg.uploadNonce && ! form.has( 'dpo_nonce' ) ) {
-		form.append( 'dpo_nonce', cfg.uploadNonce );
+	if ( cfg.uploadNonce && ! form.has( 'spcus_nonce' ) ) {
+		form.append( 'spcus_nonce', cfg.uploadNonce );
 	}
 	return apiFetch( {
 		url: url( path ),

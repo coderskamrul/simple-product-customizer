@@ -3,7 +3,7 @@
  * formatting, image, link and dynamic-table extensions the Popup Builder
  * exposes. It is a controlled component: `value` is the stored HTML and every
  * edit calls `onChange` with sanitised HTML — the same string PopupField.php
- * renders inside `.dpo-popup__content`, so the builder and storefront stay in
+ * renders inside `.spcus-popup__content`, so the builder and storefront stay in
  * perfect sync.
  *
  * Undo/Redo are bound to Ctrl/Cmd+Z and Shift+Ctrl/Cmd+Z by the StarterKit
@@ -72,7 +72,7 @@ export default function RichTextEditor( { value, onChange } ) {
 			Image.configure( {
 				inline: false,
 				allowBase64: false,
-				HTMLAttributes: { class: 'dpo-popup__img' },
+				HTMLAttributes: { class: 'spcus-popup__img' },
 			} ),
 			TextAlign.configure( { types: [ 'heading', 'paragraph' ] } ),
 			// Resizing emits inline width styles that wp_kses_post() strips on
@@ -89,10 +89,10 @@ export default function RichTextEditor( { value, onChange } ) {
 	const editorProps = useMemo(
 		() => ( {
 			attributes: {
-				class: 'dpo-rte__content',
+				class: 'spcus-rte__content',
 				'aria-label': __(
 					'Popup content',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 			},
 		} ),
@@ -160,7 +160,7 @@ export default function RichTextEditor( { value, onChange } ) {
 	const linkAttrs = editor ? editor.getAttributes( 'link' ) : {};
 
 	return (
-		<div className="dpo-rte">
+		<div className="spcus-rte">
 			<Toolbar
 				editor={ editor }
 				sourceMode={ sourceMode }
@@ -183,17 +183,17 @@ export default function RichTextEditor( { value, onChange } ) {
 
 			{ sourceMode ? (
 				<textarea
-					className="dpo-rte__source"
+					className="spcus-rte__source"
 					value={ source }
 					spellCheck={ false }
 					onChange={ ( e ) => setSource( e.target.value ) }
 					placeholder={ __(
 						'<p>Your HTML…</p>',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				/>
 			) : (
-				<EditorContent editor={ editor } className="dpo-rte__surface" />
+				<EditorContent editor={ editor } className="spcus-rte__surface" />
 			) }
 		</div>
 	);

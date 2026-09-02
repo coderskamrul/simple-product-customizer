@@ -2,23 +2,23 @@
 /**
  * Option-set CRUD + bulk operations controller.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Rest\Route;
+namespace SPCUS\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Data\AssignmentResolver;
-use DPO\Data\OptionSetRepository;
-use DPO\Rest\RestServer;
-use DPO\Support\Str;
+use SPCUS\Core\Container;
+use SPCUS\Data\AssignmentResolver;
+use SPCUS\Data\OptionSetRepository;
+use SPCUS\Rest\RestServer;
+use SPCUS\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Routes for listing, reading, upserting, deleting and bulk-managing option
- * sets (`dpo_option_set` posts).
+ * sets (`spcus_option_set` posts).
  */
 final class SetsController {
 
@@ -127,7 +127,7 @@ final class SetsController {
 	private function list_sets( WP_REST_Request $r, RestServer $s ) {
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'simple-product-customizer' ), 500 );
 		}
 
 		$args   = array(
@@ -161,7 +161,7 @@ final class SetsController {
 				array(
 					'set' => array(
 						'id'     => 'new',
-						'title'  => __( 'Untitled', 'dynamic-product-options-for-woocommerce' ),
+						'title'  => __( 'Untitled', 'simple-product-customizer' ),
 						'status' => 'draft',
 						'fields' => array(),
 						'css'    => '',
@@ -172,12 +172,12 @@ final class SetsController {
 
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'simple-product-customizer' ), 500 );
 		}
 
 		$set = $repo->get( (int) $id );
 		if ( ! $set ) {
-			return $s->fail( 'not_found', __( 'Option set not found.', 'dynamic-product-options-for-woocommerce' ), 404 );
+			return $s->fail( 'not_found', __( 'Option set not found.', 'simple-product-customizer' ), 404 );
 		}
 
 		return $s->ok(
@@ -202,11 +202,11 @@ final class SetsController {
 	 */
 	private function save_set( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'simple-product-customizer' ), 500 );
 		}
 
 		$id     = $r->get_param( 'id' );
@@ -238,16 +238,16 @@ final class SetsController {
 	 */
 	private function delete_set( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'simple-product-customizer' ), 500 );
 		}
 
 		$id = (int) $r->get_param( 'id' );
 		if ( $id <= 0 ) {
-			return $s->fail( 'bad_id', __( 'Invalid option-set id.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_id', __( 'Invalid option-set id.', 'simple-product-customizer' ), 400 );
 		}
 
 		$assignment = $this->c->get( 'assignment' );
@@ -257,7 +257,7 @@ final class SetsController {
 
 		$ok = $repo->delete( $id );
 		if ( ! $ok ) {
-			return $s->fail( 'delete_failed', __( 'Could not delete option set.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'delete_failed', __( 'Could not delete option set.', 'simple-product-customizer' ), 400 );
 		}
 
 		/**
@@ -265,7 +265,7 @@ final class SetsController {
 		 *
 		 * @param int $id Deleted set id.
 		 */
-		do_action( 'dpo_set_deleted', $id );
+		do_action( 'spcus_set_deleted', $id );
 
 		return $s->ok( array( 'id' => $id ) );
 	}
@@ -279,11 +279,11 @@ final class SetsController {
 	 */
 	private function bulk( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 		$repo = $this->repo();
 		if ( ! $repo ) {
-			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Option-set storage unavailable.', 'simple-product-customizer' ), 500 );
 		}
 
 		$op  = sanitize_key( (string) $r->get_param( 'op' ) );
@@ -327,7 +327,7 @@ final class SetsController {
 						$assignment->detach( $id );
 					}
 					if ( $repo->delete( $id ) ) {
-						do_action( 'dpo_set_deleted', $id );
+						do_action( 'spcus_set_deleted', $id );
 						$done[] = $id;
 					}
 				}
@@ -365,7 +365,7 @@ final class SetsController {
 					$res = $repo->save(
 						array(
 							'id'     => 'new',
-							'title'  => isset( $row['title'] ) ? sanitize_text_field( $row['title'] ) : __( 'Imported', 'dynamic-product-options-for-woocommerce' ),
+							'title'  => isset( $row['title'] ) ? sanitize_text_field( $row['title'] ) : __( 'Imported', 'simple-product-customizer' ),
 							'status' => isset( $row['status'] ) && 'publish' === $row['status'] ? 'publish' : 'draft',
 							'fields' => isset( $row['fields'] ) && is_array( $row['fields'] ) ? $row['fields'] : array(),
 							'css'    => isset( $row['css'] ) ? wp_strip_all_tags( (string) $row['css'] ) : '',
@@ -383,7 +383,7 @@ final class SetsController {
 				);
 
 			default:
-				return $s->fail( 'bad_op', __( 'Unknown bulk operation.', 'dynamic-product-options-for-woocommerce' ), 400 );
+				return $s->fail( 'bad_op', __( 'Unknown bulk operation.', 'simple-product-customizer' ), 400 );
 		}
 	}
 }

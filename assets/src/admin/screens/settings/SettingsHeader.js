@@ -44,42 +44,42 @@ const SaveIcon = () => (
  */
 export default function SettingsHeader( { saving, dirty, onSave } ) {
 	return (
-		<header className="dpo-set-header">
-			<div className="dpo-set-header__brand">
+		<header className="spcus-set-header">
+			<div className="spcus-set-header__brand">
 				<span
-					className="dpo-set-tile dpo-set-tile--lg dpo-set-tile--violet"
+					className="spcus-set-tile spcus-set-tile--lg spcus-set-tile--violet"
 					aria-hidden="true"
 				>
 					<span className="dashicons dashicons-admin-settings" />
 				</span>
 				<div>
-					<h1 className="dpo-set-header__title">
+					<h1 className="spcus-set-header__title">
 						{ __(
 							'Settings',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</h1>
-					<p className="dpo-set-header__sub">
+					<p className="spcus-set-header__sub">
 						{ __(
 							'Manage your plugin configuration',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</p>
 				</div>
 			</div>
 
-			<div className="dpo-set-header__actions">
+			<div className="spcus-set-header__actions">
 				{ dirty && ! saving && (
-					<span className="dpo-set-header__unsaved" role="status">
+					<span className="spcus-set-header__unsaved" role="status">
 						{ __(
 							'Unsaved changes',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</span>
 				) }
 				<button
 					type="button"
-					className="dpo-set-save"
+					className="spcus-set-save"
 					disabled={ saving }
 					onClick={ onSave }
 				>
@@ -87,11 +87,11 @@ export default function SettingsHeader( { saving, dirty, onSave } ) {
 					{ saving
 						? __(
 								'Saving…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  )
 						: __(
 								'Save Settings',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  ) }
 				</button>
 			</div>

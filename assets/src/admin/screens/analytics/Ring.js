@@ -24,10 +24,10 @@ export default function Ring( { value, tone, suffix = '%' } ) {
 	const dash = ( pct / 100 ) * C;
 
 	return (
-		<span className="dpo-an-ring">
+		<span className="spcus-an-ring">
 			<svg
 				viewBox={ `0 0 ${ SIZE } ${ SIZE }` }
-				className="dpo-an-ring__svg"
+				className="spcus-an-ring__svg"
 				aria-hidden="true"
 			>
 				<circle
@@ -36,7 +36,7 @@ export default function Ring( { value, tone, suffix = '%' } ) {
 					r={ R }
 					fill="none"
 					strokeWidth={ STROKE }
-					className="dpo-an-ring__track"
+					className="spcus-an-ring__track"
 				/>
 				<circle
 					cx={ SIZE / 2 }
@@ -47,10 +47,10 @@ export default function Ring( { value, tone, suffix = '%' } ) {
 					strokeLinecap="round"
 					strokeDasharray={ `${ dash } ${ C - dash }` }
 					transform={ `rotate(-90 ${ SIZE / 2 } ${ SIZE / 2 })` }
-					className={ `dpo-an-ring__bar dpo-an-ring__bar--${ tone }` }
+					className={ `spcus-an-ring__bar spcus-an-ring__bar--${ tone }` }
 				/>
 			</svg>
-			<span className="dpo-an-ring__label">
+			<span className="spcus-an-ring__label">
 				{ pct }
 				{ suffix }
 			</span>

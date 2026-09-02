@@ -2,10 +2,10 @@
 /**
  * Shared markup helpers for field renderers.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Concerns;
+namespace SPCUS\Fields\Concerns;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,13 +23,13 @@ trait RendersMarkup {
 	 */
 	protected function width_class( $width ) {
 		$map = array(
-			'full'      => 'dpo-cw-full',
-			'half'      => 'dpo-cw-half',
-			'third'     => 'dpo-cw-third',
-			'two-third' => 'dpo-cw-two-third',
-			'quarter'   => 'dpo-cw-quarter',
+			'full'      => 'spcus-cw-full',
+			'half'      => 'spcus-cw-half',
+			'third'     => 'spcus-cw-third',
+			'two-third' => 'spcus-cw-two-third',
+			'quarter'   => 'spcus-cw-quarter',
 		);
-		return isset( $map[ $width ] ) ? $map[ $width ] : 'dpo-cw-full';
+		return isset( $map[ $width ] ) ? $map[ $width ] : 'spcus-cw-full';
 	}
 
 	/**

@@ -2,13 +2,13 @@
 /**
  * Shop/archive loop behaviour for option-bearing products.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Integration\WooCommerce;
+namespace SPCUS\Integration\WooCommerce;
 
-use DPO\Core\Settings;
-use DPO\Data\AssignmentResolver;
+use SPCUS\Core\Settings;
+use SPCUS\Data\AssignmentResolver;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -86,7 +86,7 @@ final class ShopLoop {
 	 */
 	public function button_text( $text, $product ) {
 		if ( $this->should_force_select( $product ) ) {
-			return (string) $this->settings->get( 'shopButtonText', __( 'Select Options', 'dynamic-product-options-for-woocommerce' ) );
+			return (string) $this->settings->get( 'shopButtonText', __( 'Select Options', 'simple-product-customizer' ) );
 		}
 		return $text;
 	}

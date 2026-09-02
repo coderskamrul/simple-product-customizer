@@ -16,16 +16,16 @@
  */
 export default function Panel( { title, actions, className = '', children } ) {
 	return (
-		<section className={ `dpo-panel ${ className }`.trim() }>
+		<section className={ `spcus-panel ${ className }`.trim() }>
 			{ ( title || actions ) && (
-				<header className="dpo-panel__head">
-					{ title && <h2 className="dpo-panel__title">{ title }</h2> }
+				<header className="spcus-panel__head">
+					{ title && <h2 className="spcus-panel__title">{ title }</h2> }
 					{ actions && (
-						<div className="dpo-panel__actions">{ actions }</div>
+						<div className="spcus-panel__actions">{ actions }</div>
 					) }
 				</header>
 			) }
-			<div className="dpo-panel__body">{ children }</div>
+			<div className="spcus-panel__body">{ children }</div>
 		</section>
 	);
 }

@@ -2,20 +2,20 @@
 /**
  * Admin app asset enqueue + bootstrap payload.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Admin;
+namespace SPCUS\Admin;
 
-use DPO\Core\Assets;
-use DPO\Core\Capabilities;
-use DPO\Core\Container;
+use SPCUS\Core\Assets;
+use SPCUS\Core\Capabilities;
+use SPCUS\Core\Container;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Enqueues the built admin bundle only on the plugin app screen and
- * hands the React app its bootstrap configuration via the `dpoAdmin`
+ * hands the React app its bootstrap configuration via the `spcusAdmin`
  * JS global.
  */
 final class AdminAssets {
@@ -60,32 +60,32 @@ final class AdminAssets {
 		wp_enqueue_media();
 
 		Assets::script(
-			'dpo-admin',
+			'spcus-admin',
 			'admin',
 			array( 'wp-element', 'wp-components', 'wp-api-fetch', 'wp-i18n' )
 		);
-		Assets::style( 'dpo-admin-style', 'admin' );
+		Assets::style( 'spcus-admin-style', 'admin' );
 
 		wp_set_script_translations(
-			'dpo-admin',
-			'dynamic-product-options-for-woocommerce',
-			DPO_PATH . 'languages'
+			'spcus-admin',
+			'simple-product-customizer',
+			SPCUS_PATH . 'languages'
 		);
 
 		$fields = $c->get( 'fields' );
 
 		wp_localize_script(
-			'dpo-admin',
-			'dpoAdmin',
+			'spcus-admin',
+			'spcusAdmin',
 			array(
-				'restUrl'     => esc_url_raw( rest_url( 'dpo/v1/' ) ),
+				'restUrl'     => esc_url_raw( rest_url( 'spcus/v1/' ) ),
 				'nonce'       => wp_create_nonce( 'wp_rest' ),
-				'uploadNonce' => wp_create_nonce( 'dpo_rest' ),
-				'adminUrl'    => admin_url( 'admin.php?page=dpo-options#/' ),
-				'pluginUrl'   => DPO_URL,
-				'version'     => DPO_VERSION,
+				'uploadNonce' => wp_create_nonce( 'spcus_rest' ),
+				'adminUrl'    => admin_url( 'admin.php?page=spcus-options#/' ),
+				'pluginUrl'   => SPCUS_URL,
+				'version'     => SPCUS_VERSION,
 				'proActive'   => Capabilities::pro(),
-				'license'     => get_option( 'dpo_license_key', '' ),
+				'license'     => get_option( 'spcus_license_key', '' ),
 				'currency'    => array(
 					'symbol'      => html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ),
 					'pos'         => get_option( 'woocommerce_currency_pos', 'left' ),

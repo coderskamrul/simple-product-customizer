@@ -2,12 +2,12 @@
 /**
  * Heading layout field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,9 +57,9 @@ final class HeadingField extends AbstractField {
 		$text = (string) $this->prop( 'label', '' );
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<' . $tag . ' class="dpo-heading">' . esc_html( $text ) . '</' . $tag . '>';
+		$html .= '<' . $tag . ' class="spcus-heading">' . esc_html( $text ) . '</' . $tag . '>';
 		if ( '' !== (string) $this->prop( 'description', '' ) ) {
-			$html .= '<div class="dpo-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
+			$html .= '<div class="spcus-field__desc">' . wp_kses_post( $this->prop( 'description' ) ) . '</div>';
 		}
 		$html .= '</div>';
 		return $html;

@@ -21,14 +21,14 @@ export default function EmptyState( {
 	action,
 } ) {
 	return (
-		<div className="dpo-empty">
+		<div className="spcus-empty">
 			<span
-				className={ `dashicons dashicons-${ icon } dpo-empty__icon` }
+				className={ `dashicons dashicons-${ icon } spcus-empty__icon` }
 				aria-hidden="true"
 			/>
-			<h3 className="dpo-empty__title">{ title }</h3>
-			{ text && <p className="dpo-empty__text">{ text }</p> }
-			{ action && <div className="dpo-empty__action">{ action }</div> }
+			<h3 className="spcus-empty__title">{ title }</h3>
+			{ text && <p className="spcus-empty__text">{ text }</p> }
+			{ action && <div className="spcus-empty__action">{ action }</div> }
 		</div>
 	);
 }

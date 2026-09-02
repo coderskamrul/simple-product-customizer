@@ -2,12 +2,12 @@
 /**
  * Image swatch choice field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -41,7 +41,7 @@ final class ImageSwatchField extends AbstractField {
 		$input_t  = $multiple ? 'checkbox' : 'radio';
 		$name     = $multiple ? $this->choice_name() . '[]' : $this->choice_name();
 
-		$html = '<div class="dpo-swatches dpo-swatches--image"'
+		$html = '<div class="spcus-swatches spcus-swatches--image"'
 			. $this->attrs(
 				array(
 					'data-layout'        => (string) $this->cfg( 'layout', 'grid' ),
@@ -56,8 +56,8 @@ final class ImageSwatchField extends AbstractField {
 			$image = isset( $choice['image'] ) ? (string) $choice['image'] : '';
 			$img_id = isset( $choice['imageId'] ) ? (int) $choice['imageId'] : 0;
 
-			$html .= '<label class="dpo-swatch-item dpo-swatch-item--image" title="' . esc_attr( $label ) . '">';
-			$html .= '<input type="' . esc_attr( $input_t ) . '" class="dpo-swatch-item__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
+			$html .= '<label class="spcus-swatch-item spcus-swatch-item--image" title="' . esc_attr( $label ) . '">';
+			$html .= '<input type="' . esc_attr( $input_t ) . '" class="spcus-swatch-item__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
 				. $this->attrs(
 					array_merge(
 						array(
@@ -72,13 +72,13 @@ final class ImageSwatchField extends AbstractField {
 					)
 				) . ' />';
 			$swatch_style = $this->swatch_style();
-			$html        .= '<span class="dpo-swatch-img"' . ( '' !== $swatch_style ? ' style="' . esc_attr( $swatch_style ) . '"' : '' ) . '>';
+			$html        .= '<span class="spcus-swatch-img"' . ( '' !== $swatch_style ? ' style="' . esc_attr( $swatch_style ) . '"' : '' ) . '>';
 			if ( '' !== $image ) {
 				$html .= '<img src="' . esc_url( $image ) . '" alt="' . esc_attr( $label ) . '" loading="lazy" />';
 			}
 			$html .= '</span>';
 			if ( '' !== $label ) {
-				$html .= '<span class="dpo-swatch-item__label">' . esc_html( $label ) . '</span>';
+				$html .= '<span class="spcus-swatch-item__label">' . esc_html( $label ) . '</span>';
 			}
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= $this->qty_input( $index );

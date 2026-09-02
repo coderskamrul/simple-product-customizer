@@ -19,59 +19,59 @@ import { Modal, Field, AsyncSelect, ProBadge } from '../../components';
 const SCOPES = [
 	{
 		value: 'all',
-		label: __( 'All products', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'All products', 'simple-product-customizer' ),
 		hint: __(
 			'Show on every product in the store.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		value: 'products',
 		label: __(
 			'Specific products',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		hint: __(
 			'Pick individual products.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		value: 'category',
 		label: __(
 			'Product category',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		hint: __(
 			'Apply to one or more categories.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		value: 'tag',
-		label: __( 'Product tag', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Product tag', 'simple-product-customizer' ),
 		hint: __(
 			'Apply to tagged products.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		value: 'brand',
-		label: __( 'Product brand', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Product brand', 'simple-product-customizer' ),
 		hint: __(
 			'Apply to a product brand.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		value: 'none',
 		label: __(
 			'None (disabled)',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		hint: __(
 			'Not shown anywhere yet.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 ];
@@ -114,49 +114,49 @@ export default function AssignmentModal( { onClose } ) {
 			size="md"
 			title={ __(
 				'Assign to products',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 			onClose={ onClose }
 			footer={
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--primary"
+					className="spcus-btn spcus-btn--primary"
 					onClick={ onClose }
 				>
-					{ __( 'Done', 'dynamic-product-options-for-woocommerce' ) }
+					{ __( 'Done', 'simple-product-customizer' ) }
 				</button>
 			}
 		>
-			<div className="dpo-assign-modal">
-				<p className="dpo-assign-modal__intro">
+			<div className="spcus-assign-modal">
+				<p className="spcus-assign-modal__intro">
 					<Target size={ 15 } />
 					{ __(
 						'Choose where this option set appears. Changes are saved with the option set.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
 
-				<div className="dpo-radio-grid dpo-assign-modal__scopes">
+				<div className="spcus-radio-grid spcus-assign-modal__scopes">
 					{ SCOPES.map( ( s ) => (
 						<label
 							key={ s.value }
-							htmlFor={ `dpo-assign-scope-${ s.value }` }
-							className={ `dpo-radio-card${
+							htmlFor={ `spcus-assign-scope-${ s.value }` }
+							className={ `spcus-radio-card${
 								a.scope === s.value ? ' is-active' : ''
 							}` }
 						>
 							<input
-								id={ `dpo-assign-scope-${ s.value }` }
+								id={ `spcus-assign-scope-${ s.value }` }
 								type="radio"
-								name="dpo-assign-scope"
+								name="spcus-assign-scope"
 								value={ s.value }
 								checked={ a.scope === s.value }
 								onChange={ () => setScope( s.value ) }
 							/>
-							<span className="dpo-radio-card__label">
+							<span className="spcus-radio-card__label">
 								{ s.label }
 							</span>
-							<span className="dpo-radio-card__hint">
+							<span className="spcus-radio-card__hint">
 								{ s.hint }
 							</span>
 						</label>
@@ -167,7 +167,7 @@ export default function AssignmentModal( { onClose } ) {
 					<Field
 						label={ __(
 							'Include products',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<AsyncSelect
@@ -176,7 +176,7 @@ export default function AssignmentModal( { onClose } ) {
 							max={ proActive ? 0 : FREE_PRODUCT_CAP }
 							placeholder={ __(
 								'Search products…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 							fetcher={ async ( t ) => {
 								const r = await api.searchProducts( t );
@@ -189,7 +189,7 @@ export default function AssignmentModal( { onClose } ) {
 									/* translators: %d: free product cap */
 									__(
 										'Free version links up to %d products.',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									),
 									FREE_PRODUCT_CAP
 								) }
@@ -209,7 +209,7 @@ export default function AssignmentModal( { onClose } ) {
 							onChange={ ( v ) => update( { include: v } ) }
 							placeholder={ __(
 								'Search…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 							fetcher={ async ( t ) => {
 								const r = await api.searchTerms( termKind, t );
@@ -223,11 +223,11 @@ export default function AssignmentModal( { onClose } ) {
 					<Field
 						label={ __(
 							'Exclude products',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						help={ __(
 							'These products never show this option set.',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<AsyncSelect
@@ -235,7 +235,7 @@ export default function AssignmentModal( { onClose } ) {
 							onChange={ ( v ) => update( { exclude: v } ) }
 							placeholder={ __(
 								'Search products…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 							fetcher={ async ( t ) => {
 								const r = await api.searchProducts( t );

@@ -11,31 +11,31 @@ const NAV = [
 	{
 		route: 'dashboard',
 		hash: '#/',
-		label: __( 'Dashboard', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Dashboard', 'simple-product-customizer' ),
 		icon: 'dashboard',
 	},
 	{
 		route: 'sets',
 		hash: '#/sets',
-		label: __( 'Option Sets', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Option Sets', 'simple-product-customizer' ),
 		icon: 'screenoptions',
 	},
 	{
 		route: 'settings',
 		hash: '#/settings',
-		label: __( 'Settings', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Settings', 'simple-product-customizer' ),
 		icon: 'admin-generic',
 	},
 	{
 		route: 'analytics',
 		hash: '#/analytics',
-		label: __( 'Analytics', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Analytics', 'simple-product-customizer' ),
 		icon: 'chart-bar',
 	},
 	{
 		route: 'license',
 		hash: '#/license',
-		label: __( 'License', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'License', 'simple-product-customizer' ),
 		icon: 'admin-network',
 	},
 ];
@@ -54,30 +54,30 @@ export default function Sidebar( { active } ) {
 
 	return (
 		<nav
-			className="dpo-sidebar"
+			className="spcus-sidebar"
 			aria-label={ __(
-				'Dynamic Product Options navigation',
-				'dynamic-product-options-for-woocommerce'
+				'Simple Product Customizer navigation',
+				'simple-product-customizer'
 			) }
 		>
-			<div className="dpo-sidebar__brand">
+			<div className="spcus-sidebar__brand">
 				<span
-					className="dashicons dashicons-cart dpo-sidebar__logo"
+					className="dashicons dashicons-cart spcus-sidebar__logo"
 					aria-hidden="true"
 				/>
-				<span className="dpo-sidebar__name">
+				<span className="spcus-sidebar__name">
 					{ __(
 						'Dynamic Options',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</span>
 			</div>
-			<ul className="dpo-sidebar__nav">
+			<ul className="spcus-sidebar__nav">
 				{ NAV.map( ( item ) => (
 					<li key={ item.route }>
 						<a
 							href={ item.hash }
-							className={ `dpo-sidebar__link${
+							className={ `spcus-sidebar__link${
 								current === item.route ? ' is-active' : ''
 							}` }
 							aria-current={

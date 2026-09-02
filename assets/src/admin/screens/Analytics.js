@@ -46,11 +46,11 @@ export default function Analytics() {
 		<PageFrame
 			title={ __(
 				'Analytics Overview',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 			subtitle={ __(
 				'Track your option performance.',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 			toolbar={
 				<RangeTabs
@@ -61,13 +61,13 @@ export default function Analytics() {
 			}
 		>
 			{ status === 'error' ? (
-				<div className="dpo-an-card dpo-an-state">
-					<p className="dpo-error">{ error }</p>
+				<div className="spcus-an-card spcus-an-state">
+					<p className="spcus-error">{ error }</p>
 				</div>
 			) : loading ? (
 				<>
 					<SkeletonStatGrid count={ 4 } />
-					<div className="dpo-an-split">
+					<div className="spcus-an-split">
 						<SkeletonChart />
 						<SkeletonChart />
 					</div>
@@ -76,28 +76,28 @@ export default function Analytics() {
 				<FadeIn>
 					<KpiGrid totals={ totals } deltas={ deltas } />
 
-					<div className="dpo-an-split">
-						<section className="dpo-an-card dpo-an-panel dpo-an-panel--chart">
-							<header className="dpo-an-panel__head">
+					<div className="spcus-an-split">
+						<section className="spcus-an-card spcus-an-panel spcus-an-panel--chart">
+							<header className="spcus-an-panel__head">
 								<div>
-									<h2 className="dpo-an-panel__title">
+									<h2 className="spcus-an-panel__title">
 										{ __(
 											'Performance Trend',
-											'dynamic-product-options-for-woocommerce'
+											'simple-product-customizer'
 										) }
 									</h2>
-									<p className="dpo-an-panel__sub">
+									<p className="spcus-an-panel__sub">
 										{ __(
 											'Daily activity breakdown',
-											'dynamic-product-options-for-woocommerce'
+											'simple-product-customizer'
 										) }
 									</p>
 								</div>
-								<ul className="dpo-an-legend">
+								<ul className="spcus-an-legend">
 									{ TREND_SERIES.map( ( s ) => (
 										<li key={ s.key }>
 											<span
-												className={ `dpo-an-dot dpo-an-dot--${ s.tone }` }
+												className={ `spcus-an-dot spcus-an-dot--${ s.tone }` }
 												aria-hidden="true"
 											/>
 											{ s.label }
@@ -108,19 +108,19 @@ export default function Analytics() {
 							<TrendChart daily={ daily } />
 						</section>
 
-						<section className="dpo-an-card dpo-an-panel dpo-an-panel--funnel">
-							<header className="dpo-an-panel__head">
+						<section className="spcus-an-card spcus-an-panel spcus-an-panel--funnel">
+							<header className="spcus-an-panel__head">
 								<div>
-									<h2 className="dpo-an-panel__title">
+									<h2 className="spcus-an-panel__title">
 										{ __(
 											'Conversion Funnel',
-											'dynamic-product-options-for-woocommerce'
+											'simple-product-customizer'
 										) }
 									</h2>
-									<p className="dpo-an-panel__sub">
+									<p className="spcus-an-panel__sub">
 										{ __(
 											'User journey breakdown',
-											'dynamic-product-options-for-woocommerce'
+											'simple-product-customizer'
 										) }
 									</p>
 								</div>

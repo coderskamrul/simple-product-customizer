@@ -2,10 +2,10 @@
 /**
  * Capability resolution + license gate.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Core;
+namespace SPCUS\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ final class Capabilities {
 	 * @return string
 	 */
 	public static function read() {
-		return (string) apply_filters( 'dpo_cap_read', 'manage_options' );
+		return (string) apply_filters( 'spcus_cap_read', 'manage_options' );
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class Capabilities {
 	 * @return string
 	 */
 	public static function manage() {
-		return (string) apply_filters( 'dpo_cap_manage', 'manage_options' );
+		return (string) apply_filters( 'spcus_cap_manage', 'manage_options' );
 	}
 
 	/**
@@ -56,9 +56,9 @@ final class Capabilities {
 	 * @return bool
 	 */
 	public static function license_active() {
-		$data = get_option( 'dpo_license_data', array() );
+		$data = get_option( 'spcus_license_data', array() );
 		$ok   = is_array( $data ) && isset( $data['status'] ) && 'valid' === $data['status'];
-		return (bool) apply_filters( 'dpo_license_active', $ok );
+		return (bool) apply_filters( 'spcus_license_active', $ok );
 	}
 
 	/**
@@ -67,7 +67,7 @@ final class Capabilities {
 	 * @return bool
 	 */
 	public static function license_expired() {
-		$data = get_option( 'dpo_license_data', array() );
+		$data = get_option( 'spcus_license_data', array() );
 		return is_array( $data ) && isset( $data['status'] ) && 'expired' === $data['status'];
 	}
 
@@ -77,12 +77,12 @@ final class Capabilities {
 	 * TEMPORARY (development): all Pro features are unlocked for everyone while
 	 * the feature set is being finalised. To restore licence-based gating later,
 	 * revert the default below from `true` back to `self::license_active()`.
-	 * The `dpo_pro_features` filter still wins, so gating can also be toggled
+	 * The `spcus_pro_features` filter still wins, so gating can also be toggled
 	 * externally without touching this method.
 	 *
 	 * @return bool
 	 */
 	public static function pro() {
-		return (bool) apply_filters( 'dpo_pro_features', true );
+		return (bool) apply_filters( 'spcus_pro_features', true );
 	}
 }

@@ -22,13 +22,13 @@ import FieldPreview from '../preview/FieldPreview';
 /** A neutral product-gallery placeholder. */
 function Gallery() {
 	return (
-		<div className="dpo-stage__gallery" aria-hidden="true">
-			<div className="dpo-stage__gallery-main">
+		<div className="spcus-stage__gallery" aria-hidden="true">
+			<div className="spcus-stage__gallery-main">
 				<ImageIcon size={ 64 } />
 			</div>
-			<div className="dpo-stage__gallery-thumbs">
+			<div className="spcus-stage__gallery-thumbs">
 				{ [ 0, 1, 2 ].map( ( i ) => (
-					<div key={ i } className="dpo-stage__thumb">
+					<div key={ i } className="spcus-stage__thumb">
 						<ImageIcon size={ 28 } />
 					</div>
 				) ) }
@@ -43,28 +43,28 @@ function EmptyCanvas() {
 	return (
 		<button
 			type="button"
-			className="dpo-empty"
+			className="spcus-empty"
 			onClick={ () => openPicker( '' ) }
 		>
-			<span className="dpo-empty__icon">
+			<span className="spcus-empty__icon">
 				<MousePointerClick size={ 28 } />
 			</span>
-			<span className="dpo-empty__title">
+			<span className="spcus-empty__title">
 				{ __(
 					'Start building your options',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			</span>
-			<span className="dpo-empty__text">
+			<span className="spcus-empty__text">
 				{ __(
 					'Add your first field — text, choices, swatches and more.',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			</span>
-			<span className="dpo-empty__cta">
+			<span className="spcus-empty__cta">
 				{ __(
 					'Add a field',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			</span>
 		</button>
@@ -85,50 +85,50 @@ export default function Canvas() {
 	const empty = tree.length === 0;
 
 	// Storefront theme tokens drive the in-canvas live preview (consumed by the
-	// `--dpo-gs-*` fallbacks in the canvas SCSS).
+	// `--spcus-gs-*` fallbacks in the canvas SCSS).
 	const styleVars = cssVars( tokens );
 
 	return (
 		<div
-			className={ `dpo-stage${ preview ? ' is-preview' : '' }` }
+			className={ `spcus-stage${ preview ? ' is-preview' : '' }` }
 			style={ styleVars }
 		>
-			<div className="dpo-stage__product">
+			<div className="spcus-stage__product">
 				<Gallery />
 
-				<div className="dpo-stage__summary">
-					<h2 className="dpo-stage__title">
+				<div className="spcus-stage__summary">
+					<h2 className="spcus-stage__title">
 						{ __(
 							'Sample Product',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</h2>
-					<div className="dpo-stage__price">
+					<div className="spcus-stage__price">
 						{ formatPrice( 20 ) }
 					</div>
 
-					<div className="dpo-stage__options">
+					<div className="spcus-stage__options">
 						{ empty && ! preview && <EmptyCanvas /> }
 
 						{ empty && preview && (
-							<p className="dpo-stage__hint">
+							<p className="spcus-stage__hint">
 								{ __(
 									'No options to preview yet.',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							</p>
 						) }
 
 						{ ! empty && preview && (
-							<div className="dpo-canvas__list">
+							<div className="spcus-canvas__list">
 								{ tree.map( ( node ) => (
 									<div
 										key={ node.id }
-										className={ `dpo-card dpo-card--w-${
+										className={ `spcus-card spcus-card--w-${
 											node.width || 'full'
 										} is-preview` }
 									>
-										<div className="dpo-card__body">
+										<div className="spcus-card__body">
 											<FieldPreview node={ node } />
 										</div>
 									</div>
@@ -147,12 +147,12 @@ export default function Canvas() {
 					{ ! preview && (
 						<button
 							type="button"
-							className="dpo-stage__atc"
+							className="spcus-stage__atc"
 							disabled
 						>
 							{ __(
 								'Add to cart',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</button>
 					) }

@@ -2,14 +2,14 @@
 /**
  * WooCommerce environment compatibility shims.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Integration\WooCommerce;
+namespace SPCUS\Integration\WooCommerce;
 
-use DPO\Data\AssignmentResolver;
-use DPO\Pricing\Currency\CurrencyBridge;
-use DPO\Support\Money;
+use SPCUS\Data\AssignmentResolver;
+use SPCUS\Pricing\Currency\CurrencyBridge;
+use SPCUS\Support\Money;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,8 +37,8 @@ final class Compatibility {
 
 		// Canonical resolvers for the pricing base filters (sale-or-regular,
 		// currency-reverted). PriceCalculator applies these on the raw amount.
-		add_filter( 'dpo_price_base', array( $this, 'resolve_price_base' ), 10, 3 );
-		add_filter( 'dpo_price_percent_base', array( $this, 'resolve_price_base' ), 10, 3 );
+		add_filter( 'spcus_price_base', array( $this, 'resolve_price_base' ), 10, 3 );
+		add_filter( 'spcus_price_percent_base', array( $this, 'resolve_price_base' ), 10, 3 );
 	}
 
 	/**

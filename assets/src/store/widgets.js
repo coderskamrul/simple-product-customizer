@@ -18,34 +18,34 @@ import { wireTime } from './time';
 import { wirePhone } from './phone';
 
 /**
- * Wire a custom `.dpo-select` / `.dpo-fontpicker` dropdown.
+ * Wire a custom `.spcus-select` / `.spcus-fontpicker` dropdown.
  *
  * @param {HTMLElement} fieldEl  Field wrapper.
  * @param {Function}    onChange Change callback.
  * @return {void}
  */
 function wireSelect( fieldEl, onChange ) {
-	const box = fieldEl.querySelector( '.dpo-select' );
+	const box = fieldEl.querySelector( '.spcus-select' );
 	if ( ! box ) {
 		return;
 	}
-	const toggle = box.querySelector( '.dpo-select__toggle' );
-	const list = box.querySelector( '.dpo-select__list' );
-	const hidden = box.querySelector( '.dpo-select__value' );
+	const toggle = box.querySelector( '.spcus-select__toggle' );
+	const list = box.querySelector( '.spcus-select__list' );
+	const hidden = box.querySelector( '.spcus-select__value' );
 	if ( ! toggle || ! list || ! hidden ) {
 		return;
 	}
-	const placeholder = box.querySelector( '.dpo-select__placeholder' );
+	const placeholder = box.querySelector( '.spcus-select__placeholder' );
 	const placeholderText = placeholder ? placeholder.textContent : '';
 
-	const close = () => box.classList.remove( 'dpo-select--open' );
+	const close = () => box.classList.remove( 'spcus-select--open' );
 
 	toggle.addEventListener( 'click', ( e ) => {
 		e.preventDefault();
-		box.classList.toggle( 'dpo-select--open' );
+		box.classList.toggle( 'spcus-select--open' );
 	} );
 
-	list.querySelectorAll( '.dpo-select__opt' ).forEach( ( opt ) => {
+	list.querySelectorAll( '.spcus-select__opt' ).forEach( ( opt ) => {
 		opt.addEventListener( 'click', () => {
 			const idx = opt.getAttribute( 'data-index' );
 			const label = opt.getAttribute( 'data-label' ) || '';
@@ -58,10 +58,10 @@ function wireSelect( fieldEl, onChange ) {
 					placeholder.style.fontFamily = font || '';
 				}
 			}
-			list.querySelectorAll( '.dpo-select__opt--active' ).forEach(
-				( o ) => o.classList.remove( 'dpo-select__opt--active' )
+			list.querySelectorAll( '.spcus-select__opt--active' ).forEach(
+				( o ) => o.classList.remove( 'spcus-select__opt--active' )
 			);
-			opt.classList.add( 'dpo-select__opt--active' );
+			opt.classList.add( 'spcus-select__opt--active' );
 			close();
 			onChange();
 		} );
@@ -82,16 +82,16 @@ function wireSelect( fieldEl, onChange ) {
  * @return {void}
  */
 function wireColorPicker( fieldEl, onChange ) {
-	const box = fieldEl.querySelector( '.dpo-colorpicker' );
+	const box = fieldEl.querySelector( '.spcus-colorpicker' );
 	if ( ! box ) {
 		return;
 	}
-	const input = box.querySelector( '.dpo-colorpicker__input' );
+	const input = box.querySelector( '.spcus-colorpicker__input' );
 	if ( ! input ) {
 		return;
 	}
-	const hex = box.querySelector( '.dpo-colorpicker__hex' );
-	const reset = box.querySelector( '.dpo-colorpicker__reset' );
+	const hex = box.querySelector( '.spcus-colorpicker__hex' );
+	const reset = box.querySelector( '.spcus-colorpicker__reset' );
 
 	input.addEventListener( 'input', () => {
 		if ( hex ) {
@@ -127,11 +127,11 @@ function wireColorPicker( fieldEl, onChange ) {
  * @return {void}
  */
 function wireRange( fieldEl, onChange ) {
-	const slider = fieldEl.querySelector( '.dpo-range__slider' );
+	const slider = fieldEl.querySelector( '.spcus-range__slider' );
 	if ( ! slider ) {
 		return;
 	}
-	const mirror = fieldEl.querySelector( '.dpo-range__mirror' );
+	const mirror = fieldEl.querySelector( '.spcus-range__mirror' );
 	slider.addEventListener( 'input', () => {
 		if ( mirror ) {
 			mirror.value = slider.value;
@@ -153,8 +153,8 @@ function wireRange( fieldEl, onChange ) {
  * @return {void}
  */
 function wireToggle( fieldEl ) {
-	const input = fieldEl.querySelector( '.dpo-toggle__input' );
-	const text = fieldEl.querySelector( '.dpo-toggle__text' );
+	const input = fieldEl.querySelector( '.spcus-toggle__input' );
+	const text = fieldEl.querySelector( '.spcus-toggle__text' );
 	if ( ! input || ! text ) {
 		return;
 	}
@@ -174,8 +174,8 @@ function wireToggle( fieldEl ) {
  * @return {void}
  */
 function wirePopup( fieldEl ) {
-	const trigger = fieldEl.querySelector( '.dpo-popup__trigger' );
-	const modal = fieldEl.querySelector( '.dpo-popup__modal' );
+	const trigger = fieldEl.querySelector( '.spcus-popup__trigger' );
+	const modal = fieldEl.querySelector( '.spcus-popup__modal' );
 	if ( ! trigger || ! modal ) {
 		return;
 	}
@@ -207,7 +207,7 @@ function wirePopup( fieldEl ) {
  */
 function wireLinked( fieldEl ) {
 	fieldEl
-		.querySelectorAll( '.dpo-linked__varsel, .dpo-linked__qty' )
+		.querySelectorAll( '.spcus-linked__varsel, .spcus-linked__qty' )
 		.forEach( ( el ) => {
 			el.addEventListener( 'click', ( e ) => e.stopPropagation() );
 		} );
@@ -222,11 +222,11 @@ function wireLinked( fieldEl ) {
  * @return {void}
  */
 function wireSection( fieldEl ) {
-	const section = fieldEl.querySelector( '.dpo-section--accordion' );
+	const section = fieldEl.querySelector( '.spcus-section--accordion' );
 	if ( ! section ) {
 		return;
 	}
-	const header = section.querySelector( '.dpo-section__header' );
+	const header = section.querySelector( '.spcus-section__header' );
 	if ( ! header ) {
 		return;
 	}
@@ -245,16 +245,16 @@ function wireSection( fieldEl ) {
  */
 function wireImageSwatchSwap( fieldEl ) {
 	const wrap = fieldEl.querySelector(
-		'.dpo-swatches--image[data-update-image="yes"]'
+		'.spcus-swatches--image[data-update-image="yes"]'
 	);
 	if ( ! wrap ) {
 		return;
 	}
-	wrap.querySelectorAll( '.dpo-swatch-item__native' ).forEach( ( input ) => {
+	wrap.querySelectorAll( '.spcus-swatch-item__native' ).forEach( ( input ) => {
 		input.addEventListener( 'change', () => {
 			const img = fieldEl
-				.querySelector( 'input.dpo-swatch-item__native:checked' )
-				?.closest( '.dpo-swatch-item' )
+				.querySelector( 'input.spcus-swatch-item__native:checked' )
+				?.closest( '.spcus-swatch-item' )
 				?.querySelector( 'img' );
 			const gallery = document.querySelector(
 				'.woocommerce-product-gallery__image img, .wp-post-image'

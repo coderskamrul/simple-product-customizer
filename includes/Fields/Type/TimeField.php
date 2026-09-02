@@ -2,12 +2,12 @@
 /**
  * Time picker field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,7 +57,7 @@ final class TimeField extends AbstractField {
 			$placeholder = $hour12 ? 'hh:mm AM/PM' : 'HH:mm';
 		}
 
-		$input = '<input type="text" readonly class="dpo-input dpo-time-input" name="' . esc_attr( $this->input_name() ) . '"'
+		$input = '<input type="text" readonly class="spcus-input spcus-time-input" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(
@@ -74,8 +74,8 @@ final class TimeField extends AbstractField {
 				)
 			) . ' />';
 
-		return '<div class="dpo-time">'
-			. '<span class="dpo-time__icon" aria-hidden="true">'
+		return '<div class="spcus-time">'
+			. '<span class="spcus-time__icon" aria-hidden="true">'
 			. '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">'
 			. '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>'
 			. '<path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'

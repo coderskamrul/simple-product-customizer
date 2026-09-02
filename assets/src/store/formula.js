@@ -1,9 +1,9 @@
 /**
  * Client-side formula evaluators — faithful ports of the PHP engines.
  *
- * - `simple`  : mirrors DPO\Formula\ArithmeticEvaluator ({{var}} + trailing
+ * - `simple`  : mirrors SPCUS\Formula\ArithmeticEvaluator ({{var}} + trailing
  *               percent sugar, four-function arithmetic, result clamped >= 0).
- * - `advanced`: mirrors DPO\Formula\Ast\ExpressionEngine ([var] placeholders,
+ * - `advanced`: mirrors SPCUS\Formula\Ast\ExpressionEngine ([var] placeholders,
  *               comparisons, logical &/||, whitelisted functions
  *               if/abs/ceil/floor/round/pow/min/max, precedence per the PHP
  *               recursive-descent parser).

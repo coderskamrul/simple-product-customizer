@@ -2,12 +2,12 @@
 /**
  * Horizontal divider field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -60,7 +60,7 @@ final class DividerField extends AbstractField {
 		$inline = $height > 0 ? ' style="border-top-width:' . $height . 'px"' : '';
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<hr class="dpo-divider dpo-divider--' . esc_attr( $style ) . '"' . $inline . ' />';
+		$html .= '<hr class="spcus-divider spcus-divider--' . esc_attr( $style ) . '"' . $inline . ' />';
 		$html .= '</div>';
 		return $html;
 	}

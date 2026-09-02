@@ -54,17 +54,17 @@ export default function Dashboard() {
 				/* translators: %s: display name */
 				__(
 					'Welcome back, %s',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 				name
 		  )
-		: __( 'Welcome back', 'dynamic-product-options-for-woocommerce' );
+		: __( 'Welcome back', 'simple-product-customizer' );
 
 	return (
 		<PageFrame>
 			{ failed ? (
-				<div className="dpo-db-card dpo-db-state">
-					<p className="dpo-error">{ error }</p>
+				<div className="spcus-db-card spcus-db-state">
+					<p className="spcus-error">{ error }</p>
 				</div>
 			) : loading ? (
 				<SkeletonStatGrid count={ 4 } />
@@ -80,7 +80,7 @@ export default function Dashboard() {
 				</FadeIn>
 			) }
 
-			<div className="dpo-db-grid dpo-db-grid--main">
+			<div className="spcus-db-grid spcus-db-grid--main">
 				{ loading ? (
 					<SkeletonCard lines={ 4 } action />
 				) : (
@@ -96,7 +96,7 @@ export default function Dashboard() {
 				<QuickActions />
 			</div>
 
-			<div className="dpo-db-grid dpo-db-grid--bottom">
+			<div className="spcus-db-grid spcus-db-grid--bottom">
 				{ loading ? (
 					<>
 						<SkeletonCard lines={ 4 } />

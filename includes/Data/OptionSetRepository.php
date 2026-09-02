@@ -2,27 +2,27 @@
 /**
  * Option-set persistence (CPT wrapper).
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Data;
+namespace SPCUS\Data;
 
-use DPO\Core\Plugin;
-use DPO\Support\Str;
+use SPCUS\Core\Plugin;
+use SPCUS\Support\Str;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Single gateway to the `dpo_option_set` post type. All field-tree /
+ * Single gateway to the `spcus_option_set` post type. All field-tree /
  * assignment / css reads & writes go through here so storage shape is
  * defined in exactly one place.
  */
 final class OptionSetRepository {
 
-	const META_FIELDS     = '_dpo_fields';
-	const META_ASSIGNMENT = '_dpo_assignment';
-	const META_CSS        = '_dpo_field_css';
-	const META_REQUIRED   = '_dpo_required';
+	const META_FIELDS     = '_spcus_fields';
+	const META_ASSIGNMENT = '_spcus_assignment';
+	const META_CSS        = '_spcus_field_css';
+	const META_REQUIRED   = '_spcus_required';
 
 	/**
 	 * In-request cache of decoded sets keyed by id.
@@ -83,7 +83,7 @@ final class OptionSetRepository {
 	 * @return int|\WP_Error New/updated post id.
 	 */
 	public function save( array $data ) {
-		$title  = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : __( 'Untitled', 'dynamic-product-options-for-woocommerce' );
+		$title  = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : __( 'Untitled', 'simple-product-customizer' );
 		$status = ( isset( $data['status'] ) && 'publish' === $data['status'] ) ? 'publish' : 'draft';
 		$fields = Sanitizer::fields( isset( $data['fields'] ) ? $data['fields'] : array() );
 
@@ -111,7 +111,7 @@ final class OptionSetRepository {
 		}
 
 		unset( $this->cache[ (int) $id ] );
-		do_action( 'dpo_set_saved', (int) $id, $fields );
+		do_action( 'spcus_set_saved', (int) $id, $fields );
 		return (int) $id;
 	}
 
@@ -126,7 +126,7 @@ final class OptionSetRepository {
 		$ok = (bool) wp_delete_post( $id, true );
 		if ( $ok ) {
 			unset( $this->cache[ $id ] );
-			do_action( 'dpo_set_deleted', $id );
+			do_action( 'spcus_set_deleted', $id );
 		}
 		return $ok;
 	}
@@ -141,12 +141,12 @@ final class OptionSetRepository {
 	public function duplicate( $id, $fields = null ) {
 		$src = $this->get( $id );
 		if ( ! $src ) {
-			return new \WP_Error( 'dpo_not_found', __( 'Option set not found.', 'dynamic-product-options-for-woocommerce' ) );
+			return new \WP_Error( 'spcus_not_found', __( 'Option set not found.', 'simple-product-customizer' ) );
 		}
 		return $this->save(
 			array(
 				'id'     => 'new',
-				'title'  => $src['title'] . ' ' . __( 'Copy', 'dynamic-product-options-for-woocommerce' ),
+				'title'  => $src['title'] . ' ' . __( 'Copy', 'simple-product-customizer' ),
 				'status' => 'draft',
 				'fields' => null === $fields ? $src['fields'] : $fields,
 			)

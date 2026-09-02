@@ -2,13 +2,13 @@
 /**
  * Scheduled upload-bucket cleanup.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Analytics;
+namespace SPCUS\Analytics;
 
-use DPO\Core\Settings;
-use DPO\Support\Upload;
+use SPCUS\Core\Settings;
+use SPCUS\Support\Upload;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -53,7 +53,7 @@ final class CleanupCron {
 	 * @return void
 	 */
 	public function register() {
-		add_action( 'dpo_cleanup_uploads', array( $this, 'run' ) );
+		add_action( 'spcus_cleanup_uploads', array( $this, 'run' ) );
 	}
 
 	/**

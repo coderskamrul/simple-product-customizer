@@ -25,35 +25,35 @@ import {
 const SCOPES = [
 	{
 		value: 'all',
-		label: __( 'All products', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'All products', 'simple-product-customizer' ),
 	},
 	{
 		value: 'products',
 		label: __(
 			'Specific products',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		value: 'category',
 		label: __(
 			'Product category',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		value: 'tag',
-		label: __( 'Product tag', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Product tag', 'simple-product-customizer' ),
 	},
 	{
 		value: 'brand',
-		label: __( 'Product brand', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Product brand', 'simple-product-customizer' ),
 	},
 	{
 		value: 'none',
 		label: __(
 			'None (disabled)',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 ];
@@ -155,7 +155,7 @@ export default function Assignment( { setId } ) {
 			notify(
 				__(
 					'Assignment saved.',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				),
 				'success'
 			);
@@ -171,23 +171,23 @@ export default function Assignment( { setId } ) {
 			<Panel
 				title={ __(
 					'Assignment',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
-				<p className="dpo-hint">
+				<p className="spcus-hint">
 					{ __(
 						'Save the option set first, then assign it to products.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost"
+					className="spcus-btn spcus-btn--ghost"
 					onClick={ () => navigate( `/set/${ setId }` ) }
 				>
 					{ __(
 						'Back to builder',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</button>
 			</Panel>
@@ -195,46 +195,46 @@ export default function Assignment( { setId } ) {
 	}
 
 	return (
-		<div className="dpo-assignment">
-			<header className="dpo-screen-head">
+		<div className="spcus-assignment">
+			<header className="spcus-screen-head">
 				<div>
-					<h1 className="dpo-screen-title">
+					<h1 className="spcus-screen-title">
 						{ __(
 							'Assignment',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</h1>
-					<p className="dpo-screen-sub">
+					<p className="spcus-screen-sub">
 						{ __(
 							'Decide which products show this option set.',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</p>
 				</div>
-				<div className="dpo-screen-head__actions">
+				<div className="spcus-screen-head__actions">
 					<a
-						className="dpo-btn dpo-btn--ghost"
+						className="spcus-btn spcus-btn--ghost"
 						href={ `#/set/${ setId }` }
 					>
 						{ __(
 							'Back to builder',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</a>
 					<button
 						type="button"
-						className="dpo-btn dpo-btn--primary"
+						className="spcus-btn spcus-btn--primary"
 						disabled={ saving || status !== 'ready' }
 						onClick={ onSave }
 					>
 						{ saving
 							? __(
 									'Saving…',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  )
 							: __(
 									'Save assignment',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  ) }
 					</button>
 				</div>
@@ -247,7 +247,7 @@ export default function Assignment( { setId } ) {
 			) }
 			{ status === 'error' && (
 				<Panel>
-					<p className="dpo-error">{ error }</p>
+					<p className="spcus-error">{ error }</p>
 				</Panel>
 			) }
 
@@ -256,20 +256,20 @@ export default function Assignment( { setId } ) {
 					<Panel
 						title={ __(
 							'Scope',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
-						<div className="dpo-radio-grid">
+						<div className="spcus-radio-grid">
 							{ SCOPES.map( ( s ) => (
 								<label
 									key={ s.value }
-									className={ `dpo-radio-card${
+									className={ `spcus-radio-card${
 										scope === s.value ? ' is-active' : ''
 									}` }
 								>
 									<input
 										type="radio"
-										name="dpo-scope"
+										name="spcus-scope"
 										value={ s.value }
 										checked={ scope === s.value }
 										onChange={ () => setScope( s.value ) }
@@ -284,13 +284,13 @@ export default function Assignment( { setId } ) {
 						<Panel
 							title={ __(
 								'Products',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						>
 							<Field
 								label={ __(
 									'Include products',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							>
 								<AsyncSelect
@@ -309,7 +309,7 @@ export default function Assignment( { setId } ) {
 										/* translators: %d: free product cap */
 										__(
 											'Free version links up to %d products.',
-											'dynamic-product-options-for-woocommerce'
+											'simple-product-customizer'
 										),
 										FREE_PRODUCT_CAP
 									) }
@@ -327,7 +327,7 @@ export default function Assignment( { setId } ) {
 							<Field
 								label={ __(
 									'Terms',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							>
 								<AsyncSelect
@@ -349,17 +349,17 @@ export default function Assignment( { setId } ) {
 						<Panel
 							title={ __(
 								'Exclusions',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						>
 							<Field
 								label={ __(
 									'Exclude products',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 								help={ __(
 									'These products never show this option set.',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							>
 								<AsyncSelect
@@ -377,14 +377,14 @@ export default function Assignment( { setId } ) {
 					<Panel
 						title={ __(
 							'Preview link',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						{ ! link.published ? (
-							<p className="dpo-hint">
+							<p className="spcus-hint">
 								{ __(
 									'Publish the option set to preview it on a product.',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							</p>
 						) : link.productLink ? (
@@ -392,18 +392,18 @@ export default function Assignment( { setId } ) {
 								href={ link.productLink }
 								target="_blank"
 								rel="noreferrer"
-								className="dpo-btn dpo-btn--ghost"
+								className="spcus-btn spcus-btn--ghost"
 							>
 								{ __(
 									'Open a matching product',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							</a>
 						) : (
-							<p className="dpo-hint">
+							<p className="spcus-hint">
 								{ __(
 									'No matching published product found yet.',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								) }
 							</p>
 						) }

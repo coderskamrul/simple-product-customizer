@@ -31,25 +31,25 @@ export default function SettingCard( {
 	children,
 } ) {
 	return (
-		<div className={ classNames( 'dpo-set-card', className ) }>
-			<div className="dpo-set-card__head">
+		<div className={ classNames( 'spcus-set-card', className ) }>
+			<div className="spcus-set-card__head">
 				<span
-					className={ `dpo-set-tile dpo-set-tile--${ tone }` }
+					className={ `spcus-set-tile spcus-set-tile--${ tone }` }
 					aria-hidden="true"
 				>
 					<span className={ `dashicons dashicons-${ icon }` } />
 				</span>
-				<div className="dpo-set-card__heading">
-					<h3 className="dpo-set-card__title">{ title }</h3>
+				<div className="spcus-set-card__heading">
+					<h3 className="spcus-set-card__title">{ title }</h3>
 					{ subtitle && (
-						<p className="dpo-set-card__sub">{ subtitle }</p>
+						<p className="spcus-set-card__sub">{ subtitle }</p>
 					) }
 				</div>
 			</div>
 
-			<div className="dpo-set-card__body">{ children }</div>
+			<div className="spcus-set-card__body">{ children }</div>
 
-			{ hint && <p className="dpo-set-card__hint">{ hint }</p> }
+			{ hint && <p className="spcus-set-card__hint">{ hint }</p> }
 		</div>
 	);
 }

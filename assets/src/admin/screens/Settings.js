@@ -44,24 +44,24 @@ export default function Settings() {
 	const actions = (
 		<>
 			{ dirty && ! saving && (
-				<span className="dpo-page__unsaved" role="status">
+				<span className="spcus-page__unsaved" role="status">
 					{ __(
 						'Unsaved changes',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</span>
 			) }
 			<button
 				type="button"
-				className="dpo-pg-btn dpo-pg-btn--primary"
+				className="spcus-pg-btn spcus-pg-btn--primary"
 				disabled={ saving }
 				onClick={ save }
 			>
 				{ saving
-					? __( 'Saving…', 'dynamic-product-options-for-woocommerce' )
+					? __( 'Saving…', 'simple-product-customizer' )
 					: __(
 							'Save Settings',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 					  ) }
 			</button>
 		</>
@@ -71,15 +71,15 @@ export default function Settings() {
 		<PageFrame
 			title={ __(
 				'Settings',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 			subtitle={ __(
 				'Manage your plugin configuration.',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 			actions={ actions }
 		>
-			<div className="dpo-set__body">
+			<div className="spcus-set__body">
 				{ status === 'loading' ? (
 					<SkeletonNav items={ 5 } />
 				) : (
@@ -87,14 +87,14 @@ export default function Settings() {
 				) }
 
 				{ status === 'loading' ? (
-					<div className="dpo-set-state">
+					<div className="spcus-set-state">
 						<SkeletonForm fields={ 5 } />
 					</div>
 				) : (
 					<SectionPanel section={ section }>
 						{ status === 'error' && (
-							<div className="dpo-set-state">
-								<p className="dpo-error">{ error }</p>
+							<div className="spcus-set-state">
+								<p className="spcus-error">{ error }</p>
 							</div>
 						) }
 						{ status === 'ready' && (

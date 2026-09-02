@@ -2,12 +2,12 @@
 /**
  * Raw HTML content field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -51,7 +51,7 @@ final class HtmlField extends AbstractField {
 	public function render() {
 		$content = (string) $this->cfg( 'content', '' );
 		$html    = '<div ' . $this->wrapper_attrs() . '>';
-		$html   .= '<div class="dpo-html">' . wp_kses_post( $content ) . '</div>';
+		$html   .= '<div class="spcus-html">' . wp_kses_post( $content ) . '</div>';
 		$html   .= '</div>';
 		return $html;
 	}

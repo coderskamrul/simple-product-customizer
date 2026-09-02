@@ -8,9 +8,9 @@
  * single number scales the whole control consistently.
  *
  * Two compilers turn the model into CSS:
- *   - `compileCss()` → the scoped `.dpo-options{…}` rule saved to the DB and
+ *   - `compileCss()` → the scoped `.spcus-options{…}` rule saved to the DB and
  *                       printed on the storefront (variables from store.scss).
- *   - `cssVars()`    → a `--dpo-gs-*` style object applied to the builder
+ *   - `cssVars()`    → a `--spcus-gs-*` style object applied to the builder
  *                       canvas so edits preview live without a save.
  *
  * `normalize()` upgrades both the previous preset model (size/shape enums) and
@@ -49,7 +49,7 @@ export const DEFAULTS = {
 export const PALETTES = [
 	{
 		key: 'classic',
-		label: __( 'Classic', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Classic', 'simple-product-customizer' ),
 		ramp: [ '#1e1e1e', '#3a3a3a', '#9a9a9a', '#ffffff' ],
 		colors: {
 			text: '#1e1e1e',
@@ -62,7 +62,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'blue',
-		label: __( 'Blue', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Blue', 'simple-product-customizer' ),
 		ramp: [ '#0b1f4d', '#2563eb', '#7d9bd6', '#ffffff' ],
 		colors: {
 			text: '#0b1f4d',
@@ -75,7 +75,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'purple',
-		label: __( 'Purple', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Purple', 'simple-product-customizer' ),
 		ramp: [ '#1c004f', '#7126ff', '#a99bd6', '#ffffff' ],
 		colors: {
 			text: '#1c004f',
@@ -88,7 +88,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'pink',
-		label: __( 'Pink', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Pink', 'simple-product-customizer' ),
 		ramp: [ '#4a0d2e', '#db2777', '#c79bb0', '#ffffff' ],
 		colors: {
 			text: '#4a0d2e',
@@ -101,7 +101,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'orange',
-		label: __( 'Orange', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Orange', 'simple-product-customizer' ),
 		ramp: [ '#2b1700', '#ea8a1e', '#b3a08a', '#ffffff' ],
 		colors: {
 			text: '#2b1700',
@@ -114,7 +114,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'green',
-		label: __( 'Green', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Green', 'simple-product-customizer' ),
 		ramp: [ '#0d2b1a', '#16a34a', '#8aa897', '#ffffff' ],
 		colors: {
 			text: '#0d2b1a',
@@ -127,7 +127,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'teal',
-		label: __( 'Teal', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Teal', 'simple-product-customizer' ),
 		ramp: [ '#0a2b2b', '#0d9488', '#8aa8a5', '#ffffff' ],
 		colors: {
 			text: '#0a2b2b',
@@ -140,7 +140,7 @@ export const PALETTES = [
 	},
 	{
 		key: 'lime',
-		label: __( 'Lime', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Lime', 'simple-product-customizer' ),
 		ramp: [ '#1a2b00', '#84cc16', '#a3b08a', '#ffffff' ],
 		colors: {
 			text: '#1a2b00',
@@ -194,7 +194,7 @@ export function hexAlpha( hex, alpha ) {
  * Coerce any stored value (current, preset, or legacy granular model) into the
  * current token shape, so old installs keep their look.
  *
- * @param {Object} raw Stored `dpo_global_style` value.
+ * @param {Object} raw Stored `spcus_global_style` value.
  * @return {Object} A complete, current-shape token object.
  */
 export function normalize( raw ) {
@@ -308,29 +308,29 @@ export function compileCss( tokens ) {
 	const r = resolve( tokens );
 	const c = r.colors;
 	return [
-		'.dpo-options{',
-		`--dpo-label:${ c.text };`,
-		`--dpo-text:${ c.text };`,
-		`--dpo-accent:${ c.primary };`,
-		`--dpo-accent-contrast:${ c.onPrimary };`,
-		`--dpo-accent-soft:${ hexAlpha( c.primary, 0.1 ) };`,
-		`--dpo-border:${ c.border };`,
-		`--dpo-border-strong:${ c.border };`,
-		`--dpo-surface:${ c.fill };`,
-		`--dpo-required:${ c.error };`,
-		`--dpo-radius:${ r.radius };`,
-		`--dpo-radius-pill:${ r.pill };`,
-		`--dpo-swatch-radius:${ r.swatchRadius };`,
-		`--dpo-font-size:${ r.fontSize }px;`,
-		`--dpo-space:${ r.gap }px;`,
-		`--dpo-control-h:${ r.controlH }px;`,
-		`--dpo-swatch:${ r.swatch }px;`,
+		'.spcus-options{',
+		`--spcus-label:${ c.text };`,
+		`--spcus-text:${ c.text };`,
+		`--spcus-accent:${ c.primary };`,
+		`--spcus-accent-contrast:${ c.onPrimary };`,
+		`--spcus-accent-soft:${ hexAlpha( c.primary, 0.1 ) };`,
+		`--spcus-border:${ c.border };`,
+		`--spcus-border-strong:${ c.border };`,
+		`--spcus-surface:${ c.fill };`,
+		`--spcus-required:${ c.error };`,
+		`--spcus-radius:${ r.radius };`,
+		`--spcus-radius-pill:${ r.pill };`,
+		`--spcus-swatch-radius:${ r.swatchRadius };`,
+		`--spcus-font-size:${ r.fontSize }px;`,
+		`--spcus-space:${ r.gap }px;`,
+		`--spcus-control-h:${ r.controlH }px;`,
+		`--spcus-swatch:${ r.swatch }px;`,
 		'}',
 	].join( '' );
 }
 
 /**
- * Build the `--dpo-gs-*` custom-property bag applied to the builder canvas for
+ * Build the `--spcus-gs-*` custom-property bag applied to the builder canvas for
  * live preview. The canvas SCSS reads each with a fallback to its admin token,
  * so these only take effect inside the stage.
  *
@@ -341,18 +341,18 @@ export function cssVars( tokens ) {
 	const r = resolve( tokens );
 	const c = r.colors;
 	return {
-		'--dpo-gs-text': c.text,
-		'--dpo-gs-primary': c.primary,
-		'--dpo-gs-on-primary': c.onPrimary,
-		'--dpo-gs-soft': hexAlpha( c.primary, 0.1 ),
-		'--dpo-gs-border': c.border,
-		'--dpo-gs-fill': c.fill,
-		'--dpo-gs-error': c.error,
-		'--dpo-gs-radius': r.radius,
-		'--dpo-gs-swatch-radius': r.swatchRadius,
-		'--dpo-gs-control-h': `${ r.controlH }px`,
-		'--dpo-gs-font-size': `${ r.fontSize }px`,
-		'--dpo-gs-gap': `${ r.gap }px`,
-		'--dpo-gs-swatch': `${ r.swatch }px`,
+		'--spcus-gs-text': c.text,
+		'--spcus-gs-primary': c.primary,
+		'--spcus-gs-on-primary': c.onPrimary,
+		'--spcus-gs-soft': hexAlpha( c.primary, 0.1 ),
+		'--spcus-gs-border': c.border,
+		'--spcus-gs-fill': c.fill,
+		'--spcus-gs-error': c.error,
+		'--spcus-gs-radius': r.radius,
+		'--spcus-gs-swatch-radius': r.swatchRadius,
+		'--spcus-gs-control-h': `${ r.controlH }px`,
+		'--spcus-gs-font-size': `${ r.fontSize }px`,
+		'--spcus-gs-gap': `${ r.gap }px`,
+		'--spcus-gs-swatch': `${ r.swatch }px`,
 	};
 }

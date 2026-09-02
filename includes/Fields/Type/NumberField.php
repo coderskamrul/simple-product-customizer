@@ -2,12 +2,12 @@
 /**
  * Numeric input field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -46,7 +46,7 @@ final class NumberField extends AbstractField {
 		$choices = $this->choices();
 		$choice  = isset( $choices[0] ) && is_array( $choices[0] ) ? $choices[0] : array();
 
-		return '<input type="number" class="dpo-input dpo-input--number" name="' . esc_attr( $this->input_name() ) . '"'
+		return '<input type="number" class="spcus-input spcus-input--number" name="' . esc_attr( $this->input_name() ) . '"'
 			. $this->attrs(
 				array_merge(
 					array(

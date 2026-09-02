@@ -5,7 +5,7 @@
  * @package
  */
 
-/** Must mirror $dpo-os-avatars in _variables.scss (length matters). */
+/** Must mirror $spcus-os-avatars in _variables.scss (length matters). */
 const PALETTE_SIZE = 8;
 
 /**
@@ -56,7 +56,7 @@ export default function Avatar( { label, seed, className = '' } ) {
 	const idx = paletteIndex( seed ?? label );
 	return (
 		<span
-			className={ `dpo-avatar dpo-avatar--${ idx } ${ className }`.trim() }
+			className={ `spcus-avatar spcus-avatar--${ idx } ${ className }`.trim() }
 			aria-hidden="true"
 		>
 			{ initials( label ) }

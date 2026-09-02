@@ -2,11 +2,11 @@
 
 /*
  * Strip the default WordPress admin chrome padding on our screen so the
- * SPA can render edge-to-edge (slug: `dpo-options`, body class added by
+ * SPA can render edge-to-edge (slug: `spcus-options`, body class added by
  * core for the top-level page). Scoped to the body class so it never
  * leaks to other admin pages.
  */
-body.toplevel_page_dpo-options {
+body.toplevel_page_spcus-options {
 	#wpcontent {
 		padding-inline-start: 0;
 	}
@@ -15,15 +15,15 @@ body.toplevel_page_dpo-options {
 		padding-bottom: 0;
 	}
 
-	.dpo-admin-wrap {
+	.spcus-admin-wrap {
 		margin: 0;
 	}
 }
 
-#dpo-admin-root {
+#spcus-admin-root {
 	box-sizing: border-box;
-	color: $dpo-text;
-	font-family: $dpo-font;
+	color: $spcus-text;
+	font-family: $spcus-font;
 	font-size: 13px;
 	line-height: 1.5;
 
@@ -39,19 +39,19 @@ body.toplevel_page_dpo-options {
 	h4 {
 		margin: 0;
 		font-weight: 600;
-		color: $dpo-text;
+		color: $spcus-text;
 	}
 
 	p {
-		margin: 0 0 $dpo-space-sm;
+		margin: 0 0 $spcus-space-sm;
 	}
 
 	a {
-		color: $dpo-accent;
+		color: $spcus-accent;
 		text-decoration: none;
 
 		&:hover {
-			color: $dpo-accent-hover;
+			color: $spcus-accent-hover;
 		}
 	}
 
@@ -60,12 +60,12 @@ body.toplevel_page_dpo-options {
 	}
 
 	:focus-visible {
-		outline: 1px solid $dpo-accent !important;
+		outline: 1px solid $spcus-accent !important;
 		outline-offset: 1px;
 	}
 }
 
-.dpo-visually-hidden,
+.spcus-visually-hidden,
 .screen-reader-text {
 	position: absolute !important;
 	width: 1px;
@@ -78,21 +78,21 @@ body.toplevel_page_dpo-options {
 	border: 0;
 }
 
-.dpo-error {
-	color: $dpo-danger;
+.spcus-error {
+	color: $spcus-danger;
 	font-weight: 500;
 }
 
-.dpo-hint {
-	color: $dpo-text-muted;
+.spcus-hint {
+	color: $spcus-text-muted;
 	font-size: 12px;
 }
 
-.dpo-codeblock {
-	background: $dpo-surface-2;
-	border: 1px solid $dpo-border;
-	border-radius: $dpo-radius;
-	padding: $dpo-space-sm;
+.spcus-codeblock {
+	background: $spcus-surface-2;
+	border: 1px solid $spcus-border;
+	border-radius: $spcus-radius;
+	padding: $spcus-space-sm;
 	font-family: Menlo, Consolas, monospace;
 	font-size: 12px;
 	white-space: pre-wrap;

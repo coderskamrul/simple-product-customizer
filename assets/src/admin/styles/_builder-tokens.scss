@@ -1,42 +1,42 @@
 /* Builder design tokens as CSS custom properties.
  *
  * Defined on :root so they reach the field picker and settings drawer, which
- * Radix portals to <body> (outside .dpo-app). Values are kept in lockstep
+ * Radix portals to <body> (outside .spcus-app). Values are kept in lockstep
  * with the Global Theme in `_theme.scss` so portaled UI matches the admin
  * SPA. To rebrand, edit `_theme.scss` and mirror the primary/surface tokens
  * here. */
 
 /* Builder tokens kept at :root so Radix-portaled UI (settings drawer, field
-   picker) that mounts outside `#dpo-admin-root` can still read them. The
+   picker) that mounts outside `#spcus-admin-root` can still read them. The
    colour values are intentionally synced with the Global Theme in
    `_theme.scss` so the portaled UI matches the admin SPA. */
 :root {
-	--dpo-c-bg: #f7f8fb;
-	--dpo-c-surface: #ffffff;
-	--dpo-c-surface-2: #f6f7f9;
-	--dpo-c-surface-3: #eef1f6;
-	--dpo-c-border: #eceef3;
-	--dpo-c-border-strong: #dfe3ea;
-	--dpo-c-ink: #0f172a;
-	--dpo-c-ink-soft: #334155;
-	--dpo-c-muted: #64748b;
-	--dpo-c-primary: #059669;
-	--dpo-c-primary-hover: #047857;
-	--dpo-c-primary-soft: #d1fae5;
-	--dpo-c-active: #111827;
-	--dpo-c-active-ink: #ffffff;
-	--dpo-c-danger: #ef4444;
-	--dpo-c-danger-soft: #fdeaea;
-	--dpo-c-overlay: rgba(15, 23, 42, 0.45);
+	--spcus-c-bg: #f7f8fb;
+	--spcus-c-surface: #ffffff;
+	--spcus-c-surface-2: #f6f7f9;
+	--spcus-c-surface-3: #eef1f6;
+	--spcus-c-border: #eceef3;
+	--spcus-c-border-strong: #dfe3ea;
+	--spcus-c-ink: #0f172a;
+	--spcus-c-ink-soft: #334155;
+	--spcus-c-muted: #64748b;
+	--spcus-c-primary: #059669;
+	--spcus-c-primary-hover: #047857;
+	--spcus-c-primary-soft: #d1fae5;
+	--spcus-c-active: #111827;
+	--spcus-c-active-ink: #ffffff;
+	--spcus-c-danger: #ef4444;
+	--spcus-c-danger-soft: #fdeaea;
+	--spcus-c-overlay: rgba(15, 23, 42, 0.45);
 
-	--dpo-c-radius-sm: 8px;
-	--dpo-c-radius: 12px;
-	--dpo-c-radius-lg: 18px;
+	--spcus-c-radius-sm: 8px;
+	--spcus-c-radius: 12px;
+	--spcus-c-radius-lg: 18px;
 
-	--dpo-c-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06),
+	--spcus-c-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06),
 		0 1px 3px rgba(15, 23, 42, 0.05);
-	--dpo-c-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
-	--dpo-c-shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.22);
-	--dpo-c-ring: 0 0 0 3px rgba(5, 150, 105, 0.2);
+	--spcus-c-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+	--spcus-c-shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.22);
+	--spcus-c-ring: 0 0 0 3px rgba(5, 150, 105, 0.2);
 }
 

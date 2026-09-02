@@ -33,16 +33,16 @@ export default function ProgressBar( {
 					/* translators: %d: value */
 					__(
 						'%d products',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					),
 					value
 			  )
-			: __( 'No data', 'dynamic-product-options-for-woocommerce' ) );
+			: __( 'No data', 'simple-product-customizer' ) );
 
 	return (
-		<span className={ `dpo-progress ${ className }`.trim() }>
+		<span className={ `spcus-progress ${ className }`.trim() }>
 			<span
-				className="dpo-progress__track"
+				className="spcus-progress__track"
 				role="progressbar"
 				aria-valuenow={ has ? value : undefined }
 				aria-valuemin={ 0 }
@@ -50,11 +50,11 @@ export default function ProgressBar( {
 				aria-label={ a11y }
 			>
 				<span
-					className="dpo-progress__fill"
+					className="spcus-progress__fill"
 					style={ { width: `${ pct }%` } }
 				/>
 			</span>
-			<span className="dpo-progress__value">{ has ? value : '—' }</span>
+			<span className="spcus-progress__value">{ has ? value : '—' }</span>
 		</span>
 	);
 }

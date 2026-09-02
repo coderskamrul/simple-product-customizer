@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin settings controller (`dpo_settings`).
+ * Plugin settings controller (`spcus_settings`).
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Rest\Route;
+namespace SPCUS\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Core\Settings;
-use DPO\Rest\RestServer;
-use DPO\Support\Str;
+use SPCUS\Core\Container;
+use SPCUS\Core\Settings;
+use SPCUS\Rest\RestServer;
+use SPCUS\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -83,7 +83,7 @@ final class SettingsController {
 	private function get_settings( WP_REST_Request $r, RestServer $s ) {
 		$svc = $this->settings();
 		if ( ! $svc || ! method_exists( $svc, 'all' ) ) {
-			return $s->fail( 'unavailable', __( 'Settings unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Settings unavailable.', 'simple-product-customizer' ), 500 );
 		}
 		return $s->ok( array( 'settings' => $svc->all() ) );
 	}
@@ -97,16 +97,16 @@ final class SettingsController {
 	 */
 	private function save_settings( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 		$svc = $this->settings();
 		if ( ! $svc || ! method_exists( $svc, 'save' ) ) {
-			return $s->fail( 'unavailable', __( 'Settings unavailable.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'unavailable', __( 'Settings unavailable.', 'simple-product-customizer' ), 500 );
 		}
 
 		$values = Str::json( $r->get_param( 'settings' ), array() );
 		if ( ! is_array( $values ) ) {
-			return $s->fail( 'bad_payload', __( 'Invalid settings payload.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_payload', __( 'Invalid settings payload.', 'simple-product-customizer' ), 400 );
 		}
 
 		/*

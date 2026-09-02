@@ -2,10 +2,10 @@
 /**
  * Exception raised for any lexing, parsing or evaluation failure.
  *
- * @package DPO\Formula\Ast
+ * @package SPCUS\Formula\Ast
  */
 
-namespace DPO\Formula\Ast;
+namespace SPCUS\Formula\Ast;
 
 defined( 'ABSPATH' ) || exit;
 

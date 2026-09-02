@@ -19,7 +19,7 @@ import { ToggleField } from '../../components';
  */
 export default function SwitchRow( { label, checked, onChange } ) {
 	return (
-		<div className="dpo-set-switchrow">
+		<div className="spcus-set-switchrow">
 			<ToggleField
 				label={ label }
 				checked={ checked }

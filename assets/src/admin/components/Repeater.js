@@ -26,7 +26,7 @@ export default function Repeater( {
 	onChange,
 	renderRow,
 	makeRow,
-	addLabel = __( 'Add row', 'dynamic-product-options-for-woocommerce' ),
+	addLabel = __( 'Add row', 'simple-product-customizer' ),
 	canAdd = true,
 	addHint = null,
 } ) {
@@ -40,7 +40,7 @@ export default function Repeater( {
 		onChange( rows.filter( ( _, i ) => i !== idx ) );
 
 	return (
-		<div className="dpo-repeater">
+		<div className="spcus-repeater">
 			<DragList
 				items={ rows.map( ( r, i ) => ( {
 					...r,
@@ -50,25 +50,25 @@ export default function Repeater( {
 					onChange( reorder( rows, from, to ) )
 				}
 				renderItem={ ( row, idx, handleProps ) => (
-					<div className="dpo-repeater__row">
+					<div className="spcus-repeater__row">
 						<span
-							className="dpo-repeater__handle dashicons dashicons-move"
+							className="spcus-repeater__handle dashicons dashicons-move"
 							{ ...handleProps }
 							aria-label={ __(
 								'Drag to reorder',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						/>
-						<div className="dpo-repeater__body">
+						<div className="spcus-repeater__body">
 							{ renderRow( rows[ idx ], idx ) }
 						</div>
 						<button
 							type="button"
-							className="dpo-icon-btn dpo-repeater__remove"
+							className="spcus-icon-btn spcus-repeater__remove"
 							onClick={ () => removeAt( idx ) }
 							aria-label={ __(
 								'Remove row',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						>
 							<span
@@ -79,10 +79,10 @@ export default function Repeater( {
 					</div>
 				) }
 			/>
-			<div className="dpo-repeater__foot">
+			<div className="spcus-repeater__foot">
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost"
+					className="spcus-btn spcus-btn--ghost"
 					disabled={ ! canAdd }
 					onClick={ () => onChange( [ ...rows, makeRow() ] ) }
 				>

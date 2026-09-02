@@ -2,10 +2,10 @@
 /**
  * Opt-in diagnostic telemetry.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Admin;
+namespace SPCUS\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,8 +14,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * IMPORTANT: This class sends NOTHING by default. No data ever leaves the
  * site unless the administrator has explicitly opted in by setting the
- * `dpo_telemetry_optin` option to the integer 1 (captured here via an
- * admin-only, nonce-protected `?dpo_optin=1` link). There is no automatic
+ * `spcus_telemetry_optin` option to the integer 1 (captured here via an
+ * admin-only, nonce-protected `?spcus_optin=1` link). There is no automatic
  * activation/deactivation ping and no scheduled transmission. send() is a
  * no-op until that opt-in flag is present, fails silently, and is
  * non-blocking so it can never affect page load or be fatal.
@@ -37,7 +37,7 @@ final class Telemetry {
 	 *
 	 * @var string
 	 */
-	const OPTION = 'dpo_telemetry_optin';
+	const OPTION = 'spcus_telemetry_optin';
 
 	/**
 	 * Hook the opt-in capture. Registration alone sends nothing.
@@ -49,7 +49,7 @@ final class Telemetry {
 	}
 
 	/**
-	 * Capture an explicit opt-in (`?dpo_optin=1` + nonce, admins only).
+	 * Capture an explicit opt-in (`?spcus_optin=1` + nonce, admins only).
 	 *
 	 * @return void
 	 */
@@ -58,16 +58,16 @@ final class Telemetry {
 			return;
 		}
 
-		if ( ! isset( $_GET['dpo_optin'] ) ) {
+		if ( ! isset( $_GET['spcus_optin'] ) ) {
 			return;
 		}
 
-		$nonce = isset( $_GET['_dpo_optin_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_dpo_optin_nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'dpo_optin' ) ) {
+		$nonce = isset( $_GET['_spcus_optin_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_spcus_optin_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'spcus_optin' ) ) {
 			return;
 		}
 
-		$value = absint( wp_unslash( $_GET['dpo_optin'] ) );
+		$value = absint( wp_unslash( $_GET['spcus_optin'] ) );
 		update_option( self::OPTION, 1 === $value ? 1 : 0 );
 	}
 
@@ -86,8 +86,8 @@ final class Telemetry {
 
 		$payload = array(
 			'site_url' => esc_url_raw( home_url() ),
-			'plugin'   => 'dynamic-product-options-for-woocommerce',
-			'version'  => defined( 'DPO_VERSION' ) ? DPO_VERSION : '',
+			'plugin'   => 'simple-product-customizer',
+			'version'  => defined( 'SPCUS_VERSION' ) ? SPCUS_VERSION : '',
 			'theme'    => get_stylesheet(),
 			'action'   => sanitize_text_field( $action ),
 		);

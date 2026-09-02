@@ -2,25 +2,25 @@
 /**
  * Custom font management controller.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Rest\Route;
+namespace SPCUS\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Rest\RestServer;
-use DPO\Support\Upload;
+use SPCUS\Core\Container;
+use SPCUS\Rest\RestServer;
+use SPCUS\Support\Upload;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * List, upload, delete and rename custom web fonts stored in
- * `dpo_custom_fonts` with files under uploads/dpo_fonts.
+ * `spcus_custom_fonts` with files under uploads/spcus_fonts.
  */
 final class FontsController {
 
-	const OPTION       = 'dpo_custom_fonts';
+	const OPTION       = 'spcus_custom_fonts';
 	const MAX_SIZE     = 10485760; // 10MB.
 	const ALLOWED_EXTS = array( 'woff', 'woff2', 'ttf' );
 
@@ -119,29 +119,29 @@ final class FontsController {
 	 */
 	private function upload_font( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 
 		$files = $r->get_file_params();
 		if ( empty( $files['font_file'] ) || empty( $files['font_file']['name'] ) ) {
-			return $s->fail( 'no_file', __( 'No font file provided.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'no_file', __( 'No font file provided.', 'simple-product-customizer' ), 400 );
 		}
 		$file = $files['font_file'];
 
 		$title = sanitize_text_field( (string) $r->get_param( 'title' ) );
 		if ( '' === $title ) {
-			return $s->fail( 'no_title', __( 'Font title is required.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'no_title', __( 'Font title is required.', 'simple-product-customizer' ), 400 );
 		}
 		$family = sanitize_text_field( (string) $r->get_param( 'family' ) );
 		$family = '' === $family ? $title : $family;
 
 		if ( (int) $file['size'] > self::MAX_SIZE ) {
-			return $s->fail( 'too_large', __( 'Font exceeds the 10MB limit.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'too_large', __( 'Font exceeds the 10MB limit.', 'simple-product-customizer' ), 400 );
 		}
 
 		$ext = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
 		if ( ! in_array( $ext, self::ALLOWED_EXTS, true ) ) {
-			return $s->fail( 'bad_type', __( 'Allowed font types: woff, woff2, ttf.', 'dynamic-product-options-for-woocommerce' ), 400 );
+			return $s->fail( 'bad_type', __( 'Allowed font types: woff, woff2, ttf.', 'simple-product-customizer' ), 400 );
 		}
 
 		$dir       = Upload::dir( 'fonts' );
@@ -153,7 +153,7 @@ final class FontsController {
 			: @copy( $file['tmp_name'], $target ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 
 		if ( ! $moved || ! is_file( $target ) ) {
-			return $s->fail( 'move_failed', __( 'Could not store the font file.', 'dynamic-product-options-for-woocommerce' ), 500 );
+			return $s->fail( 'move_failed', __( 'Could not store the font file.', 'simple-product-customizer' ), 500 );
 		}
 
 		$entry = array(
@@ -180,7 +180,7 @@ final class FontsController {
 	 */
 	private function delete_font( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 
 		$id    = sanitize_text_field( (string) $r->get_param( 'id' ) );
@@ -202,7 +202,7 @@ final class FontsController {
 		}
 
 		if ( ! $found ) {
-			return $s->fail( 'not_found', __( 'Font not found.', 'dynamic-product-options-for-woocommerce' ), 404 );
+			return $s->fail( 'not_found', __( 'Font not found.', 'simple-product-customizer' ), 404 );
 		}
 
 		update_option( self::OPTION, array_values( $fonts ) );
@@ -218,7 +218,7 @@ final class FontsController {
 	 */
 	private function update_font( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 
 		$id    = sanitize_text_field( (string) $r->get_param( 'id' ) );
@@ -242,7 +242,7 @@ final class FontsController {
 		}
 
 		if ( ! $found ) {
-			return $s->fail( 'not_found', __( 'Font not found.', 'dynamic-product-options-for-woocommerce' ), 404 );
+			return $s->fail( 'not_found', __( 'Font not found.', 'simple-product-customizer' ), 404 );
 		}
 
 		update_option( self::OPTION, array_values( $fonts ) );

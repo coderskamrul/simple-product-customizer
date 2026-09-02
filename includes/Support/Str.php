@@ -2,10 +2,10 @@
 /**
  * String helpers.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Support;
+namespace SPCUS\Support;
 
 defined( 'ABSPATH' ) || exit;
 

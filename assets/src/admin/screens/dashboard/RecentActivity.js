@@ -19,82 +19,82 @@ import { relativeTime } from './helpers';
  */
 export default function RecentActivity( { activity } ) {
 	return (
-		<section className="dpo-db-card dpo-db-panel">
-			<header className="dpo-db-panel__head">
-				<h2 className="dpo-db-panel__title">
+		<section className="spcus-db-card spcus-db-panel">
+			<header className="spcus-db-panel__head">
+				<h2 className="spcus-db-panel__title">
 					<span
-						className="dashicons dashicons-calendar-alt dpo-db-panel__ico"
+						className="dashicons dashicons-calendar-alt spcus-db-panel__ico"
 						aria-hidden="true"
 					/>
 					{ __(
 						'Recent Activity',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</h2>
 				{ activity.length > 0 && (
 					<button
 						type="button"
-						className="dpo-db-link"
+						className="spcus-db-link"
 						onClick={ () => navigate( '/sets' ) }
 					>
 						{ __(
 							'View all',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</button>
 				) }
 			</header>
 
 			{ activity.length === 0 ? (
-				<p className="dpo-db-empty">
+				<p className="spcus-db-empty">
 					{ __(
 						'No activity yet — create your first option set to get started.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
 			) : (
-				<ul className="dpo-db-feed">
+				<ul className="spcus-db-feed">
 					{ activity.map( ( a ) => {
 						const published = a.kind === 'published';
 						const tone = published ? 'blue' : 'amber';
 						const label = published
 							? __(
 									'Option set published',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  )
 							: __(
 									'Draft saved',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  );
 						return (
-							<li key={ a.id } className="dpo-db-feed__item">
+							<li key={ a.id } className="spcus-db-feed__item">
 								<span
-									className={ `dpo-db-feed__dot dpo-db-feed__dot--${ tone }` }
+									className={ `spcus-db-feed__dot spcus-db-feed__dot--${ tone }` }
 									aria-hidden="true"
 								/>
 								<button
 									type="button"
-									className="dpo-db-feed__main"
+									className="spcus-db-feed__main"
 									onClick={ () =>
 										navigate( `/set/${ a.id }` )
 									}
 								>
-									<span className="dpo-db-feed__label">
+									<span className="spcus-db-feed__label">
 										{ label }
 									</span>
-									<span className="dpo-db-feed__sub">
+									<span className="spcus-db-feed__sub">
 										{ a.title ||
 											sprintf(
 												/* translators: %d: set id */
 												__(
 													'Option set #%d',
-													'dynamic-product-options-for-woocommerce'
+													'simple-product-customizer'
 												),
 												a.id
 											) }
 									</span>
 								</button>
-								<time className="dpo-db-feed__time">
+								<time className="spcus-db-feed__time">
 									{ relativeTime( a.updated ) }
 								</time>
 							</li>

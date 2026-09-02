@@ -2,22 +2,22 @@
 /**
  * Storefront asset enqueue + JS localisation.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Frontend;
+namespace SPCUS\Frontend;
 
-use DPO\Core\Assets;
-use DPO\Core\Capabilities;
-use DPO\Pricing\Currency\CurrencyBridge;
+use SPCUS\Core\Assets;
+use SPCUS\Core\Capabilities;
+use SPCUS\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Owns everything asset-related for the storefront: the built `store` JS/CSS
  * bundle, per-set inline CSS, the global thematic/standard CSS option, and the
- * `window.dpoStore` localisation object. StoreRenderer fires
- * `dpo_enqueue_store_assets`; this class listens and attaches once.
+ * `window.spcusStore` localisation object. StoreRenderer fires
+ * `spcus_enqueue_store_assets`; this class listens and attaches once.
  */
 final class StoreAssets {
 
@@ -41,7 +41,7 @@ final class StoreAssets {
 	 * @return void
 	 */
 	public function register() {
-		add_action( 'dpo_enqueue_store_assets', array( $this, 'enqueue' ), 10, 2 );
+		add_action( 'spcus_enqueue_store_assets', array( $this, 'enqueue' ), 10, 2 );
 	}
 
 	/**
@@ -60,12 +60,12 @@ final class StoreAssets {
 		$this->done = true;
 
 		$attached = Assets::script(
-			'dpo-store',
+			'spcus-store',
 			'store',
 			array( 'jquery', 'wp-i18n', 'wp-api-fetch' )
 		);
 
-		Assets::style( 'dpo-store-style', 'store' );
+		Assets::style( 'spcus-store-style', 'store' );
 
 		$this->collect_set_css( (array) $published_ids );
 		$this->print_inline_css();
@@ -73,7 +73,7 @@ final class StoreAssets {
 		$data = $this->localized();
 
 		if ( $attached ) {
-			wp_localize_script( 'dpo-store', 'dpoStore', $data );
+			wp_localize_script( 'spcus-store', 'spcusStore', $data );
 		}
 
 		// AJAX-loaded product templates: the wp_enqueue_scripts pipeline never
@@ -91,7 +91,7 @@ final class StoreAssets {
 	 * @return void
 	 */
 	private function collect_set_css( array $published_ids ) {
-		$plugin = function_exists( 'dpo' ) ? dpo() : null;
+		$plugin = function_exists( 'spcus' ) ? spcus() : null;
 		$repo   = $plugin ? $plugin->service( 'sets' ) : null;
 		if ( ! $repo ) {
 			return;
@@ -113,32 +113,32 @@ final class StoreAssets {
 	private function print_inline_css() {
 		$css = '';
 		foreach ( $this->set_css as $set_id => $rules ) {
-			$css .= "\n/* dpo-set-" . (int) $set_id . " */\n" . $rules;
+			$css .= "\n/* spcus-set-" . (int) $set_id . " */\n" . $rules;
 		}
 
-		$thematic = (string) get_option( 'dpo_global_style_thematic_css', '' );
-		$global   = '' !== $thematic ? $thematic : (string) get_option( 'dpo_global_style_css', '' );
+		$thematic = (string) get_option( 'spcus_global_style_thematic_css', '' );
+		$global   = '' !== $thematic ? $thematic : (string) get_option( 'spcus_global_style_css', '' );
 		if ( '' !== $global ) {
-			$css .= "\n/* dpo-global */\n" . $global;
+			$css .= "\n/* spcus-global */\n" . $global;
 		}
 
 		if ( '' === trim( $css ) ) {
 			return;
 		}
 
-		if ( wp_style_is( 'dpo-store-style', 'enqueued' ) || wp_style_is( 'dpo-store-style', 'registered' ) ) {
-			wp_add_inline_style( 'dpo-store-style', $css );
+		if ( wp_style_is( 'spcus-store-style', 'enqueued' ) || wp_style_is( 'spcus-store-style', 'registered' ) ) {
+			wp_add_inline_style( 'spcus-store-style', $css );
 			return;
 		}
 
 		printf(
-			'<style id="dpo-inline-css">%s</style>',
+			'<style id="spcus-inline-css">%s</style>',
 			wp_strip_all_tags( $css ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS context, tags stripped.
 		);
 	}
 
 	/**
-	 * Build the window.dpoStore localisation payload.
+	 * Build the window.spcusStore localisation payload.
 	 *
 	 * @return array
 	 */
@@ -153,13 +153,13 @@ final class StoreAssets {
 
 		return array(
 			'url'         => admin_url( 'admin-ajax.php' ),
-			'restUrl'     => esc_url_raw( rest_url( 'dpo/v1/' ) ),
+			'restUrl'     => esc_url_raw( rest_url( 'spcus/v1/' ) ),
 			// X-WP-Nonce header — must be `wp_rest` so WP core's REST
 			// cookie auth (rest_cookie_check_errors) passes for logged-in
-			// visitors. Our routes additionally verify a body `dpo_nonce`
-			// against the `dpo_rest` action below.
+			// visitors. Our routes additionally verify a body `spcus_nonce`
+			// against the `spcus_rest` action below.
 			'nonce'       => wp_create_nonce( 'wp_rest' ),
-			'uploadNonce' => wp_create_nonce( 'dpo_rest' ),
+			'uploadNonce' => wp_create_nonce( 'spcus_rest' ),
 			'currency'    => $currency,
 			'proActive'   => class_exists( Capabilities::class ) ? Capabilities::pro() : false,
 			'conversion'  => class_exists( CurrencyBridge::class ) ? CurrencyBridge::data() : array(
@@ -179,14 +179,14 @@ final class StoreAssets {
 	 */
 	private function print_ajax_fallback( array $data, $attached ) {
 		printf(
-			'<script>window.dpoStore = window.dpoStore || %s;</script>',
+			'<script>window.spcusStore = window.spcusStore || %s;</script>',
 			wp_json_encode( $data ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded scalar map.
 		);
 
-		if ( ! $attached && is_readable( DPO_PATH . 'assets/build/store.js' ) ) {
+		if ( ! $attached && is_readable( SPCUS_PATH . 'assets/build/store.js' ) ) {
 			printf(
 				'<script src="%s"></script>',
-				esc_url( DPO_ASSETS . 'store.js' )
+				esc_url( SPCUS_ASSETS . 'store.js' )
 			);
 		}
 	}

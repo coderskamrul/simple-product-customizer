@@ -2,12 +2,12 @@
 /**
  * Color swatch choice field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -41,7 +41,7 @@ final class ColorSwatchField extends AbstractField {
 		$input_t  = $multiple ? 'checkbox' : 'radio';
 		$name     = $multiple ? $this->choice_name() . '[]' : $this->choice_name();
 
-		$html = '<div class="dpo-swatches dpo-swatches--color"'
+		$html = '<div class="spcus-swatches spcus-swatches--color"'
 			. $this->attrs(
 				array(
 					'data-min-select' => $multiple && '' !== (string) $this->cfg( 'minSelect', '' ) ? (int) $this->cfg( 'minSelect' ) : '',
@@ -53,8 +53,8 @@ final class ColorSwatchField extends AbstractField {
 			$label = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 			$color = isset( $choice['color'] ) ? (string) $choice['color'] : '#ffffff';
 
-			$html .= '<label class="dpo-swatch-item" title="' . esc_attr( $label ) . '">';
-			$html .= '<input type="' . esc_attr( $input_t ) . '" class="dpo-swatch-item__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
+			$html .= '<label class="spcus-swatch-item" title="' . esc_attr( $label ) . '">';
+			$html .= '<input type="' . esc_attr( $input_t ) . '" class="spcus-swatch-item__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
 				. $this->attrs(
 					array_merge(
 						array(
@@ -68,9 +68,9 @@ final class ColorSwatchField extends AbstractField {
 					)
 				) . ' />';
 			$swatch_style = trim( 'background:' . $color . ';' . $this->swatch_style(), ';' );
-			$html .= '<span class="dpo-swatch" style="' . esc_attr( $swatch_style ) . '"></span>';
+			$html .= '<span class="spcus-swatch" style="' . esc_attr( $swatch_style ) . '"></span>';
 			if ( '' !== $label ) {
-				$html .= '<span class="dpo-swatch-item__label">' . esc_html( $label ) . '</span>';
+				$html .= '<span class="spcus-swatch-item__label">' . esc_html( $label ) . '</span>';
 			}
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= $this->qty_input( $index );

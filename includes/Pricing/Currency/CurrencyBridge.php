@@ -2,10 +2,10 @@
 /**
  * Currency switcher detection + conversion gateway.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Pricing\Currency;
+namespace SPCUS\Pricing\Currency;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,7 +57,7 @@ final class CurrencyBridge {
 		 *
 		 * @param string[] $list FQCNs implementing CurrencyAdapter.
 		 */
-		return (array) apply_filters( 'dpo_currency_adapters', $list );
+		return (array) apply_filters( 'spcus_currency_adapters', $list );
 	}
 
 	/**
@@ -110,7 +110,7 @@ final class CurrencyBridge {
 		 * @param float                $price   Original base amount.
 		 * @param CurrencyAdapter|null $adapter Active adapter (or null).
 		 */
-		return (float) apply_filters( 'dpo_currency_convert', $result, $price, $adapter );
+		return (float) apply_filters( 'spcus_currency_convert', $result, $price, $adapter );
 	}
 
 	/**
@@ -130,7 +130,7 @@ final class CurrencyBridge {
 		 * @param float                $price   Original active amount.
 		 * @param CurrencyAdapter|null $adapter Active adapter (or null).
 		 */
-		return (float) apply_filters( 'dpo_currency_revert', $result, $price, $adapter );
+		return (float) apply_filters( 'spcus_currency_revert', $result, $price, $adapter );
 	}
 
 	/**

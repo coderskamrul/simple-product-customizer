@@ -71,7 +71,7 @@ export default function DatePicker( {
 			id={ id }
 			ref={ inputRef }
 			type="text"
-			className="dpo-input dpo-datepicker-input"
+			className="spcus-input spcus-datepicker-input"
 			placeholder={ placeholder }
 			defaultValue={ value }
 			readOnly

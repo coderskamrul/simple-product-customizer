@@ -60,11 +60,11 @@ function Shell() {
 	const hideTopBar = isBuilder;
 
 	return (
-		<div className="dpo-app">
+		<div className="spcus-app">
 			{ ! hideTopBar && <TopBar /> }
 			<main
-				className={ `dpo-app__outlet${
-					isBuilder ? ' dpo-app__outlet--bleed' : ''
+				className={ `spcus-app__outlet${
+					isBuilder ? ' spcus-app__outlet--bleed' : ''
 				}` }
 			>
 				<Screen route={ route } />

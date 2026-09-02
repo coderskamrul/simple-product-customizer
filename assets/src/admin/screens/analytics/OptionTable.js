@@ -24,33 +24,33 @@ const COLUMNS = [
 		sort: 'option',
 		label: __(
 			'Option details',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		key: 'clicks',
 		sort: 'clicks',
-		label: __( 'Clicks', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Clicks', 'simple-product-customizer' ),
 	},
 	{
 		key: 'cart',
 		sort: 'cart',
-		label: __( 'Cart rate', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Cart rate', 'simple-product-customizer' ),
 	},
 	{
 		key: 'conversion',
 		sort: 'conversion',
-		label: __( 'Conversion', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Conversion', 'simple-product-customizer' ),
 	},
 	{
 		key: 'revenue',
 		sort: 'revenue',
-		label: __( 'Revenue', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'Revenue', 'simple-product-customizer' ),
 	},
 	{
 		key: 'ctr',
 		sort: 'ctr',
-		label: __( 'CTR', 'dynamic-product-options-for-woocommerce' ),
+		label: __( 'CTR', 'simple-product-customizer' ),
 		end: true,
 	},
 ];
@@ -177,29 +177,29 @@ export default function OptionTable( { status, error, rows } ) {
 	};
 
 	return (
-		<section className="dpo-an-card dpo-an-table">
-			<header className="dpo-an-table__head">
+		<section className="spcus-an-card spcus-an-table">
+			<header className="spcus-an-table__head">
 				<div>
-					<h2 className="dpo-an-table__title">
+					<h2 className="spcus-an-table__title">
 						{ __(
 							'Option Performance',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</h2>
-					<p className="dpo-an-table__sub">
+					<p className="spcus-an-table__sub">
 						{ status === 'ready'
 							? sprintf(
 									/* translators: 1: shown count 2: total */
 									__(
 										'Showing %1$d of %2$d options',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 									),
 									pageRows.length,
 									rows.length
 							  )
 							: __(
 									'Per-option lifetime totals',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  ) }
 					</p>
 				</div>
@@ -216,28 +216,28 @@ export default function OptionTable( { status, error, rows } ) {
 			{ status === 'loading' && <SkeletonTable rows={ 6 } cols={ 5 } /> }
 
 			{ status === 'error' && (
-				<div className="dpo-an-state">
-					<p className="dpo-error">{ error }</p>
+				<div className="spcus-an-state">
+					<p className="spcus-error">{ error }</p>
 				</div>
 			) }
 
 			{ status === 'ready' && filtered.length === 0 && (
-				<div className="dpo-an-state">
+				<div className="spcus-an-state">
 					<EmptyState
 						icon="chart-bar"
 						title={ __(
 							'No options to show',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						text={
 							rows.length === 0
 								? __(
 										'Stats appear once shoppers view products with option sets.',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 								  )
 								: __(
 										'No options match the current search or filter.',
-										'dynamic-product-options-for-woocommerce'
+										'simple-product-customizer'
 								  )
 						}
 					/>
@@ -246,22 +246,22 @@ export default function OptionTable( { status, error, rows } ) {
 
 			{ status === 'ready' && filtered.length > 0 && (
 				<>
-					<div className="dpo-an-tablewrap">
-						<table className="dpo-an-grid">
+					<div className="spcus-an-tablewrap">
+						<table className="spcus-an-grid">
 							<thead>
 								<tr>
 									{ COLUMNS.map( ( col ) => (
 										<th
 											key={ col.key }
 											scope="col"
-											className={ `dpo-an-th${
-												col.end ? ' dpo-an-th--end' : ''
+											className={ `spcus-an-th${
+												col.end ? ' spcus-an-th--end' : ''
 											}` }
 											aria-sort={ ariaSort( col.sort ) }
 										>
 											<button
 												type="button"
-												className={ `dpo-an-sort${
+												className={ `spcus-an-sort${
 													sort.key === col.sort
 														? ' is-active'
 														: ''
@@ -274,7 +274,7 @@ export default function OptionTable( { status, error, rows } ) {
 												<span
 													className={ `dashicons dashicons-${ sortIcon(
 														col.sort
-													) } dpo-an-sort__icon` }
+													) } spcus-an-sort__icon` }
 													aria-hidden="true"
 												/>
 											</button>
@@ -294,13 +294,13 @@ export default function OptionTable( { status, error, rows } ) {
 						</table>
 					</div>
 
-					<footer className="dpo-an-foot">
-						<span className="dpo-an-foot__info">
+					<footer className="spcus-an-foot">
+						<span className="spcus-an-foot__info">
 							{ sprintf(
 								/* translators: 1: current page 2: total pages */
 								__(
 									'Page %1$d of %2$d',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								),
 								safePage,
 								totalPages

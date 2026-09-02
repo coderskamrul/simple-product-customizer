@@ -19,11 +19,11 @@ import ValuePricing from './ValuePricing';
 const FORMAT_MODES = [
 	{
 		value: true,
-		label: __( '12 Hours', 'dynamic-product-options-for-woocommerce' ),
+		label: __( '12 Hours', 'simple-product-customizer' ),
 	},
 	{
 		value: false,
-		label: __( '24 Hours', 'dynamic-product-options-for-woocommerce' ),
+		label: __( '24 Hours', 'simple-product-customizer' ),
 	},
 ];
 
@@ -86,14 +86,14 @@ function to24( h12, mm, ap ) {
  */
 function Segmented( { value, options, onChange } ) {
 	return (
-		<div className="dpo-seg" role="radiogroup">
+		<div className="spcus-seg" role="radiogroup">
 			{ options.map( ( opt ) => (
 				<button
 					key={ String( opt.value ) }
 					type="button"
 					role="radio"
 					aria-checked={ value === opt.value }
-					className={ `dpo-seg__btn${
+					className={ `spcus-seg__btn${
 						value === opt.value ? ' is-active' : ''
 					}` }
 					onClick={ () => onChange( opt.value ) }
@@ -136,19 +136,19 @@ function TimeInput( { value, hour12, onChange } ) {
 		onChange( to24( parseInt( parts.h12, 10 ), parts.m, ap ) );
 
 	return (
-		<div className="dpo-timeinput">
+		<div className="spcus-timeinput">
 			<input
 				type="number"
-				className="dpo-input dpo-timeinput__num"
+				className="spcus-input spcus-timeinput__num"
 				min={ hour12 ? 1 : 0 }
 				max={ hour12 ? 12 : 23 }
 				value={ hour12 ? parts.h12 : pad( String( parts.h ), 0, 23 ) }
 				onChange={ ( e ) => setHour( e.target.value ) }
 			/>
-			<span className="dpo-timeinput__sep">:</span>
+			<span className="spcus-timeinput__sep">:</span>
 			<input
 				type="number"
-				className="dpo-input dpo-timeinput__num"
+				className="spcus-input spcus-timeinput__num"
 				min={ 0 }
 				max={ 59 }
 				value={ parts.m }
@@ -189,18 +189,18 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 		<>
 			{ showPricing && <ValuePricing node={ node } patch={ patch } /> }
 
-			<div className="dpo-settings__group">
-				<p className="dpo-field-group__title">
+			<div className="spcus-settings__group">
+				<p className="spcus-field-group__title">
 					{ __(
 						'Display',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
-				<div className="dpo-settings__grid2">
+				<div className="spcus-settings__grid2">
 					<Field
 						label={ __(
 							'Time format',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<Segmented
@@ -212,7 +212,7 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 					<Field
 						label={ __(
 							'Step (minutes)',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl
@@ -224,22 +224,22 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 				</div>
 			</div>
 
-			<div className="dpo-settings__group">
-				<p className="dpo-field-group__title">
+			<div className="spcus-settings__group">
+				<p className="spcus-field-group__title">
 					{ __(
 						'Selectable range',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
-				<div className="dpo-settings__grid2">
+				<div className="spcus-settings__grid2">
 					<Field
 						label={ __(
 							'Earliest time',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						help={ __(
 							'Leave at 00:00 for no limit.',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TimeInput
@@ -251,11 +251,11 @@ export default function TimeConfig( { node, patch, showPricing = true } ) {
 					<Field
 						label={ __(
 							'Latest time',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 						help={ __(
 							'Leave at 00:00 for no limit.',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TimeInput

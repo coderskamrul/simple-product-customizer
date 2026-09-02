@@ -1,11 +1,11 @@
 <?php
 /**
- * Settings store (option `dpo_settings`).
+ * Settings store (option `spcus_settings`).
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Core;
+namespace SPCUS\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Settings {
 
-	const OPTION = 'dpo_settings';
+	const OPTION = 'spcus_settings';
 
 	/**
 	 * Default values for every known setting.
@@ -24,13 +24,13 @@ final class Settings {
 	public static function defaults() {
 		return array(
 			'showPriceLine'       => true,
-			'priceLineLabel'      => __( 'Options Price', 'dynamic-product-options-for-woocommerce' ),
+			'priceLineLabel'      => __( 'Options Price', 'simple-product-customizer' ),
 			'showTotalLine'       => true,
-			'totalLineLabel'      => __( 'Total Price', 'dynamic-product-options-for-woocommerce' ),
+			'totalLineLabel'      => __( 'Total Price', 'simple-product-customizer' ),
 			'hideInCart'          => false,
 			'hideInCheckout'      => false,
 			'shopForceSelect'     => true,
-			'shopButtonText'      => __( 'Select Options', 'dynamic-product-options-for-woocommerce' ),
+			'shopButtonText'      => __( 'Select Options', 'simple-product-customizer' ),
 			'uploadTempDays'      => 7,
 			'uploadPlacedDays'    => 0,
 			'uploadCompletedDays' => 0,

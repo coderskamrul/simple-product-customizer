@@ -2,11 +2,11 @@
  * File-upload field behaviour.
  *
  * On file select/drop: validate count + size against the data-* limits the
- * renderer put on `.dpo-upload__input`, POST each file as FormData (field
- * `dpo_file`, plus `dpo_nonce` = dpoStore.uploadNonce) to
- * `dpoStore.restUrl + 'upload'` with an XMLHttpRequest progress bar, then
+ * renderer put on `.spcus-upload__input`, POST each file as FormData (field
+ * `spcus_file`, plus `spcus_nonce` = spcusStore.uploadNonce) to
+ * `spcusStore.restUrl + 'upload'` with an XMLHttpRequest progress bar, then
  * store the accumulated `[{ name, path }]` JSON in the hidden input
- * (`.dpo-upload__data`, name `dpo_input_{id}`) and render the item list.
+ * (`.spcus-upload__data`, name `spcus_input_{id}`) and render the item list.
  *
  * The upload REST route returns `{ ok:true, file:{ url, name } }`; we map
  * `path = file.url` for the §9 [{name,path}] contract.
@@ -16,35 +16,35 @@
 
 import { __ } from '@wordpress/i18n';
 
-const TD = 'dynamic-product-options-for-woocommerce';
+const TD = 'simple-product-customizer';
 
 /**
  * Read the localised store config defensively.
  *
- * @return {Object} dpoStore global or {}.
+ * @return {Object} spcusStore global or {}.
  */
 function store() {
-	return ( typeof window !== 'undefined' && window.dpoStore ) || {};
+	return ( typeof window !== 'undefined' && window.spcusStore ) || {};
 }
 
 /**
  * Wire one fileupload field. Returns a cleanup function.
  *
- * @param {HTMLElement} fieldEl  `.dpo-field` wrapper (type=fileupload).
+ * @param {HTMLElement} fieldEl  `.spcus-field` wrapper (type=fileupload).
  * @param {Function}    onChange Called after the file list changes.
  * @return {Function} Detach handler.
  */
 export function initUpload( fieldEl, onChange ) {
-	const root = fieldEl.querySelector( '.dpo-upload' );
+	const root = fieldEl.querySelector( '.spcus-upload' );
 	if ( ! root ) {
 		return () => {};
 	}
-	const input = root.querySelector( '.dpo-upload__input' );
-	const hidden = root.querySelector( '.dpo-upload__data' );
-	const progress = root.querySelector( '.dpo-upload__progress' );
-	const bar = root.querySelector( '.dpo-upload__bar' );
-	const result = root.querySelector( '.dpo-upload__result' );
-	const dropzone = root.querySelector( '.dpo-dropzone' );
+	const input = root.querySelector( '.spcus-upload__input' );
+	const hidden = root.querySelector( '.spcus-upload__data' );
+	const progress = root.querySelector( '.spcus-upload__progress' );
+	const bar = root.querySelector( '.spcus-upload__bar' );
+	const result = root.querySelector( '.spcus-upload__result' );
+	const dropzone = root.querySelector( '.spcus-dropzone' );
 	if ( ! input || ! hidden ) {
 		return () => {};
 	}
@@ -90,10 +90,10 @@ export function initUpload( fieldEl, onChange ) {
 	 * @return {void}
 	 */
 	const showError = ( msg ) => {
-		const errEl = fieldEl.querySelector( '.dpo-field__error' );
+		const errEl = fieldEl.querySelector( '.spcus-field__error' );
 		if ( errEl ) {
 			errEl.textContent = msg;
-			errEl.classList.add( 'dpo-field__error--visible' );
+			errEl.classList.add( 'spcus-field__error--visible' );
 		}
 	};
 
@@ -137,11 +137,11 @@ export function initUpload( fieldEl, onChange ) {
 		result.innerHTML = '';
 		files.forEach( ( file, i ) => {
 			const item = document.createElement( 'div' );
-			item.className = 'dpo-upload-item';
+			item.className = 'spcus-upload-item';
 
 			const rm = document.createElement( 'button' );
 			rm.type = 'button';
-			rm.className = 'dpo-upload-item__remove';
+			rm.className = 'spcus-upload-item__remove';
 			rm.setAttribute( 'aria-label', __( 'Remove file', TD ) );
 			rm.textContent = '×';
 			rm.addEventListener( 'click', () => {
@@ -150,7 +150,7 @@ export function initUpload( fieldEl, onChange ) {
 			} );
 
 			const thumb = document.createElement( 'span' );
-			thumb.className = 'dpo-upload-item__thumb';
+			thumb.className = 'spcus-upload-item__thumb';
 			if ( isImage( file.path || file.name ) && file.path ) {
 				const img = document.createElement( 'img' );
 				img.src = file.path;
@@ -161,23 +161,23 @@ export function initUpload( fieldEl, onChange ) {
 			}
 
 			const body = document.createElement( 'span' );
-			body.className = 'dpo-upload-item__body';
+			body.className = 'spcus-upload-item__body';
 
 			const top = document.createElement( 'span' );
-			top.className = 'dpo-upload-item__top';
+			top.className = 'spcus-upload-item__top';
 			const name = document.createElement( 'span' );
-			name.className = 'dpo-upload-item__name';
+			name.className = 'spcus-upload-item__name';
 			name.textContent = file.name || '';
 			const size = document.createElement( 'span' );
-			size.className = 'dpo-upload-item__size';
+			size.className = 'spcus-upload-item__size';
 			size.textContent = formatSize( file.size );
 			top.appendChild( name );
 			top.appendChild( size );
 
 			const track = document.createElement( 'span' );
-			track.className = 'dpo-upload-item__bar';
+			track.className = 'spcus-upload-item__bar';
 			const fill = document.createElement( 'span' );
-			fill.className = 'dpo-upload-item__bar-fill';
+			fill.className = 'spcus-upload-item__bar-fill';
 			fill.style.width = '100%';
 			track.appendChild( fill );
 
@@ -202,8 +202,8 @@ export function initUpload( fieldEl, onChange ) {
 			const cfg = store();
 			const url = ( cfg.restUrl || '' ) + 'upload';
 			const fd = new FormData();
-			fd.append( 'dpo_file', file );
-			fd.append( 'dpo_nonce', cfg.uploadNonce || '' );
+			fd.append( 'spcus_file', file );
+			fd.append( 'spcus_nonce', cfg.uploadNonce || '' );
 
 			const xhr = new XMLHttpRequest();
 			xhr.open( 'POST', url, true );
@@ -309,18 +309,18 @@ export function initUpload( fieldEl, onChange ) {
 	const onDragOver = ( e ) => {
 		e.preventDefault();
 		if ( dropzone ) {
-			dropzone.classList.add( 'dpo-dropzone--over' );
+			dropzone.classList.add( 'spcus-dropzone--over' );
 		}
 	};
 	const onDragLeave = () => {
 		if ( dropzone ) {
-			dropzone.classList.remove( 'dpo-dropzone--over' );
+			dropzone.classList.remove( 'spcus-dropzone--over' );
 		}
 	};
 	const onDrop = ( e ) => {
 		e.preventDefault();
 		if ( dropzone ) {
-			dropzone.classList.remove( 'dpo-dropzone--over' );
+			dropzone.classList.remove( 'spcus-dropzone--over' );
 		}
 		if ( e.dataTransfer && e.dataTransfer.files ) {
 			handleFiles( e.dataTransfer.files );

@@ -12,15 +12,15 @@ import { __ } from '@wordpress/i18n';
 const FEATURES = [
 	__(
 		'Unlimited option sets & fields',
-		'dynamic-product-options-for-woocommerce'
+		'simple-product-customizer'
 	),
-	__( 'Advanced formula pricing', 'dynamic-product-options-for-woocommerce' ),
+	__( 'Advanced formula pricing', 'simple-product-customizer' ),
 	__(
 		'Percentage & per-unit pricing',
-		'dynamic-product-options-for-woocommerce'
+		'simple-product-customizer'
 	),
-	__( 'Custom font picker', 'dynamic-product-options-for-woocommerce' ),
-	__( 'Priority support', 'dynamic-product-options-for-woocommerce' ),
+	__( 'Custom font picker', 'simple-product-customizer' ),
+	__( 'Priority support', 'simple-product-customizer' ),
 ];
 
 /**
@@ -30,23 +30,23 @@ const FEATURES = [
  */
 export default function ProCard() {
 	return (
-		<section className="dpo-db-card dpo-db-pro">
-			<header className="dpo-db-pro__head">
+		<section className="spcus-db-card spcus-db-pro">
+			<header className="spcus-db-pro__head">
 				<span
-					className="dashicons dashicons-superhero dpo-db-pro__ico"
+					className="dashicons dashicons-superhero spcus-db-pro__ico"
 					aria-hidden="true"
 				/>
-				<h2 className="dpo-db-pro__title">
+				<h2 className="spcus-db-pro__title">
 					{ __(
 						'Unlock Pro Features',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</h2>
 			</header>
 
-			<ul className="dpo-db-pro__list">
+			<ul className="spcus-db-pro__list">
 				{ FEATURES.map( ( f ) => (
-					<li key={ f } className="dpo-db-pro__feat">
+					<li key={ f } className="spcus-db-pro__feat">
 						<span
 							className="dashicons dashicons-yes-alt"
 							aria-hidden="true"
@@ -57,14 +57,14 @@ export default function ProCard() {
 			</ul>
 
 			<a
-				className="dpo-db-pro__cta"
-				href="https://wpdeveloper.com/in/upgrade-dynamic-product-options"
+				className="spcus-db-pro__cta"
+				href="https://wpdeveloper.com/in/upgrade-simple-product-customizer"
 				target="_blank"
 				rel="noreferrer"
 			>
 				{ __(
 					'Upgrade Now',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				<span
 					className="dashicons dashicons-arrow-right-alt"

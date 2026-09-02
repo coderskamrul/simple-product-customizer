@@ -1,5 +1,5 @@
 /**
- * DPO Admin — Premium Skeleton loaders.
+ * SPCUS Admin — Premium Skeleton loaders.
  *
  * Lightweight (no npm dependency), theme-aware via CSS variables, with a
  * smooth shimmer animation. Pre-composed variants mirror the layouts they
@@ -33,7 +33,7 @@ const range = ( n ) => Array.from( { length: n }, ( _, i ) => i );
  * @param {Object}        props             Props.
  * @param {string|number} [props.w]         Width (any CSS length, default 100%).
  * @param {string|number} [props.h]         Height (default 12px).
- * @param {string}        [props.r]         Border-radius (default `--dpo-r-sm`).
+ * @param {string}        [props.r]         Border-radius (default `--spcus-r-sm`).
  * @param {string}        [props.className] Extra class names.
  * @param {Object}        [props.style]     Inline style overrides.
  * @return {JSX.Element} Block element.
@@ -53,7 +53,7 @@ export function Skeleton( {
 	};
 	return (
 		<span
-			className={ `dpo-skel ${ className }`.trim() }
+			className={ `spcus-skel ${ className }`.trim() }
 			style={ css }
 			aria-hidden="true"
 		/>
@@ -74,7 +74,7 @@ export function Skeleton( {
  */
 export function SkeletonText( { lines = 3 } ) {
 	return (
-		<div className="dpo-skel-text" aria-hidden="true">
+		<div className="spcus-skel-text" aria-hidden="true">
 			{ range( lines ).map( ( i ) => (
 				<Skeleton
 					key={ i }
@@ -98,16 +98,16 @@ export function SkeletonText( { lines = 3 } ) {
  */
 export function SkeletonCard( { lines = 3, media = false, action = false } ) {
 	return (
-		<section className="dpo-skel-card" aria-hidden="true">
-			<header className="dpo-skel-card__head">
+		<section className="spcus-skel-card" aria-hidden="true">
+			<header className="spcus-skel-card__head">
 				<Skeleton w={ 160 } h={ 16 } />
 				<Skeleton w={ 28 } h={ 28 } r="50%" />
 			</header>
-			{ media && <Skeleton h={ 140 } r="var(--dpo-r-md)" /> }
+			{ media && <Skeleton h={ 140 } r="var(--spcus-r-md)" /> }
 			<SkeletonText lines={ lines } />
 			{ action && (
-				<div className="dpo-skel-card__foot">
-					<Skeleton w={ 96 } h={ 32 } r="var(--dpo-r-md)" />
+				<div className="spcus-skel-card__foot">
+					<Skeleton w={ 96 } h={ 32 } r="var(--spcus-r-md)" />
 				</div>
 			) }
 		</section>
@@ -121,9 +121,9 @@ export function SkeletonCard( { lines = 3, media = false, action = false } ) {
  */
 export function SkeletonStat() {
 	return (
-		<div className="dpo-skel-stat" aria-hidden="true">
-			<Skeleton w={ 44 } h={ 44 } r="var(--dpo-r-md)" />
-			<div className="dpo-skel-stat__body">
+		<div className="spcus-skel-stat" aria-hidden="true">
+			<Skeleton w={ 44 } h={ 44 } r="var(--spcus-r-md)" />
+			<div className="spcus-skel-stat__body">
 				<Skeleton w="55%" h={ 22 } />
 				<Skeleton w="40%" h={ 10 } />
 			</div>
@@ -140,7 +140,7 @@ export function SkeletonStat() {
  */
 export function SkeletonStatGrid( { count = 4 } ) {
 	return (
-		<div className="dpo-skel-stat-grid" aria-hidden="true">
+		<div className="spcus-skel-stat-grid" aria-hidden="true">
 			{ range( count ).map( ( i ) => (
 				<SkeletonStat key={ i } />
 			) ) }
@@ -162,14 +162,14 @@ export function SkeletonStatGrid( { count = 4 } ) {
 export function SkeletonTable( { rows = 6, cols = 5 } ) {
 	return (
 		<div
-			className="dpo-skel-table"
+			className="spcus-skel-table"
 			role="status"
 			aria-label={ __(
 				'Loading…',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 		>
-			<div className="dpo-skel-table__head">
+			<div className="spcus-skel-table__head">
 				{ range( cols ).map( ( i ) => (
 					<Skeleton
 						key={ i }
@@ -178,9 +178,9 @@ export function SkeletonTable( { rows = 6, cols = 5 } ) {
 					/>
 				) ) }
 			</div>
-			<div className="dpo-skel-table__body">
+			<div className="spcus-skel-table__body">
 				{ range( rows ).map( ( r ) => (
-					<div key={ r } className="dpo-skel-table__row">
+					<div key={ r } className="spcus-skel-table__row">
 						{ range( cols ).map( ( c ) => (
 							<Skeleton
 								key={ c }
@@ -205,16 +205,16 @@ export function SkeletonTable( { rows = 6, cols = 5 } ) {
 export function SkeletonChart() {
 	const bars = [ 35, 65, 50, 80, 45, 70, 90, 60 ];
 	return (
-		<div className="dpo-skel-chart" aria-hidden="true">
-			<header className="dpo-skel-chart__head">
+		<div className="spcus-skel-chart" aria-hidden="true">
+			<header className="spcus-skel-chart__head">
 				<Skeleton w={ 180 } h={ 14 } />
 				<Skeleton w={ 120 } h={ 10 } />
 			</header>
-			<div className="dpo-skel-chart__plot">
+			<div className="spcus-skel-chart__plot">
 				{ bars.map( ( h, i ) => (
 					<span
 						key={ i }
-						className="dpo-skel dpo-skel-chart__bar"
+						className="spcus-skel spcus-skel-chart__bar"
 						style={ { blockSize: `${ h }%` } }
 					/>
 				) ) }
@@ -232,11 +232,11 @@ export function SkeletonChart() {
  */
 export function SkeletonForm( { fields = 4 } ) {
 	return (
-		<div className="dpo-skel-form" aria-hidden="true">
+		<div className="spcus-skel-form" aria-hidden="true">
 			{ range( fields ).map( ( i ) => (
-				<div key={ i } className="dpo-skel-form__row">
+				<div key={ i } className="spcus-skel-form__row">
 					<Skeleton w="30%" h={ 10 } />
-					<Skeleton h={ 36 } r="var(--dpo-r-md)" />
+					<Skeleton h={ 36 } r="var(--spcus-r-md)" />
 				</div>
 			) ) }
 		</div>
@@ -252,13 +252,13 @@ export function SkeletonForm( { fields = 4 } ) {
  */
 export function SkeletonTabs( { count = 4 } ) {
 	return (
-		<div className="dpo-skel-tabs" aria-hidden="true">
+		<div className="spcus-skel-tabs" aria-hidden="true">
 			{ range( count ).map( ( i ) => (
 				<Skeleton
 					key={ i }
 					w={ 90 + ( i % 3 ) * 14 }
 					h={ 32 }
-					r="var(--dpo-r-md)"
+					r="var(--spcus-r-md)"
 				/>
 			) ) }
 		</div>
@@ -272,12 +272,12 @@ export function SkeletonTabs( { count = 4 } ) {
  */
 export function SkeletonModal() {
 	return (
-		<div className="dpo-skel-modal" aria-hidden="true">
+		<div className="spcus-skel-modal" aria-hidden="true">
 			<Skeleton w="50%" h={ 20 } />
 			<SkeletonText lines={ 4 } />
-			<div className="dpo-skel-modal__foot">
-				<Skeleton w={ 90 } h={ 36 } r="var(--dpo-r-md)" />
-				<Skeleton w={ 110 } h={ 36 } r="var(--dpo-r-md)" />
+			<div className="spcus-skel-modal__foot">
+				<Skeleton w={ 90 } h={ 36 } r="var(--spcus-r-md)" />
+				<Skeleton w={ 110 } h={ 36 } r="var(--spcus-r-md)" />
 			</div>
 		</div>
 	);
@@ -292,10 +292,10 @@ export function SkeletonModal() {
  */
 export function SkeletonNav( { items = 6 } ) {
 	return (
-		<nav className="dpo-skel-nav" aria-hidden="true">
+		<nav className="spcus-skel-nav" aria-hidden="true">
 			{ range( items ).map( ( i ) => (
-				<div key={ i } className="dpo-skel-nav__item">
-					<Skeleton w={ 22 } h={ 22 } r="var(--dpo-r-sm)" />
+				<div key={ i } className="spcus-skel-nav__item">
+					<Skeleton w={ 22 } h={ 22 } r="var(--spcus-r-sm)" />
 					<Skeleton w={ 80 + ( i % 3 ) * 24 } h={ 12 } />
 				</div>
 			) ) }
@@ -308,7 +308,7 @@ export function SkeletonNav( { items = 6 } ) {
  *
  * Mirrors `Canvas.js` 1:1: sticky chrome bar + a two-column product layout
  * (gallery on the left, summary card on the right) inside the same
- * `dpo-builder__stage-wrap` so the skeleton never causes a layout jump
+ * `spcus-builder__stage-wrap` so the skeleton never causes a layout jump
  * when the real content lands.
  *
  *   ┌──────────────────────────────────────────────────────┐
@@ -335,62 +335,62 @@ export function SkeletonNav( { items = 6 } ) {
 export function SkeletonBuilder() {
 	return (
 		<div
-			className="dpo-skel-builder"
+			className="spcus-skel-builder"
 			role="status"
 			aria-label={ __(
 				'Loading option builder…',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 		>
 			{ /* ── Sticky chrome (back, title, segmented, actions, save) */ }
-			<header className="dpo-skel-builder__topbar">
-				<Skeleton w={ 32 } h={ 32 } r="var(--dpo-r-md)" />
-				<Skeleton h={ 32 } r="var(--dpo-r-md)" />
-				<div className="dpo-skel-builder__topbar-right">
-					<Skeleton w={ 160 } h={ 32 } r="var(--dpo-r-full)" />
-					<Skeleton w={ 90 } h={ 32 } r="var(--dpo-r-md)" />
-					<Skeleton w={ 110 } h={ 32 } r="var(--dpo-r-md)" />
-					<Skeleton w={ 78 } h={ 32 } r="var(--dpo-r-md)" />
+			<header className="spcus-skel-builder__topbar">
+				<Skeleton w={ 32 } h={ 32 } r="var(--spcus-r-md)" />
+				<Skeleton h={ 32 } r="var(--spcus-r-md)" />
+				<div className="spcus-skel-builder__topbar-right">
+					<Skeleton w={ 160 } h={ 32 } r="var(--spcus-r-full)" />
+					<Skeleton w={ 90 } h={ 32 } r="var(--spcus-r-md)" />
+					<Skeleton w={ 110 } h={ 32 } r="var(--spcus-r-md)" />
+					<Skeleton w={ 78 } h={ 32 } r="var(--spcus-r-md)" />
 				</div>
 			</header>
 
 			{ /* ── Stage : two-column product layout */ }
-			<div className="dpo-skel-builder__stage-wrap">
-				<div className="dpo-skel-builder__stage">
+			<div className="spcus-skel-builder__stage-wrap">
+				<div className="spcus-skel-builder__stage">
 					{ /* Left: gallery */ }
-					<aside className="dpo-skel-builder__gallery">
+					<aside className="spcus-skel-builder__gallery">
 						<Skeleton
 							h="100%"
-							r="var(--dpo-r-lg)"
-							className="dpo-skel-builder__hero"
+							r="var(--spcus-r-lg)"
+							className="spcus-skel-builder__hero"
 						/>
-						<div className="dpo-skel-builder__thumbs">
+						<div className="spcus-skel-builder__thumbs">
 							{ range( 3 ).map( ( i ) => (
 								<Skeleton
 									key={ i }
 									h="100%"
-									r="var(--dpo-r-md)"
-									className="dpo-skel-builder__thumb"
+									r="var(--spcus-r-md)"
+									className="spcus-skel-builder__thumb"
 								/>
 							) ) }
 						</div>
 					</aside>
 
 					{ /* Right: summary card */ }
-					<section className="dpo-skel-builder__summary">
+					<section className="spcus-skel-builder__summary">
 						<Skeleton w="65%" h={ 22 } />
 						<Skeleton w="28%" h={ 18 } />
 
-						<div className="dpo-skel-builder__options">
+						<div className="spcus-skel-builder__options">
 							{ range( 4 ).map( ( i ) => (
 								<div
 									key={ i }
-									className="dpo-skel-builder__field"
+									className="spcus-skel-builder__field"
 								>
 									<Skeleton w="35%" h={ 11 } />
 									<Skeleton
 										h={ i === 2 ? 88 : 40 }
-										r="var(--dpo-r-md)"
+										r="var(--spcus-r-md)"
 									/>
 								</div>
 							) ) }
@@ -398,8 +398,8 @@ export function SkeletonBuilder() {
 
 						<Skeleton
 							h={ 48 }
-							r="var(--dpo-r-md)"
-							className="dpo-skel-builder__atc"
+							r="var(--spcus-r-md)"
+							className="spcus-skel-builder__atc"
 						/>
 					</section>
 				</div>
@@ -425,7 +425,7 @@ export function FadeIn( {
 	...rest
 } ) {
 	return (
-		<Tag className={ `dpo-fadein ${ className }`.trim() } { ...rest }>
+		<Tag className={ `spcus-fadein ${ className }`.trim() } { ...rest }>
 			{ children }
 		</Tag>
 	);

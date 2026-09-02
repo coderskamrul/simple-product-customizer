@@ -55,11 +55,11 @@ export default function RangeTabs( { value, onChange, busy = false } ) {
 
 	return (
 		<div
-			className="dpo-an-range"
+			className="spcus-an-range"
 			role="radiogroup"
 			aria-label={ __(
 				'Analytics date range',
-				'dynamic-product-options-for-woocommerce'
+				'simple-product-customizer'
 			) }
 		>
 			{ RANGES.map( ( r, i ) => {
@@ -73,7 +73,7 @@ export default function RangeTabs( { value, onChange, busy = false } ) {
 						aria-checked={ active }
 						tabIndex={ active ? 0 : -1 }
 						disabled={ busy }
-						className={ `dpo-an-range__btn${
+						className={ `spcus-an-range__btn${
 							active ? ' is-active' : ''
 						}` }
 						onClick={ () => onChange( r.id ) }

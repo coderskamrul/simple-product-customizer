@@ -115,24 +115,24 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 	const selectedSet = new Set( selected );
 
 	return (
-		<div className="dpo-lp-search" ref={ boxRef }>
-			<span className="dpo-lp-search__icon" aria-hidden="true">
+		<div className="spcus-lp-search" ref={ boxRef }>
+			<span className="spcus-lp-search__icon" aria-hidden="true">
 				<Search size={ 15 } />
 			</span>
 			<input
 				type="text"
-				className="dpo-input dpo-lp-search__input"
+				className="spcus-input spcus-lp-search__input"
 				value={ term }
 				disabled={ disabled }
 				placeholder={
 					disabled
 						? __(
 								'Product limit reached',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  )
 						: __(
 								'Search…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 						  )
 				}
 				onChange={ ( e ) => {
@@ -142,25 +142,25 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 				onFocus={ () => results.length && setOpen( true ) }
 			/>
 			{ open && ! disabled && (
-				<ul className="dpo-lp-search__menu" role="listbox">
+				<ul className="spcus-lp-search__menu" role="listbox">
 					{ busy && (
-						<li className="dpo-lp-search__msg">
+						<li className="spcus-lp-search__msg">
 							{ __(
 								'Searching…',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</li>
 					) }
 					{ ! busy && err && (
-						<li className="dpo-lp-search__msg dpo-lp-search__msg--err">
+						<li className="spcus-lp-search__msg spcus-lp-search__msg--err">
 							{ err }
 						</li>
 					) }
 					{ ! busy && ! err && results.length === 0 && (
-						<li className="dpo-lp-search__msg">
+						<li className="spcus-lp-search__msg">
 							{ __(
 								'No products found.',
-								'dynamic-product-options-for-woocommerce'
+								'simple-product-customizer'
 							) }
 						</li>
 					) }
@@ -169,7 +169,7 @@ function ProductSearch( { selected, disabled, onAdd } ) {
 							<li key={ r.id }>
 								<button
 									type="button"
-									className="dpo-lp-search__opt"
+									className="spcus-lp-search__opt"
 									disabled={ selectedSet.has(
 										Number( r.id )
 									) }
@@ -216,19 +216,19 @@ function VariationPopover( { product, onToggle, onClose } ) {
 	}, [ onClose ] );
 
 	return (
-		<div className="dpo-lp-vars" ref={ ref }>
-			<p className="dpo-lp-vars__title">
+		<div className="spcus-lp-vars" ref={ ref }>
+			<p className="spcus-lp-vars__title">
 				{ __(
 					'Select Variations',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			</p>
-			<div className="dpo-lp-vars__list">
+			<div className="spcus-lp-vars__list">
 				{ ( product.variationsMeta || [] ).length === 0 && (
-					<p className="dpo-lp-vars__empty">
+					<p className="spcus-lp-vars__empty">
 						{ __(
 							'No purchasable variations.',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</p>
 				) }
@@ -238,20 +238,20 @@ function VariationPopover( { product, onToggle, onClose } ) {
 						<button
 							key={ v.id }
 							type="button"
-							className={ `dpo-lp-vars__row${
+							className={ `spcus-lp-vars__row${
 								on ? ' is-on' : ''
 							}` }
 							onClick={ () => onToggle( v.id ) }
 						>
-							<span className="dpo-lp-vars__label">
+							<span className="spcus-lp-vars__label">
 								{ v.label }
 							</span>
 							{ on ? (
-								<X size={ 14 } className="dpo-lp-vars__x" />
+								<X size={ 14 } className="spcus-lp-vars__x" />
 							) : (
 								<Plus
 									size={ 14 }
-									className="dpo-lp-vars__add"
+									className="spcus-lp-vars__add"
 								/>
 							) }
 						</button>
@@ -339,32 +339,32 @@ export default function LinkedProductsConfig( { node, patch } ) {
 	};
 
 	return (
-		<div className="dpo-lp">
-			<div className="dpo-lp__table" role="table">
-				<div className="dpo-lp__head" role="row">
+		<div className="spcus-lp">
+			<div className="spcus-lp__table" role="table">
+				<div className="spcus-lp__head" role="row">
 					<span>
 						{ __(
 							'Product',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</span>
 					<span>
 						{ __(
 							'Variation',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</span>
 					<span>
 						{ __(
 							'Active',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</span>
 				</div>
 
 				{ products.length > 0 && (
 					<DragList
-						className="dpo-lp__rows"
+						className="spcus-lp__rows"
 						items={ products.map( ( p, i ) => ( {
 							...p,
 							key: p.id ?? i,
@@ -377,45 +377,45 @@ export default function LinkedProductsConfig( { node, patch } ) {
 						renderItem={ ( p, idx, handleProps ) => {
 							const varCount = ( p.variations || [] ).length;
 							return (
-								<div className="dpo-lp__row" role="row">
+								<div className="spcus-lp__row" role="row">
 									<span
-										className="dpo-lp__grip"
+										className="spcus-lp__grip"
 										{ ...handleProps }
 										aria-label={ __(
 											'Reorder',
-											'dynamic-product-options-for-woocommerce'
+											'simple-product-customizer'
 										) }
 									>
 										<GripVertical size={ 15 } />
 									</span>
-									<span className="dpo-lp__product">
-										<span className="dpo-lp__avatar">
+									<span className="spcus-lp__product">
+										<span className="spcus-lp__avatar">
 											{ p.img ? (
 												<img src={ p.img } alt="" />
 											) : null }
 										</span>
-										<span className="dpo-lp__name">
+										<span className="spcus-lp__name">
 											{ p.name }
 										</span>
 									</span>
-									<span className="dpo-lp__variation">
+									<span className="spcus-lp__variation">
 										{ p.isVariable
 											? sprintf(
 													/* translators: %d: number of selected variations. */
 													__(
 														'%d Variations',
-														'dynamic-product-options-for-woocommerce'
+														'simple-product-customizer'
 													),
 													varCount
 											  )
 											: __(
 													'N/A',
-													'dynamic-product-options-for-woocommerce'
+													'simple-product-customizer'
 											  ) }
 									</span>
-									<span className="dpo-lp__actions">
+									<span className="spcus-lp__actions">
 										{ ! p.isVariable && (
-											<span className="dpo-lp__active">
+											<span className="spcus-lp__active">
 												<ToggleField
 													checked={
 														p.active === true
@@ -428,13 +428,13 @@ export default function LinkedProductsConfig( { node, patch } ) {
 											</span>
 										) }
 										{ p.isVariable && (
-											<span className="dpo-lp__var-wrap">
+											<span className="spcus-lp__var-wrap">
 												<button
 													type="button"
-													className="dpo-lp__icon-btn dpo-lp__icon-btn--add"
+													className="spcus-lp__icon-btn spcus-lp__icon-btn--add"
 													aria-label={ __(
 														'Select variations',
-														'dynamic-product-options-for-woocommerce'
+														'simple-product-customizer'
 													) }
 													onClick={ () =>
 														setOpenIdx(
@@ -464,10 +464,10 @@ export default function LinkedProductsConfig( { node, patch } ) {
 										) }
 										<button
 											type="button"
-											className="dpo-lp__icon-btn dpo-lp__icon-btn--del"
+											className="spcus-lp__icon-btn spcus-lp__icon-btn--del"
 											aria-label={ __(
 												'Remove product',
-												'dynamic-product-options-for-woocommerce'
+												'simple-product-customizer'
 											) }
 											onClick={ () =>
 												removeProduct( idx )
@@ -482,7 +482,7 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					/>
 				) }
 
-				<div className="dpo-lp__search-row">
+				<div className="spcus-lp__search-row">
 					<ProductSearch
 						selected={ products.map( ( p ) => p.id ) }
 						disabled={ capped }
@@ -497,20 +497,20 @@ export default function LinkedProductsConfig( { node, patch } ) {
 						/* translators: %d: free product cap. */
 						__(
 							'Free version links up to %d products.',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 						FREE_PRODUCT_CAP
 					) }
 				/>
 			) }
 
-			<div className="dpo-lp__switches">
+			<div className="spcus-lp__switches">
 				<ToggleField
 					checked={ !! cfg.mergeVariations }
 					onChange={ ( v ) => setKey( 'mergeVariations', v ) }
 					label={ __(
 						'Merge Variation Products into one product',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				/>
 				<ToggleField
@@ -518,7 +518,7 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					onChange={ ( v ) => setKey( 'enableQty', v ) }
 					label={ __(
 						'Enable Quantity',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				/>
 				<ToggleField
@@ -526,17 +526,17 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					onChange={ ( v ) => setMultiple( v ) }
 					label={ __(
 						'Allow Multiple',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				/>
 			</div>
 
 			{ cfg.enableQty && (
-				<div className="dpo-settings__grid2">
+				<div className="spcus-settings__grid2">
 					<Field
 						label={ __(
 							'Min quantity',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl
@@ -548,7 +548,7 @@ export default function LinkedProductsConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Max quantity',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl

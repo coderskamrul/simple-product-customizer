@@ -2,10 +2,10 @@
 /**
  * Currency switcher adapter contract.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Pricing\Currency;
+namespace SPCUS\Pricing\Currency;
 
 defined( 'ABSPATH' ) || exit;
 

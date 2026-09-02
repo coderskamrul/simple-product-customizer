@@ -14,11 +14,11 @@ import { __ } from '@wordpress/i18n';
  * @return {JSX.Element} The spinner.
  */
 export default function Spinner( {
-	label = __( 'Loading…', 'dynamic-product-options-for-woocommerce' ),
+	label = __( 'Loading…', 'simple-product-customizer' ),
 } ) {
 	return (
-		<span className="dpo-spinner" role="status" aria-live="polite">
-			<span className="dpo-spinner__ring" aria-hidden="true" />
+		<span className="spcus-spinner" role="status" aria-live="polite">
+			<span className="spcus-spinner__ring" aria-hidden="true" />
 			<span className="screen-reader-text">{ label }</span>
 		</span>
 	);

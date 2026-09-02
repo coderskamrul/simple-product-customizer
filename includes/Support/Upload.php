@@ -2,16 +2,16 @@
 /**
  * Upload directory + file relocation helpers.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Support;
+namespace SPCUS\Support;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Manages the plugin's private upload buckets:
- * uploads/dpo_uploads/{temp,order_placed,order_completed} and uploads/dpo_fonts.
+ * uploads/spcus_uploads/{temp,order_placed,order_completed} and uploads/spcus_fonts.
  */
 final class Upload {
 
@@ -25,7 +25,7 @@ final class Upload {
 	 */
 	public static function dir( $bucket = 'temp' ) {
 		$base = wp_upload_dir();
-		$sub  = 'fonts' === $bucket ? 'dpo_fonts' : 'dpo_uploads/' . sanitize_file_name( $bucket );
+		$sub  = 'fonts' === $bucket ? 'spcus_fonts' : 'spcus_uploads/' . sanitize_file_name( $bucket );
 		$path = trailingslashit( $base['basedir'] ) . $sub . '/';
 		if ( ! is_dir( $path ) ) {
 			wp_mkdir_p( $path );
@@ -41,7 +41,7 @@ final class Upload {
 	 */
 	public static function url( $bucket = 'temp' ) {
 		$base = wp_upload_dir();
-		$sub  = 'fonts' === $bucket ? 'dpo_fonts' : 'dpo_uploads/' . sanitize_file_name( $bucket );
+		$sub  = 'fonts' === $bucket ? 'spcus_fonts' : 'spcus_uploads/' . sanitize_file_name( $bucket );
 		return trailingslashit( $base['baseurl'] ) . $sub . '/';
 	}
 

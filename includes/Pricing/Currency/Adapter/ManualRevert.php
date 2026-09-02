@@ -2,12 +2,12 @@
 /**
  * Shared manual-revert helper for switchers without a native revert API.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Pricing\Currency\Adapter;
+namespace SPCUS\Pricing\Currency\Adapter;
 
-use DPO\Pricing\Currency\CurrencyBridge;
+use SPCUS\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
 

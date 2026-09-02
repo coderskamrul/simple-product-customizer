@@ -61,13 +61,13 @@ function TypePicker( { value, onChange } ) {
 	};
 
 	return (
-		<div className="dpo-typechips">
-			<div className="dpo-typechips__list">
+		<div className="spcus-typechips">
+			<div className="spcus-typechips__list">
 				{ all.map( ( ext ) => (
 					<button
 						key={ ext }
 						type="button"
-						className={ `dpo-typechip${
+						className={ `spcus-typechip${
 							selected.includes( ext ) ? ' is-active' : ''
 						}` }
 						onClick={ () => toggle( ext ) }
@@ -77,23 +77,23 @@ function TypePicker( { value, onChange } ) {
 					</button>
 				) ) }
 			</div>
-			<div className="dpo-typechips__add">
+			<div className="spcus-typechips__add">
 				<TextControl
 					value={ custom }
 					placeholder={ __(
 						'Add type (e.g. tiff)',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					onChange={ setCustom }
 				/>
 				<button
 					type="button"
-					className="dpo-btn dpo-btn--ghost"
+					className="spcus-btn spcus-btn--ghost"
 					onClick={ addCustom }
 					disabled={ ! custom.trim() }
 				>
 					<Plus size={ 14 } />
-					{ __( 'Add', 'dynamic-product-options-for-woocommerce' ) }
+					{ __( 'Add', 'simple-product-customizer' ) }
 				</button>
 			</div>
 		</div>
@@ -117,18 +117,18 @@ export default function FileUploadConfig( { node, patch } ) {
 		<>
 			<ValuePricing node={ node } patch={ patch } />
 
-			<div className="dpo-settings__group">
-				<p className="dpo-field-group__title">
+			<div className="spcus-settings__group">
+				<p className="spcus-field-group__title">
 					{ __(
 						'Labels',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
-				<div className="dpo-settings__grid2">
+				<div className="spcus-settings__grid2">
 					<Field
 						label={ __(
 							'Upload text',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl
@@ -139,7 +139,7 @@ export default function FileUploadConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Drag & drop text',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl
@@ -150,18 +150,18 @@ export default function FileUploadConfig( { node, patch } ) {
 				</div>
 			</div>
 
-			<div className="dpo-settings__group">
-				<p className="dpo-field-group__title">
+			<div className="spcus-settings__group">
+				<p className="spcus-field-group__title">
 					{ __(
 						'File size',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
-				<div className="dpo-settings__grid2">
+				<div className="spcus-settings__grid2">
 					<Field
 						label={ __(
 							'Maximum file size (MB)',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl
@@ -173,7 +173,7 @@ export default function FileUploadConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Too-large error message',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl
@@ -185,11 +185,11 @@ export default function FileUploadConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'File size hint text',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					help={ __(
 						'Use [max_size] for the configured size.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<TextControl
@@ -199,18 +199,18 @@ export default function FileUploadConfig( { node, patch } ) {
 				</Field>
 			</div>
 
-			<div className="dpo-settings__group">
-				<p className="dpo-field-group__title">
+			<div className="spcus-settings__group">
+				<p className="spcus-field-group__title">
 					{ __(
 						'File count',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
-				<div className="dpo-settings__grid2">
+				<div className="spcus-settings__grid2">
 					<Field
 						label={ __(
 							'Minimum number of files',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl
@@ -222,7 +222,7 @@ export default function FileUploadConfig( { node, patch } ) {
 					<Field
 						label={ __(
 							'Maximum number of files',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					>
 						<TextControl
@@ -235,7 +235,7 @@ export default function FileUploadConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'Too-many error message',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<TextControl
@@ -246,11 +246,11 @@ export default function FileUploadConfig( { node, patch } ) {
 				<Field
 					label={ __(
 						'File count hint text',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					help={ __(
 						'Use [max_files] for the configured maximum.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<TextControl
@@ -260,21 +260,21 @@ export default function FileUploadConfig( { node, patch } ) {
 				</Field>
 			</div>
 
-			<div className="dpo-settings__group">
-				<p className="dpo-field-group__title">
+			<div className="spcus-settings__group">
+				<p className="spcus-field-group__title">
 					{ __(
 						'Allowed file types',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
 				<Field
 					label={ __(
 						'Allowed types hint text',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					help={ __(
 						'Use [allowed_types] for the chosen list.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<TextControl

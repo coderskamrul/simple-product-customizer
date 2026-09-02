@@ -18,22 +18,22 @@ import RangeTabs from './RangeTabs';
  */
 export default function AnalyticsHeader( { range, onRange, busy } ) {
 	return (
-		<header className="dpo-an-head">
-			<div className="dpo-an-head__title">
-				<span className="dpo-an-head__icon" aria-hidden="true">
+		<header className="spcus-an-head">
+			<div className="spcus-an-head__title">
+				<span className="spcus-an-head__icon" aria-hidden="true">
 					<span className="dashicons dashicons-chart-bar" />
 				</span>
 				<div>
-					<h1 className="dpo-an-head__h1">
+					<h1 className="spcus-an-head__h1">
 						{ __(
 							'Analytics Overview',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</h1>
-					<p className="dpo-an-head__sub">
+					<p className="spcus-an-head__sub">
 						{ __(
 							'Track your option performance',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</p>
 				</div>

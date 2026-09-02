@@ -21,90 +21,90 @@ export default function TopPerformers( { performers } ) {
 	const { formatPrice } = useConfig();
 
 	return (
-		<section className="dpo-db-card dpo-db-panel">
-			<header className="dpo-db-panel__head">
-				<h2 className="dpo-db-panel__title">
+		<section className="spcus-db-card spcus-db-panel">
+			<header className="spcus-db-panel__head">
+				<h2 className="spcus-db-panel__title">
 					<span
-						className="dashicons dashicons-chart-line dpo-db-panel__ico"
+						className="dashicons dashicons-chart-line spcus-db-panel__ico"
 						aria-hidden="true"
 					/>
 					{ __(
 						'Top Performers',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</h2>
 				{ performers.length > 0 && (
 					<button
 						type="button"
-						className="dpo-db-link"
+						className="spcus-db-link"
 						onClick={ () => navigate( '/analytics' ) }
 					>
 						{ __(
 							'Analytics',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						) }
 					</button>
 				) }
 			</header>
 
 			{ performers.length === 0 ? (
-				<p className="dpo-db-empty">
+				<p className="spcus-db-empty">
 					{ __(
 						'No revenue recorded yet. Publish a set and conversions will appear here.',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				</p>
 			) : (
-				<ol className="dpo-db-rank">
+				<ol className="spcus-db-rank">
 					{ performers.map( ( p, i ) => {
 						const up = p.ctr >= 0;
 						return (
-							<li key={ p.id } className="dpo-db-rank__item">
+							<li key={ p.id } className="spcus-db-rank__item">
 								<button
 									type="button"
-									className="dpo-db-rank__btn"
+									className="spcus-db-rank__btn"
 									onClick={ () =>
 										navigate( `/set/${ p.id }` )
 									}
 								>
 									<span
-										className={ `dpo-db-rank__no dpo-db-rank__no--${
+										className={ `spcus-db-rank__no spcus-db-rank__no--${
 											i + 1
 										}` }
 									>
 										{ i + 1 }
 									</span>
-									<span className="dpo-db-rank__meta">
-										<span className="dpo-db-rank__name">
+									<span className="spcus-db-rank__meta">
+										<span className="spcus-db-rank__name">
 											{ p.title ||
 												sprintf(
 													/* translators: %d: set id */
 													__(
 														'Option set #%d',
-														'dynamic-product-options-for-woocommerce'
+														'simple-product-customizer'
 													),
 													p.id
 												) }
 										</span>
-										<span className="dpo-db-rank__sub">
+										<span className="spcus-db-rank__sub">
 											{ sprintf(
 												/* translators: %d: conversions */
 												_n(
 													'%d conversion',
 													'%d conversions',
 													p.orders,
-													'dynamic-product-options-for-woocommerce'
+													'simple-product-customizer'
 												),
 												p.orders
 											) }
 										</span>
 									</span>
-									<span className="dpo-db-rank__fig">
-										<span className="dpo-db-rank__rev">
+									<span className="spcus-db-rank__fig">
+										<span className="spcus-db-rank__rev">
 											{ formatPrice( p.revenue ) }
 										</span>
 										<span
-											className={ `dpo-db-rank__ctr dpo-db-rank__ctr--${
+											className={ `spcus-db-rank__ctr spcus-db-rank__ctr--${
 												up ? 'up' : 'down'
 											}` }
 										>

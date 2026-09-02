@@ -20,23 +20,23 @@ import SwitchRow from '../SwitchRow';
  */
 export default function PriceDisplaySection( { values, set } ) {
 	return (
-		<div className="dpo-set-grid dpo-set-grid--2">
+		<div className="spcus-set-grid spcus-set-grid--2">
 			<SettingCard
 				icon="money-alt"
 				tone="blue"
 				title={ __(
 					'Options Price Line',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				subtitle={ __(
 					'The combined price of selected options',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<SwitchRow
 					label={ __(
 						'Show options price line',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					checked={ values.showPriceLine }
 					onChange={ ( v ) => set( 'showPriceLine', v ) }
@@ -44,7 +44,7 @@ export default function PriceDisplaySection( { values, set } ) {
 				<Field
 					label={ __(
 						'Label',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<TextControl
@@ -59,17 +59,17 @@ export default function PriceDisplaySection( { values, set } ) {
 				tone="green"
 				title={ __(
 					'Total Price Line',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 				subtitle={ __(
 					'Base product price plus all options',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<SwitchRow
 					label={ __(
 						'Show total price line',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 					checked={ values.showTotalLine }
 					onChange={ ( v ) => set( 'showTotalLine', v ) }
@@ -77,7 +77,7 @@ export default function PriceDisplaySection( { values, set } ) {
 				<Field
 					label={ __(
 						'Label',
-						'dynamic-product-options-for-woocommerce'
+						'simple-product-customizer'
 					) }
 				>
 					<TextControl

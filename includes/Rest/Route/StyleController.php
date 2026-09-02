@@ -2,14 +2,14 @@
 /**
  * Global style (tokens + generated CSS) controller.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Rest\Route;
+namespace SPCUS\Rest\Route;
 
-use DPO\Core\Container;
-use DPO\Rest\RestServer;
-use DPO\Support\Str;
+use SPCUS\Core\Container;
+use SPCUS\Rest\RestServer;
+use SPCUS\Support\Str;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,10 +19,10 @@ defined( 'ABSPATH' ) || exit;
  */
 final class StyleController {
 
-	const OPT_STYLE          = 'dpo_global_style';
-	const OPT_STYLE_CSS      = 'dpo_global_style_css';
-	const OPT_STYLE_THEMATIC = 'dpo_global_style_thematic';
-	const OPT_THEMATIC_CSS   = 'dpo_global_style_thematic_css';
+	const OPT_STYLE          = 'spcus_global_style';
+	const OPT_STYLE_CSS      = 'spcus_global_style_css';
+	const OPT_STYLE_THEMATIC = 'spcus_global_style_thematic';
+	const OPT_THEMATIC_CSS   = 'spcus_global_style_thematic_css';
 
 	/**
 	 * Container.
@@ -94,7 +94,7 @@ final class StyleController {
 	 */
 	private function save_style( WP_REST_Request $r, RestServer $s ) {
 		if ( ! $s->verify_nonce( $r ) ) {
-			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'dynamic-product-options-for-woocommerce' ), 403 );
+			return $s->fail( 'bad_nonce', __( 'Invalid or missing nonce.', 'simple-product-customizer' ), 403 );
 		}
 
 		$style    = Str::json( $r->get_param( 'style' ), array() );

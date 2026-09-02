@@ -25,7 +25,7 @@ export const DEFAULTS = {
 };
 
 /**
- * Ordered section registry. `tone` maps to a `.dpo-set-*--{tone}` accent
+ * Ordered section registry. `tone` maps to a `.spcus-set-*--{tone}` accent
  * (icon tile + info banner). `dashicon` is the bare dashicons suffix.
  *
  * @return {Array<Object>} Section descriptors.
@@ -35,14 +35,14 @@ export const SECTIONS = [
 		id: 'price',
 		dashicon: 'money-alt',
 		tone: 'blue',
-		title: __( 'Price Display', 'dynamic-product-options-for-woocommerce' ),
+		title: __( 'Price Display', 'simple-product-customizer' ),
 		nav: __(
 			'Configure how prices appear',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		banner: __(
 			'Control the optional price and running total lines shown beneath the product options.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
@@ -51,29 +51,29 @@ export const SECTIONS = [
 		tone: 'amber',
 		title: __(
 			'Cart & Checkout',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		nav: __(
 			'Control visibility in cart',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		banner: __(
 			'Choose whether to show or hide selected options in the cart and checkout pages.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		id: 'shop',
 		dashicon: 'screenoptions',
 		tone: 'violet',
-		title: __( 'Shop Loop', 'dynamic-product-options-for-woocommerce' ),
+		title: __( 'Shop Loop', 'simple-product-customizer' ),
 		nav: __(
 			'Shop page button settings',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		banner: __(
 			'Decide how the shop and archive pages behave for products that have options.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
@@ -82,29 +82,29 @@ export const SECTIONS = [
 		tone: 'teal',
 		title: __(
 			'Upload Retention',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		nav: __(
 			'File storage duration',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		banner: __(
 			'Set how long uploaded files are kept. Use 0 to keep files forever.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 	{
 		id: 'fonts',
 		dashicon: 'editor-textcolor',
 		tone: 'pink',
-		title: __( 'Custom Fonts', 'dynamic-product-options-for-woocommerce' ),
+		title: __( 'Custom Fonts', 'simple-product-customizer' ),
 		nav: __(
 			'Manage typography',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 		banner: __(
 			'Upload custom fonts to use in your product options. Supported formats: TTF, OTF, WOFF, WOFF2.',
-			'dynamic-product-options-for-woocommerce'
+			'simple-product-customizer'
 		),
 	},
 ];

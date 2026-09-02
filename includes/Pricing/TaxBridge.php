@@ -2,12 +2,12 @@
 /**
  * Tax + currency display bridge.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Pricing;
+namespace SPCUS\Pricing;
 
-use DPO\Pricing\Currency\CurrencyBridge;
+use SPCUS\Pricing\Currency\CurrencyBridge;
 
 defined( 'ABSPATH' ) || exit;
 

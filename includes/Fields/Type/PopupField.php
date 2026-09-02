@@ -2,12 +2,12 @@
 /**
  * Popup / modal trigger field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,17 +57,17 @@ final class PopupField extends AbstractField {
 			$trigger = (string) $this->prop( 'label', '' );
 		}
 		if ( '' === $trigger ) {
-			$trigger = esc_html__( 'Open', 'dynamic-product-options-for-woocommerce' );
+			$trigger = esc_html__( 'Open', 'simple-product-customizer' );
 		}
 		$content = do_shortcode( (string) $this->cfg( 'content', '' ) );
 
 		$html  = '<div ' . $this->wrapper_attrs() . '>';
-		$html .= '<button type="button" class="dpo-popup__trigger" data-popup-for="' . esc_attr( $this->id() ) . '">' . esc_html( $trigger ) . '</button>';
-		$html .= '<div class="dpo-popup__modal" id="dpo-popup-' . esc_attr( $this->id() ) . '" hidden role="dialog" aria-modal="true">';
-		$html .= '<div class="dpo-popup__backdrop" data-popup-close="1"></div>';
-		$html .= '<div class="dpo-popup__box">';
-		$html .= '<button type="button" class="dpo-popup__close" data-popup-close="1" aria-label="' . esc_attr__( 'Close', 'dynamic-product-options-for-woocommerce' ) . '">&times;</button>';
-		$html .= '<div class="dpo-popup__content">' . wp_kses_post( $content ) . '</div>';
+		$html .= '<button type="button" class="spcus-popup__trigger" data-popup-for="' . esc_attr( $this->id() ) . '">' . esc_html( $trigger ) . '</button>';
+		$html .= '<div class="spcus-popup__modal" id="spcus-popup-' . esc_attr( $this->id() ) . '" hidden role="dialog" aria-modal="true">';
+		$html .= '<div class="spcus-popup__backdrop" data-popup-close="1"></div>';
+		$html .= '<div class="spcus-popup__box">';
+		$html .= '<button type="button" class="spcus-popup__close" data-popup-close="1" aria-label="' . esc_attr__( 'Close', 'simple-product-customizer' ) . '">&times;</button>';
+		$html .= '<div class="spcus-popup__content">' . wp_kses_post( $content ) . '</div>';
 		$html .= '</div>';
 		$html .= '</div>';
 		$html .= '</div>';

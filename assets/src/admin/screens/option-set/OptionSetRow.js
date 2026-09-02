@@ -36,10 +36,10 @@ export default function OptionSetRow( {
 	onDelete,
 	onOpen,
 } ) {
-	const switchId = useId( 'dpo-os-switch' );
+	const switchId = useId( 'spcus-os-switch' );
 	const title =
 		item.title ||
-		__( '(untitled)', 'dynamic-product-options-for-woocommerce' );
+		__( '(untitled)', 'simple-product-customizer' );
 
 	/**
 	 * Action icon button.
@@ -54,8 +54,8 @@ export default function OptionSetRow( {
 	const action = ( { icon, label, onClick, danger } ) => (
 		<button
 			type="button"
-			className={ `dpo-os-iconbtn${
-				danger ? ' dpo-os-iconbtn--danger' : ''
+			className={ `spcus-os-iconbtn${
+				danger ? ' spcus-os-iconbtn--danger' : ''
 			}` }
 			title={ label }
 			aria-label={ label }
@@ -71,21 +71,21 @@ export default function OptionSetRow( {
 
 	return (
 		<tr
-			className={ `dpo-os-row${ selected ? ' is-selected' : '' }${
+			className={ `spcus-os-row${ selected ? ' is-selected' : '' }${
 				item.published ? '' : ' is-draft'
 			}` }
 		>
-			<td className="dpo-os-cell dpo-os-cell--check">
+			<td className="spcus-os-cell spcus-os-cell--check">
 				<input
 					type="checkbox"
-					className="dpo-os-check"
+					className="spcus-os-check"
 					checked={ selected }
 					onChange={ () => onSelect( item.id ) }
 					aria-label={ sprintf(
 						/* translators: %s: option set title */
 						__(
 							'Select %s',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 						title
 					) }
@@ -93,106 +93,106 @@ export default function OptionSetRow( {
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--id"
+				className="spcus-os-cell spcus-os-cell--id"
 				data-label={ __(
 					'ID',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
-				<span className="dpo-os-id">#{ item.id }</span>
+				<span className="spcus-os-id">#{ item.id }</span>
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--name"
+				className="spcus-os-cell spcus-os-cell--name"
 				data-label={ __(
 					'Option Name',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<button
 					type="button"
-					className="dpo-os-name"
+					className="spcus-os-name"
 					onClick={ () => onOpen( item.id ) }
 				>
 					<Avatar label={ title } seed={ item.id } />
-					<span className="dpo-os-name__text">{ title }</span>
+					<span className="spcus-os-name__text">{ title }</span>
 				</button>
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--status"
+				className="spcus-os-cell spcus-os-cell--status"
 				data-label={ __(
 					'Status',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
-				<span className="dpo-os-switch">
+				<span className="spcus-os-switch">
 					<input
 						id={ switchId }
 						type="checkbox"
-						className="dpo-os-switch__input"
+						className="spcus-os-switch__input"
 						checked={ !! item.published }
 						disabled={ busy }
 						onChange={ () => onToggleStatus( item ) }
 					/>
 					<label
-						className="dpo-os-switch__track"
+						className="spcus-os-switch__track"
 						htmlFor={ switchId }
 					>
-						<span className="dpo-os-switch__thumb" />
+						<span className="spcus-os-switch__thumb" />
 						<span className="screen-reader-text">
 							{ sprintf(
 								/* translators: %s: option set title */
 								__(
 									'Toggle status for %s',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 								),
 								title
 							) }
 						</span>
 					</label>
-					<span className="dpo-os-switch__label">
+					<span className="spcus-os-switch__label">
 						{ item.published
 							? __(
 									'Active',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  )
 							: __(
 									'Inactive',
-									'dynamic-product-options-for-woocommerce'
+									'simple-product-customizer'
 							  ) }
 					</span>
 				</span>
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--category"
+				className="spcus-os-cell spcus-os-cell--category"
 				data-label={ __(
 					'Category',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<Badge variant="muted">—</Badge>
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--products"
+				className="spcus-os-cell spcus-os-cell--products"
 				data-label={ __(
 					'Products',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
 				<ProgressBar value={ null } />
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--options"
+				className="spcus-os-cell spcus-os-cell--options"
 				data-label={ __(
 					'Options',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
-				<span className="dpo-os-count">
+				<span className="spcus-os-count">
 					<span
 						className="dashicons dashicons-screenoptions"
 						aria-hidden="true"
@@ -202,18 +202,18 @@ export default function OptionSetRow( {
 			</td>
 
 			<td
-				className="dpo-os-cell dpo-os-cell--actions"
+				className="spcus-os-cell spcus-os-cell--actions"
 				data-label={ __(
 					'Actions',
-					'dynamic-product-options-for-woocommerce'
+					'simple-product-customizer'
 				) }
 			>
-				<div className="dpo-os-actions">
+				<div className="spcus-os-actions">
 					{ action( {
 						icon: 'visibility',
 						label: __(
 							'Open option set',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 						onClick: () => onOpen( item.id ),
 					} ) }
@@ -221,7 +221,7 @@ export default function OptionSetRow( {
 						icon: 'edit',
 						label: __(
 							'Edit option set',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 						onClick: () => onOpen( item.id ),
 					} ) }
@@ -229,7 +229,7 @@ export default function OptionSetRow( {
 						icon: 'admin-page',
 						label: __(
 							'Duplicate option set',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 						onClick: () => onDuplicate( item.id ),
 					} ) }
@@ -237,7 +237,7 @@ export default function OptionSetRow( {
 						icon: 'trash',
 						label: __(
 							'Delete option set',
-							'dynamic-product-options-for-woocommerce'
+							'simple-product-customizer'
 						),
 						onClick: () => onDelete( item.id ),
 						danger: true,

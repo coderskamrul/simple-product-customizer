@@ -2,12 +2,12 @@
 /**
  * Button-styled choice group field.
  *
- * @package DPO
+ * @package SPCUS
  */
 
-namespace DPO\Fields\Type;
+namespace SPCUS\Fields\Type;
 
-use DPO\Fields\AbstractField;
+use SPCUS\Fields\AbstractField;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,7 +42,7 @@ final class ButtonGroupField extends AbstractField {
 		$input_t  = $multiple ? 'checkbox' : 'radio';
 		$name     = $multiple ? $this->choice_name() . '[]' : $this->choice_name();
 
-		$html = '<div class="dpo-buttongroup"'
+		$html = '<div class="spcus-buttongroup"'
 			. $this->attrs(
 				array(
 					'data-columns'    => $columns > 0 ? $columns : '',
@@ -54,8 +54,8 @@ final class ButtonGroupField extends AbstractField {
 		foreach ( $choices as $index => $choice ) {
 			$label = isset( $choice['label'] ) ? (string) $choice['label'] : '';
 
-			$html .= '<label class="dpo-choice dpo-choice--button">';
-			$html .= '<input type="' . esc_attr( $input_t ) . '" class="dpo-choice__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
+			$html .= '<label class="spcus-choice spcus-choice--button">';
+			$html .= '<input type="' . esc_attr( $input_t ) . '" class="spcus-choice__native" name="' . esc_attr( $name ) . '" value="' . esc_attr( $index ) . '"'
 				. $this->attrs(
 					array_merge(
 						array(
@@ -68,8 +68,8 @@ final class ButtonGroupField extends AbstractField {
 						)
 					)
 				) . ' />';
-			$html .= '<span class="dpo-btn">';
-			$html .= '<span class="dpo-choice__label">' . esc_html( $label ) . '</span>';
+			$html .= '<span class="spcus-btn">';
+			$html .= '<span class="spcus-choice__label">' . esc_html( $label ) . '</span>';
 			$html .= $this->price_badge( is_array( $choice ) ? $choice : array() );
 			$html .= '</span>';
 			$html .= '</label>';
