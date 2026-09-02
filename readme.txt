@@ -38,6 +38,39 @@ Features:
 2. Activate it through the *Plugins* screen.
 3. Open *Product Options* in the admin menu to build your first option set.
 
+== Development ==
+
+The complete, unminified source is public:
+
+https://github.com/coderskamrul/simple-product-customizer
+
+Everything under `assets/build/` is generated from `assets/src/` by webpack via
+`@wordpress/scripts`. Both the sources and the build output ship inside the
+plugin, so nothing here is minified-only — the repository is provided so the
+build can be reproduced and inspected independently.
+
+**Build it yourself**
+
+1. `git clone https://github.com/coderskamrul/simple-product-customizer.git`
+2. `cd simple-product-customizer`
+3. `nvm use` (Node 20+ is required; the version is pinned in `.nvmrc`)
+4. `npm install`
+5. `npm run build`
+
+That regenerates `assets/build/` from `assets/src/`. No other build step is
+needed: the PHP is plain PSR-4 with no compilation and no Composer runtime
+dependencies.
+
+**Run it locally**
+
+Drop the folder into `wp-content/plugins/` of a WordPress site with
+WooCommerce active, then activate it. For live rebuilds while editing the
+React admin, use `npm run start` instead of `npm run build`.
+
+Other scripts: `npm run pot` regenerates the translation template, and
+`npm run zip` produces the distributable archive (`wp-cli` plus the
+`dist-archive` package required).
+
 == Frequently Asked Questions ==
 
 = Does this require WooCommerce? =
